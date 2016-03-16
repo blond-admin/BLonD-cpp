@@ -140,6 +140,8 @@ RfParameters::RfParameters(GeneralParameters *_gp, Beams *beam, int _n_rf,
 	}
 
 	this->phi_RF = new ftype[n_rf * (gp->n_turns + 1)];
+	//this->phi_RF = (ftype *) aligned_malloc(
+	//		sizeof(ftype) * n_rf * (gp->n_turns + 1));
 	std::copy(&phi_offset[0], &phi_offset[n_rf * (gp->n_turns + 1)], phi_RF);
 
 	this->dphi_RF = new ftype[n_rf];

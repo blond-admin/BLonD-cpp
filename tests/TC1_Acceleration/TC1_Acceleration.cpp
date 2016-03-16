@@ -30,7 +30,7 @@ const ftype alpha = 1.0 / gamma_t / gamma_t;    // First order mom. comp. factor
 const int alpha_order = 1;
 const int n_sections = 1;
 // Tracking details
-int N_t = 50000;    // Number of turns to track
+int N_t = 10000;    // Number of turns to track
 int N_p = 10000;         // Macro-particles
 int n_threads = 1;
 
@@ -61,6 +61,7 @@ int main(int argc, char **argv) {
 	 printf("Omp Num of threads = %d\n", omp_get_num_threads());
 	 }
 	 */
+
 	ftype *alpha_array = new ftype[(alpha_order + 1) * n_sections];
 	std::fill_n(alpha_array, (alpha_order + 1) * n_sections, alpha);
 
@@ -71,6 +72,8 @@ int main(int argc, char **argv) {
 	std::fill_n(h_array, (N_t + 1) * n_sections, h);
 
 	ftype *V_array = new ftype[n_sections * (N_t + 1)];
+	//ftype * V_array = (ftype *) aligned_malloc(
+	//		sizeof(ftype) * n_sections * (N_t + 1));
 	std::fill_n(V_array, (N_t + 1) * n_sections, V);
 
 	ftype *dphi_array = new ftype[n_sections * (N_t + 1)];
@@ -99,12 +102,12 @@ int main(int argc, char **argv) {
 //dump(rf_params->E_increment, n_sections * (N_t), "E_increment");
 //dump(rf_params->Qs, n_sections * (N_t + 1), "Qs");
 //dump(general_params.eta_0, N_t + 1, "eta_0");
-
+//#pragma omp parallel for
 	for (int i = 1; i < N_t + 1; ++i) {
 		//printf("step %d\n", i);
 		//dump(beam->dE, beam->n_macroparticles, "beam->dE");
 		long_tracker->track();
-		beam->losses_longitudinal_cut(0, 2.5e-9);
+		beam->losses_longitudinal_cut(beam->dt, 0, 2.5e-9, beam->id);
 	}
 	//get_time(end);
 	//print_time("Total Simulation Time", begin, end);

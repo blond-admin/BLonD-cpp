@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <mm_malloc.h>
 #include <sys/time.h>
 #include "configuration.h"
 
@@ -31,6 +32,10 @@ static inline char const* GETENV(char const* envstr) {
 		return "0";
 	else
 		return env;
+}
+
+inline void *aligned_malloc(size_t n) {
+	return _mm_malloc(n, 64);
 }
 
 void linspace(ftype* a, const ftype start, const ftype end, const int n) {

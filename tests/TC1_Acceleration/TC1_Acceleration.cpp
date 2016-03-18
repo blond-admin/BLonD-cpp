@@ -117,7 +117,7 @@ int main(int argc, char **argv) {
 	printf("Time/turn: %.10lf\n", long_tracker->elapsed_time / N_t);
 
 	//get_time(end);
-	print_time("Total Simulation Time", begin, end);
+	print_time("Total Simulation Time", end, begin);
 //printf("step %d\n", N_t + 1);
 	dump(beam->dE, 1, "beam->dE\n");
 //dump(beam->dt, beam->n_macroparticles, "beam->dt");

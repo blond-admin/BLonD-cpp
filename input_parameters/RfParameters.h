@@ -23,7 +23,7 @@ public:
 			ftype* _phi_noise = NULL, ftype * _omega_rf = NULL,
 			int _section_index = 1);
 	ftype *E_increment;
-	ftype phi_s;
+	ftype *phi_s;
 	ftype *Qs;
 	ftype *omega_s0;
 	ftype *omega_RF_d;
@@ -33,14 +33,15 @@ public:
 	ftype *t_RF;
 	ftype *omega_RF;
 
-	ftype eta_tracking(const Beams *beam, const int counter, const ftype dE);
-	ftype eta_0(const int i);
-	ftype eta_1(const int i);
-	ftype eta_2(const int i);
-	ftype beta(const int i);
-	ftype gamma(const int i);
-	ftype energy(const int i);
-	ftype momentum(const int i);
+	inline ftype eta_tracking(const Beams *beam, const int counter,
+			const ftype dE);
+	inline ftype eta_0(const int i);
+	inline ftype eta_1(const int i);
+	inline ftype eta_2(const int i);
+	inline ftype beta(const int i);
+	inline ftype gamma(const int i);
+	inline ftype energy(const int i);
+	inline ftype momentum(const int i);
 	int sign_eta_0(const int i);
 	// TODO assume input_value is an array
 	// that is why we don't have any input_check function
@@ -67,7 +68,6 @@ private:
  - For several RF systems and constant values of V, h or phi, input lists of single values
  - For several RF systems and varying values of V, h or phi, input lists of arrays of n_turns values
  */
-// TODO the input will have to be a single array in any case
 // RfParameters == RfSectionParameters
 // completely removed accelerating_systems
 RfParameters::RfParameters(GeneralParameters *_gp, Beams *beam, int _n_rf,
@@ -84,7 +84,10 @@ RfParameters::RfParameters(GeneralParameters *_gp, Beams *beam, int _n_rf,
 	//this->phi_noise = _phi_noise;
 	//this->omega_RF = _omega_RF;
 	// TODO how to initialize this phi_s
-	this->phi_s = 0;
+	this->phi_s = new ftype[gp->n_turns];
+	for (int i = 0; i < gp->n_turns; ++i)
+		phi_s[i] = 0;
+
 	this->section_length = gp->ring_length[section_index];
 	this->length_ratio = section_length / gp->ring_circumference;
 
@@ -99,17 +102,13 @@ RfParameters::RfParameters(GeneralParameters *_gp, Beams *beam, int _n_rf,
 		}
 		k++;
 	}
-	// to use all these eta and sign_eta_0, there are functions that have been implemented
-	// you just have to specify the number of turn you want
-	// TODO no pre - processing has been done
+
 	this->Qs = new ftype[(gp->n_turns + 1)];
-	k = 0;
 	for (int i = 0; i < gp->n_turns + 1; ++i) {
 		Qs[i] = sqrt(
 				harmonic[i] * gp->charge * voltage[i]
-						* abs(eta_0(i) * cos(phi_s))
+						* abs(eta_0(i) * cos(phi_s[i]))
 						/ (2 * pi * gp->beta[i] * gp->beta[i] * gp->energy[i]));
-		k++;
 	}
 
 	this->omega_s0 = new ftype[(gp->n_turns + 1)];
@@ -157,8 +156,6 @@ RfParameters::RfParameters(GeneralParameters *_gp, Beams *beam, int _n_rf,
 	}
 }
 
-// TODO what is this beam.beta, beam.energy thing?
-// TODO maybe I should add some functions about this
 inline ftype RfParameters::eta_tracking(const Beams *beam, const int counter,
 		const ftype dE) {
 	ftype eta = 0;
@@ -181,15 +178,15 @@ inline ftype RfParameters::eta_tracking(const Beams *beam, const int counter,
 
 }
 
-ftype RfParameters::eta_0(const int i) {
+inline ftype RfParameters::eta_0(const int i) {
 	return gp->eta_0[section_index * (gp->n_turns + 1) + i];
 }
 
-ftype RfParameters::eta_1(const int i) {
+inline ftype RfParameters::eta_1(const int i) {
 	return gp->eta_1[section_index * (gp->n_turns + 1) + i];
 }
 
-ftype RfParameters::eta_2(const int i) {
+inline ftype RfParameters::eta_2(const int i) {
 	return gp->eta_2[section_index * (gp->n_turns + 1) + i];
 }
 

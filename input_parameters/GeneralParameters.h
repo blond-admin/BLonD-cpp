@@ -47,8 +47,6 @@ public:
 	ftype* cycle_time;
 	ftype* f_rev, *omega_rev;
 	std::vector<ftype> t_rev;
-	// TODO what is the type of f_rev, t_rev, omega_rev??
-	// probably they are arrays
 	ftype *eta_0, *eta_1, *eta_2;
 
 	GeneralParameters(const int n_turns, ftype* ring_length, ftype *alpha,
@@ -73,7 +71,6 @@ inline void GeneralParameters::eta_generation() {
 
 inline void GeneralParameters::_eta0() {
 	//eta_0 = new ftype[n_sections * (n_turns + 1)];
-	// TODO expand this approach to all the code
 	for (int i = 0; i < n_sections * (n_turns + 1); ++i) {
 		int j = i / (n_turns + 1);
 		eta_0[i] = alpha[j] - 1 / (gamma[i] * gamma[i]);
@@ -110,8 +107,6 @@ GeneralParameters::GeneralParameters(const int _n_turns, ftype* _ring_length,
 		const particle_type _particle, ftype user_mass, ftype user_charge,
 		particle_type _particle2, ftype user_mass_2, ftype user_charge_2,
 		int number_of_sections) {
-
-	// TODO make sure this alpha_order thing is right
 
 	this->particle = _particle;
 	this->particle_2 = _particle2;
@@ -185,32 +180,25 @@ GeneralParameters::GeneralParameters(const int _n_turns, ftype* _ring_length,
 		this->kin_energy[i] = energy[i] - mass;
 	}
 
-	//TODO assuming momentum is a 2d array
-	//this->t_rev = new ftype[n_turns + 1];
-	//std::fill(t_rev.begin(), t_rev.end(), 0);
-	for (int i = 0; i < n_turns + 1; ++i) {
+	for (int i = 0; i < n_turns + 1; ++i)
 		t_rev.push_back(0);
-	}
+
 	for (int j = 0; j < n_turns + 1; ++j)
-		for (int k = 0; k < n_sections; ++k) {
+		for (int k = 0; k < n_sections; ++k)
 			t_rev[j] += ring_length[k] / (beta[k * (n_turns + 1) + j] * c);
-		}
 
 	this->cycle_time = new ftype[n_turns + 1];
 	cycle_time[0] = t_rev[0];
-	for (int i = 1; i < n_turns + 1; ++i) {
+	for (int i = 1; i < n_turns + 1; ++i)
 		cycle_time[i] = t_rev[i] + cycle_time[i - 1];
-	}
 
 	this->f_rev = new ftype[n_turns + 1];
-	for (int i = 0; i < n_turns + 1; ++i) {
+	for (int i = 0; i < n_turns + 1; ++i)
 		f_rev[i] = 1 / t_rev[i];
-	}
 
 	this->omega_rev = new ftype[n_turns + 1];
-	for (int i = 0; i < n_turns + 1; ++i) {
+	for (int i = 0; i < n_turns + 1; ++i)
 		omega_rev[i] = 2 * pi * f_rev[i];
-	}
 
 	if (alpha_order > 3) {
 		dprintf(

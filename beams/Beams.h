@@ -42,7 +42,7 @@ private:
 };
 
 Beams::Beams(GeneralParameters *_gp, int _n_macroparticles, int _intensity) {
-	// TODO many variables are never used
+
 	this->gp = _gp;
 	this->n_macroparticles = _n_macroparticles;
 	this->intensity = _intensity;
@@ -50,7 +50,6 @@ Beams::Beams(GeneralParameters *_gp, int _n_macroparticles, int _intensity) {
 	this->dE = new ftype[n_macroparticles];
 	//this->dE = (ftype *) aligned_malloc(sizeof(ftype) * n_macroparticles);
 	//this->dt = (ftype *) aligned_malloc(sizeof(ftype) * n_macroparticles);
-
 	this->mean_dt = this->mean_dE = 0;
 	this->sigma_dt = this->sigma_dE = 0;
 	this->ratio = intensity / n_macroparticles;

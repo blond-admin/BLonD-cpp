@@ -5,14 +5,19 @@
  *      Author: kiliakis
  */
 
-#include "GeneralParameters.h"
-#include "../beams/Beams.h"
-#include "../includes/utilities.h"
-#include <algorithm>    // std::cops
-#include <iterator>
+
 
 #ifndef INPUT_PARAMETERS_RFPARAMETERS_H_
 #define INPUT_PARAMETERS_RFPARAMETERS_H_
+
+//#include "../includes/globals.h"
+#include "GeneralParameters.h"
+#include "../beams/Beams.h"
+#include "../includes/utilities.h"
+#include "../includes/math_functions.h"
+#include "../trackers/sin.h"
+#include <algorithm>    // std::cops
+#include <iterator>
 
 //#include "../includes/globals.h"
 
@@ -50,7 +55,8 @@ public:
 	inline ftype energy(const int i);
 	inline ftype momentum(const int i);
 	int sign_eta_0(const int i);
-	void calc_phi_s(RfParameters *rf_params, const accelerating_systems_type acc_sys = as_single);
+	// TODO why we pass rf_params??
+	void calc_phi_s(const accelerating_systems_type acc_sys = as_single);
 
 	// TODO assume input_value is an array
 	// that is why we don't have any input_check function
@@ -86,6 +92,7 @@ RfParameters::RfParameters(GeneralParameters *_gp, Beams *beam, int _n_rf,
                            accelerating_systems_type accelerating_systems) {
 	this->counter = 0;
 	this->gp = _gp;
+	//this->gp = GP;
 	this->section_index = _section_index - 1;
 	this->n_rf = _n_rf;
 	//this->n_turns = gp->n_turns;
@@ -108,7 +115,7 @@ RfParameters::RfParameters(GeneralParameters *_gp, Beams *beam, int _n_rf,
 	}
 
 	this->phi_s = new ftype[gp->n_turns];
-	calc_phi_s(this, accelerating_systems);
+	calc_phi_s(accelerating_systems);
 
 
 	this->Qs = new ftype[(gp->n_turns + 1)];
@@ -128,9 +135,18 @@ RfParameters::RfParameters(GeneralParameters *_gp, Beams *beam, int _n_rf,
 
 	this->omega_RF_d = new ftype[n_rf * (gp->n_turns + 1)];
 	for (int i = 0; i < n_rf * (gp->n_turns + 1); ++i) {
+		
 		this->omega_RF_d[i] = 2 * pi * gp->beta[i] * c * harmonic[i]
 		                      / gp->ring_circumference;
+		//dprintf("omega_RF_d %.12lf\n", 2 * pi * c);
+
+
 	}
+
+	//dprintf("ring_circumference %.12lf\n", gp->ring_circumference);
+	//dprintf("pi %.12lf\n", pi);
+	//dprintf("c %.12lf\n", c);
+	//dprintf("pi*c %.12lf\n", pi*c);
 	/*
 	 this->omega_RF = new ftype[n_rf * (gp->n_turns + 1)];
 	 if (omega_RF == NULL) {
@@ -230,7 +246,7 @@ inline int RfParameters::sign_eta_0(const int i) {
 
 // TODO do I need to pass RfParameters object?
 // Do I call this function from somewhere else?
-void RfParameters::calc_phi_s(RfParameters *rf_params, accelerating_systems_type acc_sys)
+void RfParameters::calc_phi_s(accelerating_systems_type acc_sys)
 {
 	/*
 	| *The synchronous phase calculated from the rate of momentum change.*
@@ -248,19 +264,19 @@ void RfParameters::calc_phi_s(RfParameters *rf_params, accelerating_systems_type
 
 		ftype *denergy = new ftype[n_turns + 1];
 		for (int j = 0; j < n_turns; ++j)
-			denergy[j] = rf_params->E_increment[j];
-		denergy[n_turns] = rf_params->E_increment[n_turns - 1];
+			denergy[j] = E_increment[j];
+		denergy[n_turns] = E_increment[n_turns - 1];
 
 		ftype *acceleration_ratio = new ftype[n_turns + 1];
 		for (int i = 0; i < n_turns + 1; ++i)
-			acceleration_ratio[i] = denergy[i] / (gp->charge * rf_params->voltage[0 + i]);
+			acceleration_ratio[i] = denergy[i] / (gp->charge * voltage[0 + i]);
 
 		for (int i = 0; i < n_turns + 1; ++i)
 			if (acceleration_ratio[i] > 1 || acceleration_ratio[i] < -1)
-				dprintf("Warning!!! Acceleration is not possible (momentum increment is too big or voltage too low) at index %d\n ", i);
+				dprintf("Warning!!! Acceleration is not possible (momentum increment is too big or voltage too low) at index %d\n", i);
 
 		for (int i = 0; i < n_turns + 1; ++i)
-			rf_params->phi_s[i] = asin(acceleration_ratio[i]);
+			phi_s[i] = asin(acceleration_ratio[i]);
 
 		//ftype *eta0_middle_points = new ftype[n_turns +1];
 		for (int i = 0; i < n_turns; ++i)
@@ -276,6 +292,11 @@ void RfParameters::calc_phi_s(RfParameters *rf_params, accelerating_systems_type
 		else
 			phi_s[n_turns] = pi + phi_s[n_turns];
 
+		delete [] denergy;
+		delete [] acceleration_ratio;
+
+		return;
+
 	}
 	else if (acc_sys == all)
 	{
@@ -285,36 +306,97 @@ void RfParameters::calc_phi_s(RfParameters *rf_params, accelerating_systems_type
 		of the potential well is taken)
 		*/
 
-		ftype transition_phase_offset[n_turns+1];
-		for (int i = 0; i < n_turns+1; ++i)
+		ftype transition_phase_offset[n_turns + 1];
+		for (int i = 0; i < n_turns + 1; ++i)
 		{
 			phi_s[i] = 0;
 			if (eta_0(i) > 0)
-				transition_phase_offset[i] = pi;			
+				transition_phase_offset[i] = pi;
 			else
 				transition_phase_offset[i] = 0;
 		}
 		ftype phase_array[1000];
-		phase_array = linspace(-pi*1.2, pi*1.2, 1000);
+		mymath::linspace(phase_array, -pi * 1.2, pi * 1.2, 1000);
 
-		// TODO CONTINUE from here
 
-		for (int i = 0; i < n_turns+1; ++i)
+		for (int i = 0; i < n_turns; ++i)
 		{
-			ftype totalRF = 0;
+			ftype totalRF[1000] = {};
+			for (int j = 0; j < n_rf; j++) {
+				int row = j * (n_turns + 1);
+				ftype min = harmonic[mymath::min(harmonic, n_rf, n_turns + 1)];
+
+				for (int k = 0; k < 1000; ++k)
+				{
+					totalRF[k] += voltage[row + i + 1] * vdt::fast_sin(
+					                  (harmonic[row + i + 1] / min)
+					                  * (phase_array[k] + transition_phase_offset[i + 1])
+					                  + phi_offset[row + i + 1] );
+				}
+			}
+			int transition_factor = transition_phase_offset[i] == 0 ? +1 : -1;
+			//dump(totalRF, 10, "totalRF\n");
+
+			ftype potential_well[1000] = {0};
+			ftype *f = new ftype[1000];
+			for (int k = 0; k < 1000; ++k)
+			{
+				f[k] = totalRF[k] - E_increment[i] / gp->charge;
+			}
+
+			//dump(f, 10, "f\n");
+
+			//dprintf("dx %.12lf\n", phase_array[1] - phase_array[0]);
+
+			ftype *trap = mymath::trapezoid(f, phase_array[1] - phase_array[0], 1000);
+			
+			for (int k = 0; k < 1000; ++k)
+			{
+				potential_well[k] = transition_factor * trap[k];
+			}
+			//dump(potential_well, 10, "potential_well\n");
+
+			// TODO why mean here? line BLonD-minimal::rf_parameter.py:334
+			phi_s[i + 1] = phase_array[mymath::min(potential_well, 1000)] + transition_phase_offset[i + 1];
+
 		}
+		
+		phi_s[0] = phi_s[1];
+		//dump(phi_s, 10, "phi_s\n");
+
+		return;
+
 
 	}
 	else if (acc_sys == first)
 	{
-
-
+		/*
+		    Only the first RF system is accelerating, so we have to correct the
+		    phi_offset of the other rf_systems such that p_increment relates
+		    only to the first RF
+		*/
+		;
 	}
 	else
 	{
 		dprintf("Did not recognize the option accelerating_systems in calc_phi_s function\n");
 		exit(-1);
 	}
+
+	// TODO, how can we get here?
+	// TODO why n_turns and not n_turns+1?
+
+	if (eta_0(0) > 0)
+	{
+		for (int i = 0; i < n_turns; ++i)
+			phi_s[i] = pi;
+	}
+	else
+	{
+		for (int i = 0; i < n_turns; ++i)
+			phi_s[i] = 0;
+	}
+
 
 }
 

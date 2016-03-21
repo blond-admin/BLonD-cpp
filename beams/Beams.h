@@ -5,13 +5,14 @@
  *      Author: kiliakis
  */
 
-#include "../input_parameters/GeneralParameters.h"
 
-#include "../includes/utilities.h"
 
 #ifndef BEAMS_BEAMS_H_
 #define BEAMS_BEAMS_H_
 
+
+#include "../input_parameters/GeneralParameters.h"
+#include "../includes/utilities.h" 
 //#include "../includes/globals.h"
 
 class Beams {

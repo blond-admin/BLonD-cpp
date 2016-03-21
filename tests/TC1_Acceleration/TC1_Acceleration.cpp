@@ -6,6 +6,7 @@
  */
 
 #include "../../includes/utilities.h"
+#include "../../includes/math_functions.h"
 #include "../../input_parameters/GeneralParameters.h"
 #include "../../input_parameters/RfParameters.h"
 #include "../../beams/Beams.h"
@@ -13,6 +14,13 @@
 #include "../../trackers/Tracker.h"
 #include <omp.h>
 #include <stdio.h>
+//#include "../../includes/globals.h"
+
+
+//GeneralParameters *GP;
+//Beams *Beam;
+//RfParameters *RfP;
+
 
 // Simulation parameters --------------------------------------------------------
 // Bunch parameters
@@ -31,8 +39,8 @@ const ftype alpha = 1.0 / gamma_t / gamma_t;    // First order mom. comp. factor
 const int alpha_order = 1;
 const int n_sections = 1;
 // Tracking details
-int N_t = 10000;    // Number of turns to track
-int N_p = 10000;         // Macro-particles
+int N_t = 5000;    // Number of turns to track
+int N_p = 10;         // Macro-particles
 int n_threads = 1;
 
 // Simulation setup -------------------------------------------------------------
@@ -41,7 +49,7 @@ int main(int argc, char **argv) {
 	N_t = atoi(GETENV("N_TURNS")) ? atoi(GETENV("N_TURNS")) : N_t;
 	N_p = atoi(GETENV("N_PARTICLES")) ? atoi(GETENV("N_PARTICLES")) : N_p;
 	n_threads =
-	    atoi(GETENV("N_THREADS")) ? atoi(GETENV("N_THREADS")) : n_threads;
+			atoi(GETENV("N_THREADS")) ? atoi(GETENV("N_THREADS")) : n_threads;
 	omp_set_num_threads(n_threads);
 
 	printf("Setting up the simulation...\n\n");
@@ -49,7 +57,7 @@ int main(int argc, char **argv) {
 	printf("Number of macro-particles: %d\n", N_p);
 	//printf("Number of openmp threads: %d\n", n_threads);
 	/// initializations
-	#pragma omp parallel
+#pragma omp parallel
 	{
 		if (omp_get_thread_num() == 0)
 			printf("Number of openmp threads = %d\n", omp_get_num_threads());
@@ -59,7 +67,7 @@ int main(int argc, char **argv) {
 	get_time(begin);
 
 	ftype *momentum = new ftype[N_t + 1];
-	linspace(momentum, p_i, p_f, N_t + 1);
+	mymath::linspace(momentum, p_i, p_f, N_t + 1);
 
 	ftype *alpha_array = new ftype[(alpha_order + 1) * n_sections];
 	std::fill_n(alpha_array, (alpha_order + 1) * n_sections, alpha);
@@ -78,10 +86,11 @@ int main(int argc, char **argv) {
 	ftype *dphi_array = new ftype[n_sections * (N_t + 1)];
 	std::fill_n(dphi_array, (N_t + 1) * n_sections, dphi);
 
-
 // TODO variables must be in the correct format (arrays for all)
+//	GeneralParameters *general_params = new GeneralParameters(N_t, C_array,
+//			alpha_array, alpha_order, momentum, proton);
 	GeneralParameters *general_params = new GeneralParameters(N_t, C_array,
-	        alpha_array, alpha_order, momentum, proton);
+			alpha_array, alpha_order, momentum, proton);
 
 //dump(general_params->gamma, N_t + 1, "gamma");
 //printf("eta_0[0] = %.8lf\n", general_params->eta_0[0]);
@@ -91,35 +100,40 @@ int main(int argc, char **argv) {
 
 	Beams *beam = new Beams(general_params, N_p, N_b);
 	RfParameters *rf_params = new RfParameters(general_params, beam, n_sections,
-	        h_array, V_array, dphi_array);
+			h_array, V_array, dphi_array);
 //dump(rf_params->omega_RF, n_sections * (N_t + 1), "omega_RF");
 
 	RingAndRfSection *long_tracker = new RingAndRfSection(general_params,
-	        rf_params, beam);
+			rf_params, beam);
 
-	longitudinal_bigaussian(general_params, rf_params, beam, tau_0 / 4,
-	                        0, 1, false);
-	dump(beam->dE, N_p, "beam->dE\n");
+	longitudinal_bigaussian(general_params, rf_params, beam, tau_0 / 4, 0, 1,
+			false);
+	//dump(general_params->beta, N_t+1, "beta\n");
+	//dump(rf_params->harmonic, N_t+1, "harmonic\n");
+	//dump(beam->dE, N_p, "beam->dE\n");
+	//dump(beam->dt, N_p, "beam->dt\n");
 //dump(long_tracker->acceleration_kick, N_p, "acc_kick");
 //dump(rf_params->E_increment, n_sections * (N_t), "E_increment");
 //dump(rf_params->Qs, n_sections * (N_t + 1), "Qs");
 //dump(general_params.eta_0, N_t + 1, "eta_0");
 //#pragma omp parallel for
-	/*
+
 	for (int i = 1; i < N_t + 1; ++i) {
 		//printf("step %d\n", i);
 		//dump(beam->dE, beam->n_macroparticles, "beam->dE");
 		long_tracker->track();
-		beam->losses_longitudinal_cut(beam->dt, 0, 2.5e-9, beam->id);
+		//beam->losses_longitudinal_cut(beam->dt, 0, 2.5e-9, beam->id);
 	}
-	*/
+
 	//printf("Total simulation time: %.10lf\n", long_tracker->elapsed_time);
 	printf("Time/turn: %.10lf\n", long_tracker->elapsed_time / N_t);
 
-	//get_time(end);
-	print_time("Total Simulation Time", end, begin);
+	get_time(end);
+	print_time("Total Simulation Time", begin, end);
 //printf("step %d\n", N_t + 1);
-	dump(beam->dE, 1, "beam->dE\n");
+	dump(beam->dE, 10, "beam->dE\n");
+	dump(beam->dt, 10, "beam->dt\n");
+
 //dump(beam->dt, beam->n_macroparticles, "beam->dt");
 	printf("Done!\n");
 

@@ -9,5 +9,6 @@
 #define INCLUDES_CONFIGURATION_H_
 
 typedef double ftype;
+#define FIXED_PARTICLES
 
 #endif /* INCLUDES_CONFIGURATION_H_ */

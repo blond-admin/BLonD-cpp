@@ -5,16 +5,19 @@
  *      Author: kiliakis
  */
 
+
 #ifndef INCLUDES_GLOBALS_H_
 #define INCLUDES_GLOBALS_H_
-/*
- #include "../input_parameters/GeneralParameters.h"
- #include "../beams/Beams.h"
- #include "../input_parameters/RfParameters.h"
 
- extern GeneralParameters *general_params;
- extern Beams *beam;
- extern RfParameters *rf_params;
- */
+#include "../input_parameters/GeneralParameters.h"
+#include "../beams/Beams.h"
+#include "../input_parameters/RfParameters.h"
+
+
+
+extern GeneralParameters *GP;
+extern Beams *Beam;
+extern RfParameters *RfP;
+
 
 #endif /* INCLUDES_GLOBALS_H_ */

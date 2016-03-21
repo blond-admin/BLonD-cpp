@@ -5,6 +5,13 @@
  *      Author: kiliakis
  */
 
+
+
+#ifndef INPUT_PARAMETERS_GENERALPARAMETERS_H_
+#define INPUT_PARAMETERS_GENERALPARAMETERS_H_
+
+
+//#include "../includes/globals.h"
 #include "../includes/configuration.h"
 #include <vector>
 #include "../includes/utilities.h"
@@ -13,8 +20,6 @@
 #include <string.h>
 #include "../includes/constants.h"
 
-#ifndef INPUT_PARAMETERS_GENERALPARAMETERS_H_
-#define INPUT_PARAMETERS_GENERALPARAMETERS_H_
 
 enum particle_type {
 	proton, electron, user_input, none

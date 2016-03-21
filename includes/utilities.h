@@ -5,6 +5,13 @@
  *      Author: kiliakis
  */
 
+
+
+#ifndef INCLUDES_UTILITIES_H_
+#define INCLUDES_UTILITIES_H_
+
+
+
 #include <assert.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -14,8 +21,9 @@
 #include <sys/time.h>
 #include "configuration.h"
 
-#ifndef INCLUDES_UTILITIES_H_
-#define INCLUDES_UTILITIES_H_
+
+
+ 
 #define TIMING
 #define dprintf(...)    fprintf(stdout, __VA_ARGS__)     // Debug printf
 
@@ -38,19 +46,11 @@ inline void *aligned_malloc(size_t n) {
 	return _mm_malloc(n, 64);
 }
 
-void linspace(ftype* a, const ftype start, const ftype end, const int n) {
-	ftype step = (end - start) / (n - 1);
-	ftype value = start;
-	for (int i = 0; i < n; ++i) {
-		a[i] = value;
-		value += step;
-	}
-}
 
 void dump(ftype* a, int n, const char* s) {
 	dprintf("%s", s);
 	for (int i = 0; i < n; ++i) {
-		dprintf("%.8lf\n", a[i]);
+		dprintf("%.12lf\n", a[i]);
 	}
 	dprintf("\n");
 
@@ -65,21 +65,6 @@ void dump(int* a, int n, const char* s) {
 
 }
 
-ftype mean(const ftype data[], const int n) {
-	ftype m = 0;
-	for (int i = 0; i < n; ++i) {
-		m += data[i];
-	}
-	return m / n;
-}
-
-ftype standard_deviation(const ftype data[], const int n, const ftype mean) {
-	ftype sum_deviation = 0.0;
-	int i;
-	for (i = 0; i < n; ++i)
-		sum_deviation += (data[i] - mean) * (data[i] - mean);
-	return sqrt(sum_deviation / n);
-}
 
 static inline double time_diff(timespec const& end, timespec const& begin) {
 #ifdef TIMING

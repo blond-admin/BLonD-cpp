@@ -1,0 +1,616 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  us/call  us/call  name    
+ 28.96      3.13     3.13 100000000     0.03     0.03  vdt::details::get_sin_px(double)
+ 17.95      5.07     1.94    40000    48.52   269.59  main
+ 14.62      6.65     1.58 100000000     0.02     0.02  vdt::details::reduce2quadrant(double, int&)
+ 12.68      8.02     1.37 100000000     0.01     0.01  vdt::details::get_cos_px(double)
+ 12.31      9.35     1.33 100000000     0.01     0.08  vdt::fast_sincos(double, double&, double&)
+  9.99     10.43     1.08 100000000     0.01     0.06  vdt::details::fast_sincos_m45_45(double, double&, double&)
+  3.24     10.78     0.35 100000000     0.00     0.09  vdt::fast_sin(double)
+  0.28     10.81     0.03    10000     3.00     3.00  RfParameters::energy(int)
+  0.00     10.81     0.00    40019     0.00     0.00  double&& std::forward<double>(std::remove_reference<double>::type&)
+  0.00     10.81     0.00    40003     0.00     0.00  std::vector<double, std::allocator<double> >::operator[](unsigned long)
+  0.00     10.81     0.00    20001     0.00     0.00  RfParameters::eta_0(int)
+  0.00     10.81     0.00    10001     0.00     0.00  void __gnu_cxx::new_allocator<double>::construct<double, double>(double*, double&&)
+  0.00     10.81     0.00    10001     0.00     0.00  _ZNSt16allocator_traitsISaIdEE12_S_constructIdJdEEENSt9enable_ifIXsrNS1_18__construct_helperIT_JDpT0_EEE5valueEvE4typeERS0_PS5_DpOS6_
+  0.00     10.81     0.00    10001     0.00     0.00  decltype (_S_construct({parm#1}, {parm#2}, (forward<double>)({parm#3}))) std::allocator_traits<std::allocator<double> >::construct<double, double>(std::allocator<double>&, double*, double&&)
+  0.00     10.81     0.00    10001     0.00     0.00  void std::vector<double, std::allocator<double> >::emplace_back<double>(double&&)
+  0.00     10.81     0.00    10001     0.00     0.00  std::vector<double, std::allocator<double> >::push_back(double&&)
+  0.00     10.81     0.00    10001     0.00     0.00  std::remove_reference<double&>::type&& std::move<double&>(double&&&)
+  0.00     10.81     0.00    10001     0.00     0.00  operator new(unsigned long, void*)
+  0.00     10.81     0.00    10000     0.00     0.00  RfParameters::beta(int)
+  0.00     10.81     0.00    10000     0.00     0.00  RfParameters::eta_1(int)
+  0.00     10.81     0.00    10000     0.00     0.00  RfParameters::eta_2(int)
+  0.00     10.81     0.00    10000     0.00     0.00  RingAndRfSection::kick(double const*, double*, int, double const*, double const*, double const*, int, double)
+  0.00     10.81     0.00    10000     0.00     0.00  RingAndRfSection::kick(int)
+  0.00     10.81     0.00    10000     0.00     0.00  RingAndRfSection::drift(double*, double const*, solver_type, double, double, int, double, double, double, double, double, int)
+  0.00     10.81     0.00    10000     0.00     3.00  RingAndRfSection::drift(int)
+  0.00     10.81     0.00    10000     0.00     0.00  RingAndRfSection::track()
+  0.00     10.81     0.00    10000     0.00     0.00  Beams::losses_longitudinal_cut(double const*, double, double, int*)
+  0.00     10.81     0.00       75     0.00     0.00  std::vector<double, std::allocator<double> >::size() const
+  0.00     10.81     0.00       61     0.00     0.00  std::_Iter_base<double*, false>::_S_base(double*)
+  0.00     10.81     0.00       57     0.00     0.00  std::_Niter_base<double*>::iterator_type std::__niter_base<double*>(double*)
+  0.00     10.81     0.00       45     0.00     0.00  __gnu_cxx::new_allocator<double>::max_size() const
+  0.00     10.81     0.00       30     0.00     0.00  std::_Vector_base<double, std::allocator<double> >::_M_get_Tp_allocator() const
+  0.00     10.81     0.00       30     0.00     0.00  std::move_iterator<double*>::base() const
+  0.00     10.81     0.00       30     0.00     0.00  std::vector<double, std::allocator<double> >::max_size() const
+  0.00     10.81     0.00       30     0.00     0.00  std::_Iter_base<std::move_iterator<double*>, true>::_S_base(std::move_iterator<double*>)
+  0.00     10.81     0.00       30     0.00     0.00  std::_Vector_base<double, std::allocator<double> >::_M_get_Tp_allocator()
+  0.00     10.81     0.00       30     0.00     0.00  std::move_iterator<double*>::move_iterator(double*)
+  0.00     10.81     0.00       30     0.00     0.00  std::enable_if<std::allocator_traits<std::allocator<double> >::__maxsize_helper<std::allocator<double> const>::value, unsigned long>::type std::allocator_traits<std::allocator<double> >::_S_max_size<std::allocator<double> const>(std::allocator<double> const&)
+  0.00     10.81     0.00       30     0.00     0.00  std::allocator_traits<std::allocator<double> >::max_size(std::allocator<double> const&)
+  0.00     10.81     0.00       30     0.00     0.00  std::_Miter_base<std::move_iterator<double*> >::iterator_type std::__miter_base<std::move_iterator<double*> >(std::move_iterator<double*>)
+  0.00     10.81     0.00       30     0.00     0.00  std::move_iterator<double*> std::__make_move_if_noexcept_iterator<double*, std::move_iterator<double*> >(double*)
+  0.00     10.81     0.00       15     0.00     0.00  __gnu_cxx::new_allocator<double>::allocate(unsigned long, void const*)
+  0.00     10.81     0.00       15     0.00     0.00  std::vector<double, std::allocator<double> >::_M_check_len(unsigned long, char const*) const
+  0.00     10.81     0.00       15     0.00     0.00  double* std::__copy_move<true, true, std::random_access_iterator_tag>::__copy_m<double>(double const*, double const*, double*)
+  0.00     10.81     0.00       15     0.00     0.00  void std::_Destroy_aux<true>::__destroy<double*>(double*, double*)
+  0.00     10.81     0.00       15     0.00     0.00  std::_Vector_base<double, std::allocator<double> >::_M_allocate(unsigned long)
+  0.00     10.81     0.00       15     0.00     0.00  std::_Vector_base<double, std::allocator<double> >::_M_deallocate(double*, unsigned long)
+  0.00     10.81     0.00       15     0.00     0.00  double* std::__uninitialized_copy<true>::__uninit_copy<std::move_iterator<double*>, double*>(std::move_iterator<double*>, std::move_iterator<double*>, double*)
+  0.00     10.81     0.00       15     0.00     0.00  void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double>(double&&)
+  0.00     10.81     0.00       15     0.00     0.00  double* std::__copy_move_a<true, double*, double*>(double*, double*, double*)
+  0.00     10.81     0.00       15     0.00     0.00  double* std::__copy_move_a2<true, double*, double*>(double*, double*, double*)
+  0.00     10.81     0.00       15     0.00     0.00  double* std::uninitialized_copy<std::move_iterator<double*>, double*>(std::move_iterator<double*>, std::move_iterator<double*>, double*)
+  0.00     10.81     0.00       15     0.00     0.00  double* std::__uninitialized_copy_a<std::move_iterator<double*>, double*, double>(std::move_iterator<double*>, std::move_iterator<double*>, double*, std::allocator<double>&)
+  0.00     10.81     0.00       15     0.00     0.00  double* std::__uninitialized_move_if_noexcept_a<double*, double*, std::allocator<double> >(double*, double*, double*, std::allocator<double>&)
+  0.00     10.81     0.00       15     0.00     0.00  unsigned long const& std::max<unsigned long>(unsigned long const&, unsigned long const&)
+  0.00     10.81     0.00       15     0.00     0.00  double* std::copy<std::move_iterator<double*>, double*>(std::move_iterator<double*>, std::move_iterator<double*>, double*)
+  0.00     10.81     0.00       15     0.00     0.00  void std::_Destroy<double*>(double*, double*)
+  0.00     10.81     0.00       15     0.00     0.00  void std::_Destroy<double*, double>(double*, double*, std::allocator<double>&)
+  0.00     10.81     0.00       14     0.00     0.00  __gnu_cxx::new_allocator<double>::deallocate(double*, unsigned long)
+  0.00     10.81     0.00        4     0.00     0.00  std::_Miter_base<double*>::iterator_type std::__miter_base<double*>(double*)
+  0.00     10.81     0.00        3     0.00     0.00  GETENV(char const*)
+  0.00     10.81     0.00        3     0.00     0.00  __gnu_cxx::__enable_if<std::__is_scalar<double>::__value, double*>::__type std::__fill_n_a<double*, int, double>(double*, int, double const&)
+  0.00     10.81     0.00        3     0.00     0.00  double* std::fill_n<double*, int, double>(double*, int, double const&)
+  0.00     10.81     0.00        2     0.00     0.00  double* std::__copy_move<false, true, std::random_access_iterator_tag>::__copy_m<double>(double const*, double const*, double*)
+  0.00     10.81     0.00        2     0.00     0.00  __gnu_cxx::__enable_if<std::__is_scalar<int>::__value, double*>::__type std::__fill_n_a<double*, int, int>(double*, int, int const&)
+  0.00     10.81     0.00        2     0.00     0.00  double* std::__copy_move_a<false, double*, double*>(double*, double*, double*)
+  0.00     10.81     0.00        2     0.00     0.00  double* std::__copy_move_a2<false, double*, double*>(double*, double*, double*)
+  0.00     10.81     0.00        2     0.00     0.00  double* std::copy<double*, double*>(double*, double*, double*)
+  0.00     10.81     0.00        2     0.00     0.00  double* std::fill_n<double*, int, int>(double*, int, int const&)
+  0.00     10.81     0.00        1     0.00     0.00  dump(double*, int, char const*)
+  0.00     10.81     0.00        1     0.00     0.00  linspace(double*, double, double, int)
+  0.00     10.81     0.00        1     0.00     0.00  RfParameters::RfParameters(GeneralParameters*, Beams*, int, double*, double*, double*, double*, double*, int)
+  0.00     10.81     0.00        1     0.00     0.00  RingAndRfSection::RingAndRfSection(GeneralParameters*, RfParameters*, Beams*, solver_type, double*, double*, bool, double, bool, double*, double*, int)
+  0.00     10.81     0.00        1     0.00     0.00  GeneralParameters::eta_generation()
+  0.00     10.81     0.00        1     0.00     0.00  GeneralParameters::_eta0()
+  0.00     10.81     0.00        1     0.00     0.00  GeneralParameters::_eta1()
+  0.00     10.81     0.00        1     0.00     0.00  GeneralParameters::GeneralParameters(int, double*, double*, int, double*, particle_type, double, double, particle_type, double, double, int)
+  0.00     10.81     0.00        1     0.00     0.00  Beams::Beams(GeneralParameters*, int, int)
+  0.00     10.81     0.00        1     0.00     0.00  __gnu_cxx::new_allocator<double>::new_allocator()
+  0.00     10.81     0.00        1     0.00     0.00  std::allocator<double>::allocator()
+  0.00     10.81     0.00        1     0.00     0.00  std::_Vector_base<double, std::allocator<double> >::_Vector_impl::_Vector_impl()
+  0.00     10.81     0.00        1     0.00     0.00  std::_Vector_base<double, std::allocator<double> >::_Vector_base()
+  0.00     10.81     0.00        1     0.00     0.00  std::vector<double, std::allocator<double> >::vector()
+  0.00     10.81     0.00        1     0.00     0.00  __gnu_cxx::__enable_if<std::__is_scalar<long>::__value, double*>::__type std::__fill_n_a<double*, int, long>(double*, int, long const&)
+  0.00     10.81     0.00        1     0.00     0.00  double std::accumulate<double*, double>(double*, double*, double)
+  0.00     10.81     0.00        1     0.00     0.00  double* std::fill_n<double*, int, long>(double*, int, long const&)
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+ 
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this 
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 2 byte(s) for 0.09% of 10.81 seconds
+
+index % time    self  children    called     name
+                               10000             Beams::losses_longitudinal_cut(double const*, double, double, int*) <cycle 1> [34]
+                               10000             RingAndRfSection::drift(double*, double const*, solver_type, double, double, int, double, double, double, double, double, int) <cycle 1> [32]
+                               20000             RingAndRfSection::kick(double const*, double*, int, double const*, double const*, double const*, int, double) <cycle 1> [30]
+[1]     99.7    1.94    8.84   40000         main <cycle 1> [1]
+                0.35    8.49 100000000/100000000     vdt::fast_sin(double) [3]
+                0.00    0.00       3/3           GETENV(char const*) [68]
+                0.00    0.00       3/3           double* std::fill_n<double*, int, double>(double*, int, double const&) [70]
+                0.00    0.00       1/1           linspace(double*, double, double, int) [78]
+                0.00    0.00       1/1           double* std::fill_n<double*, int, long>(double*, int, long const&) [93]
+                0.00    0.00       1/1           GeneralParameters::GeneralParameters(int, double*, double*, int, double*, particle_type, double, double, particle_type, double, double, int) [84]
+                0.00    0.00       1/1           Beams::Beams(GeneralParameters*, int, int) [85]
+                0.00    0.00       1/1           RfParameters::RfParameters(GeneralParameters*, Beams*, int, double*, double*, double*, double*, double*, int) [79]
+                0.00    0.00       1/1           RingAndRfSection::RingAndRfSection(GeneralParameters*, RfParameters*, Beams*, solver_type, double*, double*, bool, double, bool, double*, double*, int) [80]
+                0.00    0.00       1/1           dump(double*, int, char const*) [77]
+                               10000             RingAndRfSection::track() <cycle 1> [33]
+                               10000             Beams::losses_longitudinal_cut(double const*, double, double, int*) <cycle 1> [34]
+-----------------------------------------------
+                0.35    8.49 100000000/100000000     main <cycle 1> [1]
+[3]     81.8    0.35    8.49 100000000         vdt::fast_sin(double) [3]
+                1.33    7.16 100000000/100000000     vdt::fast_sincos(double, double&, double&) [4]
+-----------------------------------------------
+                1.33    7.16 100000000/100000000     vdt::fast_sin(double) [3]
+[4]     78.5    1.33    7.16 100000000         vdt::fast_sincos(double, double&, double&) [4]
+                1.08    4.50 100000000/100000000     vdt::details::fast_sincos_m45_45(double, double&, double&) [5]
+                1.58    0.00 100000000/100000000     vdt::details::reduce2quadrant(double, int&) [7]
+-----------------------------------------------
+                1.08    4.50 100000000/100000000     vdt::fast_sincos(double, double&, double&) [4]
+[5]     51.6    1.08    4.50 100000000         vdt::details::fast_sincos_m45_45(double, double&, double&) [5]
+                3.13    0.00 100000000/100000000     vdt::details::get_sin_px(double) [6]
+                1.37    0.00 100000000/100000000     vdt::details::get_cos_px(double) [8]
+-----------------------------------------------
+                3.13    0.00 100000000/100000000     vdt::details::fast_sincos_m45_45(double, double&, double&) [5]
+[6]     29.0    3.13    0.00 100000000         vdt::details::get_sin_px(double) [6]
+-----------------------------------------------
+                1.58    0.00 100000000/100000000     vdt::fast_sincos(double, double&, double&) [4]
+[7]     14.6    1.58    0.00 100000000         vdt::details::reduce2quadrant(double, int&) [7]
+-----------------------------------------------
+                1.37    0.00 100000000/100000000     vdt::details::fast_sincos_m45_45(double, double&, double&) [5]
+[8]     12.7    1.37    0.00 100000000         vdt::details::get_cos_px(double) [8]
+-----------------------------------------------
+                0.03    0.00   10000/10000       RingAndRfSection::drift(int) <cycle 1> [10]
+[9]      0.3    0.03    0.00   10000         RfParameters::energy(int) [9]
+-----------------------------------------------
+                               10000             RingAndRfSection::track() <cycle 1> [33]
+[10]     0.3    0.00    0.03   10000         RingAndRfSection::drift(int) <cycle 1> [10]
+                0.03    0.00   10000/10000       RfParameters::energy(int) [9]
+                0.00    0.00   10000/10000       RfParameters::beta(int) [27]
+                0.00    0.00   10000/10000       RfParameters::eta_2(int) [29]
+                0.00    0.00   10000/10000       RfParameters::eta_1(int) [28]
+                0.00    0.00   10000/20001       RfParameters::eta_0(int) [19]
+                0.00    0.00   10000/40003       std::vector<double, std::allocator<double> >::operator[](unsigned long) [18]
+                               10000             RingAndRfSection::drift(double*, double const*, solver_type, double, double, int, double, double, double, double, double, int) <cycle 1> [32]
+-----------------------------------------------
+                0.00    0.00      15/40019       void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double>(double&&) [56]
+                0.00    0.00   10001/40019       void std::vector<double, std::allocator<double> >::emplace_back<double>(double&&) [23]
+                0.00    0.00   10001/40019       decltype (_S_construct({parm#1}, {parm#2}, (forward<double>)({parm#3}))) std::allocator_traits<std::allocator<double> >::construct<double, double>(std::allocator<double>&, double*, double&&) [22]
+                0.00    0.00   10001/40019       _ZNSt16allocator_traitsISaIdEE12_S_constructIdJdEEENSt9enable_ifIXsrNS1_18__construct_helperIT_JDpT0_EEE5valueEvE4typeERS0_PS5_DpOS6_ [21]
+                0.00    0.00   10001/40019       void __gnu_cxx::new_allocator<double>::construct<double, double>(double*, double&&) [20]
+[17]     0.0    0.00    0.00   40019         double&& std::forward<double>(std::remove_reference<double>::type&) [17]
+-----------------------------------------------
+                0.00    0.00   10000/40003       RingAndRfSection::drift(int) <cycle 1> [10]
+                0.00    0.00   30003/40003       GeneralParameters::GeneralParameters(int, double*, double*, int, double*, particle_type, double, double, particle_type, double, double, int) [84]
+[18]     0.0    0.00    0.00   40003         std::vector<double, std::allocator<double> >::operator[](unsigned long) [18]
+-----------------------------------------------
+                0.00    0.00   10000/20001       RingAndRfSection::drift(int) <cycle 1> [10]
+                0.00    0.00   10001/20001       RfParameters::RfParameters(GeneralParameters*, Beams*, int, double*, double*, double*, double*, double*, int) [79]
+[19]     0.0    0.00    0.00   20001         RfParameters::eta_0(int) [19]
+-----------------------------------------------
+                0.00    0.00   10001/10001       _ZNSt16allocator_traitsISaIdEE12_S_constructIdJdEEENSt9enable_ifIXsrNS1_18__construct_helperIT_JDpT0_EEE5valueEvE4typeERS0_PS5_DpOS6_ [21]
+[20]     0.0    0.00    0.00   10001         void __gnu_cxx::new_allocator<double>::construct<double, double>(double*, double&&) [20]
+                0.00    0.00   10001/40019       double&& std::forward<double>(std::remove_reference<double>::type&) [17]
+                0.00    0.00   10001/10001       operator new(unsigned long, void*) [26]
+-----------------------------------------------
+                0.00    0.00   10001/10001       decltype (_S_construct({parm#1}, {parm#2}, (forward<double>)({parm#3}))) std::allocator_traits<std::allocator<double> >::construct<double, double>(std::allocator<double>&, double*, double&&) [22]
+[21]     0.0    0.00    0.00   10001         _ZNSt16allocator_traitsISaIdEE12_S_constructIdJdEEENSt9enable_ifIXsrNS1_18__construct_helperIT_JDpT0_EEE5valueEvE4typeERS0_PS5_DpOS6_ [21]
+                0.00    0.00   10001/40019       double&& std::forward<double>(std::remove_reference<double>::type&) [17]
+                0.00    0.00   10001/10001       void __gnu_cxx::new_allocator<double>::construct<double, double>(double*, double&&) [20]
+-----------------------------------------------
+                0.00    0.00      15/10001       void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double>(double&&) [56]
+                0.00    0.00    9986/10001       void std::vector<double, std::allocator<double> >::emplace_back<double>(double&&) [23]
+[22]     0.0    0.00    0.00   10001         decltype (_S_construct({parm#1}, {parm#2}, (forward<double>)({parm#3}))) std::allocator_traits<std::allocator<double> >::construct<double, double>(std::allocator<double>&, double*, double&&) [22]
+                0.00    0.00   10001/40019       double&& std::forward<double>(std::remove_reference<double>::type&) [17]
+                0.00    0.00   10001/10001       _ZNSt16allocator_traitsISaIdEE12_S_constructIdJdEEENSt9enable_ifIXsrNS1_18__construct_helperIT_JDpT0_EEE5valueEvE4typeERS0_PS5_DpOS6_ [21]
+-----------------------------------------------
+                0.00    0.00   10001/10001       std::vector<double, std::allocator<double> >::push_back(double&&) [24]
+[23]     0.0    0.00    0.00   10001         void std::vector<double, std::allocator<double> >::emplace_back<double>(double&&) [23]
+                0.00    0.00   10001/40019       double&& std::forward<double>(std::remove_reference<double>::type&) [17]
+                0.00    0.00    9986/10001       decltype (_S_construct({parm#1}, {parm#2}, (forward<double>)({parm#3}))) std::allocator_traits<std::allocator<double> >::construct<double, double>(std::allocator<double>&, double*, double&&) [22]
+                0.00    0.00      15/15          void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double>(double&&) [56]
+-----------------------------------------------
+                0.00    0.00   10001/10001       GeneralParameters::GeneralParameters(int, double*, double*, int, double*, particle_type, double, double, particle_type, double, double, int) [84]
+[24]     0.0    0.00    0.00   10001         std::vector<double, std::allocator<double> >::push_back(double&&) [24]
+                0.00    0.00   10001/10001       std::remove_reference<double&>::type&& std::move<double&>(double&&&) [25]
+                0.00    0.00   10001/10001       void std::vector<double, std::allocator<double> >::emplace_back<double>(double&&) [23]
+-----------------------------------------------
+                0.00    0.00   10001/10001       std::vector<double, std::allocator<double> >::push_back(double&&) [24]
+[25]     0.0    0.00    0.00   10001         std::remove_reference<double&>::type&& std::move<double&>(double&&&) [25]
+-----------------------------------------------
+                0.00    0.00   10001/10001       void __gnu_cxx::new_allocator<double>::construct<double, double>(double*, double&&) [20]
+[26]     0.0    0.00    0.00   10001         operator new(unsigned long, void*) [26]
+-----------------------------------------------
+                0.00    0.00   10000/10000       RingAndRfSection::drift(int) <cycle 1> [10]
+[27]     0.0    0.00    0.00   10000         RfParameters::beta(int) [27]
+-----------------------------------------------
+                0.00    0.00   10000/10000       RingAndRfSection::drift(int) <cycle 1> [10]
+[28]     0.0    0.00    0.00   10000         RfParameters::eta_1(int) [28]
+-----------------------------------------------
+                0.00    0.00   10000/10000       RingAndRfSection::drift(int) <cycle 1> [10]
+[29]     0.0    0.00    0.00   10000         RfParameters::eta_2(int) [29]
+-----------------------------------------------
+                               10000             RingAndRfSection::kick(int) <cycle 1> [31]
+[30]     0.0    0.00    0.00   10000         RingAndRfSection::kick(double const*, double*, int, double const*, double const*, double const*, int, double) <cycle 1> [30]
+                               20000             main <cycle 1> [1]
+-----------------------------------------------
+                               10000             RingAndRfSection::track() <cycle 1> [33]
+[31]     0.0    0.00    0.00   10000         RingAndRfSection::kick(int) <cycle 1> [31]
+                               10000             RingAndRfSection::kick(double const*, double*, int, double const*, double const*, double const*, int, double) <cycle 1> [30]
+-----------------------------------------------
+                               10000             RingAndRfSection::drift(int) <cycle 1> [10]
+[32]     0.0    0.00    0.00   10000         RingAndRfSection::drift(double*, double const*, solver_type, double, double, int, double, double, double, double, double, int) <cycle 1> [32]
+                               10000             main <cycle 1> [1]
+-----------------------------------------------
+                               10000             main <cycle 1> [1]
+[33]     0.0    0.00    0.00   10000         RingAndRfSection::track() <cycle 1> [33]
+                               10000             RingAndRfSection::kick(int) <cycle 1> [31]
+                               10000             RingAndRfSection::drift(int) <cycle 1> [10]
+-----------------------------------------------
+                               10000             main <cycle 1> [1]
+[34]     0.0    0.00    0.00   10000         Beams::losses_longitudinal_cut(double const*, double, double, int*) <cycle 1> [34]
+                               10000             main <cycle 1> [1]
+-----------------------------------------------
+                0.00    0.00      15/75          void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double>(double&&) [56]
+                0.00    0.00      60/75          std::vector<double, std::allocator<double> >::_M_check_len(unsigned long, char const*) const [50]
+[35]     0.0    0.00    0.00      75         std::vector<double, std::allocator<double> >::size() const [35]
+-----------------------------------------------
+                0.00    0.00       4/61          std::_Miter_base<double*>::iterator_type std::__miter_base<double*>(double*) [67]
+                0.00    0.00      57/61          std::_Niter_base<double*>::iterator_type std::__niter_base<double*>(double*) [37]
+[36]     0.0    0.00    0.00      61         std::_Iter_base<double*, false>::_S_base(double*) [36]
+-----------------------------------------------
+                0.00    0.00       1/57          double* std::fill_n<double*, int, long>(double*, int, long const&) [93]
+                0.00    0.00       2/57          double* std::fill_n<double*, int, int>(double*, int, int const&) [76]
+                0.00    0.00       3/57          double* std::fill_n<double*, int, double>(double*, int, double const&) [70]
+                0.00    0.00       6/57          double* std::__copy_move_a2<false, double*, double*>(double*, double*, double*) [74]
+                0.00    0.00      45/57          double* std::__copy_move_a2<true, double*, double*>(double*, double*, double*) [58]
+[37]     0.0    0.00    0.00      57         std::_Niter_base<double*>::iterator_type std::__niter_base<double*>(double*) [37]
+                0.00    0.00      57/61          std::_Iter_base<double*, false>::_S_base(double*) [36]
+-----------------------------------------------
+                0.00    0.00      15/45          __gnu_cxx::new_allocator<double>::allocate(unsigned long, void const*) [49]
+                0.00    0.00      30/45          std::enable_if<std::allocator_traits<std::allocator<double> >::__maxsize_helper<std::allocator<double> const>::value, unsigned long>::type std::allocator_traits<std::allocator<double> >::_S_max_size<std::allocator<double> const>(std::allocator<double> const&) [45]
+[38]     0.0    0.00    0.00      45         __gnu_cxx::new_allocator<double>::max_size() const [38]
+-----------------------------------------------
+                0.00    0.00      30/30          std::vector<double, std::allocator<double> >::max_size() const [41]
+[39]     0.0    0.00    0.00      30         std::_Vector_base<double, std::allocator<double> >::_M_get_Tp_allocator() const [39]
+-----------------------------------------------
+                0.00    0.00      30/30          std::_Iter_base<std::move_iterator<double*>, true>::_S_base(std::move_iterator<double*>) [42]
+[40]     0.0    0.00    0.00      30         std::move_iterator<double*>::base() const [40]
+-----------------------------------------------
+                0.00    0.00      30/30          std::vector<double, std::allocator<double> >::_M_check_len(unsigned long, char const*) const [50]
+[41]     0.0    0.00    0.00      30         std::vector<double, std::allocator<double> >::max_size() const [41]
+                0.00    0.00      30/30          std::_Vector_base<double, std::allocator<double> >::_M_get_Tp_allocator() const [39]
+                0.00    0.00      30/30          std::allocator_traits<std::allocator<double> >::max_size(std::allocator<double> const&) [46]
+-----------------------------------------------
+                0.00    0.00      30/30          std::_Miter_base<std::move_iterator<double*> >::iterator_type std::__miter_base<std::move_iterator<double*> >(std::move_iterator<double*>) [47]
+[42]     0.0    0.00    0.00      30         std::_Iter_base<std::move_iterator<double*>, true>::_S_base(std::move_iterator<double*>) [42]
+                0.00    0.00      30/30          std::move_iterator<double*>::base() const [40]
+-----------------------------------------------
+                0.00    0.00      30/30          void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double>(double&&) [56]
+[43]     0.0    0.00    0.00      30         std::_Vector_base<double, std::allocator<double> >::_M_get_Tp_allocator() [43]
+-----------------------------------------------
+                0.00    0.00      30/30          std::move_iterator<double*> std::__make_move_if_noexcept_iterator<double*, std::move_iterator<double*> >(double*) [48]
+[44]     0.0    0.00    0.00      30         std::move_iterator<double*>::move_iterator(double*) [44]
+-----------------------------------------------
+                0.00    0.00      30/30          std::allocator_traits<std::allocator<double> >::max_size(std::allocator<double> const&) [46]
+[45]     0.0    0.00    0.00      30         std::enable_if<std::allocator_traits<std::allocator<double> >::__maxsize_helper<std::allocator<double> const>::value, unsigned long>::type std::allocator_traits<std::allocator<double> >::_S_max_size<std::allocator<double> const>(std::allocator<double> const&) [45]
+                0.00    0.00      30/45          __gnu_cxx::new_allocator<double>::max_size() const [38]
+-----------------------------------------------
+                0.00    0.00      30/30          std::vector<double, std::allocator<double> >::max_size() const [41]
+[46]     0.0    0.00    0.00      30         std::allocator_traits<std::allocator<double> >::max_size(std::allocator<double> const&) [46]
+                0.00    0.00      30/30          std::enable_if<std::allocator_traits<std::allocator<double> >::__maxsize_helper<std::allocator<double> const>::value, unsigned long>::type std::allocator_traits<std::allocator<double> >::_S_max_size<std::allocator<double> const>(std::allocator<double> const&) [45]
+-----------------------------------------------
+                0.00    0.00      30/30          double* std::copy<std::move_iterator<double*>, double*>(std::move_iterator<double*>, std::move_iterator<double*>, double*) [63]
+[47]     0.0    0.00    0.00      30         std::_Miter_base<std::move_iterator<double*> >::iterator_type std::__miter_base<std::move_iterator<double*> >(std::move_iterator<double*>) [47]
+                0.00    0.00      30/30          std::_Iter_base<std::move_iterator<double*>, true>::_S_base(std::move_iterator<double*>) [42]
+-----------------------------------------------
+                0.00    0.00      30/30          double* std::__uninitialized_move_if_noexcept_a<double*, double*, std::allocator<double> >(double*, double*, double*, std::allocator<double>&) [61]
+[48]     0.0    0.00    0.00      30         std::move_iterator<double*> std::__make_move_if_noexcept_iterator<double*, std::move_iterator<double*> >(double*) [48]
+                0.00    0.00      30/30          std::move_iterator<double*>::move_iterator(double*) [44]
+-----------------------------------------------
+                0.00    0.00      15/15          std::_Vector_base<double, std::allocator<double> >::_M_allocate(unsigned long) [53]
+[49]     0.0    0.00    0.00      15         __gnu_cxx::new_allocator<double>::allocate(unsigned long, void const*) [49]
+                0.00    0.00      15/45          __gnu_cxx::new_allocator<double>::max_size() const [38]
+-----------------------------------------------
+                0.00    0.00      15/15          void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double>(double&&) [56]
+[50]     0.0    0.00    0.00      15         std::vector<double, std::allocator<double> >::_M_check_len(unsigned long, char const*) const [50]
+                0.00    0.00      60/75          std::vector<double, std::allocator<double> >::size() const [35]
+                0.00    0.00      30/30          std::vector<double, std::allocator<double> >::max_size() const [41]
+                0.00    0.00      15/15          unsigned long const& std::max<unsigned long>(unsigned long const&, unsigned long const&) [62]
+-----------------------------------------------
+                0.00    0.00      15/15          double* std::__copy_move_a<true, double*, double*>(double*, double*, double*) [57]
+[51]     0.0    0.00    0.00      15         double* std::__copy_move<true, true, std::random_access_iterator_tag>::__copy_m<double>(double const*, double const*, double*) [51]
+-----------------------------------------------
+                0.00    0.00      15/15          void std::_Destroy<double*>(double*, double*) [64]
+[52]     0.0    0.00    0.00      15         void std::_Destroy_aux<true>::__destroy<double*>(double*, double*) [52]
+-----------------------------------------------
+                0.00    0.00      15/15          void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double>(double&&) [56]
+[53]     0.0    0.00    0.00      15         std::_Vector_base<double, std::allocator<double> >::_M_allocate(unsigned long) [53]
+                0.00    0.00      15/15          __gnu_cxx::new_allocator<double>::allocate(unsigned long, void const*) [49]
+-----------------------------------------------
+                0.00    0.00      15/15          void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double>(double&&) [56]
+[54]     0.0    0.00    0.00      15         std::_Vector_base<double, std::allocator<double> >::_M_deallocate(double*, unsigned long) [54]
+                0.00    0.00      14/14          __gnu_cxx::new_allocator<double>::deallocate(double*, unsigned long) [66]
+-----------------------------------------------
+                0.00    0.00      15/15          double* std::uninitialized_copy<std::move_iterator<double*>, double*>(std::move_iterator<double*>, std::move_iterator<double*>, double*) [59]
+[55]     0.0    0.00    0.00      15         double* std::__uninitialized_copy<true>::__uninit_copy<std::move_iterator<double*>, double*>(std::move_iterator<double*>, std::move_iterator<double*>, double*) [55]
+                0.00    0.00      15/15          double* std::copy<std::move_iterator<double*>, double*>(std::move_iterator<double*>, std::move_iterator<double*>, double*) [63]
+-----------------------------------------------
+                0.00    0.00      15/15          void std::vector<double, std::allocator<double> >::emplace_back<double>(double&&) [23]
+[56]     0.0    0.00    0.00      15         void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double>(double&&) [56]
+                0.00    0.00      30/30          std::_Vector_base<double, std::allocator<double> >::_M_get_Tp_allocator() [43]
+                0.00    0.00      15/15          std::vector<double, std::allocator<double> >::_M_check_len(unsigned long, char const*) const [50]
+                0.00    0.00      15/15          std::_Vector_base<double, std::allocator<double> >::_M_allocate(unsigned long) [53]
+                0.00    0.00      15/40019       double&& std::forward<double>(std::remove_reference<double>::type&) [17]
+                0.00    0.00      15/75          std::vector<double, std::allocator<double> >::size() const [35]
+                0.00    0.00      15/10001       decltype (_S_construct({parm#1}, {parm#2}, (forward<double>)({parm#3}))) std::allocator_traits<std::allocator<double> >::construct<double, double>(std::allocator<double>&, double*, double&&) [22]
+                0.00    0.00      15/15          double* std::__uninitialized_move_if_noexcept_a<double*, double*, std::allocator<double> >(double*, double*, double*, std::allocator<double>&) [61]
+                0.00    0.00      15/15          void std::_Destroy<double*, double>(double*, double*, std::allocator<double>&) [65]
+                0.00    0.00      15/15          std::_Vector_base<double, std::allocator<double> >::_M_deallocate(double*, unsigned long) [54]
+-----------------------------------------------
+                0.00    0.00      15/15          double* std::__copy_move_a2<true, double*, double*>(double*, double*, double*) [58]
+[57]     0.0    0.00    0.00      15         double* std::__copy_move_a<true, double*, double*>(double*, double*, double*) [57]
+                0.00    0.00      15/15          double* std::__copy_move<true, true, std::random_access_iterator_tag>::__copy_m<double>(double const*, double const*, double*) [51]
+-----------------------------------------------
+                0.00    0.00      15/15          double* std::copy<std::move_iterator<double*>, double*>(std::move_iterator<double*>, std::move_iterator<double*>, double*) [63]
+[58]     0.0    0.00    0.00      15         double* std::__copy_move_a2<true, double*, double*>(double*, double*, double*) [58]
+                0.00    0.00      45/57          std::_Niter_base<double*>::iterator_type std::__niter_base<double*>(double*) [37]
+                0.00    0.00      15/15          double* std::__copy_move_a<true, double*, double*>(double*, double*, double*) [57]
+-----------------------------------------------
+                0.00    0.00      15/15          double* std::__uninitialized_copy_a<std::move_iterator<double*>, double*, double>(std::move_iterator<double*>, std::move_iterator<double*>, double*, std::allocator<double>&) [60]
+[59]     0.0    0.00    0.00      15         double* std::uninitialized_copy<std::move_iterator<double*>, double*>(std::move_iterator<double*>, std::move_iterator<double*>, double*) [59]
+                0.00    0.00      15/15          double* std::__uninitialized_copy<true>::__uninit_copy<std::move_iterator<double*>, double*>(std::move_iterator<double*>, std::move_iterator<double*>, double*) [55]
+-----------------------------------------------
+                0.00    0.00      15/15          double* std::__uninitialized_move_if_noexcept_a<double*, double*, std::allocator<double> >(double*, double*, double*, std::allocator<double>&) [61]
+[60]     0.0    0.00    0.00      15         double* std::__uninitialized_copy_a<std::move_iterator<double*>, double*, double>(std::move_iterator<double*>, std::move_iterator<double*>, double*, std::allocator<double>&) [60]
+                0.00    0.00      15/15          double* std::uninitialized_copy<std::move_iterator<double*>, double*>(std::move_iterator<double*>, std::move_iterator<double*>, double*) [59]
+-----------------------------------------------
+                0.00    0.00      15/15          void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double>(double&&) [56]
+[61]     0.0    0.00    0.00      15         double* std::__uninitialized_move_if_noexcept_a<double*, double*, std::allocator<double> >(double*, double*, double*, std::allocator<double>&) [61]
+                0.00    0.00      30/30          std::move_iterator<double*> std::__make_move_if_noexcept_iterator<double*, std::move_iterator<double*> >(double*) [48]
+                0.00    0.00      15/15          double* std::__uninitialized_copy_a<std::move_iterator<double*>, double*, double>(std::move_iterator<double*>, std::move_iterator<double*>, double*, std::allocator<double>&) [60]
+-----------------------------------------------
+                0.00    0.00      15/15          std::vector<double, std::allocator<double> >::_M_check_len(unsigned long, char const*) const [50]
+[62]     0.0    0.00    0.00      15         unsigned long const& std::max<unsigned long>(unsigned long const&, unsigned long const&) [62]
+-----------------------------------------------
+                0.00    0.00      15/15          double* std::__uninitialized_copy<true>::__uninit_copy<std::move_iterator<double*>, double*>(std::move_iterator<double*>, std::move_iterator<double*>, double*) [55]
+[63]     0.0    0.00    0.00      15         double* std::copy<std::move_iterator<double*>, double*>(std::move_iterator<double*>, std::move_iterator<double*>, double*) [63]
+                0.00    0.00      30/30          std::_Miter_base<std::move_iterator<double*> >::iterator_type std::__miter_base<std::move_iterator<double*> >(std::move_iterator<double*>) [47]
+                0.00    0.00      15/15          double* std::__copy_move_a2<true, double*, double*>(double*, double*, double*) [58]
+-----------------------------------------------
+                0.00    0.00      15/15          void std::_Destroy<double*, double>(double*, double*, std::allocator<double>&) [65]
+[64]     0.0    0.00    0.00      15         void std::_Destroy<double*>(double*, double*) [64]
+                0.00    0.00      15/15          void std::_Destroy_aux<true>::__destroy<double*>(double*, double*) [52]
+-----------------------------------------------
+                0.00    0.00      15/15          void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double>(double&&) [56]
+[65]     0.0    0.00    0.00      15         void std::_Destroy<double*, double>(double*, double*, std::allocator<double>&) [65]
+                0.00    0.00      15/15          void std::_Destroy<double*>(double*, double*) [64]
+-----------------------------------------------
+                0.00    0.00      14/14          std::_Vector_base<double, std::allocator<double> >::_M_deallocate(double*, unsigned long) [54]
+[66]     0.0    0.00    0.00      14         __gnu_cxx::new_allocator<double>::deallocate(double*, unsigned long) [66]
+-----------------------------------------------
+                0.00    0.00       4/4           double* std::copy<double*, double*>(double*, double*, double*) [75]
+[67]     0.0    0.00    0.00       4         std::_Miter_base<double*>::iterator_type std::__miter_base<double*>(double*) [67]
+                0.00    0.00       4/61          std::_Iter_base<double*, false>::_S_base(double*) [36]
+-----------------------------------------------
+                0.00    0.00       3/3           main <cycle 1> [1]
+[68]     0.0    0.00    0.00       3         GETENV(char const*) [68]
+-----------------------------------------------
+                0.00    0.00       3/3           double* std::fill_n<double*, int, double>(double*, int, double const&) [70]
+[69]     0.0    0.00    0.00       3         __gnu_cxx::__enable_if<std::__is_scalar<double>::__value, double*>::__type std::__fill_n_a<double*, int, double>(double*, int, double const&) [69]
+-----------------------------------------------
+                0.00    0.00       3/3           main <cycle 1> [1]
+[70]     0.0    0.00    0.00       3         double* std::fill_n<double*, int, double>(double*, int, double const&) [70]
+                0.00    0.00       3/57          std::_Niter_base<double*>::iterator_type std::__niter_base<double*>(double*) [37]
+                0.00    0.00       3/3           __gnu_cxx::__enable_if<std::__is_scalar<double>::__value, double*>::__type std::__fill_n_a<double*, int, double>(double*, int, double const&) [69]
+-----------------------------------------------
+                0.00    0.00       2/2           double* std::__copy_move_a<false, double*, double*>(double*, double*, double*) [73]
+[71]     0.0    0.00    0.00       2         double* std::__copy_move<false, true, std::random_access_iterator_tag>::__copy_m<double>(double const*, double const*, double*) [71]
+-----------------------------------------------
+                0.00    0.00       2/2           double* std::fill_n<double*, int, int>(double*, int, int const&) [76]
+[72]     0.0    0.00    0.00       2         __gnu_cxx::__enable_if<std::__is_scalar<int>::__value, double*>::__type std::__fill_n_a<double*, int, int>(double*, int, int const&) [72]
+-----------------------------------------------
+                0.00    0.00       2/2           double* std::__copy_move_a2<false, double*, double*>(double*, double*, double*) [74]
+[73]     0.0    0.00    0.00       2         double* std::__copy_move_a<false, double*, double*>(double*, double*, double*) [73]
+                0.00    0.00       2/2           double* std::__copy_move<false, true, std::random_access_iterator_tag>::__copy_m<double>(double const*, double const*, double*) [71]
+-----------------------------------------------
+                0.00    0.00       2/2           double* std::copy<double*, double*>(double*, double*, double*) [75]
+[74]     0.0    0.00    0.00       2         double* std::__copy_move_a2<false, double*, double*>(double*, double*, double*) [74]
+                0.00    0.00       6/57          std::_Niter_base<double*>::iterator_type std::__niter_base<double*>(double*) [37]
+                0.00    0.00       2/2           double* std::__copy_move_a<false, double*, double*>(double*, double*, double*) [73]
+-----------------------------------------------
+                0.00    0.00       2/2           RfParameters::RfParameters(GeneralParameters*, Beams*, int, double*, double*, double*, double*, double*, int) [79]
+[75]     0.0    0.00    0.00       2         double* std::copy<double*, double*>(double*, double*, double*) [75]
+                0.00    0.00       4/4           std::_Miter_base<double*>::iterator_type std::__miter_base<double*>(double*) [67]
+                0.00    0.00       2/2           double* std::__copy_move_a2<false, double*, double*>(double*, double*, double*) [74]
+-----------------------------------------------
+                0.00    0.00       2/2           RfParameters::RfParameters(GeneralParameters*, Beams*, int, double*, double*, double*, double*, double*, int) [79]
+[76]     0.0    0.00    0.00       2         double* std::fill_n<double*, int, int>(double*, int, int const&) [76]
+                0.00    0.00       2/57          std::_Niter_base<double*>::iterator_type std::__niter_base<double*>(double*) [37]
+                0.00    0.00       2/2           __gnu_cxx::__enable_if<std::__is_scalar<int>::__value, double*>::__type std::__fill_n_a<double*, int, int>(double*, int, int const&) [72]
+-----------------------------------------------
+                0.00    0.00       1/1           main <cycle 1> [1]
+[77]     0.0    0.00    0.00       1         dump(double*, int, char const*) [77]
+-----------------------------------------------
+                0.00    0.00       1/1           main <cycle 1> [1]
+[78]     0.0    0.00    0.00       1         linspace(double*, double, double, int) [78]
+-----------------------------------------------
+                0.00    0.00       1/1           main <cycle 1> [1]
+[79]     0.0    0.00    0.00       1         RfParameters::RfParameters(GeneralParameters*, Beams*, int, double*, double*, double*, double*, double*, int) [79]
+                0.00    0.00   10001/20001       RfParameters::eta_0(int) [19]
+                0.00    0.00       2/2           double* std::copy<double*, double*>(double*, double*, double*) [75]
+                0.00    0.00       2/2           double* std::fill_n<double*, int, int>(double*, int, int const&) [76]
+-----------------------------------------------
+                0.00    0.00       1/1           main <cycle 1> [1]
+[80]     0.0    0.00    0.00       1         RingAndRfSection::RingAndRfSection(GeneralParameters*, RfParameters*, Beams*, solver_type, double*, double*, bool, double, bool, double*, double*, int) [80]
+-----------------------------------------------
+                0.00    0.00       1/1           GeneralParameters::GeneralParameters(int, double*, double*, int, double*, particle_type, double, double, particle_type, double, double, int) [84]
+[81]     0.0    0.00    0.00       1         GeneralParameters::eta_generation() [81]
+                0.00    0.00       1/1           GeneralParameters::_eta0() [82]
+                0.00    0.00       1/1           GeneralParameters::_eta1() [83]
+-----------------------------------------------
+                0.00    0.00       1/1           GeneralParameters::eta_generation() [81]
+[82]     0.0    0.00    0.00       1         GeneralParameters::_eta0() [82]
+-----------------------------------------------
+                0.00    0.00       1/1           GeneralParameters::eta_generation() [81]
+[83]     0.0    0.00    0.00       1         GeneralParameters::_eta1() [83]
+-----------------------------------------------
+                0.00    0.00       1/1           main <cycle 1> [1]
+[84]     0.0    0.00    0.00       1         GeneralParameters::GeneralParameters(int, double*, double*, int, double*, particle_type, double, double, particle_type, double, double, int) [84]
+                0.00    0.00   30003/40003       std::vector<double, std::allocator<double> >::operator[](unsigned long) [18]
+                0.00    0.00   10001/10001       std::vector<double, std::allocator<double> >::push_back(double&&) [24]
+                0.00    0.00       1/1           std::vector<double, std::allocator<double> >::vector() [90]
+                0.00    0.00       1/1           double std::accumulate<double*, double>(double*, double*, double) [92]
+                0.00    0.00       1/1           GeneralParameters::eta_generation() [81]
+-----------------------------------------------
+                0.00    0.00       1/1           main <cycle 1> [1]
+[85]     0.0    0.00    0.00       1         Beams::Beams(GeneralParameters*, int, int) [85]
+-----------------------------------------------
+                0.00    0.00       1/1           std::allocator<double>::allocator() [87]
+[86]     0.0    0.00    0.00       1         __gnu_cxx::new_allocator<double>::new_allocator() [86]
+-----------------------------------------------
+                0.00    0.00       1/1           std::_Vector_base<double, std::allocator<double> >::_Vector_impl::_Vector_impl() [88]
+[87]     0.0    0.00    0.00       1         std::allocator<double>::allocator() [87]
+                0.00    0.00       1/1           __gnu_cxx::new_allocator<double>::new_allocator() [86]
+-----------------------------------------------
+                0.00    0.00       1/1           std::_Vector_base<double, std::allocator<double> >::_Vector_base() [89]
+[88]     0.0    0.00    0.00       1         std::_Vector_base<double, std::allocator<double> >::_Vector_impl::_Vector_impl() [88]
+                0.00    0.00       1/1           std::allocator<double>::allocator() [87]
+-----------------------------------------------
+                0.00    0.00       1/1           std::vector<double, std::allocator<double> >::vector() [90]
+[89]     0.0    0.00    0.00       1         std::_Vector_base<double, std::allocator<double> >::_Vector_base() [89]
+                0.00    0.00       1/1           std::_Vector_base<double, std::allocator<double> >::_Vector_impl::_Vector_impl() [88]
+-----------------------------------------------
+                0.00    0.00       1/1           GeneralParameters::GeneralParameters(int, double*, double*, int, double*, particle_type, double, double, particle_type, double, double, int) [84]
+[90]     0.0    0.00    0.00       1         std::vector<double, std::allocator<double> >::vector() [90]
+                0.00    0.00       1/1           std::_Vector_base<double, std::allocator<double> >::_Vector_base() [89]
+-----------------------------------------------
+                0.00    0.00       1/1           double* std::fill_n<double*, int, long>(double*, int, long const&) [93]
+[91]     0.0    0.00    0.00       1         __gnu_cxx::__enable_if<std::__is_scalar<long>::__value, double*>::__type std::__fill_n_a<double*, int, long>(double*, int, long const&) [91]
+-----------------------------------------------
+                0.00    0.00       1/1           GeneralParameters::GeneralParameters(int, double*, double*, int, double*, particle_type, double, double, particle_type, double, double, int) [84]
+[92]     0.0    0.00    0.00       1         double std::accumulate<double*, double>(double*, double*, double) [92]
+-----------------------------------------------
+                0.00    0.00       1/1           main <cycle 1> [1]
+[93]     0.0    0.00    0.00       1         double* std::fill_n<double*, int, long>(double*, int, long const&) [93]
+                0.00    0.00       1/57          std::_Niter_base<double*>::iterator_type std::__niter_base<double*>(double*) [37]
+                0.00    0.00       1/1           __gnu_cxx::__enable_if<std::__is_scalar<long>::__value, double*>::__type std::__fill_n_a<double*, int, long>(double*, int, long const&) [91]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+
+Index by function name
+
+  [77] dump(double*, int, char const*) [20] void __gnu_cxx::new_allocator<double>::construct<double, double>(double*, double&&) [18] std::vector<double, std::allocator<double> >::operator[](unsigned long)
+  [78] linspace(double*, double, double, int) [86] __gnu_cxx::new_allocator<double>::new_allocator() [69] __gnu_cxx::__enable_if<std::__is_scalar<double>::__value, double*>::__type std::__fill_n_a<double*, int, double>(double*, int, double const&)
+  [68] GETENV(char const*) (utilities.h) [38] __gnu_cxx::new_allocator<double>::max_size() const [72] __gnu_cxx::__enable_if<std::__is_scalar<int>::__value, double*>::__type std::__fill_n_a<double*, int, int>(double*, int, int const&)
+  [27] RfParameters::beta(int) [39] std::_Vector_base<double, std::allocator<double> >::_M_get_Tp_allocator() const [91] __gnu_cxx::__enable_if<std::__is_scalar<long>::__value, double*>::__type std::__fill_n_a<double*, int, long>(double*, int, long const&)
+  [19] RfParameters::eta_0(int) [40] std::move_iterator<double*>::base() const [92] double std::accumulate<double*, double>(double*, double*, double)
+  [28] RfParameters::eta_1(int) [50] std::vector<double, std::allocator<double> >::_M_check_len(unsigned long, char const*) const [67] std::_Miter_base<double*>::iterator_type std::__miter_base<double*>(double*)
+  [29] RfParameters::eta_2(int) [35] std::vector<double, std::allocator<double> >::size() const [47] std::_Miter_base<std::move_iterator<double*> >::iterator_type std::__miter_base<std::move_iterator<double*> >(std::move_iterator<double*>)
+   [9] RfParameters::energy(int) [41] std::vector<double, std::allocator<double> >::max_size() const [37] std::_Niter_base<double*>::iterator_type std::__niter_base<double*>(double*)
+  [79] RfParameters::RfParameters(GeneralParameters*, Beams*, int, double*, double*, double*, double*, double*, int) [87] std::allocator<double>::allocator() [73] double* std::__copy_move_a<false, double*, double*>(double*, double*, double*)
+  [30] RingAndRfSection::kick(double const*, double*, int, double const*, double const*, double const*, int, double) [36] std::_Iter_base<double*, false>::_S_base(double*) [57] double* std::__copy_move_a<true, double*, double*>(double*, double*, double*)
+  [31] RingAndRfSection::kick(int) [42] std::_Iter_base<std::move_iterator<double*>, true>::_S_base(std::move_iterator<double*>) [74] double* std::__copy_move_a2<false, double*, double*>(double*, double*, double*)
+  [32] RingAndRfSection::drift(double*, double const*, solver_type, double, double, int, double, double, double, double, double, int) [71] double* std::__copy_move<false, true, std::random_access_iterator_tag>::__copy_m<double>(double const*, double const*, double*) [58] double* std::__copy_move_a2<true, double*, double*>(double*, double*, double*)
+  [10] RingAndRfSection::drift(int) [51] double* std::__copy_move<true, true, std::random_access_iterator_tag>::__copy_m<double>(double const*, double const*, double*) [59] double* std::uninitialized_copy<std::move_iterator<double*>, double*>(std::move_iterator<double*>, std::move_iterator<double*>, double*)
+  [33] RingAndRfSection::track() [52] void std::_Destroy_aux<true>::__destroy<double*>(double*, double*) [60] double* std::__uninitialized_copy_a<std::move_iterator<double*>, double*, double>(std::move_iterator<double*>, std::move_iterator<double*>, double*, std::allocator<double>&)
+  [80] RingAndRfSection::RingAndRfSection(GeneralParameters*, RfParameters*, Beams*, solver_type, double*, double*, bool, double, bool, double*, double*, int) [53] std::_Vector_base<double, std::allocator<double> >::_M_allocate(unsigned long) [48] std::move_iterator<double*> std::__make_move_if_noexcept_iterator<double*, std::move_iterator<double*> >(double*)
+  [81] GeneralParameters::eta_generation() [88] std::_Vector_base<double, std::allocator<double> >::_Vector_impl::_Vector_impl() [61] double* std::__uninitialized_move_if_noexcept_a<double*, double*, std::allocator<double> >(double*, double*, double*, std::allocator<double>&)
+  [82] GeneralParameters::_eta0() [54] std::_Vector_base<double, std::allocator<double> >::_M_deallocate(double*, unsigned long) [62] unsigned long const& std::max<unsigned long>(unsigned long const&, unsigned long const&)
+  [83] GeneralParameters::_eta1() [43] std::_Vector_base<double, std::allocator<double> >::_M_get_Tp_allocator() [75] double* std::copy<double*, double*>(double*, double*, double*)
+  [84] GeneralParameters::GeneralParameters(int, double*, double*, int, double*, particle_type, double, double, particle_type, double, double, int) [89] std::_Vector_base<double, std::allocator<double> >::_Vector_base() [63] double* std::copy<std::move_iterator<double*>, double*>(std::move_iterator<double*>, std::move_iterator<double*>, double*)
+   [4] vdt::fast_sincos(double, double&, double&) [44] std::move_iterator<double*>::move_iterator(double*) [25] std::remove_reference<double&>::type&& std::move<double&>(double&&&)
+   [8] vdt::details::get_cos_px(double) [45] std::enable_if<std::allocator_traits<std::allocator<double> >::__maxsize_helper<std::allocator<double> const>::value, unsigned long>::type std::allocator_traits<std::allocator<double> >::_S_max_size<std::allocator<double> const>(std::allocator<double> const&) [70] double* std::fill_n<double*, int, double>(double*, int, double const&)
+   [6] vdt::details::get_sin_px(double) [21] _ZNSt16allocator_traitsISaIdEE12_S_constructIdJdEEENSt9enable_ifIXsrNS1_18__construct_helperIT_JDpT0_EEE5valueEvE4typeERS0_PS5_DpOS6_ [76] double* std::fill_n<double*, int, int>(double*, int, int const&)
+   [7] vdt::details::reduce2quadrant(double, int&) [46] std::allocator_traits<std::allocator<double> >::max_size(std::allocator<double> const&) [93] double* std::fill_n<double*, int, long>(double*, int, long const&)
+   [5] vdt::details::fast_sincos_m45_45(double, double&, double&) [22] decltype (_S_construct({parm#1}, {parm#2}, (forward<double>)({parm#3}))) std::allocator_traits<std::allocator<double> >::construct<double, double>(std::allocator<double>&, double*, double&&) [17] double&& std::forward<double>(std::remove_reference<double>::type&)
+   [3] vdt::fast_sin(double)  [55] double* std::__uninitialized_copy<true>::__uninit_copy<std::move_iterator<double*>, double*>(std::move_iterator<double*>, std::move_iterator<double*>, double*) [64] void std::_Destroy<double*>(double*, double*)
+  [34] Beams::losses_longitudinal_cut(double const*, double, double, int*) [23] void std::vector<double, std::allocator<double> >::emplace_back<double>(double&&) [65] void std::_Destroy<double*, double>(double*, double*, std::allocator<double>&)
+  [85] Beams::Beams(GeneralParameters*, int, int) [56] void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double>(double&&) [26] operator new(unsigned long, void*)
+  [66] __gnu_cxx::new_allocator<double>::deallocate(double*, unsigned long) [24] std::vector<double, std::allocator<double> >::push_back(double&&) [1] main
+  [49] __gnu_cxx::new_allocator<double>::allocate(unsigned long, void const*) [90] std::vector<double, std::allocator<double> >::vector() (2) <cycle 1>

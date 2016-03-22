@@ -1,0 +1,284 @@
+==27802== Memcheck, a memory error detector
+==27802== Copyright (C) 2002-2012, and GNU GPL'd, by Julian Seward et al.
+==27802== Using Valgrind-3.8.1 and LibVEX; rerun with -h for copyright info
+==27802== Command: ./BLonD-minimal-cpp
+==27802== 
+==27802== Invalid write of size 8
+==27802==    at 0x402F7B: RfParameters::calc_phi_s(accelerating_systems_type) (RfParameters.h:279)
+==27802==    by 0x402736: RfParameters::RfParameters(GeneralParameters*, Beams*, int, double*, double*, double*, double*, double*, int, accelerating_systems_type) (RfParameters.h:118)
+==27802==    by 0x403E35: main (TC1_Acceleration.cpp:101)
+==27802==  Address 0x5429d60 is 0 bytes after a block of size 40,000 alloc'd
+==27802==    at 0x4A07192: operator new[](unsigned long) (vg_replace_malloc.c:363)
+==27802==    by 0x40271D: RfParameters::RfParameters(GeneralParameters*, Beams*, int, double*, double*, double*, double*, double*, int, accelerating_systems_type) (RfParameters.h:117)
+==27802==    by 0x403E35: main (TC1_Acceleration.cpp:101)
+==27802== 
+==27802== Invalid read of size 8
+==27802==    at 0x4030E1: RfParameters::calc_phi_s(accelerating_systems_type) (RfParameters.h:291)
+==27802==    by 0x402736: RfParameters::RfParameters(GeneralParameters*, Beams*, int, double*, double*, double*, double*, double*, int, accelerating_systems_type) (RfParameters.h:118)
+==27802==    by 0x403E35: main (TC1_Acceleration.cpp:101)
+==27802==  Address 0x5429d60 is 0 bytes after a block of size 40,000 alloc'd
+==27802==    at 0x4A07192: operator new[](unsigned long) (vg_replace_malloc.c:363)
+==27802==    by 0x40271D: RfParameters::RfParameters(GeneralParameters*, Beams*, int, double*, double*, double*, double*, double*, int, accelerating_systems_type) (RfParameters.h:117)
+==27802==    by 0x403E35: main (TC1_Acceleration.cpp:101)
+==27802== 
+==27802== Invalid write of size 8
+==27802==    at 0x4030F1: RfParameters::calc_phi_s(accelerating_systems_type) (RfParameters.h:291)
+==27802==    by 0x402736: RfParameters::RfParameters(GeneralParameters*, Beams*, int, double*, double*, double*, double*, double*, int, accelerating_systems_type) (RfParameters.h:118)
+==27802==    by 0x403E35: main (TC1_Acceleration.cpp:101)
+==27802==  Address 0x5429d60 is 0 bytes after a block of size 40,000 alloc'd
+==27802==    at 0x4A07192: operator new[](unsigned long) (vg_replace_malloc.c:363)
+==27802==    by 0x40271D: RfParameters::RfParameters(GeneralParameters*, Beams*, int, double*, double*, double*, double*, double*, int, accelerating_systems_type) (RfParameters.h:117)
+==27802==    by 0x403E35: main (TC1_Acceleration.cpp:101)
+==27802== 
+==27802== Invalid read of size 8
+==27802==    at 0x40280C: RfParameters::RfParameters(GeneralParameters*, Beams*, int, double*, double*, double*, double*, double*, int, accelerating_systems_type) (RfParameters.h:125)
+==27802==    by 0x403E35: main (TC1_Acceleration.cpp:101)
+==27802==  Address 0x5429d60 is 0 bytes after a block of size 40,000 alloc'd
+==27802==    at 0x4A07192: operator new[](unsigned long) (vg_replace_malloc.c:363)
+==27802==    by 0x40271D: RfParameters::RfParameters(GeneralParameters*, Beams*, int, double*, double*, double*, double*, double*, int, accelerating_systems_type) (RfParameters.h:117)
+==27802==    by 0x403E35: main (TC1_Acceleration.cpp:101)
+==27802== 
+==27802== Thread 2:
+==27802== Invalid read of size 8
+==27802==    at 0x405DC9: RingAndRfSection::kick(int, int, int) (Tracker.h:397)
+==27802==    by 0x405B63: RingAndRfSection::track(int, int) (Tracker.h:298)
+==27802==    by 0x4040C9: main._omp_fn.1 (TC1_Acceleration.cpp:131)
+==27802==    by 0x4F3F359: ??? (in /afs/cern.ch/sw/lcg/contrib/gcc/4.8.1/x86_64-slc6-gcc48-opt/lib64/libgomp.so.1.0.0)
+==27802==    by 0x3D98007AA0: start_thread (in /lib64/libpthread-2.12.so)
+==27802==    by 0x3D97CE893C: clone (in /lib64/libc-2.12.so)
+==27802==  Address 0x54820c0 is 0 bytes after a block of size 40,000 alloc'd
+==27802==    at 0x4A07192: operator new[](unsigned long) (vg_replace_malloc.c:363)
+==27802==    by 0x4038BF: RingAndRfSection::RingAndRfSection(GeneralParameters*, RfParameters*, Beams*, solver_type, double*, double*, bool, double, bool, double*, double*, int) (Tracker.h:349)
+==27802==    by 0x403E9F: main (TC1_Acceleration.cpp:105)
+==27802== 
+==27802== Invalid read of size 8
+==27802==    at 0x4048D1: RfParameters::energy(int) (RfParameters.h:229)
+==27802==    by 0x406165: RingAndRfSection::drift(int, int, int) (Tracker.h:422)
+==27802==    by 0x405B83: RingAndRfSection::track(int, int) (Tracker.h:300)
+==27802==    by 0x4040C9: main._omp_fn.1 (TC1_Acceleration.cpp:131)
+==27802==    by 0x4F3F359: ??? (in /afs/cern.ch/sw/lcg/contrib/gcc/4.8.1/x86_64-slc6-gcc48-opt/lib64/libgomp.so.1.0.0)
+==27802==    by 0x3D98007AA0: start_thread (in /lib64/libpthread-2.12.so)
+==27802==    by 0x3D97CE893C: clone (in /lib64/libc-2.12.so)
+==27802==  Address 0x53b15d8 is 0 bytes after a block of size 40,008 alloc'd
+==27802==    at 0x4A07192: operator new[](unsigned long) (vg_replace_malloc.c:363)
+==27802==    by 0x401DB0: GeneralParameters::GeneralParameters(int, double*, double*, int, double*, particle_type, double, double, particle_type, double, double, int) (GeneralParameters.h:175)
+==27802==    by 0x403DA9: main (TC1_Acceleration.cpp:91)
+==27802== 
+==27802== Invalid read of size 8
+==27802==    at 0x404879: RfParameters::beta(int) (RfParameters.h:220)
+==27802==    by 0x406183: RingAndRfSection::drift(int, int, int) (Tracker.h:422)
+==27802==    by 0x405B83: RingAndRfSection::track(int, int) (Tracker.h:300)
+==27802==    by 0x4040C9: main._omp_fn.1 (TC1_Acceleration.cpp:131)
+==27802==    by 0x4F3F359: ??? (in /afs/cern.ch/sw/lcg/contrib/gcc/4.8.1/x86_64-slc6-gcc48-opt/lib64/libgomp.so.1.0.0)
+==27802==    by 0x3D98007AA0: start_thread (in /lib64/libpthread-2.12.so)
+==27802==    by 0x3D97CE893C: clone (in /lib64/libc-2.12.so)
+==27802==  Address 0x53a7948 is 0 bytes after a block of size 40,008 alloc'd
+==27802==    at 0x4A07192: operator new[](unsigned long) (vg_replace_malloc.c:363)
+==27802==    by 0x401D6F: GeneralParameters::GeneralParameters(int, double*, double*, int, double*, particle_type, double, double, particle_type, double, double, int) (GeneralParameters.h:174)
+==27802==    by 0x403DA9: main (TC1_Acceleration.cpp:91)
+==27802== 
+==27802== Invalid read of size 8
+==27802==    at 0x404822: RfParameters::eta_2(int) (RfParameters.h:216)
+==27802==    by 0x4061A1: RingAndRfSection::drift(int, int, int) (Tracker.h:422)
+==27802==    by 0x405B83: RingAndRfSection::track(int, int) (Tracker.h:300)
+==27802==    by 0x4040C9: main._omp_fn.1 (TC1_Acceleration.cpp:131)
+==27802==    by 0x4F3F359: ??? (in /afs/cern.ch/sw/lcg/contrib/gcc/4.8.1/x86_64-slc6-gcc48-opt/lib64/libgomp.so.1.0.0)
+==27802==    by 0x3D98007AA0: start_thread (in /lib64/libpthread-2.12.so)
+==27802==    by 0x3D97CE893C: clone (in /lib64/libc-2.12.so)
+==27802==  Address 0x5416148 is 0 bytes after a block of size 40,008 alloc'd
+==27802==    at 0x4A07192: operator new[](unsigned long) (vg_replace_malloc.c:363)
+==27802==    by 0x40239C: GeneralParameters::GeneralParameters(int, double*, double*, int, double*, particle_type, double, double, particle_type, double, double, int) (GeneralParameters.h:215)
+==27802==    by 0x403DA9: main (TC1_Acceleration.cpp:91)
+==27802== 
+==27802== Invalid read of size 8
+==27802==    at 0x4047C8: RfParameters::eta_1(int) (RfParameters.h:212)
+==27802==    by 0x4061BF: RingAndRfSection::drift(int, int, int) (Tracker.h:422)
+==27802==    by 0x405B83: RingAndRfSection::track(int, int) (Tracker.h:300)
+==27802==    by 0x4040C9: main._omp_fn.1 (TC1_Acceleration.cpp:131)
+==27802==    by 0x4F3F359: ??? (in /afs/cern.ch/sw/lcg/contrib/gcc/4.8.1/x86_64-slc6-gcc48-opt/lib64/libgomp.so.1.0.0)
+==27802==    by 0x3D98007AA0: start_thread (in /lib64/libpthread-2.12.so)
+==27802==    by 0x3D97CE893C: clone (in /lib64/libc-2.12.so)
+==27802==  Address 0x540c4b8 is 0 bytes after a block of size 40,008 alloc'd
+==27802==    at 0x4A07192: operator new[](unsigned long) (vg_replace_malloc.c:363)
+==27802==    by 0x402358: GeneralParameters::GeneralParameters(int, double*, double*, int, double*, particle_type, double, double, particle_type, double, double, int) (GeneralParameters.h:214)
+==27802==    by 0x403DA9: main (TC1_Acceleration.cpp:91)
+==27802== 
+==27802== Invalid read of size 8
+==27802==    at 0x40476E: RfParameters::eta_0(int) (RfParameters.h:208)
+==27802==    by 0x4061DD: RingAndRfSection::drift(int, int, int) (Tracker.h:422)
+==27802==    by 0x405B83: RingAndRfSection::track(int, int) (Tracker.h:300)
+==27802==    by 0x4040C9: main._omp_fn.1 (TC1_Acceleration.cpp:131)
+==27802==    by 0x4F3F359: ??? (in /afs/cern.ch/sw/lcg/contrib/gcc/4.8.1/x86_64-slc6-gcc48-opt/lib64/libgomp.so.1.0.0)
+==27802==    by 0x3D98007AA0: start_thread (in /lib64/libpthread-2.12.so)
+==27802==    by 0x3D97CE893C: clone (in /lib64/libc-2.12.so)
+==27802==  Address 0x5402828 is 0 bytes after a block of size 40,008 alloc'd
+==27802==    at 0x4A07192: operator new[](unsigned long) (vg_replace_malloc.c:363)
+==27802==    by 0x402314: GeneralParameters::GeneralParameters(int, double*, double*, int, double*, particle_type, double, double, particle_type, double, double, int) (GeneralParameters.h:213)
+==27802==    by 0x403DA9: main (TC1_Acceleration.cpp:91)
+==27802== 
+==27802== Invalid read of size 8
+==27802==    at 0x404C9B: RingAndRfSection::kick(double const*, double*, int, double const*, double const*, double const*, int, double, int, int) (Tracker.h:105)
+==27802==    by 0x405E7A: RingAndRfSection::kick(int, int, int) (Tracker.h:397)
+==27802==    by 0x405B63: RingAndRfSection::track(int, int) (Tracker.h:298)
+==27802==    by 0x4040C9: main._omp_fn.1 (TC1_Acceleration.cpp:131)
+==27802==    by 0x4F3F359: ??? (in /afs/cern.ch/sw/lcg/contrib/gcc/4.8.1/x86_64-slc6-gcc48-opt/lib64/libgomp.so.1.0.0)
+==27802==    by 0x3D98007AA0: start_thread (in /lib64/libpthread-2.12.so)
+==27802==    by 0x3D97CE893C: clone (in /lib64/libc-2.12.so)
+==27802==  Address 0x538a288 is 0 bytes after a block of size 40,008 alloc'd
+==27802==    at 0x4A07192: operator new[](unsigned long) (vg_replace_malloc.c:363)
+==27802==    by 0x403CE1: main (TC1_Acceleration.cpp:79)
+==27802== 
+==27802== Invalid read of size 8
+==27802==    at 0x404CB8: RingAndRfSection::kick(double const*, double*, int, double const*, double const*, double const*, int, double, int, int) (Tracker.h:105)
+==27802==    by 0x405E7A: RingAndRfSection::kick(int, int, int) (Tracker.h:397)
+==27802==    by 0x405B63: RingAndRfSection::track(int, int) (Tracker.h:298)
+==27802==    by 0x4040C9: main._omp_fn.1 (TC1_Acceleration.cpp:131)
+==27802==    by 0x4F3F359: ??? (in /afs/cern.ch/sw/lcg/contrib/gcc/4.8.1/x86_64-slc6-gcc48-opt/lib64/libgomp.so.1.0.0)
+==27802==    by 0x3D98007AA0: start_thread (in /lib64/libpthread-2.12.so)
+==27802==    by 0x3D97CE893C: clone (in /lib64/libc-2.12.so)
+==27802==  Address 0x54648b8 is 0 bytes after a block of size 40,008 alloc'd
+==27802==    at 0x4A07192: operator new[](unsigned long) (vg_replace_malloc.c:363)
+==27802==    by 0x402ABC: RfParameters::RfParameters(GeneralParameters*, Beams*, int, double*, double*, double*, double*, double*, int, accelerating_systems_type) (RfParameters.h:160)
+==27802==    by 0x403E35: main (TC1_Acceleration.cpp:101)
+==27802== 
+==27802== Invalid read of size 8
+==27802==    at 0x404CEC: RingAndRfSection::kick(double const*, double*, int, double const*, double const*, double const*, int, double, int, int) (Tracker.h:105)
+==27802==    by 0x405E7A: RingAndRfSection::kick(int, int, int) (Tracker.h:397)
+==27802==    by 0x405B63: RingAndRfSection::track(int, int) (Tracker.h:298)
+==27802==    by 0x4040C9: main._omp_fn.1 (TC1_Acceleration.cpp:131)
+==27802==    by 0x4F3F359: ??? (in /afs/cern.ch/sw/lcg/contrib/gcc/4.8.1/x86_64-slc6-gcc48-opt/lib64/libgomp.so.1.0.0)
+==27802==    by 0x3D98007AA0: start_thread (in /lib64/libpthread-2.12.so)
+==27802==    by 0x3D97CE893C: clone (in /lib64/libc-2.12.so)
+==27802==  Address 0x546e548 is 0 bytes after a block of size 40,008 alloc'd
+==27802==    at 0x4A07192: operator new[](unsigned long) (vg_replace_malloc.c:363)
+==27802==    by 0x402B54: RfParameters::RfParameters(GeneralParameters*, Beams*, int, double*, double*, double*, double*, double*, int, accelerating_systems_type) (RfParameters.h:167)
+==27802==    by 0x403E35: main (TC1_Acceleration.cpp:101)
+==27802== 
+==27802== Conditional jump or move depends on uninitialised value(s)
+==27802==    at 0x404623: vdt::fast_sincos(double, double&, double&) (sincos.h:126)
+==27802==    by 0x404712: vdt::fast_sin(double) (sin.h:20)
+==27802==    by 0x404CF8: RingAndRfSection::kick(double const*, double*, int, double const*, double const*, double const*, int, double, int, int) (Tracker.h:105)
+==27802==    by 0x405E7A: RingAndRfSection::kick(int, int, int) (Tracker.h:397)
+==27802==    by 0x405B63: RingAndRfSection::track(int, int) (Tracker.h:298)
+==27802==    by 0x4040C9: main._omp_fn.1 (TC1_Acceleration.cpp:131)
+==27802==    by 0x4F3F359: ??? (in /afs/cern.ch/sw/lcg/contrib/gcc/4.8.1/x86_64-slc6-gcc48-opt/lib64/libgomp.so.1.0.0)
+==27802==    by 0x3D98007AA0: start_thread (in /lib64/libpthread-2.12.so)
+==27802==    by 0x3D97CE893C: clone (in /lib64/libc-2.12.so)
+==27802== 
+==27802== Conditional jump or move depends on uninitialised value(s)
+==27802==    at 0x40462E: vdt::fast_sincos(double, double&, double&) (sincos.h:126)
+==27802==    by 0x404712: vdt::fast_sin(double) (sin.h:20)
+==27802==    by 0x404CF8: RingAndRfSection::kick(double const*, double*, int, double const*, double const*, double const*, int, double, int, int) (Tracker.h:105)
+==27802==    by 0x405E7A: RingAndRfSection::kick(int, int, int) (Tracker.h:397)
+==27802==    by 0x405B63: RingAndRfSection::track(int, int) (Tracker.h:298)
+==27802==    by 0x4040C9: main._omp_fn.1 (TC1_Acceleration.cpp:131)
+==27802==    by 0x4F3F359: ??? (in /afs/cern.ch/sw/lcg/contrib/gcc/4.8.1/x86_64-slc6-gcc48-opt/lib64/libgomp.so.1.0.0)
+==27802==    by 0x3D98007AA0: start_thread (in /lib64/libpthread-2.12.so)
+==27802==    by 0x3D97CE893C: clone (in /lib64/libc-2.12.so)
+==27802== 
+==27802== Conditional jump or move depends on uninitialised value(s)
+==27802==    at 0x40465D: vdt::fast_sincos(double, double&, double&) (sincos.h:132)
+==27802==    by 0x404712: vdt::fast_sin(double) (sin.h:20)
+==27802==    by 0x404CF8: RingAndRfSection::kick(double const*, double*, int, double const*, double const*, double const*, int, double, int, int) (Tracker.h:105)
+==27802==    by 0x405E7A: RingAndRfSection::kick(int, int, int) (Tracker.h:397)
+==27802==    by 0x405B63: RingAndRfSection::track(int, int) (Tracker.h:298)
+==27802==    by 0x4040C9: main._omp_fn.1 (TC1_Acceleration.cpp:131)
+==27802==    by 0x4F3F359: ??? (in /afs/cern.ch/sw/lcg/contrib/gcc/4.8.1/x86_64-slc6-gcc48-opt/lib64/libgomp.so.1.0.0)
+==27802==    by 0x3D98007AA0: start_thread (in /lib64/libpthread-2.12.so)
+==27802==    by 0x3D97CE893C: clone (in /lib64/libc-2.12.so)
+==27802== 
+==27802== Conditional jump or move depends on uninitialised value(s)
+==27802==    at 0x404668: vdt::fast_sincos(double, double&, double&) (sincos.h:132)
+==27802==    by 0x404712: vdt::fast_sin(double) (sin.h:20)
+==27802==    by 0x404CF8: RingAndRfSection::kick(double const*, double*, int, double const*, double const*, double const*, int, double, int, int) (Tracker.h:105)
+==27802==    by 0x405E7A: RingAndRfSection::kick(int, int, int) (Tracker.h:397)
+==27802==    by 0x405B63: RingAndRfSection::track(int, int) (Tracker.h:298)
+==27802==    by 0x4040C9: main._omp_fn.1 (TC1_Acceleration.cpp:131)
+==27802==    by 0x4F3F359: ??? (in /afs/cern.ch/sw/lcg/contrib/gcc/4.8.1/x86_64-slc6-gcc48-opt/lib64/libgomp.so.1.0.0)
+==27802==    by 0x3D98007AA0: start_thread (in /lib64/libpthread-2.12.so)
+==27802==    by 0x3D97CE893C: clone (in /lib64/libc-2.12.so)
+==27802== 
+==27802== Conditional jump or move depends on uninitialised value(s)
+==27802==    at 0x40468F: vdt::fast_sincos(double, double&, double&) (sincos.h:134)
+==27802==    by 0x404712: vdt::fast_sin(double) (sin.h:20)
+==27802==    by 0x404CF8: RingAndRfSection::kick(double const*, double*, int, double const*, double const*, double const*, int, double, int, int) (Tracker.h:105)
+==27802==    by 0x405E7A: RingAndRfSection::kick(int, int, int) (Tracker.h:397)
+==27802==    by 0x405B63: RingAndRfSection::track(int, int) (Tracker.h:298)
+==27802==    by 0x4040C9: main._omp_fn.1 (TC1_Acceleration.cpp:131)
+==27802==    by 0x4F3F359: ??? (in /afs/cern.ch/sw/lcg/contrib/gcc/4.8.1/x86_64-slc6-gcc48-opt/lib64/libgomp.so.1.0.0)
+==27802==    by 0x3D98007AA0: start_thread (in /lib64/libpthread-2.12.so)
+==27802==    by 0x3D97CE893C: clone (in /lib64/libc-2.12.so)
+==27802== 
+==27802== Conditional jump or move depends on uninitialised value(s)
+==27802==    at 0x40469A: vdt::fast_sincos(double, double&, double&) (sincos.h:134)
+==27802==    by 0x404712: vdt::fast_sin(double) (sin.h:20)
+==27802==    by 0x404CF8: RingAndRfSection::kick(double const*, double*, int, double const*, double const*, double const*, int, double, int, int) (Tracker.h:105)
+==27802==    by 0x405E7A: RingAndRfSection::kick(int, int, int) (Tracker.h:397)
+==27802==    by 0x405B63: RingAndRfSection::track(int, int) (Tracker.h:298)
+==27802==    by 0x4040C9: main._omp_fn.1 (TC1_Acceleration.cpp:131)
+==27802==    by 0x4F3F359: ??? (in /afs/cern.ch/sw/lcg/contrib/gcc/4.8.1/x86_64-slc6-gcc48-opt/lib64/libgomp.so.1.0.0)
+==27802==    by 0x3D98007AA0: start_thread (in /lib64/libpthread-2.12.so)
+==27802==    by 0x3D97CE893C: clone (in /lib64/libc-2.12.so)
+==27802== 
+==27802== Conditional jump or move depends on uninitialised value(s)
+==27802==    at 0x4046C1: vdt::fast_sincos(double, double&, double&) (sincos.h:136)
+==27802==    by 0x404712: vdt::fast_sin(double) (sin.h:20)
+==27802==    by 0x404CF8: RingAndRfSection::kick(double const*, double*, int, double const*, double const*, double const*, int, double, int, int) (Tracker.h:105)
+==27802==    by 0x405E7A: RingAndRfSection::kick(int, int, int) (Tracker.h:397)
+==27802==    by 0x405B63: RingAndRfSection::track(int, int) (Tracker.h:298)
+==27802==    by 0x4040C9: main._omp_fn.1 (TC1_Acceleration.cpp:131)
+==27802==    by 0x4F3F359: ??? (in /afs/cern.ch/sw/lcg/contrib/gcc/4.8.1/x86_64-slc6-gcc48-opt/lib64/libgomp.so.1.0.0)
+==27802==    by 0x3D98007AA0: start_thread (in /lib64/libpthread-2.12.so)
+==27802==    by 0x3D97CE893C: clone (in /lib64/libc-2.12.so)
+==27802== 
+==27802== Thread 1:
+==27802== Invalid read of size 8
+==27802==    at 0x405DC9: RingAndRfSection::kick(int, int, int) (Tracker.h:397)
+==27802==    by 0x405B63: RingAndRfSection::track(int, int) (Tracker.h:298)
+==27802==    by 0x4040C9: main._omp_fn.1 (TC1_Acceleration.cpp:131)
+==27802==    by 0x403F06: main (TC1_Acceleration.cpp:118)
+==27802==  Address 0x5483208 is not stack'd, malloc'd or (recently) free'd
+==27802== 
+==27802== Invalid read of size 8
+==27802==    at 0x406229: RingAndRfSection::drift(int, int, int) (Tracker.h:422)
+==27802==    by 0x405B83: RingAndRfSection::track(int, int) (Tracker.h:300)
+==27802==    by 0x4040C9: main._omp_fn.1 (TC1_Acceleration.cpp:131)
+==27802==    by 0x403F06: main (TC1_Acceleration.cpp:118)
+==27802==  Address 0x53db5f0 is 0 bytes after a block of size 65,536 alloc'd
+==27802==    at 0x4A075FC: operator new(unsigned long) (vg_replace_malloc.c:298)
+==27802==    by 0x407380: __gnu_cxx::new_allocator<double>::allocate(unsigned long, void const*) (new_allocator.h:104)
+==27802==    by 0x4070C5: std::_Vector_base<double, std::allocator<double> >::_M_allocate(unsigned long) (in /afs/cern.ch/work/k/kiliakis/workspace/BLonD-minimal-cpp/Debug/BLonD-minimal-cpp)
+==27802==    by 0x406D68: void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double>(double&&) (vector.tcc:404)
+==27802==    by 0x4067E3: void std::vector<double, std::allocator<double> >::emplace_back<double>(double&&) (vector.tcc:101)
+==27802==    by 0x4063B8: std::vector<double, std::allocator<double> >::push_back(double&&) (stl_vector.h:920)
+==27802==    by 0x401FB9: GeneralParameters::GeneralParameters(int, double*, double*, int, double*, particle_type, double, double, particle_type, double, double, int) (GeneralParameters.h:189)
+==27802==    by 0x403DA9: main (TC1_Acceleration.cpp:91)
+==27802== 
+Setting up the simulation...
+
+Number of turns: 5000
+Number of macro-particles: 10
+Number of openmp threads = 2
+id, threads, tile, start, end = 1, 2, 5, 5, 10
+id, threads, tile, start, end = 0, 2, 5, 0, 5
+I ended
+I ended
+Time/turn: 0.0000000000
+Total Simulation Time : 0.899
+Done!
+==27802== 
+==27802== HEAP SUMMARY:
+==27802==     in use at exit: 1,034,354 bytes in 44 blocks
+==27802==   total heap usage: 60 allocs, 16 frees, 1,181,466 bytes allocated
+==27802== 
+==27802== LEAK SUMMARY:
+==27802==    definitely lost: 136 bytes in 1 blocks
+==27802==    indirectly lost: 986,430 bytes in 37 blocks
+==27802==      possibly lost: 592 bytes in 1 blocks
+==27802==    still reachable: 47,196 bytes in 5 blocks
+==27802==         suppressed: 0 bytes in 0 blocks
+==27802== Rerun with --leak-check=full to see details of leaked memory
+==27802== 
+==27802== For counts of detected and suppressed errors, rerun with: -v
+==27802== Use --track-origins=yes to see where uninitialised values come from
+==27802== ERROR SUMMARY: 180056 errors from 22 contexts (suppressed: 6 from 6)

@@ -61,6 +61,25 @@ public:
 			ftype user_mass_2 = 0, ftype user_charge_2 = 0,
 			int number_of_sectrions = 1);
 
+	~GeneralParameters()
+	{
+		delete_array(alpha);
+		delete_array(momentum);
+		delete_array(ring_length);
+		delete_array(beta);
+		delete_array(gamma);
+		delete_array(energy);
+		delete_array(kin_energy);
+		delete_array(cycle_time);
+		delete_array(f_rev);
+		delete_array(omega_rev);
+		delete_array(eta_0);
+		delete_array(eta_1);
+		delete_array(eta_2);
+		//delete t_rev;
+
+	};
+
 };
 
 inline void GeneralParameters::eta_generation() {

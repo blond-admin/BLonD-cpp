@@ -34,6 +34,8 @@ public:
 	             ftype *_harmonic, ftype *_voltage, ftype *_phi_offset,
 	             ftype* _phi_noise = NULL, ftype * _omega_rf = NULL,
 	             int _section_index = 1, accelerating_systems_type accelerating_systems = as_single);
+
+
 	ftype *E_increment;
 	ftype *phi_s;
 	ftype *Qs;
@@ -73,6 +75,24 @@ public:
 	ftype length_ratio;
 	ftype section_length;
 
+	~RfParameters()
+	{
+		delete_array(this->E_increment);
+		delete_array(this->phi_s);
+		delete_array(this->Qs);
+		delete_array(this->omega_RF_d);
+		delete_array(this->omega_s0);
+		delete_array(this->phi_RF);
+		delete_array(this->dphi_RF);
+		delete_array(this->dphi_RF_steering);
+		delete_array(this->t_RF);
+		delete_array(this->omega_RF);
+		delete_array(this->harmonic);
+		delete_array(this->voltage);
+		delete_array(this->phi_offset);
+		delete_array(this->phi_noise);
+	};
+
 private:
 };
 
@@ -92,17 +112,12 @@ RfParameters::RfParameters(GeneralParameters *_gp, Beams *beam, int _n_rf,
                            accelerating_systems_type accelerating_systems) {
 	this->counter = 0;
 	this->gp = _gp;
-	//this->gp = GP;
 	this->section_index = _section_index - 1;
 	this->n_rf = _n_rf;
-	//this->n_turns = gp->n_turns;
 	this->harmonic = _harmonic;
 	this->voltage = _voltage;
 	this->phi_offset = _phi_offset;
-	//this->phi_noise = _phi_noise;
-	//this->omega_RF = _omega_RF;
-	// TODO how to initialize this phi_s
-
+	this->phi_noise = NULL;
 
 	this->section_length = gp->ring_length[section_index];
 	this->length_ratio = section_length / gp->ring_circumference;
@@ -116,7 +131,6 @@ RfParameters::RfParameters(GeneralParameters *_gp, Beams *beam, int _n_rf,
 
 	this->phi_s = new ftype[gp->n_turns+1];
 	calc_phi_s(accelerating_systems);
-
 
 	this->Qs = new ftype[(gp->n_turns + 1)];
 	for (int i = 0; i < gp->n_turns + 1; ++i) {
@@ -135,12 +149,8 @@ RfParameters::RfParameters(GeneralParameters *_gp, Beams *beam, int _n_rf,
 
 	this->omega_RF_d = new ftype[n_rf * (gp->n_turns + 1)];
 	for (int i = 0; i < n_rf * (gp->n_turns + 1); ++i) {
-		
 		this->omega_RF_d[i] = 2 * pi * gp->beta[i] * c * harmonic[i]
 		                      / gp->ring_circumference;
-		//dprintf("omega_RF_d %.12lf\n", 2 * pi * c);
-
-
 	}
 
 	//dprintf("ring_circumference %.12lf\n", gp->ring_circumference);

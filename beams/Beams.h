@@ -31,6 +31,15 @@ public:
 	GeneralParameters *gp;
 	int *id;
 	Beams(GeneralParameters *gp, int _n_macroparticles, int _intensity);
+
+	~Beams(){
+
+		delete_array(this->dt);
+		delete_array(this->dE);
+		delete_array(this->id);
+
+	};
+
 	int n_macroparticles_alive();
 	void losses_longitudinal_cut(const ftype * __restrict__ dt,
 			const ftype dt_min, const ftype dt_max, int * __restrict__ id);

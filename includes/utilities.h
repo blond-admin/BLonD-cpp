@@ -22,7 +22,6 @@
 #include "configuration.h"
 
 
-
  
 #define TIMING
 #define dprintf(...)    fprintf(stdout, __VA_ARGS__)     // Debug printf
@@ -45,6 +44,14 @@ static inline char const* GETENV(char const* envstr) {
 inline void *aligned_malloc(size_t n) {
 	return _mm_malloc(n, 64);
 }
+
+
+template<typename T>
+void inline delete_array( T *p)
+{
+	if(p != NULL) delete[] p;
+}
+
 
 
 void dump(ftype* a, int n, const char* s) {

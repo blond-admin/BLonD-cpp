@@ -53,7 +53,7 @@ int main(int argc, char **argv) {
 	printf("Setting up the simulation...\n\n");
 	printf("Number of turns: %d\n", N_t);
 	printf("Number of macro-particles: %d\n", N_p);
-	//printf("Number of openmp threads: %d\n", n_threads);
+	
 	/// initializations
 #pragma omp parallel
 	{
@@ -85,24 +85,15 @@ int main(int argc, char **argv) {
 	std::fill_n(dphi_array, (N_t + 1) * n_sections, dphi);
 
 // TODO variables must be in the correct format (arrays for all)
-//	GeneralParameters *general_params = new GeneralParameters(N_t, C_array,
-//			alpha_array, alpha_order, momentum, proton);
 	GeneralParameters *general_params = new GeneralParameters(N_t, C_array,
 			alpha_array, alpha_order, momentum, proton);
-
-//dump(general_params->gamma, N_t + 1, "gamma");
-//printf("eta_0[0] = %.8lf\n", general_params->eta_0[0]);
-//printf("eta_0[last] = %.8lf\n", general_params->eta_0[N_t]);
 
 // TODO maybe general_params, beam, and RfParameters could be global?
 
 	Beams *beam = new Beams(general_params, N_p, N_b);
+
 	RfParameters *rf_params = new RfParameters(general_params, beam, n_sections,
 			h_array, V_array, dphi_array);
-	//RfParameters rf_params_object = RfParameters(general_params, beam, n_sections,
-	//		h_array, V_array, dphi_array);
-
-//dump(rf_params->omega_RF, n_sections * (N_t + 1), "omega_RF");
 
 	RingAndRfSection *long_tracker = new RingAndRfSection(general_params,
 			rf_params, beam);
@@ -113,26 +104,21 @@ int main(int argc, char **argv) {
 	//dump(rf_params->harmonic, N_t+1, "harmonic\n");
 	//dump(beam->dE, N_p, "beam->dE\n");
 	//dump(beam->dt, N_p, "beam->dt\n");
-//dump(long_tracker->acceleration_kick, N_p, "acc_kick");
-//dump(rf_params->E_increment, n_sections * (N_t), "E_increment");
-//dump(rf_params->Qs, n_sections * (N_t + 1), "Qs");
-//dump(general_params.eta_0, N_t + 1, "eta_0");
-//#pragma omp parallel for
+	//dump(long_tracker->acceleration_kick, N_p, "acc_kick");
+	//dump(rf_params->E_increment, n_sections * (N_t), "E_increment");
+	//dump(rf_params->Qs, n_sections * (N_t + 1), "Qs");
+	//dump(general_params.eta_0, N_t + 1, "eta_0");
 
-	// TODO resolve this i issue
 #pragma omp parallel
 	{
-		//rf_params = &rf_params_object;
 		int id = omp_get_thread_num();
 		int threads = omp_get_num_threads();
 		int tile = std::ceil(1.0 * N_p / threads);
 		int start = id * tile;
 		int end = std::min(start + tile, N_p);
-		printf("id, threads, tile, start, end = %d, %d, %d, %d, %d\n", id,
-				threads, tile, start, end);
-		for (int i = 1; i < N_t + 1; ++i) {
-			//printf("Turn %d\n",i );
-			//printf("step %d\n", i);
+		//printf("id, threads, tile, start, end = %d, %d, %d, %d, %d\n", id,
+		//		threads, tile, start, end);
+		for (int i = 0; i < N_t; ++i) {
 			//dump(beam->dE, beam->n_macroparticles, "beam->dE");
 			long_tracker->track(start, end, i);
 			//beam->losses_longitudinal_cut(beam->dt, 0, 2.5e-9, beam->id);
@@ -141,20 +127,16 @@ int main(int argc, char **argv) {
 	}
 	//printf("Total simulation time: %.10lf\n", long_tracker->elapsed_time);
 	printf("Time/turn: %.10lf\n", long_tracker->elapsed_time / N_t);
-
-	delete[] momentum;
-	delete[] alpha_array;
-	delete[] C_array;
-	delete[] V_array;
-	delete[] h_array;
-	delete[] dphi_array;
 	get_time(end);
 	print_time("Total Simulation Time", begin, end);
-//printf("step %d\n", N_t + 1);
+	
 	dump(beam->dE, 10, "beam->dE\n");
 	dump(beam->dt, 10, "beam->dt\n");
-
-//dump(beam->dt, beam->n_macroparticles, "beam->dt");
+	
+	delete long_tracker;
+	delete rf_params;
+	delete general_params;
+	delete beam;
 	printf("Done!\n");
 
 }

@@ -17,7 +17,7 @@ CPP_DEPS += \
 tests/TC1_Acceleration/%.o: ../tests/TC1_Acceleration/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: Cross G++ Compiler'
-	g++ -std=c++0x -fopenmp -O3 -Ofast -ffast-math -fopt-info-vec=report -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	g++ -std=c++0x -fopenmp -I"/afs/cern.ch/work/k/kiliakis/workspace/BLonD-minimal-cpp/includes" -O2 -Ofast -ffast-math -fopt-info-vec=report -Wall -c -fmessage-length=0 -fPIC -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

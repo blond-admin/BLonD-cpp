@@ -16,11 +16,9 @@
 #include <stdio.h>
 //#include "../../includes/globals.h"
 
-
 //GeneralParameters *GP;
 //Beams *Beam;
 //RfParameters *RfP;
-
 
 // Simulation parameters --------------------------------------------------------
 // Bunch parameters
@@ -101,6 +99,9 @@ int main(int argc, char **argv) {
 	Beams *beam = new Beams(general_params, N_p, N_b);
 	RfParameters *rf_params = new RfParameters(general_params, beam, n_sections,
 			h_array, V_array, dphi_array);
+	//RfParameters rf_params_object = RfParameters(general_params, beam, n_sections,
+	//		h_array, V_array, dphi_array);
+
 //dump(rf_params->omega_RF, n_sections * (N_t + 1), "omega_RF");
 
 	RingAndRfSection *long_tracker = new RingAndRfSection(general_params,
@@ -118,16 +119,35 @@ int main(int argc, char **argv) {
 //dump(general_params.eta_0, N_t + 1, "eta_0");
 //#pragma omp parallel for
 
-	for (int i = 1; i < N_t + 1; ++i) {
-		//printf("step %d\n", i);
-		//dump(beam->dE, beam->n_macroparticles, "beam->dE");
-		long_tracker->track();
-		//beam->losses_longitudinal_cut(beam->dt, 0, 2.5e-9, beam->id);
+	// TODO resolve this i issue
+#pragma omp parallel
+	{
+		//rf_params = &rf_params_object;
+		int id = omp_get_thread_num();
+		int threads = omp_get_num_threads();
+		int tile = std::ceil(1.0 * N_p / threads);
+		int start = id * tile;
+		int end = std::min(start + tile, N_p);
+		printf("id, threads, tile, start, end = %d, %d, %d, %d, %d\n", id,
+				threads, tile, start, end);
+		for (int i = 1; i < N_t + 1; ++i) {
+			//printf("Turn %d\n",i );
+			//printf("step %d\n", i);
+			//dump(beam->dE, beam->n_macroparticles, "beam->dE");
+			long_tracker->track(start, end, i);
+			//beam->losses_longitudinal_cut(beam->dt, 0, 2.5e-9, beam->id);
+		}
+		//printf("rf_params->counter = %d\n", rf_params->counter);
 	}
-
 	//printf("Total simulation time: %.10lf\n", long_tracker->elapsed_time);
 	printf("Time/turn: %.10lf\n", long_tracker->elapsed_time / N_t);
 
+	delete[] momentum;
+	delete[] alpha_array;
+	delete[] C_array;
+	delete[] V_array;
+	delete[] h_array;
+	delete[] dphi_array;
 	get_time(end);
 	print_time("Total Simulation Time", begin, end);
 //printf("step %d\n", N_t + 1);

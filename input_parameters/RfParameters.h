@@ -114,7 +114,7 @@ RfParameters::RfParameters(GeneralParameters *_gp, Beams *beam, int _n_rf,
 		E_increment[j] = gp->energy[j + 1] - gp->energy[j];
 	}
 
-	this->phi_s = new ftype[gp->n_turns];
+	this->phi_s = new ftype[gp->n_turns+1];
 	calc_phi_s(accelerating_systems);
 
 

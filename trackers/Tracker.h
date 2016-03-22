@@ -30,36 +30,40 @@ public:
 	bool *indices_right_outside;
 	bool *indices_inside_frame;
 	bool *indices_left_outside;
-	inline void set_periodicity();
-	inline void kick(const bool *update, const int index);
+	inline void set_periodicity(const int start, const int end, const int turn);
+	inline void kick(const bool *update, const int index, const int start,
+			const int end);
 	inline void kick(const ftype * __restrict__ beam_dt,
 			ftype * __restrict__ beam_dE, const int n_rf,
 			const ftype * __restrict__ voltage,
 			const ftype * __restrict__ omega_RF,
 			const ftype * __restrict__ phi_RF, const int n_macroparticles,
-			const ftype acc_kick, const bool * __restrict__ update);
-	inline void kick(const int index);
+			const ftype acc_kick, const bool * __restrict__ update,
+			const int start, const int end);
+	inline void kick(const int index, const int start, const int end);
 	inline void kick(const ftype * __restrict__ beam_dt,
 			ftype * __restrict__ beam_dE, const int n_rf,
 			const ftype * __restrict__ voltage,
 			const ftype * __restrict__ omega_RF,
 			const ftype * __restrict__ phi_RF, const int n_macroparticles,
-			const ftype acc_kick);
-	inline void drift(const bool *update, const int index);
+			const ftype acc_kick, const int start, const int end);
+	inline void drift(const bool *update, const int index, const int start,
+			const int end);
 	inline void drift(ftype * __restrict__ beam_dt,
 			const ftype * __restrict__ beam_dE, const solver_type solver,
 			const ftype T0, const ftype length_ratio, const int alpha_order,
 			const ftype eta_zero, const ftype eta_one, const ftype eta_two,
 			const ftype beta, const ftype energy, const int n_macroparticles,
-			const bool * __restrict__ update);
-	inline void drift(const int index);
+			const bool * __restrict__ update, const int start, const int end);
+	inline void drift(const int index, const int start, const int end);
 	inline void drift(ftype * __restrict__ beam_dt,
 			const ftype * __restrict__ beam_dE, const solver_type solver,
 			const ftype T0, const ftype length_ratio, const int alpha_order,
 			const ftype eta_zero, const ftype eta_one, const ftype eta_two,
-			const ftype beta, const ftype energy, const int n_macroparticles);
-	inline void track();
-	inline void horizontal_cut();
+			const ftype beta, const ftype energy, const int n_macroparticles,
+			const int start, const int end);
+	inline void track(const int start, const int end, const int turn);
+	inline void horizontal_cut(const int start, const int end);
 	RingAndRfSection(GeneralParameters *gp, RfParameters *rf_params,
 			Beams *beam, solver_type solver = simple, ftype *PhaseLoop = NULL,
 			ftype * NoiseFB = NULL, bool periodicity = false, ftype dE_max = 0,
@@ -88,24 +92,24 @@ inline void RingAndRfSection::kick(const ftype * __restrict__ beam_dt,
 		ftype * __restrict__ beam_dE, const int n_rf,
 		const ftype * __restrict__ voltage, const ftype * __restrict__ omega_RF,
 		const ftype * __restrict__ phi_RF, const int n_macroparticles,
-		const ftype acc_kick) {
+		const ftype acc_kick, const int start, const int end) {
 
 	//beam_dE[0] += 1;
 // KICK
 
 	int k = 0;
 	for (int j = 0; j < n_rf; j++) {
-#pragma omp parallel for
-		for (int i = 0; i < n_macroparticles; i++) {
+//#pragma omp parallel for
+		for (int i = start; i < end; i++) {
 			beam_dE[i] += voltage[k]
 					* vdt::fast_sin(omega_RF[k] * beam_dt[i] + phi_RF[k]);
 		}
-		k += n_macroparticles;
+		k += gp->n_turns;
 	}
 
-	// SYNCHRONOUS ENERGY CHANGE
-#pragma omp parallel for
-	for (int i = 0; i < n_macroparticles; i++)
+// SYNCHRONOUS ENERGY CHANGE
+//#pragma omp parallel for
+	for (int i = start; i < end; i++)
 		beam_dE[i] += acc_kick;
 
 }
@@ -115,12 +119,13 @@ inline void RingAndRfSection::kick(const ftype * __restrict__ beam_dt,
 		ftype * __restrict__ beam_dE, const int n_rf,
 		const ftype * __restrict__ voltage, const ftype * __restrict__ omega_RF,
 		const ftype * __restrict__ phi_RF, const int n_macroparticles,
-		const ftype acc_kick, const bool * __restrict__ update) {
+		const ftype acc_kick, const bool * __restrict__ update, const int start,
+		const int end) {
 
 // KICK
 	int k = 0;
 	for (int j = 0; j < n_rf; j++) {
-		for (int i = 0; i < n_macroparticles; i++)
+		for (int i = start; i < end; i++)
 			beam_dE[i] +=
 					update[i] ?
 							voltage[k]
@@ -128,11 +133,12 @@ inline void RingAndRfSection::kick(const ftype * __restrict__ beam_dt,
 											omega_RF[k] * beam_dt[i]
 													+ phi_RF[k]) :
 							0;
-		k += n_macroparticles;
+		// what will I do with this k??
+		k += gp->n_turns;
 	}
 
 // SYNCHRONOUS ENERGY CHANGE
-	for (int i = 0; i < n_macroparticles; i++)
+	for (int i = start; i < end; i++)
 		beam_dE[i] += update[i] ? acc_kick : 0;
 
 }
@@ -142,17 +148,18 @@ inline void RingAndRfSection::drift(ftype * __restrict__ beam_dt,
 		const ftype * __restrict__ beam_dE, const solver_type solver,
 		const ftype T0, const ftype length_ratio, const int alpha_order,
 		const ftype eta_zero, const ftype eta_one, const ftype eta_two,
-		const ftype beta, const ftype energy, const int n_macroparticles) {
+		const ftype beta, const ftype energy, const int n_macroparticles,
+		const int start, const int end) {
 
-	//beam_dt[0] += 0.000001;
+//beam_dt[0] += 0.000001;
 
 	int i;
 	ftype T = T0 * length_ratio;
 
 	if (solver == simple) {
 		ftype coeff = eta_zero / (beta * beta * energy);
-#pragma omp parallel for
-		for (i = 0; i < n_macroparticles; i++)
+//#pragma omp parallel for
+		for (i = start; i < end; i++)
 			beam_dt[i] += T * coeff * beam_dE[i];
 	}
 
@@ -163,16 +170,16 @@ inline void RingAndRfSection::drift(ftype * __restrict__ beam_dt,
 		const ftype eta2 = eta_two * coeff * coeff * coeff;
 
 		if (alpha_order == 1)
-			for (i = 0; i < n_macroparticles; i++)
+			for (i = start; i < end; i++)
 				beam_dt[i] += T * (1. / (1. - eta0 * beam_dE[i]) - 1.);
 		else if (alpha_order == 2)
-			for (i = 0; i < n_macroparticles; i++)
+			for (i = start; i < end; i++)
 				beam_dt[i] += T
 						* (1.
 								/ (1. - eta0 * beam_dE[i]
 										- eta1 * beam_dE[i] * beam_dE[i]) - 1.);
 		else
-			for (i = 0; i < n_macroparticles; i++)
+			for (i = start; i < end; i++)
 				beam_dt[i] += T
 						* (1.
 								/ (1. - eta0 * beam_dE[i]
@@ -189,7 +196,7 @@ inline void RingAndRfSection::drift(ftype * __restrict__ beam_dt,
 		const ftype T0, const ftype length_ratio, const int alpha_order,
 		const ftype eta_zero, const ftype eta_one, const ftype eta_two,
 		const ftype beta, const ftype energy, const int n_macroparticles,
-		const bool * __restrict__ update) {
+		const bool * __restrict__ update, const int start, const int end) {
 
 	int i;
 	ftype T = T0 * length_ratio;
@@ -197,7 +204,7 @@ inline void RingAndRfSection::drift(ftype * __restrict__ beam_dt,
 	if (solver == simple) {
 		ftype coeff = eta_zero / (beta * beta * energy);
 
-		for (i = 0; i < n_macroparticles; i++)
+		for (i = start; i < end; i++)
 			beam_dt[i] += update[i] ? T * coeff * beam_dE[i] : 0;
 	}
 
@@ -208,12 +215,12 @@ inline void RingAndRfSection::drift(ftype * __restrict__ beam_dt,
 		const ftype eta2 = eta_two * coeff * coeff * coeff;
 
 		if (alpha_order == 1)
-			for (i = 0; i < n_macroparticles; i++)
+			for (i = start; i < end; i++)
 				beam_dt[i] +=
 						update[i] ?
 								T * (1. / (1. - eta0 * beam_dE[i]) - 1.) : 0;
 		else if (alpha_order == 2)
-			for (i = 0; i < n_macroparticles; i++)
+			for (i = start; i < end; i++)
 				beam_dt[i] +=
 						update[i] ?
 								T
@@ -224,7 +231,7 @@ inline void RingAndRfSection::drift(ftype * __restrict__ beam_dt,
 												- 1.) :
 								0;
 		else
-			for (i = 0; i < n_macroparticles; i++)
+			for (i = start; i < end; i++)
 				beam_dt[i] +=
 						update[i] ?
 								T
@@ -241,27 +248,28 @@ inline void RingAndRfSection::drift(ftype * __restrict__ beam_dt,
 
 }
 
-inline void RingAndRfSection::track() {
-	//omp_set_num_threads(n_threads);
-	timespec begin, end;
+inline void RingAndRfSection::track(const int start, const int end,
+		const int turn) {
+//omp_set_num_threads(n_threads);
+//timespec begin, fin;
 
 	if (periodicity) {
 		// Change reference of all the particles on the right of the current
 		// frame; these particles skip one kick and drift
-		for (int i = 0; i < beam->n_macroparticles; ++i) {
-			beam->dt[i] -= indices_right_outside[i]
-					* gp->t_rev[rf_params->counter + 1];
+		//for (int i = 0; i < beam->n_macroparticles; ++i) {
+		for (int i = start; i < end; ++i) {
+			beam->dt[i] -= indices_right_outside[i] * gp->t_rev[turn + 1];
 		}
 		// Synchronize the bunch with the particles that are on the right of
 		// the current frame applying kick and drift to the bunch; after that
 		// all the particle are in the new updated frame
 
-		kick(indices_inside_frame, rf_params->counter);
-		drift(indices_inside_frame, rf_params->counter + 1);
+		kick(indices_inside_frame, turn, start, end);
+		drift(indices_inside_frame, turn + 1, start, end);
 
 		// find left outside particles and kick, drift them one more time
 		int a = 0;
-		for (int i = 0; i < beam->n_macroparticles; ++i) {
+		for (int i = start; i < end; ++i) {
 			if (beam->dt[i] < 0) {
 				indices_left_outside[i] = beam->id[i] > 0;
 				a++;
@@ -272,22 +280,25 @@ inline void RingAndRfSection::track() {
 		if (a > 0) {
 			// This will update only the indices_left_outside values
 			//  need to test this
-			for (int i = 0; i < beam->n_macroparticles; ++i) {
-				beam->dt[i] += gp->t_rev[rf_params->counter + 1]
-						* indices_left_outside[i];
+			for (int i = start; i < end; ++i) {
+				beam->dt[i] += gp->t_rev[turn + 1] * indices_left_outside[i];
 			}
-			kick(indices_left_outside, rf_params->counter);
-			drift(indices_left_outside, rf_params->counter + 1);
+			kick(indices_left_outside, turn, start, end);
+			drift(indices_left_outside, turn + 1, start, end);
 
 		}
 		// update inside, right outside particles
 
-		set_periodicity();
+		set_periodicity(start, end, turn);
 
 	} else {
 		//get_time(begin);
-		kick(rf_params->counter);
-		drift(rf_params->counter + 1);
+		//dprintf("before kick\n");
+		kick(turn, start, end);
+		//dprintf("before drift\n");
+		drift(turn + 1, start, end);
+		//dprintf("after drift\n");
+
 		//get_time(end);
 		//elapsed_time += time_diff(end, begin);
 	}
@@ -295,14 +306,17 @@ inline void RingAndRfSection::track() {
 // this way they will not be considered again in an update
 
 	if (dE_max > 0)
-		horizontal_cut();
-	rf_params->counter++;
+		horizontal_cut(start, end);
+	//rf_params->counter++;
+	//printf("rf_params->counter = %d\n", rf_params->counter);
+
+	//printf("rf_params->counter = %d\n", rf_params->counter);
 }
 
-inline void RingAndRfSection::horizontal_cut() {
+inline void RingAndRfSection::horizontal_cut(const int start, const int end) {
 // In order to cut a particle we will 0 its id
-#pragma omp parallel for
-	for (int i = 0; i < beam->n_macroparticles; ++i) {
+//#pragma omp parallel for
+	for (int i = start; i < end; ++i) {
 		if (beam->dE[i] < -dE_max || beam->dE[i] > dE_max)
 			beam->id[i] = 0;
 	}
@@ -358,17 +372,18 @@ RingAndRfSection::RingAndRfSection(GeneralParameters *_gp,
 			exit(-1);
 		}
 
-		set_periodicity();
+		set_periodicity(0, beam->n_macroparticles, 0);
 		// we will either do this by using vectors or not do it at all if there is no actual need
 		gp->t_rev.push_back(gp->t_rev.back());
 	}
 
 }
 
-inline void RingAndRfSection::set_periodicity() {
+inline void RingAndRfSection::set_periodicity(const int start, const int end,
+		const int turn) {
 
-	for (int i = 0; i < beam->n_macroparticles; i++) {
-		if (beam->dt[i] > gp->t_rev[rf_params->counter + 1]) {
+	for (int i = start; i < end; i++) {
+		if (beam->dt[i] > gp->t_rev[turn + 1]) {
 			indices_right_outside[i] = beam->id[i] > 0;
 			indices_inside_frame[i] = false;
 		} else {
@@ -378,30 +393,36 @@ inline void RingAndRfSection::set_periodicity() {
 	}
 }
 
-inline void RingAndRfSection::kick(const int index) {
+inline void RingAndRfSection::kick(const int index, const int start,
+		const int end) {
 	kick(beam->dt, beam->dE, rf_params->n_rf, &rf_params->voltage[index],
 			&rf_params->omega_RF[index], &rf_params->phi_RF[index],
-			beam->n_macroparticles, acceleration_kick[index]);
+			beam->n_macroparticles, acceleration_kick[index], start, end);
 }
 
-inline void RingAndRfSection::kick(const bool* update, const int index) {
+inline void RingAndRfSection::kick(const bool* update, const int index,
+		const int start, const int end) {
 	kick(beam->dt, beam->dE, rf_params->n_rf, &rf_params->voltage[index],
 			&rf_params->omega_RF[index], &rf_params->phi_RF[index],
-			beam->n_macroparticles, acceleration_kick[index], update);
+			beam->n_macroparticles, acceleration_kick[index], update, start,
+			end);
 }
 
-inline void RingAndRfSection::drift(const bool *update, const int index) {
+inline void RingAndRfSection::drift(const bool *update, const int index,
+		const int start, const int end) {
 	drift(beam->dt, beam->dE, solver, gp->t_rev[index], rf_params->length_ratio,
 			gp->alpha_order, rf_params->eta_0(index), rf_params->eta_1(index),
 			rf_params->eta_2(index), rf_params->beta(index),
-			rf_params->energy(index), beam->n_macroparticles, update);
+			rf_params->energy(index), beam->n_macroparticles, update, start,
+			end);
 }
 
-inline void RingAndRfSection::drift(const int index) {
+inline void RingAndRfSection::drift(const int index, const int start,
+		const int end) {
 	drift(beam->dt, beam->dE, solver, gp->t_rev[index], rf_params->length_ratio,
 			gp->alpha_order, rf_params->eta_0(index), rf_params->eta_1(index),
 			rf_params->eta_2(index), rf_params->beta(index),
-			rf_params->energy(index), beam->n_macroparticles);
+			rf_params->energy(index), beam->n_macroparticles, start, end);
 }
 
 #endif /* TRACKERS_TRACKER_H_ */

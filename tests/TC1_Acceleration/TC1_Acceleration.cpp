@@ -4,17 +4,19 @@
  *  Created on: Mar 9, 2016
  *      Author: kiliakis
  */
-
-#include "../../includes/utilities.h"
-#include "../../includes/math_functions.h"
+//#include "../../includes/globals.h"
+#include "utilities.h"
+#include "math_functions.h"
 #include "../../input_parameters/GeneralParameters.h"
 #include "../../input_parameters/RfParameters.h"
 #include "../../beams/Beams.h"
+#include "../../beams/Slices.h"
 #include "../../beams/Distributions.h"
 #include "../../trackers/Tracker.h"
 #include <omp.h>
 #include <stdio.h>
-//#include "../../includes/globals.h"
+//#include <gsl/gsl_const_mksa.h>
+//#include <gsl/gsl_math.h>
 
 //GeneralParameters *GP;
 //Beams *Beam;
@@ -43,7 +45,21 @@ int n_threads = 1;
 
 // Simulation setup -------------------------------------------------------------
 int main(int argc, char **argv) {
+	/*
+	 double a = GSL_CONST_MKSA_SPEED_OF_LIGHT;
+	 dprintf("%lf\n", a);
+	 a = GSL_CONST_MKSA_ELECTRON_CHARGE;
+	 dprintf("%.10e\n", a);
 
+	 double b = GSL_CONST_MKSA_MASS_ELECTRON;
+	 dprintf("%.10e\n", b);
+
+	 double c = GSL_CONST_MKSA_MASS_PROTON;
+	 dprintf("%.10e\n", c);
+
+	 double d = M_PI;
+	 dprintf("%.12lf\n", d);
+	 */
 	N_t = atoi(GETENV("N_TURNS")) ? atoi(GETENV("N_TURNS")) : N_t;
 	N_p = atoi(GETENV("N_PARTICLES")) ? atoi(GETENV("N_PARTICLES")) : N_p;
 	n_threads =
@@ -53,7 +69,9 @@ int main(int argc, char **argv) {
 	printf("Setting up the simulation...\n\n");
 	printf("Number of turns: %d\n", N_t);
 	printf("Number of macro-particles: %d\n", N_p);
-	
+
+	//global = 0;
+
 	/// initializations
 #pragma omp parallel
 	{
@@ -100,6 +118,9 @@ int main(int argc, char **argv) {
 
 	longitudinal_bigaussian(general_params, rf_params, beam, tau_0 / 4, 0, 1,
 			false);
+
+	Slices *slice_beam = new Slices(rf_params, beam, 100);
+
 	//dump(general_params->beta, N_t+1, "beta\n");
 	//dump(rf_params->harmonic, N_t+1, "harmonic\n");
 	//dump(beam->dE, N_p, "beam->dE\n");
@@ -121,6 +142,10 @@ int main(int argc, char **argv) {
 		for (int i = 0; i < N_t; ++i) {
 			//dump(beam->dE, beam->n_macroparticles, "beam->dE");
 			long_tracker->track(start, end, i);
+#pragma omp master
+			{
+				slice_beam->track();
+			}
 			//beam->losses_longitudinal_cut(beam->dt, 0, 2.5e-9, beam->id);
 		}
 		//printf("rf_params->counter = %d\n", rf_params->counter);
@@ -129,10 +154,11 @@ int main(int argc, char **argv) {
 	printf("Time/turn: %.10lf\n", long_tracker->elapsed_time / N_t);
 	get_time(end);
 	print_time("Total Simulation Time", begin, end);
-	
+
 	dump(beam->dE, 10, "beam->dE\n");
 	dump(beam->dt, 10, "beam->dt\n");
-	
+
+	delete slice_beam;
 	delete long_tracker;
 	delete rf_params;
 	delete general_params;

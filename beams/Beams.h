@@ -10,9 +10,9 @@
 
 #include "../input_parameters/GeneralParameters.h"
 //#include "../includes/globals.h"
-#include "../includes/utilities.h"
-#include "../includes/configuration.h"
-#include "../includes/constants.h"
+#include "utilities.h"
+#include "configuration.h"
+#include "constants.h"
 
 class Beams {
 public:

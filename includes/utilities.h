@@ -27,6 +27,18 @@
       assert ((a) == 0);                                     \
    }
 
+// sort an array with regards to another array
+struct MyComparator {
+	ftype *a;
+	MyComparator(ftype* _a) :
+			a(_a) {
+	}
+
+	bool operator()(int i1, int i2) {
+		return a[i1] < a[i2];
+	}
+};
+
 char const* GETENV(char const* envstr);
 
 void *aligned_malloc(size_t n);

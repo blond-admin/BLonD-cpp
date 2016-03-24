@@ -4,13 +4,16 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../beams/Beams.cpp 
+../beams/Beams.cpp \
+../beams/Slices.cpp 
 
 OBJS += \
-./beams/Beams.o 
+./beams/Beams.o \
+./beams/Slices.o 
 
 CPP_DEPS += \
-./beams/Beams.d 
+./beams/Beams.d \
+./beams/Slices.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

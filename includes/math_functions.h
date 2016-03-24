@@ -13,9 +13,13 @@
 
 namespace mymath {
 
-ftype *trapezoid(ftype *f, ftype deltaX, int nsub);
+ftype *cum_trapezoid(ftype *f, ftype deltaX, int nsub);
+
+ftype trapezoid(ftype *f, ftype deltaX, int nsub);
 
 int min(ftype * a, int size, int step = 1);
+
+int max(ftype * a, int size, int step = 1);
 
 void linspace(ftype* a, const ftype start, const ftype end, const int n);
 

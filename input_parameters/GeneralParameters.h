@@ -13,9 +13,9 @@
 #include <cmath>
 #include <numeric>
 #include <cstring>
-#include "../includes/constants.h"
-#include "../includes/configuration.h"
-#include "../includes/utilities.h"
+#include "constants.h"
+#include "configuration.h"
+#include "utilities.h"
 
 enum particle_type {
 	proton, electron, user_input, none

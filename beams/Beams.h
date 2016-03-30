@@ -29,9 +29,9 @@ public:
 	int n_macroparticles_lost;
 	int n_macroparticles;
 	int intensity;
-	GeneralParameters *gp;
+	//GeneralParameters *gp;
 	int *id;
-	Beams(GeneralParameters *gp, int _n_macroparticles, int _intensity);
+	Beams(int _n_macroparticles, int _intensity);
 	~Beams();
 	int n_macroparticles_alive();
 	void losses_longitudinal_cut(const ftype * __restrict__ dt,

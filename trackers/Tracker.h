@@ -65,16 +65,12 @@ public:
 			const int start, const int end);
 	void track(const int start, const int end, const int turn);
 	inline void horizontal_cut(const int start, const int end);
-	RingAndRfSection(GeneralParameters *gp, RfParameters *rf_params,
-			Beams *beam, solver_type solver = simple, ftype *PhaseLoop = NULL,
+	RingAndRfSection(solver_type solver = simple, ftype *PhaseLoop = NULL,
 			ftype * NoiseFB = NULL, bool periodicity = false, ftype dE_max = 0,
 			bool rf_kick_interp = false, ftype* Slices = NULL,
 			ftype * TotalInducedVoltage = NULL, int n_threads = 1);
 	~RingAndRfSection();
 
-	RfParameters *rf_params;
-	GeneralParameters *gp;
-	Beams *beam;
 	solver_type solver;
 	ftype *PhaseLoop;
 	ftype * NoiseFB;

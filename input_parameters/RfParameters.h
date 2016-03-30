@@ -27,10 +27,9 @@ enum accelerating_systems_type {
 
 class RfParameters {
 public:
-	RfParameters(GeneralParameters *gp, Beams *beam, int _n_rf,
-			ftype *_harmonic, ftype *_voltage, ftype *_phi_offset,
-			ftype* _phi_noise = NULL, ftype * _omega_rf = NULL,
-			int _section_index = 1,
+	RfParameters(int _n_rf, ftype *_harmonic, ftype *_voltage,
+			ftype *_phi_offset, ftype* _phi_noise = NULL, ftype * _omega_rf =
+					NULL, int _section_index = 1,
 			accelerating_systems_type accelerating_systems = as_single);
 
 	ftype *E_increment;
@@ -53,15 +52,12 @@ public:
 	ftype energy(const int i);
 	ftype momentum(const int i);
 	int sign_eta_0(const int i);
-	// TODO why we pass rf_params??
 	void calc_phi_s(const accelerating_systems_type acc_sys = as_single);
 
 	// TODO assume input_value is an array
 	// that is why we don't have any input_check function
 	int counter;
-	GeneralParameters *gp;
 	int n_rf;
-	//accelerating_systems_type accelerating_systems;
 	//int n_turns;
 	ftype *harmonic;
 	ftype *voltage;

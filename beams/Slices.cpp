@@ -12,11 +12,8 @@
 //#include <gsl/gsl_multifit_nlin.h>
 //#include <gsl/gsl_vector.h>
 
-Slices::Slices(RfParameters *_rf_params, Beams *_beam, int _n_slices,
-		int _n_sigma, ftype _cut_left, ftype _cut_right,
+Slices::Slices(int _n_slices, int _n_sigma, ftype _cut_left, ftype _cut_right,
 		cuts_unit_type _cuts_unit, fit_type _fit_option, bool direct_slicing) {
-	this->rf_params = _rf_params;
-	this->beam = _beam;
 	this->n_slices = _n_slices;
 	this->cut_left = _cut_left;
 	this->cut_right = _cut_right;
@@ -64,18 +61,18 @@ void Slices::set_cuts() {
 	if (cut_left == 0 && cut_right == 0) {
 		if (n_sigma == 0) {
 			sort_particles();
-			cut_left = beam->dt[0]
+			cut_left = Beam->dt[0]
 					- 0.05
-							* (beam->dt[beam->n_macroparticles - 1]
-									- beam->dt[0]);
-			cut_right = beam->dt[beam->n_macroparticles - 1]
+							* (Beam->dt[Beam->n_macroparticles - 1]
+									- Beam->dt[0]);
+			cut_right = Beam->dt[Beam->n_macroparticles - 1]
 					+ 0.05
-							* (beam->dt[beam->n_macroparticles - 1]
-									- beam->dt[0]);
+							* (Beam->dt[Beam->n_macroparticles - 1]
+									- Beam->dt[0]);
 		} else {
-			ftype mean_coords = mymath::mean(beam->dt, beam->n_macroparticles);
-			ftype sigma_coords = mymath::standard_deviation(beam->dt,
-					beam->n_macroparticles, mean_coords);
+			ftype mean_coords = mymath::mean(Beam->dt, Beam->n_macroparticles);
+			ftype sigma_coords = mymath::standard_deviation(Beam->dt,
+					Beam->n_macroparticles, mean_coords);
 			cut_left = mean_coords - n_sigma * sigma_coords / 2;
 			cut_right = mean_coords + n_sigma * sigma_coords / 2;
 
@@ -97,13 +94,13 @@ void Slices::sort_particles() {
 	 *Sort the particles with respect to their position.*
 	 */
 
-	std::sort(&beam->dE[0], &beam->dE[beam->n_macroparticles],
-			MyComparator(beam->dt));
+	std::sort(&Beam->dE[0], &Beam->dE[Beam->n_macroparticles],
+			MyComparator(Beam->dt));
 
-	std::sort(&beam->id[0], &beam->id[beam->n_macroparticles],
-			MyComparator(beam->dt));
-	std::sort(&beam->dt[0], &beam->dt[beam->n_macroparticles],
-			MyComparator(beam->dt));
+	std::sort(&Beam->id[0], &Beam->id[Beam->n_macroparticles],
+			MyComparator(Beam->dt));
+	std::sort(&Beam->dt[0], &Beam->dt[Beam->n_macroparticles],
+			MyComparator(Beam->dt));
 
 }
 
@@ -115,7 +112,7 @@ inline ftype Slices::convert_coordinates(const ftype cut,
 	if (type == s) {
 		return cut;
 	} else if (type == rad) {
-		return cut / rf_params->omega_RF[rf_params->counter];
+		return cut / RfP->omega_RF[RfP->counter];
 	} else {
 		dprintf("WARNING: We were supposed to have either s or rad\n");
 		return 0;
@@ -149,8 +146,8 @@ inline void Slices::slice_constant_space_histogram() {
 	// WARNING
 	// It is because we remove particles? Then n_macroparticles alive should be used
 	// Maybe I need to find a way to re arrange particles
-	histogram(beam->dt, this->n_macroparticles, cut_left, cut_right, n_slices,
-			beam->n_macroparticles);
+	histogram(Beam->dt, this->n_macroparticles, cut_left, cut_right, n_slices,
+			Beam->n_macroparticles);
 }
 
 inline void Slices::histogram(const double * __restrict__ input,
@@ -185,7 +182,7 @@ void Slices::track_cuts() {
 	 Requires Beam statistics!
 	 Method to be refined!*
 	 */
-	ftype delta = beam->mean_dt - 0.5 * (cut_left + cut_right);
+	ftype delta = Beam->mean_dt - 0.5 * (cut_left + cut_right);
 	cut_left += delta;
 	cut_right += delta;
 	for (int i = 0; i < n_slices + 1; ++i) {
@@ -242,8 +239,8 @@ void Slices::slice_constant_space_histogram_smooth() {
 	/*
 	 At the moment 4x slower than slice_constant_space_histogram but smoother.
 	 */
-	smooth_histogram(beam->dt, this->n_macroparticles, cut_left, cut_right,
-			n_slices, beam->n_macroparticles);
+	smooth_histogram(Beam->dt, this->n_macroparticles, cut_left, cut_right,
+			n_slices, Beam->n_macroparticles);
 
 }
 
@@ -258,7 +255,7 @@ void Slices::rms() {
 
 	ftype timeResolution = bin_centers[1] - bin_centers[0];
 	ftype trap = mymath::trapezoid(n_macroparticles, timeResolution,
-			beam->n_macroparticles);
+			Beam->n_macroparticles);
 
 	for (int i = 0; i < n_slices; ++i) {
 		lineDenNormalized[i] = n_macroparticles[i] / trap;
@@ -296,7 +293,7 @@ void Slices::fwhm(const ftype shift) {
 	 * Computation of the bunch length and position from the FWHM
 	 assuming Gaussian line density.*
 	 */
-	int max_i = mymath::max(n_macroparticles, beam->n_macroparticles, 1);
+	int max_i = mymath::max(n_macroparticles, Beam->n_macroparticles, 1);
 	ftype half_max = shift + 0.5 * (n_macroparticles[max_i] - shift);
 	ftype timeResolution = bin_centers[1] - bin_centers[0];
 

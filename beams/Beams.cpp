@@ -15,10 +15,10 @@ Beams::~Beams() {
 
 }
 
-Beams::Beams(GeneralParameters *_gp, int _n_macroparticles, int _intensity) {
+Beams::Beams(int _n_macroparticles, int _intensity) {
 	//global++;
 
-	this->gp = _gp;
+	//this->gp = _gp;
 	this->n_macroparticles = _n_macroparticles;
 	this->intensity = _intensity;
 	this->dt = new ftype[n_macroparticles];

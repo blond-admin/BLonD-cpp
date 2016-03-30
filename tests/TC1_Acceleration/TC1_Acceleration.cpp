@@ -18,10 +18,6 @@
 //#include <gsl/gsl_const_mksa.h>
 //#include <gsl/gsl_math.h>
 
-//GeneralParameters *GP;
-//Beams *Beam;
-//RfParameters *RfP;
-
 // Simulation parameters --------------------------------------------------------
 // Bunch parameters
 const long N_b = 1e9;           // Intensity
@@ -43,27 +39,14 @@ int N_t = 5000;    // Number of turns to track
 int N_p = 100;         // Macro-particles
 int n_threads = 1;
 
-int global;
+GeneralParameters *GP;
+Beams *Beam;
+Slices *Slice;
+RfParameters *RfP;
 
 // Simulation setup -------------------------------------------------------------
 int main(int argc, char **argv) {
-	/*
-	 double a = GSL_CONST_MKSA_SPEED_OF_LIGHT;
-	 dprintf("%lf\n", a);
-	 a = GSL_CONST_MKSA_ELECTRON_CHARGE;
-	 dprintf("%.10e\n", a);
 
-	 double b = GSL_CONST_MKSA_MASS_ELECTRON;
-	 dprintf("%.10e\n", b);
-
-	 double c = GSL_CONST_MKSA_MASS_PROTON;
-	 dprintf("%.10e\n", c);
-
-	 double d = M_PI;
-	 dprintf("%.12lf\n", d);
-	 */
-	global = 0;
-	printf("global = %d\n", global);
 	N_t = atoi(GETENV("N_TURNS")) ? atoi(GETENV("N_TURNS")) : N_t;
 	N_p = atoi(GETENV("N_PARTICLES")) ? atoi(GETENV("N_PARTICLES")) : N_p;
 	n_threads =
@@ -73,8 +56,6 @@ int main(int argc, char **argv) {
 	printf("Setting up the simulation...\n\n");
 	printf("Number of turns: %d\n", N_t);
 	printf("Number of macro-particles: %d\n", N_p);
-
-	//global = 0;
 
 	/// initializations
 #pragma omp parallel
@@ -108,29 +89,27 @@ int main(int argc, char **argv) {
 	std::fill_n(dphi_array, (N_t + 1) * n_sections, dphi);
 
 // TODO variables must be in the correct format (arrays for all)
-	GeneralParameters *general_params = new GeneralParameters(N_t, C_array,
-			alpha_array, alpha_order, momentum, proton);
-	printf("global = %d\n", global);
+	//GeneralParameters *general_params = new GeneralParameters(N_t, C_array,
+	//		alpha_array, alpha_order, momentum, proton);
+	GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum,
+			proton);
 
 // TODO maybe general_params, beam, and RfParameters could be global?
 
-	Beams *beam = new Beams(general_params, N_p, N_b);
+	Beam = new Beams(N_p, N_b);
 
-	RfParameters *rf_params = new RfParameters(general_params, beam, n_sections,
-			h_array, V_array, dphi_array);
+	RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
 
-	RingAndRfSection *long_tracker = new RingAndRfSection(general_params,
-			rf_params, beam);
+	RingAndRfSection *long_tracker = new RingAndRfSection();
 
-	longitudinal_bigaussian(general_params, rf_params, beam, tau_0 / 4, 0, 1,
-			false);
+	longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
 
 	//dump(beam->dE, N_p, "beam->dE\n");
 
 	//dump(beam->dt, N_p, "beam->dt\n");
 	//dump(beam->dE, N_p, "beam->dE\n");
 
-	Slices *slice_beam = new Slices(rf_params, beam, 100);
+	Slice = new Slices(100);
 	//dump(beam->dt, N_p, "beam->dt\n");
 	//dump(beam->dE, N_p, "beam->dE\n");
 
@@ -159,7 +138,7 @@ int main(int argc, char **argv) {
 #pragma omp master
 			{
 				get_time(begin);
-				slice_beam->track();
+				Slice->track();
 				slice_time += time_elapsed(begin);
 
 			}
@@ -176,14 +155,14 @@ int main(int argc, char **argv) {
 	print_time("Total Track Time", track_time);
 	print_time("Total Slice Time", slice_time);
 
-	dump(beam->dE, 10, "beam->dE\n");
-	dump(beam->dt, 10, "beam->dt\n");
-	dump(slice_beam->n_macroparticles, 10, "slice_beam->n_macroparticles\n");
-	delete slice_beam;
+	dump(Beam->dE, 10, "beam->dE\n");
+	dump(Beam->dt, 10, "beam->dt\n");
+	dump(Slice->n_macroparticles, 10, "Slice->n_macroparticles\n");
+	delete Slice;
 	delete long_tracker;
-	delete rf_params;
-	delete general_params;
-	delete beam;
+	delete RfP;
+	delete GP;
+	delete Beam;
 	printf("Done!\n");
 
 }

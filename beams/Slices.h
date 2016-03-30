@@ -28,17 +28,14 @@ enum fit_type {
 
 class Slices {
 public:
-	Slices(RfParameters *rf_params, Beams *beam, int _n_slices,
-			int _n_sigma = 0, ftype cut_left = 0, ftype cut_right = 0,
-			cuts_unit_type cuts_unit = s, fit_type fit_option = normal_fit,
-			bool direct_slicing = false);
+	Slices(int _n_slices, int _n_sigma = 0, ftype cut_left = 0,
+			ftype cut_right = 0, cuts_unit_type cuts_unit = s,
+			fit_type fit_option = normal_fit, bool direct_slicing = false);
 	~Slices();
 	void track();
 
 	ftype bl_fwhm, bp_fwhm;
 	ftype bp_rms, bl_rms;
-	RfParameters *rf_params;
-	Beams *beam;
 	int n_slices;
 	ftype cut_left;
 	ftype cut_right;

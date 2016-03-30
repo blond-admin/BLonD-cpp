@@ -18,6 +18,6 @@ extern Beams *Beam;
 extern RfParameters *RfP;
 extern Slices *Slice;
 
-extern int global;
+//extern int global;
 
 #endif /* INCLUDES_GLOBALS_H_ */

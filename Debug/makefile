@@ -8,7 +8,10 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include trackers/subdir.mk
 -include tests/TC1_Acceleration/subdir.mk
+-include input_parameters/subdir.mk
+-include beams/subdir.mk
 -include subdir.mk
 -include objects.mk
 

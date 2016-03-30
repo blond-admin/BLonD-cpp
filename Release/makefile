@@ -11,7 +11,6 @@ RM := rm -rf
 -include trackers/subdir.mk
 -include tests/TC1_Acceleration/subdir.mk
 -include input_parameters/subdir.mk
--include includes/subdir.mk
 -include beams/subdir.mk
 -include subdir.mk
 -include objects.mk

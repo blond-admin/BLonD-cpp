@@ -75,8 +75,8 @@ GeneralParameters::GeneralParameters(const int _n_turns, ftype* _ring_length,
 		particle_type _particle2, ftype user_mass_2, ftype user_charge_2,
 		int number_of_sections) {
 
-	//global++;
-	//dprintf("Global variable is %d\n", global);
+	global++;
+	dprintf("Global variable is %d\n", global);
 
 	this->particle = _particle;
 	this->particle_2 = _particle2;

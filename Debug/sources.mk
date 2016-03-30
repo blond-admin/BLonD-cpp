@@ -23,5 +23,8 @@ C_UPPER_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
+beams \
+input_parameters \
 tests/TC1_Acceleration \
+trackers \
 

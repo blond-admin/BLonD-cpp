@@ -8,12 +8,15 @@
 #ifndef BEAMS_SLICES_H_
 #define BEAMS_SLICES_H_
 
+class Slices;
+
 #include "../input_parameters/GeneralParameters.h"
 #include "../input_parameters/RfParameters.h"
 #include "Beams.h"
 #include "utilities.h"
 #include "configuration.h"
 #include "constants.h"
+#include "globals.h"
 
 enum cuts_unit_type {
 	s, rad

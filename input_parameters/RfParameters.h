@@ -8,14 +8,16 @@
 #ifndef INPUT_PARAMETERS_RFPARAMETERS_H_
 #define INPUT_PARAMETERS_RFPARAMETERS_H_
 
-//#include "../includes/globals.h"
+class RfParameters;
+
 #include "GeneralParameters.h"
 #include "../beams/Beams.h"
 //#include "../includes/utilities.h"
-#include "../includes/math_functions.h"
+#include "math_functions.h"
 #include "../trackers/sin.h"
 #include <algorithm>    // std::cops
 #include <iterator>
+#include "globals.h"
 
 //#include "../includes/globals.h"
 

@@ -8,8 +8,10 @@
 #ifndef BEAMS_BEAMS_H_
 #define BEAMS_BEAMS_H_
 
+class Beams;
+
 #include "../input_parameters/GeneralParameters.h"
-//#include "../includes/globals.h"
+#include "globals.h"
 #include "utilities.h"
 #include "configuration.h"
 #include "constants.h"

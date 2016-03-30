@@ -281,8 +281,8 @@ void RfParameters::calc_phi_s(accelerating_systems_type acc_sys) {
 
 			//dprintf("dx %.12lf\n", phase_array[1] - phase_array[0]);
 
-			ftype *trap = mymath::cum_trapezoid(f, phase_array[1] - phase_array[0],
-					1000);
+			ftype *trap = mymath::cum_trapezoid(f,
+					phase_array[1] - phase_array[0], 1000);
 
 			for (int k = 0; k < 1000; ++k) {
 				potential_well[k] = transition_factor * trap[k];
@@ -290,7 +290,7 @@ void RfParameters::calc_phi_s(accelerating_systems_type acc_sys) {
 			//dump(potential_well, 10, "potential_well\n");
 
 			// TODO why mean here? line BLonD-minimal::rf_parameter.py:334
-			phi_s[i + 1] = phase_array[mymath::min(potential_well, 1000)]
+			phi_s[i + 1] = phase_array[mymath::min(potential_well, 1000, 1)]
 					+ transition_phase_offset[i + 1];
 
 		}

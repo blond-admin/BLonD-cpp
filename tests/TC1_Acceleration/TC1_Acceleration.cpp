@@ -4,7 +4,7 @@
  *  Created on: Mar 9, 2016
  *      Author: kiliakis
  */
-//#include "../../includes/globals.h"
+#include "globals.h"
 #include "utilities.h"
 #include "math_functions.h"
 #include "../../input_parameters/GeneralParameters.h"
@@ -40,8 +40,10 @@ const int alpha_order = 1;
 const int n_sections = 1;
 // Tracking details
 int N_t = 5000;    // Number of turns to track
-int N_p = 10;         // Macro-particles
+int N_p = 100;         // Macro-particles
 int n_threads = 1;
+
+int global;
 
 // Simulation setup -------------------------------------------------------------
 int main(int argc, char **argv) {
@@ -60,6 +62,8 @@ int main(int argc, char **argv) {
 	 double d = M_PI;
 	 dprintf("%.12lf\n", d);
 	 */
+	global = 0;
+	printf("global = %d\n", global);
 	N_t = atoi(GETENV("N_TURNS")) ? atoi(GETENV("N_TURNS")) : N_t;
 	N_p = atoi(GETENV("N_PARTICLES")) ? atoi(GETENV("N_PARTICLES")) : N_p;
 	n_threads =
@@ -80,6 +84,7 @@ int main(int argc, char **argv) {
 	}
 
 	timespec begin, end;
+	double slice_time = 0, track_time = 0;
 	get_time(begin);
 
 	ftype *momentum = new ftype[N_t + 1];
@@ -105,6 +110,7 @@ int main(int argc, char **argv) {
 // TODO variables must be in the correct format (arrays for all)
 	GeneralParameters *general_params = new GeneralParameters(N_t, C_array,
 			alpha_array, alpha_order, momentum, proton);
+	printf("global = %d\n", global);
 
 // TODO maybe general_params, beam, and RfParameters could be global?
 
@@ -119,12 +125,17 @@ int main(int argc, char **argv) {
 	longitudinal_bigaussian(general_params, rf_params, beam, tau_0 / 4, 0, 1,
 			false);
 
+	//dump(beam->dE, N_p, "beam->dE\n");
+
+	//dump(beam->dt, N_p, "beam->dt\n");
+	//dump(beam->dE, N_p, "beam->dE\n");
+
 	Slices *slice_beam = new Slices(rf_params, beam, 100);
+	//dump(beam->dt, N_p, "beam->dt\n");
+	//dump(beam->dE, N_p, "beam->dE\n");
 
 	//dump(general_params->beta, N_t+1, "beta\n");
 	//dump(rf_params->harmonic, N_t+1, "harmonic\n");
-	//dump(beam->dE, N_p, "beam->dE\n");
-	//dump(beam->dt, N_p, "beam->dt\n");
 	//dump(long_tracker->acceleration_kick, N_p, "acc_kick");
 	//dump(rf_params->E_increment, n_sections * (N_t), "E_increment");
 	//dump(rf_params->Qs, n_sections * (N_t + 1), "Qs");
@@ -141,23 +152,33 @@ int main(int argc, char **argv) {
 		//		threads, tile, start, end);
 		for (int i = 0; i < N_t; ++i) {
 			//dump(beam->dE, beam->n_macroparticles, "beam->dE");
+			get_time(begin);
 			long_tracker->track(start, end, i);
+			track_time += time_elapsed(begin);
+
 #pragma omp master
 			{
+				get_time(begin);
 				slice_beam->track();
+				slice_time += time_elapsed(begin);
+
 			}
+
 			//beam->losses_longitudinal_cut(beam->dt, 0, 2.5e-9, beam->id);
 		}
 		//printf("rf_params->counter = %d\n", rf_params->counter);
 	}
+
 	//printf("Total simulation time: %.10lf\n", long_tracker->elapsed_time);
-	printf("Time/turn: %.10lf\n", long_tracker->elapsed_time / N_t);
+	printf("Time/turn : %.10lf\n", long_tracker->elapsed_time / N_t);
 	get_time(end);
-	print_time("Total Simulation Time", begin, end);
+	//print_time("Total Simulation Time", begin, end);
+	print_time("Total Track Time", track_time);
+	print_time("Total Slice Time", slice_time);
 
 	dump(beam->dE, 10, "beam->dE\n");
 	dump(beam->dt, 10, "beam->dt\n");
-
+	dump(slice_beam->n_macroparticles, 10, "slice_beam->n_macroparticles\n");
 	delete slice_beam;
 	delete long_tracker;
 	delete rf_params;

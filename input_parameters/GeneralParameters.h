@@ -8,7 +8,9 @@
 #ifndef INPUT_PARAMETERS_GENERALPARAMETERS_H_
 #define INPUT_PARAMETERS_GENERALPARAMETERS_H_
 
-//#include "../includes/globals.h"
+class GeneralParameters;
+
+#include "globals.h"
 #include <vector>
 #include <cmath>
 #include <numeric>

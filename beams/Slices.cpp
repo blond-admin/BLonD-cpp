@@ -8,6 +8,7 @@
 #include "Slices.h"
 #include <algorithm>
 #include <math_functions.h>
+#include <iterator>
 //#include <gsl/gsl_multifit_nlin.h>
 //#include <gsl/gsl_vector.h>
 
@@ -95,11 +96,13 @@ void Slices::sort_particles() {
 	/*
 	 *Sort the particles with respect to their position.*
 	 */
-	std::sort(&beam->dE[0], &beam->dE[beam->n_macroparticles - 1],
+
+	std::sort(&beam->dE[0], &beam->dE[beam->n_macroparticles],
 			MyComparator(beam->dt));
-	std::sort(&beam->id[0], &beam->id[beam->n_macroparticles - 1],
+
+	std::sort(&beam->id[0], &beam->id[beam->n_macroparticles],
 			MyComparator(beam->dt));
-	std::sort(&beam->dt[0], &beam->dt[beam->n_macroparticles - 1],
+	std::sort(&beam->dt[0], &beam->dt[beam->n_macroparticles],
 			MyComparator(beam->dt));
 
 }
@@ -164,7 +167,7 @@ inline void Slices::histogram(const double * __restrict__ input,
 	for (int i = 0; i < n_slices; i++) {
 		output[i] = 0.0;
 	}
-
+//#pragma omp parallel for shared(output)
 	for (int i = 0; i < n_macroparticles; i++) {
 		a = input[i];
 		if ((a < cut_left) || (a > cut_right))

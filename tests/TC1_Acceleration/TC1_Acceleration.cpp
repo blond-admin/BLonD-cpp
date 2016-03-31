@@ -35,8 +35,9 @@ const ftype alpha = 1.0 / gamma_t / gamma_t;    // First order mom. comp. factor
 const int alpha_order = 1;
 const int n_sections = 1;
 // Tracking details
-int N_t = 5000;    // Number of turns to track
-int N_p = 100;         // Macro-particles
+int N_t = 50000;    // Number of turns to track
+int N_p = 10000;         // Macro-particles
+
 int n_threads = 1;
 
 GeneralParameters *GP;
@@ -53,9 +54,13 @@ int main(int argc, char **argv) {
 			atoi(GETENV("N_THREADS")) ? atoi(GETENV("N_THREADS")) : n_threads;
 	omp_set_num_threads(n_threads);
 
+	// Number of tasks is either N_TASKS if specified or n_threads (1 task / thread) if not
+	//int N_tasks = atoi(GETENV("N_TASKS")) ? atoi(GETENV("N_TASKS")) : n_threads;
+
 	printf("Setting up the simulation...\n\n");
 	printf("Number of turns: %d\n", N_t);
 	printf("Number of macro-particles: %d\n", N_p);
+	//printf("Number of Tasks: %d\n", N_tasks);
 
 	/// initializations
 #pragma omp parallel
@@ -89,12 +94,9 @@ int main(int argc, char **argv) {
 	std::fill_n(dphi_array, (N_t + 1) * n_sections, dphi);
 
 // TODO variables must be in the correct format (arrays for all)
-	//GeneralParameters *general_params = new GeneralParameters(N_t, C_array,
-	//		alpha_array, alpha_order, momentum, proton);
+
 	GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum,
 			proton);
-
-// TODO maybe general_params, beam, and RfParameters could be global?
 
 	Beam = new Beams(N_p, N_b);
 
@@ -104,21 +106,7 @@ int main(int argc, char **argv) {
 
 	longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
 
-	//dump(beam->dE, N_p, "beam->dE\n");
-
-	//dump(beam->dt, N_p, "beam->dt\n");
-	//dump(beam->dE, N_p, "beam->dE\n");
-
 	Slice = new Slices(100);
-	//dump(beam->dt, N_p, "beam->dt\n");
-	//dump(beam->dE, N_p, "beam->dE\n");
-
-	//dump(general_params->beta, N_t+1, "beta\n");
-	//dump(rf_params->harmonic, N_t+1, "harmonic\n");
-	//dump(long_tracker->acceleration_kick, N_p, "acc_kick");
-	//dump(rf_params->E_increment, n_sections * (N_t), "E_increment");
-	//dump(rf_params->Qs, n_sections * (N_t + 1), "Qs");
-	//dump(general_params.eta_0, N_t + 1, "eta_0");
 
 #pragma omp parallel
 	{
@@ -130,30 +118,30 @@ int main(int argc, char **argv) {
 		//printf("id, threads, tile, start, end = %d, %d, %d, %d, %d\n", id,
 		//		threads, tile, start, end);
 		for (int i = 0; i < N_t; ++i) {
-			//dump(beam->dE, beam->n_macroparticles, "beam->dE");
-			get_time(begin);
-			long_tracker->track(start, end, i);
-			track_time += time_elapsed(begin);
+			//get_time(begin);
+			long_tracker->track(start, end);
 
-#pragma omp master
+#pragma omp barrier
+
+			Slice->track(start, end);
+
+#pragma omp barrier
+#pragma omp single
 			{
-				get_time(begin);
-				Slice->track();
-				slice_time += time_elapsed(begin);
-
+				RfP->counter++;
 			}
+			//slice_time += time_elapsed(begin);
 
 			//beam->losses_longitudinal_cut(beam->dt, 0, 2.5e-9, beam->id);
 		}
-		//printf("rf_params->counter = %d\n", rf_params->counter);
 	}
 
-	//printf("Total simulation time: %.10lf\n", long_tracker->elapsed_time);
-	printf("Time/turn : %.10lf\n", long_tracker->elapsed_time / N_t);
+//printf("Total simulation time: %.10lf\n", long_tracker->elapsed_time);
+//printf("Time/turn : %.10lf\n", long_tracker->elapsed_time / N_t);
 	get_time(end);
-	//print_time("Total Simulation Time", begin, end);
-	print_time("Total Track Time", track_time);
-	print_time("Total Slice Time", slice_time);
+	print_time("Total Simulation Time", begin, end);
+//print_time("Total Track Time", track_time);
+//print_time("Total Slice Time", slice_time);
 
 	dump(Beam->dE, 10, "beam->dE\n");
 	dump(Beam->dt, 10, "beam->dt\n");

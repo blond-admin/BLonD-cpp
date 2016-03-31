@@ -54,20 +54,22 @@ static inline void *aligned_malloc(size_t n) {
 	return _mm_malloc(n, 64);
 }
 
-static inline void delete_array(ftype *p) {
+template<typename T>
+static inline void delete_array(T *p) {
 	if (p != NULL)
 		delete[] p;
 }
+/*
+ static inline void delete_array(bool *p) {
+ if (p != NULL)
+ delete[] p;
+ }
 
-static inline void delete_array(bool *p) {
-	if (p != NULL)
-		delete[] p;
-}
-
-static inline void delete_array(int *p) {
-	if (p != NULL)
-		delete[] p;
-}
+ static inline void delete_array(int *p) {
+ if (p != NULL)
+ delete[] p;
+ }
+ */
 
 static inline void dump(ftype* a, int n, const char* s) {
 	dprintf("%s", s);

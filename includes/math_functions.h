@@ -27,8 +27,8 @@ static inline ftype *cum_trapezoid(ftype *f, ftype deltaX, int nsub) {
 	return psum;
 
 }
-
-static inline ftype trapezoid(ftype *f, ftype deltaX, int nsub) {
+template<typename T>
+static inline ftype trapezoid(T *f, ftype deltaX, int nsub) {
 	// initialize the partial sum to be f(a)+f(b) and
 	// deltaX to be the step size using nsub subdivisions
 	ftype psum = f[0] + f[nsub - 1]; //f(a)+f(b);
@@ -36,20 +36,20 @@ static inline ftype trapezoid(ftype *f, ftype deltaX, int nsub) {
 
 	// increment the partial sum
 	for (int index = 1; index < nsub; index++) {
-		psum = psum + 2.0 * f[index];
+		psum = psum + 2 * f[index];
 	}
 
 	// multiply the sum by the constant deltaX/2.0
-	psum = (deltaX / 2.0) * psum;
+	psum = (deltaX / 2) * psum;
 
 	// return approximation
 	return psum;
 
 }
-
-static inline int min(ftype * a, int size, int step) {
+template<typename T>
+static inline int min(T * a, int size, int step) {
 	int p = 0;
-	ftype min = a[0];
+	T min = a[0];
 	for (int i = 0; i < size; i += step) {
 		if (a[i] < min) {
 			min = a[i];
@@ -60,7 +60,8 @@ static inline int min(ftype * a, int size, int step) {
 
 }
 
-static inline int max(ftype * a, int size, int step) {
+template<typename T>
+static inline int max(T * a, int size, int step) {
 	int p = 0;
 	ftype max = a[0];
 	for (int i = 0; i < size; i += step) {

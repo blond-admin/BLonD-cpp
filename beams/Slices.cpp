@@ -9,6 +9,8 @@
 #include <algorithm>
 #include <math_functions.h>
 #include <iterator>
+#include <omp.h>
+
 //#include <gsl/gsl_multifit_nlin.h>
 //#include <gsl/gsl_vector.h>
 
@@ -22,6 +24,9 @@ Slices::Slices(int _n_slices, int _n_sigma, ftype _cut_left, ftype _cut_right,
 	this->n_sigma = _n_sigma;
 	this->beam_spectrum = 0;
 	this->beam_spectrum_freq = 0;
+
+	//this->h = new ftype[omp_get_num_threads()][n_slices];
+	this->h = (ftype *) malloc(n_threads * n_slices * sizeof(ftype));
 
 	this->n_macroparticles = new ftype[n_slices];
 	for (int i = 0; i < n_slices; ++i)
@@ -38,7 +43,7 @@ Slices::Slices(int _n_slices, int _n_sigma, ftype _cut_left, ftype _cut_right,
 	set_cuts();
 
 	if (direct_slicing)
-		track();
+		track(0, Beam->n_macroparticles);
 }
 
 Slices::~Slices() {
@@ -120,18 +125,24 @@ inline ftype Slices::convert_coordinates(const ftype cut,
 
 }
 
-void Slices::track() {
+void Slices::track(const int start, const int end) {
 	/*
 	 *Track method in order to update the slicing along with the tracker.
 	 This will update the beam properties (bunch length obtained from the
 	 fit, etc.).*
 	 */
-	slice_constant_space_histogram();
+	slice_constant_space_histogram(start, end);
 	if (fit_option == fit_type::gaussian_fit)
 		gaussian_fit();
 }
 
-inline void Slices::slice_constant_space_histogram() {
+void Slices::zero_histogram() {
+	for (int i = 0; i < n_slices; i++)
+		n_macroparticles[i] = 0.0;
+}
+
+inline void Slices::slice_constant_space_histogram(const int start,
+		const int end) {
 	/*
 	 *Constant space slicing with the built-in numpy histogram function,
 	 with a constant frame. This gives the same profile as the
@@ -146,31 +157,53 @@ inline void Slices::slice_constant_space_histogram() {
 	// WARNING
 	// It is because we remove particles? Then n_macroparticles alive should be used
 	// Maybe I need to find a way to re arrange particles
-	histogram(Beam->dt, this->n_macroparticles, cut_left, cut_right, n_slices,
-			Beam->n_macroparticles);
+	//int n_threads = omp_get_num_threads();
+	int id = omp_get_thread_num();
+	histogram(Beam->dt, &h[id * n_slices], cut_left, cut_right, n_slices,
+			Beam->n_macroparticles, start, end);
+	//printf("%lf\n", h[id][0]);
+	// TODO measure the time this addition needs
+	// Do it in a parallel way if it is too much
+
+#pragma omp barrier
+#pragma omp single
+	{
+		for (int i = 0; i < n_slices; i++)
+			n_macroparticles[i] = 0.0;
+
+		for (int i = 0; i < n_slices; ++i) {
+			for (int j = 0; j < n_threads; ++j) {
+				n_macroparticles[i] += h[j * n_slices + i];
+			}
+		}
+
+	}
+
+//histogram(Beam->dt, this->n_macroparticles, cut_left, cut_right, n_slices,
+//		Beam->n_macroparticles, start, end);
 }
 
-inline void Slices::histogram(const double * __restrict__ input,
-		double * __restrict__ output, const double cut_left,
-		const double cut_right, const int n_slices,
-		const int n_macroparticles) {
+inline void Slices::histogram(const ftype * __restrict__ input,
+		ftype * __restrict__ output, const ftype cut_left,
+		const ftype cut_right, const int n_slices, const int n_macroparticles,
+		const int start, const int end) {
 
-	//int i;
-	double a;
-	double fbin;
+//int i;
+	ftype a;
+	ftype fbin;
 	int ffbin;
-	const double inv_bin_width = n_slices / (cut_right - cut_left);
+	const ftype inv_bin_width = n_slices / (cut_right - cut_left);
 
-	for (int i = 0; i < n_slices; i++) {
+	for (int i = 0; i < n_slices; i++)
 		output[i] = 0.0;
-	}
-//#pragma omp parallel for shared(output)
-	for (int i = 0; i < n_macroparticles; i++) {
+
+	for (int i = start; i < end; i++) {
 		a = input[i];
 		if ((a < cut_left) || (a > cut_right))
 			continue;
 		fbin = (a - cut_left) * inv_bin_width;
 		ffbin = (int) (fbin);
+//#pragma omp atomic
 		output[ffbin] = output[ffbin] + 1.0;
 	}
 }
@@ -194,21 +227,20 @@ void Slices::track_cuts() {
 
 }
 
-inline void Slices::smooth_histogram(const double * __restrict__ input,
-		double * __restrict__ output, const double cut_left,
-		const double cut_right, const int n_slices,
-		const int n_macroparticles) {
+inline void Slices::smooth_histogram(const ftype * __restrict__ input,
+		ftype * __restrict__ output, const ftype cut_left,
+		const ftype cut_right, const int n_slices, const int n_macroparticles) {
 
 	int i;
-	double a;
-	double fbin;
-	double ratioffbin;
-	double ratiofffbin;
-	double distToCenter;
+	ftype a;
+	ftype fbin;
+	ftype ratioffbin;
+	ftype ratiofffbin;
+	ftype distToCenter;
 	int ffbin = 0;
 	int fffbin = 0;
-	const double inv_bin_width = n_slices / (cut_right - cut_left);
-	const double bin_width = (cut_right - cut_left) / n_slices;
+	const ftype inv_bin_width = n_slices / (cut_right - cut_left);
+	const ftype bin_width = (cut_right - cut_left) / n_slices;
 
 	for (i = 0; i < n_slices; i++) {
 		output[i] = 0.0;
@@ -221,7 +253,7 @@ inline void Slices::smooth_histogram(const double * __restrict__ input,
 			continue;
 		fbin = (a - cut_left) * inv_bin_width;
 		ffbin = (int) (fbin);
-		distToCenter = fbin - (double) (ffbin);
+		distToCenter = fbin - (ftype)(ffbin);
 		if (distToCenter > 0.5)
 			fffbin = (int) (fbin + 1.0);
 		ratioffbin = 1.5 - distToCenter;
@@ -297,8 +329,8 @@ void Slices::fwhm(const ftype shift) {
 	ftype half_max = shift + 0.5 * (n_macroparticles[max_i] - shift);
 	ftype timeResolution = bin_centers[1] - bin_centers[0];
 
-	// First aproximation for the half maximum values
-	// TODO is this correct?
+// First aproximation for the half maximum values
+// TODO is this correct?
 
 	int i = 0;
 	while (n_macroparticles[i] < half_max && i < n_slices)
@@ -311,7 +343,7 @@ void Slices::fwhm(const ftype shift) {
 
 	ftype t1, t2;
 
-	//TODO maybe we could specify what kind of exceptions may occur here
+//TODO maybe we could specify what kind of exceptions may occur here
 	try {
 		t1 =
 				bin_centers[taux1]

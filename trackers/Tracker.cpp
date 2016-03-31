@@ -188,7 +188,7 @@ inline void RingAndRfSection::drift(ftype * __restrict__ beam_dt,
 
 }
 
-void RingAndRfSection::track(const int start, const int end, const int turn) {
+void RingAndRfSection::track(const int start, const int end) {
 //omp_set_num_threads(n_threads);
 //timespec begin, fin;
 
@@ -197,14 +197,15 @@ void RingAndRfSection::track(const int start, const int end, const int turn) {
 		// frame; these particles skip one kick and drift
 		//for (int i = 0; i < Beam->n_macroparticles; ++i) {
 		for (int i = start; i < end; ++i) {
-			Beam->dt[i] -= indices_right_outside[i] * GP->t_rev[turn + 1];
+			Beam->dt[i] -= indices_right_outside[i]
+					* GP->t_rev[RfP->counter + 1];
 		}
 		// Synchronize the bunch with the particles that are on the right of
 		// the current frame applying kick and drift to the bunch; after that
 		// all the particle are in the new updated frame
 
-		kick(indices_inside_frame, turn, start, end);
-		drift(indices_inside_frame, turn + 1, start, end);
+		kick(indices_inside_frame, RfP->counter, start, end);
+		drift(indices_inside_frame, RfP->counter + 1, start, end);
 
 		// find left outside particles and kick, drift them one more time
 		int a = 0;
@@ -220,22 +221,23 @@ void RingAndRfSection::track(const int start, const int end, const int turn) {
 			// This will update only the indices_left_outside values
 			//  need to test this
 			for (int i = start; i < end; ++i) {
-				Beam->dt[i] += GP->t_rev[turn + 1] * indices_left_outside[i];
+				Beam->dt[i] += GP->t_rev[RfP->counter + 1]
+						* indices_left_outside[i];
 			}
-			kick(indices_left_outside, turn, start, end);
-			drift(indices_left_outside, turn + 1, start, end);
+			kick(indices_left_outside, RfP->counter, start, end);
+			drift(indices_left_outside, RfP->counter + 1, start, end);
 
 		}
 		// update inside, right outside particles
 
-		set_periodicity(start, end, turn);
+		set_periodicity(start, end);
 
 	} else {
 		//get_time(begin);
 		//dprintf("before kick\n");
-		kick(turn, start, end);
+		kick(RfP->counter, start, end);
 		//dprintf("before drift\n");
-		drift(turn + 1, start, end);
+		drift(RfP->counter + 1, start, end);
 		//dprintf("after drift\n");
 
 		//get_time(end);
@@ -307,18 +309,17 @@ RingAndRfSection::RingAndRfSection(solver_type _solver, ftype *_PhaseLoop,
 			exit(-1);
 		}
 
-		set_periodicity(0, Beam->n_macroparticles, 0);
+		set_periodicity(0, Beam->n_macroparticles);
 		// we will either do this by using vectors or not do it at all if there is no actual need
 		GP->t_rev.push_back(GP->t_rev.back());
 	}
 
 }
 
-inline void RingAndRfSection::set_periodicity(const int start, const int end,
-		const int turn) {
+inline void RingAndRfSection::set_periodicity(const int start, const int end) {
 
 	for (int i = start; i < end; i++) {
-		if (Beam->dt[i] > GP->t_rev[turn + 1]) {
+		if (Beam->dt[i] > GP->t_rev[RfP->counter + 1]) {
 			indices_right_outside[i] = Beam->id[i] > 0;
 			indices_inside_frame[i] = false;
 		} else {

@@ -18,6 +18,8 @@ extern Beams *Beam;
 extern RfParameters *RfP;
 extern Slices *Slice;
 
-//extern int global;
+// TODO num of threads is global
+// should it?
+extern int n_threads;
 
 #endif /* INCLUDES_GLOBALS_H_ */

@@ -31,7 +31,7 @@ public:
 	bool *indices_right_outside;
 	bool *indices_inside_frame;
 	bool *indices_left_outside;
-	inline void set_periodicity(const int start, const int end, const int turn);
+	inline void set_periodicity(const int start, const int end);
 	inline void kick(const bool *update, const int index, const int start,
 			const int end);
 	inline void kick(const ftype * __restrict__ beam_dt,
@@ -63,7 +63,7 @@ public:
 			const ftype eta_zero, const ftype eta_one, const ftype eta_two,
 			const ftype beta, const ftype energy, const int n_macroparticles,
 			const int start, const int end);
-	void track(const int start, const int end, const int turn);
+	void track(const int start, const int end);
 	inline void horizontal_cut(const int start, const int end);
 	RingAndRfSection(solver_type solver = simple, ftype *PhaseLoop = NULL,
 			ftype * NoiseFB = NULL, bool periodicity = false, ftype dE_max = 0,

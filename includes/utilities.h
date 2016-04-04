@@ -17,7 +17,6 @@
 #include <sys/time.h>
 #include "configuration.h"
 
-#define TIMING
 #define dprintf(...)    fprintf(stdout, __VA_ARGS__)     // Debug printf
 
 #define CHECK_ERROR(a)                                       \

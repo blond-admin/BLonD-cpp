@@ -1,0 +1,1 @@
+g++   -std=c++11 -Wall -fopenmp -O2 -Ofast   CMakeFiles/TC1_Acceleration.dir/tests/TC1_Acceleration.cpp.o  -o TC1_Acceleration -rdynamic libblond.a 

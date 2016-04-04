@@ -18,6 +18,8 @@ class Slices;
 #include "constants.h"
 #include "globals.h"
 
+const ftype cfwhm = 2 * sqrt(2 * log(2));
+
 enum cuts_unit_type {
 	s, rad
 };
@@ -34,6 +36,8 @@ public:
 	~Slices();
 	void track(const int start, const int end);
 	void zero_histogram();
+	ftype fast_fwhm();
+	void fwhm(const ftype shift = 0);
 
 	ftype bl_fwhm, bp_fwhm;
 	ftype bp_rms, bl_rms;
@@ -67,9 +71,7 @@ private:
 	void track_cuts();
 	void slice_constant_space_histogram_smooth();
 	void rms();
-	void fwhm(const ftype shift = 0);
 	ftype gauss(const ftype x, const ftype x0, const ftype sx, const ftype A);
-
 	// not for now
 	void gaussian_fit();
 	// not for now

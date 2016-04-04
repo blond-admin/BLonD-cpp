@@ -74,6 +74,10 @@ void Slices::set_cuts() {
 					+ 0.05
 							* (Beam->dt[Beam->n_macroparticles - 1]
 									- Beam->dt[0]);
+
+			//dprintf("cut_left = %e\n", cut_left);
+			//dprintf("cut_right = %e\n", cut_right);
+
 		} else {
 			ftype mean_coords = mymath::mean(Beam->dt, Beam->n_macroparticles);
 			ftype sigma_coords = mymath::standard_deviation(Beam->dt,
@@ -87,9 +91,11 @@ void Slices::set_cuts() {
 		cut_right = convert_coordinates(cut_right, cuts_unit);
 	}
 	mymath::linspace(edges, cut_left, cut_right, n_slices + 1);
+	//dump(edges, 10, "edges\n");
 	for (int i = 0; i < n_slices; ++i) {
-		bin_centers[i] = (edges[n_slices - i - 1] + edges[i]) / 2;
+		bin_centers[i] = (edges[i + 1] + edges[i]) / 2;
 	}
+
 }
 
 // TODO not implemented the best way
@@ -166,6 +172,7 @@ inline void Slices::slice_constant_space_histogram(const int start,
 	// Do it in a parallel way if it is too much
 
 #pragma omp barrier
+
 #pragma omp single
 	{
 		for (int i = 0; i < n_slices; i++)
@@ -179,8 +186,6 @@ inline void Slices::slice_constant_space_histogram(const int start,
 
 	}
 
-//histogram(Beam->dt, this->n_macroparticles, cut_left, cut_right, n_slices,
-//		Beam->n_macroparticles, start, end);
 }
 
 inline void Slices::histogram(const ftype * __restrict__ input,
@@ -325,12 +330,13 @@ void Slices::fwhm(const ftype shift) {
 	 * Computation of the bunch length and position from the FWHM
 	 assuming Gaussian line density.*
 	 */
-	int max_i = mymath::max(n_macroparticles, Beam->n_macroparticles, 1);
+	int max_i = mymath::max(n_macroparticles, n_slices, 1);
 	ftype half_max = shift + 0.5 * (n_macroparticles[max_i] - shift);
 	ftype timeResolution = bin_centers[1] - bin_centers[0];
-
+	//printf("n_macroparticles.max = %.0lf\n", n_macroparticles[max_i]);
+	//printf("timeResolution = %e\n", timeResolution);
+	//printf("half_max = %e\n", half_max);
 // First aproximation for the half maximum values
-// TODO is this correct?
 
 	int i = 0;
 	while (n_macroparticles[i] < half_max && i < n_slices)
@@ -341,28 +347,76 @@ void Slices::fwhm(const ftype shift) {
 		i--;
 	int taux2 = i;
 
+	//dprintf("taux1, taux2 = %d, %d\n", taux1, taux2);
 	ftype t1, t2;
 
-//TODO maybe we could specify what kind of exceptions may occur here
-	try {
-		t1 =
-				bin_centers[taux1]
-						- (n_macroparticles[taux1] - half_max)
-								/ (n_macroparticles[taux1]
-										- n_macroparticles[taux1 - 1])
-								* timeResolution;
-		t2 =
-				bin_centers[taux2]
-						+ (n_macroparticles[taux2] - half_max)
-								/ (n_macroparticles[taux2]
-										- n_macroparticles[taux2 + 1])
-								* timeResolution;
-		bl_fwhm = 4 * (t2 - t1) / (2 * sqrt(2 * log(2)));
-		bp_fwhm = (t1 + t2) / 2;
-	} catch (...) {
+	// maybe we could specify what kind of exceptions may occur here
+	// numerical (divide by zero) or index out of bounds
+
+	// TODO something weird is happening here
+	// Python throws an exception only if you access an element after the end of the array
+	// but not if you access element before the start of an array
+	// (in that case it takes the last element of the array)
+	// Cpp does not throw an exception on eiter occassion
+	// The right condition is the following in comments
+	if (taux1 > 0 && taux2 < n_slices - 1) {
+		//if (taux2 < n_slices - 1) {
+		try {
+			t1 = bin_centers[taux1]
+					- (n_macroparticles[taux1] - half_max)
+							/ (n_macroparticles[taux1]
+									- n_macroparticles[taux1 - 1])
+							* timeResolution;
+			t2 = bin_centers[taux2]
+					+ (n_macroparticles[taux2] - half_max)
+							/ (n_macroparticles[taux2]
+									- n_macroparticles[taux2 + 1])
+							* timeResolution;
+			//dprintf("t1 = %e\n", t1);
+			//dprintf("t2 = %e\n", t2);
+
+			bl_fwhm = 4 * (t2 - t1) / cfwhm;
+			bp_fwhm = (t1 + t2) / 2;
+			//dprintf("t1, t2 = %e, %e\n", t1, t2);
+		} catch (...) {
+			bl_fwhm = nan("");
+			bp_fwhm = nan("");
+		}
+	} else {
+		//catch (...) {
+		//dprintf("taux1, taux2 = %d, %d\n", taux1, taux2);
+		//dprintf("exception\n");
 		bl_fwhm = nan("");
 		bp_fwhm = nan("");
 	}
+
+}
+
+ftype Slices::fast_fwhm() {
+
+	/*
+	 * Computation of the bunch length and position from the FWHM
+	 assuming Gaussian line density.*
+
+	 height = np.max(self.n_macroparticles)
+	 index = np.where(self.n_macroparticles > height/2.)[0]
+	 return cfwhm*(Slices.bin_centers[index[-1]] - Slices.bin_centers[index[0]])
+	 */
+	int max_i = mymath::max(n_macroparticles, Beam->n_macroparticles, 1);
+	ftype half_max = 0.5 * n_macroparticles[max_i];
+
+// First aproximation for the half maximum values
+// TODO is this correct?
+
+	int i = 0;
+	while (n_macroparticles[i] < half_max && i < n_slices)
+		i++;
+	int taux1 = i;
+	i = n_slices - 1;
+	while (n_macroparticles[i] < half_max && i >= 0)
+		i--;
+	int taux2 = i;
+	return cfwhm * (bin_centers[taux2] - bin_centers[taux1]);
 
 }
 

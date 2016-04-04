@@ -249,9 +249,6 @@ void RingAndRfSection::track(const int start, const int end) {
 	if (dE_max > 0)
 		horizontal_cut(start, end);
 	//RfP->counter++;
-	//printf("RfP->counter = %d\n", RfP->counter);
-
-	//printf("RfP->counter = %d\n", RfP->counter);
 }
 
 inline void RingAndRfSection::horizontal_cut(const int start, const int end) {
@@ -265,8 +262,7 @@ inline void RingAndRfSection::horizontal_cut(const int start, const int end) {
 
 RingAndRfSection::RingAndRfSection(solver_type _solver, ftype *_PhaseLoop,
 		ftype * _NoiseFB, bool _periodicity, ftype _dE_max,
-		bool _rf_kick_interp, ftype* _Slices, ftype * _TotalInducedVoltage,
-		int _n_threads) {
+		bool _rf_kick_interp, ftype* _Slices, ftype * _TotalInducedVoltage) {
 	this->elapsed_time = 0;
 	this->solver = _solver;
 	this->PhaseLoop = _PhaseLoop;
@@ -276,7 +272,7 @@ RingAndRfSection::RingAndRfSection(solver_type _solver, ftype *_PhaseLoop,
 	this->rf_kick_interp = _rf_kick_interp;
 	this->Slices = _Slices;
 	this->TotalInducedVoltage = _TotalInducedVoltage;
-	this->n_threads = _n_threads;
+	//this->n_threads = _n_threads;
 	this->indices_left_outside = new bool[Beam->n_macroparticles];
 	this->indices_right_outside = new bool[Beam->n_macroparticles];
 	this->indices_inside_frame = new bool[Beam->n_macroparticles];

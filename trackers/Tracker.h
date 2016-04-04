@@ -8,7 +8,7 @@
 #ifndef TRACKERS_TRACKER_H_
 #define TRACKERS_TRACKER_H_
 
-#include "../includes/utilities.h"
+#include "utilities.h"
 #include "../input_parameters/GeneralParameters.h"
 #include "../input_parameters/RfParameters.h"
 #include "../beams/Beams.h"
@@ -63,12 +63,13 @@ public:
 			const ftype eta_zero, const ftype eta_one, const ftype eta_two,
 			const ftype beta, const ftype energy, const int n_macroparticles,
 			const int start, const int end);
+
 	void track(const int start, const int end);
 	inline void horizontal_cut(const int start, const int end);
 	RingAndRfSection(solver_type solver = simple, ftype *PhaseLoop = NULL,
 			ftype * NoiseFB = NULL, bool periodicity = false, ftype dE_max = 0,
 			bool rf_kick_interp = false, ftype* Slices = NULL,
-			ftype * TotalInducedVoltage = NULL, int n_threads = 1);
+			ftype * TotalInducedVoltage = NULL);
 	~RingAndRfSection();
 
 	solver_type solver;
@@ -79,7 +80,7 @@ public:
 	bool rf_kick_interp;
 	ftype* Slices;
 	ftype * TotalInducedVoltage;
-	int n_threads;
+	//int n_threads;
 	ftype* acceleration_kick;
 
 };

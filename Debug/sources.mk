@@ -25,6 +25,6 @@ C_UPPER_DEPS :=
 SUBDIRS := \
 beams \
 input_parameters \
-tests/TC1_Acceleration \
+tests \
 trackers \
 

@@ -5,7 +5,7 @@ project(BLonD-minimal-cpp)
 include_directories(includes)
 
 
-set(CMAKE_CXX_FLAGS "-std=c++0x -Wall -fopenmp -O2 -Ofast")
+set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -fopenmp -O2 -Ofast") #-Ofast
 set(CMAKE_CXX_COMPILER g++)
 
 set(SOURCE_FILES 
@@ -17,6 +17,7 @@ set(SOURCE_FILES
     )
 
 add_library(blond ${SOURCE_FILES})
+
     
 add_executable(TC1_Acceleration tests/TC1_Acceleration.cpp)
 

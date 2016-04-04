@@ -173,19 +173,35 @@ inline void Slices::slice_constant_space_histogram(const int start,
 
 #pragma omp barrier
 
-#pragma omp single
-	{
-		for (int i = 0; i < n_slices; i++)
-			n_macroparticles[i] = 0.0;
-
-		for (int i = 0; i < n_slices; ++i) {
-			for (int j = 0; j < n_threads; ++j) {
-				n_macroparticles[i] += h[j * n_slices + i];
-			}
+	int d = 0;
+	while ((1 << d) < n_threads) {
+		int other = id + (1 << d);
+		if (id % (1 << (d + 1)) == 0 && other < n_threads) {
+			for (int i = 0; i < n_slices; ++i)
+				h[id * n_slices + i] += h[other * n_slices + i];
 		}
-
+		d++;
+#pragma omp barrier
 	}
 
+#pragma omp master
+	for (int i = 0; i < n_slices; ++i) {
+		n_macroparticles[i] = h[i];
+	}
+	/*
+	 #pragma omp single
+	 {
+	 for (int i = 0; i < n_slices; i++)
+	 n_macroparticles[i] = 0.0;
+
+	 for (int i = 0; i < n_slices; ++i) {
+	 for (int j = 0; j < n_threads; ++j) {
+	 n_macroparticles[i] += h[j * n_slices + i];
+	 }
+	 }
+
+	 }
+	 */
 }
 
 inline void Slices::histogram(const ftype * __restrict__ input,
@@ -333,9 +349,9 @@ void Slices::fwhm(const ftype shift) {
 	int max_i = mymath::max(n_macroparticles, n_slices, 1);
 	ftype half_max = shift + 0.5 * (n_macroparticles[max_i] - shift);
 	ftype timeResolution = bin_centers[1] - bin_centers[0];
-	//printf("n_macroparticles.max = %.0lf\n", n_macroparticles[max_i]);
-	//printf("timeResolution = %e\n", timeResolution);
-	//printf("half_max = %e\n", half_max);
+//printf("n_macroparticles.max = %.0lf\n", n_macroparticles[max_i]);
+//printf("timeResolution = %e\n", timeResolution);
+//printf("half_max = %e\n", half_max);
 // First aproximation for the half maximum values
 
 	int i = 0;
@@ -347,18 +363,18 @@ void Slices::fwhm(const ftype shift) {
 		i--;
 	int taux2 = i;
 
-	//dprintf("taux1, taux2 = %d, %d\n", taux1, taux2);
+//dprintf("taux1, taux2 = %d, %d\n", taux1, taux2);
 	ftype t1, t2;
 
-	// maybe we could specify what kind of exceptions may occur here
-	// numerical (divide by zero) or index out of bounds
+// maybe we could specify what kind of exceptions may occur here
+// numerical (divide by zero) or index out of bounds
 
-	// TODO something weird is happening here
-	// Python throws an exception only if you access an element after the end of the array
-	// but not if you access element before the start of an array
-	// (in that case it takes the last element of the array)
-	// Cpp does not throw an exception on eiter occassion
-	// The right condition is the following in comments
+// TODO something weird is happening here
+// Python throws an exception only if you access an element after the end of the array
+// but not if you access element before the start of an array
+// (in that case it takes the last element of the array)
+// Cpp does not throw an exception on eiter occassion
+// The right condition is the following in comments
 	if (taux1 > 0 && taux2 < n_slices - 1) {
 		//if (taux2 < n_slices - 1) {
 		try {

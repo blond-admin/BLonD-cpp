@@ -37,7 +37,7 @@ int N_t = 10000;    // Number of turns to track
 int N_p = 10000;         // Macro-particles
 
 int n_threads = 1;
-int N_slices = 500;
+int N_slices = 100;
 
 GeneralParameters *GP;
 Beams *Beam;

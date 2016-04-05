@@ -50,6 +50,7 @@ Slices::~Slices() {
 	delete_array (n_macroparticles);
 	delete_array (bin_centers);
 	delete_array (edges);
+	delete_array (h);
 }
 
 void Slices::set_cuts() {
@@ -165,6 +166,7 @@ inline void Slices::slice_constant_space_histogram(const int start,
 	// Maybe I need to find a way to re arrange particles
 	//int n_threads = omp_get_num_threads();
 	int id = omp_get_thread_num();
+
 	histogram(Beam->dt, &h[id * n_slices], cut_left, cut_right, n_slices,
 			Beam->n_macroparticles, start, end);
 	//printf("%lf\n", h[id][0]);

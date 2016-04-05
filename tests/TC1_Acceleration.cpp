@@ -34,7 +34,7 @@ const int alpha_order = 1;
 const int n_sections = 1;
 // Tracking details
 int N_t = 10000;    // Number of turns to track
-int N_p = 10000;         // Macro-particles
+int N_p = 1000;         // Macro-particles
 
 int n_threads = 1;
 int N_slices = 100;
@@ -85,8 +85,6 @@ int main(int argc, char **argv) {
 	std::fill_n(h_array, (N_t + 1) * n_sections, h);
 
 	ftype *V_array = new ftype[n_sections * (N_t + 1)];
-	//ftype * V_array = (ftype *) aligned_malloc(
-	//		sizeof(ftype) * n_sections * (N_t + 1));
 	std::fill_n(V_array, (N_t + 1) * n_sections, V);
 
 	ftype *dphi_array = new ftype[n_sections * (N_t + 1)];

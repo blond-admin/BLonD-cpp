@@ -33,11 +33,11 @@ const ftype alpha = 1.0 / gamma_t / gamma_t;    // First order mom. comp. factor
 const int alpha_order = 1;
 const int n_sections = 1;
 // Tracking details
-int N_t = 10000;    // Number of turns to track
-int N_p = 10000;         // Macro-particles
+int N_t = 5000;    // Number of turns to track
+int N_p = 1000;         // Macro-particles
 
 int n_threads = 1;
-int N_slices = 500;
+int N_slices = 100;
 
 GeneralParameters *GP;
 Beams *Beam;
@@ -60,6 +60,8 @@ int main(int argc, char **argv) {
 	printf("Setting up the simulation...\n\n");
 	printf("Number of turns: %d\n", N_t);
 	printf("Number of macro-particles: %d\n", N_p);
+	printf("Number of Slices: %d\n", N_slices);
+
 	//printf("Number of Tasks: %d\n", N_tasks);
 
 	/// initializations
@@ -108,6 +110,7 @@ int main(int argc, char **argv) {
 	Slice = new Slices(N_slices);
 
 	//dump(Slice->bin_centers, N_slices, "bin_centers\n");
+	//dump(Beam->dE, 10, "dE\n");
 
 	double slice_time = 0, track_time = 0;
 
@@ -127,6 +130,8 @@ int main(int argc, char **argv) {
 #ifdef TIMING
 			if (id == 0) get_time(begin_t);
 #endif
+			//dump(Beam->dE, 1, "dE\n");
+
 			long_tracker->track(start, end);
 
 #pragma omp barrier

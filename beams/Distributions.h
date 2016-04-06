@@ -52,12 +52,12 @@ inline void longitudinal_bigaussian(ftype sigma_dt, ftype sigma_dE = 0,
 		//dprintf("sin(phi_s): %.12lf \n", sin(phi_s));
 
 	}
-	//dprintf("omega_RF: %.12lf \n", omega_RF);
-	//dprintf("sigma_dt: %.12lf \n", sigma_dt);
-	//dprintf("phi_s: %.12lf \n", phi_s);
-
-	//dprintf("phi_b: %.12lf \n", phi_b);
-	//dprintf("sigma_dE: %.12lf \n", sigma_dE);
+//	dprintf("omega_RF: %.12lf \n", omega_RF);
+//	dprintf("sigma_dt: %.12lf \n", sigma_dt);
+//	dprintf("phi_s: %.12lf \n", phi_s);
+//
+//	dprintf("phi_b: %.12lf \n", phi_b);
+//	dprintf("sigma_dE: %.12lf \n", sigma_dE);
 
 	Beam->sigma_dE = sigma_dE;
 	Beam->sigma_dt = sigma_dt;

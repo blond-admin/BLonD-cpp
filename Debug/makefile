@@ -47,7 +47,7 @@ all: BLonD-minimal-cpp
 BLonD-minimal-cpp: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cross G++ Linker'
-	g++ -pg -fopenmp  -o "BLonD-minimal-cpp" $(OBJS) $(USER_OBJS) $(LIBS)
+	g++ -pg -fopenmp -L/usr/lib64/ -o "BLonD-minimal-cpp" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 

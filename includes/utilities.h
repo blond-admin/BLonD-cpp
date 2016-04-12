@@ -8,9 +8,14 @@
 #ifndef INCLUDES_UTILITIES_H_
 #define INCLUDES_UTILITIES_H_
 
+#include <sstream>
+#include <fstream>
+#include <iostream>
+#include <string>
 #include <assert.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <vector>
 #include <stdlib.h>
 #include <math.h>
 #include <mm_malloc.h>
@@ -25,6 +30,28 @@
       perror("Error at line\n\t" #a "\nSystem Msg");         \
       assert ((a) == 0);                                     \
    }
+
+static void read_vector_from_file(std::vector<ftype> &v, std::string file) {
+
+	std::ifstream source(file);
+	if (!source.good()) {
+		std::cout << "Error: file " << file << " does not exist\n";
+		source.close();
+		exit(-1);
+	}
+
+	for (std::string line; std::getline(source, line);) {
+		std::istringstream in(line);
+		ftype type;
+		while (in >> type)
+			v.push_back(type);
+		//if (!(in >> type))
+		//	break;
+		//v.push_back(type);
+	}
+
+	source.close();
+}
 
 // sort an array with regards to another array
 struct MyComparator {
@@ -57,6 +84,13 @@ template<typename T>
 static inline void delete_array(T *p) {
 	if (p != NULL)
 		delete[] p;
+}
+
+template<typename T>
+static inline void zero(T *p, int n) {
+	for (int i = 0; i < n; ++i) {
+		p[i] = 0;
+	}
 }
 /*
  static inline void delete_array(bool *p) {

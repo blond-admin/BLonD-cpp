@@ -4,13 +4,13 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../tests/TC1_Acceleration.cpp 
+../tests/LHC_restart.cpp 
 
 OBJS += \
-./tests/TC1_Acceleration.o 
+./tests/LHC_restart.o 
 
 CPP_DEPS += \
-./tests/TC1_Acceleration.d 
+./tests/LHC_restart.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

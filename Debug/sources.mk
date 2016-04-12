@@ -25,6 +25,7 @@ C_UPPER_DEPS :=
 SUBDIRS := \
 beams \
 input_parameters \
+llrf \
 tests \
 trackers \
 

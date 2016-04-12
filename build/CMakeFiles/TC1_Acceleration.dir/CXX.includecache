@@ -47,8 +47,6 @@ configuration.h
 ../includes/configuration.h
 
 /afs/cern.ch/user/k/kiliakis/work/workspace/BLonD-minimal-cpp/beams/Beams.h
-../input_parameters/GeneralParameters.h
-/afs/cern.ch/user/k/kiliakis/work/workspace/BLonD-minimal-cpp/input_parameters/GeneralParameters.h
 globals.h
 /afs/cern.ch/user/k/kiliakis/work/workspace/BLonD-minimal-cpp/beams/globals.h
 utilities.h
@@ -122,6 +120,16 @@ iterator
 globals.h
 /afs/cern.ch/user/k/kiliakis/work/workspace/BLonD-minimal-cpp/input_parameters/globals.h
 
+/afs/cern.ch/user/k/kiliakis/work/workspace/BLonD-minimal-cpp/llrf/PhaseLoop.h
+globals.h
+/afs/cern.ch/user/k/kiliakis/work/workspace/BLonD-minimal-cpp/llrf/globals.h
+utilities.h
+/afs/cern.ch/user/k/kiliakis/work/workspace/BLonD-minimal-cpp/llrf/utilities.h
+configuration.h
+/afs/cern.ch/user/k/kiliakis/work/workspace/BLonD-minimal-cpp/llrf/configuration.h
+constants.h
+/afs/cern.ch/user/k/kiliakis/work/workspace/BLonD-minimal-cpp/llrf/constants.h
+
 /afs/cern.ch/user/k/kiliakis/work/workspace/BLonD-minimal-cpp/tests/TC1_Acceleration.cpp
 globals.h
 /afs/cern.ch/user/k/kiliakis/work/workspace/BLonD-minimal-cpp/tests/globals.h
@@ -157,6 +165,8 @@ utilities.h
 /afs/cern.ch/user/k/kiliakis/work/workspace/BLonD-minimal-cpp/beams/Beams.h
 sin.h
 /afs/cern.ch/user/k/kiliakis/work/workspace/BLonD-minimal-cpp/trackers/sin.h
+../llrf/PhaseLoop.h
+/afs/cern.ch/user/k/kiliakis/work/workspace/BLonD-minimal-cpp/llrf/PhaseLoop.h
 
 /afs/cern.ch/user/k/kiliakis/work/workspace/BLonD-minimal-cpp/trackers/sin.h
 sincos.h

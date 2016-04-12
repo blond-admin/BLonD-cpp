@@ -10,6 +10,7 @@ RM := rm -rf
 -include sources.mk
 -include trackers/subdir.mk
 -include tests/subdir.mk
+-include llrf/subdir.mk
 -include input_parameters/subdir.mk
 -include beams/subdir.mk
 -include subdir.mk

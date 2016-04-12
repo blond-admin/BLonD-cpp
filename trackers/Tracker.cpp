@@ -13,7 +13,7 @@ RingAndRfSection::~RingAndRfSection() {
 	//if (this->NoiseFB != NULL) delete this->NoiseFB;
 	//if (this->TotalInducedVoltage != NULL) delete this->TotalInducedVoltage;
 	//if (this->acceleration_kick != NULL) delete this->acceleration_kick;
-	delete_array(this->PhaseLoop);
+	delete_array(this->PL);
 	delete_array(this->NoiseFB);
 	delete_array(this->TotalInducedVoltage);
 	delete_array(this->acceleration_kick);
@@ -260,12 +260,12 @@ inline void RingAndRfSection::horizontal_cut(const int start, const int end) {
 	}
 }
 
-RingAndRfSection::RingAndRfSection(solver_type _solver, ftype *_PhaseLoop,
+RingAndRfSection::RingAndRfSection(solver_type _solver, PhaseLoop *_PhaseLoop,
 		ftype * _NoiseFB, bool _periodicity, ftype _dE_max,
 		bool _rf_kick_interp, ftype* _Slices, ftype * _TotalInducedVoltage) {
 	this->elapsed_time = 0;
 	this->solver = _solver;
-	this->PhaseLoop = _PhaseLoop;
+	this->PL = _PhaseLoop;
 	this->NoiseFB = _NoiseFB;
 	this->periodicity = _periodicity;
 	this->dE_max = _dE_max;

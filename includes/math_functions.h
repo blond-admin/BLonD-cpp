@@ -27,6 +27,25 @@ static inline ftype *cum_trapezoid(ftype *f, ftype deltaX, int nsub) {
 	return psum;
 
 }
+
+template<typename T>
+static inline ftype trapezoid(T *f, ftype *deltaX, int nsub) {
+	// initialize the partial sum to be f(a)+f(b) and
+	// deltaX to be the step size using nsub subdivisions
+
+	ftype psum = 0;
+	// increment the partial sum
+	for (int index = 1; index < nsub; index++) {
+		psum = psum
+				+ (f[index] + f[index - 1])
+						* (deltaX[index] - deltaX[index - 1]);
+	}
+
+	// return approximation
+	return psum / 2;
+
+}
+
 template<typename T>
 static inline ftype trapezoid(T *f, ftype deltaX, int nsub) {
 	// initialize the partial sum to be f(a)+f(b) and
@@ -75,11 +94,12 @@ static inline int max(T * a, int size, int step) {
 }
 
 static inline void linspace(ftype* a, const ftype start, const ftype end,
-		const int n) {
+		const int n, const int keep_from = 0) {
 	ftype step = (end - start) / (n - 1);
 	ftype value = start;
 	for (int i = 0; i < n; ++i) {
-		a[i] = value;
+		if (i >= keep_from)
+			a[i - keep_from] = value;
 		value += step;
 	}
 }

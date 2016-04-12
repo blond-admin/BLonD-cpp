@@ -434,6 +434,7 @@ ftype Slices::fast_fwhm() {
 	while (n_macroparticles[i] < half_max && i >= 0)
 		i--;
 	int taux2 = i;
+	// update bp
 	return cfwhm * (bin_centers[taux2] - bin_centers[taux1]);
 
 }

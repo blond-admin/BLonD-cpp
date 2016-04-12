@@ -4,6 +4,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/blond.dir/input_parameters/GeneralParameters.cpp.o"
   "CMakeFiles/blond.dir/input_parameters/RfParameters.cpp.o"
   "CMakeFiles/blond.dir/trackers/Tracker.cpp.o"
+  "CMakeFiles/blond.dir/llrf/PhaseLoop.cpp.o"
   "libblond.pdb"
   "libblond.a"
 )

@@ -10,7 +10,7 @@
 
 class Beams;
 
-#include "../input_parameters/GeneralParameters.h"
+//#include "../input_parameters/GeneralParameters.h"
 #include "globals.h"
 #include "utilities.h"
 #include "configuration.h"

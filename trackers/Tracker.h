@@ -13,6 +13,7 @@
 #include "../input_parameters/RfParameters.h"
 #include "../beams/Beams.h"
 #include "sin.h"
+#include "../llrf/PhaseLoop.h"
 
 enum solver_type {
 	simple, full
@@ -66,14 +67,14 @@ public:
 
 	void track(const int start, const int end);
 	inline void horizontal_cut(const int start, const int end);
-	RingAndRfSection(solver_type solver = simple, ftype *PhaseLoop = NULL,
+	RingAndRfSection(solver_type solver = simple, PhaseLoop *PL = NULL,
 			ftype * NoiseFB = NULL, bool periodicity = false, ftype dE_max = 0,
 			bool rf_kick_interp = false, ftype* Slices = NULL,
 			ftype * TotalInducedVoltage = NULL);
 	~RingAndRfSection();
 
 	solver_type solver;
-	ftype *PhaseLoop;
+	PhaseLoop *PL;
 	ftype * NoiseFB;
 	bool periodicity;
 	ftype dE_max;

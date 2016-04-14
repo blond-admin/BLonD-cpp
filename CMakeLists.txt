@@ -5,9 +5,9 @@ project(BLonD-minimal-cpp)
 include_directories(includes)
 
 #release
-#set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -fopenmp -O2 -Ofast") #-Ofast
+set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -fopenmp -O2 -Ofast") #-Ofast
 #debug
-set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -fopenmp -O0 -g") #-Ofast
+#set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -fopenmp -O0 -g") #-Ofast
 
 set(CMAKE_CXX_COMPILER g++)
 

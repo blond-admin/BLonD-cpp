@@ -10,7 +10,7 @@
 
 typedef double ftype;
 #define FIXED_PARTICLES
-//#define TIMING
+#define TIMING
 //#define PRINT_RESULTS
 
 #endif /* INCLUDES_CONFIGURATION_H_ */

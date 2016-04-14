@@ -107,7 +107,7 @@ static inline void zero(T *p, int n) {
 static inline void dump(ftype* a, int n, const char* s) {
 	dprintf("%s", s);
 	for (int i = 0; i < n; ++i) {
-		dprintf("%.12lf\n", a[i]);
+		dprintf("%.6e\n", a[i]);
 	}
 	dprintf("\n");
 

@@ -47,11 +47,11 @@ Slices *Slice;
 RfParameters *RfP;
 int n_threads = 1;
 //const int size = 14e6;
-const int from_line = 436626;
+const int from_line = 0;
+
 // Simulation setup -------------------------------------------------------------
 int main(int argc, char **argv) {
 	timespec begin, end;
-	get_time(begin);
 
 	// Environmental variables
 	N_t = atoi(GETENV("N_TURNS")) ? atoi(GETENV("N_TURNS")) : N_t;
@@ -73,24 +73,22 @@ int main(int argc, char **argv) {
 	}
 
 	printf("Setting up the simulation..\n");
+	get_time(begin);
 
-	//ftype *ps = new ftype[N_t + 1];
 	std::vector < ftype > v;
 	read_vector_from_file(v, datafiles + "LHC_momentum_programme_folder/xan");
-	//for (int i = 0; i < 100; ++i) {
-	//	std::cout << "v[" << i << "] = " << v[i] << "\n";
-	//}
 
 	// optional
 	v.erase(v.begin(), v.begin() + from_line);
 
-	std::cout << "vector size is " << v.size() << "\n";
+	//std::cout << "vector size is " << v.size() << "\n";
 	int remaining = N_t + 1 - v.size();
 	for (int i = 0; i < remaining; ++i) {
 		v.push_back(6.5e12);
 	}
 	assert((int) v.size() == N_t + 1);
 	ftype *ps = &v[0];	//new ftype[v.size()];
+
 	printf("Length of ps is %lu\n", v.size());
 	printf("Flat top momentum %.4e eV\n", ps[N_t]);
 
@@ -124,22 +122,10 @@ int main(int argc, char **argv) {
 	RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
 	printf("RF parameters set...\n");
 
-	/*
-	 dump(RfP->harmonic, 3, "harmonic\n");
-	 dprintf("charge %lf\n", GP->charge);
-	 dump(RfP->voltage, 3, "voltage\n");
-	 dump(RfP->phi_s, 3, "phi_s\n");
-	 dump(GP->eta_0, 3, "eta_0\n");
-	 dump(RfP->Qs, 3, "Qs\n");
-	 dump(GP->omega_rev, 3, "omega_rev\n");
-	 dump(RfP->omega_s0, 3, "omega_s0\n");
-	 */
-
 	// Define beam and distribution: Load matched, filamented distribution
 	Beam = new Beams(N_p, N_b);
 	std::vector < ftype > v2;
 	read_vector_from_file(v2, datafiles + "coords_13000001.dat");
-	//printf("v2 size is %lu\n", v2.size());
 	int k = 0;
 	for (unsigned int i = 0; i < v2.size(); i += 3) {
 		Beam->dt[k] = v2[i] * 1e-9; // [s]
@@ -150,7 +136,6 @@ int main(int argc, char **argv) {
 
 	Slice = new Slices(N_slices, 0, -0.5e-9, 3e-9);
 	printf("Beam generated, slices set...\n");
-	//dump(Slice->bin_centers, 10, "bin_centers\n");
 	// Define phase loop and frequency loop gain
 	ftype PL_gain = 1 / (5 * GP->t_rev[0]);
 	ftype SL_gain = PL_gain / 10;
@@ -169,7 +154,7 @@ int main(int argc, char **argv) {
 	// Injecting noise in the cavity, PL on
 	RingAndRfSection *long_tracker = new RingAndRfSection(simple, PL);
 	printf("PL, SL, and tracker set...\n");
-	//dump(Slice->bin_centers, 10, "bin_centers\n");
+
 	double slice_time = 0, track_time = 0;
 
 	timespec begin_t;
@@ -192,7 +177,7 @@ int main(int argc, char **argv) {
 		//printf("id, threads, tile, start, end = %d, %d, %d, %d, %d\n", id,
 		//		threads, tile, start, end);
 		for (int i = 0; i < N_t; ++i) {
-			//printf("Turn %d\n", i);
+			printf("\nTurn %d\n", i);
 			Slice->track(start, end);
 
 #pragma omp barrier
@@ -200,7 +185,7 @@ int main(int argc, char **argv) {
 #pragma omp barrier
 #pragma omp single
 			{
-				printf("   Beam energy %.6e eV\n", GP->energy[0]);
+				//printf("   Beam energy %.6e eV\n", GP->energy[0]);
 				printf("   RF phase %.6e rad\n", RfP->dphi_RF[0]);
 				printf("   PL phase correction %.6e rad\n", PL->dphi);
 				RfP->counter++;
@@ -254,8 +239,9 @@ int main(int argc, char **argv) {
 //printf("result = %e\n", result);
 
 	get_time(end);
-#ifdef TIMING
 	print_time("Simulation Time", begin, end);
+
+#ifdef TIMING
 	double total_time = track_time + slice_time;
 	printf("Track time : %.4lf ( %.2lf %% )\n", track_time,
 			100 * track_time / total_time);
@@ -267,7 +253,6 @@ int main(int argc, char **argv) {
 	dump(Beam->dt, 10, "dt\n");
 	dump(Slice->n_macroparticles, 10, "n_macroparticles\n");
 
-//delete_array(ps);
 	v.clear();
 	v2.clear();
 	delete PL;

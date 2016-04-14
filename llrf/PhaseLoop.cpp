@@ -134,34 +134,23 @@ void PhaseLoop::beam_phase() {
 	//omega_RF = self.rf_params.omega_RF[0,self.rf_params.counter[0]]
 	ftype omega_RF = RfP->omega_RF[RfP->counter];
 	ftype phi_RF = RfP->phi_RF[RfP->counter];
-	//printf("omega_Rf = %lf\n", omega_RF);
-	//printf("phi_RF = %lf\n", phi_RF);
 	// Convolve with window function
 	//
 	ftype base[Slice->n_slices];
 	ftype array[Slice->n_slices];
-	//zero(base, Slice->n_slices);
+
 	for (int i = 0; i < Slice->n_slices; ++i) {
 		ftype a = alpha * Slice->bin_centers[i];
 		base[i] = exp(a) * Slice->n_macroparticles[i];
 	}
-	//dump(Slice->n_macroparticles, Slice->n_slices, "n_macroparticles\n");
-	//dump(base, 10, "base\n");
 
 	for (int i = 0; i < Slice->n_slices; ++i) {
 		ftype a = omega_RF * Slice->bin_centers[i] + phi_RF;
 		array[i] = base[i] * sin(a);
-		if (i < 10) {
-			//dprintf("array = %e\n", array[i]);
-			//dprintf("a,sin = %lf, %lf\n", a, sin(a));
-		}
 	}
-	//dump(Slice->bin_centers, Slice->n_slices, "bin_centers\n");
-
 	ftype scoeff = mymath::trapezoid(array, Slice->bin_centers,
 			Slice->n_slices);
 
-	//dprintf("scoeff = %e\n", scoeff);
 	for (int i = 0; i < Slice->n_slices; ++i) {
 		ftype a = omega_RF * Slice->bin_centers[i] + phi_RF;
 		array[i] = base[i] * cos(a);
@@ -169,8 +158,6 @@ void PhaseLoop::beam_phase() {
 
 	ftype ccoeff = mymath::trapezoid(array, Slice->bin_centers,
 			Slice->n_slices);
-
-	//dprintf("ccoeff = %e\n", ccoeff);
 
 	phi_beam = atan(scoeff / ccoeff) + pi;
 }
@@ -184,9 +171,7 @@ void PhaseLoop::phase_difference() {
 	// Correct for design stable phase
 	int counter = RfP->counter;
 	dphi = phi_beam - RfP->phi_s[counter];
-
 	// Possibility to add RF phase noise through the PL
-	// TODO what are those RFnoise and noise FB??
 	if (RFnoise != NULL) {
 		if (noiseFB != NULL) {
 		}
@@ -207,7 +192,6 @@ void PhaseLoop::default_track() {
 	// Update the RF frequency of all systems for the next turn
 	for (int i = 0; i < RfP->n_rf; ++i) {
 		int row = i * (turns + 1);
-		//printf("domega_Rf %lf\n", domega_RF);
 		RfP->omega_RF[row + counter] += domega_RF * RfP->harmonic[row + counter]
 				/ RfP->harmonic[counter];
 	}
@@ -227,8 +211,8 @@ void PhaseLoop::default_track() {
 	for (int i = 0; i < RfP->n_rf; ++i) {
 		int row = i * (turns + 1);
 		RfP->phi_RF[row + counter] += RfP->dphi_RF[i];
-		//printf("dphi_RF %lf\n", RfP->dphi_RF[i]);
 	}
+
 }
 
 void LHC::track() {
@@ -269,10 +253,8 @@ void LHC::track() {
 
 	// Frequency correction from phase loop and synchro loop
 
-	//for (int i = 0; i < GP->n_turns + 1; ++i) {
 	domega_RF = -gain[counter] * dphi
-			- gain2 * (lhc_y + lhc_a[counter]) * (dphi_RF + reference);
-	//}
+			- gain2 * (lhc_y + lhc_a[counter] * (dphi_RF + reference));
 
 	// Update recursion variable
 	lhc_y = (1 - lhc_t[counter]) * lhc_y
@@ -300,7 +282,7 @@ void PSB::track() {
 	dphi_av += dphi;
 	t_accum += GP->t_rev[counter];
 
-	dprintf("Before if counter is %d\n", counter);
+	//dprintf("Before if counter is %d\n", counter);
 	// Phase loop active on certain turns
 
 	if (counter == on_time[PL_counter] && counter > delay) {
@@ -308,7 +290,7 @@ void PSB::track() {
 		domega_PL = 0.998 * domega_PL
 				- gain[counter] * (dphi_av - dphi_av_prev + reference);
 	}
-	dprintf("After if\n");
+	//dprintf("After if\n");
 
 	// Update averaging variables
 	dphi_av_prev = dphi_av;

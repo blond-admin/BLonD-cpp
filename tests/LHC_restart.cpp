@@ -192,9 +192,6 @@ int main(int argc, char **argv) {
 		//printf("id, threads, tile, start, end = %d, %d, %d, %d, %d\n", id,
 		//		threads, tile, start, end);
 		for (int i = 0; i < N_t; ++i) {
-			printf("   Beam energy %.6e eV\n", GP->energy[0]);
-			printf("   RF phase %.6e rad\n", RfP->dphi_RF[0]);
-			printf("   PL phase correction %.6e rad\n", PL->dphi);
 			//printf("Turn %d\n", i);
 			Slice->track(start, end);
 
@@ -203,6 +200,9 @@ int main(int argc, char **argv) {
 #pragma omp barrier
 #pragma omp single
 			{
+				printf("   Beam energy %.6e eV\n", GP->energy[0]);
+				printf("   RF phase %.6e rad\n", RfP->dphi_RF[0]);
+				printf("   PL phase correction %.6e rad\n", PL->dphi);
 				RfP->counter++;
 			}
 			/*

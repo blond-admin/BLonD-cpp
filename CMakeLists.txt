@@ -24,7 +24,8 @@ add_library(blond ${SOURCE_FILES})
 
     
 add_executable(TC1_Acceleration tests/TC1_Acceleration.cpp)
-add_executable(TC8_Phase_Loop tests/TC8_Phase_Loop.cpp)
+add_executable(LHC_restart tests/LHC_restart.cpp)
+#add_executable(TC8_Phase_Loop tests/TC8_Phase_Loop.cpp)
 
 target_link_libraries(TC1_Acceleration blond)
-target_link_libraries(TC8_Phase_Loop blond)
+target_link_libraries(LHC_restart blond)

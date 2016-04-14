@@ -9,7 +9,7 @@
 
 GeneralParameters::~GeneralParameters() {
 	delete_array (alpha);
-	delete_array (momentum);
+	//delete_array (momentum);
 	delete_array (ring_length);
 	delete_array (beta);
 	delete_array (gamma);

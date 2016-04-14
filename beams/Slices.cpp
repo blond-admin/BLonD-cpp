@@ -50,7 +50,8 @@ Slices::~Slices() {
 	delete_array (n_macroparticles);
 	delete_array (bin_centers);
 	delete_array (edges);
-	delete_array (h);
+	//delete_array (h);
+	free (h);
 }
 
 void Slices::set_cuts() {
@@ -81,8 +82,11 @@ void Slices::set_cuts() {
 
 		} else {
 			ftype mean_coords = mymath::mean(Beam->dt, Beam->n_macroparticles);
+			//dprintf("mean coors = %e\n", mean_coords);
 			ftype sigma_coords = mymath::standard_deviation(Beam->dt,
 					Beam->n_macroparticles, mean_coords);
+			//dprintf("mean coors = %e\n", mean_coords);
+
 			cut_left = mean_coords - n_sigma * sigma_coords / 2;
 			cut_right = mean_coords + n_sigma * sigma_coords / 2;
 
@@ -91,8 +95,11 @@ void Slices::set_cuts() {
 		cut_left = convert_coordinates(cut_left, cuts_unit);
 		cut_right = convert_coordinates(cut_right, cuts_unit);
 	}
+	//dprintf("cut_left = %e\n", cut_left);
+	//dprintf("cut_right = %e\n", cut_right);
+
 	mymath::linspace(edges, cut_left, cut_right, n_slices + 1);
-	//dump(edges, 10, "edges\n");
+	//dump(edges, n_slices + 1, "edges\n");
 	for (int i = 0; i < n_slices; ++i) {
 		bin_centers[i] = (edges[i + 1] + edges[i]) / 2;
 	}
@@ -170,8 +177,6 @@ inline void Slices::slice_constant_space_histogram(const int start,
 	histogram(Beam->dt, &h[id * n_slices], cut_left, cut_right, n_slices,
 			Beam->n_macroparticles, start, end);
 	//printf("%lf\n", h[id][0]);
-	// TODO measure the time this addition needs
-	// Do it in a parallel way if it is too much
 
 #pragma omp barrier
 
@@ -216,14 +221,16 @@ inline void Slices::histogram(const ftype * __restrict__ input,
 	ftype fbin;
 	int ffbin;
 	const ftype inv_bin_width = n_slices / (cut_right - cut_left);
-
+	//dprintf("inv_bin_width = %e\n", inv_bin_width);
 	for (int i = 0; i < n_slices; i++)
 		output[i] = 0.0;
 
 	for (int i = start; i < end; i++) {
 		a = input[i];
+		//printf("a = %e\n", a);
 		if ((a < cut_left) || (a > cut_right))
 			continue;
+		//dprintf("I am here\n");
 		fbin = (a - cut_left) * inv_bin_width;
 		ffbin = (int) (fbin);
 //#pragma omp atomic

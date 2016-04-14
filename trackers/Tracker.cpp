@@ -13,8 +13,8 @@ RingAndRfSection::~RingAndRfSection() {
 	//if (this->NoiseFB != NULL) delete this->NoiseFB;
 	//if (this->TotalInducedVoltage != NULL) delete this->TotalInducedVoltage;
 	//if (this->acceleration_kick != NULL) delete this->acceleration_kick;
-	delete_array(this->PL);
-	delete_array(this->NoiseFB);
+	//delete_array(this->PL);
+	//delete_array(this->NoiseFB);
 	delete_array(this->TotalInducedVoltage);
 	delete_array(this->acceleration_kick);
 	delete_array(this->Slices);
@@ -191,6 +191,10 @@ inline void RingAndRfSection::drift(ftype * __restrict__ beam_dt,
 void RingAndRfSection::track(const int start, const int end) {
 //omp_set_num_threads(n_threads);
 //timespec begin, fin;
+
+	// Determine phase loop correction on RF phase and frequency
+	if (PL != NULL && RfP->counter >= PL->delay)
+		PL->track();
 
 	if (periodicity) {
 		// Change reference of all the particles on the right of the current

@@ -48,11 +48,12 @@ class LHC: public PhaseLoop {
 private:
 	//ftype gain;
 	//ftype domega_RF;
+public:
 	ftype gain2;
 	ftype lhc_y;
 	ftype *lhc_a;
 	ftype *lhc_t;
-public:
+
 	~LHC();
 	void track();
 	LHC(ftype *PL_gain, ftype SL_gain = 0, ftype window_coefficient = 0,

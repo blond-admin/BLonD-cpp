@@ -64,8 +64,12 @@ RfParameters::RfParameters(int _n_rf, ftype *_harmonic, ftype *_voltage,
 	for (int i = 0; i < GP->n_turns + 1; ++i) {
 		Qs[i] = sqrt(
 				harmonic[i] * GP->charge * voltage[i]
-						* abs(eta_0(i) * cos(phi_s[i]))
+						* fabs(eta_0(i) * cos(phi_s[i]))
 						/ (2 * pi * GP->beta[i] * GP->beta[i] * GP->energy[i]));
+		//if (i < 3)
+		//dprintf("%lf \n", harmonic[i] * GP->charge * voltage[i]);
+		//dprintf("%.4e \n", std::abs(eta_0(i) * cos(phi_s[i])));
+
 	}
 
 	this->omega_s0 = new ftype[(GP->n_turns + 1)];
@@ -78,7 +82,6 @@ RfParameters::RfParameters(int _n_rf, ftype *_harmonic, ftype *_voltage,
 		this->omega_RF_d[i] = 2 * pi * GP->beta[i] * c * harmonic[i]
 				/ GP->ring_circumference;
 	}
-
 	//dprintf("ring_circumference %.12lf\n", GP->ring_circumference);
 	//dprintf("pi %.12lf\n", pi);
 	//dprintf("c %.12lf\n", c);

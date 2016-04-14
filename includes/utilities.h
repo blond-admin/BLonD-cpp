@@ -30,8 +30,8 @@
       perror("Error at line\n\t" #a "\nSystem Msg");         \
       assert ((a) == 0);                                     \
    }
-
-static void read_vector_from_file(std::vector<ftype> &v, std::string file) {
+template<typename T>
+static inline void read_vector_from_file(std::vector<T> &v, std::string file) {
 
 	std::ifstream source(file);
 	if (!source.good()) {
@@ -42,7 +42,7 @@ static void read_vector_from_file(std::vector<ftype> &v, std::string file) {
 
 	for (std::string line; std::getline(source, line);) {
 		std::istringstream in(line);
-		ftype type;
+		T type;
 		while (in >> type)
 			v.push_back(type);
 		//if (!(in >> type))

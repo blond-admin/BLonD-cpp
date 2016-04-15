@@ -21,6 +21,7 @@
 #include <mm_malloc.h>
 #include <sys/time.h>
 #include "configuration.h"
+#include <memory>
 
 #define dprintf(...)    fprintf(stdout, __VA_ARGS__)     // Debug printf
 
@@ -186,6 +187,19 @@ static inline void print_time_elapsed(char const* prompt,
 #ifdef TIMING
 	dprintf("%s : %.3f\n", prompt, time_elapsed(begin));
 #endif
+}
+
+
+static inline std::string exec(const char* cmd) {
+    std::shared_ptr<FILE> pipe(popen(cmd, "r"), pclose);
+    if (!pipe) return "ERROR";
+    char buffer[128];
+    std::string result = "";
+    while (!feof(pipe.get())) {
+        if (fgets(buffer, 128, pipe.get()) != NULL)
+            result += buffer;
+    }
+    return result;
 }
 
 #endif /* INCLUDES_UTILITIES_H_ */

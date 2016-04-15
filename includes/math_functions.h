@@ -37,8 +37,8 @@ static inline ftype trapezoid(T *f, ftype *deltaX, int nsub) {
 	// increment the partial sum
 	for (int index = 1; index < nsub; index++) {
 		psum = psum
-				+ (f[index] + f[index - 1])
-						* (deltaX[index] - deltaX[index - 1]);
+		       + (f[index] + f[index - 1])
+		       * (deltaX[index] - deltaX[index - 1]);
 	}
 
 	// return approximation
@@ -54,7 +54,7 @@ static inline ftype trapezoid(T *f, ftype deltaX, int nsub) {
 	//ftype deltaX = (b-a)/nsub;
 
 	// increment the partial sum
-	for (int index = 1; index < nsub; index++) {
+	for (int index = 1; index < nsub-1; index++) {
 		psum = psum + 2 * f[index];
 	}
 
@@ -94,7 +94,7 @@ static inline int max(T * a, int size, int step) {
 }
 
 static inline void linspace(ftype* a, const ftype start, const ftype end,
-		const int n, const int keep_from = 0) {
+                            const int n, const int keep_from = 0) {
 	ftype step = (end - start) / (n - 1);
 	ftype value = start;
 	for (int i = 0; i < n; ++i) {
@@ -113,13 +113,23 @@ static inline ftype mean(const ftype data[], const int n) {
 }
 
 static inline ftype standard_deviation(const ftype data[], const int n,
-		const ftype mean) {
+                                       const ftype mean) {
 	ftype sum_deviation = 0.0;
 	int i;
 	for (i = 0; i < n; ++i)
 		sum_deviation += (data[i] - mean) * (data[i] - mean);
 	return sqrt(sum_deviation / n);
 }
+
+static inline ftype standard_deviation(const ftype data[], const int n) {
+	ftype mean = mymath::mean(data, n);
+	ftype sum_deviation = 0.0;
+	int i;
+	for (i = 0; i < n; ++i)
+		sum_deviation += (data[i] - mean) * (data[i] - mean);
+	return sqrt(sum_deviation / n);
+}
+
 }
 
 #endif /* INCLUDES_MATH_FUNCTIONS_H_ */

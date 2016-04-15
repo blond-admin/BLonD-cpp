@@ -139,11 +139,13 @@ void PhaseLoop::beam_phase() {
 	ftype base[Slice->n_slices];
 	ftype array[Slice->n_slices];
 
+#pragma omp parallel for
 	for (int i = 0; i < Slice->n_slices; ++i) {
 		ftype a = alpha * Slice->bin_centers[i];
 		base[i] = exp(a) * Slice->n_macroparticles[i];
 	}
 
+#pragma omp parallel for
 	for (int i = 0; i < Slice->n_slices; ++i) {
 		ftype a = omega_RF * Slice->bin_centers[i] + phi_RF;
 		array[i] = base[i] * sin(a);
@@ -151,6 +153,7 @@ void PhaseLoop::beam_phase() {
 	ftype scoeff = mymath::trapezoid(array, Slice->bin_centers,
 			Slice->n_slices);
 
+#pragma omp parallel for
 	for (int i = 0; i < Slice->n_slices; ++i) {
 		ftype a = omega_RF * Slice->bin_centers[i] + phi_RF;
 		array[i] = base[i] * cos(a);

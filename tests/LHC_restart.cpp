@@ -72,7 +72,7 @@ int main(int argc, char **argv) {
 			printf("Number of openmp threads: %d\n", omp_get_num_threads());
 	}
 
-	printf("Setting up the simulation..\n");
+	//printf("Setting up the simulation..\n");
 	get_time(begin);
 
 	std::vector < ftype > v;
@@ -177,7 +177,18 @@ int main(int argc, char **argv) {
 		//printf("id, threads, tile, start, end = %d, %d, %d, %d, %d\n", id,
 		//		threads, tile, start, end);
 		for (int i = 0; i < N_t; ++i) {
-			printf("\nTurn %d\n", i);
+
+#pragma omp single
+			{
+				printf("\nTurn %d\n", i);
+
+				if (RfP->counter < 570000)
+					PL->reference = 0.5236;
+				else
+					PL->reference = 1.0472;
+
+			}
+
 			Slice->track(start, end);
 
 #pragma omp barrier
@@ -241,14 +252,15 @@ int main(int argc, char **argv) {
 	get_time(end);
 	print_time("Simulation Time", begin, end);
 
-#ifdef TIMING
-	double total_time = track_time + slice_time;
-	printf("Track time : %.4lf ( %.2lf %% )\n", track_time,
-			100 * track_time / total_time);
-	printf("Slice time : %.4lf ( %.2lf %% )\n", slice_time,
-			100 * slice_time / total_time);
-#endif
-
+	/*
+	 #ifdef TIMING
+	 double total_time = track_time + slice_time;
+	 printf("Track time : %.4lf ( %.2lf %% )\n", track_time,
+	 100 * track_time / total_time);
+	 printf("Slice time : %.4lf ( %.2lf %% )\n", slice_time,
+	 100 * slice_time / total_time);
+	 #endif
+	 */
 	dump(Beam->dE, 10, "dE\n");
 	dump(Beam->dt, 10, "dt\n");
 	dump(Slice->n_macroparticles, 10, "n_macroparticles\n");

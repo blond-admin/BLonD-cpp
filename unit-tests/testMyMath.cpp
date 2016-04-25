@@ -118,14 +118,23 @@ TEST(testCumTrap, test1){
 	ftype a[10] =  { -0.61, -0.51, 0.39, -0.54,
 		0.67, 1.4, 1.1, 1.4, 0.16, 0.9 };
 	ftype *trap = mymath::cum_trapezoid(a, 1, 10);
-	dump(trap, 10, "trap\n");
+	//dump(trap, 10, "trap\n");
 	std::string result = exec(
 		"python -c 'import scipy.integrate as ct;\
 		 print ct.cumtrapz([-0.61, -0.51, 0.39, -0.54, 0.67, 1.4,\
 		  1.1, 1.4, 0.16, 0.9], initial=0)'");
-	//ftype num = std::stod(result);
-	std::cout << result;
-	//ASSERT_NEAR(a, num, 1e-8);
+	std::replace(result.begin(), result.end(),'[', ' ');
+	std::replace(result.begin(), result.end(),']', ' ');
+
+	//result.erase(0,1);
+	//result.erase(result.end()-1,1);
+	std::istringstream ss(result);
+	for (int i = 0; i < 10; ++i)
+	{
+		ftype b;
+		ss >> b;
+		ASSERT_NEAR(trap[i], b, 1e-8);
+	}
 
 }
 

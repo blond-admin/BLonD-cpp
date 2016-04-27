@@ -55,4 +55,10 @@ target_link_libraries(LHC_restart blond)
 
 
 enable_testing()
+include(CTest)
+if(UNIX)
+  set(CTEST_MEMORYCHECK_COMMAND, "usr/bin/valgrind")
+  set(CTEST_MEMORYCHECK_COMMAND_OPTIONS, "--leak-check=full")
+endif()
+
 #add_test(test1 test1)

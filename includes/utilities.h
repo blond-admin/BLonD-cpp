@@ -31,6 +31,9 @@
       perror("Error at line\n\t" #a "\nSystem Msg");         \
       assert ((a) == 0);                                     \
    }
+
+namespace util {
+
 template<typename T>
 static inline void read_vector_from_file(std::vector<T> &v, std::string file) {
 
@@ -207,6 +210,8 @@ static inline std::string read_from_file(std::string filename) {
 	std::stringstream res;
 	res << t.rdbuf();
 	return res.str();
+}
+
 }
 
 #endif /* INCLUDES_UTILITIES_H_ */

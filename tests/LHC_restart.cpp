@@ -38,7 +38,7 @@ int bl_target = 1.25e-9;  // 4 sigma r.m.s. target bunch length in [s]
 
 int N_slices = 151;
 const std::string datafiles =
-		"/afs/cern.ch/work/k/kiliakis/testcases/synchroLoop/";
+    "/afs/cern.ch/work/k/kiliakis/testcases/synchroLoop/";
 
 // Global variables
 GeneralParameters *GP;
@@ -54,11 +54,11 @@ int main(int argc, char **argv) {
 	timespec begin, end;
 
 	// Environmental variables
-	N_t = atoi(GETENV("N_TURNS")) ? atoi(GETENV("N_TURNS")) : N_t;
-	N_p = atoi(GETENV("N_PARTICLES")) ? atoi(GETENV("N_PARTICLES")) : N_p;
-	N_slices = atoi(GETENV("N_SLICES")) ? atoi(GETENV("N_SLICES")) : N_slices;
+	N_t = atoi(util::GETENV("N_TURNS")) ? atoi(util::GETENV("N_TURNS")) : N_t;
+	N_p = atoi(util::GETENV("N_PARTICLES")) ? atoi(util::GETENV("N_PARTICLES")) : N_p;
+	N_slices = atoi(util::GETENV("N_SLICES")) ? atoi(util::GETENV("N_SLICES")) : N_slices;
 	n_threads =
-			atoi(GETENV("N_THREADS")) ? atoi(GETENV("N_THREADS")) : n_threads;
+	    atoi(util::GETENV("N_THREADS")) ? atoi(util::GETENV("N_THREADS")) : n_threads;
 	omp_set_num_threads(n_threads);
 
 	printf("Setting up the simulation...\n\n");
@@ -66,17 +66,17 @@ int main(int argc, char **argv) {
 	printf("Number of macro-particles: %d\n", N_p);
 	printf("Number of Slices: %d\n", N_slices);
 
-#pragma omp parallel
+	#pragma omp parallel
 	{
 		if (omp_get_thread_num() == 0)
 			printf("Number of openmp threads: %d\n", omp_get_num_threads());
 	}
 
 	//printf("Setting up the simulation..\n");
-	get_time(begin);
+	util::get_time(begin);
 
 	std::vector < ftype > v;
-	read_vector_from_file(v, datafiles + "LHC_momentum_programme_folder/xan");
+	util::read_vector_from_file(v, datafiles + "LHC_momentum_programme_folder/xan");
 
 	// optional
 	v.erase(v.begin(), v.begin() + from_line);
@@ -109,7 +109,7 @@ int main(int argc, char **argv) {
 	C_array[0] = C;
 
 	GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, ps,
-			proton);
+	                           proton);
 
 	printf("General parameters set...\n");
 	// Define rf_params
@@ -125,7 +125,7 @@ int main(int argc, char **argv) {
 	// Define beam and distribution: Load matched, filamented distribution
 	Beam = new Beams(N_p, N_b);
 	std::vector < ftype > v2;
-	read_vector_from_file(v2, datafiles + "coords_13000001.dat");
+	util::read_vector_from_file(v2, datafiles + "coords_13000001.dat");
 	int k = 0;
 	for (unsigned int i = 0; i < v2.size(); i += 3) {
 		Beam->dt[k] = v2[i] * 1e-9; // [s]
@@ -144,10 +144,10 @@ int main(int argc, char **argv) {
 	LHC *PL = new LHC(PL_gain_array, SL_gain);
 
 	printf("\tPL gain is %.4e 1/s for initial turn T0 = %.4e s\n", PL->gain[0],
-			GP->t_rev[0]);
+	       GP->t_rev[0]);
 	printf("\tSL gain is %.4e turns\n", PL->gain2);
 	printf("\tOmega_s0 = %.4e s at flat bottom, %.4e s at flat top\n",
-			RfP->omega_s0[0], RfP->omega_s0[N_t]);
+	       RfP->omega_s0[0], RfP->omega_s0[N_t]);
 	printf("\tSL a_i = %.4f a_f = %.4f\n", PL->lhc_a[0], PL->lhc_a[N_t]);
 	printf("\tSL t_i = %.4f t_f = %.4f\n", PL->lhc_t[0], PL->lhc_t[N_t]);
 
@@ -162,12 +162,12 @@ int main(int argc, char **argv) {
 
 	printf("Initial mean bunch position %.4e s\n", Beam->mean_dt);
 	printf("Initial four-times r.m.s. bunch length %.4e s\n",
-			4. * Beam->sigma_dt);
+	       4. * Beam->sigma_dt);
 	//print("Initial Gaussian bunch length %.4e ns" %slices.bl_gauss
 
 	printf("Ready for tracking!\n");
 
-#pragma omp parallel
+	#pragma omp parallel
 	{
 		int id = omp_get_thread_num();
 		int threads = omp_get_num_threads();
@@ -178,7 +178,7 @@ int main(int argc, char **argv) {
 		//		threads, tile, start, end);
 		for (int i = 0; i < N_t; ++i) {
 
-#pragma omp single
+			#pragma omp single
 			{
 				printf("\nTurn %d\n", i);
 
@@ -191,10 +191,10 @@ int main(int argc, char **argv) {
 
 			Slice->track(start, end);
 
-#pragma omp barrier
+			#pragma omp barrier
 			long_tracker->track(start, end);
-#pragma omp barrier
-#pragma omp single
+			#pragma omp barrier
+			#pragma omp single
 			{
 				//printf("   Beam energy %.6e eV\n", GP->energy[0]);
 				printf("   RF phase %.6e rad\n", RfP->dphi_RF[0]);
@@ -203,9 +203,9 @@ int main(int argc, char **argv) {
 			}
 			/*
 			 #ifdef TIMING
-			 if (id == 0) get_time(begin_t);
+			 if (id == 0) util::get_time(begin_t);
 			 #endif
-			 //dump(Beam->dE, 1, "dE\n");
+			 //util::dump(Beam->dE, 1, "dE\n");
 
 			 long_tracker->track(start, end);
 
@@ -213,7 +213,7 @@ int main(int argc, char **argv) {
 
 			 #ifdef TIMING
 			 if (id == 0) track_time += time_elapsed(begin_t);
-			 if (id == 0) get_time(begin_t);
+			 if (id == 0) util::get_time(begin_t);
 			 #endif
 			 Slice->track(start, end);
 
@@ -230,7 +230,7 @@ int main(int argc, char **argv) {
 			 if (i % 1000 == 0) {
 			 printf("bl_fwhm\n%.15lf\n", Slice->bl_fwhm);
 			 printf("bp_fwhm\n%.15lf\n", Slice->bp_fwhm);
-			 //dump(Slice->N_p, N_slices,
+			 //util::dump(Slice->N_p, N_slices,
 			 //		"N_p\n");
 			 }
 			 #endif
@@ -249,8 +249,8 @@ int main(int argc, char **argv) {
 //Slice->bin_centers, Slice->n_slices);
 //printf("result = %e\n", result);
 
-	get_time(end);
-	print_time("Simulation Time", begin, end);
+	util::get_time(end);
+	util::print_time("Simulation Time", begin, end);
 
 	/*
 	 #ifdef TIMING
@@ -261,9 +261,9 @@ int main(int argc, char **argv) {
 	 100 * slice_time / total_time);
 	 #endif
 	 */
-	dump(Beam->dE, 10, "dE\n");
-	dump(Beam->dt, 10, "dt\n");
-	dump(Slice->n_macroparticles, 10, "n_macroparticles\n");
+	util::dump(Beam->dE, 10, "dE\n");
+	util::dump(Beam->dt, 10, "dt\n");
+	util::dump(Slice->n_macroparticles, 10, "n_macroparticles\n");
 
 	v.clear();
 	v2.clear();

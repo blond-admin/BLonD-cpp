@@ -48,15 +48,15 @@ RfParameters *RfP;
 // Simulation setup -------------------------------------------------------------
 int main(int argc, char **argv) {
 
-	N_t = atoi(GETENV("N_TURNS")) ? atoi(GETENV("N_TURNS")) : N_t;
-	N_p = atoi(GETENV("N_PARTICLES")) ? atoi(GETENV("N_PARTICLES")) : N_p;
-	N_slices = atoi(GETENV("N_SLICES")) ? atoi(GETENV("N_SLICES")) : N_slices;
+	N_t = atoi(util::GETENV("N_TURNS")) ? atoi(util::GETENV("N_TURNS")) : N_t;
+	N_p = atoi(util::GETENV("N_PARTICLES")) ? atoi(util::GETENV("N_PARTICLES")) : N_p;
+	N_slices = atoi(util::GETENV("N_SLICES")) ? atoi(util::GETENV("N_SLICES")) : N_slices;
 	n_threads =
-	    atoi(GETENV("N_THREADS")) ? atoi(GETENV("N_THREADS")) : n_threads;
+	    atoi(util::GETENV("N_THREADS")) ? atoi(util::GETENV("N_THREADS")) : n_threads;
 	omp_set_num_threads(n_threads);
 
 	// Number of tasks is either N_TASKS if specified or n_threads (1 task / thread) if not
-	//int N_tasks = atoi(GETENV("N_TASKS")) ? atoi(GETENV("N_TASKS")) : n_threads;
+	//int N_tasks = atoi(util::GETENV("N_TASKS")) ? atoi(util::GETENV("N_TASKS")) : n_threads;
 
 	printf("Setting up the simulation...\n\n");
 	printf("Number of turns: %d\n", N_t);
@@ -73,7 +73,7 @@ int main(int argc, char **argv) {
 	}
 
 	timespec begin, end;
-	get_time(begin);
+	util::get_time(begin);
 
 	ftype *momentum = new ftype[N_t + 1];
 	mymath::linspace(momentum, p_i, p_f, N_t + 1);
@@ -104,15 +104,15 @@ int main(int argc, char **argv) {
 	//printf("omega_rf = %lf\n",RfP->omega_RF[0]);
 
 	RingAndRfSection *long_tracker = new RingAndRfSection();
-	//dump(Beam->dE, 10, "dE\n");
+	//util::dump(Beam->dE, 10, "dE\n");
 
 	longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
 
 	Slice = new Slices(N_slices);
 
-	//dump(Slice->bin_centers, N_slices, "bin_centers\n");
-	//dump(Beam->dt, 10, "dt\n");
-	//dump(Beam->dE, 10, "dE\n");
+	//util::dump(Slice->bin_centers, N_slices, "bin_centers\n");
+	//util::dump(Beam->dt, 10, "dt\n");
+	//util::dump(Beam->dE, 10, "dE\n");
 
 	double slice_time = 0, track_time = 0;
 
@@ -130,28 +130,28 @@ int main(int argc, char **argv) {
 		for (int i = 0; i < N_t; ++i) {
 
 #ifdef TIMING
-			if (id == 0) get_time(begin_t);
+			if (id == 0) util::get_time(begin_t);
 #endif
-			//dump(Beam->dE, 1, "dE\n");
-			//dump(Beam->dt, 1, "dt\n");
+			//util::dump(Beam->dE, 1, "dE\n");
+			//util::dump(Beam->dt, 1, "dt\n");
 
 			long_tracker->track(start, end);
 
-			//dump(Beam->dE, 1, "dE\n");
-			//dump(Beam->dt, 1, "dt\n");
+			//util::dump(Beam->dE, 1, "dE\n");
+			//util::dump(Beam->dt, 1, "dt\n");
 
 			#pragma omp barrier
 
 #ifdef TIMING
-			if (id == 0) track_time += time_elapsed(begin_t);
-			if (id == 0) get_time(begin_t);
+			if (id == 0) track_time += util::time_elapsed(begin_t);
+			if (id == 0) util::get_time(begin_t);
 #endif
 			Slice->track(start, end);
 
 			#pragma omp barrier
 
 #ifdef TIMING
-			if (id == 0) slice_time += time_elapsed(begin_t);
+			if (id == 0) slice_time += util::time_elapsed(begin_t);
 #endif
 
 			#pragma omp single
@@ -161,7 +161,7 @@ int main(int argc, char **argv) {
 				if (i % 1000 == 0) {
 					printf("bl_fwhm\n%.15lf\n", Slice->bl_fwhm);
 					printf("bp_fwhm\n%.15lf\n", Slice->bp_fwhm);
-					//dump(Slice->n_macroparticles, N_slices,
+					//util::dump(Slice->n_macroparticles, N_slices,
 					//		"n_macroparticles\n");
 				}
 #endif
@@ -174,9 +174,9 @@ int main(int argc, char **argv) {
 //printf("Total simulation time: %.10lf\n", long_tracker->elapsed_time);
 //printf("Time/turn : %.10lf\n", long_tracker->elapsed_time / N_t);
 
-	get_time(end);
+	util::get_time(end);
 #ifdef TIMING
-	print_time("Simulation Time", begin, end);
+	util::print_time("Simulation Time", begin, end);
 	double total_time = track_time + slice_time;
 	printf("Track time : %.4lf ( %.2lf %% )\n", track_time,
 	       100 * track_time / total_time);
@@ -184,9 +184,9 @@ int main(int argc, char **argv) {
 	       100 * slice_time / total_time);
 #endif
 
-	dump(Beam->dE, 10, "dE\n");
-	dump(Beam->dt, 10, "dt\n");
-	dump(Slice->n_macroparticles, 10, "n_macroparticles\n");
+	util::dump(Beam->dE, 10, "dE\n");
+	util::dump(Beam->dt, 10, "dt\n");
+	util::dump(Slice->n_macroparticles, 10, "n_macroparticles\n");
 	delete Slice;
 	delete long_tracker;
 	delete RfP;

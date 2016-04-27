@@ -85,7 +85,7 @@ TEST(testCumTrap, test1){
 		0.67, 1.4, 1.1, 1.4, 0.16, 0.9 };
 	ftype *trap = mymath::cum_trapezoid(a, 1, 10);
 	//dump(trap, 10, "trap\n");
-	std::string result = exec(
+	std::string result = util::exec(
 		"python -c 'import scipy.integrate as ct;\
 		 print ct.cumtrapz([-0.61, -0.51, 0.39, -0.54, 0.67, 1.4,\
 		  1.1, 1.4, 0.16, 0.9], initial=0)'");
@@ -106,14 +106,14 @@ TEST(testCumTrap, test1){
 
 TEST(testSin, test1){
 	ftype a = sin(0);
-	std::string result = exec(
+	std::string result = util::exec(
 		"python -c 'import numpy as np;\
 		 print np.sin(0)'");
 	ftype num = std::stod(result);
 	ASSERT_NEAR(a, num, 1e-8);
 
-	a = sin(pi / 2);
-	result = exec(
+	a = sin(constant::pi / 2);
+	result = util::exec(
 		"python -c 'import numpy as np;\
 		 print np.sin(np.pi/2)'");
 	num = std::stod(result);
@@ -122,14 +122,14 @@ TEST(testSin, test1){
 
 TEST(testCos, test1){
 	ftype a = cos(0);
-	std::string result = exec(
+	std::string result = util::exec(
 		"python -c 'import numpy as np;\
 		 print np.cos(0)'");
 	ftype num = std::stod(result);
 	ASSERT_NEAR(a, num, 1e-8);
 
-	a = cos(pi / 2);
-	result = exec(
+	a = cos(constant::pi / 2);
+	result = util::exec(
 		"python -c 'import numpy as np;\
 		 print np.cos(np.pi/2)'");
 	num = std::stod(result);

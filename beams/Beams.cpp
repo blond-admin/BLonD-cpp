@@ -9,9 +9,9 @@
 
 Beams::~Beams() {
 
-	delete_array(this->dt);
-	delete_array(this->dE);
-	delete_array(this->id);
+	util::delete_array(this->dt);
+	util::delete_array(this->dE);
+	util::delete_array(this->id);
 
 }
 
@@ -63,7 +63,7 @@ void Beams::statistics() {
 	sigma_dE = sqrt(s_dE / n);
 	sigma_dt = sqrt(s_dt / n);
 
-	epsn_rms_l = pi * sigma_dE * sigma_dt; // in eVs
+	epsn_rms_l = constant::pi * sigma_dE * sigma_dt; // in eVs
 
 	//Losses
 	n_macroparticles_lost = n_macroparticles - n;

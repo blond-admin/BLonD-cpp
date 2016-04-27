@@ -47,9 +47,9 @@ Slices::Slices(int _n_slices, int _n_sigma, ftype _cut_left, ftype _cut_right,
 }
 
 Slices::~Slices() {
-	delete_array (n_macroparticles);
-	delete_array (bin_centers);
-	delete_array (edges);
+	util::delete_array (n_macroparticles);
+	util::delete_array (bin_centers);
+	util::delete_array (edges);
 	//delete_array (h);
 	free (h);
 }
@@ -114,12 +114,12 @@ void Slices::sort_particles() {
 	 */
 
 	std::sort(&Beam->dE[0], &Beam->dE[Beam->n_macroparticles],
-			MyComparator(Beam->dt));
+			util::MyComparator(Beam->dt));
 
 	std::sort(&Beam->id[0], &Beam->id[Beam->n_macroparticles],
-			MyComparator(Beam->dt));
+			util::MyComparator(Beam->dt));
 	std::sort(&Beam->dt[0], &Beam->dt[Beam->n_macroparticles],
-			MyComparator(Beam->dt));
+			util::MyComparator(Beam->dt));
 
 }
 

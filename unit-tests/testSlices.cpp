@@ -103,7 +103,7 @@ TEST_F(testSlices, set_cuts_left) {
 
     std::vector<ftype> v;
 
-    read_vector_from_file(v, set_cuts_params + "cut_left");
+    util::read_vector_from_file(v, set_cuts_params + "cut_left");
     ftype ref = v[0];
     ftype real = Slice->cut_left;
     ASSERT_NEAR(ref, real, epsilon * std::min(v[0], real));
@@ -114,7 +114,7 @@ TEST_F(testSlices, set_cuts_right) {
 
     std::vector<ftype> v;
 
-    read_vector_from_file(v, set_cuts_params + "cut_right");
+    util::read_vector_from_file(v, set_cuts_params + "cut_right");
     ftype ref = v[0];
     ftype real = Slice->cut_right;
     ASSERT_NEAR(ref, real, epsilon * std::min(v[0], real));
@@ -125,7 +125,7 @@ TEST_F(testSlices, set_cuts_bin_centers) {
 
     std::vector<ftype> v;
 
-    read_vector_from_file(v, set_cuts_params + "bin_centers");
+    util::read_vector_from_file(v, set_cuts_params + "bin_centers");
     for (unsigned int i = 0; i < v.size(); ++i)
     {
         ftype ref = v[i];
@@ -138,7 +138,7 @@ TEST_F(testSlices, set_cuts_bin_centers) {
 TEST_F(testSlices, sort_particles_dE) {
 
     std::vector<ftype> v;
-    read_vector_from_file(v, sort_particles_params + "dE");
+    util::read_vector_from_file(v, sort_particles_params + "dE");
     for (unsigned int i = 0; i < v.size(); ++i)
     {
         ftype ref = v[i];
@@ -150,7 +150,7 @@ TEST_F(testSlices, sort_particles_dE) {
 TEST_F(testSlices, sort_particles_dt) {
 
     std::vector<ftype> v;
-    read_vector_from_file(v, sort_particles_params + "dt");
+    util::read_vector_from_file(v, sort_particles_params + "dt");
     for (unsigned int i = 0; i < v.size(); ++i)
     {
         ftype ref = v[i];
@@ -162,7 +162,7 @@ TEST_F(testSlices, sort_particles_dt) {
 TEST_F(testSlices, sort_particles_id) {
 
     std::vector<ftype> v;
-    read_vector_from_file(v, sort_particles_params + "id");
+    util::read_vector_from_file(v, sort_particles_params + "id");
     for (unsigned int i = 0; i < v.size(); ++i)
     {
         ftype ref = v[i];
@@ -177,7 +177,7 @@ TEST_F(testSlices, track_dt) {
     //long_tracker->track(0, Beam->n_macroparticles);
     Slice->track(0, Beam->n_macroparticles);
     std::vector<ftype> v;
-    read_vector_from_file(v, track_params + "n_macroparticles");
+    util::read_vector_from_file(v, track_params + "n_macroparticles");
     for (unsigned int i = 0; i < v.size(); ++i)
     {
         ftype ref = v[i];

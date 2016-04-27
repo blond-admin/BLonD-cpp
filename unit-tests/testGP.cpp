@@ -63,7 +63,7 @@ private:
 TEST_F(testGP, test_charge) {
 	std::string GP_params = "../unit-tests/references/GP/GP_params/";
 	std::vector<ftype> v;
-	read_vector_from_file(v, GP_params + "charge");
+	util::read_vector_from_file(v, GP_params + "charge");
 	//std::cout << v[0];
 	ASSERT_NEAR(v[0], GP->charge, epsilon * std::min(v[0], GP->charge));
 }
@@ -71,7 +71,7 @@ TEST_F(testGP, test_charge) {
 TEST_F(testGP, test_mass) {
 	std::string GP_params = "../unit-tests/references/GP/GP_params/";
 	std::vector<ftype> v;
-	read_vector_from_file(v, GP_params + "mass");
+	util::read_vector_from_file(v, GP_params + "mass");
 	//std::cout << v[0];
 	ASSERT_NEAR(v[0], GP->mass, epsilon * std::min(v[0], GP->mass));
 }
@@ -79,7 +79,7 @@ TEST_F(testGP, test_mass) {
 TEST_F(testGP, test_ring_radius) {
 	std::string GP_params = "../unit-tests/references/GP/GP_params/";
 	std::vector<ftype> v;
-	read_vector_from_file(v, GP_params + "ring_radius");
+	util::read_vector_from_file(v, GP_params + "ring_radius");
 	//std::cout << v[0];
 	ASSERT_NEAR(v[0], GP->ring_radius, epsilon * std::min(v[0], GP->ring_radius));
 }
@@ -87,7 +87,7 @@ TEST_F(testGP, test_ring_radius) {
 TEST_F(testGP, test_t_rev) {
 	std::string GP_params = "../unit-tests/references/GP/GP_params/";
 	std::vector<ftype> v;
-	read_vector_from_file(v, GP_params + "t_rev");
+	util::read_vector_from_file(v, GP_params + "t_rev");
 	//std::cout << v.size() << std::endl;
 	for (unsigned int i = 0; i < v.size(); ++i)
 	{
@@ -101,7 +101,7 @@ TEST_F(testGP, test_t_rev) {
 TEST_F(testGP, test_cycle_time) {
 	std::string GP_params = "../unit-tests/references/GP/GP_params/";
 	std::vector<ftype> v;
-	read_vector_from_file(v, GP_params + "cycle_time");
+	util::read_vector_from_file(v, GP_params + "cycle_time");
 	//std::cout << v.size() << std::endl;
 	for (unsigned int i = 0; i < v.size(); ++i)
 	{
@@ -114,7 +114,7 @@ TEST_F(testGP, test_cycle_time) {
 TEST_F(testGP, test_omega_rev) {
 	std::string GP_params = "../unit-tests/references/GP/GP_params/";
 	std::vector<ftype> v;
-	read_vector_from_file(v, GP_params + "omega_rev");
+	util::read_vector_from_file(v, GP_params + "omega_rev");
 	//std::cout << v.size() << std::endl;
 	for (unsigned int i = 0; i < v.size(); ++i)
 	{
@@ -127,7 +127,7 @@ TEST_F(testGP, test_omega_rev) {
 TEST_F(testGP, test_eta_0) {
 	std::string GP_params = "../unit-tests/references/GP/GP_params/";
 	std::vector<ftype> v;
-	read_vector_from_file(v, GP_params + "eta_0[0]");
+	util::read_vector_from_file(v, GP_params + "eta_0[0]");
 	//std::cout << v.size() << std::endl;
 	for (unsigned int i = 0; i < v.size(); ++i)
 	{

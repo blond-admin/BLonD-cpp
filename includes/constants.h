@@ -10,6 +10,8 @@
 
 #include "configuration.h"
 
+// TODO I could also use the gsl library constants
+
 const ftype m_p = 1.672621898e-27;	//	kg
 const ftype m_e = 9.10938356e-31;	//	kg
 const ftype e = 1.6021766208e-19;	//	C

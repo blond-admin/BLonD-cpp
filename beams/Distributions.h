@@ -10,9 +10,6 @@
 
 #include <cmath>
 #include "globals.h"
-//#include "Beams.h"
-//#include "../input_parameters/GeneralParameters.h"
-//#include "../input_parameters/RfParameters.h"
 #include "configuration.h"
 #include "constants.h"
 #include <stdlib.h>
@@ -52,44 +49,49 @@ inline void longitudinal_bigaussian(ftype sigma_dt, ftype sigma_dE = 0,
 		//dprintf("sin(phi_s): %.12lf \n", sin(phi_s));
 
 	}
-//	dprintf("omega_RF: %.12lf \n", omega_RF);
-//	dprintf("sigma_dt: %.12lf \n", sigma_dt);
-//	dprintf("phi_s: %.12lf \n", phi_s);
+	//dprintf("omega_RF: %.12lf \n", omega_RF);
+	//dprintf("sigma_dt: %.12lf \n", sigma_dt);
+	//dprintf("phi_s: %.12lf \n", phi_s);
 //
-//	dprintf("phi_b: %.12lf \n", phi_b);
-//	dprintf("sigma_dE: %.12lf \n", sigma_dE);
+	//dprintf("phi_b: %.12lf \n", phi_b);
+	//dprintf("sigma_dE: %.12lf \n", sigma_dE);
 
 	Beam->sigma_dE = sigma_dE;
 	Beam->sigma_dt = sigma_dt;
 	//srand(seed);
-#ifdef FIXED_PARTICLES
-	for (int i = 0; i < Beam->n_macroparticles; ++i) {
-		ftype r = 1.0 * (i+1)/Beam->n_macroparticles;
-		//ftype r = distribution(generator);
-		Beam->dt[i] = sigma_dt * r + (phi_s - phi_RF) / omega_RF;
-		//r = 1.0 * rand() / RAND_MAX;
-		//r = distribution(generator);
-		Beam->dE[i] = sigma_dE * r;
-		//dprintf("beam_dE: %.8lf \n", Beam->dE[i]);
+	int fixed_particles = atoi(GETENV("FIXED_PARTICLES"));
+	#ifdef FIXED_PARTICLES
+	fixed_particles =1;
+	#endif
+	
+	if(fixed_particles)
+	{
+		for (int i = 0; i < Beam->n_macroparticles; ++i) {
+			ftype r = 1.0 * (i+1)/Beam->n_macroparticles;
+			//ftype r = distribution(generator);
+			Beam->dt[i] = sigma_dt * r + (phi_s - phi_RF) / omega_RF;
+			//r = 1.0 * rand() / RAND_MAX;
+			//r = distribution(generator);
+			Beam->dE[i] = sigma_dE * r;
+			//dprintf("beam_dE: %.8lf \n", Beam->dE[i]);
 
+		}
 	}
+	else
+	{
+		std::default_random_engine generator(seed);
+		std::normal_distribution < ftype > distribution(0.0, 1.0);
+		for (int i = 0; i < Beam->n_macroparticles; ++i) {
+			//ftype r = 1.0 * rand() / RAND_MAX;
+			ftype r = distribution(generator);
+			Beam->dt[i] = sigma_dt * r + (phi_s - phi_RF) / omega_RF;
+			//r = 1.0 * rand() / RAND_MAX;
+			r = distribution(generator);
+			Beam->dE[i] = sigma_dE * r;
+			//dprintf("beam_dE: %.8lf \n", Beam->dE[i]);
 
-#else
-
-	std::default_random_engine generator(seed);
-	std::normal_distribution < ftype > distribution(0.0, 1.0);
-	for (int i = 0; i < Beam->n_macroparticles; ++i) {
-		//ftype r = 1.0 * rand() / RAND_MAX;
-		ftype r = distribution(generator);
-		Beam->dt[i] = sigma_dt * r + (phi_s - phi_RF) / omega_RF;
-		//r = 1.0 * rand() / RAND_MAX;
-		r = distribution(generator);
-		Beam->dE[i] = sigma_dE * r;
-		//dprintf("beam_dE: %.8lf \n", Beam->dE[i]);
-
+		}
 	}
-
-#endif
 
 	// TODO if reinsertion == true
 	if (reinsertion) {

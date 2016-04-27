@@ -58,7 +58,7 @@ static inline void read_vector_from_file(std::vector<T> &v, std::string file) {
 struct MyComparator {
 	ftype *a;
 	MyComparator(ftype* _a) :
-			a(_a) {
+		a(_a) {
 		//dprintf("a[0] = %.12lf\n", a[0]);
 	}
 
@@ -108,7 +108,7 @@ static inline void zero(T *p, int n) {
 static inline void dump(ftype* a, int n, const char* s) {
 	dprintf("%s", s);
 	for (int i = 0; i < n; ++i) {
-		dprintf("%.6e\n", a[i]);
+		dprintf("%+.6e\n", a[i]);
 	}
 	dprintf("\n");
 
@@ -117,7 +117,7 @@ static inline void dump(ftype* a, int n, const char* s) {
 static inline void dump(int* a, int n, const char* s) {
 	dprintf("%s", s);
 	for (int i = 0; i < n; ++i) {
-		dprintf("%d\n", a[i]);
+		dprintf("%+d\n", a[i]);
 	}
 	dprintf("\n");
 
@@ -170,7 +170,7 @@ static inline double time_elapsed(timespec const& begin) {
 }
 
 static inline void print_time(char const* prompt, timespec const& begin,
-		timespec const& end) {
+                              timespec const& end) {
 #ifdef TIMING
 	dprintf("%s : %.3f\n", prompt, time_diff(end, begin));
 #endif
@@ -183,7 +183,7 @@ static inline void print_time(char const* prompt, double diff) {
 }
 
 static inline void print_time_elapsed(char const* prompt,
-		timespec const& begin) {
+                                      timespec const& begin) {
 #ifdef TIMING
 	dprintf("%s : %.3f\n", prompt, time_elapsed(begin));
 #endif
@@ -191,15 +191,22 @@ static inline void print_time_elapsed(char const* prompt,
 
 
 static inline std::string exec(const char* cmd) {
-    std::shared_ptr<FILE> pipe(popen(cmd, "r"), pclose);
-    if (!pipe) return "ERROR";
-    char buffer[128];
-    std::string result = "";
-    while (!feof(pipe.get())) {
-        if (fgets(buffer, 128, pipe.get()) != NULL)
-            result += buffer;
-    }
-    return result;
+	std::shared_ptr<FILE> pipe(popen(cmd, "r"), pclose);
+	if (!pipe) return "ERROR";
+	char buffer[128];
+	std::string result = "";
+	while (!feof(pipe.get())) {
+		if (fgets(buffer, 128, pipe.get()) != NULL)
+			result += buffer;
+	}
+	return result;
+}
+
+static inline std::string read_from_file(std::string filename) {
+	std::ifstream t(filename);
+	std::stringstream res;
+	res << t.rdbuf();
+	return res.str();
 }
 
 #endif /* INCLUDES_UTILITIES_H_ */

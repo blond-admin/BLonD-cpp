@@ -4,6 +4,10 @@ project(BLonD-minimal-cpp)
 
 include_directories(includes)
 
+#set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++ -static")
+#SET(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
+#SET(BUILD_SHARED_LIBRARIES OFF)
+
 #release
 set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -fopenmp -O2 -Ofast") #-Ofast
 #debug
@@ -20,17 +24,35 @@ set(SOURCE_FILES
     llrf/PhaseLoop.cpp
     )
 
-add_library(blond ${SOURCE_FILES})
+add_library(blond STATIC ${SOURCE_FILES})
 
     
 add_executable(TC1_Acceleration tests/TC1_Acceleration.cpp)
 add_executable(LHC_restart tests/LHC_restart.cpp)
-add_executable(test1 unit-tests/testMyMath.cpp)
-#add_executable(TC8_Phase_Loop tests/TC8_Phase_Loop.cpp)
+
+set(TEST_SOURCE_FILES
+    unit-tests/testMyMath.cpp
+    unit-tests/testGP.cpp
+    unit-tests/testRFP.cpp
+    unit-tests/testBigaussian.cpp
+    unit-tests/testBeam.cpp
+    unit-tests/testSlices.cpp
+    unit-tests/testTracker.cpp
+    unit-tests/testTC1_Acceleration.cpp
+    )
+
+foreach(src ${TEST_SOURCE_FILES})
+    string( REPLACE ".cpp" "" testname ${src})
+    string( REPLACE "unit-tests/" "" testname ${testname})
+    add_executable( ${testname} ${src})
+    target_link_libraries( ${testname} blond gtest gtest_main)
+    add_test(${testname} ${testname})
+endforeach( src ${TEST_SOURCE_FILES})
+
 
 target_link_libraries(TC1_Acceleration blond)
 target_link_libraries(LHC_restart blond)
-target_link_libraries(test1 blond gtest gtest_main)
+
 
 enable_testing()
-add_test(test1 test1)
+#add_test(test1 test1)

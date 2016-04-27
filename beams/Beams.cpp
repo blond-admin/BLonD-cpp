@@ -41,7 +41,7 @@ inline int Beams::n_macroparticles_alive() {
 	return n_macroparticles - n_macroparticles_lost;
 }
 
-inline void Beams::statistics() {
+void Beams::statistics() {
 	ftype m_dE, m_dt, s_dE, s_dt;
 	m_dt = m_dE = s_dE = s_dt = 0;
 	int n = 0;
@@ -69,25 +69,19 @@ inline void Beams::statistics() {
 	n_macroparticles_lost = n_macroparticles - n;
 }
 
-inline void Beams::losses_longitudinal_cut(const ftype * __restrict__ dt,
-		const ftype dt_min, const ftype dt_max, int * __restrict__ id) {
-	//ftype *a = new ftype[8];
-
-#pragma omp parallel for
+void Beams::losses_longitudinal_cut(const ftype * __restrict__ dt,
+                                    const ftype dt_min, const ftype dt_max,
+                                    int * __restrict__ id) {
+	
+	#pragma omp parallel for
 	for (int i = 0; i < n_macroparticles; i++) {
 		id[i] = (dt[i] - dt_min) * (dt_max - dt[i]) < 0 ? 0 : id[i];
-		//ftype a = (dt[i] - dt_min) * (dt_max - dt[i]);
-		//id[i] = a < 0 ? 0 : id[i];
-		//ftype a = dt[i] - dt_min;
-		//ftype b = dt_max - dt[i];
-		//ftype c = a * b;
-		//id[i] = c < 0 ? 0 : id[i];
 	}
 }
 
-inline void Beams::losses_energy_cut(const ftype * __restrict__ dE,
-		const ftype dE_min, const ftype dE_max, int * __restrict__ id) {
-#pragma omp parallel for
+void Beams::losses_energy_cut(const ftype * __restrict__ dE,
+                                     const ftype dE_min, const ftype dE_max, int * __restrict__ id) {
+	#pragma omp parallel for
 	for (int i = 0; i < n_macroparticles; ++i) {
 		id[i] = (dE[i] - dE_min) * (dE_max - dE[i]) < 0 ? 0 : id[i];
 	}

@@ -9,7 +9,7 @@
 
 GeneralParameters::~GeneralParameters() {
 	delete_array (alpha);
-	//delete_array (momentum);
+	delete_array (momentum);
 	delete_array (ring_length);
 	delete_array (beta);
 	delete_array (gamma);
@@ -25,7 +25,7 @@ GeneralParameters::~GeneralParameters() {
 
 }
 
-inline void GeneralParameters::eta_generation() {
+void GeneralParameters::eta_generation() {
 	_eta0();
 	if (alpha_order > 0)
 		_eta1();
@@ -33,10 +33,10 @@ inline void GeneralParameters::eta_generation() {
 		_eta2();
 	if (alpha_order > 2)
 		dprintf(
-				"WARNING: Momentum compaction factor is implemented only up to 2nd order");
+		    "WARNING: Momentum compaction factor is implemented only up to 2nd order");
 }
 
-inline void GeneralParameters::_eta0() {
+void GeneralParameters::_eta0() {
 	//eta_0 = new ftype[n_sections * (n_turns + 1)];
 	for (int i = 0; i < n_sections * (n_turns + 1); ++i) {
 		int j = i / (n_turns + 1);
@@ -51,7 +51,7 @@ void GeneralParameters::_eta1() {
 	for (int i = 0; i < n_sections * (n_turns + 1); ++i) {
 		int j = i / (n_turns + 1);
 		eta_1[i] = 3 * beta[i] * beta[i] / (2 * gamma[i] * gamma[i])
-				+ alpha[j + 1] - alpha[j] * eta_0[i];
+		           + alpha[j + 1] - alpha[j] * eta_0[i];
 	}
 
 }
@@ -63,17 +63,17 @@ void GeneralParameters::_eta2() {
 		ftype betasq = beta[i] * beta[i];
 		ftype gammasq = gamma[i] * gamma[i];
 		eta_1[i] = -betasq * (5 * betasq - 1) / (2 * gammasq) + alpha[j + 2]
-				- 2 * alpha[j] * alpha[j + 1] + alpha[j + 1] / gammasq
-				+ alpha[j] * alpha[j] * eta_0[i]
-				- 3 * betasq * alpha[j] / (2 * gammasq);
+		           - 2 * alpha[j] * alpha[j + 1] + alpha[j + 1] / gammasq
+		           + alpha[j] * alpha[j] * eta_0[i]
+		           - 3 * betasq * alpha[j] / (2 * gammasq);
 	}
 }
 
 GeneralParameters::GeneralParameters(const int _n_turns, ftype* _ring_length,
-		ftype* _alpha, const int _alpha_order, ftype* _momentum,
-		const particle_type _particle, ftype user_mass, ftype user_charge,
-		particle_type _particle2, ftype user_mass_2, ftype user_charge_2,
-		int number_of_sections) {
+                                     ftype* _alpha, const int _alpha_order, ftype* _momentum,
+                                     const particle_type _particle, ftype user_mass, ftype user_charge,
+                                     particle_type _particle2, ftype user_mass_2, ftype user_charge_2,
+                                     int number_of_sections) {
 
 	//global++;
 	//dprintf("Global variable is %d\n", global);
@@ -126,7 +126,7 @@ GeneralParameters::GeneralParameters(const int _n_turns, ftype* _ring_length,
 	this->ring_length = _ring_length;
 
 	this->ring_circumference = std::accumulate(&ring_length[0],
-			&ring_length[n_sections], 0.0);
+	                           &ring_length[n_sections], 0.0);
 	this->ring_radius = ring_circumference / (2 * pi);
 
 	if (n_sections > 1) {
@@ -152,15 +152,20 @@ GeneralParameters::GeneralParameters(const int _n_turns, ftype* _ring_length,
 
 	for (int i = 0; i < n_turns + 1; ++i)
 		t_rev.push_back(0);
+	//dump(ring_length, 1, "ring_length\n");
 
 	for (int j = 0; j < n_turns + 1; ++j)
 		for (int k = 0; k < n_sections; ++k)
 			t_rev[j] += ring_length[k] / (beta[k * (n_turns + 1) + j] * c);
 
-	this->cycle_time = new ftype[n_turns + 1];
-	cycle_time[0] = t_rev[0];
-	for (int i = 1; i < n_turns + 1; ++i)
+	//dump(t_rev, 10, "t_rev\n");
+
+	this->cycle_time = new ftype[n_turns];
+	cycle_time[0] = 0;//t_rev[0];
+	for (int i = 1; i < n_turns; ++i)
 		cycle_time[i] = t_rev[i] + cycle_time[i - 1];
+
+	//dump(cycle_time, 10, "cycle_time\n");
 
 	this->f_rev = new ftype[n_turns + 1];
 	for (int i = 0; i < n_turns + 1; ++i)
@@ -172,7 +177,7 @@ GeneralParameters::GeneralParameters(const int _n_turns, ftype* _ring_length,
 
 	if (alpha_order > 3) {
 		dprintf(
-				"WARNING: Momentum compaction factor is implemented only up to 2nd order");
+		    "WARNING: Momentum compaction factor is implemented only up to 2nd order");
 		alpha_order = 3;
 	}
 	this->eta_0 = new ftype[n_sections * (n_turns + 1)];

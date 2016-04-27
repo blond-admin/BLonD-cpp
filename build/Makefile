@@ -56,17 +56,6 @@ CMAKE_BINARY_DIR = /afs/cern.ch/user/k/kiliakis/work/workspace/BLonD-minimal-cpp
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/afs/cern.ch/user/k/kiliakis/Desktop/clion-2016.1/bin/cmake/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
-
-# Special rule for the target test
-test/fast: test
-
-.PHONY : test/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
@@ -88,6 +77,17 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
+
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/afs/cern.ch/user/k/kiliakis/Desktop/clion-2016.1/bin/cmake/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+
+.PHONY : test/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -161,17 +161,108 @@ blond/fast:
 .PHONY : blond/fast
 
 #=============================================================================
-# Target rules for targets named test1
+# Target rules for targets named testBeam
 
 # Build rule for target.
-test1: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 test1
-.PHONY : test1
+testBeam: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 testBeam
+.PHONY : testBeam
 
 # fast build rule for target.
-test1/fast:
-	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/build
-.PHONY : test1/fast
+testBeam/fast:
+	$(MAKE) -f CMakeFiles/testBeam.dir/build.make CMakeFiles/testBeam.dir/build
+.PHONY : testBeam/fast
+
+#=============================================================================
+# Target rules for targets named testBigaussian
+
+# Build rule for target.
+testBigaussian: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 testBigaussian
+.PHONY : testBigaussian
+
+# fast build rule for target.
+testBigaussian/fast:
+	$(MAKE) -f CMakeFiles/testBigaussian.dir/build.make CMakeFiles/testBigaussian.dir/build
+.PHONY : testBigaussian/fast
+
+#=============================================================================
+# Target rules for targets named testGP
+
+# Build rule for target.
+testGP: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 testGP
+.PHONY : testGP
+
+# fast build rule for target.
+testGP/fast:
+	$(MAKE) -f CMakeFiles/testGP.dir/build.make CMakeFiles/testGP.dir/build
+.PHONY : testGP/fast
+
+#=============================================================================
+# Target rules for targets named testMyMath
+
+# Build rule for target.
+testMyMath: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 testMyMath
+.PHONY : testMyMath
+
+# fast build rule for target.
+testMyMath/fast:
+	$(MAKE) -f CMakeFiles/testMyMath.dir/build.make CMakeFiles/testMyMath.dir/build
+.PHONY : testMyMath/fast
+
+#=============================================================================
+# Target rules for targets named testRFP
+
+# Build rule for target.
+testRFP: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 testRFP
+.PHONY : testRFP
+
+# fast build rule for target.
+testRFP/fast:
+	$(MAKE) -f CMakeFiles/testRFP.dir/build.make CMakeFiles/testRFP.dir/build
+.PHONY : testRFP/fast
+
+#=============================================================================
+# Target rules for targets named testSlices
+
+# Build rule for target.
+testSlices: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 testSlices
+.PHONY : testSlices
+
+# fast build rule for target.
+testSlices/fast:
+	$(MAKE) -f CMakeFiles/testSlices.dir/build.make CMakeFiles/testSlices.dir/build
+.PHONY : testSlices/fast
+
+#=============================================================================
+# Target rules for targets named testTC1_Acceleration
+
+# Build rule for target.
+testTC1_Acceleration: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 testTC1_Acceleration
+.PHONY : testTC1_Acceleration
+
+# fast build rule for target.
+testTC1_Acceleration/fast:
+	$(MAKE) -f CMakeFiles/testTC1_Acceleration.dir/build.make CMakeFiles/testTC1_Acceleration.dir/build
+.PHONY : testTC1_Acceleration/fast
+
+#=============================================================================
+# Target rules for targets named testTracker
+
+# Build rule for target.
+testTracker: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 testTracker
+.PHONY : testTracker
+
+# fast build rule for target.
+testTracker/fast:
+	$(MAKE) -f CMakeFiles/testTracker.dir/build.make CMakeFiles/testTracker.dir/build
+.PHONY : testTracker/fast
 
 beams/Beams.o: beams/Beams.cpp.o
 
@@ -389,13 +480,94 @@ trackers/Tracker.cpp.s:
 	$(MAKE) -f CMakeFiles/blond.dir/build.make CMakeFiles/blond.dir/trackers/Tracker.cpp.s
 .PHONY : trackers/Tracker.cpp.s
 
+unit-tests/testBeam.o: unit-tests/testBeam.cpp.o
+
+.PHONY : unit-tests/testBeam.o
+
+# target to build an object file
+unit-tests/testBeam.cpp.o:
+	$(MAKE) -f CMakeFiles/testBeam.dir/build.make CMakeFiles/testBeam.dir/unit-tests/testBeam.cpp.o
+.PHONY : unit-tests/testBeam.cpp.o
+
+unit-tests/testBeam.i: unit-tests/testBeam.cpp.i
+
+.PHONY : unit-tests/testBeam.i
+
+# target to preprocess a source file
+unit-tests/testBeam.cpp.i:
+	$(MAKE) -f CMakeFiles/testBeam.dir/build.make CMakeFiles/testBeam.dir/unit-tests/testBeam.cpp.i
+.PHONY : unit-tests/testBeam.cpp.i
+
+unit-tests/testBeam.s: unit-tests/testBeam.cpp.s
+
+.PHONY : unit-tests/testBeam.s
+
+# target to generate assembly for a file
+unit-tests/testBeam.cpp.s:
+	$(MAKE) -f CMakeFiles/testBeam.dir/build.make CMakeFiles/testBeam.dir/unit-tests/testBeam.cpp.s
+.PHONY : unit-tests/testBeam.cpp.s
+
+unit-tests/testBigaussian.o: unit-tests/testBigaussian.cpp.o
+
+.PHONY : unit-tests/testBigaussian.o
+
+# target to build an object file
+unit-tests/testBigaussian.cpp.o:
+	$(MAKE) -f CMakeFiles/testBigaussian.dir/build.make CMakeFiles/testBigaussian.dir/unit-tests/testBigaussian.cpp.o
+.PHONY : unit-tests/testBigaussian.cpp.o
+
+unit-tests/testBigaussian.i: unit-tests/testBigaussian.cpp.i
+
+.PHONY : unit-tests/testBigaussian.i
+
+# target to preprocess a source file
+unit-tests/testBigaussian.cpp.i:
+	$(MAKE) -f CMakeFiles/testBigaussian.dir/build.make CMakeFiles/testBigaussian.dir/unit-tests/testBigaussian.cpp.i
+.PHONY : unit-tests/testBigaussian.cpp.i
+
+unit-tests/testBigaussian.s: unit-tests/testBigaussian.cpp.s
+
+.PHONY : unit-tests/testBigaussian.s
+
+# target to generate assembly for a file
+unit-tests/testBigaussian.cpp.s:
+	$(MAKE) -f CMakeFiles/testBigaussian.dir/build.make CMakeFiles/testBigaussian.dir/unit-tests/testBigaussian.cpp.s
+.PHONY : unit-tests/testBigaussian.cpp.s
+
+unit-tests/testGP.o: unit-tests/testGP.cpp.o
+
+.PHONY : unit-tests/testGP.o
+
+# target to build an object file
+unit-tests/testGP.cpp.o:
+	$(MAKE) -f CMakeFiles/testGP.dir/build.make CMakeFiles/testGP.dir/unit-tests/testGP.cpp.o
+.PHONY : unit-tests/testGP.cpp.o
+
+unit-tests/testGP.i: unit-tests/testGP.cpp.i
+
+.PHONY : unit-tests/testGP.i
+
+# target to preprocess a source file
+unit-tests/testGP.cpp.i:
+	$(MAKE) -f CMakeFiles/testGP.dir/build.make CMakeFiles/testGP.dir/unit-tests/testGP.cpp.i
+.PHONY : unit-tests/testGP.cpp.i
+
+unit-tests/testGP.s: unit-tests/testGP.cpp.s
+
+.PHONY : unit-tests/testGP.s
+
+# target to generate assembly for a file
+unit-tests/testGP.cpp.s:
+	$(MAKE) -f CMakeFiles/testGP.dir/build.make CMakeFiles/testGP.dir/unit-tests/testGP.cpp.s
+.PHONY : unit-tests/testGP.cpp.s
+
 unit-tests/testMyMath.o: unit-tests/testMyMath.cpp.o
 
 .PHONY : unit-tests/testMyMath.o
 
 # target to build an object file
 unit-tests/testMyMath.cpp.o:
-	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/unit-tests/testMyMath.cpp.o
+	$(MAKE) -f CMakeFiles/testMyMath.dir/build.make CMakeFiles/testMyMath.dir/unit-tests/testMyMath.cpp.o
 .PHONY : unit-tests/testMyMath.cpp.o
 
 unit-tests/testMyMath.i: unit-tests/testMyMath.cpp.i
@@ -404,7 +576,7 @@ unit-tests/testMyMath.i: unit-tests/testMyMath.cpp.i
 
 # target to preprocess a source file
 unit-tests/testMyMath.cpp.i:
-	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/unit-tests/testMyMath.cpp.i
+	$(MAKE) -f CMakeFiles/testMyMath.dir/build.make CMakeFiles/testMyMath.dir/unit-tests/testMyMath.cpp.i
 .PHONY : unit-tests/testMyMath.cpp.i
 
 unit-tests/testMyMath.s: unit-tests/testMyMath.cpp.s
@@ -413,8 +585,116 @@ unit-tests/testMyMath.s: unit-tests/testMyMath.cpp.s
 
 # target to generate assembly for a file
 unit-tests/testMyMath.cpp.s:
-	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/unit-tests/testMyMath.cpp.s
+	$(MAKE) -f CMakeFiles/testMyMath.dir/build.make CMakeFiles/testMyMath.dir/unit-tests/testMyMath.cpp.s
 .PHONY : unit-tests/testMyMath.cpp.s
+
+unit-tests/testRFP.o: unit-tests/testRFP.cpp.o
+
+.PHONY : unit-tests/testRFP.o
+
+# target to build an object file
+unit-tests/testRFP.cpp.o:
+	$(MAKE) -f CMakeFiles/testRFP.dir/build.make CMakeFiles/testRFP.dir/unit-tests/testRFP.cpp.o
+.PHONY : unit-tests/testRFP.cpp.o
+
+unit-tests/testRFP.i: unit-tests/testRFP.cpp.i
+
+.PHONY : unit-tests/testRFP.i
+
+# target to preprocess a source file
+unit-tests/testRFP.cpp.i:
+	$(MAKE) -f CMakeFiles/testRFP.dir/build.make CMakeFiles/testRFP.dir/unit-tests/testRFP.cpp.i
+.PHONY : unit-tests/testRFP.cpp.i
+
+unit-tests/testRFP.s: unit-tests/testRFP.cpp.s
+
+.PHONY : unit-tests/testRFP.s
+
+# target to generate assembly for a file
+unit-tests/testRFP.cpp.s:
+	$(MAKE) -f CMakeFiles/testRFP.dir/build.make CMakeFiles/testRFP.dir/unit-tests/testRFP.cpp.s
+.PHONY : unit-tests/testRFP.cpp.s
+
+unit-tests/testSlices.o: unit-tests/testSlices.cpp.o
+
+.PHONY : unit-tests/testSlices.o
+
+# target to build an object file
+unit-tests/testSlices.cpp.o:
+	$(MAKE) -f CMakeFiles/testSlices.dir/build.make CMakeFiles/testSlices.dir/unit-tests/testSlices.cpp.o
+.PHONY : unit-tests/testSlices.cpp.o
+
+unit-tests/testSlices.i: unit-tests/testSlices.cpp.i
+
+.PHONY : unit-tests/testSlices.i
+
+# target to preprocess a source file
+unit-tests/testSlices.cpp.i:
+	$(MAKE) -f CMakeFiles/testSlices.dir/build.make CMakeFiles/testSlices.dir/unit-tests/testSlices.cpp.i
+.PHONY : unit-tests/testSlices.cpp.i
+
+unit-tests/testSlices.s: unit-tests/testSlices.cpp.s
+
+.PHONY : unit-tests/testSlices.s
+
+# target to generate assembly for a file
+unit-tests/testSlices.cpp.s:
+	$(MAKE) -f CMakeFiles/testSlices.dir/build.make CMakeFiles/testSlices.dir/unit-tests/testSlices.cpp.s
+.PHONY : unit-tests/testSlices.cpp.s
+
+unit-tests/testTC1_Acceleration.o: unit-tests/testTC1_Acceleration.cpp.o
+
+.PHONY : unit-tests/testTC1_Acceleration.o
+
+# target to build an object file
+unit-tests/testTC1_Acceleration.cpp.o:
+	$(MAKE) -f CMakeFiles/testTC1_Acceleration.dir/build.make CMakeFiles/testTC1_Acceleration.dir/unit-tests/testTC1_Acceleration.cpp.o
+.PHONY : unit-tests/testTC1_Acceleration.cpp.o
+
+unit-tests/testTC1_Acceleration.i: unit-tests/testTC1_Acceleration.cpp.i
+
+.PHONY : unit-tests/testTC1_Acceleration.i
+
+# target to preprocess a source file
+unit-tests/testTC1_Acceleration.cpp.i:
+	$(MAKE) -f CMakeFiles/testTC1_Acceleration.dir/build.make CMakeFiles/testTC1_Acceleration.dir/unit-tests/testTC1_Acceleration.cpp.i
+.PHONY : unit-tests/testTC1_Acceleration.cpp.i
+
+unit-tests/testTC1_Acceleration.s: unit-tests/testTC1_Acceleration.cpp.s
+
+.PHONY : unit-tests/testTC1_Acceleration.s
+
+# target to generate assembly for a file
+unit-tests/testTC1_Acceleration.cpp.s:
+	$(MAKE) -f CMakeFiles/testTC1_Acceleration.dir/build.make CMakeFiles/testTC1_Acceleration.dir/unit-tests/testTC1_Acceleration.cpp.s
+.PHONY : unit-tests/testTC1_Acceleration.cpp.s
+
+unit-tests/testTracker.o: unit-tests/testTracker.cpp.o
+
+.PHONY : unit-tests/testTracker.o
+
+# target to build an object file
+unit-tests/testTracker.cpp.o:
+	$(MAKE) -f CMakeFiles/testTracker.dir/build.make CMakeFiles/testTracker.dir/unit-tests/testTracker.cpp.o
+.PHONY : unit-tests/testTracker.cpp.o
+
+unit-tests/testTracker.i: unit-tests/testTracker.cpp.i
+
+.PHONY : unit-tests/testTracker.i
+
+# target to preprocess a source file
+unit-tests/testTracker.cpp.i:
+	$(MAKE) -f CMakeFiles/testTracker.dir/build.make CMakeFiles/testTracker.dir/unit-tests/testTracker.cpp.i
+.PHONY : unit-tests/testTracker.cpp.i
+
+unit-tests/testTracker.s: unit-tests/testTracker.cpp.s
+
+.PHONY : unit-tests/testTracker.s
+
+# target to generate assembly for a file
+unit-tests/testTracker.cpp.s:
+	$(MAKE) -f CMakeFiles/testTracker.dir/build.make CMakeFiles/testTracker.dir/unit-tests/testTracker.cpp.s
+.PHONY : unit-tests/testTracker.cpp.s
 
 # Help Target
 help:
@@ -422,13 +702,20 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... test"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... test1"
-	@echo "... LHC_restart"
+	@echo "... testTC1_Acceleration"
 	@echo "... TC1_Acceleration"
+	@echo "... LHC_restart"
+	@echo "... testMyMath"
 	@echo "... blond"
+	@echo "... testTracker"
+	@echo "... testGP"
+	@echo "... testRFP"
+	@echo "... testBigaussian"
+	@echo "... testBeam"
+	@echo "... test"
+	@echo "... testSlices"
 	@echo "... beams/Beams.o"
 	@echo "... beams/Beams.i"
 	@echo "... beams/Beams.s"
@@ -453,9 +740,30 @@ help:
 	@echo "... trackers/Tracker.o"
 	@echo "... trackers/Tracker.i"
 	@echo "... trackers/Tracker.s"
+	@echo "... unit-tests/testBeam.o"
+	@echo "... unit-tests/testBeam.i"
+	@echo "... unit-tests/testBeam.s"
+	@echo "... unit-tests/testBigaussian.o"
+	@echo "... unit-tests/testBigaussian.i"
+	@echo "... unit-tests/testBigaussian.s"
+	@echo "... unit-tests/testGP.o"
+	@echo "... unit-tests/testGP.i"
+	@echo "... unit-tests/testGP.s"
 	@echo "... unit-tests/testMyMath.o"
 	@echo "... unit-tests/testMyMath.i"
 	@echo "... unit-tests/testMyMath.s"
+	@echo "... unit-tests/testRFP.o"
+	@echo "... unit-tests/testRFP.i"
+	@echo "... unit-tests/testRFP.s"
+	@echo "... unit-tests/testSlices.o"
+	@echo "... unit-tests/testSlices.i"
+	@echo "... unit-tests/testSlices.s"
+	@echo "... unit-tests/testTC1_Acceleration.o"
+	@echo "... unit-tests/testTC1_Acceleration.i"
+	@echo "... unit-tests/testTC1_Acceleration.s"
+	@echo "... unit-tests/testTracker.o"
+	@echo "... unit-tests/testTracker.i"
+	@echo "... unit-tests/testTracker.s"
 .PHONY : help
 
 

@@ -35,7 +35,7 @@ const int n_sections = 1;
 // Tracking details
 
 int N_t = 10000;    // Number of turns to track
-int N_p = 10000;         // Macro-particles
+int N_p = 10;         // Macro-particles
 
 int n_threads = 1;
 int N_slices = 500;
@@ -52,7 +52,7 @@ int main(int argc, char **argv) {
 	N_p = atoi(GETENV("N_PARTICLES")) ? atoi(GETENV("N_PARTICLES")) : N_p;
 	N_slices = atoi(GETENV("N_SLICES")) ? atoi(GETENV("N_SLICES")) : N_slices;
 	n_threads =
-			atoi(GETENV("N_THREADS")) ? atoi(GETENV("N_THREADS")) : n_threads;
+	    atoi(GETENV("N_THREADS")) ? atoi(GETENV("N_THREADS")) : n_threads;
 	omp_set_num_threads(n_threads);
 
 	// Number of tasks is either N_TASKS if specified or n_threads (1 task / thread) if not
@@ -66,7 +66,7 @@ int main(int argc, char **argv) {
 	//printf("Number of Tasks: %d\n", N_tasks);
 
 	/// initializations
-#pragma omp parallel
+	#pragma omp parallel
 	{
 		if (omp_get_thread_num() == 0)
 			printf("Number of openmp threads: %d\n", omp_get_num_threads());
@@ -82,7 +82,7 @@ int main(int argc, char **argv) {
 	std::fill_n(alpha_array, (alpha_order + 1) * n_sections, alpha);
 
 	ftype *C_array = new ftype[n_sections];
-	C_array[0] = C;
+	std::fill_n(C_array, n_sections, C);
 
 	ftype *h_array = new ftype[n_sections * (N_t + 1)];
 	std::fill_n(h_array, (N_t + 1) * n_sections, h);
@@ -96,26 +96,29 @@ int main(int argc, char **argv) {
 // TODO variables must be in the correct format (arrays for all)
 
 	GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum,
-			proton);
+	                           proton);
 
 	Beam = new Beams(N_p, N_b);
 
 	RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
+	//printf("omega_rf = %lf\n",RfP->omega_RF[0]);
 
 	RingAndRfSection *long_tracker = new RingAndRfSection();
+	//dump(Beam->dE, 10, "dE\n");
 
 	longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
 
 	Slice = new Slices(N_slices);
 
 	//dump(Slice->bin_centers, N_slices, "bin_centers\n");
+	//dump(Beam->dt, 10, "dt\n");
 	//dump(Beam->dE, 10, "dE\n");
 
 	double slice_time = 0, track_time = 0;
 
 	timespec begin_t, end_t;
 
-#pragma omp parallel
+	#pragma omp parallel
 	{
 		int id = omp_get_thread_num();
 		int threads = omp_get_num_threads();
@@ -130,10 +133,14 @@ int main(int argc, char **argv) {
 			if (id == 0) get_time(begin_t);
 #endif
 			//dump(Beam->dE, 1, "dE\n");
+			//dump(Beam->dt, 1, "dt\n");
 
 			long_tracker->track(start, end);
 
-#pragma omp barrier
+			//dump(Beam->dE, 1, "dE\n");
+			//dump(Beam->dt, 1, "dt\n");
+
+			#pragma omp barrier
 
 #ifdef TIMING
 			if (id == 0) track_time += time_elapsed(begin_t);
@@ -141,13 +148,13 @@ int main(int argc, char **argv) {
 #endif
 			Slice->track(start, end);
 
-#pragma omp barrier
+			#pragma omp barrier
 
 #ifdef TIMING
 			if (id == 0) slice_time += time_elapsed(begin_t);
 #endif
 
-#pragma omp single
+			#pragma omp single
 			{
 				Slice->fwhm();
 #ifdef PRINT_RESULTS
@@ -166,18 +173,15 @@ int main(int argc, char **argv) {
 
 //printf("Total simulation time: %.10lf\n", long_tracker->elapsed_time);
 //printf("Time/turn : %.10lf\n", long_tracker->elapsed_time / N_t);
-	ftype result = mymath::trapezoid(Slice->n_macroparticles,
-			Slice->bin_centers, Slice->n_slices);
-	printf("result = %e\n", result);
 
 	get_time(end);
 #ifdef TIMING
 	print_time("Simulation Time", begin, end);
 	double total_time = track_time + slice_time;
 	printf("Track time : %.4lf ( %.2lf %% )\n", track_time,
-			100 * track_time / total_time);
+	       100 * track_time / total_time);
 	printf("Slice time : %.4lf ( %.2lf %% )\n", slice_time,
-			100 * slice_time / total_time);
+	       100 * slice_time / total_time);
 #endif
 
 	dump(Beam->dE, 10, "dE\n");

@@ -71,17 +71,21 @@ RfParameters::RfParameters(int _n_rf, ftype *_harmonic, ftype *_voltage,
 		//dprintf("%.4e \n", std::abs(eta_0(i) * cos(phi_s[i])));
 
 	}
+	//dump(Qs, 10, "Qs\n");
 
 	this->omega_s0 = new ftype[(GP->n_turns + 1)];
 	for (int i = 0; i < (GP->n_turns + 1); ++i) {
 		this->omega_s0[i] = Qs[i] * GP->omega_rev[i];
 	}
+	//dump(omega_s0, 10, "omega_s0\n");
+
 
 	this->omega_RF_d = new ftype[n_rf * (GP->n_turns + 1)];
 	for (int i = 0; i < n_rf * (GP->n_turns + 1); ++i) {
 		this->omega_RF_d[i] = 2 * pi * GP->beta[i] * c * harmonic[i]
 				/ GP->ring_circumference;
 	}
+	//dump(omega_RF_d, 10, "omega_RF_d\n");
 	//dprintf("ring_circumference %.12lf\n", GP->ring_circumference);
 	//dprintf("pi %.12lf\n", pi);
 	//dprintf("c %.12lf\n", c);

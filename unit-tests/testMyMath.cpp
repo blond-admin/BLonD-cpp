@@ -9,40 +9,6 @@
 #include "utilities.h"
 #include "constants.h"
 
-class TestGP: public ::testing::Test {
-protected:
-	virtual void SetUp() {
-	}
-
-	virtual void TearDown() {
-		// Code here will be called immediately after each test
-		// (right before the destructor).
-	}
-
-private:
-	const long N_b = 1e9;           // Intensity
-	const ftype tau_0 = 0.4e-9;          // Initial bunch length, 4 sigma [s]
-
-	// Machine and RF parameters
-	const ftype C = 26658.883;          // Machine circumference [m]
-	const long p_i = 450e9;          // Synchronous momentum [eV/c]
-	const ftype p_f = 460.005e9;          // Synchronous momentum, final
-	const long h = 35640;          // Harmonic number
-	const ftype V = 6e6;          // RF voltage [V]
-	const ftype dphi = 0;          // Phase modulation/offset
-	const ftype gamma_t = 55.759505;          // Transition gamma
-	const ftype alpha = 1.0 / gamma_t / gamma_t; // First order mom. comp. factor
-	const int alpha_order = 1;
-	const int n_sections = 1;
-	// Tracking details
-
-	int N_t = 10000;    // Number of turns to track
-	int N_p = 10000;         // Macro-particles
-
-	int n_threads = 1;
-	int N_slices = 500;
-
-};
 
 TEST(testLinspace, test1) {
 	ftype a[10];

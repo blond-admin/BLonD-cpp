@@ -39,7 +39,6 @@ public:
 	void losses_energy_cut(const ftype * __restrict__ dE, const ftype dE_min,
 			const ftype dE_max, int * __restrict__ id);
 
-private:
 	void statistics();
 };
 

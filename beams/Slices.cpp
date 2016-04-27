@@ -173,10 +173,12 @@ inline void Slices::slice_constant_space_histogram(const int start,
 	// Maybe I need to find a way to re arrange particles
 	//int n_threads = omp_get_num_threads();
 	int id = omp_get_thread_num();
-
+	//printf("ok here\n");
+	//dump(Beam->dt, 10, "beam->dt\n");
 	histogram(Beam->dt, &h[id * n_slices], cut_left, cut_right, n_slices,
 			Beam->n_macroparticles, start, end);
 	//printf("%lf\n", h[id][0]);
+	//printf("ok here\n");
 
 #pragma omp barrier
 
@@ -190,11 +192,14 @@ inline void Slices::slice_constant_space_histogram(const int start,
 		d++;
 #pragma omp barrier
 	}
+	//printf("ok here\n");
 
 #pragma omp master
 	for (int i = 0; i < n_slices; ++i) {
 		n_macroparticles[i] = h[i];
 	}
+	//printf("ok here\n");
+
 	/*
 	 #pragma omp single
 	 {
@@ -217,6 +222,8 @@ inline void Slices::histogram(const ftype * __restrict__ input,
 		const int start, const int end) {
 
 //int i;
+	//printf("ok here\n");
+
 	ftype a;
 	ftype fbin;
 	int ffbin;
@@ -224,6 +231,7 @@ inline void Slices::histogram(const ftype * __restrict__ input,
 	//dprintf("inv_bin_width = %e\n", inv_bin_width);
 	for (int i = 0; i < n_slices; i++)
 		output[i] = 0.0;
+	//printf("ok here\n");
 
 	for (int i = start; i < end; i++) {
 		a = input[i];
@@ -236,6 +244,8 @@ inline void Slices::histogram(const ftype * __restrict__ input,
 //#pragma omp atomic
 		output[ffbin] = output[ffbin] + 1.0;
 	}
+	//printf("ok here\n");
+
 }
 
 void Slices::track_cuts() {

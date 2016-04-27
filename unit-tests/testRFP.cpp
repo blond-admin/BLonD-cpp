@@ -85,14 +85,14 @@ private:
 
 TEST_F(testRFP, test_length_ratio) {
     std::vector<ftype> v;
-    read_vector_from_file(v, params + "length_ratio");
+    util::read_vector_from_file(v, params + "length_ratio");
     //std::cout << v[0];
     ASSERT_NEAR(v[0], RfP->length_ratio, epsilon * std::min(v[0], RfP->length_ratio));
 }
 
 TEST_F(testRFP, test_E_increment) {
     std::vector<ftype> v;
-    read_vector_from_file(v, params + "E_increment");
+    util::read_vector_from_file(v, params + "E_increment");
     //std::cout << v.size() << std::endl;
     for (unsigned int i = 0; i < v.size(); ++i)
     {
@@ -104,7 +104,7 @@ TEST_F(testRFP, test_E_increment) {
 
 TEST_F(testRFP, test_phi_s) {
     std::vector<ftype> v;
-    read_vector_from_file(v, params + "phi_s");
+    util::read_vector_from_file(v, params + "phi_s");
     //std::cout << v.size() << std::endl;
     for (unsigned int i = 0; i < v.size(); ++i)
     {
@@ -116,7 +116,7 @@ TEST_F(testRFP, test_phi_s) {
 
 TEST_F(testRFP, test_Qs) {
     std::vector<ftype> v;
-    read_vector_from_file(v, params + "Qs");
+    util::read_vector_from_file(v, params + "Qs");
     //std::cout << v.size() << std::endl;
     for (unsigned int i = 0; i < v.size(); ++i)
     {
@@ -128,7 +128,7 @@ TEST_F(testRFP, test_Qs) {
 
 TEST_F(testRFP, test_omega_s0) {
     std::vector<ftype> v;
-    read_vector_from_file(v, params + "omega_s0");
+    util::read_vector_from_file(v, params + "omega_s0");
     //std::cout << v.size() << std::endl;
     for (unsigned int i = 0; i < v.size(); ++i)
     {
@@ -140,7 +140,7 @@ TEST_F(testRFP, test_omega_s0) {
 
 TEST_F(testRFP, test_omega_RF_d) {
     std::vector<ftype> v;
-    read_vector_from_file(v, params + "omega_RF_d[0]");
+    util::read_vector_from_file(v, params + "omega_RF_d[0]");
     //std::cout << v.size() << std::endl;
     for (unsigned int i = 0; i < v.size(); ++i)
     {
@@ -152,7 +152,7 @@ TEST_F(testRFP, test_omega_RF_d) {
 
 TEST_F(testRFP, test_omega_RF) {
     std::vector<ftype> v;
-    read_vector_from_file(v, params + "omega_RF[0]");
+    util::read_vector_from_file(v, params + "omega_RF[0]");
     //std::cout << v.size() << std::endl;
     for (unsigned int i = 0; i < v.size(); ++i)
     {
@@ -164,7 +164,7 @@ TEST_F(testRFP, test_omega_RF) {
 
 TEST_F(testRFP, test_t_RF) {
     std::vector<ftype> v;
-    read_vector_from_file(v, params + "t_RF");
+    util::read_vector_from_file(v, params + "t_RF");
     //std::cout << v.size() << std::endl;
     for (unsigned int i = 0; i < v.size(); ++i)
     {

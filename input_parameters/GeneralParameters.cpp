@@ -8,19 +8,19 @@
 #include "GeneralParameters.h"
 
 GeneralParameters::~GeneralParameters() {
-	delete_array (alpha);
-	delete_array (momentum);
-	delete_array (ring_length);
-	delete_array (beta);
-	delete_array (gamma);
-	delete_array (energy);
-	delete_array (kin_energy);
-	delete_array (cycle_time);
-	delete_array (f_rev);
-	delete_array (omega_rev);
-	delete_array (eta_0);
-	delete_array (eta_1);
-	delete_array (eta_2);
+	util::delete_array (alpha);
+	util::delete_array (momentum);
+	util::delete_array (ring_length);
+	util::delete_array (beta);
+	util::delete_array (gamma);
+	util::delete_array (energy);
+	util::delete_array (kin_energy);
+	util::delete_array (cycle_time);
+	util::delete_array (f_rev);
+	util::delete_array (omega_rev);
+	util::delete_array (eta_0);
+	util::delete_array (eta_1);
+	util::delete_array (eta_2);
 	//delete t_rev;
 
 }
@@ -83,10 +83,10 @@ GeneralParameters::GeneralParameters(const int _n_turns, ftype* _ring_length,
 	this->n_sections = number_of_sections;
 
 	if (particle == proton) {
-		mass = m_p * c * c / e;
+		mass = constant::m_p * constant::c * constant::c / constant::e;
 		charge = 1;
 	} else if (particle == electron) {
-		mass = m_e * c * c / e;
+		mass = constant::m_e * constant::c * constant::c / constant::e;
 		charge = -1;
 	} else if (particle == user_input) {
 		mass = user_mass;
@@ -99,10 +99,10 @@ GeneralParameters::GeneralParameters(const int _n_turns, ftype* _ring_length,
 	if (particle_2 == none) {
 		;
 	} else if (particle_2 == proton) {
-		mass2 = m_p * c * c / e;
+		mass2 = constant::m_p * constant::c * constant::c / constant::e;
 		charge2 = 1;
 	} else if (particle == electron) {
-		mass2 = m_e * c * c / e;
+		mass2 = constant::m_e * constant::c * constant::c / constant::e;
 		charge2 = -1;
 	} else if (particle == user_input) {
 		mass2 = user_mass_2;
@@ -127,7 +127,7 @@ GeneralParameters::GeneralParameters(const int _n_turns, ftype* _ring_length,
 
 	this->ring_circumference = std::accumulate(&ring_length[0],
 	                           &ring_length[n_sections], 0.0);
-	this->ring_radius = ring_circumference / (2 * pi);
+	this->ring_radius = ring_circumference / (2 * constant::pi);
 
 	if (n_sections > 1) {
 		// TODO do some things inside here
@@ -156,7 +156,7 @@ GeneralParameters::GeneralParameters(const int _n_turns, ftype* _ring_length,
 
 	for (int j = 0; j < n_turns + 1; ++j)
 		for (int k = 0; k < n_sections; ++k)
-			t_rev[j] += ring_length[k] / (beta[k * (n_turns + 1) + j] * c);
+			t_rev[j] += ring_length[k] / (beta[k * (n_turns + 1) + j] * constant::c);
 
 	//dump(t_rev, 10, "t_rev\n");
 
@@ -173,7 +173,7 @@ GeneralParameters::GeneralParameters(const int _n_turns, ftype* _ring_length,
 
 	this->omega_rev = new ftype[n_turns + 1];
 	for (int i = 0; i < n_turns + 1; ++i)
-		omega_rev[i] = 2 * pi * f_rev[i];
+		omega_rev[i] = 2 * constant::pi * f_rev[i];
 
 	if (alpha_order > 3) {
 		dprintf(

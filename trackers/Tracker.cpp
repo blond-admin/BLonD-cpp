@@ -13,14 +13,14 @@ RingAndRfSection::~RingAndRfSection() {
 	//if (this->NoiseFB != NULL) delete this->NoiseFB;
 	//if (this->TotalInducedVoltage != NULL) delete this->TotalInducedVoltage;
 	//if (this->acceleration_kick != NULL) delete this->acceleration_kick;
-	//delete_array(this->PL);
-	//delete_array(this->NoiseFB);
-	delete_array(this->TotalInducedVoltage);
-	delete_array(this->acceleration_kick);
-	delete_array(this->Slices);
-	delete_array(this->indices_left_outside);
-	delete_array(this->indices_right_outside);
-	delete_array(this->indices_inside_frame);
+	//util::delete_array(this->PL);
+	//util::delete_array(this->NoiseFB);
+	util::delete_array(this->TotalInducedVoltage);
+	util::delete_array(this->acceleration_kick);
+	util::delete_array(this->Slices);
+	util::delete_array(this->indices_left_outside);
+	util::delete_array(this->indices_right_outside);
+	util::delete_array(this->indices_inside_frame);
 
 }
 

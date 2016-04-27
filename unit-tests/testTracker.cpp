@@ -101,7 +101,7 @@ TEST_F(testTracker, track_dE) {
     long_tracker->track(0, Beam->n_macroparticles);
 
     std::vector<ftype> v;
-    read_vector_from_file(v, track_params + "dE");
+    util::read_vector_from_file(v, track_params + "dE");
     for (unsigned int i = 0; i < v.size(); ++i)
     {
         ftype ref = v[i];
@@ -117,7 +117,7 @@ TEST_F(testTracker, track_dt) {
     long_tracker->track(0, Beam->n_macroparticles);
 
     std::vector<ftype> v;
-    read_vector_from_file(v, track_params + "dt");
+    util::read_vector_from_file(v, track_params + "dt");
     for (unsigned int i = 0; i < v.size(); ++i)
     {
         ftype ref = v[i];

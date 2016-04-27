@@ -95,7 +95,7 @@ TEST_F(testBigaussian, test_sigma_dE) {
 
     std::vector<ftype> v;
 
-    read_vector_from_file(v, fixed_params + "sigma_dE");
+    util::read_vector_from_file(v, fixed_params + "sigma_dE");
     ftype ref = v[0];
     ftype real = Beam->sigma_dE;
     ASSERT_NEAR(ref, real, epsilon * std::min(v[0], real));
@@ -107,7 +107,7 @@ TEST_F(testBigaussian, test_sigma_dt) {
 
     std::vector<ftype> v;
 
-    read_vector_from_file(v, fixed_params + "sigma_dt");
+    util::read_vector_from_file(v, fixed_params + "sigma_dt");
     ftype ref = v[0];
     ftype real = Beam->sigma_dt;
     ASSERT_NEAR(ref, real, epsilon * std::min(v[0], real));
@@ -118,7 +118,7 @@ TEST_F(testBigaussian, test_dE) {
     longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
 
     std::vector<ftype> v;
-    read_vector_from_file(v, fixed_params + "dE");
+    util::read_vector_from_file(v, fixed_params + "dE");
     for (unsigned int i = 0; i < v.size(); ++i)
     {
         ftype ref = v[i];
@@ -132,7 +132,7 @@ TEST_F(testBigaussian, test_dt) {
     longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
 
     std::vector<ftype> v;
-    read_vector_from_file(v, fixed_params + "dt");
+    util::read_vector_from_file(v, fixed_params + "dt");
     for (unsigned int i = 0; i < v.size(); ++i)
     {
         ftype ref = v[i];
@@ -150,19 +150,19 @@ TEST_F(testBigaussian, test_fixed_points) {
 
     std::vector<ftype> v;
 
-    read_vector_from_file(v, fixed_params + "sigma_dE");
+    util::read_vector_from_file(v, fixed_params + "sigma_dE");
     ftype ref = v[0];
     ftype real = Beam->sigma_dE;
     ASSERT_NEAR(ref, real, epsilon * std::min(v[0], real));
     v.clear();
 
-    read_vector_from_file(v, fixed_params + "sigma_dt");
+    util::read_vector_from_file(v, fixed_params + "sigma_dt");
     ref = v[0];
     real = Beam->sigma_dt;
     ASSERT_NEAR(ref, real, epsilon * std::min(v[0], real));
     v.clear();
 
-    read_vector_from_file(v, fixed_params + "dE");
+    util::read_vector_from_file(v, fixed_params + "dE");
     for (unsigned int i = 0; i < v.size(); ++i)
     {
         ref = v[i];
@@ -170,7 +170,7 @@ TEST_F(testBigaussian, test_fixed_points) {
         ASSERT_NEAR(ref, real, epsilon * std::min(ref, real));
     }
 
-    read_vector_from_file(v, fixed_params + "dt");
+    util::read_vector_from_file(v, fixed_params + "dt");
     for (unsigned int i = 0; i < v.size(); ++i)
     {
         ref = v[i];

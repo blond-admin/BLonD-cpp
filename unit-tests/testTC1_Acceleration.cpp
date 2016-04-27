@@ -128,7 +128,7 @@ TEST_F(testTC1, phaseSpace) {
     }
 
     std::vector<ftype> v;
-    read_vector_from_file(v, params + "dE");
+    util::read_vector_from_file(v, params + "dE");
     for (unsigned int i = 0; i < v.size(); ++i)
     {
         ftype ref_dE = v[i];
@@ -136,7 +136,7 @@ TEST_F(testTC1, phaseSpace) {
         ASSERT_NEAR(ref_dE, real_dE, epsilon * std::min(fabs(ref_dE), fabs(real_dE)));
     }
     v.clear();
-    read_vector_from_file(v, params + "dt");
+    util::read_vector_from_file(v, params + "dt");
     for (unsigned int i = 0; i < v.size(); ++i)
     {
         ftype ref_dt = v[i];

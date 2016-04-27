@@ -7,7 +7,7 @@ Currently under development
 ## INSTALATION
 
 1. clone the code into a directory (lets call it home)
-2. cd to `home\build'
+2. cd to `home\build`
 3. run `cmake ..`
 4. run `make`
 5. The executables should be ready!

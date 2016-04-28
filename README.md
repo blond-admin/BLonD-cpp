@@ -24,9 +24,21 @@ NOT Stable - Under heavy development
     ```
 3. The executables should be ready!
 
+## Configuration
+
+The following definitions, found in file include/configuration.h, can be commented / uncommented to alter simulation's configuration:
+
+```c
+#define FIXED_PARTICLES
+#define TIMING
+#define PRINT_RESULTS
+```
+
+Note that a re-compile is needed every time a change is made. 
+
 ## Usage
 
-The following environmental variables can be specified in order to dynamically alter the program's behaviour:
+The following environmental variables can be specified in order to dynamically alter some basic simulation parameters:
 
 * N_THREADS : number of openmp threads that will be used for the simulation (default: 1)
 * N_PARTICLES : number of macroparticles that will be simulated (default: 10k)

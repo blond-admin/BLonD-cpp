@@ -2,15 +2,25 @@ C++ Version of [CERN's BLonD code][1]
 
 ## STATUS
 
-Currently under development
+NOT Stable - Under heavy development
+
+## REQUIREMENTS
+
+* gcc version >= 4.8.0 (installation link)[https://gcc.gnu.org/wiki/InstallingGCC]
+* Google Test installed (installation link)[https://github.com/google/googletest]
+* cmake version >= 2.8.0 (installation link)[https://cmake.org/install/]
 
 ## INSTALATION
 
-1. clone the code into a directory (lets call it home)
-2. cd to `home\build`
-3. run `cmake ..`
-4. run `make`
-5. The executables should be ready!
+1. clone the code into a directory (lets call it home/)
+2. run the commands 
+    ```bash
+    cd home
+    mkdir build
+    cmake ..
+    make
+    ```
+3. The executables should be ready!
 
 ## Usage
 

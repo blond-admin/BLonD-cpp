@@ -1,7 +1,10 @@
 cmake_minimum_required(VERSION 2.6)
 
+
+
 project(BLonD-minimal-cpp)
 
+#find_library(var gtest /usr/lib/)
 
 include_directories(includes)
 
@@ -13,8 +16,15 @@ include_directories(includes)
 set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -fopenmp -O2 -Ofast") #-Ofast
 #debug
 #set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -fopenmp -O0 -g") #-Ofast
+#set(CMAKE_CXX_COMPILER g++)
 
-set(CMAKE_CXX_COMPILER g++)
+
+#MESSAGE( STATUS "CMAKE_CXX_COMPILER: " ${CMAKE_CXX_COMPILER} )
+#MESSAGE( STATUS "CMAKE_CXX_COMPILER_VERSION: " ${CMAKE_CXX_COMPILER_VERSION} )
+
+if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS "4.8.0")
+    message(FATAL_ERROR "Insufficient compiler version, need at lest 4.8 to continue")
+endif()
 
 set(SOURCE_FILES 
     beams/Beams.cpp 
@@ -58,7 +68,7 @@ target_link_libraries(testMyMath gtest gtest_main)
 add_test(testMyMath testMyMath)
 
 enable_testing()
-include(CTest)
+#include(CTest)
 if(UNIX)
   set(CTEST_MEMORYCHECK_COMMAND, "usr/bin/valgrind")
   set(CTEST_MEMORYCHECK_COMMAND_OPTIONS, "--leak-check=full")

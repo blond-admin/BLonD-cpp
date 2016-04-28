@@ -15,8 +15,10 @@ NOT Stable - Under heavy development
 1. clone the code into a directory (lets call it home/)
 2. run the commands 
     ```bash
+
     cd home  
-    mkdir build  
+    mkdir build 
+    cd build   
     cmake ..  
     make
     ```

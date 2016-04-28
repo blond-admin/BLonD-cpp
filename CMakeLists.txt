@@ -35,7 +35,7 @@ set(SOURCE_FILES
     llrf/PhaseLoop.cpp
     )
 
-add_library(blond SHARED ${SOURCE_FILES})
+add_library(blond STATIC ${SOURCE_FILES})
 
     
 add_executable(TC1_Acceleration tests/TC1_Acceleration.cpp)

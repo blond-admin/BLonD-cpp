@@ -15,9 +15,9 @@ NOT Stable - Under heavy development
 1. clone the code into a directory (lets call it home/)
 2. run the commands 
     ```bash
-    cd home
-    mkdir build
-    cmake ..
+    cd home  
+    mkdir build  
+    cmake ..  
     make
     ```
 3. The executables should be ready!

@@ -19,6 +19,8 @@ const std::string energy_cut_params = "../unit-tests/references/Beam/Beam_energy
 GeneralParameters *GP;
 Beams *Beam;
 RfParameters *RfP;
+Slices *Slice;
+int n_threads = 1;
 
 class testBeam : public ::testing::Test {
 

@@ -17,6 +17,8 @@ const std::string fixed_params = "../unit-tests/references/Bigaussian/Bigaussian
 GeneralParameters *GP;
 Beams *Beam;
 RfParameters *RfP;
+Slices *Slice;
+int n_threads = 1;
 
 class testBigaussian : public ::testing::Test {
 

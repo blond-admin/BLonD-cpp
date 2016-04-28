@@ -12,6 +12,10 @@
 
 const ftype epsilon = 1e-8;
 GeneralParameters *GP;
+Beams *Beam;
+RfParameters *RfP;
+Slices *Slice;
+int n_threads = 1;
 
 class testGP : public ::testing::Test {
 

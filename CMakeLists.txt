@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 2.6)
 
 project(BLonD-minimal-cpp)
 
+
 include_directories(includes)
 
 #set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++ -static")
@@ -24,14 +25,14 @@ set(SOURCE_FILES
     llrf/PhaseLoop.cpp
     )
 
-add_library(blond STATIC ${SOURCE_FILES})
+add_library(blond SHARED ${SOURCE_FILES})
 
     
 add_executable(TC1_Acceleration tests/TC1_Acceleration.cpp)
 add_executable(LHC_restart tests/LHC_restart.cpp)
+add_executable(testMyMath unit-tests/testMyMath.cpp)
 
 set(TEST_SOURCE_FILES
-    unit-tests/testMyMath.cpp
     unit-tests/testGP.cpp
     unit-tests/testRFP.cpp
     unit-tests/testBigaussian.cpp
@@ -49,10 +50,12 @@ foreach(src ${TEST_SOURCE_FILES})
     add_test(${testname} ${testname})
 endforeach( src ${TEST_SOURCE_FILES})
 
-
 target_link_libraries(TC1_Acceleration blond)
 target_link_libraries(LHC_restart blond)
+target_link_libraries(testMyMath gtest gtest_main)
 
+
+add_test(testMyMath testMyMath)
 
 enable_testing()
 include(CTest)

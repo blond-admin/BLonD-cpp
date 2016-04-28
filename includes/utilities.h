@@ -49,9 +49,6 @@ static inline void read_vector_from_file(std::vector<T> &v, std::string file) {
 		T type;
 		while (in >> type)
 			v.push_back(type);
-		//if (!(in >> type))
-		//	break;
-		//v.push_back(type);
 	}
 
 	source.close();
@@ -62,13 +59,10 @@ struct MyComparator {
 	ftype *a;
 	MyComparator(ftype* _a) :
 		a(_a) {
-		//dprintf("a[0] = %.12lf\n", a[0]);
 	}
 
 	bool operator()(ftype i1, ftype i2) {
-		//dprintf("i1,i2 = %d, %d\n", i1, i2);
-
-		return i1 < i2; //a[i1] < a[i2];
+		return i1 < i2;
 	}
 };
 
@@ -96,33 +90,47 @@ static inline void zero(T *p, int n) {
 		p[i] = 0;
 	}
 }
-/*
- static inline void delete_array(bool *p) {
- if (p != NULL)
- delete[] p;
- }
-
- static inline void delete_array(int *p) {
- if (p != NULL)
- delete[] p;
- }
- */
 
 static inline void dump(ftype* a, int n, const char* s) {
+
+#ifdef PRINT_RESULTS
 	dprintf("%s", s);
 	for (int i = 0; i < n; ++i) {
 		dprintf("%+.6e\n", a[i]);
 	}
 	dprintf("\n");
+#endif
 
 }
 
+static inline void dump(ftype a, const char* s) {
+
+#ifdef PRINT_RESULTS
+
+	dprintf("%s: %+.6e\n", s, a);
+#endif
+
+}
+
+
 static inline void dump(int* a, int n, const char* s) {
+
+#ifdef PRINT_RESULTS
 	dprintf("%s", s);
 	for (int i = 0; i < n; ++i) {
 		dprintf("%+d\n", a[i]);
 	}
 	dprintf("\n");
+#endif
+
+
+}
+
+static inline void dump(int a, const char* s) {
+
+#ifdef PRINT_RESULTS
+	dprintf("%s: %+d\n", s, a);
+#endif
 
 }
 
@@ -140,17 +148,12 @@ static inline double time_diff(timespec const& end, timespec const& begin) {
 }
 
 static inline void get_time(timespec& ts) {
+
 #ifdef TIMING
-	// volatile long noskip;
-#if _POSIX_TIMERS > 0
-	clock_gettime(CLOCK_REALTIME, &ts);
-#else
 	struct timeval tv;
 	gettimeofday(&tv, NULL);
 	ts.tv_sec = tv.tv_sec;
 	ts.tv_nsec = tv.tv_usec * 1000;
-#endif
-	//noskip = ts.tv_nsec;
 #endif
 }
 

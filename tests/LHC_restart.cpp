@@ -51,7 +51,7 @@ const int from_line = 0;
 
 // Simulation setup -------------------------------------------------------------
 int main(int argc, char **argv) {
-	timespec begin, end;
+
 
 	// Environmental variables
 	N_t = atoi(util::GETENV("N_TURNS")) ? atoi(util::GETENV("N_TURNS")) : N_t;
@@ -73,6 +73,7 @@ int main(int argc, char **argv) {
 	}
 
 	//printf("Setting up the simulation..\n");
+	timespec begin, end;
 	util::get_time(begin);
 
 	std::vector < ftype > v;
@@ -189,11 +190,19 @@ int main(int argc, char **argv) {
 
 			}
 
+			if (id == 0) util::get_time(begin_t);
+
 			Slice->track(start, end);
 
 			#pragma omp barrier
+			if (id == 0) slice_time += util::time_elapsed(begin_t);
+			if (id == 0) util::get_time(begin_t);
+
 			long_tracker->track(start, end);
+
 			#pragma omp barrier
+			if (id == 0) track_time += util::time_elapsed(begin_t);
+
 			#pragma omp single
 			{
 				//printf("   Beam energy %.6e eV\n", GP->energy[0]);
@@ -201,72 +210,22 @@ int main(int argc, char **argv) {
 				printf("   PL phase correction %.6e rad\n", PL->dphi);
 				RfP->counter++;
 			}
-			/*
-			 #ifdef TIMING
-			 if (id == 0) util::get_time(begin_t);
-			 #endif
-			 //util::dump(Beam->dE, 1, "dE\n");
-
-			 long_tracker->track(start, end);
-
-			 #pragma omp barrier
-
-			 #ifdef TIMING
-			 if (id == 0) track_time += time_elapsed(begin_t);
-			 if (id == 0) util::get_time(begin_t);
-			 #endif
-			 Slice->track(start, end);
-
-			 #pragma omp barrier
-
-			 #ifdef TIMING
-			 if (id == 0) slice_time += time_elapsed(begin_t);
-			 #endif
-
-			 #pragma omp single
-			 {
-			 Slice->fwhm();
-			 #ifdef PRINT_RESULTS
-			 if (i % 1000 == 0) {
-			 printf("bl_fwhm\n%.15lf\n", Slice->bl_fwhm);
-			 printf("bp_fwhm\n%.15lf\n", Slice->bp_fwhm);
-			 //util::dump(Slice->N_p, N_slices,
-			 //		"N_p\n");
-			 }
-			 #endif
-			 RfP->counter++;
-			 }
-			 //beam->losses_longitudinal_cut(beam->dt, 0, 2.5e-9, beam->id);
-
-			 */
 
 		}
 	}
 
-//printf("Total simulation time: %.10lf\n", long_tracker->elapsed_time);
-//printf("Time/turn : %.10lf\n", long_tracker->elapsed_time / N_t);
-//ftype result = mymath::trapezoid(Slice->n_macroparticles,
-//Slice->bin_centers, Slice->n_slices);
-//printf("result = %e\n", result);
-
 	util::get_time(end);
 	util::print_time("Simulation Time", begin, end);
 
-	/*
-	 #ifdef TIMING
-	 double total_time = track_time + slice_time;
-	 printf("Track time : %.4lf ( %.2lf %% )\n", track_time,
-	 100 * track_time / total_time);
-	 printf("Slice time : %.4lf ( %.2lf %% )\n", slice_time,
-	 100 * slice_time / total_time);
-	 #endif
-	 */
+	double total_time = track_time + slice_time;
+	printf("Track time : %.4lf ( %.2lf %% )\n", track_time,
+	       100 * track_time / total_time);
+	printf("Slice time : %.4lf ( %.2lf %% )\n", slice_time,
+	       100 * slice_time / total_time);
 	util::dump(Beam->dE, 10, "dE\n");
 	util::dump(Beam->dt, 10, "dt\n");
 	util::dump(Slice->n_macroparticles, 10, "n_macroparticles\n");
 
-	v.clear();
-	v2.clear();
 	delete PL;
 	delete Slice;
 	delete long_tracker;

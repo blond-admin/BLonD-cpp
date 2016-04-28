@@ -116,7 +116,7 @@ int main(int argc, char **argv) {
 
 	double slice_time = 0, track_time = 0;
 
-	timespec begin_t, end_t;
+	timespec begin_t;
 
 	#pragma omp parallel
 	{
@@ -129,60 +129,42 @@ int main(int argc, char **argv) {
 		//		threads, tile, start, end);
 		for (int i = 0; i < N_t; ++i) {
 
-#ifdef TIMING
 			if (id == 0) util::get_time(begin_t);
-#endif
-			//util::dump(Beam->dE, 1, "dE\n");
-			//util::dump(Beam->dt, 1, "dt\n");
 
 			long_tracker->track(start, end);
 
-			//util::dump(Beam->dE, 1, "dE\n");
-			//util::dump(Beam->dt, 1, "dt\n");
-
 			#pragma omp barrier
 
-#ifdef TIMING
 			if (id == 0) track_time += util::time_elapsed(begin_t);
 			if (id == 0) util::get_time(begin_t);
-#endif
+
 			Slice->track(start, end);
 
 			#pragma omp barrier
 
-#ifdef TIMING
 			if (id == 0) slice_time += util::time_elapsed(begin_t);
-#endif
 
 			#pragma omp single
 			{
 				Slice->fwhm();
-#ifdef PRINT_RESULTS
+
 				if (i % 1000 == 0) {
-					printf("bl_fwhm\n%.15lf\n", Slice->bl_fwhm);
-					printf("bp_fwhm\n%.15lf\n", Slice->bp_fwhm);
-					//util::dump(Slice->n_macroparticles, N_slices,
-					//		"n_macroparticles\n");
+					util::dump(Slice->bl_fwhm, "bl_fwhm");
+					util::dump(Slice->bp_fwhm, "bp_fwhm");
 				}
-#endif
+
 				RfP->counter++;
 			}
-			//beam->losses_longitudinal_cut(beam->dt, 0, 2.5e-9, beam->id);
 		}
 	}
 
-//printf("Total simulation time: %.10lf\n", long_tracker->elapsed_time);
-//printf("Time/turn : %.10lf\n", long_tracker->elapsed_time / N_t);
-
 	util::get_time(end);
-#ifdef TIMING
 	util::print_time("Simulation Time", begin, end);
 	double total_time = track_time + slice_time;
 	printf("Track time : %.4lf ( %.2lf %% )\n", track_time,
 	       100 * track_time / total_time);
 	printf("Slice time : %.4lf ( %.2lf %% )\n", slice_time,
 	       100 * slice_time / total_time);
-#endif
 
 	util::dump(Beam->dE, 10, "dE\n");
 	util::dump(Beam->dt, 10, "dt\n");
@@ -192,6 +174,7 @@ int main(int argc, char **argv) {
 	delete RfP;
 	delete GP;
 	delete Beam;
+
 	printf("Done!\n");
 
 }

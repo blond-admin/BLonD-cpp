@@ -72,7 +72,7 @@ void Beams::statistics() {
 void Beams::losses_longitudinal_cut(const ftype * __restrict__ dt,
                                     const ftype dt_min, const ftype dt_max,
                                     int * __restrict__ id) {
-	
+
 	#pragma omp parallel for
 	for (int i = 0; i < n_macroparticles; i++) {
 		id[i] = (dt[i] - dt_min) * (dt_max - dt[i]) < 0 ? 0 : id[i];
@@ -80,7 +80,8 @@ void Beams::losses_longitudinal_cut(const ftype * __restrict__ dt,
 }
 
 void Beams::losses_energy_cut(const ftype * __restrict__ dE,
-                                     const ftype dE_min, const ftype dE_max, int * __restrict__ id) {
+                              const ftype dE_min, const ftype dE_max,
+                              int * __restrict__ id) {
 	#pragma omp parallel for
 	for (int i = 0; i < n_macroparticles; ++i) {
 		id[i] = (dE[i] - dE_min) * (dE_max - dE[i]) < 0 ? 0 : id[i];

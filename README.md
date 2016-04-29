@@ -6,9 +6,9 @@ NOT Stable - Under heavy development
 
 ## REQUIREMENTS
 
-* gcc version >= 4.8.0 (installation link)[https://gcc.gnu.org/wiki/InstallingGCC]
-* Google Test installed (installation link)[https://github.com/google/googletest]
-* cmake version >= 2.8.0 (installation link)[https://cmake.org/install/]
+* gcc version >= 4.8.0 [installation link](https://gcc.gnu.org/wiki/InstallingGCC)
+* Google Test installed [installation link](https://github.com/google/googletest)
+* cmake version >= 2.8.0 [installation link](https://cmake.org/install/)
 
 ## INSTALATION
 

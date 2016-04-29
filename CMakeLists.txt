@@ -51,6 +51,7 @@ set(TEST_SOURCE_FILES
     unit-tests/testTracker.cpp
     unit-tests/testTC1_Acceleration.cpp
     unit-tests/testPL.cpp
+    unit-tests/testLHC_Restart.cpp
     )
 
 foreach(src ${TEST_SOURCE_FILES})

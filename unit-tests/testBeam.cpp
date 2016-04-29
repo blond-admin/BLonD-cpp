@@ -102,7 +102,7 @@ TEST_F(testBeam, test_sigma_dE) {
     util::read_vector_from_file(v, statistics_params + "sigma_dE");
     ftype ref = v[0];
     ftype real = Beam->sigma_dE;
-    ASSERT_NEAR(ref, real, epsilon * std::min(v[0], real));
+    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
 TEST_F(testBeam, test_sigma_dt) {
@@ -112,7 +112,7 @@ TEST_F(testBeam, test_sigma_dt) {
     util::read_vector_from_file(v, statistics_params + "sigma_dt");
     ftype ref = v[0];
     ftype real = Beam->sigma_dt;
-    ASSERT_NEAR(ref, real, epsilon * std::min(v[0], real));
+    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
 TEST_F(testBeam, test_mean_dE) {
@@ -122,7 +122,7 @@ TEST_F(testBeam, test_mean_dE) {
     util::read_vector_from_file(v, statistics_params + "mean_dE");
     ftype ref = v[0];
     ftype real = Beam->mean_dE;
-    ASSERT_NEAR(ref, real, epsilon * std::min(v[0], real));
+    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
 TEST_F(testBeam, test_mean_dt) {
@@ -132,7 +132,7 @@ TEST_F(testBeam, test_mean_dt) {
     util::read_vector_from_file(v, statistics_params + "mean_dt");
     ftype ref = v[0];
     ftype real = Beam->mean_dt;
-    ASSERT_NEAR(ref, real, epsilon * std::min(v[0], real));
+    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
 TEST_F(testBeam, test_epsn_rms_l) {
@@ -142,7 +142,7 @@ TEST_F(testBeam, test_epsn_rms_l) {
     util::read_vector_from_file(v, statistics_params + "epsn_rms_l");
     ftype ref = v[0];
     ftype real = Beam->epsn_rms_l;
-    ASSERT_NEAR(ref, real, epsilon * std::min(v[0], real));
+    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
 TEST_F(testBeam, test_macroparticles_lost) {
@@ -152,7 +152,7 @@ TEST_F(testBeam, test_macroparticles_lost) {
     util::read_vector_from_file(v, statistics_params + "n_macroparticles_lost");
     ftype ref = v[0];
     ftype real = Beam->n_macroparticles_lost;
-    ASSERT_NEAR(ref, real, epsilon * std::min(v[0], real));
+    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
 TEST_F(testBeam, test_losses_long_cut) {
@@ -166,7 +166,7 @@ TEST_F(testBeam, test_losses_long_cut) {
     {
         ftype ref = v[i];
         ftype real = Beam->id[i];
-        ASSERT_NEAR(ref, real, epsilon * std::min(ref, real));
+        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
     }
 }
 
@@ -181,7 +181,7 @@ TEST_F(testBeam, test_losses_energy_cut) {
     {
         ftype ref = v[i];
         ftype real = Beam->id[i];
-        ASSERT_NEAR(ref, real, epsilon * std::min(ref, real));
+        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
     }
 }
 

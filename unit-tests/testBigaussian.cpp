@@ -100,7 +100,7 @@ TEST_F(testBigaussian, test_sigma_dE) {
     util::read_vector_from_file(v, fixed_params + "sigma_dE");
     ftype ref = v[0];
     ftype real = Beam->sigma_dE;
-    ASSERT_NEAR(ref, real, epsilon * std::min(v[0], real));
+    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
 TEST_F(testBigaussian, test_sigma_dt) {
@@ -112,7 +112,7 @@ TEST_F(testBigaussian, test_sigma_dt) {
     util::read_vector_from_file(v, fixed_params + "sigma_dt");
     ftype ref = v[0];
     ftype real = Beam->sigma_dt;
-    ASSERT_NEAR(ref, real, epsilon * std::min(v[0], real));
+    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
 TEST_F(testBigaussian, test_dE) {
@@ -125,7 +125,7 @@ TEST_F(testBigaussian, test_dE) {
     {
         ftype ref = v[i];
         ftype real = Beam->dE[i];
-        ASSERT_NEAR(ref, real, epsilon * std::min(ref, real));
+        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
     }
 }
 
@@ -139,7 +139,7 @@ TEST_F(testBigaussian, test_dt) {
     {
         ftype ref = v[i];
         ftype real = Beam->dt[i];
-        ASSERT_NEAR(ref, real, epsilon * std::min(ref, real));
+        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
     }
 }
 
@@ -155,13 +155,13 @@ TEST_F(testBigaussian, test_fixed_points) {
     util::read_vector_from_file(v, fixed_params + "sigma_dE");
     ftype ref = v[0];
     ftype real = Beam->sigma_dE;
-    ASSERT_NEAR(ref, real, epsilon * std::min(v[0], real));
+    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
     v.clear();
 
     util::read_vector_from_file(v, fixed_params + "sigma_dt");
     ref = v[0];
     real = Beam->sigma_dt;
-    ASSERT_NEAR(ref, real, epsilon * std::min(v[0], real));
+    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
     v.clear();
 
     util::read_vector_from_file(v, fixed_params + "dE");
@@ -169,7 +169,7 @@ TEST_F(testBigaussian, test_fixed_points) {
     {
         ref = v[i];
         real = Beam->dE[i];
-        ASSERT_NEAR(ref, real, epsilon * std::min(ref, real));
+        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
     }
 
     util::read_vector_from_file(v, fixed_params + "dt");
@@ -177,7 +177,7 @@ TEST_F(testBigaussian, test_fixed_points) {
     {
         ref = v[i];
         real = Beam->dt[i];
-        ASSERT_NEAR(ref, real, epsilon * std::min(ref, real));
+        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
     }
 }
 */

@@ -58,7 +58,7 @@ protected:
         RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
 
         longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
-        
+
         Slice = new Slices(N_slices);
 
     }
@@ -106,7 +106,7 @@ TEST_F(testSlices, set_cuts_left) {
     util::read_vector_from_file(v, set_cuts_params + "cut_left");
     ftype ref = v[0];
     ftype real = Slice->cut_left;
-    ASSERT_NEAR(ref, real, epsilon * std::min(v[0], real));
+    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
 TEST_F(testSlices, set_cuts_right) {
@@ -117,7 +117,7 @@ TEST_F(testSlices, set_cuts_right) {
     util::read_vector_from_file(v, set_cuts_params + "cut_right");
     ftype ref = v[0];
     ftype real = Slice->cut_right;
-    ASSERT_NEAR(ref, real, epsilon * std::min(v[0], real));
+    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
 TEST_F(testSlices, set_cuts_bin_centers) {
@@ -130,7 +130,7 @@ TEST_F(testSlices, set_cuts_bin_centers) {
     {
         ftype ref = v[i];
         ftype real = Slice->bin_centers[i];
-        ASSERT_NEAR(ref, real, epsilon * std::min(ref, real));
+        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
     }
 }
 
@@ -143,7 +143,7 @@ TEST_F(testSlices, sort_particles_dE) {
     {
         ftype ref = v[i];
         ftype real = Beam->dE[i];
-        ASSERT_NEAR(ref, real, epsilon * std::min(ref, real));
+        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
     }
 }
 
@@ -155,7 +155,7 @@ TEST_F(testSlices, sort_particles_dt) {
     {
         ftype ref = v[i];
         ftype real = Beam->dt[i];
-        ASSERT_NEAR(ref, real, epsilon * std::min(ref, real));
+        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
     }
 }
 
@@ -167,7 +167,7 @@ TEST_F(testSlices, sort_particles_id) {
     {
         ftype ref = v[i];
         ftype real = Beam->id[i];
-        ASSERT_NEAR(ref, real, epsilon * std::min(ref, real));
+        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
     }
 }
 
@@ -182,7 +182,7 @@ TEST_F(testSlices, track_dt) {
     {
         ftype ref = v[i];
         ftype real = Slice->n_macroparticles[i];
-        ASSERT_NEAR(ref, real, epsilon * std::min(ref, real));
+        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
     }
 }
 

@@ -16,6 +16,7 @@
 
 Slices::Slices(int _n_slices, int _n_sigma, ftype _cut_left, ftype _cut_right,
 		cuts_unit_type _cuts_unit, fit_type _fit_option, bool direct_slicing) {
+	
 	this->n_slices = _n_slices;
 	this->cut_left = _cut_left;
 	this->cut_right = _cut_right;

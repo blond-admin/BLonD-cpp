@@ -133,7 +133,7 @@ TEST_F(testTC1, phaseSpace) {
     {
         ftype ref_dE = v[i];
         ftype real_dE = Beam->dE[i];
-        ASSERT_NEAR(ref_dE, real_dE, epsilon * std::min(fabs(ref_dE), fabs(real_dE)));
+        ASSERT_NEAR(ref_dE, real_dE, epsilon * std::max(fabs(ref_dE), fabs(real_dE)));
     }
     v.clear();
     util::read_vector_from_file(v, params + "dt");
@@ -141,7 +141,7 @@ TEST_F(testTC1, phaseSpace) {
     {
         ftype ref_dt = v[i];
         ftype real_dt = Beam->dt[i];
-        ASSERT_NEAR(ref_dt, real_dt, epsilon * std::min(ref_dt, real_dt));
+        ASSERT_NEAR(ref_dt, real_dt, epsilon * std::max(fabs(ref_dt), fabs(real_dt)));
     }
 
     delete long_tracker;

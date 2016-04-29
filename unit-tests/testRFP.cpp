@@ -89,7 +89,9 @@ TEST_F(testRFP, test_length_ratio) {
     std::vector<ftype> v;
     util::read_vector_from_file(v, params + "length_ratio");
     //std::cout << v[0];
-    ASSERT_NEAR(v[0], RfP->length_ratio, epsilon * std::min(v[0], RfP->length_ratio));
+    ftype ref = v[0];
+    ftype real = RfP->length_ratio;
+    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
 TEST_F(testRFP, test_E_increment) {
@@ -100,7 +102,7 @@ TEST_F(testRFP, test_E_increment) {
     {
         ftype ref = v[i];
         ftype real = RfP->E_increment[i];
-        ASSERT_NEAR(ref, real, epsilon * std::min(ref, real));
+        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
     }
 }
 
@@ -112,7 +114,7 @@ TEST_F(testRFP, test_phi_s) {
     {
         ftype ref = v[i];
         ftype real = RfP->phi_s[i];
-        ASSERT_NEAR(ref, real, epsilon * std::min(ref, real));
+        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
     }
 }
 
@@ -124,7 +126,7 @@ TEST_F(testRFP, test_Qs) {
     {
         ftype ref = v[i];
         ftype real = RfP->Qs[i];
-        ASSERT_NEAR(ref, real, epsilon * std::min(ref, real));
+        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
     }
 }
 
@@ -136,7 +138,7 @@ TEST_F(testRFP, test_omega_s0) {
     {
         ftype ref = v[i];
         ftype real = RfP->omega_s0[i];
-        ASSERT_NEAR(ref, real, epsilon * std::min(ref, real));
+        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
     }
 }
 
@@ -148,7 +150,7 @@ TEST_F(testRFP, test_omega_RF_d) {
     {
         ftype ref = v[i];
         ftype real = RfP->omega_RF_d[i];
-        ASSERT_NEAR(ref, real, epsilon * std::min(ref, real));
+        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
     }
 }
 
@@ -160,7 +162,7 @@ TEST_F(testRFP, test_omega_RF) {
     {
         ftype ref = v[i];
         ftype real = RfP->omega_RF[i];
-        ASSERT_NEAR(ref, real, epsilon * std::min(ref, real));
+        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
     }
 }
 
@@ -172,7 +174,7 @@ TEST_F(testRFP, test_t_RF) {
     {
         ftype ref = v[i];
         ftype real = RfP->t_RF[i];
-        ASSERT_NEAR(ref, real, epsilon * std::min(ref, real));
+        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
     }
 }
 

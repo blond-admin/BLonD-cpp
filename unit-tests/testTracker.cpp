@@ -56,7 +56,7 @@ protected:
         RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
 
         longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
-        
+
         Slice = new Slices(N_slices);
 
     }
@@ -106,7 +106,7 @@ TEST_F(testTracker, track_dE) {
     {
         ftype ref = v[i];
         ftype real = Beam->dE[i];
-        ASSERT_NEAR(ref, real, epsilon * std::min(ref, real));
+        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
     }
     delete long_tracker;
 }
@@ -122,10 +122,10 @@ TEST_F(testTracker, track_dt) {
     {
         ftype ref = v[i];
         ftype real = Beam->dt[i];
-        ASSERT_NEAR(ref, real, epsilon * std::min(ref, real));
+        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
     }
     delete long_tracker;
-    
+
 }
 
 

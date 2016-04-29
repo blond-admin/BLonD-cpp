@@ -69,7 +69,9 @@ TEST_F(testGP, test_charge) {
 	std::vector<ftype> v;
 	util::read_vector_from_file(v, GP_params + "charge");
 	//std::cout << v[0];
-	ASSERT_NEAR(v[0], GP->charge, epsilon * std::min(v[0], GP->charge));
+	ftype ref = v[0];
+	ftype real = GP->charge;
+	ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
 TEST_F(testGP, test_mass) {
@@ -77,7 +79,9 @@ TEST_F(testGP, test_mass) {
 	std::vector<ftype> v;
 	util::read_vector_from_file(v, GP_params + "mass");
 	//std::cout << v[0];
-	ASSERT_NEAR(v[0], GP->mass, epsilon * std::min(v[0], GP->mass));
+	ftype ref = v[0];
+	ftype real = GP->charge;
+	ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
 TEST_F(testGP, test_ring_radius) {
@@ -85,7 +89,9 @@ TEST_F(testGP, test_ring_radius) {
 	std::vector<ftype> v;
 	util::read_vector_from_file(v, GP_params + "ring_radius");
 	//std::cout << v[0];
-	ASSERT_NEAR(v[0], GP->ring_radius, epsilon * std::min(v[0], GP->ring_radius));
+	ftype ref = v[0];
+	ftype real = GP->charge;
+	ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
 TEST_F(testGP, test_t_rev) {
@@ -93,11 +99,12 @@ TEST_F(testGP, test_t_rev) {
 	std::vector<ftype> v;
 	util::read_vector_from_file(v, GP_params + "t_rev");
 	//std::cout << v.size() << std::endl;
+	//ASSERT_EQ(v.size(), GP->n_turns+1 );
 	for (unsigned int i = 0; i < v.size(); ++i)
 	{
 		ftype ref = v[i];
 		ftype real = GP->t_rev[i];
-		ASSERT_NEAR(ref, real, epsilon * std::min(ref, real));
+		ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 	}
 
 }
@@ -106,12 +113,12 @@ TEST_F(testGP, test_cycle_time) {
 	std::string GP_params = "../unit-tests/references/GP/GP_params/";
 	std::vector<ftype> v;
 	util::read_vector_from_file(v, GP_params + "cycle_time");
-	//std::cout << v.size() << std::endl;
+	//ASSERT_EQ(v.size(), GP->n_turns+1);
 	for (unsigned int i = 0; i < v.size(); ++i)
 	{
 		ftype ref = v[i];
 		ftype real = GP->cycle_time[i];
-		ASSERT_NEAR(ref, real, epsilon * std::min(ref, real));
+		ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 	}
 }
 
@@ -120,11 +127,12 @@ TEST_F(testGP, test_omega_rev) {
 	std::vector<ftype> v;
 	util::read_vector_from_file(v, GP_params + "omega_rev");
 	//std::cout << v.size() << std::endl;
+	//ASSERT_EQ(v.size(), GP->n_turns+1);
 	for (unsigned int i = 0; i < v.size(); ++i)
 	{
 		ftype ref = v[i];
 		ftype real = GP->omega_rev[i];
-		ASSERT_NEAR(ref, real, epsilon * std::min(ref, real));
+		ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 	}
 }
 
@@ -133,11 +141,12 @@ TEST_F(testGP, test_eta_0) {
 	std::vector<ftype> v;
 	util::read_vector_from_file(v, GP_params + "eta_0[0]");
 	//std::cout << v.size() << std::endl;
+	//ASSERT_EQ(v.size(), GP->n_turns +1);
 	for (unsigned int i = 0; i < v.size(); ++i)
 	{
 		ftype ref = v[i];
 		ftype real = GP->eta_0[i];
-		ASSERT_NEAR(ref, real, epsilon * std::min(ref, real));
+		ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 	}
 }
 

@@ -279,8 +279,6 @@ TEST_F(testLHC_Restart, dphi_RF_and_dphi) {
                 << i << std::endl;
     }
 
-
-
 }
 
 

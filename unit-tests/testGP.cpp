@@ -80,7 +80,7 @@ TEST_F(testGP, test_mass) {
 	util::read_vector_from_file(v, GP_params + "mass");
 	//std::cout << v[0];
 	ftype ref = v[0];
-	ftype real = GP->charge;
+	ftype real = GP->mass;
 	ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
@@ -90,7 +90,7 @@ TEST_F(testGP, test_ring_radius) {
 	util::read_vector_from_file(v, GP_params + "ring_radius");
 	//std::cout << v[0];
 	ftype ref = v[0];
-	ftype real = GP->charge;
+	ftype real = GP->ring_radius;
 	ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 

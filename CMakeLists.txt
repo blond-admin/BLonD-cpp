@@ -30,10 +30,8 @@ set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -fopenmp -O3") #-Ofast
 
 if(COMPILER_HAS_OFAST)
 	add_compile_options(-Ofast)
-	#set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} " -Ofast")
 endif()
 
-# message (STATUS ${CMAKE_CXX_FLAGS})
 
 # Generate simulation executables
 

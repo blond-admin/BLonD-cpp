@@ -91,7 +91,6 @@ private:
 
 
 TEST_F(testBigaussian, test_sigma_dE) {
-    //putenv("FIXED_PARTICLES=1");
 
     longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
 
@@ -143,44 +142,6 @@ TEST_F(testBigaussian, test_dt) {
     }
 }
 
-/*
-TEST_F(testBigaussian, test_fixed_points) {
-
-    //putenv("FIXED_PARTICLES=1");
-
-    longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
-
-    std::vector<ftype> v;
-
-    util::read_vector_from_file(v, fixed_params + "sigma_dE");
-    ftype ref = v[0];
-    ftype real = Beam->sigma_dE;
-    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
-    v.clear();
-
-    util::read_vector_from_file(v, fixed_params + "sigma_dt");
-    ref = v[0];
-    real = Beam->sigma_dt;
-    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
-    v.clear();
-
-    util::read_vector_from_file(v, fixed_params + "dE");
-    for (unsigned int i = 0; i < v.size(); ++i)
-    {
-        ref = v[i];
-        real = Beam->dE[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
-    }
-
-    util::read_vector_from_file(v, fixed_params + "dt");
-    for (unsigned int i = 0; i < v.size(); ++i)
-    {
-        ref = v[i];
-        real = Beam->dt[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
-    }
-}
-*/
 
 int main(int ac, char* av[]) {
     ::testing::InitGoogleTest(&ac, av);

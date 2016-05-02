@@ -95,7 +95,6 @@ private:
 
 
 TEST_F(testBeam, test_sigma_dE) {
-    //putenv("FIXED_PARTICLES=1");
 
     std::vector<ftype> v;
 
@@ -106,7 +105,6 @@ TEST_F(testBeam, test_sigma_dE) {
 }
 
 TEST_F(testBeam, test_sigma_dt) {
-    //putenv("FIXED_PARTICLES=1");
     std::vector<ftype> v;
 
     util::read_vector_from_file(v, statistics_params + "sigma_dt");
@@ -116,7 +114,6 @@ TEST_F(testBeam, test_sigma_dt) {
 }
 
 TEST_F(testBeam, test_mean_dE) {
-    //putenv("FIXED_PARTICLES=1");
     std::vector<ftype> v;
 
     util::read_vector_from_file(v, statistics_params + "mean_dE");
@@ -126,7 +123,6 @@ TEST_F(testBeam, test_mean_dE) {
 }
 
 TEST_F(testBeam, test_mean_dt) {
-    //putenv("FIXED_PARTICLES=1");
     std::vector<ftype> v;
 
     util::read_vector_from_file(v, statistics_params + "mean_dt");
@@ -136,7 +132,6 @@ TEST_F(testBeam, test_mean_dt) {
 }
 
 TEST_F(testBeam, test_epsn_rms_l) {
-    //putenv("FIXED_PARTICLES=1");
     std::vector<ftype> v;
 
     util::read_vector_from_file(v, statistics_params + "epsn_rms_l");
@@ -146,7 +141,6 @@ TEST_F(testBeam, test_epsn_rms_l) {
 }
 
 TEST_F(testBeam, test_macroparticles_lost) {
-    //putenv("FIXED_PARTICLES=1");
     std::vector<ftype> v;
 
     util::read_vector_from_file(v, statistics_params + "n_macroparticles_lost");
@@ -184,9 +178,6 @@ TEST_F(testBeam, test_losses_energy_cut) {
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
     }
 }
-
-
-// TODO continue with testing the cuts
 
 
 int main(int ac, char* av[]) {

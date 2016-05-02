@@ -37,8 +37,8 @@ int dt_save = 1000000;    // Time steps between saving coordinates
 int bl_target = 1.25e-9;  // 4 sigma r.m.s. target bunch length in [s]
 
 int N_slices = 151;
-const std::string datafiles =
-    "/afs/cern.ch/work/k/kiliakis/testcases/synchroLoop/";
+ const std::string datafiles =
+        "../tests/input_files/LHC_restart/";
 
 // Global variables
 GeneralParameters *GP;
@@ -77,7 +77,7 @@ int main(int argc, char **argv) {
 	util::get_time(begin);
 
 	std::vector < ftype > v;
-	util::read_vector_from_file(v, datafiles + "LHC_momentum_programme_folder/xan");
+	util::read_vector_from_file(v, datafiles + "LHC_momentum_programme");
 
 	// optional
 	v.erase(v.begin(), v.begin() + from_line);

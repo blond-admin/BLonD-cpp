@@ -40,7 +40,7 @@ protected:
         omp_set_num_threads(n_threads);
 
         std::vector < ftype > v;
-        util::read_vector_from_file(v, datafiles + "LHC_momentum_programme_folder/xan");
+        util::read_vector_from_file(v, datafiles + "LHC_momentum_programme");
 
         // optional
         v.erase(v.begin(), v.begin() + from_line);
@@ -138,7 +138,7 @@ private:
 
 
     const std::string datafiles =
-        "/afs/cern.ch/work/k/kiliakis/testcases/synchroLoop/";
+        "../tests/input_files/LHC_restart/";
 
     const int from_line = 0;
 

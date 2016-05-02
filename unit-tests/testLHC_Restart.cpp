@@ -14,7 +14,7 @@
 #include <omp.h>
 
 
-const ftype epsilon = 1e-7;
+//const ftype epsilon = 1e-3;
 const std::string params = "../unit-tests/references/PL/LHC_restart_params/";
 
 GeneralParameters *GP;
@@ -37,6 +37,7 @@ protected:
 
     virtual void SetUp() {
         //printf("ok here\n");
+        omp_set_num_threads(n_threads);
 
         std::vector < ftype > v;
         util::read_vector_from_file(v, datafiles + "LHC_momentum_programme_folder/xan");
@@ -129,7 +130,7 @@ private:
     const float alpha = 1. / gamma_t / gamma_t;     // First order mom. comp. factor
 
     // Tracking details
-  
+
     const long N_b = 1e9;           // Intensity
     const int alpha_order = 1;
     const int n_sections = 1;
@@ -148,7 +149,7 @@ private:
 
 TEST_F(testLHC_Restart, dphi_RF_and_dphi) {
 
-   
+
 
     std::vector<ftype> real1, real2;
 
@@ -192,7 +193,7 @@ TEST_F(testLHC_Restart, dphi_RF_and_dphi) {
                 //printf("   PL phase correction %.6e rad\n", PL->dphi);
                 //ftype ref = v1[i];
                 //ftype real = RfP->dphi_RF[RfP->counter];
-                real1.push_back(RfP->dphi_RF[RfP->counter]);
+                real1.push_back(RfP->dphi_RF[0]);
                 real2.push_back(PL->dphi);
                 //ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
                 //ref = v2[i];
@@ -204,28 +205,78 @@ TEST_F(testLHC_Restart, dphi_RF_and_dphi) {
         }
     }
 
-    std::vector<ftype> ref1;
-    util::read_vector_from_file(ref1, params + "dphi_RF[0]");
+    std::vector<ftype> v;
+    
 
-    std::vector<ftype> ref2;
-    util::read_vector_from_file(ref2, params + "dphi");
+    util::read_vector_from_file(v, params + "dphi_RF[0]");
 
-    ASSERT_EQ(ref1.size(), real1.size());
-    for (unsigned int i = 0; i < ref1.size(); ++i)
+    ASSERT_EQ(v.size(), real1.size());
+    ftype epsilon = 1e-6;
+    for (unsigned int i = 0; i < v.size(); ++i)
     {
         //printf("%d\n", i);
-        ftype ref = ref1[i];
+        ftype ref = v[i];
         ftype real = real1[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
+        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+                << "Testing of dphi_RF failed on i "
+                << i << std::endl;
+    }
+    
+    epsilon = 1e-3;
+    v.clear();
+    util::read_vector_from_file(v, params + "dphi");
+    ASSERT_EQ(v.size(), real2.size());
+    for (unsigned int i = 0; i < v.size(); ++i)
+    {
+        //printf("%d\n", i);
+        ftype ref = v[i];
+        ftype real = real2[i];
+        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+                << "Testing of dphi failed on i "
+                << i << std::endl;
     }
 
-    ASSERT_EQ(ref2.size(), real2.size());
-    for (unsigned int i = 0; i < ref2.size(); ++i)
+
+    epsilon = 5e-1;
+    v.clear();
+    util::read_vector_from_file(v, params + "dE");
+    ASSERT_EQ(v.size(), Beam->n_macroparticles);
+    for (unsigned int i = 0; i < v.size(); ++i)
     {
         //printf("%d\n", i);
-        ftype ref = ref2[i];
-        ftype real = real2[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
+        ftype ref = v[i];
+        ftype real = Beam->dE[i];
+        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+                << "Testing of dE failed on i "
+                << i << std::endl;
+    }
+
+    epsilon = 1e-6;
+    v.clear();
+    util::read_vector_from_file(v, params + "dt");
+    ASSERT_EQ(v.size(), Beam->n_macroparticles);
+    for (unsigned int i = 0; i < v.size(); ++i)
+    {
+        //printf("%d\n", i);
+        ftype ref = v[i];
+        ftype real = Beam->dt[i];
+        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+                << "Testing of dt failed on i "
+                << i << std::endl;
+    }
+
+    epsilon = 1e-8;
+    v.clear();
+    util::read_vector_from_file(v, params + "n_macroparticles");
+    ASSERT_EQ(v.size(), Slice->n_slices);
+    for (unsigned int i = 0; i < v.size(); ++i)
+    {
+        //printf("%d\n", i);
+        ftype ref = v[i];
+        ftype real = Slice->n_macroparticles[i];
+        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+                << "Testing of n_macroparticles failed on i "
+                << i << std::endl;
     }
 
 

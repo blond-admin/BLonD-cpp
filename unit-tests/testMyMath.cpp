@@ -81,19 +81,33 @@ TEST(testTrapezoid, test2) {
 }
 
 TEST(testCumTrap, test1){
+	std::string params = "../unit-tests/references/MyMath/CumTrap/";
+	ftype epsilon = 1e-8;
+	
 	ftype a[10] =  { -0.61, -0.51, 0.39, -0.54,
 		0.67, 1.4, 1.1, 1.4, 0.16, 0.9 };
 	ftype *trap = mymath::cum_trapezoid(a, 1, 10);
 	//dump(trap, 10, "trap\n");
+	/*
 	std::string result = util::exec(
 		"python -c 'import scipy.integrate as ct;\
 		 print ct.cumtrapz([-0.61, -0.51, 0.39, -0.54, 0.67, 1.4,\
 		  1.1, 1.4, 0.16, 0.9], initial=0)'");
 	std::replace(result.begin(), result.end(),'[', ' ');
 	std::replace(result.begin(), result.end(),']', ' ');
-
+	*/
+	std::vector<ftype> v;
+	util::read_vector_from_file(v, params + "cumtrap_reference.txt");
 	//result.erase(0,1);
 	//result.erase(result.end()-1,1);
+	
+	for (unsigned int i = 0; i < v.size(); ++i)
+	{
+		ftype ref = v[i];
+		ftype real = trap[i];
+		ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
+	}
+	/*
 	std::istringstream ss(result);
 	for (int i = 0; i < 10; ++i)
 	{
@@ -101,9 +115,10 @@ TEST(testCumTrap, test1){
 		ss >> b;
 		ASSERT_NEAR(trap[i], b, 1e-8);
 	}
-
+	*/
 }
 
+/*
 TEST(testSin, test1){
 	ftype a = sin(0);
 	std::string result = util::exec(
@@ -136,6 +151,7 @@ TEST(testCos, test1){
 	ASSERT_NEAR(a, num, 1e-8);
 
 }
+*/
 
 int main(int ac, char* av[]) {
 	::testing::InitGoogleTest(&ac, av);

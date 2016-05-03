@@ -66,5 +66,8 @@ Or type: `./testcase -h` for more
 - Helga Timko (Helga.Timko (at) cern.ch)
 - Konstantinos Iliakis (konstantinos.iliakis (at) cern.ch)
 
+## Contributors Notice
+
+Dear all contributors, you are kindly requested to format your code using astyle format options found [here] (https://root.cern.ch/coding-conventions#Astyle).
 
 [1]: http://blond.web.cern.ch

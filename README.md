@@ -1,12 +1,12 @@
 C++ Version of [CERN's BLonD code][1]
 
-## STATUS
+## Status
 
 NOT Stable - Under heavy development
 
 [![Build Status](https://travis-ci.org/OlegJakushkin/BLonD-minimal-cpp.svg?branch=master)](https://travis-ci.org/OlegJakushkin/BLonD-minimal-cpp)
 
-## REQUIREMENTS
+## Requirements
 
 * gcc version >= 4.8.0 [install](https://gcc.gnu.org/wiki/InstallingGCC)
 * cmake version >= 3.0.2 [install](https://cmake.org/install/)
@@ -16,7 +16,7 @@ NOT Stable - Under heavy development
 
 * Google Test [install](https://github.com/google/googletest)
 
-## INSTALATION
+## Installation
 
 1. clone the code into a directory (lets call it home/)
 2. run the commands 
@@ -44,22 +44,23 @@ Note that a re-compile is needed every time a change is made.
 
 ## Usage
 
-The following environmental variables can be specified in order to dynamically alter some basic simulation parameters:
+The following optional command line arguments can be specified in order to specify some basic simulation parameters:
 
-* N_THREADS : number of openmp threads that will be used for the simulation (default: 1)
-* N_PARTICLES : number of macroparticles that will be simulated (default: 10k)
-* N_TURNS : number of simulation turns (default: 10k)
-* N_SLICES : number of slices that will be used to generate the beam's histogram (default: 100)
+* -m <num>, --threads=<num> : Number of openmp threads that will be used in the simulation (default: 1)
+* -p <num>, --particles=<num> : Number of macroparticles that will be simulated (default: 10k)
+* -t <num>, --turns=<num> : Number of simulation turns (default: 10k)
+* -s <num>, --slices=<num> : Number of slices that will be used to generate the beam's histogram (default: 100)
 
-Example: `N_THREADS=4 N_TURNS=10000 ./testcase`
+Example: `./testcase -t 1000 -p2000`  
+Or type: `./testcase -h` for more
 
-## LINKS
+## Original BLonD Links
 
 * Repository: https://gitlab.cern.ch/dquartul/BLonD
 * Documentation: http://blond-documentation.web.cern.ch/
 * Project website: http://blond.web.cern.ch
 
-## DEVELOPERS
+## Developers
 
 - Alexandre Lasheen (alexandre.lasheen (at) cern.ch)
 - Juan Esteban Muller (juan.fem (at) cern.ch)
@@ -67,5 +68,8 @@ Example: `N_THREADS=4 N_TURNS=10000 ./testcase`
 - Helga Timko (Helga.Timko (at) cern.ch)
 - Konstantinos Iliakis (konstantinos.iliakis (at) cern.ch)
 
+## Contributors Notice
+
+Dear all contributors, you are kindly requested to format your code using astyle format options found [here] (https://root.cern.ch/coding-conventions#Astyle).
 
 [1]: http://blond.web.cern.ch

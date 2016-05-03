@@ -42,16 +42,17 @@ Note that a re-compile is needed every time a change is made.
 
 ## Usage
 
-The following environmental variables can be specified in order to dynamically alter some basic simulation parameters:
+The following optional command line arguments can be specified in order to specify some basic simulation parameters:
 
-* N_THREADS : number of openmp threads that will be used for the simulation (default: 1)
-* N_PARTICLES : number of macroparticles that will be simulated (default: 10k)
-* N_TURNS : number of simulation turns (default: 10k)
-* N_SLICES : number of slices that will be used to generate the beam's histogram (default: 100)
+* -m <num>, --threads=<num> : Number of openmp threads that will be used in the simulation (default: 1)
+* -p <num>, --particles=<num> : Number of macroparticles that will be simulated (default: 10k)
+* -t <num>, --turns=<num> : Number of simulation turns (default: 10k)
+* -s <num>, --slices=<num> : Number of slices that will be used to generate the beam's histogram (default: 100)
 
-Example: `N_THREADS=4 N_TURNS=10000 ./testcase`
+Example: `./testcase -t 1000 -p2000`
+Or type: `./testcase -h` for more
 
-## LINKS
+## ORIGINAL BLOND LINKS
 
 * Repository: https://gitlab.cern.ch/dquartul/BLonD
 * Documentation: http://blond-documentation.web.cern.ch/

@@ -40,17 +40,12 @@ before_install:
       tar xf cmake-3.5.2.tar.gz ;
       cd cmake-3.5.2 ;
       ./configure ;
-      make -j4;
+      make -j4 ;
       sudo make install ; 
-      cd ../; 
-      rm -rf ./cm*; 
+      cd ../ ; 
+      rm -rf ./cm* ; 
+      cmake --version ;
       fi
-  - cd cmake-3.5.2
-  - ./configure
-  - make -j4
-  - sudo make install
-  - cd ../
-  - rm -rf ./cm*
 
 before_script:
   - mkdir build

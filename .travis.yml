@@ -35,6 +35,7 @@ before_install:
   - export CXX=/usr/bin/g++-4.8
   - $CXX --version
   - cmake --version
+  - sudo apt-get -y install gsl-bin libgsl0ldbl
 
 before_script:
   - mkdir build

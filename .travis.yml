@@ -23,8 +23,21 @@ addons:
     - g++-4.8
     - libgtest-dev
 
+cache:
+- apt
+
 before_install:
+  - # setup compiler to GCC 4.8
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
+  - # install Cmake 3.5
+  - wget http://www.cmake.org/files/v3.5/cmake-3.5.2.tar.gz
+  - tar xf cmake-3.5.2.tar.gz
+  - cd cmake-3.5.2
+  - ./configure
+  - make -j4
+  - sudo make install
+  - cd ../
+  - rm -rf ./cm*
 
 before_script:
   - mkdir build

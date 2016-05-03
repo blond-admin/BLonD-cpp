@@ -1,10 +1,10 @@
 C++ Version of [CERN's BLonD code][1]
 
-## STATUS
+## Status
 
 NOT Stable - Under heavy development
 
-## REQUIREMENTS
+## Requirements
 
 * gcc version >= 4.8.0 [install](https://gcc.gnu.org/wiki/InstallingGCC)
 * cmake version >= 3.0.2 [install](https://cmake.org/install/)
@@ -14,7 +14,7 @@ NOT Stable - Under heavy development
 
 * Google Test [install](https://github.com/google/googletest)
 
-## INSTALATION
+## Installation
 
 1. clone the code into a directory (lets call it home/)
 2. run the commands 
@@ -52,13 +52,13 @@ The following optional command line arguments can be specified in order to speci
 Example: `./testcase -t 1000 -p2000`  
 Or type: `./testcase -h` for more
 
-## ORIGINAL BLOND LINKS
+## Original BLonD Links
 
 * Repository: https://gitlab.cern.ch/dquartul/BLonD
 * Documentation: http://blond-documentation.web.cern.ch/
 * Project website: http://blond.web.cern.ch
 
-## DEVELOPERS
+## Developers
 
 - Alexandre Lasheen (alexandre.lasheen (at) cern.ch)
 - Juan Esteban Muller (juan.fem (at) cern.ch)

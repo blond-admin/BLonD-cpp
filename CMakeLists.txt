@@ -21,15 +21,15 @@ if(!COMPILER_HAS_CXX11)
 	message(FATAL_ERROR "ERROR: Compiler is lacking support for c++11")
 endif()
 
-check_cxx_compiler_flag(-Ofast COMPILER_HAS_OFAST)
+check_cxx_compiler_flag(-ffast-math COMPILER_HAS_FAST_MATH)
 
 
 include_directories(include)
 
 set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -fopenmp -O3") #-Ofast
 
-if(COMPILER_HAS_OFAST)
-	add_compile_options(-Ofast)
+if(COMPILER_HAS_FAST_MATH)
+	add_compile_options(-ffast-math)
 endif()
 
 

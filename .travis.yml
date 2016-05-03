@@ -1,3 +1,4 @@
+sudo: false
 language: cpp
 
 os:
@@ -16,36 +17,24 @@ env:
 addons:
   apt:
     sources:
-    - ubuntu-toolchain-r-test
+      - ubuntu-toolchain-r-test
+      - george-edison55-precise-backports
     packages:
-    - cmake
-    - gcc-4.8
-    - g++-4.8
-    - libgtest-dev
+      - cmake
+      - cmake-data
+      - gcc-4.8
+      - g++-4.8
+      - libgtest-dev
 
 cache:
   - apt
 
 before_install:
   - export PATH=$PATH:/usr/local/bin/
-  - # setup compiler to GCC 4.8
   - export CC=/usr/bin/gcc-4.8
   - export CXX=/usr/bin/g++-4.8
   - $CXX --version
-  - # install Cmake 3.5
   - cmake --version
-  - export CMAKE_VERSION=`cmake --version | grep  -oP '\d.\d.\d'`
-  - if [ "$CMAKE_VERSION" != "3.5.2" ]; then
-      wget --no-check-certificate https://www.cmake.org/files/v3.5/cmake-3.5.2.tar.gz ;
-      tar xf cmake-3.5.2.tar.gz ;
-      cd cmake-3.5.2 ;
-      ./configure ;
-      make -j4 ;
-      sudo make install ;
-      cd ../ ; 
-      rm -rf ./cm* ;
-      cmake --version ;
-      fi
 
 before_script:
   - mkdir build

@@ -49,7 +49,7 @@ The following optional command line arguments can be specified in order to speci
 * -t <num>, --turns=<num> : Number of simulation turns (default: 10k)
 * -s <num>, --slices=<num> : Number of slices that will be used to generate the beam's histogram (default: 100)
 
-Example: `./testcase -t 1000 -p2000`
+Example: `./testcase -t 1000 -p2000`  
 Or type: `./testcase -h` for more
 
 ## ORIGINAL BLOND LINKS

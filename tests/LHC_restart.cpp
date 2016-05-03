@@ -17,6 +17,7 @@
 #include "../beams/Distributions.h"
 #include "../trackers/Tracker.h"
 #include "../llrf/PhaseLoop.h"
+#include "optionparser.h"
 // Simulation parameters --------------------------------------------------------
 
 const int N_b = 1.2e9;          // Intensity
@@ -49,16 +50,20 @@ int n_threads = 1;
 //const int size = 14e6;
 const int from_line = 0;
 
+void parse_args(int argc, char **argv);
+
 // Simulation setup -------------------------------------------------------------
 int main(int argc, char **argv) {
 
-
+	parse_args(argc, argv);
 	// Environmental variables
+	/*
 	N_t = atoi(util::GETENV("N_TURNS")) ? atoi(util::GETENV("N_TURNS")) : N_t;
 	N_p = atoi(util::GETENV("N_PARTICLES")) ? atoi(util::GETENV("N_PARTICLES")) : N_p;
 	N_slices = atoi(util::GETENV("N_SLICES")) ? atoi(util::GETENV("N_SLICES")) : N_slices;
 	n_threads =
 	    atoi(util::GETENV("N_THREADS")) ? atoi(util::GETENV("N_THREADS")) : n_threads;
+	*/
 	omp_set_num_threads(n_threads);
 
 	printf("Setting up the simulation...\n\n");
@@ -234,6 +239,76 @@ int main(int argc, char **argv) {
 	delete Beam;
 
 	printf("Done!\n");
+
+}
+
+void parse_args(int argc, char **argv) {
+	using namespace std;
+	using namespace option;
+
+	enum optionIndex {UNKNOWN, HELP, N_THREADS, N_TURNS,
+	                  N_PARTICLES, N_SLICES, OPTIONS_NUM
+	                 };
+
+	const option::Descriptor usage[] =
+	{
+		{	UNKNOWN, 0, "", "", Arg::None,					 	"USAGE: ./LHC_restart [options]\n\n"
+			"Options:"
+		},
+		{	HELP, 0, "h", "help", Arg::None, 					"  --help,              -h        Print usage and exit." },
+		{N_TURNS, 0, "t", "turns", util::Arg::Numeric, 			"  --turns=<num>,       -t <num>  Number of turns (default: 10k)" },
+		{N_PARTICLES, 0, "p", "particles", util::Arg::Numeric, 	"  --particles=<num>,   -p <num>  Number of particles (default: 10k)" },
+		{N_SLICES, 0, "s", "slices", util::Arg::Numeric, 		"  --slices=<num>,      -s <num>  Number of slices (default: 100)" },
+		{N_THREADS, 0, "m", "threads", util::Arg::Numeric, 		"  --threads=<num>,     -m <num>  Number of threads (default: 1)" },
+		{	UNKNOWN, 0, "", "", Arg::None, 						"\nExamples:\n"
+			"\t./LHC_restart\n"
+			"\t./LHC_restart -t 1000 -p 10000 -m 4\n"
+		},
+		{0, 0, 0, 0, 0, 0}
+	};
+
+	argc -= (argc > 0); argv += (argc > 0); // skip program name argv[0] if present
+	Stats stats(usage, argc, argv);
+	vector<Option> options(stats.options_max);
+	vector<Option> buffer(stats.buffer_max);
+	Parser parse(usage, argc, argv, &options[0], &buffer[0]);
+
+	if (options[HELP]) {
+		printUsage(cout, usage);
+		exit(0);
+	}
+
+	for (int i = 0; i < parse.optionsCount(); ++i)
+	{
+		Option& opt = buffer[i];
+		//fprintf(stdout, "Argument #%d is ", i);
+		switch (opt.index())
+		{
+		case HELP:
+		// not possible, because handled further above and exits the program
+		case N_TURNS:
+			N_t = atoi(opt.arg);
+			//fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
+			break;
+		case N_THREADS:
+			n_threads = atoi(opt.arg);
+			//fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
+			break;
+		case N_SLICES:
+			N_slices = atoi(opt.arg);
+			//fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
+			break;
+		case N_PARTICLES:
+			N_p = atoi(opt.arg);
+			//fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
+			break;
+		case UNKNOWN:
+			// not possible because Arg::Unknown returns ARG_ILLEGAL
+			// which aborts the parse with an error
+			break;
+		}
+	}
+
 
 }
 

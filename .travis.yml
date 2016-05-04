@@ -3,14 +3,10 @@ language: cpp
 os:
   - linux
 
-sudo: required
-
 compiler:
   - gcc
 env:
   global:
-    - OMP_NUM_THREADS=4
-    - N_THREADS=4
   matrix:
     - BUILD_TYPE=Debug
     - BUILD_TYPE=Release
@@ -54,4 +50,4 @@ script:
   - ctest
 
 after_success:
- - ./TC1_Acceleration
+ - ./TC1_Acceleration --threads 4

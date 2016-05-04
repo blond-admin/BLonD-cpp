@@ -4,6 +4,8 @@ C++ Version of [CERN's BLonD code][1]
 
 NOT Stable - Under heavy development
 
+[![Build Status](https://travis-ci.org/OlegJakushkin/BLonD-minimal-cpp.svg?branch=master)](https://travis-ci.org/OlegJakushkin/BLonD-minimal-cpp)
+
 ## Requirements
 
 * gcc version >= 4.8.0 [install](https://gcc.gnu.org/wiki/InstallingGCC)

@@ -1,0 +1,54 @@
+language: cpp
+
+os:
+  - linux
+
+compiler:
+  - gcc
+env:
+  global:
+    - OMP_NUM_THREADS=4
+    - N_THREADS=4
+  matrix:
+    - BUILD_TYPE=Debug
+    - BUILD_TYPE=Release
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+      - george-edison55-precise-backports
+    packages:
+      - cmake
+      - cmake-data
+      - gcc-4.8
+      - g++-4.8
+      - libgsl0ldbl
+      - libgtest-dev
+      - libgsl0-dev
+      - valgrind
+
+cache:
+  - apt
+
+before_install:
+  - export PATH=$PATH:/usr/local/bin/
+  - export CC=/usr/bin/gcc-4.8
+  - export CXX=/usr/bin/g++-4.8
+
+before_script:
+  - mkdir build
+  - cd build
+  - cmake -DCMAKE_BUILD_TYPE=BUILD_TYPE
+    -DCMAKE_CXX_FLAGS="-std=c++11 -Wall -pedantic -fno-rtti"
+    -DCMAKE_CXX_FLAGS_DEBUG="-g"
+    -DCMAKE_CXX_FLAGS_RELEASE="-Ofast -DNDEBUG -march=native"
+    -DCMAKE_EXE_LINKER_FLAGS_RELEASE="-flto"
+    ..
+
+script:
+  - make -j4
+  - ctest
+
+after_success:
+ - ./TC1_Acceleration

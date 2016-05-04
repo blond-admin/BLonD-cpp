@@ -28,10 +28,11 @@ addons:
 
 
 install:
-  - pip --user install cpp-coveralls
+  - pip install --user cpp-coveralls
 
 cache:
   - apt
+  - pip
 
 before_install:
   - export PATH=$PATH:/usr/local/bin/

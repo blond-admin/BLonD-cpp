@@ -70,7 +70,6 @@ if (GTEST_FOUND)
 	    unit-tests/testTracker.cpp
 	    unit-tests/testTC1_Acceleration.cpp
 	    unit-tests/testPL.cpp
-            unit-tests/testFail.cpp
 	    unit-tests/testLHC_Restart.cpp
 	    )
 

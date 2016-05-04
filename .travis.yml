@@ -1,3 +1,4 @@
+sudo: false
 language: cpp
 
 os:
@@ -27,7 +28,7 @@ addons:
 
 
 install:
-  - sudo pip install cpp-coveralls
+  - pip install cpp-coveralls
 
 cache:
   - apt

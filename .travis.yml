@@ -20,11 +20,9 @@ addons:
       - george-edison55-precise-backports
     packages:
       - cmake
-      - cmake-data
       - gcc-4.8
       - g++-4.8
       - libgsl0ldbl
-      - gsl-bin
       - libgtest-dev
       - libgsl0-dev
 
@@ -39,12 +37,15 @@ before_install:
 before_script:
   - mkdir build
   - cd build
-  - cmake -DCMAKE_BUILD_TYPE=BUILD_TYPE                          
-    -DCMAKE_CXX_FLAGS="-std=c++11 -Wall -pedantic -fno-rtti" 
-    -DCMAKE_CXX_FLAGS_DEBUG="-g"                                 
-    -DCMAKE_CXX_FLAGS_RELEASE="-O3 -DNDEBUG -std=c++11"          
-    -DCMAKE_EXE_LINKER_FLAGS_RELEASE="-flto"                     
+  - cmake -DCMAKE_BUILD_TYPE=BUILD_TYPE
+    -DCMAKE_CXX_FLAGS="-std=c++11 -Wall -pedantic -fno-rtti"
+    -DCMAKE_CXX_FLAGS_DEBUG="-g"
+    -DCMAKE_CXX_FLAGS_RELEASE="-O3 -DNDEBUG -march=native"
+    -DCMAKE_EXE_LINKER_FLAGS_RELEASE="-flto"
     ..
 
-script: 
+script:
   - make -j4 && ctest --output-on-failure
+
+after_success:
+ - ./TC1_Acceleration

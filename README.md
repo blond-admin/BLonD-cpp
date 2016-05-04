@@ -4,7 +4,7 @@ C++ Version of [CERN's BLonD code][1]
 
 NOT Stable - Under heavy development
 
-[![Build Status](https://travis-ci.org/OlegJakushkin/BLonD-minimal-cpp.svg?branch=master)](https://travis-ci.org/OlegJakushkin/BLonD-minimal-cpp)
+[![Build Status](https://travis-ci.org/kiliakis/BLonD-minimal-cpp.svg?branch=master)](https://travis-ci.org/kiliakis/BLonD-minimal-cpp)
 
 ## Requirements
 

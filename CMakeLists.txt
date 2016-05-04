@@ -59,7 +59,7 @@ target_link_libraries(LHC_restart blond)
 
 # Generate unit tests
 
-if (GTest_FOUND)
+#if (GTest_FOUND)
 
 	set(TEST_SOURCE_FILES
 	    unit-tests/testGP.cpp
@@ -95,4 +95,4 @@ if (GTest_FOUND)
 	  set(CTEST_MEMORYCHECK_COMMAND_OPTIONS, "--leak-check=full")
 	endif()
 
-endif()
+#endif()

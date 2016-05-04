@@ -6,7 +6,6 @@ os:
 compiler:
   - gcc
 env:
-  global:
   matrix:
     - BUILD_TYPE=Debug
     - BUILD_TYPE=Release
@@ -55,5 +54,5 @@ script:
   - ctest
 
 after_success:
-  - coveralls --root .. -E ".*CMakeFiles.*" -E ".*test*/.*.cpp.*"
+ - coveralls --root .. -E ".*CMakeFiles.*" -E ".*test*/.*.cpp.*"
  - ./TC1_Acceleration --threads 4

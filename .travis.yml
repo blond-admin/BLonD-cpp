@@ -20,6 +20,7 @@ addons:
       - george-edison55-precise-backports
     packages:
       - cmake
+      - cmake-data
       - gcc-4.8
       - g++-4.8
       - libgsl0ldbl

@@ -28,7 +28,7 @@ addons:
 
 
 install:
-  - sudo pip install cpp-coveralls
+  - pip --user install cpp-coveralls
 
 cache:
   - apt

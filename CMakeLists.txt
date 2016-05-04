@@ -59,7 +59,7 @@ target_link_libraries(LHC_restart blond)
 
 # Generate unit tests
 
-if (GTest_FOUND)
+if (GTEST_FOUND)
 
 	set(TEST_SOURCE_FILES
 	    unit-tests/testGP.cpp

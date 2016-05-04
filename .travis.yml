@@ -7,8 +7,6 @@ compiler:
   - gcc
 env:
   global:
-    - OMP_NUM_THREADS=4
-    - N_THREADS=4
   matrix:
     - BUILD_TYPE=Debug
     - BUILD_TYPE=Release
@@ -32,6 +30,7 @@ cache:
   - apt
 
 before_install:
+  - "cd /usr/src/gtest && sudo cmake . && sudo cmake --build . && sudo mv libg* /usr/local/lib/ ; cd -"
   - export PATH=$PATH:/usr/local/bin/
   - export CC=/usr/bin/gcc-4.8
   - export CXX=/usr/bin/g++-4.8
@@ -51,4 +50,4 @@ script:
   - ctest
 
 after_success:
- - ./TC1_Acceleration
+ - ./TC1_Acceleration --threads 4

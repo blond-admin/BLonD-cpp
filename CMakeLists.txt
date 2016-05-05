@@ -79,7 +79,7 @@ foreach(src ${TEST_SOURCE_FILES})
     string( REPLACE ".cpp" "" testname ${src})
     string( REPLACE "unit-tests/" "" testname ${testname})
     add_executable( ${testname} ${src})
-    target_link_libraries( ${testname} blond googletest googletest_main)
+	    target_link_libraries( ${testname} blond gtest gtest_main)
     add_test(${testname} ${testname})
 endforeach( src ${TEST_SOURCE_FILES})
 

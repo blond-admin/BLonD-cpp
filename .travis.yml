@@ -27,7 +27,8 @@ addons:
 
 
 install:
-  - pip install --user cpp-coveralls
+  - sudo apt-get install lcov rubygems
+  - gem install lcoveralls
 
 cache:
   - apt
@@ -55,5 +56,5 @@ script:
   - ctest
 
 after_success:
- - coveralls --root .. -E ".*CMakeFiles.*" -E ".*tests/.*.cpp.*"
+ - lcoveralls --root .. -v
  - ./TC1_Acceleration --threads 4

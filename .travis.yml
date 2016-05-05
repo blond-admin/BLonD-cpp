@@ -48,12 +48,13 @@ before_script:
     -DCMAKE_CXX_FLAGS="-std=c++11 -Wall -pedantic -fno-rtti -fprofile-arcs -ftest-coverage"
     -DCMAKE_CXX_FLAGS_DEBUG="-g"
     -DCMAKE_CXX_FLAGS_RELEASE="-Ofast -DNDEBUG -march=native"
+    -DCMAKE_EXE_LINKER_FLAGS="--coverage"
     -DCMAKE_EXE_LINKER_FLAGS_RELEASE="-flto"
     ..
 
 script:
   - make -j4
-  - ctest
+  - ctest -VV
 
 after_success:
  - lcov --capture --directory .. --output-file coverage.info

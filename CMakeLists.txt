@@ -8,8 +8,24 @@ include(CheckCXXCompilerFlag)
 find_package(OpenMP REQUIRED)
 find_package(GSL REQUIRED)
 
-# Optional packages
-find_package(GTest)
+set(GOOGLETEST_ROOT external/googletest/googletest CACHE STRING "Google Test source root")
+
+include_directories(
+    ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}
+    ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}/include
+    )
+
+set(GOOGLETEST_SOURCES
+    ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}/src/gtest-all.cc
+    ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}/src/gtest_main.cc
+    )
+
+foreach(_source ${GOOGLETEST_SOURCES})
+    set_source_files_properties(${_source} PROPERTIES GENERATED 1)
+endforeach()
+
+add_library(googletest ${GOOGLETEST_SOURCES})
+
 
 # TODO is 4.8 really the minimum requirement?
 if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS "4.8.0")
@@ -59,8 +75,6 @@ target_link_libraries(LHC_restart blond)
 
 # Generate unit tests
 
-if (GTEST_FOUND)
-
 set(TEST_SOURCE_FILES
     unit-tests/testGP.cpp
     unit-tests/testRFP.cpp
@@ -79,15 +93,16 @@ foreach(src ${TEST_SOURCE_FILES})
     string( REPLACE ".cpp" "" testname ${src})
     string( REPLACE "unit-tests/" "" testname ${testname})
     add_executable( ${testname} ${src})
-	    target_link_libraries( ${testname} blond gtest gtest_main)
+	    target_link_libraries( ${testname} blond googletest googletest_main)
     add_test(${testname} ${testname})
 endforeach( src ${TEST_SOURCE_FILES})
 
-	target_link_libraries(testMyMath gtest gtest_main)
+	target_link_libraries(testMyMath googletest googletest_main)
 
 
 add_test(testMyMath testMyMath)
 
+include(CTest)
 enable_testing()
 
 if(UNIX)
@@ -95,4 +110,3 @@ if(UNIX)
   set(CTEST_MEMORYCHECK_COMMAND_OPTIONS, "--leak-check=full")
 endif()
 
-endif()

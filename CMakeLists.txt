@@ -88,18 +88,17 @@ set(TEST_SOURCE_FILES
     )
 
 
-add_executable(testMyMath unit-tests/testMyMath.cpp)
+
 foreach(src ${TEST_SOURCE_FILES})
     string( REPLACE ".cpp" "" testname ${src})
     string( REPLACE "unit-tests/" "" testname ${testname})
     add_executable( ${testname} ${src})
-	    target_link_libraries( ${testname} blond googletest googletest_main)
+	    target_link_libraries( ${testname} blond googletest)
     add_test(${testname} ${testname})
 endforeach( src ${TEST_SOURCE_FILES})
 
-	target_link_libraries(testMyMath googletest googletest_main)
-
-
+add_executable(testMyMath unit-tests/testMyMath.cpp)
+target_link_libraries(testMyMath googletest)
 add_test(testMyMath testMyMath)
 
 include(CTest)

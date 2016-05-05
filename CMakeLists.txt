@@ -8,9 +8,6 @@ include(CheckCXXCompilerFlag)
 find_package(OpenMP REQUIRED)
 find_package(GSL REQUIRED)
 
-# Optional packages
-find_package(GTest)
-
 # TODO is 4.8 really the minimum requirement?
 if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS "4.8.0")
     message(FATAL_ERROR "ERROR: Insufficient compiler version, need at lest 4.8 to continue")
@@ -23,10 +20,19 @@ endif()
 
 check_cxx_compiler_flag(-ffast-math COMPILER_HAS_FAST_MATH)
 
+set(GOOGLETEST_ROOT external/googletest/googletest CACHE STRING "Google Test source root")
+include_directories(
+    ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}
+    ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}/include
+    )
+set(GOOGLETEST_SOURCES
+    ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}/src/gtest-all.cc
+    ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}/src/gtest_main.cc
+    )
 
 include_directories(include)
 
-set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -fopenmp -O3") #-Ofast
+set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -fopenmp")
 
 if(COMPILER_HAS_FAST_MATH)
 	add_compile_options(-ffast-math)
@@ -59,40 +65,36 @@ target_link_libraries(LHC_restart blond)
 
 # Generate unit tests
 
-if (GTEST_FOUND)
-
-	set(TEST_SOURCE_FILES
-	    unit-tests/testGP.cpp
-	    unit-tests/testRFP.cpp
-	    unit-tests/testBigaussian.cpp
-	    unit-tests/testBeam.cpp
-	    unit-tests/testSlices.cpp
-	    unit-tests/testTracker.cpp
-	    unit-tests/testTC1_Acceleration.cpp
-	    unit-tests/testPL.cpp
-	    unit-tests/testLHC_Restart.cpp
-	    )
+set(TEST_SOURCE_FILES
+    unit-tests/testGP.cpp
+    unit-tests/testRFP.cpp
+    unit-tests/testBigaussian.cpp
+    unit-tests/testBeam.cpp
+    unit-tests/testSlices.cpp
+    unit-tests/testTracker.cpp
+    unit-tests/testTC1_Acceleration.cpp
+    unit-tests/testPL.cpp
+    unit-tests/testLHC_Restart.cpp
+    )
 
 
-	add_executable(testMyMath unit-tests/testMyMath.cpp)
-	foreach(src ${TEST_SOURCE_FILES})
-	    string( REPLACE ".cpp" "" testname ${src})
-	    string( REPLACE "unit-tests/" "" testname ${testname})
-	    add_executable( ${testname} ${src})
-	    target_link_libraries( ${testname} blond gtest gtest_main)
-	    add_test(${testname} ${testname})
-	endforeach( src ${TEST_SOURCE_FILES})
-
-	target_link_libraries(testMyMath gtest gtest_main)
+add_executable(testMyMath unit-tests/testMyMath.cpp)
+foreach(src ${TEST_SOURCE_FILES})
+    string( REPLACE ".cpp" "" testname ${src})
+    string( REPLACE "unit-tests/" "" testname ${testname})
+    add_executable( ${testname} ${src})
+    target_link_libraries( ${testname} blond googletest googletest_main)
+    add_test(${testname} ${testname})
+endforeach( src ${TEST_SOURCE_FILES})
 
 
-	add_test(testMyMath testMyMath)
+add_dependencies(testMyMath googletest)
+target_link_libraries(testMyMath googletest googletest_main)
+add_test(testMyMath testMyMath)
 
-	enable_testing()
+enable_testing()
 
-	if(UNIX)
-	  set(CTEST_MEMORYCHECK_COMMAND, "usr/bin/valgrind")
-	  set(CTEST_MEMORYCHECK_COMMAND_OPTIONS, "--leak-check=full")
-	endif()
-
+if(UNIX)
+  set(CTEST_MEMORYCHECK_COMMAND, "usr/bin/valgrind")
+  set(CTEST_MEMORYCHECK_COMMAND_OPTIONS, "--leak-check=full")
 endif()

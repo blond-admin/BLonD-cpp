@@ -56,5 +56,7 @@ script:
   - ctest
 
 after_success:
+ - lcov --capture --directory .. --output-file coverage.info
+ - cat coverage.info
  - lcoveralls --root .. -v
  - ./TC1_Acceleration --threads 4

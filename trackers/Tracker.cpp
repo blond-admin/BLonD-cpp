@@ -45,6 +45,7 @@ inline void RingAndRfSection::kick(const ftype *__restrict__ beam_dt,
       for (int i = start; i < end; i++) {
          beam_dE[i] += voltage[k]
                        * vdt::fast_sin(omega_RF[k] * beam_dt[i] + phi_RF[k]);
+         //printf("angle = %lf, sin = %lf\n",omega_RF[k] * beam_dt[i] + phi_RF[k], vdt::fast_sin(omega_RF[k] * beam_dt[i] + phi_RF[k]) );
       }
       k += GP->n_turns;
    }

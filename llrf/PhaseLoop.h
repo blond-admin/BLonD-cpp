@@ -17,20 +17,14 @@ class PhaseLoop;
 
 class PhaseLoop {
 public:
-   virtual void track()
-   {
-   }
-   ;
+   virtual void track() {};
    void default_track();
    PhaseLoop(ftype *PL_gain, ftype window_coefficient, int _delay,
              ftype *_phaseNoise, ftype *_LHCNoiseFB);
    void beam_phase();
    void phase_difference();
    void radial_steering_from_freq();
-   PhaseLoop()
-   {
-   }
-   ;
+   PhaseLoop() {} ;
    int delay = 0;
    ftype alpha = 0;
    ftype *gain = NULL;
@@ -41,10 +35,7 @@ public:
    ftype reference = 0;
    ftype *RFnoise = NULL;
    ftype *noiseFB = NULL;
-   virtual ~PhaseLoop()
-   {
-   }
-   ;
+   virtual ~PhaseLoop() {};
 };
 
 class LHC: public PhaseLoop {

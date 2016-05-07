@@ -9,7 +9,7 @@
 #define INCLUDES_CONFIGURATION_H_
 
 typedef double ftype;
-
+typedef unsigned int uint;
 // Compile time switches
 // Needs re-compile every time a change is made
 

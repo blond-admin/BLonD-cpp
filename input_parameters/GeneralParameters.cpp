@@ -23,8 +23,9 @@ GeneralParameters::~GeneralParameters()
    util::delete_array(eta_1);
    util::delete_array(eta_2);
    //delete t_rev;
-
+   
 }
+
 
 void GeneralParameters::eta_generation()
 {

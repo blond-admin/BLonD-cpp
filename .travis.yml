@@ -46,8 +46,9 @@ before_script:
   - cd build
   - cmake -DCMAKE_BUILD_TYPE=BUILD_TYPE
     -DCMAKE_CXX_FLAGS="-std=c++11 -Wall -pedantic -fno-rtti -fprofile-arcs -ftest-coverage"
-    -DCMAKE_CXX_FLAGS_DEBUG="-g"
+    -DCMAKE_CXX_FLAGS_DEBUG="-g3 -O0 -DDEBUG"
     -DCMAKE_CXX_FLAGS_RELEASE="-Ofast -DNDEBUG -march=native"
+    -DCMAKE_EXE_LINKER_FLAGS=" --coverage"
     -DCMAKE_EXE_LINKER_FLAGS_RELEASE="-flto"
     ..
 
@@ -56,5 +57,6 @@ script:
   - ctest
 
 after_success:
+ - lcov --capture --directory .. --output-file coverage.info
  - lcoveralls --root .. -v
  - ./TC1_Acceleration --threads 4

@@ -3,6 +3,23 @@ cmake_minimum_required(VERSION 3.0.2)
 project(BLonD-minimal-cpp CXX)
 include(CheckCXXCompilerFlag)
 
+include_directories(
+    ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}
+    ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}/include
+    )
+
+set(GOOGLETEST_SOURCES
+    ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}/src/gtest-all.cc
+    ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}/src/gtest_main.cc
+    )
+
+foreach(_source ${GOOGLETEST_SOURCES})
+    set_source_files_properties(${_source} PROPERTIES GENERATED 1)
+endforeach()
+
+add_library(googletest ${GOOGLETEST_SOURCES})
+
+
 # TODO is 4.8 really the minimum requirement?
 if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS "4.8.0")
     message(FATAL_ERROR "ERROR: Insufficient compiler version, need at lest 4.8 to continue")
@@ -83,7 +100,7 @@ set(TEST_SOURCE_FILES
     )
 
 
-add_executable(testMyMath unit-tests/testMyMath.cpp)
+
 foreach(src ${TEST_SOURCE_FILES})
     string( REPLACE ".cpp" "" testname ${src})
     string( REPLACE "unit-tests/" "" testname ${testname})
@@ -92,9 +109,9 @@ foreach(src ${TEST_SOURCE_FILES})
     add_test(${testname} ${testname})
 endforeach( src ${TEST_SOURCE_FILES})
 
-#TODO: rename testMyMath
+#TODO: rename testMyMath, merge with TEST_SOURCE_FILES
 target_link_libraries(testMyMath googletest gcov)
-
+add_executable(testMyMath unit-tests/testMyMath.cpp)
 add_test(testMyMath testMyMath)
 
 include(CTest)

@@ -93,8 +93,8 @@ foreach(src ${TEST_SOURCE_FILES})
 endforeach( src ${TEST_SOURCE_FILES})
 
 #TODO: rename testMyMath, merge with TEST_SOURCE_FILES
-target_link_libraries(testMyMath googletest gcov)
 add_executable(testMyMath unit-tests/testMyMath.cpp)
+target_link_libraries(testMyMath googletest gcov)
 add_test(testMyMath testMyMath)
 
 include(CTest)

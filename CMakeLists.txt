@@ -3,23 +3,6 @@ cmake_minimum_required(VERSION 3.0.2)
 project(BLonD-minimal-cpp CXX)
 include(CheckCXXCompilerFlag)
 
-include_directories(
-    ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}
-    ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}/include
-    )
-
-set(GOOGLETEST_SOURCES
-    ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}/src/gtest-all.cc
-    ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}/src/gtest_main.cc
-    )
-
-foreach(_source ${GOOGLETEST_SOURCES})
-    set_source_files_properties(${_source} PROPERTIES GENERATED 1)
-endforeach()
-
-add_library(googletest ${GOOGLETEST_SOURCES})
-
-
 # TODO is 4.8 really the minimum requirement?
 if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS "4.8.0")
     message(FATAL_ERROR "ERROR: Insufficient compiler version, need at lest 4.8 to continue")

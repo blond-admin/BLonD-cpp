@@ -19,13 +19,22 @@ if(COMPILER_HAS_FAST_MATH)
 endif()
 
 set(GOOGLETEST_ROOT external/googletest/googletest CACHE STRING "Google Test source root")
+if(EXISTS ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT})
+    set(TEST_ENABLED "True")
+    message(STATUS "Found Google Test library source")
+else()
+    message(STATUS "Testing disabled - please provide GOOGLETEST_ROOT path or use '--recursive' argument in git clone")
+endif()
+
 
 if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
     set(CMAKE_CXX_FLAGS         "-std=c++11 -fopenmp -Wall -Wno-unknown-pragmas -Wno-sign-compare -Woverloaded-virtual -Wwrite-strings -Wno-unused")
     set(CMAKE_CXX_FLAGS_DEBUG   "-O0 -g3")
-    set(CMAKE_CXX_FLAGS_RELEASE "-O3")
-    if(EXISTS GOOGLETEST_ROOT)
+    set(CMAKE_CXX_FLAGS_RELEASE "-Ofast -march=native")
+    set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-flto")
+    if(TEST_ENABLED)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
+	set(CMAKE_EXE_LINKER_FLAGS "--coverage")
     endif()
 endif()
 
@@ -33,7 +42,7 @@ endif()
 find_package(OpenMP REQUIRED)
 find_package(GSL REQUIRED)
 
-if(EXISTS GOOGLETEST_ROOT)
+if(TEST_ENABLED)
     include_directories(
         ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}
         ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}/include
@@ -74,7 +83,7 @@ target_link_libraries(TC1_Acceleration blond)
 target_link_libraries(LHC_restart blond)
 
 # Generate unit tests
-if(EXISTS GOOGLETEST_ROOT)
+if(TEST_ENABLED)
     set(TEST_SOURCE_FILES
         unit-tests/testGP.cpp
         unit-tests/testRFP.cpp
@@ -93,13 +102,13 @@ if(EXISTS GOOGLETEST_ROOT)
         string( REPLACE ".cpp" "" testname ${src})
         string( REPLACE "unit-tests/" "" testname ${testname})
         add_executable( ${testname} ${src})
-	    target_link_libraries( ${testname} blond googletest gcov)
+	    target_link_libraries( ${testname} blond googletest)
         add_test(${testname} ${testname})
     endforeach( src ${TEST_SOURCE_FILES})
 
     #TODO: rename testMyMath, merge with TEST_SOURCE_FILES
     add_executable(testMyMath unit-tests/testMyMath.cpp)
-    target_link_libraries(testMyMath googletest gcov)
+    target_link_libraries(testMyMath googletest)
     add_test(testMyMath testMyMath)
 
     include(CTest)

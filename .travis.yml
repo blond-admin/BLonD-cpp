@@ -58,5 +58,5 @@ script:
 
 after_success:
  - lcov --capture --directory .. --output-file coverage.info
- - lcoveralls --root .. -v
+ - lcoveralls -v
  - ./TC1_Acceleration --threads 4

@@ -20,12 +20,12 @@ addons:
       - cmake-data
       - gcc-4.8
       - g++-4.8
-      - gcov-4.8
       - libgsl0ldbl
       - libgtest-dev
       - libgsl0-dev
       - valgrind
-      - lcov
+      - gcov-4.8
+      - lcov-1.10
       - rubygems
 
 
@@ -44,10 +44,7 @@ before_script:
   - mkdir build
   - cd build
   - cmake -DCMAKE_BUILD_TYPE=BUILD_TYPE
-    -DCMAKE_CXX_FLAGS="-std=c++11 -Wall -pedantic -fno-rtti -fprofile-arcs -ftest-coverage"
-    -DCMAKE_CXX_FLAGS_DEBUG="-g3 -O0 -DDEBUG"
     -DCMAKE_CXX_FLAGS_RELEASE="-Ofast -DNDEBUG -march=native"
-    -DCMAKE_EXE_LINKER_FLAGS="--coverage"
     -DCMAKE_EXE_LINKER_FLAGS_RELEASE="-flto"
     ..
 
@@ -56,6 +53,7 @@ script:
   - ctest -VV
 
 after_success:
+ - gcc --version
  - lcov --version
  - if [ "${BUILD_TYPE}" = "Debug" ]; then
       lcov --gcov-tool gcov-4.8 --capture --directory .. --output-file coverage.info ;

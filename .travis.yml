@@ -53,10 +53,8 @@ script:
   - ctest -VV
 
 after_success:
- - gcc --version
- - lcov --version
  - if [ "${BUILD_TYPE}" = "Debug" ]; then
-      lcov --gcov-tool gcov-4.8 --capture --directory .. --output-file coverage.info ;
+      lcov-1.10 --gcov-tool gcov-4.8 --capture --directory .. --output-file coverage.info ;
       lcoveralls --root .. ; 
    fi
  - ./TC1_Acceleration --threads 4

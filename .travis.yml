@@ -51,6 +51,6 @@ script:
 
 after_success:
  - if [ "${BUILD_TYPE}" = "Debug" ]; then
-      coveralls --verbose --gcov gcov-4.8  --root .. -E ".*external.*" -E ".*CMakeFiles.*" -E ".*unit-tests/.*.cpp.*" ;
+      coveralls --gcov gcov-4.8  --root .. -E ".*external.*" -E ".*CMakeFiles.*" -E ".*unit-tests/.*.cpp.*" -E "/usr/include/.*" ;
    fi
  - ./TC1_Acceleration --threads 4

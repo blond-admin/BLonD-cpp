@@ -8,13 +8,12 @@ NOT Stable - Under heavy development
 [![Coverage Status](https://coveralls.io/repos/github/OlegJakushkin/BLonD-minimal-cpp/badge.svg?branch=master)](https://coveralls.io/github/OlegJakushkin/BLonD-minimal-cpp?branch=master)
 
 ## Requirements
-
-* gcc version >= 4.8.0 [install](https://gcc.gnu.org/wiki/InstallingGCC)
 * cmake version >= 3.0.2 [install](https://cmake.org/install/)
+* gcc version >= 4.8.0 [install](https://gcc.gnu.org/wiki/InstallingGCC)
 * GNU Scientific Library [install](http://www.gnu.org/software/gsl/)
 
-## Installation
 
+## Installation
 1. clone the code into a directory (lets call it home/)
     ```bash
     git clone --branch=master --recursive https://github.com/OlegJakushkin/BLonD-minimal-cpp.git home

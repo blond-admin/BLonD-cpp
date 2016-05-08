@@ -57,6 +57,8 @@ script:
   - ctest -VV
 
 after_success:
- - lcov --capture --directory .. --output-file coverage.info
- - lcoveralls -v
+ - if [ "${BUILD_TYPE}" = "Debug" ]; then
+      lcov --capture --directory .. --output-file coverage.info ;
+      lcoveralls --root .. ; 
+   fi
  - ./TC1_Acceleration --threads 4

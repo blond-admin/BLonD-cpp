@@ -28,11 +28,12 @@ endif()
 
 
 if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
-    set(CMAKE_CXX_FLAGS         "-std=c++11 -fopenmp -Wall -Wno-unknown-pragmas -Wno-sign-compare -Woverloaded-virtual -Wwrite-strings -Wno-unused")
+    set(CMAKE_CXX_FLAGS         "-std=c++11 -fopenmp -Wall -Wno-rtti -Wunused")
     set(CMAKE_CXX_FLAGS_DEBUG   "-O0 -g3")
     set(CMAKE_CXX_FLAGS_RELEASE "-Ofast -march=native")
     set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-flto")
     if(TEST_ENABLED)
+
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
 	set(CMAKE_EXE_LINKER_FLAGS "--coverage")
     endif()
@@ -95,8 +96,6 @@ if(TEST_ENABLED)
         unit-tests/testPL.cpp
         unit-tests/testLHC_Restart.cpp
     )
-
-
 
     foreach(src ${TEST_SOURCE_FILES})
         string( REPLACE ".cpp" "" testname ${src})

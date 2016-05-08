@@ -56,6 +56,7 @@ script:
   - ctest -VV
 
 after_success:
+ - lcov --version
  - if [ "${BUILD_TYPE}" = "Debug" ]; then
       lcov --gcov-tool gcov-4.8 --capture --directory .. --output-file coverage.info ;
       lcoveralls --root .. ; 

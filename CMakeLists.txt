@@ -33,9 +33,8 @@ if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
     set(CMAKE_CXX_FLAGS_RELEASE "-Ofast -march=native")
     set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-flto")
     if(TEST_ENABLED)
-
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
-	set(CMAKE_EXE_LINKER_FLAGS "--coverage")
+	    set(CMAKE_EXE_LINKER_FLAGS "--coverage")
     endif()
 endif()
 

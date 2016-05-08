@@ -25,16 +25,13 @@ addons:
       - libgsl0-dev
       - valgrind
       - gcov-4.8
-      - lcov-1.10
-      - rubygems
-
 
 install:
-  - gem install lcoveralls
+  - pip install cpp-coveralls
 
 cache:
   - apt
-  - bundler
+  - pip
 
 before_install:
   - export CC=/usr/bin/gcc-4.8
@@ -54,7 +51,6 @@ script:
 
 after_success:
  - if [ "${BUILD_TYPE}" = "Debug" ]; then
-      lcov-1.10 --gcov-tool gcov-4.8 --capture --directory .. --output-file coverage.info ;
-      lcoveralls --root .. ; 
+      coveralls --verbose --gcov gcov-4.8  --root .. -E ".*external.*" -E ".*CMakeFiles.*" -E ".*unit-tests/.*.cpp.*"
    fi
  - ./TC1_Acceleration --threads 4

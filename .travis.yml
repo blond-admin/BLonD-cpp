@@ -37,13 +37,8 @@ cache:
   - bundler
 
 before_install:
-  - export gcov=/usr/bin/gcov-4.8
   - export CC=/usr/bin/gcc-4.8
   - export CXX=/usr/bin/g++-4.8
-  - gcov --version
-  - CC --version
-  - CXX --version
-
 
 before_script:
   - mkdir build
@@ -62,7 +57,7 @@ script:
 
 after_success:
  - if [ "${BUILD_TYPE}" = "Debug" ]; then
-      lcov --capture --directory .. --output-file coverage.info ;
+      lcov --gcov-tool gcov-4.8 --capture --directory .. --output-file coverage.info ;
       lcoveralls --root .. ; 
    fi
  - ./TC1_Acceleration --threads 4

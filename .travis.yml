@@ -25,21 +25,24 @@ addons:
       - libgtest-dev
       - libgsl0-dev
       - valgrind
+      - lcov
+      - rubygems
 
 
 install:
-  - sudo apt-get install lcov rubygems
   - gem install lcoveralls
 
 cache:
   - apt
-  - pip
+  - bundler
 
 before_install:
-  - "cd /usr/src/gtest && sudo cmake . && sudo cmake --build . && sudo mv libg* /usr/local/lib/ ; cd -"
-  - export PATH=$PATH:/usr/local/bin/
+  - export gcov=/usr/bin/gcov-4.8
   - export CC=/usr/bin/gcc-4.8
   - export CXX=/usr/bin/g++-4.8
+  - gcov --version
+  - CC --version
+  - CXX --version
 
 
 before_script:

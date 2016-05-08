@@ -53,26 +53,26 @@ Example: `./testcase -t 1000 -p2000`
 Or type: `./testcase -h` for more
 
 ## Buiding and runniung Unit-Tests (googletest)
-    ```bash
-    cd home  
-    mkdir build 
-    cd build   
-    cmake ..  
-    make
-    ctest -VV
-    ```
+```bash
+cd home  
+mkdir build 
+cd build   
+cmake ..  
+make
+ctest -VV
+```
 
 ## Buiding Unit-Test Documentation
-    ```bash
-    cd home  
-    mkdir build 
-    cd build   
-    cmake ..  
-    make
-    ctest -VV
-    lcov --capture --directory .. --output-file coverage.info
-    genhtml coverage.info --output-directory html
-    ```
+```bash
+cd home  
+mkdir build 
+cd build   
+cmake ..  
+make
+ctest -VV
+lcov --capture --directory .. --output-file coverage.info
+genhtml coverage.info --output-directory html
+```
 
 ## Original BLonD Links
 

@@ -7,9 +7,11 @@
 
 #include "Intensity.h"
 #include "utilities.h"
+#include "constants.h"
 
-Resonators::Resonators(uint NResonators, std::vector<ftype> RS,
-                       std::vector<ftype> FrequencyR, std::vector<ftype> Q)
+
+Resonators::Resonators(std::vector<ftype> RS, std::vector<ftype> FrequencyR,
+                       std::vector<ftype> Q)
 {
 
    /*
@@ -40,10 +42,10 @@ Resonators::Resonators(uint NResonators, std::vector<ftype> RS,
 
    fRS = RS;
    fFrequencyR = FrequencyR;
-   fNResonators = NResonators;
+   fNResonators = RS.size();
 
-   for (int i = 0; i < n_resonators; ++i) {
-      fOmegaR.push_back(2 * constants::pi * fFrequencyR[i]);
+   for (unsigned int i = 0; i < fNResonators; ++i) {
+      fOmegaR.push_back(2 * constant::pi * fFrequencyR[i]);
    }
 
    /*
@@ -55,19 +57,6 @@ Resonators::Resonators(uint NResonators, std::vector<ftype> RS,
 }
 
 
-Resonators::~Resonators()
-{
-   /*
-   util::delete_array(fTimeArray);
-   util::delete_array(fFreqArray);
-   util::delete_array(fWake);
-   util::delete_array(fImpledance);
-   util::delete_array(fRS);
-   util::delete_array(fFrequencyR);
-   util::delete_array(fNResonators);
-   util::delete_array(fOmegaR);
-   */
-}
 
 void Resonators::wake_calc(std::vector<ftype> NewTimeArray)
 {
@@ -78,44 +67,64 @@ void Resonators::wake_calc(std::vector<ftype> NewTimeArray)
    fWake.resize(fTimeArray.size());
    //std::fill_n(fWake, fNResonators, 0);
 
-   for (int i = 0; i < fNResonators; ++i) {
+   for (uint i = 0; i < fNResonators; ++i) {
       ftype alpha = fOmegaR[i] / (2 * fQ[i]);
       ftype omega_bar = sqrt(fOmegaR[i] * fOmegaR[i] - alpha * alpha);
-      for (int j = 0; j < fWake.size(); ++j) {
+      for (uint j = 0; j < fWake.size(); ++j) {
          ftype temp = fTimeArray[j];
-         fWake[i] += (signbit(temp) + 1) * fRS[i] * alpha *
+         fWake[i] += (std::signbit(temp) + 1) * fRS[i] * alpha *
                      exp(-alpha * temp) * (cos(omega_bar * temp)
-                     - alpha / omega_bar * sin(omega_bar * temp));
+                                           - alpha / omega_bar * sin(omega_bar * temp));
       }
    }
 
 }
 
+/*
+constexpr std::complex<double> operator""i(long double d)
+{
+    return std::complex<double>{0.0, static_cast<double>(d)};
+}
+*/
 
 void Resonators::imped_calc(std::vector<ftype> NewFrequencyArray)
 {
    /*
    * Impedance calculation method as a function of frequency.*
    */
+   //using namespace std::complex_literals;
 
    fFreqArray = NewFrequencyArray;
-   // TODO
-   // figure out how to use complex numbers here
+   fImpedance.resize(fFreqArray.size());
+   fImpedance[0] = complex_t(0, 0);
+   for (uint i = 1; i < fImpedance.size(); i++)
+      for (uint j = 0; j < fNResonators; ++j) {
+         fImpedance[i] = fImpedance[i] +
+                         complex_t(fRS[j], 0) /
+                         complex_t(1, fQ[j] *
+                                   (fFreqArray[i] / fFrequencyR[j] -
+                                    fFrequencyR[j] / fFreqArray[i]));
+         //fImpedance[i] += fRS[j] / (1 + 1i* fQ[j] *
+         //                           (fFreqArray[i] / fFrequencyR[j] -
+         //                           fFrequencyR[j]/ fFreqArray[i]));
+      }
+
 
 }
 
-InputTable::InputTable() {}
-InputTable::~InputTable() {}
+InputTable::InputTable()
+{
+
+}
+
 
 void InputTable::wake_calc(std::vector<ftype> NewTimeArray)
 {
-
-
-
+   return;
 }
 
 void InputTable::imped_calc(std::vector<ftype> NewFrequencyArray)
 {
-
+   return;
 }
 

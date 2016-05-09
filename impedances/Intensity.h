@@ -8,9 +8,13 @@
 #ifndef IMPEDANCES_INTENSITY_H_
 #define IMPEDANCES_INTENSIY_H_
 
-//class Intensity;
+class Intensity;
 
 #include "configuration.h"
+#include <complex>
+#include <vector>
+
+typedef std::complex<float> complex_t;
 
 class Intensity {
 protected:
@@ -21,19 +25,18 @@ protected:
    //  *Wake array in* [:math:`\Omega / s`]
    std::vector<ftype> fWake;
    //  *Impedance array in* [:math:`\Omega`]
-   std::vector<ftype> fImpedance;
+   std::vector<complex_t> fImpedance;
 
 public:
    Intensity() {};
-   virtual ~Intensity {};
-   virtual void wake_calc(std::vector<ftype> NewTimeArray);
-   virtual void imped_calc(std::vector<ftype> NewFrequencyArray);
-
+   virtual void wake_calc(std::vector<ftype> NewTimeArray) = 0;
+   virtual void imped_calc(std::vector<ftype> NewFrequencyArray) = 0;
+   //virtual ~Intensity() {};
 };
 
 class Resonators: public Intensity {
 private:
-   
+
    // *Shunt impepdance in* [:math:`\Omega`]
    std::vector<ftype> fRS;
    // *Resonant frequency in [Hz]*
@@ -42,13 +45,14 @@ private:
    std::vector<ftype> fOmegaR;
    //  *Quality factor*
    std::vector<ftype> fQ;
-   uint fNResonators;
+   unsigned int fNResonators;
 
 public:
    void wake_calc(std::vector<ftype> NewTimeArray);
    void imped_calc(std::vector<ftype> NewFrequencyArray);
-   Resonators(int NResonators, std::vector<ftype> RS, std::vector<ftype> FrequencyR, std::vector<ftype> Q));
-   ~Resonators();
+   Resonators(std::vector<ftype> RS,
+              std::vector<ftype> FrequencyR, std::vector<ftype> Q);
+   ~Resonators() {} ;
 };
 
 
@@ -63,7 +67,7 @@ public:
    void wake_calc(std::vector<ftype> NewTimeArray);
    void imped_calc(std::vector<ftype> NewFrequencyArray);
    InputTable();
-   ~InputTable();
+   ~InputTable() {};
 };
 
 #endif /* IMPEDANCES_INTENSITY_H_ */

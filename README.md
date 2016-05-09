@@ -14,17 +14,17 @@ NOT Stable - Under heavy development
 
 
 ## Installation
-1. clone the code into a directory (lets call it home/)
+1. clone the code into a directory (lets call it home/)  
     ```bash
-    git clone --branch=master --recursive https://github.com/OlegJakushkin/BLonD-minimal-cpp.git home
+    git clone --branch=master --recursive https://github.com/kiliakis/BLonD-minimal-cpp.git home  
     ```
 2. run the commands 
     ```bash
-    cd home  
-    mkdir build 
-    cd build   
+    cd home    
+    mkdir build  
+    cd build  
     cmake ..  
-    make
+    make  
     ```
 3. The executables should be ready!
 

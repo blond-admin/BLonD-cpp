@@ -5,23 +5,21 @@ C++ Version of [CERN's BLonD code][1]
 NOT Stable - Under heavy development
 
 [![Build Status](https://travis-ci.org/kiliakis/BLonD-minimal-cpp.svg?branch=master)](https://travis-ci.org/kiliakis/BLonD-minimal-cpp)
+[![Coverage Status](https://coveralls.io/repos/github/OlegJakushkin/BLonD-minimal-cpp/badge.svg?branch=master)](https://coveralls.io/github/OlegJakushkin/BLonD-minimal-cpp?branch=master)
 
 ## Requirements
-
-* gcc version >= 4.8.0 [install](https://gcc.gnu.org/wiki/InstallingGCC)
 * cmake version >= 3.0.2 [install](https://cmake.org/install/)
+* gcc version >= 4.8.0 [install](https://gcc.gnu.org/wiki/InstallingGCC)
 * GNU Scientific Library [install](http://www.gnu.org/software/gsl/)
 
-#### Optional
-
-* Google Test [install](https://github.com/google/googletest)
 
 ## Installation
-
 1. clone the code into a directory (lets call it home/)
+    ```bash
+    git clone --branch=master --recursive https://github.com/OlegJakushkin/BLonD-minimal-cpp.git home
+    ```
 2. run the commands 
     ```bash
-
     cd home  
     mkdir build 
     cd build   
@@ -53,6 +51,28 @@ The following optional command line arguments can be specified in order to speci
 
 Example: `./testcase -t 1000 -p2000`  
 Or type: `./testcase -h` for more
+
+## Buiding and runniung Unit-Tests (googletest)
+```bash
+cd home  
+mkdir build 
+cd build   
+cmake ..  
+make
+ctest -VV
+```
+
+## Buiding Unit-Test Documentation
+```bash
+cd home  
+mkdir build 
+cd build   
+cmake ..  
+make
+ctest -VV
+lcov --capture --directory .. --output-file coverage.info
+genhtml coverage.info --output-directory html
+```
 
 ## Original BLonD Links
 

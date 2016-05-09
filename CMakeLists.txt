@@ -70,6 +70,7 @@ set(SOURCE_FILES
     input_parameters/RfParameters.cpp
     trackers/Tracker.cpp
     llrf/PhaseLoop.cpp
+    impedances/Intensity.cpp
     )
 
 # SHARED for dynamic LINKING
@@ -78,9 +79,11 @@ add_library(blond SHARED ${SOURCE_FILES})
     
 add_executable(TC1_Acceleration tests/TC1_Acceleration.cpp)
 add_executable(LHC_restart tests/LHC_restart.cpp)
+add_executable(TC5_Wake_impedance tests/TC5_Wake_impedance.cpp)
 
 target_link_libraries(TC1_Acceleration blond)
 target_link_libraries(LHC_restart blond)
+target_link_libraries(TC5_Wake_impedance blond)
 
 # Generate unit tests
 if(TEST_ENABLED)

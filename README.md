@@ -15,17 +15,19 @@ NOT Stable - Under heavy development
 
 ## Installation
 1. clone the code into a directory (lets call it home/)  
-    ```bash
+    ```bash  
     git clone --branch=master --recursive https://github.com/kiliakis/BLonD-minimal-cpp.git home  
     ```
+
 2. run the commands 
     ```bash
-    cd home    
+    cd home
     mkdir build  
     cd build  
     cmake ..  
     make  
     ```
+
 3. The executables should be ready!
 
 ## Configuration

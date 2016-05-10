@@ -142,8 +142,8 @@ void PhaseLoop::beam_phase()
    ftype phi_RF = RfP->phi_RF[RfP->counter];
    // Convolve with window function
    //
-   ftype base[Slice->n_slices];
-   ftype array[Slice->n_slices];
+   ftype *base = new ftype[Slice->n_slices];
+   ftype *array = new ftype[Slice->n_slices];
 
    #pragma omp parallel for
    for (int i = 0; i < Slice->n_slices; ++i) {
@@ -169,6 +169,10 @@ void PhaseLoop::beam_phase()
                                     Slice->n_slices);
 
    phi_beam = atan(scoeff / ccoeff) + constant::pi;
+
+   delete[] base;
+   delete[] array;
+
 }
 
 void PhaseLoop::phase_difference()

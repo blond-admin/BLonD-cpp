@@ -17,7 +17,7 @@ class Intensity;
 typedef std::complex<float> complex_t;
 
 class Intensity {
-protected:
+public:
    //  *Time array of the wake in [s]*
    std::vector<ftype> fTimeArray;
    //  *Frequency array of the impedance in [Hz]*
@@ -27,16 +27,14 @@ protected:
    //  *Impedance array in* [:math:`\Omega`]
    std::vector<complex_t> fImpedance;
 
-public:
    Intensity() {};
-   virtual void wake_calc(std::vector<ftype> NewTimeArray) = 0;
-   virtual void imped_calc(std::vector<ftype> NewFrequencyArray) = 0;
-   //virtual ~Intensity() {};
+   virtual void wake_calc(std::vector<ftype> &NewTimeArray) = 0;
+   virtual void imped_calc(std::vector<ftype> &NewFrequencyArray) = 0;
+   virtual ~Intensity() {};
 };
 
 class Resonators: public Intensity {
-private:
-
+public:
    // *Shunt impepdance in* [:math:`\Omega`]
    std::vector<ftype> fRS;
    // *Resonant frequency in [Hz]*
@@ -47,25 +45,23 @@ private:
    std::vector<ftype> fQ;
    unsigned int fNResonators;
 
-public:
-   void wake_calc(std::vector<ftype> NewTimeArray);
-   void imped_calc(std::vector<ftype> NewFrequencyArray);
-   Resonators(std::vector<ftype> RS,
-              std::vector<ftype> FrequencyR, std::vector<ftype> Q);
+   void wake_calc(std::vector<ftype> &NewTimeArray);
+   void imped_calc(std::vector<ftype> &NewFrequencyArray);
+   Resonators(std::vector<ftype> &RS,
+              std::vector<ftype> &FrequencyR, std::vector<ftype> &Q);
    ~Resonators() {} ;
 };
 
 
 class InputTable: public Intensity {
-private:
+public:
    std::vector<ftype> fFrequencyArrayLoaded;
    std::vector<ftype> fReZArrayLoaded;
    std::vector<ftype> fImZArrayLoaded;
    std::vector<ftype> fImpedanceLoaded;
 
-public:
-   void wake_calc(std::vector<ftype> NewTimeArray);
-   void imped_calc(std::vector<ftype> NewFrequencyArray);
+   void wake_calc(std::vector<ftype> &NewTimeArray);
+   void imped_calc(std::vector<ftype> &NewFrequencyArray);
    InputTable();
    ~InputTable() {};
 };

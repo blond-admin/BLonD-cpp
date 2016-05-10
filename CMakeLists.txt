@@ -28,7 +28,7 @@ endif()
 
 set(CMAKE_BUILD_TYPE Release)
 if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
-    set(CMAKE_CXX_FLAGS         "-std=c++11 -fopenmp -Wall -pedantic -Wno-rtti -Wunused")
+    set(CMAKE_CXX_FLAGS         "-std=c++11 -fopenmp -Wall -pedantic -fno-rtti -Wunused")
     set(CMAKE_CXX_FLAGS_DEBUG   "-O0 -g3")
     set(CMAKE_CXX_FLAGS_RELEASE "-Ofast -march=native")
     set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-flto")
@@ -97,6 +97,7 @@ if(TEST_ENABLED)
         unit-tests/testTC1_Acceleration.cpp
         unit-tests/testPL.cpp
         unit-tests/testLHC_Restart.cpp
+        unit-tests/testResonator.cpp
     )
 
     foreach(src ${TEST_SOURCE_FILES})

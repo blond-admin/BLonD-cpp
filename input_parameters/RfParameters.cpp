@@ -256,7 +256,7 @@ void RfParameters::calc_phi_s(accelerating_systems_type acc_sys)
        of the potential well is taken)
        */
 
-      ftype transition_phase_offset[n_turns + 1];
+      ftype *transition_phase_offset = new ftype[n_turns + 1];
       for (int i = 0; i < n_turns + 1; ++i) {
          phi_s[i] = 0;
          if (eta_0(i) > 0)
@@ -309,7 +309,7 @@ void RfParameters::calc_phi_s(accelerating_systems_type acc_sys)
                         + transition_phase_offset[i + 1];
 
       }
-
+      delete[] transition_phase_offset; 
       phi_s[0] = phi_s[1];
       //dump(phi_s, 10, "phi_s\n");
 

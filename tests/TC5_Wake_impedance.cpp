@@ -109,7 +109,7 @@ int main(int argc, char **argv)
 
    longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
 
-   Slice = new Slices(N_slices, 0, 2 * constant::pi, rad);
+   Slice = new Slices(N_slices, 0, 0, 2 * constant::pi, rad);
 
 
    std::vector<ftype> v;
@@ -199,7 +199,7 @@ int main(int argc, char **argv)
    delete RfP;
    delete GP;
    delete Beam;
-
+   delete resonator;
    printf("Done!\n");
 
 }
@@ -215,7 +215,7 @@ void parse_args(int argc, char **argv)
 
    const option::Descriptor usage[] = {
       {
-         UNKNOWN, 0, "", "", Arg::None,                  "USAGE: ./TC1_Acceleration [options]\n\n"
+         UNKNOWN, 0, "", "", Arg::None,                  "USAGE: ./TC5_Wake_impedance [options]\n\n"
          "Options:"
       },
       {  HELP, 0, "h", "help", Arg::None,                "  --help,              -h        Print usage and exit." },
@@ -225,8 +225,8 @@ void parse_args(int argc, char **argv)
       {N_THREADS, 0, "m", "threads", util::Arg::Numeric,       "  --threads=<num>,     -m <num>  Number of threads (default: 1)" },
       {
          UNKNOWN, 0, "", "", Arg::None,                  "\nExamples:\n"
-         "\t./TC1_Acceleration\n"
-         "\t./TC1_Acceleration -t 1000 -p 10000 -m 4\n"
+         "\t./TC5_Wake_impedance\n"
+         "\t./TC5_Wake_impedance -t 1000 -p 10000 -m 4\n"
       },
       {0, 0, 0, 0, 0, 0}
    };

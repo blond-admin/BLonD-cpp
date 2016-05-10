@@ -138,6 +138,8 @@ TEST_F(testSlices, set_cuts_bin_centers)
    }
 }
 
+// TODO test set_cuts a little further
+
 
 TEST_F(testSlices, sort_particles_dE)
 {

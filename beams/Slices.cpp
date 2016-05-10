@@ -336,8 +336,8 @@ void Slices::rms()
     * Computation of the RMS bunch length and position from the line density
     (bunch length = 4sigma).*
     */
-   ftype lineDenNormalized[n_slices];
-   ftype array[n_slices];
+   ftype *lineDenNormalized = new ftype[n_slices];
+   ftype *array = new ftype[n_slices];
 
    ftype timeResolution = bin_centers[1] - bin_centers[0];
    ftype trap = mymath::trapezoid(n_macroparticles, timeResolution,
@@ -360,16 +360,8 @@ void Slices::rms()
    ftype temp = mymath::trapezoid(array, timeResolution, n_slices);
    bl_rms = 4 * sqrt(temp);
 
-   /*
-
-    timeResolution = self.bin_centers[1]-self.bin_centers[0]
-
-    lineDenNormalized = self.n_macroparticles / np.trapz(self.n_macroparticles, dx=timeResolution)
-
-    self.bp_rms = np.trapz(self.bin_centers * lineDenNormalized, dx=timeResolution)
-
-    self.bl_rms = 4 * np.sqrt(np.trapz((self.bin_centers-self.bp_rms)**2*lineDenNormalized, dx=timeResolution))
-    */
+   delete[] lineDenNormalized;
+   delete[] array;
 
 }
 

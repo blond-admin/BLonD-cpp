@@ -73,7 +73,8 @@ int main(int argc, char **argv)
          printf("Number of openmp threads: %d\n", omp_get_num_threads());
    }
 
-   timespec begin, end;
+   timespec begin;
+   //timespec end;
    util::get_time(begin);
 
    ftype *momentum = new ftype[N_t + 1];

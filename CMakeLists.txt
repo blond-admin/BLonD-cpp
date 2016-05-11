@@ -60,7 +60,7 @@ if(TEST_ENABLED)
     add_library(googletest ${GOOGLETEST_SOURCES})
 endif()
 
-include_directories(include)
+include_directories(include /usr/local/inlcude)
 
 # Generate simulation executables
 set(SOURCE_FILES 
@@ -81,9 +81,17 @@ add_executable(TC1_Acceleration tests/TC1_Acceleration.cpp)
 add_executable(LHC_restart tests/LHC_restart.cpp)
 add_executable(TC5_Wake_impedance tests/TC5_Wake_impedance.cpp)
 
-target_link_libraries(TC1_Acceleration blond)
-target_link_libraries(LHC_restart blond)
-target_link_libraries(TC5_Wake_impedance blond)
+link_directories(/usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64)
+
+SET(LIBRARIES 
+   blond
+   gsl
+   gslcblas
+   m)
+
+target_link_libraries(TC1_Acceleration ${LIBRARIES})
+target_link_libraries(LHC_restart ${LIBRARIES})
+target_link_libraries(TC5_Wake_impedance ${LIBRARIES})
 
 # Generate unit tests
 if(TEST_ENABLED)
@@ -98,13 +106,14 @@ if(TEST_ENABLED)
         unit-tests/testPL.cpp
         unit-tests/testLHC_Restart.cpp
         unit-tests/testResonator.cpp
+        unit-tests/testInputTableIntensity.cpp
     )
 
     foreach(src ${TEST_SOURCE_FILES})
         string( REPLACE ".cpp" "" testname ${src})
         string( REPLACE "unit-tests/" "" testname ${testname})
         add_executable( ${testname} ${src})
-	    target_link_libraries( ${testname} blond googletest)
+	     target_link_libraries( ${testname} ${LIBRARIES} googletest)
         add_test(${testname} ${testname})
     endforeach( src ${TEST_SOURCE_FILES})
 

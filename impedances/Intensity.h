@@ -58,11 +58,17 @@ public:
    std::vector<ftype> fFrequencyArrayLoaded;
    std::vector<ftype> fReZArrayLoaded;
    std::vector<ftype> fImZArrayLoaded;
-   std::vector<ftype> fImpedanceLoaded;
+   std::vector<complex_t> fImpedanceLoaded;
+   std::vector<ftype> fWakeArray;
 
    void wake_calc(std::vector<ftype> &NewTimeArray);
    void imped_calc(std::vector<ftype> &NewFrequencyArray);
-   InputTable();
+   InputTable(std::vector<ftype> &input1, std::vector<ftype> &input2,
+                       std::vector<ftype> input3 = std::vector<ftype>());
+   //InputTable(std::vector<ftype> &input1, std::vector<ftype> &input2) {
+   //   std::vector<ftype> v;
+   //   InputTable(input1, input2, v);
+   //};
    ~InputTable() {};
 };
 

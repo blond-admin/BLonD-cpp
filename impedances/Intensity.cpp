@@ -8,7 +8,8 @@
 #include "Intensity.h"
 #include "utilities.h"
 #include "constants.h"
-
+#include <gsl/gsl_interp.h>
+#include <gsl/gsl_errno.h>
 
 Resonators::Resonators(std::vector<ftype> &RS, std::vector<ftype> &FrequencyR,
                        std::vector<ftype> &Q)
@@ -43,6 +44,7 @@ Resonators::Resonators(std::vector<ftype> &RS, std::vector<ftype> &FrequencyR,
    fRS = RS;
    fFrequencyR = FrequencyR;
    fQ = Q;
+   //printf("Resonator Sizes %lu %lu\n",fRS.size(), fQ.size() );
    fNResonators = RS.size();
 
    for (unsigned int i = 0; i < fNResonators; ++i) {
@@ -80,7 +82,7 @@ void Resonators::wake_calc(std::vector<ftype> &NewTimeArray)
          ftype temp = fTimeArray[j];
          //util::dump(&temp, 1, "temp ");
          int sign = (temp > 0) - (temp < 0);
-         fWake[j]+= (sign + 1) * fRS[i] * alpha *
+         fWake[j] += (sign + 1) * fRS[i] * alpha *
                      std::exp(-alpha * temp) *
                      (std::cos(omega_bar * temp) -
                       alpha / omega_bar * std::sin(omega_bar * temp));
@@ -124,14 +126,60 @@ void Resonators::imped_calc(std::vector<ftype> &NewFrequencyArray)
 
 }
 
-InputTable::InputTable()
+InputTable::InputTable(std::vector<ftype> &input1, std::vector<ftype> &input2,
+                       std::vector<ftype> input3)
 {
+   if (input3.empty()) {
+      fTimeArray = input1;
+      fWakeArray = input2;
 
+   } else {
+      fFrequencyArrayLoaded = input1;
+      fReZArrayLoaded = input2;
+      fImZArrayLoaded = input3;
+      assert(fReZArrayLoaded.size() == fImZArrayLoaded.size());
+      for (uint i = 0; i < fReZArrayLoaded.size(); ++i) {
+         complex_t z(fReZArrayLoaded[i], fImZArrayLoaded[i]);
+         fImpedanceLoaded.push_back(z);
+      }
+
+      if (fFrequencyArrayLoaded[0] != 0) {
+
+         fFrequencyArrayLoaded.insert(fFrequencyArrayLoaded.begin(), 0);
+         fReZArrayLoaded.insert(fReZArrayLoaded.begin(), 0);
+         fImZArrayLoaded.insert(fImZArrayLoaded.begin(), 0);
+      }
+
+   }
 }
 
 
 void InputTable::wake_calc(std::vector<ftype> &NewTimeArray)
 {
+   gsl_interp *interpolation = gsl_interp_alloc(gsl_interp_linear,
+                               NewTimeArray.size());
+   gsl_interp_init(interpolation, &fTimeArray[0],
+                   &fWakeArray[0], fTimeArray.size());
+   gsl_interp_accel *acc = gsl_interp_accel_alloc();
+
+   for (uint i = 0; i < fTimeArray.size(); ++i) {
+      double val;
+      if (NewTimeArray[i] < interpolation->xmin ||
+            NewTimeArray[i] > interpolation->xmax) {
+         val = 0;
+      } else {
+         val = gsl_interp_eval(interpolation, &fTimeArray[0],
+                               &fWakeArray[0], NewTimeArray[i],
+                               acc);
+      }
+      //printf("Wake: %+.8e\n", val);
+      fWake.push_back(val);
+   }
+
+   gsl_interp_free(interpolation);
+   gsl_interp_accel_free(acc);
+   //util::dump(&fWake[0], fWake.size(), "fWake \n");
+
 }
 
 void InputTable::imped_calc(std::vector<ftype> &NewFrequencyArray)

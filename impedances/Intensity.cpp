@@ -8,8 +8,7 @@
 #include "Intensity.h"
 #include "utilities.h"
 #include "constants.h"
-#include <gsl/gsl_interp.h>
-#include <gsl/gsl_errno.h>
+#include "math_functions.h"
 
 Resonators::Resonators(std::vector<ftype> &RS, std::vector<ftype> &FrequencyR,
                        std::vector<ftype> &Q)
@@ -51,12 +50,7 @@ Resonators::Resonators(std::vector<ftype> &RS, std::vector<ftype> &FrequencyR,
       fOmegaR.push_back(2 * constant::pi * fFrequencyR[i]);
    }
 
-   /*
-   fTimeArray = NULL;
-   fFreqArray = NULL;
-   fWake = NULL;
-   fImpedance = NULL;
-   */
+
 }
 
 
@@ -109,17 +103,6 @@ void Resonators::imped_calc(std::vector<ftype> &NewFrequencyArray)
                           complex_t(1, fQ[i] *
                                     (fFreqArray[j] / fFrequencyR[i] -
                                      fFrequencyR[i] / fFreqArray[j]));
-         /*
-         if(i==0 && j < 10){
-            std::cout << complex_t(fRS[i], 0) << "\n";
-            std::cout << complex_t(1, fQ[i] *
-                                    (fFreqArray[j] / fFrequencyR[i] -
-                                     fFrequencyR[i] / fFreqArray[j])) << "\n";
-            std::cout << complex_t(fRS[i], 0) / complex_t(1, fQ[i] *
-                                    (fFreqArray[j] / fFrequencyR[i] -
-                                     fFrequencyR[i] / fFreqArray[j])) << "\n";
-         }
-         */
       }
    }
 
@@ -130,6 +113,7 @@ InputTable::InputTable(std::vector<ftype> &input1, std::vector<ftype> &input2,
                        std::vector<ftype> input3)
 {
    if (input3.empty()) {
+
       fTimeArray = input1;
       fWakeArray = input2;
 
@@ -138,6 +122,7 @@ InputTable::InputTable(std::vector<ftype> &input1, std::vector<ftype> &input2,
       fReZArrayLoaded = input2;
       fImZArrayLoaded = input3;
       assert(fReZArrayLoaded.size() == fImZArrayLoaded.size());
+
       for (uint i = 0; i < fReZArrayLoaded.size(); ++i) {
          complex_t z(fReZArrayLoaded[i], fImZArrayLoaded[i]);
          fImpedanceLoaded.push_back(z);
@@ -156,33 +141,29 @@ InputTable::InputTable(std::vector<ftype> &input1, std::vector<ftype> &input2,
 
 void InputTable::wake_calc(std::vector<ftype> &NewTimeArray)
 {
-   gsl_interp *interpolation = gsl_interp_alloc(gsl_interp_linear,
-                               NewTimeArray.size());
-   gsl_interp_init(interpolation, &fTimeArray[0],
-                   &fWakeArray[0], fTimeArray.size());
-   gsl_interp_accel *acc = gsl_interp_accel_alloc();
-
-   for (uint i = 0; i < fTimeArray.size(); ++i) {
-      double val;
-      if (NewTimeArray[i] < interpolation->xmin ||
-            NewTimeArray[i] > interpolation->xmax) {
-         val = 0;
-      } else {
-         val = gsl_interp_eval(interpolation, &fTimeArray[0],
-                               &fWakeArray[0], NewTimeArray[i],
-                               acc);
-      }
-      //printf("Wake: %+.8e\n", val);
-      fWake.push_back(val);
-   }
-
-   gsl_interp_free(interpolation);
-   gsl_interp_accel_free(acc);
-   //util::dump(&fWake[0], fWake.size(), "fWake \n");
-
+   mymath::lin_interp(NewTimeArray, fTimeArray, fWakeArray,
+                      fWake, 0.0f, 0.0f);
 }
 
 void InputTable::imped_calc(std::vector<ftype> &NewFrequencyArray)
 {
+   //Impedance calculation method as a function of frequency.*
+   std::vector<ftype> ReZ;
+   std::vector<ftype> ImZ;
+
+   mymath::lin_interp(NewFrequencyArray, fFrequencyArrayLoaded,
+                      fReZArrayLoaded, ReZ, 0.0f, 0.0f);
+   
+   mymath::lin_interp(NewFrequencyArray, fFrequencyArrayLoaded,
+                      fImZArrayLoaded, ImZ, 0.0f, 0.0f);
+   
+   fFreqArray = NewFrequencyArray;
+
+   // Initializing real and imaginary part separately has been 
+   // omitted
+   fImpedance.resize(ReZ.size());
+   for (uint i = 0; i < ReZ.size(); ++i){
+      fImpedance[i] = complex_t(ReZ[i], ImZ[i]);
+   }
 }
 

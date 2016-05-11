@@ -10,8 +10,53 @@
 
 #include <cmath>
 #include "configuration.h"
+#include <gsl/gsl_interp.h>
+#include <gsl/gsl_errno.h>
 
 namespace mymath {
+
+   // Parameters are like python's np.interp
+   // @x: x-coordinates of the interpolated values
+   // @xp: The x-coords of the data points
+   // @fp: the y-coords of the data points
+   // @y: the interpolated values, same shape as x
+   // @left: value to return for x < xp[0]
+   // @right: value to return for x > xp[last]
+   static inline void lin_interp(const std::vector<ftype> &x, const std::vector<ftype> &xp,
+                                 const std::vector<ftype> &fp, std::vector<ftype> &y,
+                                 const ftype left = 0, const ftype right = 0)
+   {
+      assert(y.empty());
+
+      gsl_interp *interp =
+         gsl_interp_alloc(gsl_interp_linear, xp.size());
+
+      gsl_interp_init(interp, &xp[0], &fp[0], xp.size());
+
+      gsl_interp_accel *acc = gsl_interp_accel_alloc();
+
+      for (uint i = 0; i < x.size(); ++i) {
+         double val;
+         if (x[i] < interp->xmin) {
+            val = left;
+         } else if (x[i] > interp->xmax) {
+            val = right;
+         } else {
+            val = gsl_interp_eval(interp, &xp[0],
+                                  &fp[0], x[i],
+                                  acc);
+         }
+         y.push_back(val);
+      }
+
+      gsl_interp_free(interp);
+      gsl_interp_accel_free(acc);
+
+
+
+   }
+
+
 // Function to implement integration of f(x) over the interval
 // [a,b] using the trapezoid rule with nsub subdivisions.
    static inline ftype *cum_trapezoid(ftype *f, ftype deltaX, int nsub)

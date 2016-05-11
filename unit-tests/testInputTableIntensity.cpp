@@ -163,7 +163,54 @@ TEST_F(testInputTableIntensity, wake_calc)
       ftype ref = v[i];
       ftype real = inputTable->fWake[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of fRS failed on i "
+            << "Testing of fWake failed on i "
+            << i << std::endl;
+   }
+   v.clear();
+}
+
+
+TEST_F(testInputTableIntensity, imped_calc)
+{
+
+   std::vector<ftype> timeArray;
+   timeArray.reserve(N_slices);
+   for (int i = 0; i < N_slices; ++i) {
+      timeArray.push_back(Slice->bin_centers[i] - Slice->bin_centers[0]);
+   }
+   resonator->wake_calc(timeArray);
+
+   std::transform(timeArray.begin(), timeArray.end(), timeArray.begin(), [](ftype a) {return a * 1e10;});
+   resonator->imped_calc(timeArray);
+
+   std::vector<ftype> Re;
+   Re.resize(resonator->fImpedance.size());
+   std::vector<ftype> Im;
+   Im.resize(resonator->fImpedance.size());
+   
+   std::transform(resonator->fImpedance.begin(), resonator->fImpedance.end(),
+   Re.begin(), [](complex_t a) {return a.real();});
+   std::transform(resonator->fImpedance.begin(), resonator->fImpedance.end(),
+   Im.begin(), [](complex_t a) {return a.imag();});
+
+   InputTable *inputTable = new InputTable(timeArray, Re, Im);
+
+   inputTable->imped_calc(timeArray);
+
+   std::string params = "../unit-tests/references/Impedances/Intensity/InputTable/";
+
+   std::vector<ftype> v;
+   util::read_vector_from_file(v, params + "Impedance.txt");
+
+   ASSERT_EQ(v.size(), inputTable->fImpedance.size());
+
+   ftype epsilon = 1e-6;
+
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      ftype ref = v[i];
+      ftype real = std::abs(inputTable->fImpedance[i]);
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of fImpedance failed on i "
             << i << std::endl;
    }
    v.clear();

@@ -28,14 +28,14 @@ InducedVoltageTime::InducedVoltageTime(std::vector<Intensity *> &WakeSourceList,
 
    // Pre-processing the wakes
    fTimeArray.resize(Slice->n_slices);
-   for (unsigned int i = 0; i< fTimeArray.size(); ++i) {
+   for (unsigned int i = 0; i < fTimeArray.size(); ++i) {
       fTimeArray[i] = Slice->bin_centers[i] - Slice->bin_centers[0];
    }
    sum_wakes(fTimeArray);
 
-   fCut = fTimeArray.size() + Slice->n_slices -1;
+   fCut = fTimeArray.size() + Slice->n_slices - 1;
    fShape = next_regular(fCut);
-   
+
    fTimeOrFreq = TimeOrFreq;
 
 }
@@ -43,7 +43,21 @@ InducedVoltageTime::InducedVoltageTime(std::vector<Intensity *> &WakeSourceList,
 
 void InducedVoltageTime::track() {}
 
-void InducedVoltageTime::sum_wakes( std::vector<ftype>& v) {}
+void InducedVoltageTime::sum_wakes(std::vector<ftype> &TimeArray)
+{
+   // *Summing all the wake contributions in one total wake.*
+   fTotalWake.resize(TimeArray.size());
+   std::fill(fTotalWake.begin(), fTotalWake.end(), 0);
+   for (Intensity *i : fWakeSourceList) {
+
+      i->wake_calc(TimeArray);
+      std::transform(fTotalWake.begin(), fTotalWake.end(),
+                     i->fWake.begin(), fTotalWake.begin(),
+                     std::plus<ftype>());
+
+   }
+
+}
 
 void InducedVoltageTime::reprocess() {}
 

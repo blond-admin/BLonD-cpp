@@ -60,7 +60,7 @@ if(TEST_ENABLED)
     add_library(googletest ${GOOGLETEST_SOURCES})
 endif()
 
-include_directories(include /usr/local/inlcude)
+include_directories(include)
 
 # Generate simulation executables
 set(SOURCE_FILES 
@@ -108,6 +108,7 @@ if(TEST_ENABLED)
         unit-tests/testLHC_Restart.cpp
         unit-tests/testResonator.cpp
         unit-tests/testInputTableIntensity.cpp
+        unit-tests/testInducedVoltage.cpp
     )
 
     foreach(src ${TEST_SOURCE_FILES})

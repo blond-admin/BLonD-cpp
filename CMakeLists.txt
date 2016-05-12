@@ -71,6 +71,7 @@ set(SOURCE_FILES
     trackers/Tracker.cpp
     llrf/PhaseLoop.cpp
     impedances/Intensity.cpp
+    impedances/InducedVoltage.cpp
     )
 
 # SHARED for dynamic LINKING

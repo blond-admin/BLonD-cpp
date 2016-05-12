@@ -179,8 +179,8 @@ TEST_F(testInducedVoltage, InducedVoltageTime_Constructor)
    util::read_vector_from_file(v, params + "fshape.txt");
 
    for (unsigned int i = 0; i < v.size(); ++i) {
-      unsigned int = v[i];
-      unsigned int = indVoltTime->fShape;
+      unsigned int ref = v[i];
+      unsigned int real = indVoltTime->fShape;
       ASSERT_EQ(ref, real)
             << "Testing of fShape failed on i "
             << i << std::endl;
@@ -190,6 +190,60 @@ TEST_F(testInducedVoltage, InducedVoltageTime_Constructor)
 
 }
 
+/*
+TEST_F(testInducedVoltage, rfft)
+{
+
+   std::vector<Intensity *> wakeSourceList;
+   wakeSourceList.push_back(resonator);
+   InducedVoltageTime *indVoltTime = new InducedVoltageTime(wakeSourceList);
+   Slice->track(0, Beam->n_macroparticles);
+
+   indVoltTime->induced_voltage_generation();
+   //util::dump(indVoltTime->fInducedVoltage.data(), 20, "rfft");
+
+
+   
+   std::string params = std::string("../unit-tests/references/Impedances/")
+                        + "InducedVoltage/InducedVoltageTime/";
+
+   std::vector<ftype> v;
+   util::read_vector_from_file(v, params + "induced_voltage_real.txt");
+
+   ASSERT_EQ(v.size(), indVoltTime->fInducedVoltage.size());
+
+   ftype epsilon = 1e-8;
+
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      ftype ref = v[i];
+      ftype real = indVoltTime->fInducedVoltage[i].real();
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of indVoltTime->fInducedVoltage.real() failed on i "
+            << i << std::endl;
+   }
+   v.clear();
+
+   util::read_vector_from_file(v, params + "induced_voltage_imag.txt");
+
+   ASSERT_EQ(v.size(), indVoltTime->fInducedVoltage.size());
+
+   epsilon = 1e-8;
+
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      ftype ref = v[i];
+      ftype real = indVoltTime->fInducedVoltage[i].imag();
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of indVoltTime->fInducedVoltage.imag() failed on i "
+            << i << std::endl;
+   }
+   v.clear();
+
+
+
+
+}
+
+*/
 
 int main(int ac, char *av[])
 {

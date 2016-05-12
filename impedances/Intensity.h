@@ -14,7 +14,6 @@ class Intensity;
 #include <complex>
 #include <vector>
 
-typedef std::complex<float> complex_t;
 
 class Intensity {
 public:

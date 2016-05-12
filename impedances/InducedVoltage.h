@@ -23,12 +23,12 @@
 
 class InducedVoltage {
 public:
-   ftype fInducedVoltage;
+   std::vector<complex_t> fInducedVoltage;
 
    InducedVoltage() {};
    virtual void track() = 0;
    virtual void reprocess() = 0;
-   virtual void induced_voltage_generation() = 0;
+   virtual void induced_voltage_generation(unsigned int length) = 0;
    virtual ~InducedVoltage() {};
 };
 
@@ -51,7 +51,7 @@ public:
    void track();
    void sum_wakes(std::vector<ftype>& v);
    void reprocess();
-   void induced_voltage_generation();
+   void induced_voltage_generation(unsigned int length = 0);
    InducedVoltageTime(std::vector<Intensity *> &WakeSourceList,
                       time_or_freq TimeOrFreq = freq);
    ~InducedVoltageTime() {};
@@ -63,7 +63,7 @@ public:
    void track();
    void sum_impedances();
    void reprocess();
-   void induced_voltage_generation();
+   void induced_voltage_generation(unsigned int length);
    InducedVoltageFreq();
    ~InducedVoltageFreq() {};
 };

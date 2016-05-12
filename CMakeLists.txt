@@ -121,8 +121,8 @@ if(TEST_ENABLED)
 
     #TODO: rename testMyMath, merge with TEST_SOURCE_FILES
     add_executable(testMyMath unit-tests/testMyMath.cpp)
-    target_link_libraries(testMyMath googletest)
-    add_test(testMyMath testMyMath)
+    target_link_libraries(testMyMath googletest gsl gslcblas m)
+    add_test(testMyMath testMyMath )
 
     include(CTest)
     enable_testing()

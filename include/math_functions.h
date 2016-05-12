@@ -11,9 +11,77 @@
 #include <cmath>
 #include "configuration.h"
 #include <gsl/gsl_interp.h>
+#include <gsl/gsl_fft_real.h>
+#include <gsl/gsl_fft_halfcomplex.h>
 #include <gsl/gsl_errno.h>
 
 namespace mymath {
+   // Parameters are like python's numpy.fft.rfft
+   // @in:  input data
+   // @n:   number of points to use. If n < in.size() then the input is cropped
+   //       if n > in.size() then input is padded with zeros
+   // @out: the transformed array
+
+   static inline void rfft(const std::vector<ftype> &in, const unsigned int n,
+                           std::vector<complex_t> &out)
+   {
+      std::vector<ftype> v(in);
+      v.resize(n, 0);
+
+      gsl_fft_real_wavetable *real;
+      gsl_fft_real_workspace *work;
+
+      work = gsl_fft_real_workspace_alloc(n);
+      real = gsl_fft_real_wavetable_alloc(n);
+
+      gsl_fft_real_transform(v.data(), 1, n, real, work);
+      //printf("result data %lu \n",v.size() );
+      // unpack result into complex format
+      out.clear();
+      out.push_back(complex_t(v[0], 0));
+      for (unsigned int i = 1; i < v.size(); i += 2) {
+         out.push_back(complex_t(v[i], v[i + 1]));
+      }
+      //out.push_back(complex_t(v.back(), 0));
+
+      gsl_fft_real_wavetable_free(real);
+      gsl_fft_real_workspace_free(work);
+   }
+
+   // Parameters are like python's numpy.fft.irfft
+   // @in:  input data
+   // @n:   number of points to use. If n < in.size() then the input is cropped
+   //       if n > in.size() then input is padded with zeros
+   // @out: the inverse Fourier transform of input data
+   // out size is 2*(m-1), where m is input size
+
+   static inline void irfft(const std::vector<ftype> &in, const unsigned int n,
+                            std::vector<complex_t> &out)
+   {
+      std::vector<ftype> v(in);
+      v.resize(n, 0);
+
+      gsl_fft_halfcomplex_wavetable *hc;
+      gsl_fft_real_workspace *work;
+
+      work = gsl_fft_real_workspace_alloc(n);
+      hc = gsl_fft_halfcomplex_wavetable_alloc(n);
+
+      gsl_fft_halfcomplex_inverse(v.data(), 1, n, hc, work);
+      //printf("result data %lu \n",v.size() );
+      // unpack result into complex format
+      out.clear();
+      out.push_back(complex_t(v[0], 0));
+      for (unsigned int i = 1; i < v.size(); i += 2) {
+         out.push_back(complex_t(v[i], v[i + 1]));
+      }
+      //out.push_back(complex_t(v.back(), 0));
+
+      gsl_fft_halfcomplex_wavetable_free(hc);
+      gsl_fft_real_workspace_free(work);
+   }
+
+
 
    // Parameters are like python's np.interp
    // @x: x-coordinates of the interpolated values

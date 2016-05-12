@@ -24,7 +24,7 @@ InducedVoltageTime::InducedVoltageTime(std::vector<Intensity *> &WakeSourceList,
    fTotalWake = std::vector<ftype>();
 
    // *Induced voltage from the sum of the wake sources in [V]*
-   fInducedVoltage = 0.0f;
+   fInducedVoltage = std::vector<complex_t>();
 
    // Pre-processing the wakes
    fTimeArray.resize(Slice->n_slices);
@@ -59,9 +59,57 @@ void InducedVoltageTime::sum_wakes(std::vector<ftype> &TimeArray)
 
 }
 
-void InducedVoltageTime::reprocess() {}
+void InducedVoltageTime::reprocess()
+{
+   // *Reprocess the wake contributions with respect to the new_slicing.*
+   // WARNING As Slice is a global variable,
+   // users will have to change this variable and call reprocess()
+   fTimeArray.resize(Slice->n_slices);
+   for (unsigned int i = 0; i < fTimeArray.size(); ++i) {
+      fTimeArray[i] = Slice->bin_centers[i] - Slice->bin_centers[0];
+   }
+   sum_wakes(fTimeArray);
 
-void InducedVoltageTime::induced_voltage_generation() {}
+   fCut = fTimeArray.size() + Slice->n_slices - 1;
+   fShape = next_regular(fCut);
+
+
+}
+
+// TODO resolve the use of length
+void InducedVoltageTime::induced_voltage_generation(unsigned int length)
+{
+   // Method to calculate the induced voltage from wakes with convolution.*
+   std::vector<complex_t> inducedVoltage;
+
+   //util::dump(inducedVoltage.data(), inducedVoltage.size(), "inducedVoltage\n");
+   if (fTimeOrFreq == freq) {
+      std::vector<complex_t> fft1, fft2;
+      std::vector<ftype> in(Slice->n_macroparticles,
+                            Slice->n_macroparticles + Slice->n_slices);
+      
+      mymath::rfft(in, fShape, fft1);
+      mymath::rfft(fTotalWake, fShape, fft2);
+
+      std::transform(in.begin(), in.end(), fTotalWake.begin(),
+                    in.begin(), std::multiplies<ftype>());
+      
+      assert(in.size() == fTotalWake.size());
+
+      mymath::irfft(in, fShape, inducedVoltage);
+   } else if (fTimeOrFreq == time) {
+
+
+   } else {
+      dprintf("Error: Only freq or time are allowed\n");
+      exit(-1);
+   }
+
+   fInducedVoltage = inducedVoltage;
+   //fInducedVoltage(inducedVoltage.begin(),
+   //                inducedVoltage.begin() + Slice->n_slices);
+
+}
 
 
 
@@ -75,4 +123,4 @@ void InducedVoltageFreq::sum_impedances() {}
 
 void InducedVoltageFreq::reprocess() {}
 
-void InducedVoltageFreq::induced_voltage_generation() {}
+void InducedVoltageFreq::induced_voltage_generation(unsigned int length) {}

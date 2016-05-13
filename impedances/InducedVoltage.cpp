@@ -79,6 +79,12 @@ void InducedVoltageTime::reprocess()
 // TODO resolve the use of length
 void InducedVoltageTime::induced_voltage_generation(unsigned int length)
 {
+
+   
+   // TODO finish this function and then test
+   // The ffts are already implemented and tested, 
+   // what is left is to call them ;)
+
    // Method to calculate the induced voltage from wakes with convolution.*
    std::vector<complex_t> inducedVoltage;
 
@@ -91,12 +97,12 @@ void InducedVoltageTime::induced_voltage_generation(unsigned int length)
       mymath::rfft(in, fShape, fft1);
       mymath::rfft(fTotalWake, fShape, fft2);
 
-      std::transform(in.begin(), in.end(), fTotalWake.begin(),
-                    in.begin(), std::multiplies<ftype>());
+      std::transform(fft1.begin(), fft1.end(), fft2.begin(),
+                    fft1.begin(), std::multiplies<complex_t>());
       
-      assert(in.size() == fTotalWake.size());
-
-      mymath::irfft(in, fShape, inducedVoltage);
+      //assert(in.size() == fTotalWake.size());
+      in.clear();
+      //mymath::irfft(fft1, fShape, in);
    } else if (fTimeOrFreq == time) {
 
 
@@ -105,7 +111,7 @@ void InducedVoltageTime::induced_voltage_generation(unsigned int length)
       exit(-1);
    }
 
-   fInducedVoltage = inducedVoltage;
+   //fInducedVoltage = inducedVoltage;
    //fInducedVoltage(inducedVoltage.begin(),
    //                inducedVoltage.begin() + Slice->n_slices);
 

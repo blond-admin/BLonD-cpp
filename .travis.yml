@@ -55,7 +55,7 @@ script:
 after_success:
  - coveralls --gcov gcov-4.8  --root .. -E ".*external.*" -E ".*CMakeFiles.*" -E ".*unit-tests/.*.cpp.*" -E "/usr/include/.*"
  - ./TC1_Acceleration --threads 4
- - if [ -n "$BUILD_TYPE" == "Debug" ]; then
+ - if [ "$BUILD_TYPE" == "Debug" ]; then
      cd "$TRAVIS_BUILD_DIR" ;
      make web ;
      cd web ;

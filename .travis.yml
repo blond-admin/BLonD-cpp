@@ -71,6 +71,6 @@ after_success:
  - git pull
  - cp -rf $BUILD_PATH/documentation/html/* ./
  - git -a -c user.name='travis' -c user.email='travis' commit -m "[CI]: documentation update"
- - git push  -f -q https://OlegJakushkin:$GITHUB_API_KEY@github.com/OlegJakushkin/BLonD-minimal-cpp
+ - git push  --set-upstream -f -q https://OlegJakushkin:$GITHUB_API_KEY@github.com/OlegJakushkin/BLonD-minimal-cpp gh-pages
  - cd "$TRAVIS_BUILD_DIR"
 

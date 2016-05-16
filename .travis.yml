@@ -66,6 +66,7 @@ after_success:
  - git clone --branch=gh-pages --recursive https://github.com/OlegJakushkin/BLonD-minimal-cpp.git web 
  - cd web &2>/dev/null
  - cp -rf $BUILD_PATH/documentation/html/* ./
+ - git add -A
  - git -c user.name='travis' -c user.email='travis' commit -am "documentation update"
  - git push -f -q https://OlegJakushkin:$GITHUB_API_KEY@github.com/OlegJakushkin/BLonD-minimal-cpp.git gh-pages &2>/dev/null
  - cd "$TRAVIS_BUILD_DIR"

@@ -59,7 +59,6 @@ script:
 after_success:
  - coveralls --help
  - coveralls --gcov gcov-4.8  --root .. -E ".*external.*" -E ".*CMakeFiles.*" -E ".*unit-tests/.*.cpp.*" -E "/usr/include/.*"
- - lcov -c --gcov-tool gcov-4.8 --directory .. --output-file coverage.info
  - ./TC1_Acceleration --threads 4
  - doxygen ../Doxyfile
  - ls
@@ -69,9 +68,10 @@ after_success:
  - cd web
  - git init
  - git checkout -b gh-pages
+ - git config --global push.default simple
  - git pull
  - cp -rf $BUILD_PATH/documentation/html/* ./
  - git -a -c user.name='travis' -c user.email='travis' commit -m "[CI]: documentation update"
- - git push -f https://OlegJakushkin:$GITHUB_API_KEY@github.com/OlegJakushkin/BLonD-minimal-cpp 
+ - git push -f https://OlegJakushkin:$GITHUB_API_KEY@github.com/OlegJakushkin/BLonD-minimal-cpp gh-pages
  - cd "$TRAVIS_BUILD_DIR"
 

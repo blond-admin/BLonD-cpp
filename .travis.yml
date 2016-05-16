@@ -60,7 +60,7 @@ after_success:
  - coveralls --help
  - coveralls --gcov gcov-4.8  --root .. -E ".*external.*" -E ".*CMakeFiles.*" -E ".*unit-tests/.*.cpp.*" -E "/usr/include/.*"
  - ./TC1_Acceleration --threads 4
- - if [ "$BUILD_TYPE" == "Debug"] then
+ - if [ "$BUILD_TYPE" == "Debug"]; then
      cd ../ ;
      doxygen Doxyfile ;
      export BUILD_PATH=`pwd` ;

@@ -57,10 +57,11 @@ after_success:
  - ./TC1_Acceleration --threads 4
  - if [ "$BUILD_TYPE" == "Debug" ]; then
      cd "$TRAVIS_BUILD_DIR" ;
-     make web ;
+     mkdir web ;
      cd web ;
      git init ;
      git checkout -b gh-pages ;
+     ls ;
      history > h.txt ;
      git add -A ;
      git -c user.name='travis' -c user.email='travis' commit -m "documentation update" ;

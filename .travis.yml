@@ -70,7 +70,7 @@ after_success:
  - git init
  - git checkout -b gh-pages
  - git pull
- - cp -rf $BUILD_PATH\documentation\html ./
+ - cp -rf $BUILD_PATH/documentation/html/ ./
  - ls
  - git add -A
  - git -c user.name='travis' -c user.email='travis' commit -m "[CI]: documentation update"

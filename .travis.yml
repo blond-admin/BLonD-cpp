@@ -11,7 +11,7 @@ env:
     - BUILD_TYPE=Debug
     - BUILD_TYPE=Release
   global:
-  - secure: FlqbIxx+zW+BuVt9ameR3enVwnjKrBPLmb7mVXtFjrgJqQBXoKudiTbQ0w4h5F6qHxfhD4kyyH5gR2MqYx4o3hRvcwXZPKiRb/QW0Exiw595PLxqh/oiQbDA5rJZDWDwSEWtXXZFKCKFllrLE4/4BUG1ViqHUzonR+QQQl2fklN2Nq3wxcaJ4AVrSm1L+F2t0WBZlgpD4UxIMfLg1RBumHj3z1SvIERo+J7MWdyh+xTDw0WRazq8UM0aotK8/5kM27cmdY1zL+pYn7ymQ7kP/RpntpNgfeC1QG2f4r367CtamOupTpIlLCsV7+zmT6OjwfNyf64FDYOwnbiBdwxtOK98FPEemmtmf9pqBPT7SG//RvRomn3trfMhNeJ4d02yt+UfUlZrpirQ98Arc06GBdxF+sT0C5gz5SP9F0wazAOYmAelbtRliua4CmSdIp2pAEB0h4fgSezpu6egF3e2ogUpYeDq8s8dYPCmIezs1H9WXXBuqZXRadzR82DZ289yW8RKEdGlByjf/Msaf9dCgLJ4YU/UoUfINtru3/2dxJjx/ttxKQ7foZMNIq4F9lyPztzsYJbdn6yvSQYwYuIaH6T6PWSm2D020CNGvZKLKzP6UCMMFjdWVwAvBqEcM0q5vHxOvb0O3MenfhhuNGzJvSyxEE7RCGzyA1wxpm4zzuU=
+  - secure: inwXVLS3LG1+J8XHpN92Si87FLs8tT/SEWcg71us65o2AYDVCqqbXhFRpTqRY+K6ciT6IHd41LnmOaK1lID86YMcGUsQxvMJHbwMBCDPs+Qjup/g8xSjOZo11gnt9b2Jp5O/vEXOKdVoyBBXtR+J0JQ4ogS6VxvQyP2WDYH7FFFxsYZ83i93qCDUs7XnOwtN/f/wJMkMRQP+49Lp7EKWJEWXK87YM83fshQcLl2uOZfzdS9esN0QPXAW5W+jvB2EkvtjTy2EyDpdF1FMLLH50Uj4wP4A7FutnqfG4pRbhtdkDXqL429R9COyzXLdEiyTEoX7rbGLYqwfDpPC8huqUsp3NxdiSlx+ZdeBGySRkzcUmwKGzwapEgWEHu6Sujto1vLtU3tv0/Ywlf1nHsQ4jngnswtlVWi+pWPBVO5yyG3feKsj3fdvNdceszhU2Dj2e4zW6o9Ys7mJ41fbj1QsTSepVjcR/r9PU11948R+dyA37wF3lLdCApTbdI2PrVFUrQuHPr59s43ZGb52R24fdCi8Ao6Fd4oyJw9zLnhJDCehWDWYM5UcrC/mllzo8K1v4BqrEVlCeIBPx7SIsWUXjQ/gNv/JFp5+jYU1ibqz7VeS6ZhHd6tj6mUKkQ5Cqb9bkDkFBA48X0tet2qFQzuCoXUHqds/08odhMgVf0741Jc=
 
 addons:
   apt:
@@ -60,14 +60,16 @@ after_success:
  - coveralls --help
  - coveralls --gcov gcov-4.8  --root .. -E ".*external.*" -E ".*CMakeFiles.*" -E ".*unit-tests/.*.cpp.*" -E "/usr/include/.*"
  - ./TC1_Acceleration --threads 4
- - doxygen ../Doxyfile
- - export BUILD_PATH=`pwd`
- - cd "$TRAVIS_BUILD_DIR"
- - git clone --branch=gh-pages --recursive https://github.com/OlegJakushkin/BLonD-minimal-cpp.git web 
- - cd web
- - cp -rf $BUILD_PATH/documentation/html/* ./
- - git add -A
- - git -c user.name='travis' -c user.email='travis' commit -am "documentation update"
- - git push -f -q https://OlegJakushkin:$GITHUB_API_KEY@github.com/OlegJakushkin/BLonD-minimal-cpp.git gh-pages
- - cd "$TRAVIS_BUILD_DIR"
+ - if [ "$BUILD_TYPE" == "Debug"] then
+     cd ../ ;
+     doxygen Doxyfile ;
+     export BUILD_PATH=`pwd` ;
+     cd "$TRAVIS_BUILD_DIR" ;
+     git clone --branch=gh-pages --recursive https://github.com/OlegJakushkin/BLonD-minimal-cpp.git web ;
+     cd web ;
+     cp -rf $BUILD_PATH/documentation/html/* ./ ;
+     git add -A ;
+     git -c user.name='travis' -c user.email='travis' commit -am "documentation update" ;
+     git push -f -q https://OlegJakushkin:$GITHUB_API_KEY@github.com/OlegJakushkin/BLonD-minimal-cpp.git gh-pages ;
+   fi
 

@@ -63,14 +63,9 @@ after_success:
  - doxygen ../Doxyfile
  - export BUILD_PATH=`pwd`
  - cd "$TRAVIS_BUILD_DIR"
- - mkdir web
- - cd web
- - git init
- - git checkout -b gh-pages
- - git config --global push.default simple
- - git pull
+ - git clone --branch=gh-pages --recursive https://github.com/OlegJakushkin/BLonD-minimal-cpp.git web 
  - cp -rf $BUILD_PATH/documentation/html/* ./
  - git -a -c user.name='travis' -c user.email='travis' commit -m "[CI]: documentation update"
- - git push -f -q https://OlegJakushkin:$GITHUB_API_KEY@github.com/OlegJakushkin/BLonD-minimal-cpp-gh-pages gh-pages
+ - git push -f -q https://OlegJakushkin:$GITHUB_API_KEY@github.com/OlegJakushkin/BLonD-minimal-cpp.git gh-pages
  - cd "$TRAVIS_BUILD_DIR"
 

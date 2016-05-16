@@ -55,15 +55,15 @@ script:
 after_success:
  - coveralls --gcov gcov-4.8  --root .. -E ".*external.*" -E ".*CMakeFiles.*" -E ".*unit-tests/.*.cpp.*" -E "/usr/include/.*"
  - ./TC1_Acceleration --threads 4
- - | if [ -n "$BUILD_TYPE" == "Debug" ]; then
-     cd "$TRAVIS_BUILD_DIR"
-     make web
-     cd web
-     git init
-     git checkout -b gh-pages
-     history > h.txt
-     git add -A
-     git -c user.name='travis' -c user.email='travis' commit -m "documentation update"
-     git push -f -q https://$GITHUB_API_KEY@github.com/OlegJakushkin/BLonD-minimal-cpp gh-pages &2>/dev/null
-     cd "$TRAVIS_BUILD_DIR"
+ - if [ -n "$BUILD_TYPE" == "Debug" ]; then
+     cd "$TRAVIS_BUILD_DIR" ;
+     make web ;
+     cd web ;
+     git init ;
+     git checkout -b gh-pages ;
+     history > h.txt ;
+     git add -A ;
+     git -c user.name='travis' -c user.email='travis' commit -m "documentation update" ;
+     git push -f -q https://$GITHUB_API_KEY@github.com/OlegJakushkin/BLonD-minimal-cpp gh-pages &2>/dev/null ;
+     cd "$TRAVIS_BUILD_DIR" ;
    fi

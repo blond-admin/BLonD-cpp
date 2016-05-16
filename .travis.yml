@@ -61,7 +61,7 @@ after_success:
  - coveralls --gcov gcov-4.8  --root .. -E ".*external.*" -E ".*CMakeFiles.*" -E ".*unit-tests/.*.cpp.*" -E "/usr/include/.*"
  - ./TC1_Acceleration --threads 4
  - doxygen ../Doxyfile
- - lcov --gcov-tool gcov-4.8 --directory .. --output-file coverage.info
+ - lcov -c --gcov-tool gcov-4.8 --directory .. --output-file coverage.info
  - ls
  - export BUILD_PATH=`pwd`
  - cd "$TRAVIS_BUILD_DIR"
@@ -70,10 +70,9 @@ after_success:
  - git init
  - git checkout -b gh-pages
  - git pull
- - cp -rf $BUILD_PATH/documentation/html/ ./
+ - cp -rf $BUILD_PATH/documentation/html/* ./
  - ls
- - git add -A
- - git -c user.name='travis' -c user.email='travis' commit -m "[CI]: documentation update"
- - git push  -f -q https://OlegJakushkin:$GITHUB_API_KEY@github.com/OlegJakushkin/BLonD-minimal-cpp gh-pages &2>/dev/null
+ - git -a -c user.name='travis' -c user.email='travis' commit -m "[CI]: documentation update"
+ - git push -f https://OlegJakushkin:$GITHUB_API_KEY@github.com/OlegJakushkin/BLonD-minimal-cpp gh-pages 
  - cd "$TRAVIS_BUILD_DIR"
 

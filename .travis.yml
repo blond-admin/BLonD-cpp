@@ -18,6 +18,7 @@ addons:
     sources:
       - ubuntu-toolchain-r-test
       - george-edison55-precise-backports
+      - libreoffice/libreoffice-4-2
     packages:
       - cmake
       - cmake-data
@@ -28,6 +29,9 @@ addons:
       - libgsl0-dev
       - valgrind
       - gcov-4.8
+      - lcov
+      - doxygen
+      - graphviz
 
 install:
   - pip install --user cpp-coveralls
@@ -53,18 +57,25 @@ script:
   - ctest -VV
 
 after_success:
+ - coveralls --help
  - coveralls --gcov gcov-4.8  --root .. -E ".*external.*" -E ".*CMakeFiles.*" -E ".*unit-tests/.*.cpp.*" -E "/usr/include/.*"
  - ./TC1_Acceleration --threads 4
+ - doxygen Doxyfile
+ - lcov --gcov-tool gcov-4.8 --directory .. --output-file coverage.info --remove "/usr/include/.*"
+ - ls
+ - export BUILD_PATH=`pwd`
+ - echo $BUILD_PATH
  - cd "$TRAVIS_BUILD_DIR"
  - mkdir web
  - cd web
  - git init
  - git checkout -b gh-pages
- - git pool
+ - git pull
+ - cp -rf $BUILD_PATH\documentation\html ./
  - history > h.txt
  - ls
  - git add -A
- - git -c user.name='travis' -c user.email='travis' commit -m "documentation update"
- - git push -f -q https://OlegJakushkin:$GITHUB_API_KEY@github.com/OlegJakushkin/BLonD-minimal-cpp gh-pages &2>/dev/null
+ - git -c user.name='ci' -c user.email='ci@travis-ci' commit -m "documentation update"
+ - git push  -f -q https://OlegJakushkin:$GITHUB_API_KEY@github.com/OlegJakushkin/BLonD-minimal-cpp gh-pages &2>/dev/null
  - cd "$TRAVIS_BUILD_DIR"
 

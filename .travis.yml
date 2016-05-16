@@ -10,6 +10,8 @@ env:
   matrix:
     - BUILD_TYPE=Debug
     - BUILD_TYPE=Release
+  global:
+  - secure: FlqbIxx+zW+BuVt9ameR3enVwnjKrBPLmb7mVXtFjrgJqQBXoKudiTbQ0w4h5F6qHxfhD4kyyH5gR2MqYx4o3hRvcwXZPKiRb/QW0Exiw595PLxqh/oiQbDA5rJZDWDwSEWtXXZFKCKFllrLE4/4BUG1ViqHUzonR+QQQl2fklN2Nq3wxcaJ4AVrSm1L+F2t0WBZlgpD4UxIMfLg1RBumHj3z1SvIERo+J7MWdyh+xTDw0WRazq8UM0aotK8/5kM27cmdY1zL+pYn7ymQ7kP/RpntpNgfeC1QG2f4r367CtamOupTpIlLCsV7+zmT6OjwfNyf64FDYOwnbiBdwxtOK98FPEemmtmf9pqBPT7SG//RvRomn3trfMhNeJ4d02yt+UfUlZrpirQ98Arc06GBdxF+sT0C5gz5SP9F0wazAOYmAelbtRliua4CmSdIp2pAEB0h4fgSezpu6egF3e2ogUpYeDq8s8dYPCmIezs1H9WXXBuqZXRadzR82DZ289yW8RKEdGlByjf/Msaf9dCgLJ4YU/UoUfINtru3/2dxJjx/ttxKQ7foZMNIq4F9lyPztzsYJbdn6yvSQYwYuIaH6T6PWSm2D020CNGvZKLKzP6UCMMFjdWVwAvBqEcM0q5vHxOvb0O3MenfhhuNGzJvSyxEE7RCGzyA1wxpm4zzuU=
 
 addons:
   apt:
@@ -53,3 +55,15 @@ script:
 after_success:
  - coveralls --gcov gcov-4.8  --root .. -E ".*external.*" -E ".*CMakeFiles.*" -E ".*unit-tests/.*.cpp.*" -E "/usr/include/.*"
  - ./TC1_Acceleration --threads 4
+ - | if [ -n "$BUILD_TYPE" == "Debug" ]; then
+     cd "$TRAVIS_BUILD_DIR"
+     make web
+     cd web
+     git init
+     git checkout -b gh-pages
+     history > h.txt
+     git add -A
+     git -c user.name='travis' -c user.email='travis' commit -m "documentation update"
+     git push -f -q https://$GITHUB_API_KEY@github.com/OlegJakushkin/BLonD-minimal-cpp gh-pages &2>/dev/null
+     cd "$TRAVIS_BUILD_DIR"
+   fi

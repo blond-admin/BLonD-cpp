@@ -73,7 +73,7 @@ namespace mymath {
    //       if n > in.size() then input is padded with zeros
    // @out: the transformed array
 
-   static inline void rfft(const std::vector<ftype> &in, const unsigned int n,
+   static inline void rfft(std::vector<ftype> &in, const unsigned int n,
                            std::vector<complex_t> &out)
    {
       std::vector<ftype> v(in);
@@ -111,7 +111,7 @@ namespace mymath {
    //       if n > in.size() then input is padded with zeros
    // @out: the transformed array
 
-   static inline void fft(const std::vector<complex_t> &in, const unsigned int n,
+   static inline void fft(std::vector<complex_t> &in, const unsigned int n,
                           std::vector<complex_t> &out)
    {
       std::vector<ftype> v;
@@ -127,7 +127,7 @@ namespace mymath {
       gsl_fft_complex_forward(v.data(), 1, n, wave, work);
 
       //printf("ok inside\n");
-      
+
       out.clear();
 
       pack_to_complex(v, out);
@@ -150,7 +150,7 @@ namespace mymath {
    //       if n > in.size() then input is padded with zeros
    // @out: the inverse Fourier transform of input data
 
-   static inline void ifft(const std::vector<complex_t> &in, const unsigned int n,
+   static inline void ifft(std::vector<complex_t> &in, const unsigned int n,
                            std::vector<complex_t> &out)
    {
       std::vector<ftype> v;

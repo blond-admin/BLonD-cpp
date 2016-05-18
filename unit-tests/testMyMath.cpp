@@ -228,7 +228,7 @@ TEST(testRFFT, irfft)
    ftype epsilon = 1e-8;
 
    std::vector<ftype> v, a, b;
-   std::vector<complex_t> outA, outB;
+   //std::vector<complex_t> outA, outB;
    a.resize(256);
    b.resize(256);
    mymath::linspace(a.data(), 0.f, 100.f, a.size());
@@ -240,21 +240,21 @@ TEST(testRFFT, irfft)
    mymath::real_to_complex(b, bz);
    //printf("ok here\n");
 
-   mymath::fft(az, 512, outA);
+   mymath::fft(az, 512, az);
    //printf("ok here\n");
 
-   mymath::fft(bz, 512, outB);
+   mymath::fft(bz, 512, bz);
 
-   std::transform(outA.begin(), outA.end(), outB.begin(),
-                  outA.begin(), std::multiplies<complex_t>());
+   std::transform(az.begin(), az.end(), bz.begin(),
+                  az.begin(), std::multiplies<complex_t>());
 
    //printf("ok here\n");
 
    //for (unsigned int i = 0; i < outA.size(); ++i) {
    //   printf("outA * outB: %+.8e\n", std::abs(outA[i]));
    //}
-   az.clear();
-   mymath::ifft(outA, 512, az);
+   //az.clear();
+   mymath::ifft(az, 512, az);
    //util::dump(a.data(), 10, "inverse complex fft");
    //printf("ok here\n");
 
@@ -271,24 +271,24 @@ TEST(testRFFT, irfft)
       ftype ref = v[i];
       ftype real = az[i].real();
       //ASSERT_NEAR(ref, real, epsilon /** std::max(fabs(ref), fabs(real))*/)
-      if(std::max(fabs(ref), fabs(real)) < 1e-8){
+      if (std::max(fabs(ref), fabs(real)) < 1e-8) {
          /*
          ASSERT_DOUBLE_EQ(std::trunc(ref / epsilon), std::trunc(real/epsilon))
             << "Testing of az.real() failed on i "
             << i << std::endl;
          */
          j++;
-      }else{
+      } else {
          //printf("%lf\n",real);
          ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of az.real failed on i "
-            << i << std::endl;
+               << "Testing of az.real failed on i "
+               << i << std::endl;
       }
 
-      
+
    }
    //printf("%d\n", j);
-   if(100.0*j/v.size() > 10.0){
+   if (100.0 * j / v.size() > 10.0) {
       printf("Test leaves out more than 10 %% of data\n");
       printf("Maybe you should reconsider it?\n");
 

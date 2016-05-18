@@ -23,7 +23,7 @@
 
 class InducedVoltage {
 public:
-   std::vector<complex_t> fInducedVoltage;
+   std::vector<ftype> fInducedVoltage;
 
    InducedVoltage() {};
    virtual void track() = 0;

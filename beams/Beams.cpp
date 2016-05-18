@@ -16,7 +16,7 @@ Beams::~Beams()
 
 }
 
-Beams::Beams(const int _n_macroparticles,const int _intensity)
+Beams::Beams(const int _n_macroparticles,const long _intensity)
 {
    //global++;
 

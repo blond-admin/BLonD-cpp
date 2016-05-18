@@ -8,6 +8,7 @@
 #include "math_functions.h"
 #include "utilities.h"
 #include "constants.h"
+#include "configuration.h"
 
 
 TEST(testLinspace, test1)
@@ -127,40 +128,178 @@ TEST(testCumTrap, test1)
    */
 }
 
-/*
-TEST(testSin, test1){
-   ftype a = sin(0);
-   std::string result = util::exec(
-      "python -c 'import numpy as np;\
-       print np.sin(0)'");
-   ftype num = std::stod(result);
-   ASSERT_NEAR(a, num, 1e-8);
 
-   a = sin(constant::pi / 2);
-   result = util::exec(
-      "python -c 'import numpy as np;\
-       print np.sin(np.pi/2)'");
-   num = std::stod(result);
-   ASSERT_NEAR(a, num, 1e-8);
+
+TEST(testRFFT, rfft1)
+{
+   std::string params = "../unit-tests/references/MyMath/fft/";
+   ftype epsilon = 1e-8;
+
+   std::vector<ftype> v, in;
+   std::vector<complex_t> out;
+   in.resize(256);
+   mymath::linspace(in.data(), 0.f, 100.f, in.size());
+   mymath::rfft(in, 512, out);
+
+   util::read_vector_from_file(v, params + "rfft1_real.txt");
+
+   ASSERT_EQ(v.size(), out.size());
+
+   epsilon = 1e-8;
+
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      ftype ref = v[i];
+      ftype real = out[i].real();
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of out.real() failed on i "
+            << i << std::endl;
+   }
+   v.clear();
+
+   util::read_vector_from_file(v, params + "rfft1_imag.txt");
+
+   ASSERT_EQ(v.size(), out.size());
+
+   epsilon = 1e-8;
+
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      ftype ref = v[i];
+      ftype real = out[i].imag();
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of out.imag() failed on i "
+            << i << std::endl;
+   }
+   v.clear();
+
 }
 
-TEST(testCos, test1){
-   ftype a = cos(0);
-   std::string result = util::exec(
-      "python -c 'import numpy as np;\
-       print np.cos(0)'");
-   ftype num = std::stod(result);
-   ASSERT_NEAR(a, num, 1e-8);
 
-   a = cos(constant::pi / 2);
-   result = util::exec(
-      "python -c 'import numpy as np;\
-       print np.cos(np.pi/2)'");
-   num = std::stod(result);
-   ASSERT_NEAR(a, num, 1e-8);
+TEST(testRFFT, rfft2)
+{
+   std::string params = "../unit-tests/references/MyMath/fft/";
+   ftype epsilon = 1e-8;
+
+
+
+   std::vector<ftype> v, in;
+   std::vector<complex_t> out;
+
+   in.resize(256);
+   mymath::linspace(in.data(), 0.f, 1000.f, in.size());
+   mymath::rfft(in, 256, out);
+
+   util::read_vector_from_file(v, params + "rfft2_real.txt");
+
+   ASSERT_EQ(v.size(), out.size());
+
+   epsilon = 1e-8;
+
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      ftype ref = v[i];
+      ftype real = out[i].real();
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of out.real() failed on i "
+            << i << std::endl;
+   }
+   v.clear();
+
+   util::read_vector_from_file(v, params + "rfft2_imag.txt");
+
+   ASSERT_EQ(v.size(), out.size());
+
+
+   epsilon = 1e-8;
+
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      ftype ref = v[i];
+      ftype real = out[i].imag();
+      //printf("%+.8e\n",real);
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of out.imag() failed on i "
+            << i << std::endl;
+   }
+   v.clear();
 
 }
-*/
+
+TEST(testRFFT, irfft)
+{
+   std::string params = "../unit-tests/references/MyMath/fft/";
+   ftype epsilon = 1e-8;
+
+   std::vector<ftype> v, a, b;
+   //std::vector<complex_t> outA, outB;
+   a.resize(256);
+   b.resize(256);
+   mymath::linspace(a.data(), 0.f, 100.f, a.size());
+   mymath::linspace(b.data(), 0.f, 1000.f, b.size());
+
+   std::vector<complex_t> az, bz;
+
+   mymath::real_to_complex(a, az);
+   mymath::real_to_complex(b, bz);
+   //printf("ok here\n");
+
+   mymath::fft(az, 512, az);
+   //printf("ok here\n");
+
+   mymath::fft(bz, 512, bz);
+
+   std::transform(az.begin(), az.end(), bz.begin(),
+                  az.begin(), std::multiplies<complex_t>());
+
+   //printf("ok here\n");
+
+   //for (unsigned int i = 0; i < outA.size(); ++i) {
+   //   printf("outA * outB: %+.8e\n", std::abs(outA[i]));
+   //}
+   //az.clear();
+   mymath::ifft(az, 512, az);
+   //util::dump(a.data(), 10, "inverse complex fft");
+   //printf("ok here\n");
+
+   util::read_vector_from_file(v, params + "inverse_rfft.txt");
+
+   ASSERT_EQ(v.size(), az.size());
+
+
+   // WARNING!! Absolute difference is used on pusrpose!!
+   epsilon = 1e-8;
+   // !!!!
+   int j = 0;
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      ftype ref = v[i];
+      ftype real = az[i].real();
+      //ASSERT_NEAR(ref, real, epsilon /** std::max(fabs(ref), fabs(real))*/)
+      if (std::max(fabs(ref), fabs(real)) < 1e-8) {
+         /*
+         ASSERT_DOUBLE_EQ(std::trunc(ref / epsilon), std::trunc(real/epsilon))
+            << "Testing of az.real() failed on i "
+            << i << std::endl;
+         */
+         j++;
+      } else {
+         //printf("%lf\n",real);
+         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+               << "Testing of az.real failed on i "
+               << i << std::endl;
+      }
+
+
+   }
+   //printf("%d\n", j);
+   if (100.0 * j / v.size() > 10.0) {
+      printf("Test leaves out more than 10 %% of data\n");
+      printf("Maybe you should reconsider it?\n");
+
+   }
+   v.clear();
+
+
+}
+
+
+
 
 int main(int ac, char *av[])
 {

@@ -29,7 +29,7 @@ endif()
 
 set(CMAKE_BUILD_TYPE Release)
 if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
-    set(CMAKE_CXX_FLAGS         "-std=c++11 -fopenmp -Wall -pedantic -Wno-rtti -Wunused")
+    set(CMAKE_CXX_FLAGS         "-std=c++11 -fopenmp -Wall -pedantic -fno-rtti -Wunused")
     set(CMAKE_CXX_FLAGS_DEBUG   "-O0 -g3")
     set(CMAKE_CXX_FLAGS_RELEASE "-Ofast -march=native")
     set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-flto")
@@ -71,6 +71,8 @@ set(SOURCE_FILES
     input_parameters/RfParameters.cpp
     trackers/Tracker.cpp
     llrf/PhaseLoop.cpp
+    impedances/Intensity.cpp
+    impedances/InducedVoltage.cpp
     )
 
 # SHARED for dynamic LINKING
@@ -79,9 +81,19 @@ add_library(blond SHARED ${SOURCE_FILES})
     
 add_executable(TC1_Acceleration tests/TC1_Acceleration.cpp)
 add_executable(LHC_restart tests/LHC_restart.cpp)
+add_executable(TC5_Wake_impedance tests/TC5_Wake_impedance.cpp)
 
-target_link_libraries(TC1_Acceleration blond)
-target_link_libraries(LHC_restart blond)
+link_directories(/usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64)
+
+SET(LIBRARIES 
+   blond
+   gsl
+   gslcblas
+   m)
+
+target_link_libraries(TC1_Acceleration ${LIBRARIES})
+target_link_libraries(LHC_restart ${LIBRARIES})
+target_link_libraries(TC5_Wake_impedance ${LIBRARIES})
 
 # Generate unit tests
 if(TEST_ENABLED)
@@ -95,20 +107,23 @@ if(TEST_ENABLED)
         unit-tests/testTC1_Acceleration.cpp
         unit-tests/testPL.cpp
         unit-tests/testLHC_Restart.cpp
+        unit-tests/testResonator.cpp
+        unit-tests/testInputTableIntensity.cpp
+        unit-tests/testInducedVoltage.cpp
     )
 
     foreach(src ${TEST_SOURCE_FILES})
         string( REPLACE ".cpp" "" testname ${src})
         string( REPLACE "unit-tests/" "" testname ${testname})
         add_executable( ${testname} ${src})
-	    target_link_libraries( ${testname} blond googletest)
+	     target_link_libraries( ${testname} ${LIBRARIES} googletest)
         add_test(${testname} ${testname})
     endforeach( src ${TEST_SOURCE_FILES})
 
     #TODO: rename testMyMath, merge with TEST_SOURCE_FILES
     add_executable(testMyMath unit-tests/testMyMath.cpp)
-    target_link_libraries(testMyMath googletest)
-    add_test(testMyMath testMyMath)
+    target_link_libraries(testMyMath googletest gsl gslcblas m)
+    add_test(testMyMath testMyMath )
 
     include(CTest)
     enable_testing()

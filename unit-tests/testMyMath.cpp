@@ -298,7 +298,95 @@ TEST(testRFFT, irfft)
 
 }
 
+TEST(testConvolution, test1)
+{
+   std::vector<ftype> c, a, b, v;
+   a.resize(10);
+   b.resize(20);
+   mymath::linspace(a.data(), 0.f, 100.f, a.size());
+   mymath::linspace(b.data(), 100.f, 1000.f, b.size());
+   c = mymath::convolution(a, b);
 
+
+   std::string params = "../unit-tests/references/MyMath/convolution/";
+   ftype epsilon = 1e-8;
+
+   util::read_vector_from_file(v, params + "convolution1.txt");
+
+   ASSERT_EQ(v.size(), c.size());
+
+   epsilon = 1e-8;
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      ftype ref = v[i];
+      ftype real = c[i];
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of convolution1 failed on i "
+            << i << std::endl;
+   }
+   
+   v.clear();
+
+
+}
+
+TEST(testConvolution, test2)
+{
+   std::vector<ftype> c, a, b, v;
+   a.resize(100, 0);
+   b.resize(20);
+   mymath::linspace(b.data(), 100.f, 1000.f, b.size());
+   c = mymath::convolution(a, b);
+
+
+   std::string params = "../unit-tests/references/MyMath/convolution/";
+   ftype epsilon = 1e-8;
+
+   util::read_vector_from_file(v, params + "convolution2.txt");
+
+   ASSERT_EQ(v.size(), c.size());
+
+   epsilon = 1e-8;
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      ftype ref = v[i];
+      ftype real = c[i];
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of convolution2 failed on i "
+            << i << std::endl;
+   }
+   
+   v.clear();
+
+
+}
+
+TEST(testConvolution, test3)
+{
+   std::vector<ftype> c, a, b, v;
+   a = {0,0,0,0,1,1,1,0,0,0};
+   b = {1,1,1,1,0,0,0,1,1,1};
+   c = mymath::convolution(a, b);
+
+
+   std::string params = "../unit-tests/references/MyMath/convolution/";
+   ftype epsilon = 1e-8;
+
+   util::read_vector_from_file(v, params + "convolution3.txt");
+
+   ASSERT_EQ(v.size(), c.size());
+
+   epsilon = 1e-8;
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      ftype ref = v[i];
+      ftype real = c[i];
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of convolution3 failed on i "
+            << i << std::endl;
+   }
+   
+   v.clear();
+
+
+}
 
 
 int main(int ac, char *av[])

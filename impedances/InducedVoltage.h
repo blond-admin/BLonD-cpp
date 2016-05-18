@@ -18,7 +18,9 @@
 //typedef std::complex<float> complex_t;
 
 
-
+enum time_or_freq {
+   time_domain, freq_domain
+};
 //unsigned int next_regular(unsigned int target);
 
 class InducedVoltage {
@@ -28,7 +30,7 @@ public:
    InducedVoltage() {};
    virtual void track() = 0;
    virtual void reprocess() = 0;
-   virtual void induced_voltage_generation(unsigned int length) = 0;
+   virtual std::vector<ftype> induced_voltage_generation(unsigned int length) = 0;
    virtual ~InducedVoltage() {};
 };
 
@@ -36,9 +38,7 @@ public:
 
 class InducedVoltageTime: public InducedVoltage {
 public:
-   enum time_or_freq {
-      time, freq
-   };
+
 
    std::vector<Intensity *> fWakeSourceList;
    std::vector<ftype> fTimeArray;
@@ -49,11 +49,11 @@ public:
 
 
    void track();
-   void sum_wakes(std::vector<ftype>& v);
+   void sum_wakes(std::vector<ftype> &v);
    void reprocess();
-   void induced_voltage_generation(unsigned int length = 0);
+   std::vector<ftype> induced_voltage_generation(unsigned int length = 0);
    InducedVoltageTime(std::vector<Intensity *> &WakeSourceList,
-                      time_or_freq TimeOrFreq = freq);
+                      time_or_freq TimeOrFreq = freq_domain);
    ~InducedVoltageTime() {};
 };
 
@@ -63,7 +63,7 @@ public:
    void track();
    void sum_impedances();
    void reprocess();
-   void induced_voltage_generation(unsigned int length);
+   std::vector<ftype> induced_voltage_generation(unsigned int length = 0);
    InducedVoltageFreq();
    ~InducedVoltageFreq() {};
 };

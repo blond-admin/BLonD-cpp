@@ -19,6 +19,29 @@
 namespace mymath {
 
 
+   // linear convolution function
+   // @a: first vector
+   // @b: second vector
+   // @return convolution of a and b
+   template<typename T>
+   static inline std::vector<T> convolution(const std::vector<T> &a,
+         const std::vector<T> &b)
+   {
+      std::vector<T> res;
+      res.resize(a.size() + b.size() - 1);
+      for (unsigned int i = 0; i < res.size(); i++) {
+         unsigned int i1 = i;
+         T temp = T();
+         for (unsigned int j = 0; j < b.size(); ++j) {
+            if (i1 >= 0 && i1 < a.size()) {
+               temp += a[i1] * b[j];
+            }
+            i1--;
+            res[i] = temp;
+         }
+      }
+      return res;
+   }
 
    static inline void real_to_complex(const std::vector<ftype> &in,
                                       std::vector<complex_t> &out)

@@ -8,6 +8,41 @@
 #include "globals.h"
 
 
+inline void InducedVoltage::linear_interp_kick(
+   const ftype *__restrict__ beam_dt,
+   ftype *__restrict__ beam_dE,
+   const ftype *__restrict__ voltage_array,
+   const ftype *__restrict__ bin_centers,
+   const int n_slices,
+   const int n_macroparticles,
+   const ftype acc_kick)
+{
+
+   // double a;
+   // int i;
+   // double fbin;
+   // int ffbin;
+   // double voltageKick;
+   double inv_bin_width = (n_slices - 1) / (bin_centers[n_slices - 1]
+                          - bin_centers[0]);
+
+   for (int i = 0; i < n_macroparticles; i++) {
+      ftype a = beam_dt[i];
+      ftype fbin = (a - bin_centers[0]) * inv_bin_width;
+      int ffbin = (int)(fbin);
+      ftype voltageKick;
+      if ((a < bin_centers[0]) || (a > bin_centers[n_slices - 1]))
+         voltageKick = 0.;
+      else
+         voltageKick = voltage_array[ffbin] + (a - bin_centers[ffbin])
+                       * (voltage_array[ffbin + 1] - voltage_array[ffbin])
+                       * inv_bin_width;
+      beam_dE[i] = beam_dE[i] + voltageKick + acc_kick;
+   }
+
+
+}
+
 InducedVoltageTime::InducedVoltageTime(std::vector<Intensity *> &WakeSourceList,
                                        time_or_freq TimeOrFreq)
 {
@@ -41,7 +76,17 @@ InducedVoltageTime::InducedVoltageTime(std::vector<Intensity *> &WakeSourceList,
 }
 
 
-void InducedVoltageTime::track() {}
+void InducedVoltageTime::track()
+{
+   // Tracking Method
+   std::vector<ftype> v = induced_voltage_generation();
+
+   std::transform(v.begin(), v.end(), v.begin(),
+                  std::bind1st(std::multiplies<ftype>(), GP->charge));
+
+   linear_interp_kick(Beam->dt, Beam->dE, v.data(), Slice->bin_centers,
+                      Slice->n_slices, Beam->n_macroparticles, 0.0);
+}
 
 void InducedVoltageTime::sum_wakes(std::vector<ftype> &TimeArray)
 {
@@ -114,7 +159,7 @@ std::vector<ftype> InducedVoltageTime::induced_voltage_generation(unsigned int l
 
    } else if (fTimeOrFreq == time_domain) {
       std::vector<ftype> temp(Slice->n_macroparticles,
-                            Slice->n_macroparticles + Slice->n_slices);
+                              Slice->n_macroparticles + Slice->n_slices);
       inducedVoltage =
          mymath::convolution(fTotalWake, temp);
 
@@ -132,7 +177,7 @@ std::vector<ftype> InducedVoltageTime::induced_voltage_generation(unsigned int l
 
    inducedVoltage.resize(
       std::max((unsigned int)Slice->n_slices, length), 0);
-   
+
 
    // TODO do we really need both of these?
    fInducedVoltage = inducedVoltage;

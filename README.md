@@ -1,6 +1,6 @@
 C++ Version of [CERN's BLonD code][1]
 
-## Status
+## Status 
 
 NOT Stable - Under heavy development
 
@@ -46,10 +46,10 @@ Note that a re-compile is needed every time a change is made.
 
 The following optional command line arguments can be specified in order to specify some basic simulation parameters:
 
-* -m <num>, --threads=<num> : Number of openmp threads that will be used in the simulation (default: 1)
-* -p <num>, --particles=<num> : Number of macroparticles that will be simulated (default: 10k)
-* -t <num>, --turns=<num> : Number of simulation turns (default: 10k)
-* -s <num>, --slices=<num> : Number of slices that will be used to generate the beam's histogram (default: 100)
+* -m <num>, --threads=\<num\> : Number of openmp threads that will be used in the simulation (default: 1)
+* -p <num>, --particles=\<num\> : Number of macroparticles that will be simulated (default: 10k)
+* -t <num>, --turns=\<num\>     : Number of simulation turns (default: 10k)
+* -s <num>, --slices=\<num\>    : Number of slices that will be used to generate the beam's histogram (default: 100)
 
 Example: `./testcase -t 1000 -p2000`  
 Or type: `./testcase -h` for more

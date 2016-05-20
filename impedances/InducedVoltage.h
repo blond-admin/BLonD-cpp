@@ -38,7 +38,7 @@ public:
                                   const ftype acc_kick = 0.0);
    virtual void track() = 0;
    virtual void reprocess() = 0;
-   virtual std::vector<ftype> induced_voltage_generation(unsigned int length) = 0;
+   virtual std::vector<ftype> induced_voltage_generation(unsigned int length = 0) = 0;
    virtual ~InducedVoltage() {};
 };
 

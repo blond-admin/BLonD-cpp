@@ -76,10 +76,10 @@ InducedVoltageTime::InducedVoltageTime(std::vector<Intensity *> &WakeSourceList,
 }
 
 
-void InducedVoltageTime::track()
+inline void InducedVoltageTime::track()
 {
    // Tracking Method
-   std::vector<ftype> v = induced_voltage_generation();
+   std::vector<ftype> v = this->induced_voltage_generation();
 
    std::transform(v.begin(), v.end(), v.begin(),
                   std::bind1st(std::multiplies<ftype>(), GP->charge));

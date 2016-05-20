@@ -208,25 +208,19 @@ TEST_F(testInducedVoltage, induced_voltage_generation)
 
    ASSERT_EQ(v.size(), res.size());
 
-   ftype epsilon = 1e-8;
-   int j = 0;
-   // WARNING absolute difference is used (on purpose) in some cases!!
+   ftype max = *max_element(res.begin(), res.end(),
+   [](ftype i, ftype j) {return fabs(i) < fabs(j);});
+   ftype epsilon = 1e-9 * max;
+
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
       ftype real = res[i];
-      if (std::max(fabs(ref), fabs(real)) < 1e-10) {
-         j++;
-      } else {
-         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-               << "Testing of indVoltTime->fInducedVoltage failed on i "
-               << i << std::endl;
-      }
+
+      ASSERT_NEAR(ref, real, epsilon)
+            << "Testing of indVoltTime->fInducedVoltage failed on i "
+            << i << std::endl;
+
    }
-   if (100.0 * j / v.size() > 10.0) {
-      dprintf("Test leaves out %.2f %% of data\n", 100.0 * j / v.size());
-      dprintf("Maybe you should reconsider it?\n");
-   }
-   v.clear();
 
 }
 
@@ -247,7 +241,20 @@ TEST_F(testInducedVoltage, induced_voltage_generation_convolution)
 
    ASSERT_EQ(v.size(), res.size());
 
-   ftype epsilon = 1e-8;
+   ftype max = *max_element(res.begin(), res.end(),
+   [](ftype i, ftype j) {return fabs(i) < fabs(j);});
+   ftype epsilon = 1e-9 * max;
+
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      ftype ref = v[i];
+      ftype real = res[i];
+
+      ASSERT_NEAR(ref, real, epsilon)
+            << "Testing of indVoltTime->fInducedVoltage failed on i "
+            << i << std::endl;
+
+   }
+   /*
    int j = 0;
    // WARNING absolute difference is used (on purpose) in some cases!!
    for (unsigned int i = 0; i < v.size(); ++i) {
@@ -265,9 +272,42 @@ TEST_F(testInducedVoltage, induced_voltage_generation_convolution)
       dprintf("Test leaves out %.2f %% of data\n", 100.0 * j / v.size());
       dprintf("Maybe you should reconsider it?\n");
    }
+   */
+
+}
+
+TEST_F(testInducedVoltage, track)
+{
+   Slice->track(0, Beam->n_macroparticles);
+
+   std::vector<Intensity *> wakeSourceList({resonator});
+   InducedVoltageTime *indVoltTime = new InducedVoltageTime(wakeSourceList);
+   //std::vector<ftype> res = indVoltTime->induced_voltage_generation();
+   indVoltTime->track();
+   std::string params = std::string("../unit-tests/references/Impedances/")
+                        + "InducedVoltage/InducedVoltageTime/";
+
+   std::vector<ftype> v;
+   util::read_vector_from_file(v, params + "beam_dE.txt");
+   // WARNING checking only the fist 100 elems
+   std::vector<ftype> res(Beam->dE, Beam->dE + 100);
+   ASSERT_EQ(v.size(), res.size());
+
+   ftype epsilon = 1e-8;
+   // warning checking only the first 100 elems
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      ftype ref = v[i];
+      ftype real = res[i];
+
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of Beam->dE failed on i "
+            << i << std::endl;
+   }
+
    v.clear();
 
 }
+
 
 
 

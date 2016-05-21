@@ -2,6 +2,8 @@
 cmake_minimum_required(VERSION 3.0.2)
 project(BLonD-minimal-cpp CXX)
 include(CheckCXXCompilerFlag)
+include(ExternalProject)
+include(CTest)
 
 # TODO is 4.8 really the minimum requirement?
 if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS "4.8.0")
@@ -18,12 +20,33 @@ if(COMPILER_HAS_FAST_MATH)
 	add_compile_options(-ffast-math)
 endif()
 
+set(TEST_ENABLED "False")
 set(GOOGLETEST_ROOT external/googletest/googletest CACHE STRING "Google Test source root")
 if(EXISTS ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT})
     set(TEST_ENABLED "True")
     message(STATUS "Found Google Test library source")
 else()
     message(STATUS "Testing disabled - please provide GOOGLETEST_ROOT path or use '--recursive' argument in git clone")
+endif()
+
+set(GSL_ROOT external/gsl CACHE STRING "GSL - GNU Scientific Library source root")
+
+    ExternalProject_Add(
+        gsl
+        GIT_REPOSITORY git://git.savannah.gnu.org/gsl.git
+        DOWNLOAD_DIR external/gsl
+        SOURCE_DIR external/gsl
+        PATCH_COMMAND file(COPY external/gsl/contrib/CMakeLists.txt external/gsl/contrib/ )
+        CMAKE_ARGS -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+        BINARY_DIR ./
+        INSTALL_DIR ./
+    )
+
+if(EXISTS ${PROJECT_SOURCE_DIR}/${GSL_ROOT})
+    message(STATUS "Found GNU Scientific Library ")
+else()
+  # todo resolve by downloading external project 
+  #  message(FATAL_ERROR "Not GNU Scientific Library - please provide GSL_ROOT path or use '--recursive' argument in git clone")
 endif()
 
 
@@ -41,76 +64,76 @@ endif()
 
 # Absolutely required packages
 find_package(OpenMP REQUIRED)
-find_package(GSL REQUIRED)
 
 if(TEST_ENABLED)
-    include_directories(
-        ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}
-        ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}/include
-        )
+    ExternalProject_Add(
+        googletest
+        GIT_REPOSITORY https://github.com/google/googletest.git
+        DOWNLOAD_DIR external/googletest
+        SOURCE_DIR external/googletest
+        CMAKE_ARGS -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+        BINARY_DIR ./
+        INSTALL_DIR ./
+    )
 
-    set(GOOGLETEST_SOURCES
-        ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}/src/gtest-all.cc
-        ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}/src/gtest_main.cc
-        )
+# Specify include dir
+ExternalProject_Get_Property(googletest source_dir)
+include_directories(${source_dir}/include)
 
-    foreach(_source ${GOOGLETEST_SOURCES})
-        set_source_files_properties(${_source} PROPERTIES GENERATED 1)
-    endforeach()
-
-    add_library(googletest ${GOOGLETEST_SOURCES})
 endif()
 
 include_directories(include)
 
-# Generate simulation executables
+file(GLOB SOURCES
+    "beams/*.cpp"
+    "input_parameters/*.cpp"
+    "trackers/*.cpp"
+    "llrf/*.cpp"
+)
+
 set(SOURCE_FILES 
-    beams/Beams.cpp 
-    beams/Slices.cpp
-    input_parameters/GeneralParameters.cpp
-    input_parameters/RfParameters.cpp
-    trackers/Tracker.cpp
-    llrf/PhaseLoop.cpp
-    )
+    ${SOURCES}
+)
 
 # SHARED for dynamic LINKING
 # STATIC for static LINKING
 add_library(blond SHARED ${SOURCE_FILES})
-    
-add_executable(TC1_Acceleration tests/TC1_Acceleration.cpp)
-add_executable(LHC_restart tests/LHC_restart.cpp)
 
-target_link_libraries(TC1_Acceleration blond)
-target_link_libraries(LHC_restart blond)
+file(GLOB EXECUTABLE_SOURCES
+    "tests/*.cpp"
+)
+
+set(EXECUTABLE_FILES
+    ${EXECUTABLE_SOURCES}
+)
+
+foreach(src ${EXECUTABLE_FILES})
+    file(RELATIVE_PATH testfile ${CMAKE_CURRENT_SOURCE_DIR} ${src})
+    string( REPLACE ".cpp" "" testname ${testfile})
+    string( REPLACE "tests/x "" testname ${testname})
+    add_executable( ${testname} ${src})
+    target_link_libraries( ${testname} blond)
+endforeach()
 
 # Generate unit tests
 if(TEST_ENABLED)
-    set(TEST_SOURCE_FILES
-        unit-tests/testGP.cpp
-        unit-tests/testRFP.cpp
-        unit-tests/testBigaussian.cpp
-        unit-tests/testBeam.cpp
-        unit-tests/testSlices.cpp
-        unit-tests/testTracker.cpp
-        unit-tests/testTC1_Acceleration.cpp
-        unit-tests/testPL.cpp
-        unit-tests/testLHC_Restart.cpp
+    file(GLOB UNIT_TEST_SOURCES
+        "./unit-tests/*.cpp"
     )
 
-    foreach(src ${TEST_SOURCE_FILES})
-        string( REPLACE ".cpp" "" testname ${src})
+    set(UNIT_TEST_FILES
+        $(UNIT_TEST_SOURCES)
+    )
+
+    foreach(src ${UNIT_TEST_FILES})
+        file(RELATIVE_PATH testfile ${CMAKE_CURRENT_SOURCE_DIR} ${src})
+        string( REPLACE ".cpp" "" testname ${testfile})
         string( REPLACE "unit-tests/" "" testname ${testname})
         add_executable( ${testname} ${src})
-	    target_link_libraries( ${testname} blond googletest)
+        target_link_libraries( ${testname} blond googletest)
         add_test(${testname} ${testname})
-    endforeach( src ${TEST_SOURCE_FILES})
-
-    #TODO: rename testMyMath, merge with TEST_SOURCE_FILES
-    add_executable(testMyMath unit-tests/testMyMath.cpp)
-    target_link_libraries(testMyMath googletest)
-    add_test(testMyMath testMyMath)
-
-    include(CTest)
+    endforeach()
+    
     enable_testing()
 
     if(UNIX)

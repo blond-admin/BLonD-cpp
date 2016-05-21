@@ -7,8 +7,9 @@ install:
   - choco upgrade cmake
   - cd external
   - cd gsl
+  - xcopy contrib\CMakeLists.txt CMakeLists.txt /F
   - cmake .
-  - DIR
+  - ls
   - msbuild GSL.sln /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
   - cd ../
   - cd googletest

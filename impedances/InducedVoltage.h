@@ -24,6 +24,8 @@ enum time_or_freq {
 };
 //unsigned int next_regular(unsigned int target);
 
+
+
 class InducedVoltage {
 public:
    std::vector<ftype> fInducedVoltage;
@@ -74,6 +76,28 @@ public:
    std::vector<ftype> induced_voltage_generation(unsigned int length = 0);
    InducedVoltageFreq();
    ~InducedVoltageFreq() {};
+};
+
+
+class TotalInducedVoltage : public InducedVoltage {
+public:
+   std::vector<InducedVoltage *> fInducedVoltageList;
+   std::vector<ftype> fTimeArray;
+   std::vector<ftype> fRevTimeArray;
+   unsigned int fCounterTurn = 0;
+   unsigned int fNTurnsMemory;
+   bool fInductiveImpedanceOn = false;
+
+   void track();
+   void track_memory();
+   void track_ghosts_particles();
+   std::vector<ftype> induced_voltage_sum(unsigned int length = 0);
+   void reprocess();
+   TotalInducedVoltage(std::vector<InducedVoltage *> &InducedVoltageList,
+                       unsigned int NTurnsMemory = 0,
+                       std::vector<ftype> RevTimeArray = std::vector<ftype>());
+   ~TotalInducedVoltage() {};
+
 };
 
 #endif /* IMPEDANCES_INDUCEDVOLTAGE_H_ */

@@ -82,10 +82,12 @@ inline void InducedVoltageTime::track()
    std::vector<ftype> v = this->induced_voltage_generation();
 
    std::transform(v.begin(), v.end(), v.begin(),
-                  std::bind1st(std::multiplies<ftype>(), GP->charge));
+                  std::bind1st(std::multiplies<ftype>(),
+                               GP->charge));
 
-   linear_interp_kick(Beam->dt, Beam->dE, v.data(), Slice->bin_centers,
-                      Slice->n_slices, Beam->n_macroparticles, 0.0);
+   linear_interp_kick(Beam->dt, Beam->dE, v.data(),
+                      Slice->bin_centers, Slice->n_slices,
+                      Beam->n_macroparticles, 0.0);
 }
 
 void InducedVoltageTime::sum_wakes(std::vector<ftype> &TimeArray)
@@ -201,4 +203,71 @@ void InducedVoltageFreq::reprocess() {}
 std::vector<ftype> InducedVoltageFreq::induced_voltage_generation(unsigned int length)
 {
    return std::vector<ftype>();
+}
+
+
+TotalInducedVoltage::TotalInducedVoltage(
+   std::vector<InducedVoltage *> &InducedVoltageList,
+   unsigned int NTurnsMemory,
+   std::vector<ftype> RevTimeArray)
+{
+   fInducedVoltageList = InducedVoltageList;
+   fNTurnsMemory = NTurnsMemory;
+   fInducedVoltage = std::vector<ftype>();
+   fTimeArray = std::vector<ftype> (Slice->bin_centers,
+                                    Slice->bin_centers + Slice->n_slices);
+
+}
+
+void TotalInducedVoltage::track()
+{
+
+   std::vector<ftype> v = this->induced_voltage_sum();
+
+   std::transform(v.begin(), v.end(), v.begin(),
+                  std::bind1st(std::multiplies<ftype>(),
+                               GP->charge));
+
+   linear_interp_kick(Beam->dt, Beam->dE, v.data(),
+                      Slice->bin_centers, Slice->n_slices,
+                      Beam->n_macroparticles, 0.0);
+}
+
+void TotalInducedVoltage::track_memory() {}
+
+void TotalInducedVoltage::track_ghosts_particles() {}
+
+void TotalInducedVoltage::reprocess()
+{
+
+   for (InducedVoltage *v : fInducedVoltageList)
+      v->reprocess();
+}
+
+std::vector<ftype> TotalInducedVoltage::induced_voltage_sum(unsigned int length)
+{
+   // Method to sum all the induced voltages in one single array.
+   std::vector<ftype> tempIndVolt;
+   std::vector<ftype> extIndVolt;
+
+   for (InducedVoltage *v : fInducedVoltageList) {
+      std::vector<ftype> a;
+      a = v->induced_voltage_generation(length);
+      if (length > 0) {
+         extIndVolt.resize(a.size(), 0);
+         std::transform(extIndVolt.begin(), extIndVolt.end(),
+                        a.begin(), extIndVolt.begin(),
+                        std::plus<ftype>());
+      }
+      tempIndVolt.resize(v->fInducedVoltage.size(), 0);
+      std::transform(tempIndVolt.begin(), tempIndVolt.end(),
+                     v->fInducedVoltage.begin(), tempIndVolt.begin(),
+                     std::plus<ftype>());
+   }
+
+   fInducedVoltage = tempIndVolt;
+
+   return extIndVolt;
+
+
 }

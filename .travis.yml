@@ -1,8 +1,8 @@
 os:
  - linux
-   sudo: false
- - os: osx
-     osx_image: xcode7.2
+   # sudo: false
+ - osx
+   # osx_image: xcode7.2
 
 language: cpp
 
@@ -35,21 +35,19 @@ cache:
  - pip
 
 before install:
- - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       brew install cmake;
-   fi
- - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+    fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
        export CC=/usr/bin/gcc-4.8;
        export CXX=/usr/bin/g++-4.8;
-   fi
+    fi
+  - echo hello
 
 before_script:
  - mkdir build
  - cd build
- - cmake -DCMAKE_BUILD_TYPE=BUILD_TYPE
-   #   -DCMAKE_CXX_FLAGS_RELEASE="-Ofast -DNDEBUG -march=native"
-   #   -DCMAKE_EXE_LINKER_FLAGS_RELEASE="-flto"
-    ..
+ - cmake -DCMAKE_BUILD_TYPE=BUILD_TYPE ..
 
 script:
  - make -j2
@@ -71,4 +69,3 @@ after_success:
      git -c user.name='travis' -c user.email='travis' commit -am "documentation update" ;
      git push -f -q https://OlegJakushkin:$GITHUB_API_KEY@github.com/OlegJakushkin/BLonD-minimal-cpp.git gh-pages ;
    fi
-

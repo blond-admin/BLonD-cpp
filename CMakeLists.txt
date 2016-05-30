@@ -86,6 +86,7 @@ if(EXISTS ${PROJECT_SOURCE_DIR}/${GSL_ROOT})
         CMAKE_ARGS -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
                    -DDO_TESTS="False"
                    -DCMAKE_INSTALL_PREFIX=${PROJECT_SOURCE_DIR}/external/install
+                   -DCMAKE_RULE_MESSAGES=OFF
         TMP_DIR ${PROJECT_SOURCE_DIR}/${GSL_ROOT}/build/tmp
         TEST_BEFORE_INSTALL False
         TEST_AFTER_INSTALL False
@@ -176,6 +177,7 @@ if(TEST_ENABLED)
                    -Dgtest_force_shared_crt=ON
                    -DBUILD_GTEST=ON
                    -DCMAKE_INSTALL_PREFIX=${PROJECT_SOURCE_DIR}/external/install
+                   -DCMAKE_RULE_MESSAGES=OFF
         TMP_DIR ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}/build/tmp
         TEST_BEFORE_INSTALL False
         TEST_AFTER_INSTALL False

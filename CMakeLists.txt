@@ -110,6 +110,7 @@ if(TEST_ENABLED)
         unit-tests/testResonator.cpp
         unit-tests/testInputTableIntensity.cpp
         unit-tests/testInducedVoltage.cpp
+        unit-tests/testTC5_Wake_impedance.cpp
     )
 
     foreach(src ${TEST_SOURCE_FILES})

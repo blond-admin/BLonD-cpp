@@ -37,7 +37,7 @@ if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
       
       set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-flto")
       if(TEST_ENABLED)
-        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
+        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fprofile-arcs -ftest-coverage")
 	     set(CMAKE_EXE_LINKER_FLAGS_DEBUG "--coverage")
       endif()
 endif()

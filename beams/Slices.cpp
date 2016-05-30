@@ -335,28 +335,28 @@ void Slices::rms()
     * Computation of the RMS bunch length and position from the line density
     (bunch length = 4sigma).*
     */
-	std::unique_ptr<ftype> lineDenNormalized(new ftype[n_slices]);
-	std::unique_ptr<ftype> array(new ftype[n_slices]);
+	std::vector<ftype> lineDenNormalized(n_slices);
+	std::vector<ftype> array(n_slices);
 
    ftype timeResolution = bin_centers[1] - bin_centers[0];
    ftype trap = mymath::trapezoid(n_macroparticles, timeResolution,
                                   Beam->n_macroparticles);
 
    for (int i = 0; i < n_slices; ++i) {
-      lineDenNormalized.get()[i] = n_macroparticles[i] / trap;
+      lineDenNormalized[i] = n_macroparticles[i] / trap;
    }
 
    for (int i = 0; i < n_slices; ++i) {
-      array.get()[i] = bin_centers[i] * lineDenNormalized.get()[i];
+      array[i] = bin_centers[i] * lineDenNormalized[i];
    }
 
-   bp_rms = mymath::trapezoid(array.get(), timeResolution, n_slices);
+   bp_rms = mymath::trapezoid(&array[0], timeResolution, n_slices); //TODO: change function signature to addopt verctor!
 
    for (int i = 0; i < n_slices; ++i) {
-      array.get()[i] = (bin_centers[i] - bp_rms) * (bin_centers[i] - bp_rms)
-                 * lineDenNormalized.get()[i];
+      array[i] = (bin_centers[i] - bp_rms) * (bin_centers[i] - bp_rms)
+                 * lineDenNormalized[i];
    }
-   ftype temp = mymath::trapezoid(array.get(), timeResolution, n_slices);
+   ftype temp = mymath::trapezoid(&array[0], timeResolution, n_slices);
    bl_rms = 4 * sqrt(temp);
 
    /*

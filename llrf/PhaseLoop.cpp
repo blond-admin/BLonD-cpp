@@ -142,30 +142,30 @@ void PhaseLoop::beam_phase()
    ftype phi_RF = RfP->phi_RF[RfP->counter];
    // Convolve with window function
    //
-   std::unique_ptr<ftype> base(new ftype[Slice->n_slices]);
-   std::unique_ptr<ftype> array(new ftype[Slice->n_slices]);
+   std::vector<ftype> base(Slice->n_slices);
+   std::vector<ftype>  array(Slice->n_slices);
 
    #pragma omp parallel for
    for (int i = 0; i < Slice->n_slices; ++i) {
       ftype a = alpha * Slice->bin_centers[i];
-      base.get()[i] = exp(a) * Slice->n_macroparticles[i];
+      base[i] = exp(a) * Slice->n_macroparticles[i];
    }
 
    #pragma omp parallel for
    for (int i = 0; i < Slice->n_slices; ++i) {
       ftype a = omega_RF * Slice->bin_centers[i] + phi_RF;
-      array.get()[i] = base.get()[i] * sin(a);
+      array[i] = base[i] * sin(a);
    }
-   ftype scoeff = mymath::trapezoid(array.get(), Slice->bin_centers,
+   ftype scoeff = mymath::trapezoid(&array[0], Slice->bin_centers,
                                     Slice->n_slices);
 
    #pragma omp parallel for
    for (int i = 0; i < Slice->n_slices; ++i) {
       ftype a = omega_RF * Slice->bin_centers[i] + phi_RF;
-      array.get()[i] = base.get()[i] * cos(a);
+      array[i] = base[i] * cos(a);
    }
 
-   ftype ccoeff = mymath::trapezoid(array.get(), Slice->bin_centers,
+   ftype ccoeff = mymath::trapezoid(&array[0], Slice->bin_centers,
                                     Slice->n_slices);
 
    phi_beam = atan(scoeff / ccoeff) + constant::pi;

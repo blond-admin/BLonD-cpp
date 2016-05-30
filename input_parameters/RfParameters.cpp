@@ -256,13 +256,13 @@ void RfParameters::calc_phi_s(accelerating_systems_type acc_sys)
        of the potential well is taken)
        */
       
-	  std::unique_ptr<ftype> transition_phase_offset(new ftype[n_turns + 1]);
+	   std::vector<ftype> transition_phase_offset(n_turns + 1);
       for (int i = 0; i < n_turns + 1; ++i) {
          phi_s[i] = 0;
          if (eta_0(i) > 0)
-            transition_phase_offset.get()[i] = constant::pi;
+            transition_phase_offset[i] = constant::pi;
          else
-            transition_phase_offset.get()[i] = 0;
+            transition_phase_offset[i] = 0;
       }
       ftype phase_array[1000];
       mymath::linspace(phase_array, -constant::pi * 1.2, constant::pi * 1.2, 1000);
@@ -278,12 +278,12 @@ void RfParameters::calc_phi_s(accelerating_systems_type acc_sys)
                              * vdt::fast_sin(
                                 (harmonic[row + i + 1] / min)
                                 * (phase_array[k]
-                                   + transition_phase_offset.get()[i
+                                   + transition_phase_offset[i
                                          + 1])
                                 + phi_offset[row + i + 1]);
             }
          }
-         int transition_factor = transition_phase_offset.get()[i] == 0 ? +1 : -1;
+         int transition_factor = transition_phase_offset[i] == 0 ? +1 : -1;
          //dump(totalRF, 10, "totalRF\n");
 
          ftype potential_well[1000] = { 0 };
@@ -306,7 +306,7 @@ void RfParameters::calc_phi_s(accelerating_systems_type acc_sys)
 
          // TODO why mean here? line BLonD-minimal::rf_parameter.py:334
          phi_s[i + 1] = phase_array[mymath::min(potential_well, 1000, 1)]
-                        + transition_phase_offset.get()[i + 1];
+                        + transition_phase_offset[i + 1];
 
       }
 

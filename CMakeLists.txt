@@ -13,10 +13,7 @@ if(!COMPILER_HAS_CXX11)
 	message(FATAL_ERROR "ERROR: Compiler is lacking support for c++11")
 endif()
 
-check_cxx_compiler_flag(-ffast-math COMPILER_HAS_FAST_MATH)
-if(COMPILER_HAS_FAST_MATH)
-	add_compile_options(-ffast-math)
-endif()
+
 
 set(GOOGLETEST_ROOT external/googletest/googletest CACHE STRING "Google Test source root")
 if(EXISTS ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT})
@@ -27,16 +24,22 @@ else()
 endif()
 
 
-set(CMAKE_BUILD_TYPE Release)
+#set(CMAKE_BUILD_TYPE Release)
 if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
-    set(CMAKE_CXX_FLAGS         "-std=c++11 -fopenmp -Wall -pedantic -fno-rtti -Wunused")
-    set(CMAKE_CXX_FLAGS_DEBUG   "-O0 -g3")
-    set(CMAKE_CXX_FLAGS_RELEASE "-Ofast -march=native")
-    set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-flto")
-    if(TEST_ENABLED)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
-	    set(CMAKE_EXE_LINKER_FLAGS "--coverage")
-    endif()
+      set(CMAKE_CXX_FLAGS         "-std=c++11 -fopenmp -Wall -pedantic -fno-rtti -Wunused")
+      set(CMAKE_CXX_FLAGS_DEBUG   "-O0 -g3 -pg")
+      set(CMAKE_CXX_FLAGS_RELEASE "-O3 -march=native")
+      
+      CHECK_CXX_COMPILER_FLAG(-ffast-math COMPILER_HAS_FAST_MATH)
+      if(COMPILER_HAS_FAST_MATH)
+         set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -ffast-math")
+      endif()
+      
+      set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-flto")
+      if(TEST_ENABLED)
+        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
+	     set(CMAKE_EXE_LINKER_FLAGS_DEBUG "--coverage")
+      endif()
 endif()
 
 # Absolutely required packages

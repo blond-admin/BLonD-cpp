@@ -8,6 +8,12 @@
 #include "globals.h"
 
 
+std::vector<ftype> TotalInducedVoltage::induced_voltage_generation(unsigned int length)
+{
+   return std::vector<ftype>();
+}
+
+
 inline void InducedVoltage::linear_interp_kick(
    const ftype *__restrict__ beam_dt,
    ftype *__restrict__ beam_dE,
@@ -175,21 +181,17 @@ std::vector<ftype> InducedVoltageTime::induced_voltage_generation(unsigned int l
       exit(-1);
    }
 
-
-
-   inducedVoltage.resize(
-      std::max((unsigned int)Slice->n_slices, length), 0);
-
-
-   // TODO do we really need both of these?
+   inducedVoltage.resize((unsigned) Slice->n_slices);
    fInducedVoltage = inducedVoltage;
 
+   if (length > 0)
+      inducedVoltage.resize(
+         std::min((unsigned) Slice->n_slices, length), 0);
+
+   //std::cout << "inducedVoltage size is " << inducedVoltage.size() << "\n";
    return inducedVoltage;
 
 }
-
-
-
 
 
 InducedVoltageFreq::InducedVoltageFreq() {}
@@ -239,8 +241,7 @@ void TotalInducedVoltage::track_ghosts_particles() {}
 
 void TotalInducedVoltage::reprocess()
 {
-
-   for (InducedVoltage *v : fInducedVoltageList)
+   for (auto &v : fInducedVoltageList)
       v->reprocess();
 }
 
@@ -250,9 +251,10 @@ std::vector<ftype> TotalInducedVoltage::induced_voltage_sum(unsigned int length)
    std::vector<ftype> tempIndVolt;
    std::vector<ftype> extIndVolt;
 
-   for (InducedVoltage *v : fInducedVoltageList) {
+   for (auto &v : fInducedVoltageList) {
       std::vector<ftype> a;
       a = v->induced_voltage_generation(length);
+      //std::cout << "a size is " << a.size() << '\n';
       if (length > 0) {
          extIndVolt.resize(a.size(), 0);
          std::transform(extIndVolt.begin(), extIndVolt.end(),
@@ -266,7 +268,7 @@ std::vector<ftype> TotalInducedVoltage::induced_voltage_sum(unsigned int length)
    }
 
    fInducedVoltage = tempIndVolt;
-
+   //std::cout << "extIndVolt size = " << extIndVolt.size() << std::endl;
    return extIndVolt;
 
 

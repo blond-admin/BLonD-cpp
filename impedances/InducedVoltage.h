@@ -93,6 +93,8 @@ public:
    void track_ghosts_particles();
    std::vector<ftype> induced_voltage_sum(unsigned int length = 0);
    void reprocess();
+   std::vector<ftype> induced_voltage_generation(unsigned int length = 0);
+   
    TotalInducedVoltage(std::vector<InducedVoltage *> &InducedVoltageList,
                        unsigned int NTurnsMemory = 0,
                        std::vector<ftype> RevTimeArray = std::vector<ftype>());

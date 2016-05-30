@@ -48,7 +48,7 @@ before install:
 before_script:
   - mkdir build
   - cd build
-  - cmake -DCMAKE_BUILD_TYPE=BUILD_TYPE ..
+  - cmake -DCMAKE_BUILD_TYPE="$BUILD_TYPE" ..
 
 script:
   - make -j2

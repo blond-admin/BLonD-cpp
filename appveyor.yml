@@ -5,17 +5,15 @@ environment:
 install:
   - choco install cmake
   - choco upgrade cmake
-  - cd external
-  - cd gsl
-  - xcopy /F contrib\CMakeLists.txt CMakeLists.txt
-  - cmake .
-  - ls
+  - mkdir build
+  - cd build
+  - cmake ..
   - msbuild GSL.sln /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
   - cd ../
   - cd googletest
   - cmake .
   - DIR 
-  - msbuild gtest.sln /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+  - msbuild BLonD-minimal-cpp.sln /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 
 cache: 
   - C:\ProgramData\chocolatey\bin -> appveyor.yml 
@@ -24,7 +22,4 @@ cache:
 configuration:
   - Debug
   - Release
-
-build:
-  project: BLonD.sln
 

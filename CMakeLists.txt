@@ -28,14 +28,14 @@ if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
     set(CMAKE_CXX_FLAGS_DEBUG   "-O0 -g3")
     set(CMAKE_CXX_FLAGS_RELEASE "-march=native")
     
-    if (CMAKE_C_COMPILER_ID == "Clang" and CMAKE_CXX_COMPILER_VERSION VERSION_LESS 3.8)
+    if ((CMAKE_C_COMPILER_ID == "Clang") AND (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 3.8))
         set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
     else()
         set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Ofast")
     endif()
 
     set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-flto")
-    if(TEST_ENABLED and CMAKE_BUILD_TYPE == Debug )
+    if((TEST_ENABLED STREQUAL "True") AND ( CMAKE_BUILD_TYPE STREQUAL "Debug"))
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
         set(CMAKE_EXE_LINKER_FLAGS "--coverage")
     endif()
@@ -111,10 +111,11 @@ endfunction(assign_source_group)
 include_directories(include)
 
 file(GLOB SOURCES
-    "beams/*.cpp"
+    "beams/*"
     "input_parameters/*"
     "trackers/*"
     "llrf/*"
+    "impedances/*"
     "include/*"
 )
 set(SOURCE_FILES ${SOURCES} )

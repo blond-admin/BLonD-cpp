@@ -34,7 +34,10 @@ public:
           ftype cut_right = 0, cuts_unit_type cuts_unit = s,
           fit_type fit_option = normal_fit, bool direct_slicing = false);
    ~Slices();
+   
    void track(const int start, const int end);
+   void track();
+   
    void zero_histogram();
    ftype fast_fwhm();
    void fwhm(const ftype shift = 0);

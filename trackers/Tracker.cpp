@@ -41,7 +41,7 @@ inline void RingAndRfSection::kick(const ftype *__restrict__ beam_dt,
 
    int k = 0;
    for (int j = 0; j < n_rf; j++) {
-//#pragma omp parallel for
+   //#pragma omp parallel for
       for (int i = start; i < end; i++) {
          beam_dE[i] += voltage[k]
                        * vdt::fast_sin(omega_RF[k] * beam_dt[i] + phi_RF[k]);
@@ -77,7 +77,6 @@ inline void RingAndRfSection::kick(const ftype *__restrict__ beam_dt,
                omega_RF[k] * beam_dt[i]
                + phi_RF[k]) :
             0;
-      // what will I do with this k??
       k += GP->n_turns;
    }
 
@@ -260,6 +259,12 @@ void RingAndRfSection::track(const int start, const int end)
    if (dE_max > 0)
       horizontal_cut(start, end);
    //RfP->counter++;
+}
+
+
+void RingAndRfSection::track()
+{
+  track(0, Beam->n_macroparticles);
 }
 
 inline void RingAndRfSection::horizontal_cut(const int start, const int end)

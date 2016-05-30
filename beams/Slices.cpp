@@ -145,6 +145,11 @@ inline ftype Slices::convert_coordinates(const ftype cut,
 
 }
 
+void Slices::track()
+{
+   track(0, Beam->n_macroparticles);
+}
+
 void Slices::track(const int start, const int end)
 {
    /*

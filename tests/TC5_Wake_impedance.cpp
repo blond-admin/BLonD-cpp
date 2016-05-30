@@ -139,11 +139,16 @@ int main(int argc, char **argv)
 
    for (unsigned i = 0; i < N_t; ++i) {
       util::get_time(begin);
-
       totVol->track();
-      long_tracker->track(0, Beam->n_macroparticles);
-      Slice->track(0, Beam->n_macroparticles);
-      util::print_time_elapsed("Track Time", begin);
+      util::print_time_elapsed("Induced Voltage Track", begin);
+      
+      util::get_time(begin);
+      long_tracker->track();
+      util::print_time_elapsed("Tracker Track", begin);
+
+      util::get_time(begin);
+      Slice->track();
+      util::print_time_elapsed("Slice Track", begin);
 
    }
 

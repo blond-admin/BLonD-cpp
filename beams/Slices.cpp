@@ -4,7 +4,7 @@
  *  Created on: Mar 22, 2016
  *      Author: kiliakis
  */
-
+#define BLOND_INTERNAL
 #include "Slices.h"
 #include <algorithm>
 #include <math_functions.h>

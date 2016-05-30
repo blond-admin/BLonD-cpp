@@ -12,16 +12,35 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <assert.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <vector>
 #include <stdlib.h>
 #include <math.h>
 #include "configuration.h"
-#include <memory>
 #include <optionparser.h>
 #include <time.h>
+
+
+#if defined(_GCC)
+#  define EXPORT_DECL __attribute__((visibility("default")))
+#  define IMPORT_DECL __attribute__((visibility("hidden")))
+#elif defined(_WIN32) || defined(__WIN32__) || defined(WIN32) || defined(MSC_VER)
+#  define EXPORT_DECL __declspec(dllexport)
+#  define IMPORT_DECL __declspec(dllimport)
+#else
+#  define EXPORT_DECL
+#  define IMPORT_DECL
+#endif
+
+#ifdef BLOND_INTERNAL && SHARED
+# define API EXPORT_DECL
+#elif SHARED
+# define API IMPORT_DECL
+#else
+# define API  
+#endif
+
 
 #define dprintf(...)    fprintf(stdout, __VA_ARGS__)     // Debug printf
 

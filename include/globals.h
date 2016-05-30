@@ -20,6 +20,6 @@ extern Slices *Slice;
 
 // TODO num of threads is global
 // should it?
-extern int n_threads;
+API extern int n_threads;
 
 #endif /* INCLUDES_GLOBALS_H_ */

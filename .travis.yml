@@ -32,12 +32,17 @@ addons:
      - graphviz
 
 cache:
-
  - apt
  - pip
+
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      brew update
+      brew install clang-omp;
       brew install cmake;
+      sudo ln -s /usr/local/bin/clang-omp++ /usr/local/bin/clang++-omp;
+      export CC=/usr/local/bin/clang-omp;
+      export CXX=/usr/local/bin/clang++-omp;
     fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
        export CC=/usr/bin/gcc-4.8;

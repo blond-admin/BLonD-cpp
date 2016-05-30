@@ -10,6 +10,7 @@ include(CTest)
 # Variables default values list
 set(CMAKE_BUILD_TYPE Release)
 set(TEST_ENABLED "False")
+set(SHARED_LIBRARY_ENABLED "True")
 set(GOOGLETEST_ROOT external/googletest/googletest CACHE STRING "Google Test source root")
 set(GSL_ROOT external/gsl CACHE STRING "GSL - GNU Scientific Library source root")
 set(EXTERNAL_ROOT external/install CACHE STRING "External libraries installation folder (with subfolders lib and include)")
@@ -133,9 +134,13 @@ file(GLOB SOURCES
 set(SOURCE_FILES ${SOURCES} )
 assign_source_group(${SOURCE_FILES})
 
-# SHARED for dynamic LINKING
-# STATIC for static LINKING
-add_library(blond SHARED ${SOURCE_FILES})
+if(SHARED_LIBRARY_ENABLED)
+    add_library(blond SHARED ${SOURCE_FILES})
+    target_compile_definitions(blond PRIVATE SHARED=1)
+else()
+    add_library(blond STATIC ${SOURCE_FILES})
+    target_compile_definitions(blond PRIVATE STATIC=1)
+endif()
 target_link_libraries( blond ${LIBRARIES})
 
 

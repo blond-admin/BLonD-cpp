@@ -8,11 +8,7 @@ install:
   - mkdir build
   - cd build
   - cmake ..
-  - msbuild GSL.sln /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
-  - cd ../
-  - cd googletest
-  - cmake .
-  - DIR 
+  - DIR
   - msbuild BLonD-minimal-cpp.sln /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 
 cache: 

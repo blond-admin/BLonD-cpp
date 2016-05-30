@@ -28,10 +28,10 @@ public:
    ftype epsn_rms_l;
    int n_macroparticles_lost;
    int n_macroparticles;
-   int intensity;
+   long intensity;
    //GeneralParameters *gp;
    int *id;
-   Beams(int _n_macroparticles, int _intensity);
+   Beams(const int _n_macroparticles,const long _intensity);
    ~Beams();
    int n_macroparticles_alive();
    void losses_longitudinal_cut(const ftype *__restrict dt,

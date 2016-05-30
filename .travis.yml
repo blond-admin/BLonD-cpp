@@ -1,8 +1,8 @@
 os:
  - linux
-   # sudo: false
+   sudo: false
  - osx
-   # osx_image: xcode7.2
+   osx_image: xcode7.2
 
 language: cpp
 
@@ -16,10 +16,12 @@ env:
 addons:
   apt:
     sources:
+
      - ubuntu-toolchain-r-test
      - george-edison55-precise-backports
      - libreoffice/libreoffice-4-2
     packages:
+
      - cmake
      - cmake-data
      - gcc-4.8
@@ -31,9 +33,9 @@ addons:
      - graphviz
 
 cache:
+
  - apt
  - pip
-
 before install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       brew install cmake;
@@ -45,17 +47,17 @@ before install:
   - echo hello
 
 before_script:
- - mkdir build
- - cd build
- - cmake -DCMAKE_BUILD_TYPE=BUILD_TYPE ..
+  - mkdir build
+  - cd build
+  - cmake -DCMAKE_BUILD_TYPE=BUILD_TYPE ..
 
 script:
- - make -j2
- - ctest -VV
+  - make -j2
+  - ctest -VV
 
 after_success:
- - ./TC1_Acceleration --threads 2
- - if [ "$TRAVIS_OS_NAME" == "linux" ] && [ "$BUILD_TYPE" == "Debug" ]; then
+  - ./TC1_Acceleration --threads 2
+  - if [ "$TRAVIS_OS_NAME" == "linux" ] && [ "$BUILD_TYPE" == "Debug" ]; then
      pip install --user cpp-coveralls ;
      coveralls --gcov gcov-4.8  --root .. -E ".*external.*" -E ".*CMakeFiles.*" -E ".*unit-tests/.*.cpp.*" -E "/usr/include/.*" ; 
      cd ../ ;
@@ -68,4 +70,4 @@ after_success:
      git add -A ;
      git -c user.name='travis' -c user.email='travis' commit -am "documentation update" ;
      git push -f -q https://OlegJakushkin:$GITHUB_API_KEY@github.com/OlegJakushkin/BLonD-minimal-cpp.git gh-pages ;
-   fi
+    fi

@@ -138,6 +138,8 @@ TEST_F(testSlices, set_cuts_bin_centers)
    }
 }
 
+// TODO test set_cuts a little further
+
 
 TEST_F(testSlices, sort_particles_dE)
 {
@@ -175,12 +177,13 @@ TEST_F(testSlices, sort_particles_id)
    }
 }
 
-TEST_F(testSlices, track_dt)
+TEST_F(testSlices, n_macroparticles)
 {
 
    //RingAndRfSection *long_tracker = new RingAndRfSection();
    //long_tracker->track(0, Beam->n_macroparticles);
    Slice->track(0, Beam->n_macroparticles);
+   //util::dump(Slice->n_macroparticles, 100, "something\n");
    std::vector<ftype> v;
    util::read_vector_from_file(v, track_params + "n_macroparticles");
    for (unsigned int i = 0; i < v.size(); ++i) {

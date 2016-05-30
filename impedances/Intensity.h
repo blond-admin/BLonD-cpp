@@ -8,7 +8,7 @@
 #ifndef IMPEDANCES_INTENSITY_H_
 #define IMPEDANCES_INTENSIY_H_
 
-class Intensity;
+//class Intensity;
 
 #include "configuration.h"
 #include <complex>

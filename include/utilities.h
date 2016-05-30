@@ -99,53 +99,30 @@ namespace util {
       }
    }
 
-   static inline void dump(ftype *a, int n, const char *s)
+   template<typename T>
+   static inline void dump(const T *a, const unsigned n, const char *s)
    {
-
 #ifdef PRINT_RESULTS
-      dprintf("%s", s);
-      for (int i = 0; i < n; ++i) {
-         dprintf("%+.6e\n", a[i]);
-      }
-      dprintf("\n");
+      std::cout.precision(PRECISION);
+      std::cout << s;
+      std::cout << std::scientific << std::showpos;
+      for (auto i = 0; i < n; ++i)
+         std::cout << a[i] << std::endl;
+      std::cout << std::endl;
 #endif
-
    }
 
-
-   static inline void dump(ftype a, const char *s)
+   template<typename T>
+   static inline void dump(const T a, const char *s)
    {
-
 #ifdef PRINT_RESULTS
-
-      dprintf("%s: %+.6e\n", s, a);
+      std::cout.precision(PRECISION);
+      std::cout << s;
+      std::cout << std::scientific << std::showpos;
+      std::cout << a << std::endl;
 #endif
-
    }
 
-
-   static inline void dump(int *a, int n, const char *s)
-   {
-
-#ifdef PRINT_RESULTS
-      dprintf("%s", s);
-      for (int i = 0; i < n; ++i) {
-         dprintf("%+d\n", a[i]);
-      }
-      dprintf("\n");
-#endif
-
-
-   }
-
-   static inline void dump(int a, const char *s)
-   {
-
-#ifdef PRINT_RESULTS
-      dprintf("%s: %+d\n", s, a);
-#endif
-
-   }
 
    static inline double time_diff(timespec const &end, timespec const &begin)
    {

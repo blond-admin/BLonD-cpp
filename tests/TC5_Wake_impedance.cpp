@@ -15,14 +15,17 @@
 #include "../beams/Slices.h"
 #include "../beams/Distributions.h"
 #include "../trackers/Tracker.h"
-#include "../impedances/Intensity.h"
+//#include "../impedances/Intensity.h"
+#include "../impedances/InducedVoltage.h"
+#include <complex>
+
 
 const std::string datafiles =
    "../tests/input_files/TC5_Wake_impedance/";
 
 // Simulation parameters --------------------------------------------------------
 // Bunch parameters
-const int N_b = (int) 1e10;                          // Intensity
+const long int N_b = (long int) 1e10;                          // Intensity
 const ftype tau_0 = 2e-9;                       // Initial bunch length, 4 sigma [s]
 // const particle_type particle = proton;
 // Machine and RF parameters
@@ -38,11 +41,11 @@ const int alpha_order = 1;
 const int n_sections = 1;
 // Tracking details
 
-int N_t = 2;    // Number of turns to track
-int N_p = 5000000;         // Macro-particles
+unsigned N_t = 1000;    // Number of turns to track
+unsigned N_p = 5000000;         // Macro-particles
 
 int n_threads = 1;
-int N_slices = 1 << 8; // = (2^8)
+unsigned N_slices = 1 << 8; // = (2^8)
 
 GeneralParameters *GP;
 Beams *Beam;
@@ -75,7 +78,6 @@ int main(int argc, char **argv)
 
    timespec begin;
    //timespec end;
-   util::get_time(begin);
 
    ftype *momentum = new ftype[N_t + 1];
    std::fill_n(momentum, N_t + 1, p_i);
@@ -95,30 +97,25 @@ int main(int argc, char **argv)
    ftype *dphi_array = new ftype[n_sections * (N_t + 1)];
    std::fill_n(dphi_array, (N_t + 1) * n_sections, dphi);
 
-// TODO variables must be in the correct format (arrays for all)
-
    GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum,
                               proton);
 
    Beam = new Beams(N_p, N_b);
 
    RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
-   //printf("omega_rf = %lf\n",RfP->omega_RF[0]);
 
    RingAndRfSection *long_tracker = new RingAndRfSection();
-   //util::dump(Beam->dE, 10, "dE\n");
 
    longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
 
    Slice = new Slices(N_slices, 0, 0, 2 * constant::pi, rad);
-
+   //util::dump(Slice->bin_centers, 10, "bin_centers\n");
 
    std::vector<ftype> v;
    util::read_vector_from_file(v, datafiles +
                                "TC5_new_HQ_table.dat");
    assert(v.size() % 3 == 0);
-   //ftype *p = &v[0];
-   //util::dump(p, 30, "input array\n");
+
    std::vector<ftype> R_shunt, f_res, Q_factor;
 
    R_shunt.reserve(v.size() / 3);
@@ -132,68 +129,28 @@ int main(int argc, char **argv)
    }
 
    Resonators *resonator = new Resonators(R_shunt, f_res, Q_factor);
+   std::vector<Intensity *> wakeSourceList({resonator});
+   InducedVoltageTime *indVoltTime = new InducedVoltageTime(wakeSourceList);
+   std::vector<InducedVoltage *> indVoltList({indVoltTime});
 
-   //ftype *p = &R_shunt[0];
-   //util::dump(p, R_shunt.size(), "R_shunt\n");
 
-   /*
-   double slice_time = 0, track_time = 0;
-
-   timespec begin_t;
-
+   TotalInducedVoltage *totVol = new TotalInducedVoltage(indVoltList);
    
-   #pragma omp parallel
-   {
-      int id = omp_get_thread_num();
-      int threads = omp_get_num_threads();
-      int tile = std::ceil(1.0 * N_p / threads);
-      int start = id * tile;
-      int end = std::min(start + tile, N_p);
-      //printf("id, threads, tile, start, end = %d, %d, %d, %d, %d\n", id,
-      //    threads, tile, start, end);
-      for (int i = 0; i < N_t; ++i) {
 
-         if (id == 0) util::get_time(begin_t);
+   for (unsigned i = 0; i < N_t; ++i) {
+      util::get_time(begin);
 
-         long_tracker->track(start, end);
+      totVol->track();
+      long_tracker->track(0, Beam->n_macroparticles);
+      Slice->track(0, Beam->n_macroparticles);
+      util::print_time_elapsed("Track Time", begin);
 
-         #pragma omp barrier
-
-         if (id == 0) track_time += util::time_elapsed(begin_t);
-         if (id == 0) util::get_time(begin_t);
-
-         Slice->track(start, end);
-
-         #pragma omp barrier
-
-         if (id == 0) slice_time += util::time_elapsed(begin_t);
-
-         #pragma omp single
-         {
-            Slice->fwhm();
-
-            if (i % 1000 == 0) {
-               util::dump(Slice->bl_fwhm, "bl_fwhm");
-               util::dump(Slice->bp_fwhm, "bp_fwhm");
-            }
-
-            RfP->counter++;
-         }
-      }
    }
 
-   util::get_time(end);
-   util::print_time("Simulation Time", begin, end);
-   double total_time = track_time + slice_time;
-   printf("Track time : %.4lf ( %.2lf %% )\n", track_time,
-          100 * track_time / total_time);
-   printf("Slice time : %.4lf ( %.2lf %% )\n", slice_time,
-          100 * slice_time / total_time);
 
    util::dump(Beam->dE, 10, "dE\n");
    util::dump(Beam->dt, 10, "dt\n");
    util::dump(Slice->n_macroparticles, 10, "n_macroparticles\n");
-   */
 
    delete Slice;
    delete long_tracker;
@@ -201,6 +158,8 @@ int main(int argc, char **argv)
    delete GP;
    delete Beam;
    delete resonator;
+   delete indVoltTime;
+   delete totVol;
    printf("Done!\n");
 
 }

@@ -43,6 +43,7 @@ endif()
 find_package(OpenMP REQUIRED)
 find_package(GSL REQUIRED)
 
+
 if(TEST_ENABLED)
     include_directories(
         ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}
@@ -62,6 +63,7 @@ if(TEST_ENABLED)
 endif()
 
 include_directories(include)
+link_directories(/usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64)
 
 # Generate simulation executables
 set(SOURCE_FILES 
@@ -78,12 +80,13 @@ set(SOURCE_FILES
 # SHARED for dynamic LINKING
 # STATIC for static LINKING
 add_library(blond SHARED ${SOURCE_FILES})
+#add_library(gsl SHARED)
+#add_library(gslcblas SHARED IMPORTED)
     
 add_executable(TC1_Acceleration tests/TC1_Acceleration.cpp)
 add_executable(LHC_restart tests/LHC_restart.cpp)
 add_executable(TC5_Wake_impedance tests/TC5_Wake_impedance.cpp)
 
-link_directories(/usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64)
 
 SET(LIBRARIES 
    blond

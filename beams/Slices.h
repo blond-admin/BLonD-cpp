@@ -59,12 +59,12 @@ private:
    void set_cuts();
    void sort_particles();
    inline ftype convert_coordinates(ftype cut, cuts_unit_type type);
-   inline void histogram(const ftype *__restrict__ input,
-                         ftype *__restrict__ output, const ftype cut_left,
+   inline void histogram(const ftype *__restrict input,
+                         ftype *__restrict output, const ftype cut_left,
                          const ftype cut_right, const int n_slices,
                          const int n_macroparticles, const int start, const int end);
-   inline void smooth_histogram(const ftype *__restrict__ input,
-                                ftype *__restrict__ output, const ftype cut_left,
+   inline void smooth_histogram(const ftype *__restrict input,
+                                ftype *__restrict output, const ftype cut_left,
                                 const ftype cut_right, const int n_slices,
                                 const int n_macroparticles);
    inline void slice_constant_space_histogram(const int start, const int end);

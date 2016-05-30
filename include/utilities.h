@@ -18,11 +18,10 @@
 #include <vector>
 #include <stdlib.h>
 #include <math.h>
-#include <mm_malloc.h>
-#include <sys/time.h>
 #include "configuration.h"
 #include <memory>
 #include <optionparser.h>
+#include <time.h>
 
 #define dprintf(...)    fprintf(stdout, __VA_ARGS__)     // Debug printf
 
@@ -77,11 +76,6 @@ namespace util {
          return "0";
       else
          return env;
-   }
-
-   static inline void *aligned_malloc(size_t n)
-   {
-      return _mm_malloc(n, 64);
    }
 
    template<typename T>
@@ -162,12 +156,8 @@ namespace util {
 
    static inline void get_time(timespec &ts)
    {
-
 #ifdef TIMING
-      struct timeval tv;
-      gettimeofday(&tv, NULL);
-      ts.tv_sec = tv.tv_sec;
-      ts.tv_nsec = tv.tv_usec * 1000;
+	   timespec_get(&ts, TIME_UTC);
 #endif
    }
 
@@ -212,20 +202,6 @@ namespace util {
 #ifdef TIMING
       dprintf("%s : %.3f\n", prompt, time_elapsed(begin));
 #endif
-   }
-
-
-   static inline std::string exec(const char *cmd)
-   {
-      std::shared_ptr<FILE> pipe(popen(cmd, "r"), pclose);
-      if (!pipe) return "ERROR";
-      char buffer[128];
-      std::string result = "";
-      while (!feof(pipe.get())) {
-         if (fgets(buffer, 128, pipe.get()) != NULL)
-            result += buffer;
-      }
-      return result;
    }
 
    static inline std::string read_from_file(std::string filename)

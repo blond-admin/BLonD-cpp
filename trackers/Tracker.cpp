@@ -29,10 +29,10 @@ RingAndRfSection::~RingAndRfSection()
 // First go the versions without periodicity
 
 // Kick without periodicity
-inline void RingAndRfSection::kick(const ftype *__restrict__ beam_dt,
-                                   ftype *__restrict__ beam_dE, const int n_rf,
-                                   const ftype *__restrict__ voltage, const ftype *__restrict__ omega_RF,
-                                   const ftype *__restrict__ phi_RF, const int n_macroparticles,
+inline void RingAndRfSection::kick(const ftype *__restrict beam_dt,
+                                   ftype *__restrict beam_dE, const int n_rf,
+                                   const ftype *__restrict voltage, const ftype *__restrict omega_RF,
+                                   const ftype *__restrict phi_RF, const int n_macroparticles,
                                    const ftype acc_kick, const int start, const int end)
 {
 
@@ -57,11 +57,11 @@ inline void RingAndRfSection::kick(const ftype *__restrict__ beam_dt,
 }
 
 // kick with periodicity
-inline void RingAndRfSection::kick(const ftype *__restrict__ beam_dt,
-                                   ftype *__restrict__ beam_dE, const int n_rf,
-                                   const ftype *__restrict__ voltage, const ftype *__restrict__ omega_RF,
-                                   const ftype *__restrict__ phi_RF, const int n_macroparticles,
-                                   const ftype acc_kick, const bool *__restrict__ update, const int start,
+inline void RingAndRfSection::kick(const ftype *__restrict beam_dt,
+                                   ftype *__restrict beam_dE, const int n_rf,
+                                   const ftype *__restrict voltage, const ftype *__restrict omega_RF,
+                                   const ftype *__restrict phi_RF, const int n_macroparticles,
+                                   const ftype acc_kick, const bool *__restrict update, const int start,
                                    const int end)
 {
 
@@ -87,8 +87,8 @@ inline void RingAndRfSection::kick(const ftype *__restrict__ beam_dt,
 }
 
 //drift without periodicity
-inline void RingAndRfSection::drift(ftype *__restrict__ beam_dt,
-                                    const ftype *__restrict__ beam_dE, const solver_type solver,
+inline void RingAndRfSection::drift(ftype *__restrict beam_dt,
+                                    const ftype *__restrict beam_dE, const solver_type solver,
                                     const ftype T0, const ftype length_ratio, const int alpha_order,
                                     const ftype eta_zero, const ftype eta_one, const ftype eta_two,
                                     const ftype beta, const ftype energy, const int n_macroparticles,
@@ -135,12 +135,12 @@ inline void RingAndRfSection::drift(ftype *__restrict__ beam_dt,
 }
 
 // drift with periodicity
-inline void RingAndRfSection::drift(ftype *__restrict__ beam_dt,
-                                    const ftype *__restrict__ beam_dE, const solver_type solver,
+inline void RingAndRfSection::drift(ftype *__restrict beam_dt,
+                                    const ftype *__restrict beam_dE, const solver_type solver,
                                     const ftype T0, const ftype length_ratio, const int alpha_order,
                                     const ftype eta_zero, const ftype eta_one, const ftype eta_two,
                                     const ftype beta, const ftype energy, const int n_macroparticles,
-                                    const bool *__restrict__ update, const int start, const int end)
+                                    const bool *__restrict update, const int start, const int end)
 {
 
    int i;

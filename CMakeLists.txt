@@ -3,25 +3,63 @@ cmake_minimum_required(VERSION 3.0.2)
 project(BLonD-minimal-cpp CXX)
 include(CheckCXXCompilerFlag)
 include(ExternalProject)
+include(ProcessorCount)
 include(CTest)
 
-# TODO is 4.8 really the minimum requirement?
-if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS "4.8.0")
-    message(FATAL_ERROR "ERROR: Insufficient compiler version, need at lest 4.8 to continue")
+# Variables default values list
+set(CMAKE_BUILD_TYPE Release)
+set(TEST_ENABLED "False")
+set(GOOGLETEST_ROOT external/googletest/googletest CACHE STRING "Google Test source root")
+set(GSL_ROOT external/gsl CACHE STRING "GSL - GNU Scientific Library source root")
+set(EXTERNAL_ROOT external/install CACHE STRING "External libraries installation folder (with subfolders lib and include)")
+
+# CPU for build count
+ProcessorCount(N)
+if(NOT N EQUAL 0)
+  set(CTEST_BUILD_FLAGS -j${N})
+  set(ctest_test_args ${ctest_test_args} PARALLEL_LEVEL ${N})
 endif()
 
+# Code editors usabilety feature
+set_property(GLOBAL PROPERTY USE_FOLDERS On) 
+
+if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
+    set(CMAKE_CXX_FLAGS         "-std=c++11 -fopenmp -Wall -pedantic -Wno-rtti -Wunused")
+    set(CMAKE_CXX_FLAGS_DEBUG   "-O0 -g3")
+    set(CMAKE_CXX_FLAGS_RELEASE "-march=native")
+    
+    if (CMAKE_C_COMPILER_ID == "Clang" and CMAKE_CXX_COMPILER_VERSION VERSION_LESS 3.8)
+        set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
+    else()
+        set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Ofast")
+    endif()
+
+    set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-flto")
+    if(TEST_ENABLED and CMAKE_BUILD_TYPE == Debug )
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
+        set(CMAKE_EXE_LINKER_FLAGS "--coverage")
+    endif()
+elseif(MSVC)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj -Zm500  /MP${N}")
+endif()
+
+# TODO is 4.8 really the minimum requirement?
+# TODO do we really want to check for this its 2016 already?
+if(CMAKE_CXX_COMPILER_ID MATCHES GNU AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS "4.8.0")
+    message(FATAL_ERROR "ERROR: Insufficient compiler version, need at lest 4.8 to continue")
+endif()
 check_cxx_compiler_flag(-std=c++11 COMPILER_HAS_CXX11)
 if(!COMPILER_HAS_CXX11)
 	message(FATAL_ERROR "ERROR: Compiler is lacking support for c++11")
 endif()
 
+# optimization checks
 check_cxx_compiler_flag(-ffast-math COMPILER_HAS_FAST_MATH)
 if(COMPILER_HAS_FAST_MATH)
 	add_compile_options(-ffast-math)
 endif()
 
-set(TEST_ENABLED "False")
-set(GOOGLETEST_ROOT external/googletest/googletest CACHE STRING "Google Test source root")
+# Autoenabeling tests if gtest is presented
 if(EXISTS ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT})
     set(TEST_ENABLED "True")
     message(STATUS "Found Google Test library source")
@@ -29,117 +67,125 @@ else()
     message(STATUS "Testing disabled - please provide GOOGLETEST_ROOT path or use '--recursive' argument in git clone")
 endif()
 
-set(GSL_ROOT external/gsl CACHE STRING "GSL - GNU Scientific Library source root")
-
-    ExternalProject_Add(
-        gsl
-        GIT_REPOSITORY git://git.savannah.gnu.org/gsl.git
-        DOWNLOAD_DIR external/gsl
-        SOURCE_DIR external/gsl
-        PATCH_COMMAND file(COPY external/gsl/contrib/CMakeLists.txt external/gsl/contrib/ )
-        CMAKE_ARGS -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
-        BINARY_DIR ./
-        INSTALL_DIR ./
-    )
-
+# required packages
+find_package(OpenMP REQUIRED)
+#GSL (build from source into external instal)
 if(EXISTS ${PROJECT_SOURCE_DIR}/${GSL_ROOT})
     message(STATUS "Found GNU Scientific Library ")
-else()
-  # todo resolve by downloading external project 
-  #  message(FATAL_ERROR "Not GNU Scientific Library - please provide GSL_ROOT path or use '--recursive' argument in git clone")
-endif()
-
-
-set(CMAKE_BUILD_TYPE Release)
-if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
-    set(CMAKE_CXX_FLAGS         "-std=c++11 -fopenmp -Wall -pedantic -Wno-rtti -Wunused")
-    set(CMAKE_CXX_FLAGS_DEBUG   "-O0 -g3")
-    set(CMAKE_CXX_FLAGS_RELEASE "-Ofast -march=native")
-    set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-flto")
-    if(TEST_ENABLED)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
-	    set(CMAKE_EXE_LINKER_FLAGS "--coverage")
-    endif()
-endif()
-
-# Absolutely required packages
-find_package(OpenMP REQUIRED)
-
-if(TEST_ENABLED)
     ExternalProject_Add(
-        googletest
-        GIT_REPOSITORY https://github.com/google/googletest.git
-        DOWNLOAD_DIR external/googletest
-        SOURCE_DIR external/googletest
+        gsl-src
+        SOURCE_DIR ${PROJECT_SOURCE_DIR}/${GSL_ROOT}
+	PATCH_COMMAND git apply --3way -v --allow-overlap ${PROJECT_SOURCE_DIR}/external/gsl.diff && cmake -E copy ${PROJECT_SOURCE_DIR}/${GSL_ROOT}/contrib/CMakeLists.txt ${PROJECT_SOURCE_DIR}/${GSL_ROOT}/CMakeLists.txt
         CMAKE_ARGS -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
-        BINARY_DIR ./
-        INSTALL_DIR ./
+                   -DDO_TESTS="False"
+                   -DCMAKE_INSTALL_PREFIX=${PROJECT_SOURCE_DIR}/external/install
+        TMP_DIR ${PROJECT_SOURCE_DIR}/${GSL_ROOT}/build/tmp
+        TEST_BEFORE_INSTALL False
+        TEST_AFTER_INSTALL False
+        BINARY_DIR ${PROJECT_SOURCE_DIR}/${GSL_ROOT}/build
     )
-
-# Specify include dir
-ExternalProject_Get_Property(googletest source_dir)
-include_directories(${source_dir}/include)
-
+else()
+  message(FATAL_ERROR "Not GNU Scientific Library - please provide GSL_ROOT path or use '--recursive' argument in git clone")
 endif()
 
+# path to external libraries and headers
+include_directories(${EXTERNAL_ROOT}/include)
+link_directories(${EXTERNAL_ROOT}/lib)
+
+# Code editors usabilety function (structure code as it is placed in folders)
+function(assign_source_group)
+    foreach(_source IN ITEMS ${ARGN})
+	message(${_source})
+        if(IS_ABSOLUTE ${_source})
+            file(RELATIVE_PATH _source_rel ${CMAKE_CURRENT_SOURCE_DIR} ${_source})
+        else()
+            set(source_rel ${_source})
+        endif()
+        get_filename_component(_source_path ${_source_rel} PATH)
+        string(REPLACE "/" "\\" _source_path_msvc ${_source_path})
+        source_group("${_source_path_msvc}" FILES ${_source})
+    endforeach()
+endfunction(assign_source_group)
+
+# main library
 include_directories(include)
 
 file(GLOB SOURCES
     "beams/*.cpp"
-    "input_parameters/*.cpp"
-    "trackers/*.cpp"
-    "llrf/*.cpp"
+    "input_parameters/*"
+    "trackers/*"
+    "llrf/*"
+    "include/*"
 )
+set(SOURCE_FILES ${SOURCES} )
+assign_source_group(${SOURCE_FILES})
 
-set(SOURCE_FILES 
-    ${SOURCES}
-)
 
 # SHARED for dynamic LINKING
 # STATIC for static LINKING
 add_library(blond SHARED ${SOURCE_FILES})
 
-file(GLOB EXECUTABLE_SOURCES
-    "tests/*.cpp"
-)
+# demo executables
+file(GLOB EXECUTABLE_SOURCES "tests/*.cpp" )
+set(EXECUTABLE_FILES ${EXECUTABLE_SOURCES} )
 
-set(EXECUTABLE_FILES
-    ${EXECUTABLE_SOURCES}
-)
+# demo dependencies 
+# todo why gsl is needed in demo and is not needed in libBlond?
+SET(LIBRARIES 
+   blond
+   gsl
+   gslcblas)
 
 foreach(src ${EXECUTABLE_FILES})
+    message(STATUS ${src})
     file(RELATIVE_PATH testfile ${CMAKE_CURRENT_SOURCE_DIR} ${src})
     string( REPLACE ".cpp" "" testname ${testfile})
-    string( REPLACE "tests/x "" testname ${testname})
+    string( REPLACE "tests/" "" testname ${testname})
     add_executable( ${testname} ${src})
-    target_link_libraries( ${testname} blond)
+    add_dependencies(${testname} blond gsl-src)
+    target_link_libraries( ${testname} ${LIBRARIES})
 endforeach()
 
-# Generate unit tests
+# testing
 if(TEST_ENABLED)
-    file(GLOB UNIT_TEST_SOURCES
-        "./unit-tests/*.cpp"
+    message(STATUS "generating test executables")
+    # packages required for testing
+    #GoogleTest (build from source into external instal)
+    ExternalProject_Add(
+        googletest-src
+        SOURCE_DIR ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}/
+        CMAKE_ARGS -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} 
+                   -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG:PATH=DebugLibs
+                   -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE:PATH=ReleaseLibs
+                   -Dgtest_force_shared_crt=ON
+                   -DBUILD_GTEST=ON
+                   -DCMAKE_INSTALL_PREFIX=${PROJECT_SOURCE_DIR}/external/install
+        TMP_DIR ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}/build/tmp
+        TEST_BEFORE_INSTALL False
+        TEST_AFTER_INSTALL False
+        BINARY_DIR ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}/build
     )
-
-    set(UNIT_TEST_FILES
-        $(UNIT_TEST_SOURCES)
-    )
-
-    foreach(src ${UNIT_TEST_FILES})
-        file(RELATIVE_PATH testfile ${CMAKE_CURRENT_SOURCE_DIR} ${src})
-        string( REPLACE ".cpp" "" testname ${testfile})
-        string( REPLACE "unit-tests/" "" testname ${testname})
-        add_executable( ${testname} ${src})
-        target_link_libraries( ${testname} blond googletest)
-        add_test(${testname} ${testname})
-    endforeach()
-    
-    enable_testing()
 
     if(UNIX)
       set(CTEST_MEMORYCHECK_COMMAND, "usr/bin/valgrind")
       set(CTEST_MEMORYCHECK_COMMAND_OPTIONS, "--leak-check=full")
     endif()
+
+    file(GLOB UNIT_TEST_SOURCES "./unit-tests/*.cpp" )
+    set(UNIT_TEST_FILES ${UNIT_TEST_SOURCES} )
+
+    foreach(src ${UNIT_TEST_FILES})
+        message(STATUS ${src})
+        file(RELATIVE_PATH testfile ${CMAKE_CURRENT_SOURCE_DIR} ${src})
+        string( REPLACE ".cpp" "" testname ${testfile})
+        string( REPLACE "unit-tests/" "" testname ${testname})
+        add_executable( ${testname} ${src})
+	add_dependencies(${testname} googletest-src gsl-src)
+        target_link_libraries( ${testname} ${LIBRARIES} gtest)
+        add_test(${testname} ${testname})
+    endforeach()
+    
+    enable_testing()
 endif()
 
 

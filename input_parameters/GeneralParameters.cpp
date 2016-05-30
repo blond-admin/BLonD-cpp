@@ -83,7 +83,7 @@ GeneralParameters::GeneralParameters(const int _n_turns, ftype *_ring_length,
 
    //global++;
    //dprintf("Global variable is %d\n", global);
-
+   this->n_turns = _n_turns;
    this->particle = _particle;
    this->particle_2 = _particle2;
    this->n_sections = number_of_sections;
@@ -117,8 +117,6 @@ GeneralParameters::GeneralParameters(const int _n_turns, ftype *_ring_length,
       dprintf("ERROR: Second particle type not recognized!");
       exit(-1);
    }
-
-   this->n_turns = _n_turns;
 
    // We don't have tuple momentum == we don't need cumulative_times
    // assuming that momentum is a 2d array

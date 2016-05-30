@@ -32,14 +32,14 @@ namespace vdt {
    }
 
 //------------------------------------------------------------------------------
-   void sinv(const uint32_t size, double const *__restrict__ iarray,
-             double *__restrict__ oarray);
-   void fast_sinv(const uint32_t size, double const *__restrict__ iarray,
-                  double *__restrict__ oarray);
-   void sinfv(const uint32_t size, float const *__restrict__ iarray,
-              float *__restrict__ oarray);
-   void fast_sinfv(const uint32_t size, float const *__restrict__ iarray,
-                   float *__restrict__ oarray);
+   void sinv(const uint32_t size, double const *__restrict iarray,
+             double *__restrict oarray);
+   void fast_sinv(const uint32_t size, double const *__restrict iarray,
+                  double *__restrict oarray);
+   void sinfv(const uint32_t size, float const *__restrict iarray,
+              float *__restrict oarray);
+   void fast_sinfv(const uint32_t size, float const *__restrict iarray,
+                   float *__restrict oarray);
 
 } //vdt namespace
 

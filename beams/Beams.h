@@ -34,10 +34,10 @@ public:
    Beams(int _n_macroparticles, int _intensity);
    ~Beams();
    int n_macroparticles_alive();
-   void losses_longitudinal_cut(const ftype *__restrict__ dt,
-                                const ftype dt_min, const ftype dt_max, int *__restrict__ id);
-   void losses_energy_cut(const ftype *__restrict__ dE, const ftype dE_min,
-                          const ftype dE_max, int *__restrict__ id);
+   void losses_longitudinal_cut(const ftype *__restrict dt,
+                                const ftype dt_min, const ftype dt_max, int *__restrict id);
+   void losses_energy_cut(const ftype *__restrict dE, const ftype dE_min,
+                          const ftype dE_max, int *__restrict id);
 
    void statistics();
 };

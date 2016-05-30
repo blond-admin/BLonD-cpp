@@ -15,10 +15,9 @@
 //#include <gsl/gsl_vector.h>
 
 Slices::Slices(int _n_slices, int _n_sigma, ftype _cut_left, ftype _cut_right,
-               cuts_unit_type _cuts_unit, fit_type _fit_option, bool direct_slicing)
+               cuts_unit_type _cuts_unit, fit_type _fit_option, bool direct_slicing) :
+n_slices (_n_slices)
 {
-
-   this->n_slices = _n_slices;
    this->cut_left = _cut_left;
    this->cut_right = _cut_right;
    this->cuts_unit = _cuts_unit;
@@ -225,8 +224,8 @@ inline void Slices::slice_constant_space_histogram(const int start,
     */
 }
 
-inline void Slices::histogram(const ftype *__restrict__ input,
-                              ftype *__restrict__ output, const ftype cut_left,
+inline void Slices::histogram(const ftype *__restrict input,
+                              ftype *__restrict output, const ftype cut_left,
                               const ftype cut_right, const int n_slices, const int n_macroparticles,
                               const int start, const int end)
 {
@@ -278,8 +277,8 @@ void Slices::track_cuts()
 
 }
 
-inline void Slices::smooth_histogram(const ftype *__restrict__ input,
-                                     ftype *__restrict__ output, const ftype cut_left,
+inline void Slices::smooth_histogram(const ftype *__restrict input,
+                                     ftype *__restrict output, const ftype cut_left,
                                      const ftype cut_right, const int n_slices, const int n_macroparticles)
 {
 
@@ -336,28 +335,28 @@ void Slices::rms()
     * Computation of the RMS bunch length and position from the line density
     (bunch length = 4sigma).*
     */
-   ftype lineDenNormalized[n_slices];
-   ftype array[n_slices];
+	std::unique_ptr<ftype> lineDenNormalized(new ftype[n_slices]);
+	std::unique_ptr<ftype> array(new ftype[n_slices]);
 
    ftype timeResolution = bin_centers[1] - bin_centers[0];
    ftype trap = mymath::trapezoid(n_macroparticles, timeResolution,
                                   Beam->n_macroparticles);
 
    for (int i = 0; i < n_slices; ++i) {
-      lineDenNormalized[i] = n_macroparticles[i] / trap;
+      lineDenNormalized.get()[i] = n_macroparticles[i] / trap;
    }
 
    for (int i = 0; i < n_slices; ++i) {
-      array[i] = bin_centers[i] * lineDenNormalized[i];
+      array.get()[i] = bin_centers[i] * lineDenNormalized.get()[i];
    }
 
-   bp_rms = mymath::trapezoid(array, timeResolution, n_slices);
+   bp_rms = mymath::trapezoid(array.get(), timeResolution, n_slices);
 
    for (int i = 0; i < n_slices; ++i) {
-      array[i] = (bin_centers[i] - bp_rms) * (bin_centers[i] - bp_rms)
-                 * lineDenNormalized[i];
+      array.get()[i] = (bin_centers[i] - bp_rms) * (bin_centers[i] - bp_rms)
+                 * lineDenNormalized.get()[i];
    }
-   ftype temp = mymath::trapezoid(array, timeResolution, n_slices);
+   ftype temp = mymath::trapezoid(array.get(), timeResolution, n_slices);
    bl_rms = 4 * sqrt(temp);
 
    /*

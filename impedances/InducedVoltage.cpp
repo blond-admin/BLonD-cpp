@@ -29,8 +29,10 @@ inline void InducedVoltage::linear_interp_kick(
    // double fbin;
    // int ffbin;
    // double voltageKick;
+
    double inv_bin_width = (n_slices - 1) / (bin_centers[n_slices - 1]
                           - bin_centers[0]);
+   //std::cout << "I am in linear_interp_kick\n";
 
    for (int i = 0; i < n_macroparticles; i++) {
       ftype a = beam_dt[i];
@@ -86,6 +88,8 @@ inline void InducedVoltageTime::track()
 {
    // Tracking Method
    std::vector<ftype> v = this->induced_voltage_generation();
+   
+   //std::cout << "induced v size is " << v.size() << "\n";
 
    std::transform(v.begin(), v.end(), v.begin(),
                   std::bind1st(std::multiplies<ftype>(),
@@ -94,6 +98,7 @@ inline void InducedVoltageTime::track()
    linear_interp_kick(Beam->dt, Beam->dE, v.data(),
                       Slice->bin_centers, Slice->n_slices,
                       Beam->n_macroparticles, 0.0);
+
 }
 
 void InducedVoltageTime::sum_wakes(std::vector<ftype> &TimeArray)
@@ -223,16 +228,21 @@ TotalInducedVoltage::TotalInducedVoltage(
 
 void TotalInducedVoltage::track()
 {
-
-   std::vector<ftype> v = this->induced_voltage_sum();
+   //std::cout << "I am here\n";
+   this->induced_voltage_sum();
+   auto v = this->fInducedVoltage;
+   //std::cout << "total v size is " << v.size() << "\n";
 
    std::transform(v.begin(), v.end(), v.begin(),
                   std::bind1st(std::multiplies<ftype>(),
                                GP->charge));
+   //std::cout << "I am here\n";
 
    linear_interp_kick(Beam->dt, Beam->dE, v.data(),
                       Slice->bin_centers, Slice->n_slices,
                       Beam->n_macroparticles, 0.0);
+   //std::cout << "I am here\n";
+
 }
 
 void TotalInducedVoltage::track_memory() {}

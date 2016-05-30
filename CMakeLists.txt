@@ -6,6 +6,7 @@ include(ExternalProject)
 include(ProcessorCount)
 include(CTest)
 
+
 # Variables default values list
 set(CMAKE_BUILD_TYPE Release)
 set(TEST_ENABLED "False")
@@ -13,12 +14,14 @@ set(GOOGLETEST_ROOT external/googletest/googletest CACHE STRING "Google Test sou
 set(GSL_ROOT external/gsl CACHE STRING "GSL - GNU Scientific Library source root")
 set(EXTERNAL_ROOT external/install CACHE STRING "External libraries installation folder (with subfolders lib and include)")
 
+
 # CPU for build count
 ProcessorCount(N)
 if(NOT N EQUAL 0)
   set(CTEST_BUILD_FLAGS -j${N})
   set(ctest_test_args ${ctest_test_args} PARALLEL_LEVEL ${N})
 endif()
+
 
 # Code editors usabilety feature
 set_property(GLOBAL PROPERTY USE_FOLDERS On) 
@@ -53,11 +56,13 @@ if(!COMPILER_HAS_CXX11)
 	message(FATAL_ERROR "ERROR: Compiler is lacking support for c++11")
 endif()
 
+
 # optimization checks
 check_cxx_compiler_flag(-ffast-math COMPILER_HAS_FAST_MATH)
 if(COMPILER_HAS_FAST_MATH)
 	add_compile_options(-ffast-math)
 endif()
+
 
 # Autoenabeling tests if gtest is presented
 if(EXISTS ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT})
@@ -66,6 +71,7 @@ if(EXISTS ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT})
 else()
     message(STATUS "Testing disabled - please provide GOOGLETEST_ROOT path or use '--recursive' argument in git clone")
 endif()
+
 
 # required packages
 find_package(OpenMP REQUIRED)
@@ -88,9 +94,11 @@ else()
   message(FATAL_ERROR "Not GNU Scientific Library - please provide GSL_ROOT path or use '--recursive' argument in git clone")
 endif()
 
+
 # path to external libraries and headers
 include_directories(${EXTERNAL_ROOT}/include)
 link_directories(${EXTERNAL_ROOT}/lib)
+
 
 # Code editors usabilety function (structure code as it is placed in folders)
 function(assign_source_group)
@@ -107,8 +115,12 @@ function(assign_source_group)
     endforeach()
 endfunction(assign_source_group)
 
+
 # main library
 include_directories(include)
+SET(LIBRARIES 
+   gsl
+   gslcblas)
 
 file(GLOB SOURCES
     "beams/*"
@@ -121,21 +133,18 @@ file(GLOB SOURCES
 set(SOURCE_FILES ${SOURCES} )
 assign_source_group(${SOURCE_FILES})
 
-
 # SHARED for dynamic LINKING
 # STATIC for static LINKING
 add_library(blond SHARED ${SOURCE_FILES})
+target_link_libraries( blond ${LIBRARIES})
+
 
 # demo executables
+LIST(APPEND LIBRARIES blond)
+
 file(GLOB EXECUTABLE_SOURCES "tests/*.cpp" )
 set(EXECUTABLE_FILES ${EXECUTABLE_SOURCES} )
-
 # demo dependencies 
-# todo why gsl is needed in demo and is not needed in libBlond?
-SET(LIBRARIES 
-   blond
-   gsl
-   gslcblas)
 
 foreach(src ${EXECUTABLE_FILES})
     message(STATUS ${src})
@@ -146,6 +155,7 @@ foreach(src ${EXECUTABLE_FILES})
     add_dependencies(${testname} blond gsl-src)
     target_link_libraries( ${testname} ${LIBRARIES})
 endforeach()
+
 
 # testing
 if(TEST_ENABLED)
@@ -166,6 +176,8 @@ if(TEST_ENABLED)
         TEST_AFTER_INSTALL False
         BINARY_DIR ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}/build
     )
+    LIST(APPEND LIBRARIES gtest)
+
 
     if(UNIX)
       set(CTEST_MEMORYCHECK_COMMAND, "usr/bin/valgrind")
@@ -188,11 +200,3 @@ if(TEST_ENABLED)
     
     enable_testing()
 endif()
-
-
-
-
-
-
-
-

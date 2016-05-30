@@ -29,10 +29,10 @@ public:
    std::vector<ftype> fInducedVoltage;
 
    InducedVoltage() {};
-   inline void linear_interp_kick(const ftype *__restrict__ beam_dt,
-                                  ftype *__restrict__ beam_dE,
-                                  const ftype *__restrict__ voltage_array,
-                                  const ftype *__restrict__ bin_centers,
+   inline void linear_interp_kick(const ftype *__restrict beam_dt,
+                                  ftype *__restrict beam_dE,
+                                  const ftype *__restrict voltage_array,
+                                  const ftype *__restrict bin_centers,
                                   const int n_slices,
                                   const int n_macroparticles,
                                   const ftype acc_kick = 0.0);

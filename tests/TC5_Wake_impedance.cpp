@@ -170,7 +170,7 @@ int main(int argc, char **argv)
 
    //util::dump(Beam->dE, 10, "dE\n");
    //util::dump(Beam->dt, 10, "dt\n");
-   util::dump(Slice->n_macroparticles, 256, "n_macroparticles\n");
+   //util::dump(Slice->n_macroparticles, 10, "n_macroparticles\n");
 
    delete Slice;
    delete long_tracker;

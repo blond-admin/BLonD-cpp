@@ -45,7 +45,7 @@ Slices::Slices(int _n_slices, int _n_sigma, ftype _cut_left, ftype _cut_right,
    set_cuts();
 
    if (direct_slicing)
-      track(0, Beam->n_macroparticles);
+      track();
 }
 
 Slices::~Slices()
@@ -152,25 +152,20 @@ void Slices::track()
       gaussian_fit();
 }
 
+/*
 void Slices::track(const int start, const int end)
 {
-   /*
-    *Track method in order to update the slicing along with the tracker.
-    This will update the beam properties (bunch length obtained from the
-    fit, etc.).*
-    */
+
+   // Track method in order to update the slicing along with the tracker.
+   // This will update the beam properties (bunch length obtained from the
+   // fit, etc.).
+
    slice_constant_space_histogram(start, end);
    if (fit_option == fit_type::gaussian_fit)
       gaussian_fit();
 }
-
-/*
-void Slices::zero_histogram()
-{
-   for (int i = 0; i < n_slices; i++)
-      n_macroparticles[i] = 0.0;
-}
 */
+
 
 inline void Slices::slice_constant_space_histogram()
 {
@@ -190,18 +185,19 @@ inline void Slices::slice_constant_space_histogram()
 
 }
 
+/*
 inline void Slices::slice_constant_space_histogram(const int start,
       const int end)
 {
-   /*
-    *Constant space slicing with the built-in numpy histogram function,
-    with a constant frame. This gives the same profile as the
-    slice_constant_space method, but no compute statistics possibilities
-    (the index of the particles is needed).*
 
-    *This method is faster than the classic slice_constant_space method
-    for high number of particles (~1e6).*
-    */
+   // Constant space slicing with the built-in numpy histogram function,
+   // with a constant frame. This gives the same profile as the
+   // slice_constant_space method, but no compute statistics possibilities
+   // (the index of the particles is needed).*
+
+   // This method is faster than the classic slice_constant_space method
+   // for high number of particles (~1e6).*
+
 
    // TODO why using len and not n_macroparticles?
    // WARNING
@@ -236,22 +232,11 @@ inline void Slices::slice_constant_space_histogram(const int start,
    }
    //printf("ok here\n");
 
-   /*
-    #pragma omp single
-    {
-    for (int i = 0; i < n_slices; i++)
-    n_macroparticles[i] = 0.0;
 
-    for (int i = 0; i < n_slices; ++i) {
-    for (int j = 0; j < n_threads; ++j) {
-    n_macroparticles[i] += h[j * n_slices + i];
-    }
-    }
-
-    }
-    */
 }
+*/
 
+/*
 inline void Slices::histogram(const ftype *__restrict__ input,
                               ftype *__restrict__ output, const ftype cut_left,
                               const ftype cut_right, const int n_slices, const int n_macroparticles,
@@ -284,7 +269,7 @@ inline void Slices::histogram(const ftype *__restrict__ input,
    //printf("ok here\n");
 
 }
-
+*/
 
 inline void Slices::histogram(const ftype *__restrict__ input,
                               ftype *__restrict__ output, const ftype cut_left,
@@ -318,9 +303,9 @@ inline void Slices::histogram(const ftype *__restrict__ input,
       start = id * tile;
       end = std::min(start + tile, n_slices);
 
-      for (int i = start; i < end; i++) 
+      for (int i = start; i < end; i++)
          output[i] = 0.0;
-      
+
       for (int i = 0; i < threads; ++i) {
          const int r = i * n_slices;
          for (int j = start; j < end; ++j) {

@@ -182,7 +182,7 @@ TEST_F(testPL, lhc_t)
 
 TEST_F(testPL, phi_beam)
 {
-   Slice->track(0, Beam->n_macroparticles);
+   Slice->track();
    PL->beam_phase();
 
    std::vector<ftype> v;
@@ -194,7 +194,7 @@ TEST_F(testPL, phi_beam)
 
 TEST_F(testPL, dphi)
 {
-   Slice->track(0, Beam->n_macroparticles);
+   Slice->track();
    PL->beam_phase();
    PL->phase_difference();
 
@@ -207,10 +207,10 @@ TEST_F(testPL, dphi)
 
 TEST_F(testPL, domega_RF)
 {
-   Slice->track(0, Beam->n_macroparticles);
+   Slice->track();
    PL->beam_phase();
    PL->phase_difference();
-   long_tracker->track(0, Beam->n_macroparticles);
+   long_tracker->track();
    std::vector<ftype> v;
    util::read_vector_from_file(v, params + "domega_RF");
    ftype ref = v[0];
@@ -220,10 +220,10 @@ TEST_F(testPL, domega_RF)
 
 TEST_F(testPL, lhc_y)
 {
-   Slice->track(0, Beam->n_macroparticles);
+   Slice->track();
    PL->beam_phase();
    PL->phase_difference();
-   long_tracker->track(0, Beam->n_macroparticles);
+   long_tracker->track();
    std::vector<ftype> v;
    util::read_vector_from_file(v, params + "lhc_y");
    ftype ref = v[0];
@@ -233,10 +233,10 @@ TEST_F(testPL, lhc_y)
 
 TEST_F(testPL, omega_RF)
 {
-   Slice->track(0, Beam->n_macroparticles);
+   Slice->track();
    PL->beam_phase();
    PL->phase_difference();
-   long_tracker->track(0, Beam->n_macroparticles);
+   long_tracker->track();
    RfP->counter++;
    int counter = RfP->counter;
 
@@ -249,10 +249,10 @@ TEST_F(testPL, omega_RF)
 
 TEST_F(testPL, dphi_RF)
 {
-   Slice->track(0, Beam->n_macroparticles);
+   Slice->track();
    PL->beam_phase();
    PL->phase_difference();
-   long_tracker->track(0, Beam->n_macroparticles);
+   long_tracker->track();
    RfP->counter++;
 
    std::vector<ftype> v;
@@ -264,10 +264,10 @@ TEST_F(testPL, dphi_RF)
 
 TEST_F(testPL, phi_RF)
 {
-   Slice->track(0, Beam->n_macroparticles);
+   Slice->track();
    PL->beam_phase();
    PL->phase_difference();
-   long_tracker->track(0, Beam->n_macroparticles);
+   long_tracker->track();
    RfP->counter++;
 
    int counter = RfP->counter;

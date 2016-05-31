@@ -174,6 +174,35 @@ int main(int argc, char **argv)
 
    printf("Ready for tracking!\n");
 
+   for (int i = 0; i < N_t; ++i) {
+
+      printf("\nTurn %d\n", i);
+
+      if (RfP->counter < 570000)
+         PL->reference = 0.5236;
+      else
+         PL->reference = 1.0472;
+
+      util::get_time(begin_t);
+
+      Slice->track();
+
+      slice_time += util::time_elapsed(begin_t);
+      util::get_time(begin_t);
+
+      long_tracker->track();
+
+      track_time += util::time_elapsed(begin_t);
+
+      printf("   RF phase %.6e rad\n", RfP->dphi_RF[0]);
+      printf("   PL phase correction %.6e rad\n", PL->dphi);
+      RfP->counter++;
+
+   }
+
+
+
+   /*
    #pragma omp parallel
    {
       int id = omp_get_thread_num();
@@ -219,7 +248,7 @@ int main(int argc, char **argv)
 
       }
    }
-
+   */
    util::get_time(end);
    util::print_time("Simulation Time", begin, end);
 

@@ -101,7 +101,7 @@ TEST_F(testTracker, track_dE)
 {
 
    RingAndRfSection *long_tracker = new RingAndRfSection();
-   long_tracker->track(0, Beam->n_macroparticles);
+   long_tracker->track();
 
    std::vector<ftype> v;
    util::read_vector_from_file(v, track_params + "dE");
@@ -117,7 +117,7 @@ TEST_F(testTracker, track_dt)
 {
 
    RingAndRfSection *long_tracker = new RingAndRfSection();
-   long_tracker->track(0, Beam->n_macroparticles);
+   long_tracker->track();
 
    std::vector<ftype> v;
    util::read_vector_from_file(v, track_params + "dt");

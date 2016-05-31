@@ -65,7 +65,7 @@ public:
                      const ftype beta, const ftype energy, const int n_macroparticles,
                      const int start, const int end);
 
-   void track(const int start, const int end);
+   //void track(const int start, const int end);
 
    void track();
 

@@ -41,7 +41,7 @@ inline void RingAndRfSection::kick(const ftype *__restrict__ beam_dt,
 
    int k = 0;
    for (int j = 0; j < n_rf; j++) {
-   //#pragma omp parallel for
+   #pragma omp parallel for
       for (int i = start; i < end; i++) {
          beam_dE[i] += voltage[k]
                        * vdt::fast_sin(omega_RF[k] * beam_dt[i] + phi_RF[k]);
@@ -51,7 +51,7 @@ inline void RingAndRfSection::kick(const ftype *__restrict__ beam_dt,
    }
 
 // SYNCHRONOUS ENERGY CHANGE
-//#pragma omp parallel for
+   #pragma omp parallel for
    for (int i = start; i < end; i++)
       beam_dE[i] += acc_kick;
 
@@ -102,7 +102,7 @@ inline void RingAndRfSection::drift(ftype *__restrict__ beam_dt,
 
    if (solver == simple) {
       ftype coeff = eta_zero / (beta * beta * energy);
-//#pragma omp parallel for
+      #pragma omp parallel for
       for (i = start; i < end; i++)
          beam_dt[i] += T * coeff * beam_dE[i];
    }

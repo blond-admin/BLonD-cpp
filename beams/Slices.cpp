@@ -147,7 +147,9 @@ inline ftype Slices::convert_coordinates(const ftype cut,
 
 void Slices::track()
 {
-   track(0, Beam->n_macroparticles);
+   slice_constant_space_histogram();
+   if (fit_option == fit_type::gaussian_fit)
+      gaussian_fit();
 }
 
 void Slices::track(const int start, const int end)
@@ -162,10 +164,30 @@ void Slices::track(const int start, const int end)
       gaussian_fit();
 }
 
+/*
 void Slices::zero_histogram()
 {
    for (int i = 0; i < n_slices; i++)
       n_macroparticles[i] = 0.0;
+}
+*/
+
+inline void Slices::slice_constant_space_histogram()
+{
+   /*
+    *Constant space slicing with the built-in numpy histogram function,
+    with a constant frame. This gives the same profile as the
+    slice_constant_space method, but no compute statistics possibilities
+    (the index of the particles is needed).*
+
+    *This method is faster than the classic slice_constant_space method
+    for high number of particles (~1e6).*
+    */
+
+
+   histogram(Beam->dt, n_macroparticles, cut_left, cut_right, n_slices,
+             Beam->n_macroparticles);
+
 }
 
 inline void Slices::slice_constant_space_histogram(const int start,
@@ -261,6 +283,51 @@ inline void Slices::histogram(const ftype *__restrict__ input,
    }
    //printf("ok here\n");
 
+}
+
+
+inline void Slices::histogram(const ftype *__restrict__ input,
+                              ftype *__restrict__ output, const ftype cut_left,
+                              const ftype cut_right, const int n_slices,
+                              const int n_macroparticles)
+{
+
+   const ftype inv_bin_width = n_slices / (cut_right - cut_left);
+
+   ftype *h = (ftype *) calloc(omp_get_max_threads() * n_slices, sizeof(ftype));
+   #pragma omp parallel
+   {
+
+      const int id = omp_get_thread_num();
+      const int threads = omp_get_num_threads();
+      int tile = static_cast<int>((n_macroparticles + threads - 1) / threads);
+      int start = id * tile;
+      int end = std::min(start + tile, n_macroparticles);
+      const int row = id * n_slices;
+
+      for (int i = start; i < end; i++) {
+         ftype a = input[i];
+         if ((a < cut_left) || (a > cut_right))
+            continue;
+         int ffbin = static_cast<int>((a - cut_left) * inv_bin_width);
+         h[row + ffbin] = h[row + ffbin] + 1.0;
+      }
+      #pragma omp barrier
+
+      tile = (n_slices + threads - 1) / threads;
+      start = id * tile;
+      end = std::min(start + tile, n_slices);
+
+      for (int i = start; i < end; i++) 
+         output[i] = 0.0;
+      
+      for (int i = 0; i < threads; ++i) {
+         const int r = i * n_slices;
+         for (int j = start; j < end; ++j) {
+            output[j] += h[r + j];
+         }
+      }
+   }
 }
 
 void Slices::track_cuts()

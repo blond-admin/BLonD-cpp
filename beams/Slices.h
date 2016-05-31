@@ -38,7 +38,7 @@ public:
    void track(const int start, const int end);
    void track();
    
-   void zero_histogram();
+   //void zero_histogram();
    ftype fast_fwhm();
    void fwhm(const ftype shift = 0);
 
@@ -66,11 +66,16 @@ private:
                          ftype *__restrict__ output, const ftype cut_left,
                          const ftype cut_right, const int n_slices,
                          const int n_macroparticles, const int start, const int end);
+   inline void histogram(const ftype *__restrict__ input,
+                         ftype *__restrict__ output, const ftype cut_left,
+                         const ftype cut_right, const int n_slices,
+                         const int n_macroparticles);
    inline void smooth_histogram(const ftype *__restrict__ input,
                                 ftype *__restrict__ output, const ftype cut_left,
                                 const ftype cut_right, const int n_slices,
                                 const int n_macroparticles);
    inline void slice_constant_space_histogram(const int start, const int end);
+   inline void slice_constant_space_histogram();
    void track_cuts();
    void slice_constant_space_histogram_smooth();
    void rms();

@@ -135,27 +135,42 @@ int main(int argc, char **argv)
 
 
    TotalInducedVoltage *totVol = new TotalInducedVoltage(indVoltList);
-   
 
+   auto indTrack = 0.0, longTrack = 0.0, sliceTrack = 0.0;
    for (unsigned i = 0; i < N_t; ++i) {
+
       util::get_time(begin);
       totVol->track();
-      util::print_time_elapsed("Induced Voltage Track", begin);
-      
+      //util::print_time_elapsed("Induced Voltage Track", begin);
+      indTrack += util::time_elapsed(begin);
+
       util::get_time(begin);
       long_tracker->track();
-      util::print_time_elapsed("Tracker Track", begin);
+      //util::print_time_elapsed("Tracker Track", begin);
+      longTrack += util::time_elapsed(begin);
 
       util::get_time(begin);
       Slice->track();
-      util::print_time_elapsed("Slice Track", begin);
+      sliceTrack += util::time_elapsed(begin);
+
+      //util::print_time_elapsed("Slice Track", begin);
 
    }
 
+   std::cout << std::scientific;
+   std::cout << "Average Turn Time : "
+             << (indTrack + longTrack + sliceTrack) / N_t
+             << std::endl;
+   std::cout << "Average Induced Voltage Track Time : "
+             << indTrack / N_t << std::endl;
+   std::cout << "Average Tracker Track Time : "
+             << longTrack / N_t << std::endl;
+   std::cout << "Average Slice Track Time : "
+             << sliceTrack / N_t << std::endl;
 
-   util::dump(Beam->dE, 10, "dE\n");
-   util::dump(Beam->dt, 10, "dt\n");
-   util::dump(Slice->n_macroparticles, 10, "n_macroparticles\n");
+   //util::dump(Beam->dE, 10, "dE\n");
+   //util::dump(Beam->dt, 10, "dt\n");
+   util::dump(Slice->n_macroparticles, 256, "n_macroparticles\n");
 
    delete Slice;
    delete long_tracker;

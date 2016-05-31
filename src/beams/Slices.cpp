@@ -4,16 +4,17 @@
  *  Created on: Mar 22, 2016
  *      Author: kiliakis
  */
-#define BLOND_INTERNAL
+#include <blond/beams/Slices.h>
+
 #include <algorithm>
 #include <iterator>
 #include <omp.h>
 
 #include <blond/globals.h>
-#include <blond/beams/Slices.h>
 #include <blond/math_functions.h>
 #include <blond/beams/Beams.h>
 #include <blond/input_parameters/RfParameters.h>
+using namespace blond;
 
 //#include <gsl/gsl_multifit_nlin.h>
 //#include <gsl/gsl_vector.h>

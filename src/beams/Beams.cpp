@@ -4,10 +4,11 @@
  *  Created on: Mar 22, 2016
  *      Author: kiliakis
  */
+#include <blond/beams/Beams.h>
 
 #include <blond/utilities.h>
 #include <blond/constants.h>
-#include <blond/beams/Beams.h>
+using namespace blond;
 
 Beams::~Beams()
 {

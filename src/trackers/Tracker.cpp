@@ -4,15 +4,13 @@
  *  Created on: Mar 22, 2016
  *      Author: kiliakis
  */
-
-//#include <blond/includes/utilities.h"
+#include <blond/trackers/Tracker.h>
 
 #include <blond/utilities.h>
 #include <blond/globals.h>
-#include <blond/input_parameters/RfParameters.h>
 #include <blond/trackers/sin.h>
-#include <blond/trackers/Tracker.h>
 #include <blond/beams/Beams.h>
+using namespace blond;
 
 
 RingAndRfSection::~RingAndRfSection()

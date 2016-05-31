@@ -4,14 +4,14 @@
  *  Created on: Mar 22, 2016
  *      Author: kiliakis
  */
-
+#include <blond/input_parameters/RfParameters.h>
 
 #include <blond/utilities.h>
 #include <blond/globals.h>
 #include <blond/constants.h>
 #include <blond/math_functions.h>
-#include <blond/input_parameters/RfParameters.h>
 #include <blond/trackers/sin.h>
+using namespace blond;
 
 RfParameters::~RfParameters()
 {

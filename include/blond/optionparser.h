@@ -215,6 +215,7 @@
 
 #ifndef OPTIONPARSER_H_
 #define OPTIONPARSER_H_
+namespace blond {
 
 /** @brief The namespace of The Lean Mean C++ Option Parser. */
 namespace option {
@@ -2731,5 +2732,5 @@ namespace option {
 
 }
 // namespace option
-
+}
 #endif /* OPTIONPARSER_H_ */

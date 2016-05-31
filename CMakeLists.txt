@@ -39,9 +39,11 @@ if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
     endif()
 
     set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-flto")
-    if((TEST_ENABLED STREQUAL "True") AND ( CMAKE_BUILD_TYPE STREQUAL "Debug"))
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
-        set(CMAKE_EXE_LINKER_FLAGS "--coverage")
+    if(TEST_ENABLED STREQUAL "True")
+        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fprofile-arcs -ftest-coverage")
+        set(CMAKE_EXE_LINKER_FLAGS_DEBUG "--coverage")
+    else()
+        message(STATUS "code test coveredge is enabeled only in Debug mode")
     endif()
 elseif(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj -Zm500  /MP${N}")
@@ -84,8 +86,7 @@ if(EXISTS ${PROJECT_SOURCE_DIR}/${GSL_ROOT})
     ExternalProject_Add(
         gsl-src
         SOURCE_DIR ${PROJECT_SOURCE_DIR}/${GSL_ROOT}
-	PATCH_COMMAND git apply --3way -v --allow-overlap ${PROJECT_SOURCE_DIR}/external/gsl.diff 
-                      && cmake -E copy ${PROJECT_SOURCE_DIR}/${GSL_ROOT}/contrib/CMakeLists.txt ${PROJECT_SOURCE_DIR}/${GSL_ROOT}/CMakeLists.txt
+	PATCH_COMMAND cmake -DPROJECT_SOURCE_DIR=${PROJECT_SOURCE_DIR} -DGSL_ROOT=${GSL_ROOT} -P ${PROJECT_SOURCE_DIR}/external/gsl.patch.cmake 
         CMAKE_ARGS -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
                    -DDO_TESTS="False"
                    -DCMAKE_INSTALL_PREFIX=${PROJECT_SOURCE_DIR}/external/install
@@ -94,9 +95,6 @@ if(EXISTS ${PROJECT_SOURCE_DIR}/${GSL_ROOT})
         TEST_BEFORE_INSTALL False
         TEST_AFTER_INSTALL False
         BINARY_DIR ${PROJECT_SOURCE_DIR}/${GSL_ROOT}/build
-	INSTALL_COMMAND cmake -E copy_directory  ${PROJECT_SOURCE_DIR}/${GSL_ROOT}/build/gsl ${PROJECT_SOURCE_DIR}/external/install/include/gsl 
-                        && cmake -E copy ${PROJECT_SOURCE_DIR}/${GSL_ROOT}/build/${gslLib} ${PROJECT_SOURCE_DIR}/external/install/lib/${gslLib}
-                        && cmake -E copy ${PROJECT_SOURCE_DIR}/${GSL_ROOT}/build/${gslcblasLib} ${PROJECT_SOURCE_DIR}/external/install/lib/${gslcblasLib}
     )
 else()
   message(FATAL_ERROR "Not GNU Scientific Library - please provide GSL_ROOT path or use '--recursive' argument in git clone")
@@ -111,7 +109,6 @@ link_directories(${EXTERNAL_ROOT}/lib)
 # Code editors usabilety function (structure code as it is placed in folders)
 function(assign_source_group)
     foreach(_source IN ITEMS ${ARGN})
-	message(${_source})
         if(IS_ABSOLUTE ${_source})
             file(RELATIVE_PATH _source_rel ${CMAKE_CURRENT_SOURCE_DIR} ${_source})
         else()
@@ -156,7 +153,6 @@ set(EXECUTABLE_FILES ${EXECUTABLE_SOURCES} )
 # demo dependencies 
 
 foreach(src ${EXECUTABLE_FILES})
-    message(STATUS ${src})
     file(RELATIVE_PATH testfile ${CMAKE_CURRENT_SOURCE_DIR} ${src})
     string( REPLACE ".cpp" "" testname ${testfile})
     string( REPLACE "tests/" "" testname ${testname})
@@ -198,7 +194,6 @@ if(TEST_ENABLED)
     set(UNIT_TEST_FILES ${UNIT_TEST_SOURCES} )
 
     foreach(src ${UNIT_TEST_FILES})
-        message(STATUS ${src})
         file(RELATIVE_PATH testfile ${CMAKE_CURRENT_SOURCE_DIR} ${src})
         string( REPLACE ".cpp" "" testname ${testfile})
         string( REPLACE "unit-tests/" "" testname ${testname})

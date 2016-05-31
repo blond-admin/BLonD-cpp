@@ -4,11 +4,12 @@
  *  Created on: Mar 22, 2016
  *      Author: kiliakis
  */
+#include <blond/input_parameters/GeneralParameters.h>
 
 #include <numeric>
 #include <blond/utilities.h>
 #include <blond/constants.h>
-#include <blond/input_parameters/GeneralParameters.h>
+using namespace blond;
 
 GeneralParameters::~GeneralParameters()
 {

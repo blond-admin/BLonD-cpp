@@ -1,3 +1,5 @@
+#include <blond/impedances/InducedVoltage.h>
+
 #include <functional>
 #include <vector>
 #include <algorithm>
@@ -6,9 +8,9 @@
 #include <blond/math_functions.h>
 #include <blond/input_parameters/GeneralParameters.h>
 #include <blond/impedances/Ham.h>
-#include <blond/impedances/InducedVoltage.h>
 #include <blond/beams/Slices.h>
 #include <blond/beams/Beams.h>
+using namespace blond;
 
 
 std::vector<ftype> TotalInducedVoltage::induced_voltage_generation(unsigned int length)

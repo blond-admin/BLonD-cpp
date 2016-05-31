@@ -9,11 +9,13 @@
 #define INCLUDES_CONFIGURATION_H_
 
 #include <complex>
+namespace blond {
 
-typedef double ftype;
-typedef unsigned int uint;
-typedef std::complex<ftype> complex_t;
-const unsigned PRECISION = 8;
+	typedef double ftype;
+	typedef unsigned int uint;
+	typedef std::complex<ftype> complex_t;
+	const unsigned PRECISION = 8;
+}
 // Compile time switches
 // Needs re-compile every time a change is made
 

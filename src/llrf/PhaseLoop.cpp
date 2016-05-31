@@ -4,13 +4,14 @@
  *  Created on: Apr 7, 2016
  *      Author: kiliakis
  */
+#include <blond/llrf/PhaseLoop.h>
 
 #include <blond/math_functions.h>
 #include <blond/globals.h>
 #include <blond/constants.h>
 #include <blond/input_parameters/RfParameters.h>
-#include <blond/llrf/PhaseLoop.h>
 #include <blond/beams/Slices.h>
+using namespace blond;
 
 PhaseLoop::PhaseLoop(ftype *PL_gain, ftype window_coefficient, int _delay,
                      ftype *_phaseNoise, ftype *_LHCNoiseFB)

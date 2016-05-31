@@ -19,7 +19,7 @@
 #include <blond/optionparser.h>
 #include <algorithm>
 // Simulation parameters --------------------------------------------------------
-
+using namespace blond;
 const int N_b = 1.2e9;          // Intensity
 int N_p = 100000;         // Macro-particles
 
@@ -41,12 +41,7 @@ int N_slices = 151;
 const std::string datafiles =
    "../tests/input_files/LHC_restart/";
 
-// Global variables
-GeneralParameters *GP;
-Beams *Beam;
-Slices *Slice;
-RfParameters *RfP;
-int n_threads = 1;
+// Global variables are now inside devoted class
 //const int size = 14e6;
 const int from_line = 0;
 
@@ -114,9 +109,9 @@ int main(int argc, char **argv)
 
    ftype *C_array = new ftype[n_sections];
    C_array[0] = C;
-
-   GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, ps,
-                              proton);
+   auto tempGP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, ps,
+	   proton);
+   GP = tempGP;
 
    printf("General parameters set...\n");
    // Define rf_params

@@ -4,10 +4,11 @@
 * @Last Modified by:   Konstantinos Iliakis
 * @Last Modified time: 2016-05-04 15:25:33
 */
+#include <blond/impedances/Intensity.h>
 
 #include <blond/math_functions.h>
 #include <blond/constants.h>
-#include <blond/impedances/Intensity.h>
+using namespace blond;
 
 
 Resonators::Resonators(std::vector<ftype> &RS, std::vector<ftype> &FrequencyR,

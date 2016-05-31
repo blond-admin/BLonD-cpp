@@ -176,7 +176,7 @@ TEST_F(testSlices, n_macroparticles)
 
    //RingAndRfSection *long_tracker = new RingAndRfSection();
    //long_tracker->track(0, Beam->n_macroparticles);
-   Slice->track(0, Beam->n_macroparticles);
+   Slice->track();
    //util::dump(Slice->n_macroparticles, 100, "something\n");
    std::vector<ftype> v;
    util::read_vector_from_file(v, track_params + "n_macroparticles");

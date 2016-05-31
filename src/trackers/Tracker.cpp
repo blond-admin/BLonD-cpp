@@ -46,7 +46,7 @@ inline void RingAndRfSection::kick(const ftype *__restrict beam_dt,
 
    int k = 0;
    for (int j = 0; j < n_rf; j++) {
-//#pragma omp parallel for
+      #pragma omp parallel for
       for (int i = start; i < end; i++) {
          beam_dE[i] += voltage[k]
                        * vdt::fast_sin(omega_RF[k] * beam_dt[i] + phi_RF[k]);
@@ -56,7 +56,7 @@ inline void RingAndRfSection::kick(const ftype *__restrict beam_dt,
    }
 
 // SYNCHRONOUS ENERGY CHANGE
-//#pragma omp parallel for
+   #pragma omp parallel for
    for (int i = start; i < end; i++)
       beam_dE[i] += acc_kick;
 
@@ -82,7 +82,6 @@ inline void RingAndRfSection::kick(const ftype *__restrict beam_dt,
                omega_RF[k] * beam_dt[i]
                + phi_RF[k]) :
             0;
-      // what will I do with this k??
       k += GP->n_turns;
    }
 
@@ -108,7 +107,7 @@ inline void RingAndRfSection::drift(ftype *__restrict beam_dt,
 
    if (solver == simple) {
       ftype coeff = eta_zero / (beta * beta * energy);
-//#pragma omp parallel for
+      #pragma omp parallel for
       for (i = start; i < end; i++)
          beam_dt[i] += T * coeff * beam_dE[i];
    }
@@ -199,6 +198,7 @@ inline void RingAndRfSection::drift(ftype *__restrict beam_dt,
 
 }
 
+/*
 void RingAndRfSection::track(const int start, const int end)
 {
 //omp_set_num_threads(n_threads);
@@ -266,11 +266,81 @@ void RingAndRfSection::track(const int start, const int end)
       horizontal_cut(start, end);
    //RfP->counter++;
 }
+*/
+
+void RingAndRfSection::track()
+{
+
+   // Determine phase loop correction on RF phase and frequency
+   if (PL != NULL && RfP->counter >= PL->delay)
+      PL->track();
+
+   if (periodicity) {
+      // Change reference of all the particles on the right of the current
+      // frame; these particles skip one kick and drift
+      //for (int i = 0; i < Beam->n_macroparticles; ++i) {
+      #pragma omp parallel for
+      for (int i = 0; i < Beam->n_macroparticles; ++i) {
+         Beam->dt[i] -= indices_right_outside[i]
+                        * GP->t_rev[RfP->counter + 1];
+      }
+      // Synchronize the bunch with the particles that are on the right of
+      // the current frame applying kick and drift to the bunch; after that
+      // all the particle are in the new updated frame
+
+      kick(indices_inside_frame, RfP->counter, 0, Beam->n_macroparticles);
+      drift(indices_inside_frame, RfP->counter + 1, 0, Beam->n_macroparticles);
+
+      // find left outside particles and kick, drift them one more time
+      int a = 0;
+      #pragma omp parallel for reduction(+:a)
+      for (int i = 0; i < Beam->n_macroparticles; ++i) {
+         if (Beam->dt[i] < 0) {
+            indices_left_outside[i] = Beam->id[i] > 0;
+            a++;
+         } else {
+            indices_left_outside[i] = false;
+         }
+      }
+      if (a > 0) {
+         // This will update only the indices_left_outside values
+         //  need to test this
+         #pragma omp parallel for
+         for (int i = 0; i < Beam->n_macroparticles; ++i) {
+            Beam->dt[i] += GP->t_rev[RfP->counter + 1]
+                           * indices_left_outside[i];
+         }
+         kick(indices_left_outside, RfP->counter, 0, Beam->n_macroparticles);
+         drift(indices_left_outside, RfP->counter + 1, 0, Beam->n_macroparticles);
+
+      }
+      // update inside, right outside particles
+
+      set_periodicity(0, Beam->n_macroparticles);
+
+   } else {
+      //get_time(begin);
+      //dprintf("before kick\n");
+      kick(RfP->counter, 0, Beam->n_macroparticles);
+      //dprintf("before drift\n");
+      drift(RfP->counter + 1, 0, Beam->n_macroparticles);
+      //dprintf("after drift\n");
+
+      //get_time(end);
+      //elapsed_time += time_diff(end, begin);
+   }
+// cut particles by zeroing their id
+// this way they will not be considered again in an update
+
+   if (dE_max > 0)
+      horizontal_cut(0, Beam->n_macroparticles);
+   //RfP->counter++;
+}
 
 inline void RingAndRfSection::horizontal_cut(const int start, const int end)
 {
 // In order to cut a particle we will 0 its id
-//#pragma omp parallel for
+   #pragma omp parallel for
    for (int i = start; i < end; ++i) {
       if (Beam->dE[i] < -dE_max || Beam->dE[i] > dE_max)
          Beam->id[i] = 0;
@@ -332,7 +402,7 @@ RingAndRfSection::RingAndRfSection(solver_type _solver, PhaseLoop *_PhaseLoop,
 
 inline void RingAndRfSection::set_periodicity(const int start, const int end)
 {
-
+   #pragma omp parallel for
    for (int i = start; i < end; i++) {
       if (Beam->dt[i] > GP->t_rev[RfP->counter + 1]) {
          indices_right_outside[i] = Beam->id[i] > 0;

@@ -6,7 +6,9 @@
  */
 #include <blond/beams/Slices.h>
 
+#include "Slices.h"
 #include <algorithm>
+#include <math_functions.h>
 #include <iterator>
 #include <omp.h>
 
@@ -20,9 +22,10 @@ using namespace blond;
 //#include <gsl/gsl_vector.h>
 
 Slices::Slices(int _n_slices, int _n_sigma, ftype _cut_left, ftype _cut_right,
-               cuts_unit_type _cuts_unit, fit_type _fit_option, bool direct_slicing) :
-n_slices (_n_slices)
+               cuts_unit_type _cuts_unit, fit_type _fit_option, bool direct_slicing)
 {
+
+   this->n_slices = _n_slices;
    this->cut_left = _cut_left;
    this->cut_right = _cut_right;
    this->cuts_unit = _cuts_unit;
@@ -49,7 +52,7 @@ n_slices (_n_slices)
    set_cuts();
 
    if (direct_slicing)
-      track(0, Beam->n_macroparticles);
+      track();
 }
 
 Slices::~Slices()
@@ -149,26 +152,29 @@ inline ftype Slices::convert_coordinates(const ftype cut,
 
 }
 
-void Slices::track(const int start, const int end)
+void Slices::track()
 {
-   /*
-    *Track method in order to update the slicing along with the tracker.
-    This will update the beam properties (bunch length obtained from the
-    fit, etc.).*
-    */
-   slice_constant_space_histogram(start, end);
+   slice_constant_space_histogram();
    if (fit_option == fit_type::gaussian_fit)
       gaussian_fit();
 }
 
-void Slices::zero_histogram()
+/*
+void Slices::track(const int start, const int end)
 {
-   for (int i = 0; i < n_slices; i++)
-      n_macroparticles[i] = 0.0;
-}
 
-inline void Slices::slice_constant_space_histogram(const int start,
-      const int end)
+   // Track method in order to update the slicing along with the tracker.
+   // This will update the beam properties (bunch length obtained from the
+   // fit, etc.).
+
+   slice_constant_space_histogram(start, end);
+   if (fit_option == fit_type::gaussian_fit)
+      gaussian_fit();
+}
+*/
+
+
+inline void Slices::slice_constant_space_histogram()
 {
    /*
     *Constant space slicing with the built-in numpy histogram function,
@@ -179,6 +185,26 @@ inline void Slices::slice_constant_space_histogram(const int start,
     *This method is faster than the classic slice_constant_space method
     for high number of particles (~1e6).*
     */
+
+
+   histogram(Beam->dt, n_macroparticles, cut_left, cut_right, n_slices,
+             Beam->n_macroparticles);
+
+}
+
+/*
+inline void Slices::slice_constant_space_histogram(const int start,
+      const int end)
+{
+
+   // Constant space slicing with the built-in numpy histogram function,
+   // with a constant frame. This gives the same profile as the
+   // slice_constant_space method, but no compute statistics possibilities
+   // (the index of the particles is needed).*
+
+   // This method is faster than the classic slice_constant_space method
+   // for high number of particles (~1e6).*
+
 
    // TODO why using len and not n_macroparticles?
    // WARNING
@@ -213,24 +239,13 @@ inline void Slices::slice_constant_space_histogram(const int start,
    }
    //printf("ok here\n");
 
-   /*
-    #pragma omp single
-    {
-    for (int i = 0; i < n_slices; i++)
-    n_macroparticles[i] = 0.0;
 
-    for (int i = 0; i < n_slices; ++i) {
-    for (int j = 0; j < n_threads; ++j) {
-    n_macroparticles[i] += h[j * n_slices + i];
-    }
-    }
-
-    }
-    */
 }
+*/
 
-inline void Slices::histogram(const ftype *__restrict input,
-                              ftype *__restrict output, const ftype cut_left,
+/*
+inline void Slices::histogram(const ftype *__restrict__ input,
+                              ftype *__restrict__ output, const ftype cut_left,
                               const ftype cut_right, const int n_slices, const int n_macroparticles,
                               const int start, const int end)
 {
@@ -261,6 +276,51 @@ inline void Slices::histogram(const ftype *__restrict input,
    //printf("ok here\n");
 
 }
+*/
+
+inline void Slices::histogram(const ftype *__restrict__ input,
+                              ftype *__restrict__ output, const ftype cut_left,
+                              const ftype cut_right, const int n_slices,
+                              const int n_macroparticles)
+{
+
+   const ftype inv_bin_width = n_slices / (cut_right - cut_left);
+
+   ftype *h = (ftype *) calloc(omp_get_max_threads() * n_slices, sizeof(ftype));
+   #pragma omp parallel
+   {
+
+      const int id = omp_get_thread_num();
+      const int threads = omp_get_num_threads();
+      int tile = static_cast<int>((n_macroparticles + threads - 1) / threads);
+      int start = id * tile;
+      int end = std::min(start + tile, n_macroparticles);
+      const int row = id * n_slices;
+
+      for (int i = start; i < end; i++) {
+         ftype a = input[i];
+         if ((a < cut_left) || (a > cut_right))
+            continue;
+         int ffbin = static_cast<int>((a - cut_left) * inv_bin_width);
+         h[row + ffbin] = h[row + ffbin] + 1.0;
+      }
+      #pragma omp barrier
+
+      tile = (n_slices + threads - 1) / threads;
+      start = id * tile;
+      end = std::min(start + tile, n_slices);
+
+      for (int i = start; i < end; i++)
+         output[i] = 0.0;
+
+      for (int i = 0; i < threads; ++i) {
+         const int r = i * n_slices;
+         for (int j = start; j < end; ++j) {
+            output[j] += h[r + j];
+         }
+      }
+   }
+}
 
 void Slices::track_cuts()
 {
@@ -282,8 +342,8 @@ void Slices::track_cuts()
 
 }
 
-inline void Slices::smooth_histogram(const ftype *__restrict input,
-                                     ftype *__restrict output, const ftype cut_left,
+inline void Slices::smooth_histogram(const ftype *__restrict__ input,
+                                     ftype *__restrict__ output, const ftype cut_left,
                                      const ftype cut_right, const int n_slices, const int n_macroparticles)
 {
 
@@ -340,8 +400,8 @@ void Slices::rms()
     * Computation of the RMS bunch length and position from the line density
     (bunch length = 4sigma).*
     */
-	std::vector<ftype> lineDenNormalized(n_slices);
-	std::vector<ftype> array(n_slices);
+   ftype *lineDenNormalized = new ftype[n_slices];
+   ftype *array = new ftype[n_slices];
 
    ftype timeResolution = bin_centers[1] - bin_centers[0];
    ftype trap = mymath::trapezoid(n_macroparticles, timeResolution,
@@ -355,25 +415,17 @@ void Slices::rms()
       array[i] = bin_centers[i] * lineDenNormalized[i];
    }
 
-   bp_rms = mymath::trapezoid(&array[0], timeResolution, n_slices); //TODO: change function signature to addopt verctor!
+   bp_rms = mymath::trapezoid(array, timeResolution, n_slices);
 
    for (int i = 0; i < n_slices; ++i) {
       array[i] = (bin_centers[i] - bp_rms) * (bin_centers[i] - bp_rms)
                  * lineDenNormalized[i];
    }
-   ftype temp = mymath::trapezoid(&array[0], timeResolution, n_slices);
+   ftype temp = mymath::trapezoid(array, timeResolution, n_slices);
    bl_rms = 4 * sqrt(temp);
 
-   /*
-
-    timeResolution = self.bin_centers[1]-self.bin_centers[0]
-
-    lineDenNormalized = self.n_macroparticles / np.trapz(self.n_macroparticles, dx=timeResolution)
-
-    self.bp_rms = np.trapz(self.bin_centers * lineDenNormalized, dx=timeResolution)
-
-    self.bl_rms = 4 * np.sqrt(np.trapz((self.bin_centers-self.bp_rms)**2*lineDenNormalized, dx=timeResolution))
-    */
+   delete[] lineDenNormalized;
+   delete[] array;
 
 }
 

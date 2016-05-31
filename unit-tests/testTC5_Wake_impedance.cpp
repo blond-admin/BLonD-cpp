@@ -144,8 +144,8 @@ TEST_F(testInducedVoltage, totalInducedVoltageTrack)
 
    for (unsigned i = 0; i < N_t; ++i) {
       totVol->track();
-      long_tracker->track(0, Beam->n_macroparticles);
-      Slice->track(0, Beam->n_macroparticles);
+      long_tracker->track();
+      Slice->track();
    }
 
    auto params = std::string("../unit-tests/references/")

@@ -195,7 +195,7 @@ TEST_F(testInducedVoltage, InducedVoltageTimeReprocess)
    //wakeSourceList.push_back(resonator);
    InducedVoltageTime *indVoltTime = new InducedVoltageTime(wakeSourceList);
 
-   Slice->track(0, Beam->n_macroparticles);
+   Slice->track();
 
    for (int i = 0; i < Slice->n_slices; i++)
       Slice->bin_centers[i] *= 1.1;
@@ -263,7 +263,7 @@ TEST_F(testInducedVoltage, InducedVoltageTimeReprocess)
 
 TEST_F(testInducedVoltage, induced_voltage_generation)
 {
-   Slice->track(0, Beam->n_macroparticles);
+   Slice->track();
 
    std::vector<Intensity *> wakeSourceList({resonator});
    InducedVoltageTime *indVoltTime = new InducedVoltageTime(wakeSourceList);
@@ -296,7 +296,7 @@ TEST_F(testInducedVoltage, induced_voltage_generation)
 
 TEST_F(testInducedVoltage, induced_voltage_generation_convolution)
 {
-   Slice->track(0, Beam->n_macroparticles);
+   Slice->track();
 
    std::vector<Intensity *> wakeSourceList({resonator});
    InducedVoltageTime *indVoltTime = new InducedVoltageTime(wakeSourceList, time_or_freq::time_domain);
@@ -328,7 +328,7 @@ TEST_F(testInducedVoltage, induced_voltage_generation_convolution)
 
 TEST_F(testInducedVoltage, track)
 {
-   Slice->track(0, Beam->n_macroparticles);
+   Slice->track();
 
    std::vector<Intensity *> wakeSourceList({resonator});
    InducedVoltageTime *indVoltTime = new InducedVoltageTime(wakeSourceList);
@@ -360,7 +360,7 @@ TEST_F(testInducedVoltage, track)
 
 TEST_F(testInducedVoltage, totalInducedVoltageSum)
 {
-   Slice->track(0, Beam->n_macroparticles);
+   Slice->track();
 
    std::vector<Intensity *> wakeSourceList({resonator});
    InducedVoltageTime *indVoltTime = new InducedVoltageTime(wakeSourceList);

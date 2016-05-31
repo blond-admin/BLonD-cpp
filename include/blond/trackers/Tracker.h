@@ -62,7 +62,10 @@ namespace blond {
 			const ftype beta, const ftype energy, const int n_macroparticles,
 			const int start, const int end);
 
-		void track(const int start, const int end);
+   //void track(const int start, const int end);
+
+   void track();
+
 		inline void horizontal_cut(const int start, const int end);
 		RingAndRfSection(solver_type solver = simple, PhaseLoop *PL = NULL,
 			ftype *NoiseFB = NULL, bool periodicity = false, ftype dE_max = 0,

@@ -153,55 +153,27 @@ TEST_F(testLHC_Restart, dphi_RF_and_dphi)
    std::vector<ftype> real1, real2;
 
 
-   #pragma omp parallel
-   {
-      int id = omp_get_thread_num();
-      int threads = omp_get_num_threads();
-      int tile = std::ceil(1.0 * N_p / threads);
-      int start = id * tile;
-      int end = std::min(start + tile, N_p);
-      //printf("id, threads, tile, start, end = %d, %d, %d, %d, %d\n", id,
-      //      threads, tile, start, end);
-      for (int i = 0; i < 1000; ++i) {
-
-         #pragma omp single
-         {
-            //printf("\nTurn %d\n", i);
-
-            if (RfP->counter < 570000)
-               PL->reference = 0.5236;
-            else
-               PL->reference = 1.0472;
-
-         }
+   for (int i = 0; i < 1000; ++i) {
 
 
-         Slice->track(start, end);
+      if (RfP->counter < 570000)
+         PL->reference = 0.5236;
+      else
+         PL->reference = 1.0472;
 
-         #pragma omp barrier
+      Slice->track();
 
-         long_tracker->track(start, end);
+      long_tracker->track();
 
-         #pragma omp barrier
+      RfP->counter++;
+      //printf("   Beam energy %.6e eV\n", GP->energy[0]);
+      //printf("   RF phase %.6e rad\n", RfP->dphi_RF[0]);
+      //printf("   PL phase correction %.6e rad\n", PL->dphi);
+      //ftype ref = v1[i];
+      //ftype real = RfP->dphi_RF[RfP->counter];
+      real1.push_back(RfP->dphi_RF[0]);
+      real2.push_back(PL->dphi);
 
-         #pragma omp single
-         {
-            RfP->counter++;
-            //printf("   Beam energy %.6e eV\n", GP->energy[0]);
-            //printf("   RF phase %.6e rad\n", RfP->dphi_RF[0]);
-            //printf("   PL phase correction %.6e rad\n", PL->dphi);
-            //ftype ref = v1[i];
-            //ftype real = RfP->dphi_RF[RfP->counter];
-            real1.push_back(RfP->dphi_RF[0]);
-            real2.push_back(PL->dphi);
-            //ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
-            //ref = v2[i];
-            //real = PL->dphi
-            //ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
-
-         }
-
-      }
    }
 
    std::vector<ftype> v;

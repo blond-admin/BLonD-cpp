@@ -98,32 +98,12 @@ TEST_F(testTC1, phaseSpace)
 {
 
    omp_set_num_threads(n_threads);
-
    RingAndRfSection *long_tracker = new RingAndRfSection();
-
-   #pragma omp parallel
-   {
-      int id = omp_get_thread_num();
-      int threads = omp_get_num_threads();
-      int tile = std::ceil(1.0 * N_p / threads);
-      int start = id * tile;
-      int end = std::min(start + tile, N_p);
-      for (int i = 0; i < N_t; ++i) {
-
-         long_tracker->track(start, end);
-
-         #pragma omp barrier
-
-         Slice->track(start, end);
-
-         #pragma omp barrier
-
-         #pragma omp single
-         {
-            RfP->counter++;
-         }
-         //beam->losses_longitudinal_cut(beam->dt, 0, 2.5e-9, beam->id);
-      }
+   for (int i = 0; i < N_t; ++i) {
+      long_tracker->track();
+      Slice->track();
+      RfP->counter++;
+      //beam->losses_longitudinal_cut(beam->dt, 0, 2.5e-9, beam->id);
    }
 
    std::vector<ftype> v;

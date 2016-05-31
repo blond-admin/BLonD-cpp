@@ -28,31 +28,42 @@ inline void InducedVoltage::linear_interp_kick(
    const int n_macroparticles,
    const ftype acc_kick)
 {
+   
+   const ftype binFirst = bin_centers[0];
+   const ftype binLast = bin_centers[n_slices - 1];
 
-   // double a;
-   // int i;
-   // double fbin;
-   // int ffbin;
-   // double voltageKick;
-
-   double inv_bin_width = (n_slices - 1) / (bin_centers[n_slices - 1]
-                          - bin_centers[0]);
-   //std::cout << "I am in linear_interp_kick\n";
-
+   const ftype inv_bin_width = (n_slices - 1) / (binLast - binFirst);
+   
+   #pragma omp parallel for
    for (int i = 0; i < n_macroparticles; i++) {
       ftype a = beam_dt[i];
-      ftype fbin = (a - bin_centers[0]) * inv_bin_width;
+      //ftype fbin = (a - binFirst) * inv_bin_width;
+      int ffbin = static_cast<int>((a - binFirst) * inv_bin_width);
+      //unsigned ffbin = (unsigned)(fbin);
+      ftype voltageKick = ((a < binFirst) || (a > binLast)) ?
+                          0 : voltage_array[ffbin] + (a - bin_centers[ffbin])
+                          * (voltage_array[ffbin + 1] - voltage_array[ffbin])
+                          * inv_bin_width;
+      beam_dE[i] += voltageKick + acc_kick;
+   }
+   
+   
+   //ftype inv_bin_width = (n_slices-1) / (bin_centers[n_slices-1] - bin_centers[0]);
+   /*
+   double inv_bin_width = (n_slices-1) / (bin_centers[n_slices-1] - bin_centers[0]);
+   #pragma omp parallel for
+   for (int i = 0; i < n_macroparticles; i++) {
+      double a = beam_dt[i];
+      double fbin = (a - bin_centers[0]) * inv_bin_width;
       int ffbin = (int)(fbin);
-      ftype voltageKick;
-      if ((a < bin_centers[0]) || (a > bin_centers[n_slices - 1]))
+      double voltageKick;
+      if ((a < bin_centers[0])||(a > bin_centers[n_slices-1]))
          voltageKick = 0.;
       else
-         voltageKick = voltage_array[ffbin] + (a - bin_centers[ffbin])
-                       * (voltage_array[ffbin + 1] - voltage_array[ffbin])
-                       * inv_bin_width;
+         voltageKick = voltage_array[ffbin] + (a - bin_centers[ffbin]) * (voltage_array[ffbin+1]-voltage_array[ffbin]) * inv_bin_width;
       beam_dE[i] = beam_dE[i] + voltageKick + acc_kick;
-   }
-
+    }
+   */
 
 }
 
@@ -93,7 +104,7 @@ inline void InducedVoltageTime::track()
 {
    // Tracking Method
    std::vector<ftype> v = this->induced_voltage_generation();
-   
+
    //std::cout << "induced v size is " << v.size() << "\n";
 
    std::transform(v.begin(), v.end(), v.begin(),

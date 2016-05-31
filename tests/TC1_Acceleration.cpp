@@ -57,33 +57,19 @@ int main(int argc, char **argv)
 
    parse_args(argc, argv);
 
-
-
    //N_t = atoi(util::GETENV("N_TURNS")) ? atoi(util::GETENV("N_TURNS")) : N_t;
    //N_p = atoi(util::GETENV("N_PARTICLES")) ? atoi(util::GETENV("N_PARTICLES")) : N_p;
    //N_slices = atoi(util::GETENV("N_SLICES")) ? atoi(util::GETENV("N_SLICES")) : N_slices;
    //n_threads =
    //   atoi(util::GETENV("N_THREADS")) ? atoi(util::GETENV("N_THREADS")) : n_threads;
 
-
-
    omp_set_num_threads(n_threads);
 
-   // Number of tasks is either N_TASKS if specified or n_threads (1 task / thread) if not
-   //int N_tasks = atoi(util::GETENV("N_TASKS")) ? atoi(util::GETENV("N_TASKS")) : n_threads;
    printf("Setting up the simulation...\n\n");
    printf("Number of turns: %d\n", N_t);
    printf("Number of macro-particles: %d\n", N_p);
    printf("Number of Slices: %d\n", N_slices);
-
-   //printf("Number of Tasks: %d\n", N_tasks);
-
-   /// initializations
-   #pragma omp parallel
-   {
-      if (omp_get_thread_num() == 0)
-         printf("Number of openmp threads: %d\n", omp_get_num_threads());
-   }
+   printf("Number of openmp threads: %d\n", n_threads);
 
    timespec begin, end;
    util::get_time(begin);
@@ -131,45 +117,69 @@ int main(int argc, char **argv)
 
    timespec begin_t;
 
-   #pragma omp parallel
-   {
-      int id = omp_get_thread_num();
-      int threads = omp_get_num_threads();
-      int tile = std::ceil(1.0 * N_p / threads);
-      int start = id * tile;
-      int end = std::min(start + tile, N_p);
-      //printf("id, threads, tile, start, end = %d, %d, %d, %d, %d\n", id,
-      //    threads, tile, start, end);
-      for (int i = 0; i < N_t; ++i) {
+   for (int i = 0; i < N_t; ++i) {
 
-         if (id == 0) util::get_time(begin_t);
+      util::get_time(begin_t);
+      long_tracker->track();
+      track_time += util::time_elapsed(begin_t);
 
-         long_tracker->track(start, end);
+      util::get_time(begin_t);
+      Slice->track();
+      slice_time += util::time_elapsed(begin_t);
 
-         #pragma omp barrier
+      Slice->fwhm();
 
-         if (id == 0) track_time += util::time_elapsed(begin_t);
-         if (id == 0) util::get_time(begin_t);
+      if (i % 1000 == 0) {
+         util::dump(Slice->bl_fwhm, "bl_fwhm");
+         util::dump(Slice->bp_fwhm, "bp_fwhm");
+      }
 
-         Slice->track(start, end);
+      RfP->counter++;
+   }
 
-         #pragma omp barrier
 
-         if (id == 0) slice_time += util::time_elapsed(begin_t);
 
-         #pragma omp single
-         {
-            Slice->fwhm();
+   /*
+      #pragma omp parallel
+      {
+         int id = omp_get_thread_num();
+         int threads = omp_get_num_threads();
+         int tile = std::ceil(1.0 * N_p / threads);
+         int start = id * tile;
+         int end = std::min(start + tile, N_p);
+         //printf("id, threads, tile, start, end = %d, %d, %d, %d, %d\n", id,
+         //    threads, tile, start, end);
+         for (int i = 0; i < N_t; ++i) {
 
-            if (i % 1000 == 0) {
-               util::dump(Slice->bl_fwhm, "bl_fwhm");
-               util::dump(Slice->bp_fwhm, "bp_fwhm");
+            if (id == 0) util::get_time(begin_t);
+
+            long_tracker->track(start, end);
+
+            #pragma omp barrier
+
+            if (id == 0) track_time += util::time_elapsed(begin_t);
+            if (id == 0) util::get_time(begin_t);
+
+            Slice->track(start, end);
+
+            #pragma omp barrier
+
+            if (id == 0) slice_time += util::time_elapsed(begin_t);
+
+            #pragma omp single
+            {
+               Slice->fwhm();
+
+               if (i % 1000 == 0) {
+                  util::dump(Slice->bl_fwhm, "bl_fwhm");
+                  util::dump(Slice->bp_fwhm, "bp_fwhm");
+               }
+
+               RfP->counter++;
             }
-
-            RfP->counter++;
          }
       }
-   }
+   */
 
    util::get_time(end);
    util::print_time("Simulation Time", begin, end);

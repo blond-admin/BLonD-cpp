@@ -27,7 +27,7 @@ endif()
 #set(CMAKE_BUILD_TYPE Release)
 if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
       set(CMAKE_CXX_FLAGS         "-std=c++11 -fopenmp -Wall -pedantic -fno-rtti -Wunused")
-      set(CMAKE_CXX_FLAGS_DEBUG   "-O0 -g3 -pg")
+      set(CMAKE_CXX_FLAGS_DEBUG   "-O0 -g3")
       set(CMAKE_CXX_FLAGS_RELEASE "-O3 -march=native")
       
       CHECK_CXX_COMPILER_FLAG(-ffast-math COMPILER_HAS_FAST_MATH)
@@ -37,8 +37,8 @@ if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
       
       set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-flto")
       if(TEST_ENABLED)
-        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fprofile-arcs -ftest-coverage")
-	     set(CMAKE_EXE_LINKER_FLAGS_DEBUG "--coverage")
+        #set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fprofile-arcs -ftest-coverage")
+	     #set(CMAKE_EXE_LINKER_FLAGS_DEBUG "--coverage")
       endif()
 endif()
 
@@ -66,6 +66,7 @@ if(TEST_ENABLED)
 endif()
 
 include_directories(include)
+#link_directories(/usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64 /afs/cern.ch/user/k/kiliakis/opt/lib)
 link_directories(/usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64)
 
 # Generate simulation executables
@@ -79,6 +80,11 @@ set(SOURCE_FILES
     impedances/Intensity.cpp
     impedances/InducedVoltage.cpp
     )
+
+# -fopt-info-vec=file
+foreach(source ${SOURCE_FILES})
+   set_source_files_properties(${source} PROPERTIES COMPILE_FLAGS "-fopt-info-vec=report.txt")
+endforeach()
 
 # SHARED for dynamic LINKING
 # STATIC for static LINKING

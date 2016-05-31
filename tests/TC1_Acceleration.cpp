@@ -17,6 +17,7 @@
 #include <blond/beams/Distributions.h>
 #include <blond/trackers/Tracker.h>
 #include <blond/optionparser.h>
+#include <algorithm>
 
 // Simulation parameters --------------------------------------------------------
 // Bunch parameters

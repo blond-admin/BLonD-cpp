@@ -17,6 +17,7 @@
 #include <blond/trackers/Tracker.h>
 #include <blond/llrf/PhaseLoop.h>
 #include <blond/optionparser.h>
+#include <algorithm>
 // Simulation parameters --------------------------------------------------------
 
 const int N_b = 1.2e9;          // Intensity

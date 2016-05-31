@@ -1,15 +1,14 @@
-#include "globals.h"
-#include "utilities.h"
-#include "math_functions.h"
+#include <blond/globals.h>
+#include <blond/utilities.h>
+#include <blond/math_functions.h>
 #include <omp.h>
 #include <stdio.h>
-#include <blond/input_parameters/GeneralParameters.h"
-#include <blond/input_parameters/RfParameters.h"
-#include <blond/beams/Beams.h"
-#include <blond/beams/Slices.h"
-#include <blond/beams/Distributions.h"
-#include <blond/trackers/Tracker.h"
-#include <blond/impedances/Intensity.h"
+#include <blond/input_parameters/GeneralParameters.h>
+#include <blond/input_parameters/RfParameters.h>
+#include <blond/beams/Beams.h>
+#include <blond/beams/Slices.h>
+#include <blond/beams/Distributions.h>
+#include <blond/impedances/Intensity.h>
 #include <gtest/gtest.h>
 #include <complex>
 

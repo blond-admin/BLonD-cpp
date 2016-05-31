@@ -1,16 +1,12 @@
 #include <iostream>
-#include <string>
-#include <list>
-
-#include <unistd.h>
 
 #include <gtest/gtest.h>
-#include "math_functions.h"
-#include "utilities.h"
-#include "../beams/Distributions.h"
-#include "../input_parameters/GeneralParameters.h"
-#include "../trackers/Tracker.h"
-#include "../llrf/PhaseLoop.h"
+#include <blond/math_functions.h>
+#include <blond/utilities.h>
+#include <blond/beams/Distributions.h>
+#include <blond/input_parameters/GeneralParameters.h>
+#include <blond/trackers/Tracker.h>
+#include <blond/llrf/PhaseLoop.h>
 #include <omp.h>
 
 

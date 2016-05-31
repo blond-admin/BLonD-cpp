@@ -1,16 +1,12 @@
 #include <iostream>
-#include <string>
-#include <list>
 
-#include <unistd.h>
 #include <omp.h>
 #include <gtest/gtest.h>
-#include "math_functions.h"
-#include "utilities.h"
-#include "../beams/Distributions.h"
-#include "../input_parameters/GeneralParameters.h"
-#include "../trackers/Tracker.h"
-#include "constants.h"
+#include <blond/math_functions.h>
+#include <blond/utilities.h>
+#include <blond/beams/Distributions.h>
+#include <blond/input_parameters/GeneralParameters.h>
+#include <blond/trackers/Tracker.h>
 
 const ftype epsilon = 1e-8;
 const std::string params = "../unit-tests/references/TC1_final/TC1_final_params/";

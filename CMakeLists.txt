@@ -130,12 +130,8 @@ SET(LIBRARIES
    gsl
    gslcblas)
 
-file(GLOB SOURCES
-    "beams/*"
-    "input_parameters/*"
-    "trackers/*"
-    "llrf/*"
-    "impedances/*"
+file(GLOB_RECURSE SOURCES
+    "src/*"
     "include/*"
 )
 set(SOURCE_FILES ${SOURCES} )
@@ -150,6 +146,7 @@ else()
 endif()
 target_link_libraries( blond ${LIBRARIES})
 
+#SET_TARGET_PROPERTIES(blond PROPERTIES LINKER_LANGUAGE CXX)
 
 # demo executables
 LIST(APPEND LIBRARIES blond)

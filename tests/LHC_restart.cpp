@@ -5,19 +5,18 @@
  *      Author: kiliakis
  */
 
-#include "globals.h"
-#include "utilities.h"
-#include "math_functions.h"
+#include <blond/globals.h>
+#include <blond/utilities.h>
+#include <blond/math_functions.h>
 #include <omp.h>
 #include <stdio.h>
-#include "../input_parameters/GeneralParameters.h"
-#include "../input_parameters/RfParameters.h"
-#include "../beams/Beams.h"
-#include "../beams/Slices.h"
-#include "../beams/Distributions.h"
-#include "../trackers/Tracker.h"
-#include "../llrf/PhaseLoop.h"
-#include "optionparser.h"
+#include <blond/input_parameters/GeneralParameters.h>
+#include <blond/input_parameters/RfParameters.h>
+#include <blond/beams/Beams.h>
+#include <blond/beams/Slices.h>
+#include <blond/trackers/Tracker.h>
+#include <blond/llrf/PhaseLoop.h>
+#include <blond/optionparser.h>
 // Simulation parameters --------------------------------------------------------
 
 const int N_b = 1.2e9;          // Intensity

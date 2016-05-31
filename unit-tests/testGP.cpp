@@ -1,13 +1,12 @@
 #include <iostream>
-#include <string>
-#include <list>
-
-#include <unistd.h>
 
 #include <gtest/gtest.h>
-#include "math_functions.h"
-#include "utilities.h"
-#include "../input_parameters/GeneralParameters.h"
+#include <blond/math_functions.h>
+#include <blond/utilities.h>
+#include <blond/input_parameters/GeneralParameters.h>
+#include <blond/beams/Beams.h>
+#include <blond/input_parameters/RfParameters.h>
+#include <blond/beams/Slices.h>
 //#include "constants.h"
 
 const ftype epsilon = 1e-8;

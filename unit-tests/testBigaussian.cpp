@@ -1,15 +1,10 @@
 #include <iostream>
-#include <string>
-#include <list>
-
-#include <unistd.h>
 
 #include <gtest/gtest.h>
-#include "math_functions.h"
-#include "utilities.h"
-#include "../beams/Distributions.h"
-#include "../input_parameters/GeneralParameters.h"
-#include "constants.h"
+#include <blond/math_functions.h>
+#include <blond/utilities.h>
+#include <blond/beams/Distributions.h>
+#include <blond/input_parameters/GeneralParameters.h>
 
 const ftype epsilon = 1e-8;
 const std::string fixed_params = "../unit-tests/references/Bigaussian/Bigaussian_fixed_params/";

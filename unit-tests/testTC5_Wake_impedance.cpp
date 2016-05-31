@@ -1,17 +1,16 @@
-#include "globals.h"
-#include "utilities.h"
-#include "math_functions.h"
+#include <blond/globals.h>
+#include <blond/utilities.h>
+#include <blond/math_functions.h>
 #include <omp.h>
 #include <stdio.h>
-#include <blond/input_parameters/GeneralParameters.h"
-#include <blond/input_parameters/RfParameters.h"
-#include <blond/beams/Beams.h"
-#include <blond/beams/Slices.h"
-#include <blond/beams/Distributions.h"
-#include <blond/trackers/Tracker.h"
-#include <blond/impedances/Intensity.h"
+#include <blond/input_parameters/GeneralParameters.h>
+#include <blond/input_parameters/RfParameters.h>
+#include <blond/beams/Beams.h>
+#include <blond/beams/Slices.h>
+#include <blond/beams/Distributions.h>
+#include <blond/trackers/Tracker.h>
+#include <blond/impedances/InducedVoltage.h>
 #include <gtest/gtest.h>
-#include <complex>
 
 
 const std::string datafiles =
@@ -19,7 +18,7 @@ const std::string datafiles =
 
 // Simulation parameters --------------------------------------------------------
 // Bunch parameters
-const int N_b = (int) 1e10;                          // Intensity
+const long int N_b = (long int) 1e10;                          // Intensity
 const ftype tau_0 = 2e-9;                       // Initial bunch length, 4 sigma [s]
 // const particle_type particle = proton;
 // Machine and RF parameters
@@ -35,20 +34,20 @@ const int alpha_order = 1;
 const int n_sections = 1;
 // Tracking details
 
-int N_t = 2;    // Number of turns to track
-int N_p = 5000000;         // Macro-particles
+unsigned N_t = 2;    // Number of turns to track
+unsigned N_p = 5000000;         // Macro-particles
 
 int n_threads = 1;
-int N_slices = 1 << 8; // = (2^8)
+unsigned N_slices = 1 << 8; // = (2^8)
 
 GeneralParameters *GP;
 Beams *Beam;
 Slices *Slice;
 RfParameters *RfP;
-//RingAndRfSection *long_tracker;
+RingAndRfSection *long_tracker;
 Resonators *resonator;
 
-class testInputTableIntensity : public ::testing::Test {
+class testInducedVoltage : public ::testing::Test {
 
 protected:
 
@@ -82,7 +81,7 @@ protected:
 
       RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
 
-      //RingAndRfSection *long_tracker = new RingAndRfSection();
+      long_tracker = new RingAndRfSection();
 
       longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
 
@@ -107,10 +106,6 @@ protected:
       }
 
       resonator = new Resonators(R_shunt, f_res, Q_factor);
-      //printf("TEST_F Resonator Sizes %lu %lu\n", resonator->fRS.size(),
-      //       resonator->fQ.size());
-
-
 
    }
 
@@ -123,98 +118,101 @@ protected:
       delete Beam;
       delete RfP;
       delete Slice;
+      delete long_tracker;
       delete resonator;
-      //delete long_tracker;
    }
 
 
 };
 
 
-TEST_F(testInputTableIntensity, wake_calc)
+
+TEST_F(testInducedVoltage, totalInducedVoltageTrack)
 {
 
-   std::vector<ftype> timeArray;
-   timeArray.reserve(N_slices);
-   for (int i = 0; i < N_slices; ++i) {
-      timeArray.push_back(Slice->bin_centers[i] - Slice->bin_centers[0]);
+   //Slice->track(0, Beam->n_macroparticles);
+
+   std::vector<Intensity *> wakeSourceList({resonator});
+   InducedVoltageTime *indVoltTime = new InducedVoltageTime(wakeSourceList);
+   std::vector<InducedVoltage *> indVoltList({indVoltTime});
+
+
+   TotalInducedVoltage *totVol = new TotalInducedVoltage(indVoltList);
+
+   //totVol->track();
+   //std::cout << "made it here\n";
+
+   for (unsigned i = 0; i < N_t; ++i) {
+      totVol->track();
+      long_tracker->track(0, Beam->n_macroparticles);
+      Slice->track(0, Beam->n_macroparticles);
    }
-   resonator->wake_calc(timeArray);
-   std::vector<ftype> v1;
-   InputTable *inputTable = new InputTable(timeArray,
-                                           resonator->fWake, v1);
 
-
-   for (uint i = 0; i < timeArray.size(); ++i) {
-      timeArray[i] = 1.1 * Slice->bin_centers[i] - Slice->bin_centers[0];
-   }
-   inputTable->wake_calc(timeArray);
-
-   std::string params = "../unit-tests/references/Impedances/Intensity/InputTable/";
+   auto params = std::string("../unit-tests/references/")
+                 + "TC5_final/";
 
    std::vector<ftype> v;
-   util::read_vector_from_file(v, params + "Wake.txt");
+   util::read_vector_from_file(v, params + "dE.txt");
 
-   ASSERT_EQ(v.size(), inputTable->fWake.size());
+   // WARNING checking only the fist 500 elems
+   std::vector<ftype> res(Beam->dE, Beam->dE + 500);
+   ASSERT_EQ(v.size(), res.size());
 
    ftype epsilon = 1e-8;
-
+   // warning checking only the first 100 elems
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = inputTable->fWake[i];
+      ftype real = res[i];
+
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of fWake failed on i "
+            << "Testing of Beam->dE failed on i "
             << i << std::endl;
    }
+
+
    v.clear();
-}
+   res.clear();
+   util::read_vector_from_file(v, params + "dt.txt");
 
+   // WARNING checking only the fist 500 elems
+   res = std::vector<ftype>(Beam->dt, Beam->dt + 500);
+   ASSERT_EQ(v.size(), res.size());
 
-TEST_F(testInputTableIntensity, imped_calc)
-{
-
-   std::vector<ftype> timeArray;
-   timeArray.reserve(N_slices);
-   for (int i = 0; i < N_slices; ++i) {
-      timeArray.push_back(Slice->bin_centers[i] - Slice->bin_centers[0]);
-   }
-   resonator->wake_calc(timeArray);
-
-   std::transform(timeArray.begin(), timeArray.end(), timeArray.begin(), [](ftype a) {return a * 1e10;});
-   resonator->imped_calc(timeArray);
-
-   std::vector<ftype> Re;
-   Re.resize(resonator->fImpedance.size());
-   std::vector<ftype> Im;
-   Im.resize(resonator->fImpedance.size());
-   
-   std::transform(resonator->fImpedance.begin(), resonator->fImpedance.end(),
-   Re.begin(), [](complex_t a) {return a.real();});
-   std::transform(resonator->fImpedance.begin(), resonator->fImpedance.end(),
-   Im.begin(), [](complex_t a) {return a.imag();});
-
-   InputTable *inputTable = new InputTable(timeArray, Re, Im);
-
-   inputTable->imped_calc(timeArray);
-
-   std::string params = "../unit-tests/references/Impedances/Intensity/InputTable/";
-
-   std::vector<ftype> v;
-   util::read_vector_from_file(v, params + "Impedance.txt");
-
-   ASSERT_EQ(v.size(), inputTable->fImpedance.size());
-
-   ftype epsilon = 1e-6;
-
+   epsilon = 1e-8;
+   // warning checking only the first 100 elems
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = std::abs(inputTable->fImpedance[i]);
+      ftype real = res[i];
+
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of fImpedance failed on i "
+            << "Testing of Beam->dt failed on i "
             << i << std::endl;
    }
+
    v.clear();
+   res.clear();
+   util::read_vector_from_file(v, params + "n_macroparticles.txt");
+
+   // WARNING checking only the fist 500 elems
+   res = std::vector<ftype>(Slice->n_macroparticles,
+                            Slice->n_macroparticles + Slice->n_slices);
+   ASSERT_EQ(v.size(), res.size());
+
+   epsilon = 1e-8;
+   // warning checking only the first 100 elems
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      ftype ref = v[i];
+      ftype real = res[i];
+
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of Slice->n_macroparticles failed on i "
+            << i << std::endl;
+   }
+
+
+
 }
+
 
 
 

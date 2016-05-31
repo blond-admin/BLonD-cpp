@@ -79,10 +79,13 @@ find_package(OpenMP REQUIRED)
 #GSL (build from source into external instal)
 if(EXISTS ${PROJECT_SOURCE_DIR}/${GSL_ROOT})
     message(STATUS "Found GNU Scientific Library ")
+    set(gslLib "${CMAKE_STATIC_LIBRARY_PREFIX}gls${CMAKE_STATIC_LIBRARY_SUFFIX}" )
+    set(gslcblasLib "${CMAKE_STATIC_LIBRARY_PREFIX}gslcblas${CMAKE_STATIC_LIBRARY_SUFFIX}" )
     ExternalProject_Add(
         gsl-src
         SOURCE_DIR ${PROJECT_SOURCE_DIR}/${GSL_ROOT}
-	PATCH_COMMAND git apply --3way -v --allow-overlap ${PROJECT_SOURCE_DIR}/external/gsl.diff && cmake -E copy ${PROJECT_SOURCE_DIR}/${GSL_ROOT}/contrib/CMakeLists.txt ${PROJECT_SOURCE_DIR}/${GSL_ROOT}/CMakeLists.txt
+	PATCH_COMMAND git apply --3way -v --allow-overlap ${PROJECT_SOURCE_DIR}/external/gsl.diff 
+                      && cmake -E copy ${PROJECT_SOURCE_DIR}/${GSL_ROOT}/contrib/CMakeLists.txt ${PROJECT_SOURCE_DIR}/${GSL_ROOT}/CMakeLists.txt
         CMAKE_ARGS -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
                    -DDO_TESTS="False"
                    -DCMAKE_INSTALL_PREFIX=${PROJECT_SOURCE_DIR}/external/install
@@ -91,6 +94,9 @@ if(EXISTS ${PROJECT_SOURCE_DIR}/${GSL_ROOT})
         TEST_BEFORE_INSTALL False
         TEST_AFTER_INSTALL False
         BINARY_DIR ${PROJECT_SOURCE_DIR}/${GSL_ROOT}/build
+	INSTALL_COMMAND cmake -E copy_directory  ${PROJECT_SOURCE_DIR}/${GSL_ROOT}/build/gsl ${PROJECT_SOURCE_DIR}/external/install/include/gsl 
+                        && cmake -E copy ${PROJECT_SOURCE_DIR}/${GSL_ROOT}/build/${gslLib} ${PROJECT_SOURCE_DIR}/external/install/lib/${gslLib}
+                        && cmake -E copy ${PROJECT_SOURCE_DIR}/${GSL_ROOT}/build/${gslcblasLib} ${PROJECT_SOURCE_DIR}/external/install/lib/${gslcblasLib}
     )
 else()
   message(FATAL_ERROR "Not GNU Scientific Library - please provide GSL_ROOT path or use '--recursive' argument in git clone")

@@ -15,7 +15,7 @@
 #include <cstdio>
 #include <vector>
 #include <cstdlib>
-#include <ctime>
+#include <chrono>
 #include <blond/optionparser.h>
 #include <blond/configuration.h>
 
@@ -152,7 +152,11 @@ namespace util {
    static inline void get_time(timespec &ts)
    {
 #ifdef TIMING
-	   timespec_get(&ts, TIME_UTC);
+	   auto time = std::chrono::system_clock::now();
+	   ts.tv_sec = std::chrono::duration_cast<std::chrono::seconds>(
+		   time.time_since_epoch()).count();
+	   ts.tv_nsec = std::chrono::duration_cast<std::chrono::microseconds>(
+		   time.time_since_epoch()).count();
 #endif
    }
 

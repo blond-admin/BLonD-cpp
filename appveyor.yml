@@ -5,6 +5,8 @@ environment:
 install:
   - choco install cmake
   - choco upgrade cmake
+  - DIR external\gsl
+  - DIR external\gsl\contrib
   - mkdir build
   - cd build
   - cmake ..

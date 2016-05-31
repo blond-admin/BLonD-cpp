@@ -12,11 +12,10 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <stdio.h>
+#include <cstdio>
 #include <vector>
-#include <stdlib.h>
-#include <math.h>
-#include <time.h>
+#include <cstdlib>
+#include <ctime>
 #include <blond/optionparser.h>
 #include <blond/configuration.h>
 
@@ -32,12 +31,12 @@
 #  define IMPORT_DECL
 #endif
 
-#ifdef BLOND_INTERNAL && SHARED
+#ifdef SHARED
 # define API EXPORT_DECL
-#elif SHARED
-# define API IMPORT_DECL
+#elif STATIC
+# define API
 #else
-# define API  
+# define API IMPORT_DECL  
 #endif
 
 

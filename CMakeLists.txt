@@ -79,7 +79,7 @@ find_package(OpenMP REQUIRED)
 #GSL (build from source into external instal)
 if(EXISTS ${PROJECT_SOURCE_DIR}/${GSL_ROOT})
     message(STATUS "Found GNU Scientific Library ")
-    set(gslLib "${CMAKE_STATIC_LIBRARY_PREFIX}gls${CMAKE_STATIC_LIBRARY_SUFFIX}" )
+    set(gslLib "${CMAKE_STATIC_LIBRARY_PREFIX}gsl${CMAKE_STATIC_LIBRARY_SUFFIX}" )
     set(gslcblasLib "${CMAKE_STATIC_LIBRARY_PREFIX}gslcblas${CMAKE_STATIC_LIBRARY_SUFFIX}" )
     ExternalProject_Add(
         gsl-src

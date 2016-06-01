@@ -12,21 +12,18 @@
 #include <blond/beams/Beams.h>
 #include <blond/input_parameters/RfParameters.h>
 
-
 namespace blond {
-	class  GeneralParameters;
-	class  RfParameters;
-	class  Slices;
-	class  Beams;
+	struct API Context {
+		static Slices *Slice;
+		static GeneralParameters *GP;
+		static Beams *Beam;
+		static RfParameters *RfP;
 
-	Slices *Slice;
-	GeneralParameters *GP;
-	Beams *Beam;
-	RfParameters *RfP;
-
-	// TODO num of threads is global
-	// should it?
-	static int n_threads;
+		// TODO num of threads is global
+		// should it?
+		static int n_threads;
+	};
+	static Context context;
 }
 
 #endif /* INCLUDES_GLOBALS_H_ */

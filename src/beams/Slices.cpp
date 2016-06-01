@@ -6,9 +6,7 @@
  */
 #include <blond/beams/Slices.h>
 
-#include "Slices.h"
 #include <algorithm>
-#include <math_functions.h>
 #include <iterator>
 #include <omp.h>
 
@@ -24,6 +22,8 @@ using namespace blond;
 Slices::Slices(int _n_slices, int _n_sigma, ftype _cut_left, ftype _cut_right,
                cuts_unit_type _cuts_unit, fit_type _fit_option, bool direct_slicing)
 {
+
+	auto n_threads = context.n_threads;
 
    this->n_slices = _n_slices;
    this->cut_left = _cut_left;
@@ -66,6 +66,7 @@ Slices::~Slices()
 
 void Slices::set_cuts()
 {
+	auto Beam = context.Beam;
    /*
     *Method to set the self.cut_left and self.cut_right properties. This is
     done as a pre-processing if the mode is set to 'const_space', for
@@ -121,6 +122,7 @@ void Slices::set_cuts()
 // If dt, dE and id were in the same struct it would be better
 void Slices::sort_particles()
 {
+	auto Beam = context.Beam;
    /*
     *Sort the particles with respect to their position.*
     */
@@ -138,6 +140,7 @@ void Slices::sort_particles()
 inline ftype Slices::convert_coordinates(const ftype cut,
       const cuts_unit_type type)
 {
+	auto RfP = context.RfP;
    /*
     *Method to convert a value from one input_unit_type to 's'.*
     */
@@ -186,7 +189,8 @@ inline void Slices::slice_constant_space_histogram()
     for high number of particles (~1e6).*
     */
 
-
+	auto Beam = context.Beam;
+	
    histogram(Beam->dt, n_macroparticles, cut_left, cut_right, n_slices,
              Beam->n_macroparticles);
 
@@ -278,8 +282,8 @@ inline void Slices::histogram(const ftype *__restrict__ input,
 }
 */
 
-inline void Slices::histogram(const ftype *__restrict__ input,
-                              ftype *__restrict__ output, const ftype cut_left,
+inline void Slices::histogram(const ftype *__restrict input,
+                              ftype *__restrict output, const ftype cut_left,
                               const ftype cut_right, const int n_slices,
                               const int n_macroparticles)
 {
@@ -324,6 +328,7 @@ inline void Slices::histogram(const ftype *__restrict__ input,
 
 void Slices::track_cuts()
 {
+	auto Beam = context.Beam;
    /*
     *Track the slice frame (limits and slice position) as the mean of the
     bunch moves.
@@ -342,8 +347,8 @@ void Slices::track_cuts()
 
 }
 
-inline void Slices::smooth_histogram(const ftype *__restrict__ input,
-                                     ftype *__restrict__ output, const ftype cut_left,
+inline void Slices::smooth_histogram(const ftype *__restrict input,
+                                     ftype *__restrict output, const ftype cut_left,
                                      const ftype cut_right, const int n_slices, const int n_macroparticles)
 {
 
@@ -385,6 +390,7 @@ inline void Slices::smooth_histogram(const ftype *__restrict__ input,
 
 void Slices::slice_constant_space_histogram_smooth()
 {
+	auto Beam = context.Beam;
    /*
     At the moment 4x slower than slice_constant_space_histogram but smoother.
     */
@@ -395,7 +401,7 @@ void Slices::slice_constant_space_histogram_smooth()
 
 void Slices::rms()
 {
-
+	auto Beam = context.Beam;
    /*
     * Computation of the RMS bunch length and position from the line density
     (bunch length = 4sigma).*
@@ -500,7 +506,7 @@ void Slices::fwhm(const ftype shift)
 
 ftype Slices::fast_fwhm()
 {
-
+	auto Beam = context.Beam;
    /*
     * Computation of the bunch length and position from the FWHM
     assuming Gaussian line density.*

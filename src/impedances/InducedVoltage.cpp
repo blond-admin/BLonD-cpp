@@ -70,6 +70,8 @@ inline void InducedVoltage::linear_interp_kick(
 InducedVoltageTime::InducedVoltageTime(std::vector<Intensity *> &WakeSourceList,
                                        time_or_freq TimeOrFreq)
 {
+
+	auto Slice = context.Slice;
    // Induced voltage derived from the sum of
    // several wake fields (time domain).*
 
@@ -102,6 +104,9 @@ InducedVoltageTime::InducedVoltageTime(std::vector<Intensity *> &WakeSourceList,
 
 inline void InducedVoltageTime::track()
 {
+	auto GP = context.GP;
+	auto Beam = context.Beam;
+	auto Slice = context.Slice;
    // Tracking Method
    std::vector<ftype> v = this->induced_voltage_generation();
 
@@ -135,6 +140,7 @@ void InducedVoltageTime::sum_wakes(std::vector<ftype> &TimeArray)
 
 void InducedVoltageTime::reprocess()
 {
+	auto Slice = context.Slice;
    // *Reprocess the wake contributions with respect to the new_slicing.*
    // WARNING As Slice is a global variable,
    // users will have to change this variable and call reprocess()
@@ -152,7 +158,9 @@ void InducedVoltageTime::reprocess()
 
 std::vector<ftype> InducedVoltageTime::induced_voltage_generation(unsigned int length)
 {
-
+	auto GP = context.GP;
+	auto Beam = context.Beam;
+	auto Slice = context.Slice;
    // Method to calculate the induced voltage from wakes with convolution.*
 
    std::vector<ftype> inducedVoltage;
@@ -234,6 +242,7 @@ TotalInducedVoltage::TotalInducedVoltage(
    unsigned int NTurnsMemory,
    std::vector<ftype> RevTimeArray)
 {
+	auto Slice = context.Slice;
    fInducedVoltageList = InducedVoltageList;
    fNTurnsMemory = NTurnsMemory;
    fInducedVoltage = std::vector<ftype>();
@@ -244,6 +253,9 @@ TotalInducedVoltage::TotalInducedVoltage(
 
 void TotalInducedVoltage::track()
 {
+	auto GP = context.GP;
+	auto Beam = context.Beam;
+	auto Slice = context.Slice;
    //std::cout << "I am here\n";
    this->induced_voltage_sum();
    auto v = this->fInducedVoltage;

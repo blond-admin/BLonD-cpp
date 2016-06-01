@@ -31,6 +31,8 @@ LHC::LHC(ftype *PL_gain, ftype SL_gain, ftype window_coefficient,
          ftype *_phaseNoise, ftype *_LHCNoiseFB, int _delay)
 {
 
+	auto GP = context.GP;
+	auto RfP = context.RfP;
    //PhaseLoop(PL_gain, window_coefficient, _delay, _phaseNoise, _LHCNoiseFB);
    // General Initializations
    this->delay = _delay;
@@ -134,6 +136,8 @@ PSB::~PSB()
 
 void PhaseLoop::beam_phase()
 {
+	auto RfP = context.RfP;
+	auto Slice = context.Slice;
    /*
     *Beam phase measured at the main RF frequency and phase. The beam is
     convolved with the window function of the band-pass filter of the
@@ -179,6 +183,7 @@ void PhaseLoop::beam_phase()
 
 void PhaseLoop::phase_difference()
 {
+	auto RfP = context.RfP;
    /*
     Phase difference between beam and RF phase of the main RF system.
     Optional: add RF phase noise through dphi directly.*
@@ -200,6 +205,9 @@ void PhaseLoop::radial_steering_from_freq()
 
 void PhaseLoop::default_track()
 {
+
+	auto GP = context.GP;
+	auto RfP = context.RfP;
    /*
     Calculate PL correction on main RF frequency depending on machine.
     Update the RF phase and frequency of the next turn for all systems.
@@ -235,6 +243,8 @@ void PhaseLoop::default_track()
 
 void LHC::track()
 {
+
+	auto RfP = context.RfP;
    /*
     Calculation of the LHC RF frequency correction from the phase difference
     between beam and RF (actual synchronous phase). The transfer function is
@@ -284,6 +294,9 @@ void LHC::track()
 
 void PSB::track()
 {
+
+	auto GP = context.GP;
+	auto RfP = context.RfP;
    /*
     Calculation of the PSB RF frequency correction from the phase difference
     between beam and RF (actual synchronous phase). The transfer function is
@@ -340,6 +353,11 @@ void PSB::track()
 // TODO test this function
 void PSB::radial_difference()
 {
+
+	auto GP = context.GP;
+	auto RfP = context.RfP;
+	auto Beam = context.Beam;
+	auto Slice = context.Slice;
    // Radial difference between beam and design orbit.*
    int counter = RfP->counter;
    int n = 0;
@@ -360,6 +378,8 @@ void PSB::radial_difference()
 // TODO Test this function
 void PSB::precalculate_time()
 {
+
+	auto GP = context.GP;
    /*
     For machines like the PSB, where the PL acts only in certain time
     intervals, pre-calculate on which turns to act.

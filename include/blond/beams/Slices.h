@@ -26,7 +26,9 @@ namespace blond {
 			ftype cut_right = 0, cuts_unit_type cuts_unit = s,
 			fit_type fit_option = normal_fit, bool direct_slicing = false);
 		~Slices();
-		void track(const int start, const int end);
+		//void track(const int start, const int end);
+		void track();
+
 		void zero_histogram();
 		ftype fast_fwhm();
 		void fwhm(const ftype shift = 0);
@@ -50,16 +52,21 @@ namespace blond {
 		ftype *h;
 		void set_cuts();
 		void sort_particles();
-		inline ftype convert_coordinates(ftype cut, cuts_unit_type type);
-		inline void histogram(const ftype *__restrict input,
-			ftype *__restrict output, const ftype cut_left,
-			const ftype cut_right, const int n_slices,
-			const int n_macroparticles, const int start, const int end);
-		inline void smooth_histogram(const ftype *__restrict input,
+		ftype convert_coordinates(ftype cut, cuts_unit_type type);
+		//inline void histogram(const ftype *__restrict__ input,
+		//                      ftype *__restrict__ output, const ftype cut_left,
+		//                      const ftype cut_right, const int n_slices,
+		//                      const int n_macroparticles, const int start, const int end);
+		void histogram(const ftype *__restrict input,
 			ftype *__restrict output, const ftype cut_left,
 			const ftype cut_right, const int n_slices,
 			const int n_macroparticles);
-		inline void slice_constant_space_histogram(const int start, const int end);
+		void smooth_histogram(const ftype *__restrict input,
+			ftype *__restrict output, const ftype cut_left,
+			const ftype cut_right, const int n_slices,
+			const int n_macroparticles);
+		//inline void slice_constant_space_histogram(const int start, const int end);
+		void slice_constant_space_histogram();
 		void track_cuts();
 		void slice_constant_space_histogram_smooth();
 		void rms();

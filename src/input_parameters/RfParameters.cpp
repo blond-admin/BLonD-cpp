@@ -46,6 +46,8 @@ RfParameters::RfParameters(int _n_rf, ftype *_harmonic, ftype *_voltage,
                            int _section_index, accelerating_systems_type accelerating_systems)
 {
 
+	auto GP = context.GP;
+
    this->counter = 0;
    this->section_index = _section_index - 1;
 
@@ -136,6 +138,9 @@ RfParameters::RfParameters(int _n_rf, ftype *_harmonic, ftype *_voltage,
 ftype RfParameters::eta_tracking(const Beams *beam, const int counter,
                                  const ftype dE)
 {
+
+	auto GP = context.GP;
+
    ftype eta = 0;
    if (GP->alpha_order == 1)
       eta = eta_0(counter);
@@ -156,44 +161,60 @@ ftype RfParameters::eta_tracking(const Beams *beam, const int counter,
 
 ftype RfParameters::eta_0(const int i)
 {
+	auto GP = context.GP;
+	
    return GP->eta_0[section_index * (GP->n_turns + 1) + i];
 }
 
 ftype RfParameters::eta_1(const int i)
 {
+
+	auto GP = context.GP;
+
    return GP->eta_1[section_index * (GP->n_turns + 1) + i];
 }
 
 ftype RfParameters::eta_2(const int i)
 {
+	auto GP = context.GP;
+	
    return GP->eta_2[section_index * (GP->n_turns + 1) + i];
 }
 
 ftype RfParameters::beta(const int i)
 {
+
+	auto GP = context.GP;
    return GP->beta[section_index * (GP->n_turns + 1) + i];
 }
 
 ftype RfParameters::gamma(const int i)
 {
+
+	auto GP = context.GP;
    return GP->gamma[section_index * (GP->n_turns + 1) + i];
 
 }
 
 ftype RfParameters::energy(const int i)
 {
+
+	auto GP = context.GP;
    return GP->energy[section_index * (GP->n_turns + 1) + i];
 
 }
 
 ftype RfParameters::momentum(const int i)
 {
+	auto GP = context.GP;
    return GP->momentum[section_index * (GP->n_turns + 1) + i];
 
 }
 
 int RfParameters::sign_eta_0(const int i)
 {
+
+	auto GP = context.GP;
    if (GP->eta_0[section_index * (GP->n_turns + 1) + i] > 0)
       return 1;
    else if (GP->eta_0[section_index * (GP->n_turns + 1) + i] == 0)
@@ -206,6 +227,8 @@ int RfParameters::sign_eta_0(const int i)
 // Do I call this function from somewhere else?
 void RfParameters::calc_phi_s(accelerating_systems_type acc_sys)
 {
+
+	auto GP = context.GP;
    /*
     | *The synchronous phase calculated from the rate of momentum change.*
     | *Below transition, for decelerating bucket: phi_s is in (-Pi/2,0)*

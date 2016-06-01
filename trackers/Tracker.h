@@ -28,24 +28,25 @@ class RingAndRfSection {
 private:
 public:
    ftype elapsed_time;
-
-   bool *indices_right_outside;
-   bool *indices_inside_frame;
-   bool *indices_left_outside;
+   //bool *indices_right_outside;
+   //bool *indices_inside_frame;
+   //bool *indices_left_outside;
+   int_vector_t indices_right_outside;
+   int_vector_t indices_inside_frame;
+   int_vector_t indices_left_outside;
    inline void set_periodicity();
    // TODO
    // periodicity specific kick - drift have been removed
    // periodicity will be implemented using vectors (and removing points)
-
-   //inline void kick(const bool *update, const int index, const int start,
-   //                 const int end);
-   //inline void kick(const ftype *__restrict__ beam_dt,
-   //                 ftype *__restrict__ beam_dE, const int n_rf,
-   //                 const ftype *__restrict__ voltage,
-   //                 const ftype *__restrict__ omega_RF,
-   //                 const ftype *__restrict__ phi_RF, const int n_macroparticles,
-   //                 const ftype acc_kick, const bool *__restrict__ update,
-   //                 const int start, const int end);
+   // Periodicity kick
+   inline void kick(const int_vector_t &filter, const int index);
+   inline void kick(const ftype *__restrict__ beam_dt,
+                    ftype *__restrict__ beam_dE, const int n_rf,
+                    const ftype *__restrict__ voltage,
+                    const ftype *__restrict__ omega_RF,
+                    const ftype *__restrict__ phi_RF, const int n_macroparticles,
+                    const ftype acc_kick, const int_vector_t &filter);
+   // Regular kick
    inline void kick(const int index);
    inline void kick(const ftype *__restrict__ beam_dt,
                     ftype *__restrict__ beam_dE, const int n_rf,
@@ -53,14 +54,16 @@ public:
                     const ftype *__restrict__ omega_RF,
                     const ftype *__restrict__ phi_RF, const int n_macroparticles,
                     const ftype acc_kick);
-   //inline void drift(const bool *update, const int index, const int start,
-   //                  const int end);
-   //inline void drift(ftype *__restrict__ beam_dt,
-   //                  const ftype *__restrict__ beam_dE, const solver_type solver,
-   //                  const ftype T0, const ftype length_ratio, const int alpha_order,
-   //                  const ftype eta_zero, const ftype eta_one, const ftype eta_two,
-   //                  const ftype beta, const ftype energy, const int n_macroparticles,
-   //                  const bool *__restrict__ update, const int start, const int end);
+
+   // Periodicity drift
+   inline void drift(const int_vector_t &filter, const int index);
+   inline void drift(ftype *__restrict__ beam_dt,
+                     const ftype *__restrict__ beam_dE, const solver_type solver,
+                     const ftype T0, const ftype length_ratio, const int alpha_order,
+                     const ftype eta_zero, const ftype eta_one, const ftype eta_two,
+                     const ftype beta, const ftype energy, const int n_macroparticles,
+                     const int_vector_t &filter);
+   // Regular drift
    inline void drift(const int index);
    inline void drift(ftype *__restrict__ beam_dt,
                      const ftype *__restrict__ beam_dE, const solver_type solver,

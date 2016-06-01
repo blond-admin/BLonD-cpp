@@ -7,7 +7,7 @@ NOT Stable - Under heavy development
 [![Linux and Mac Build Status](https://travis-ci.org/kiliakis/BLonD-minimal-cpp.svg?branch=master)](https://travis-ci.org/kiliakis/BLonD-minimal-cpp)
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/uua8m6cnwq6wbaa3?svg=true)](https://ci.appveyor.com/project/OlegJakushkin/blond-minimal-cpp)
 [![Coverage Status](https://coveralls.io/repos/github/kiliakis/BLonD-minimal-cpp/badge.svg?branch=master)](https://coveralls.io/github/kiliakis/BLonD-minimal-cpp?branch=master)
-[**Documentation online**](http://kiliakis.github.io/BLonD-minimal-cpp/)
+[**Documentation online**](http://olegjakushkin.github.io/BLonD-minimal-cpp/)
 
 ## Requirements
 * cmake version >= 3.0.2 [install](https://cmake.org/install/)

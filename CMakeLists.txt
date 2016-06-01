@@ -23,16 +23,26 @@ else()
     message(STATUS "Testing disabled - please provide GOOGLETEST_ROOT path or use '--recursive' argument in git clone")
 endif()
 
+if(NOT CMAKE_BUILD_TYPE)
+   set(CMAKE_BUILD_TYPE "Release")
+endif()
 
 #set(CMAKE_BUILD_TYPE Release)
 if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
       set(CMAKE_CXX_FLAGS         "-std=c++11 -fopenmp -Wall -pedantic -fno-rtti -Wunused")
       set(CMAKE_CXX_FLAGS_DEBUG   "-O0 -g3")
-      set(CMAKE_CXX_FLAGS_RELEASE "-O3 -march=native")
+      set(CMAKE_CXX_FLAGS_RELEASE "-march=native")
       
-      CHECK_CXX_COMPILER_FLAG(-ffast-math COMPILER_HAS_FAST_MATH)
-      if(COMPILER_HAS_FAST_MATH)
-         set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -ffast-math")
+      #CHECK_CXX_COMPILER_FLAG(-ffast-math COMPILER_HAS_FAST_MATH)
+      #if(COMPILER_HAS_FAST_MATH)
+      #   set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -ffast-math")
+      #endif()
+
+      CHECK_CXX_COMPILER_FLAG(-Ofast COMPILER_HAS_OFAST)
+      if(COMPILER_HAS_OFAST)
+         set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Ofast")
+      else()
+         set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
       endif()
       
       set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-flto")
@@ -66,8 +76,8 @@ if(TEST_ENABLED)
 endif()
 
 include_directories(include)
-#link_directories(/usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64 /afs/cern.ch/user/k/kiliakis/opt/lib)
-link_directories(/usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64)
+link_directories(/usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64 /afs/cern.ch/user/k/kiliakis/opt/lib)
+#link_directories(/usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64)
 
 # Generate simulation executables
 set(SOURCE_FILES 

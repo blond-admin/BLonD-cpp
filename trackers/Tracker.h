@@ -32,44 +32,47 @@ public:
    bool *indices_right_outside;
    bool *indices_inside_frame;
    bool *indices_left_outside;
-   inline void set_periodicity(const int start, const int end);
-   inline void kick(const bool *update, const int index, const int start,
-                    const int end);
+   inline void set_periodicity();
+   // TODO
+   // periodicity specific kick - drift have been removed
+   // periodicity will be implemented using vectors (and removing points)
+
+   //inline void kick(const bool *update, const int index, const int start,
+   //                 const int end);
+   //inline void kick(const ftype *__restrict__ beam_dt,
+   //                 ftype *__restrict__ beam_dE, const int n_rf,
+   //                 const ftype *__restrict__ voltage,
+   //                 const ftype *__restrict__ omega_RF,
+   //                 const ftype *__restrict__ phi_RF, const int n_macroparticles,
+   //                 const ftype acc_kick, const bool *__restrict__ update,
+   //                 const int start, const int end);
+   inline void kick(const int index);
    inline void kick(const ftype *__restrict__ beam_dt,
                     ftype *__restrict__ beam_dE, const int n_rf,
                     const ftype *__restrict__ voltage,
                     const ftype *__restrict__ omega_RF,
                     const ftype *__restrict__ phi_RF, const int n_macroparticles,
-                    const ftype acc_kick, const bool *__restrict__ update,
-                    const int start, const int end);
-   inline void kick(const int index, const int start, const int end);
-   inline void kick(const ftype *__restrict__ beam_dt,
-                    ftype *__restrict__ beam_dE, const int n_rf,
-                    const ftype *__restrict__ voltage,
-                    const ftype *__restrict__ omega_RF,
-                    const ftype *__restrict__ phi_RF, const int n_macroparticles,
-                    const ftype acc_kick, const int start, const int end);
-   inline void drift(const bool *update, const int index, const int start,
-                     const int end);
+                    const ftype acc_kick);
+   //inline void drift(const bool *update, const int index, const int start,
+   //                  const int end);
+   //inline void drift(ftype *__restrict__ beam_dt,
+   //                  const ftype *__restrict__ beam_dE, const solver_type solver,
+   //                  const ftype T0, const ftype length_ratio, const int alpha_order,
+   //                  const ftype eta_zero, const ftype eta_one, const ftype eta_two,
+   //                  const ftype beta, const ftype energy, const int n_macroparticles,
+   //                  const bool *__restrict__ update, const int start, const int end);
+   inline void drift(const int index);
    inline void drift(ftype *__restrict__ beam_dt,
                      const ftype *__restrict__ beam_dE, const solver_type solver,
                      const ftype T0, const ftype length_ratio, const int alpha_order,
                      const ftype eta_zero, const ftype eta_one, const ftype eta_two,
-                     const ftype beta, const ftype energy, const int n_macroparticles,
-                     const bool *__restrict__ update, const int start, const int end);
-   inline void drift(const int index, const int start, const int end);
-   inline void drift(ftype *__restrict__ beam_dt,
-                     const ftype *__restrict__ beam_dE, const solver_type solver,
-                     const ftype T0, const ftype length_ratio, const int alpha_order,
-                     const ftype eta_zero, const ftype eta_one, const ftype eta_two,
-                     const ftype beta, const ftype energy, const int n_macroparticles,
-                     const int start, const int end);
+                     const ftype beta, const ftype energy, const int n_macroparticles);
 
    //void track(const int start, const int end);
 
    void track();
 
-   inline void horizontal_cut(const int start, const int end);
+   inline void horizontal_cut();
    RingAndRfSection(solver_type solver = simple, PhaseLoop *PL = NULL,
                     ftype *NoiseFB = NULL, bool periodicity = false, ftype dE_max = 0,
                     bool rf_kick_interp = false, ftype *Slices = NULL,

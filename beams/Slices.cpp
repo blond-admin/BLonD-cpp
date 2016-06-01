@@ -85,9 +85,9 @@ void Slices::set_cuts()
          //dprintf("cut_right = %e\n", cut_right);
 
       } else {
-         ftype mean_coords = mymath::mean(Beam->dt, Beam->n_macroparticles);
+         ftype mean_coords = mymath::mean(Beam->dt.data(), Beam->n_macroparticles);
          //dprintf("mean coors = %e\n", mean_coords);
-         ftype sigma_coords = mymath::standard_deviation(Beam->dt,
+         ftype sigma_coords = mymath::standard_deviation(Beam->dt.data(),
                               Beam->n_macroparticles, mean_coords);
          //dprintf("mean coors = %e\n", mean_coords);
 
@@ -119,12 +119,12 @@ void Slices::sort_particles()
     */
 
    std::sort(&Beam->dE[0], &Beam->dE[Beam->n_macroparticles],
-             util::MyComparator(Beam->dt));
+             util::MyComparator(Beam->dt.data()));
 
    std::sort(&Beam->id[0], &Beam->id[Beam->n_macroparticles],
-             util::MyComparator(Beam->dt));
+             util::MyComparator(Beam->dt.data()));
    std::sort(&Beam->dt[0], &Beam->dt[Beam->n_macroparticles],
-             util::MyComparator(Beam->dt));
+             util::MyComparator(Beam->dt.data()));
 
 }
 
@@ -180,7 +180,7 @@ inline void Slices::slice_constant_space_histogram()
     */
 
 
-   histogram(Beam->dt, n_macroparticles, cut_left, cut_right, n_slices,
+   histogram(Beam->dt.data(), n_macroparticles, cut_left, cut_right, n_slices,
              Beam->n_macroparticles);
 
 }
@@ -394,7 +394,7 @@ void Slices::slice_constant_space_histogram_smooth()
    /*
     At the moment 4x slower than slice_constant_space_histogram but smoother.
     */
-   smooth_histogram(Beam->dt, this->n_macroparticles, cut_left, cut_right,
+   smooth_histogram(Beam->dt.data(), this->n_macroparticles, cut_left, cut_right,
                     n_slices, Beam->n_macroparticles);
 
 }

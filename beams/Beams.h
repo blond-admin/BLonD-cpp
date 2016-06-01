@@ -18,8 +18,10 @@ class Beams;
 
 class Beams {
 public:
-   ftype *dt;
-   ftype *dE;
+   f_vector_t dt;
+   f_vector_t dE;
+   int_vector_t id;
+
    ftype mean_dt;
    ftype mean_dE;
    ftype sigma_dt;
@@ -30,8 +32,7 @@ public:
    int n_macroparticles;
    long intensity;
    //GeneralParameters *gp;
-   int *id;
-   Beams(const int _n_macroparticles,const long _intensity);
+   Beams(const int _n_macroparticles, const long _intensity);
    ~Beams();
    int n_macroparticles_alive();
    void losses_longitudinal_cut(const ftype *__restrict__ dt,

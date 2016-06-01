@@ -6,22 +6,12 @@
  */
 
 #include "Tracker.h"
-//#include "../includes/utilities.h"
 
 RingAndRfSection::~RingAndRfSection()
 {
-   //if (this->PhaseLoop != NULL) delete this->PhaseLoop;
-   //if (this->NoiseFB != NULL) delete this->NoiseFB;
-   //if (this->TotalInducedVoltage != NULL) delete this->TotalInducedVoltage;
-   //if (this->acceleration_kick != NULL) delete this->acceleration_kick;
-   //util::delete_array(this->PL);
-   //util::delete_array(this->NoiseFB);
    util::delete_array(this->TotalInducedVoltage);
    util::delete_array(this->acceleration_kick);
    util::delete_array(this->Slices);
-   //util::delete_array(this->indices_left_outside);
-   //util::delete_array(this->indices_right_outside);
-   //util::delete_array(this->indices_inside_frame);
 
 }
 
@@ -177,76 +167,6 @@ inline void RingAndRfSection::drift(ftype *__restrict__ beam_dt,
 }
 
 
-/*
-void RingAndRfSection::track(const int start, const int end)
-{
-//omp_set_num_threads(n_threads);
-//timespec begin, fin;
-
-   // Determine phase loop correction on RF phase and frequency
-   if (PL != NULL && RfP->counter >= PL->delay)
-      PL->track();
-
-   if (periodicity) {
-      // Change reference of all the particles on the right of the current
-      // frame; these particles skip one kick and drift
-      //for (int i = 0; i < Beam->n_macroparticles; ++i) {
-      for (int i = start; i < end; ++i) {
-         Beam->dt[i] -= indices_right_outside[i]
-                        * GP->t_rev[RfP->counter + 1];
-      }
-      // Synchronize the bunch with the particles that are on the right of
-      // the current frame applying kick and drift to the bunch; after that
-      // all the particle are in the new updated frame
-
-      kick(indices_inside_frame, RfP->counter, start, end);
-      drift(indices_inside_frame, RfP->counter + 1, start, end);
-
-      // find left outside particles and kick, drift them one more time
-      int a = 0;
-      for (int i = start; i < end; ++i) {
-         if (Beam->dt[i] < 0) {
-            indices_left_outside[i] = Beam->id[i] > 0;
-            a++;
-         } else {
-            indices_left_outside[i] = false;
-         }
-      }
-      if (a > 0) {
-         // This will update only the indices_left_outside values
-         //  need to test this
-         for (int i = start; i < end; ++i) {
-            Beam->dt[i] += GP->t_rev[RfP->counter + 1]
-                           * indices_left_outside[i];
-         }
-         kick(indices_left_outside, RfP->counter, start, end);
-         drift(indices_left_outside, RfP->counter + 1, start, end);
-
-      }
-      // update inside, right outside particles
-
-      set_periodicity(start, end);
-
-   } else {
-      //get_time(begin);
-      //dprintf("before kick\n");
-      kick(RfP->counter, start, end);
-      //dprintf("before drift\n");
-      drift(RfP->counter + 1, start, end);
-      //dprintf("after drift\n");
-
-      //get_time(end);
-      //elapsed_time += time_diff(end, begin);
-   }
-// cut particles by zeroing their id
-// this way they will not be considered again in an update
-
-   if (dE_max > 0)
-      horizontal_cut(start, end);
-   //RfP->counter++;
-}
-*/
-
 void RingAndRfSection::track()
 {
 
@@ -262,13 +182,7 @@ void RingAndRfSection::track()
          for (const auto &i : indices_right_outside)
             Beam->dt[i] -= GP->t_rev[RfP->counter + 1];
       }
-      /*
-      #pragma omp parallel for
-      for (int i = 0; i < Beam->n_macroparticles; ++i) {
-         Beam->dt[i] -= indices_right_outside[i]
-                        * GP->t_rev[RfP->counter + 1];
-      }
-      */
+
       // Synchronize the bunch with the particles that are on the right of
       // the current frame applying kick and drift to the bunch; after that
       // all the particle are in the new updated frame
@@ -300,33 +214,14 @@ void RingAndRfSection::track()
 
       }
 
-      /*
-      #pragma omp parallel for
-      for (int i = 0; i < Beam->n_macroparticles; ++i) {
-         Beam->dt[i] += GP->t_rev[RfP->counter + 1]
-                        * indices_left_outside[i];
-      }
-      kick(RfP->counter);
-      drift(RfP->counter + 1);
-      */
-
       // update inside, right outside particles
 
       set_periodicity();
 
    } else {
-      //get_time(begin);
-      //dprintf("before kick\n");
       kick(RfP->counter);
-      //dprintf("before drift\n");
       drift(RfP->counter + 1);
-      //dprintf("after drift\n");
-
-      //get_time(end);
-      //elapsed_time += time_diff(end, begin);
    }
-// cut particles by zeroing their id
-// this way they will not be considered again in an update
 
    if (dE_max > 0)
       horizontal_cut();
@@ -335,22 +230,16 @@ void RingAndRfSection::track()
 
 inline void RingAndRfSection::horizontal_cut()
 {
-   /*
+   
    for (int i = 0; i < Beam->n_macroparticles; ++i) {
       if (Beam->dE[i] > - dE_max) {
-         Beam->dE.remove(Beam->dE.begin() + i);
-         Beam->dt.remove(Beam->dt.begin() + i);
+         Beam->dE.erase(Beam->dE.begin() + i);
+         Beam->dt.erase(Beam->dt.begin() + i);
+         Beam->id.erase(Beam->id.begin() + i);
       }
    }
    Beam->n_macroparticles = Beam->dE.size();
-   */
-
-   // In order to cut a particle we will 0 its id
-   #pragma omp parallel for
-   for (int i = 0; i < Beam->n_macroparticles; ++i) {
-      if (Beam->dE[i] < -dE_max || Beam->dE[i] > dE_max)
-         Beam->id[i] = 0;
-   }
+   
 }
 
 RingAndRfSection::RingAndRfSection(solver_type _solver, PhaseLoop *_PhaseLoop,
@@ -366,14 +255,7 @@ RingAndRfSection::RingAndRfSection(solver_type _solver, PhaseLoop *_PhaseLoop,
    this->rf_kick_interp = _rf_kick_interp;
    this->Slices = _Slices;
    this->TotalInducedVoltage = _TotalInducedVoltage;
-   //this->n_threads = _n_threads;
-   //this->indices_left_outside = new bool[Beam->n_macroparticles];
-   //this->indices_right_outside = new bool[Beam->n_macroparticles];
-   //this->indices_inside_frame = new bool[Beam->n_macroparticles];
-   //for (int i = 0; i < Beam->n_macroparticles; ++i) {
-   //   indices_inside_frame[i] = true;
-   //   indices_left_outside[i] = indices_right_outside[i] = false;
-   //}
+
 
    this->acceleration_kick = new ftype[RfP->n_rf * (GP->n_turns)];
    for (int i = 0; i < RfP->n_rf * GP->n_turns; ++i) {
@@ -418,37 +300,25 @@ inline void RingAndRfSection::set_periodicity()
          indices_inside_frame.push_back(i);
       }
    }
-   /*
-   #pragma omp parallel for
-   for (int i = 0; i < Beam->n_macroparticles; i++) {
-   if (Beam->dt[i] > GP->t_rev[RfP->counter + 1]) {
-      indices_right_outside[i] = Beam->id[i] > 0;
-      indices_inside_frame[i] = false;
-   } else {
-      indices_inside_frame[i] = Beam->id[i] > 0;
-      indices_right_outside[i] = false;
-   }
-   }
-   */
 }
 
 inline void RingAndRfSection::kick(const int index)
 {
-   kick(Beam->dt, Beam->dE, RfP->n_rf, &RfP->voltage[index],
+   kick(Beam->dt.data(), Beam->dE.data(), RfP->n_rf, &RfP->voltage[index],
         &RfP->omega_RF[index], &RfP->phi_RF[index], Beam->n_macroparticles,
         acceleration_kick[index]);
 }
 
 inline void RingAndRfSection::kick(const int_vector_t &filter, const int index)
 {
-   kick(Beam->dt, Beam->dE, RfP->n_rf, &RfP->voltage[index],
+   kick(Beam->dt.data(), Beam->dE.data(), RfP->n_rf, &RfP->voltage[index],
         &RfP->omega_RF[index], &RfP->phi_RF[index], Beam->n_macroparticles,
         acceleration_kick[index], filter);
 }
 
 inline void RingAndRfSection::drift(const int_vector_t &filter, const int index)
 {
-   drift(Beam->dt, Beam->dE, solver, GP->t_rev[index], RfP->length_ratio,
+   drift(Beam->dt.data(), Beam->dE.data(), solver, GP->t_rev[index], RfP->length_ratio,
          GP->alpha_order, RfP->eta_0(index), RfP->eta_1(index),
          RfP->eta_2(index), RfP->beta(index), RfP->energy(index),
          Beam->n_macroparticles, filter);
@@ -456,7 +326,7 @@ inline void RingAndRfSection::drift(const int_vector_t &filter, const int index)
 
 inline void RingAndRfSection::drift(const int index)
 {
-   drift(Beam->dt, Beam->dE, solver, GP->t_rev[index], RfP->length_ratio,
+   drift(Beam->dt.data(), Beam->dE.data(), solver, GP->t_rev[index], RfP->length_ratio,
          GP->alpha_order, RfP->eta_0(index), RfP->eta_1(index),
          RfP->eta_2(index), RfP->beta(index), RfP->energy(index),
          Beam->n_macroparticles);

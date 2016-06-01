@@ -187,8 +187,8 @@ int main(int argc, char **argv)
    printf("Slice time : %.4lf ( %.2lf %% )\n", slice_time,
           100 * slice_time / total_time);
 
-   util::dump(Beam->dE, 10, "dE\n");
-   util::dump(Beam->dt, 10, "dt\n");
+   util::dump(Beam->dE.data(), 10, "dE\n");
+   util::dump(Beam->dt.data(), 10, "dt\n");
    util::dump(Slice->n_macroparticles, 10, "n_macroparticles\n");
    delete Slice;
    delete long_tracker;

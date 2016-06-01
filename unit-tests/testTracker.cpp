@@ -218,7 +218,7 @@ TEST_F(testTrackerPeriodicity, periodicity)
    util::read_vector_from_file(v, params + "beam_dt.txt");
 
 
-   std::vector<ftype> res(Beam->dt, Beam->dt + Beam->n_macroparticles);
+   std::vector<ftype> res(Beam->dt.data(), Beam->dt.data() + Beam->n_macroparticles);
    ASSERT_EQ(v.size(), res.size());
    ftype epsilon = 1e-6;
 
@@ -234,7 +234,7 @@ TEST_F(testTrackerPeriodicity, periodicity)
    v.clear();
    res.clear();
 
-   res = std::vector<ftype>(Beam->dE, Beam->dE + Beam->n_macroparticles);
+   res = std::vector<ftype>(Beam->dE.data(), Beam->dE.data() + Beam->n_macroparticles);
 
    util::read_vector_from_file(v, params + "beam_dE.txt");
 

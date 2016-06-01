@@ -19,25 +19,16 @@ enum solver_type {
    simple, full
 };
 
-// !!!!WARNING!!!!
-// we only use beam->dt, dE
-// bool arrays are used every time to update only the right values!!
 
 class RingAndRfSection {
 
 private:
 public:
    ftype elapsed_time;
-   //bool *indices_right_outside;
-   //bool *indices_inside_frame;
-   //bool *indices_left_outside;
    int_vector_t indices_right_outside;
    int_vector_t indices_inside_frame;
    int_vector_t indices_left_outside;
    inline void set_periodicity();
-   // TODO
-   // periodicity specific kick - drift have been removed
-   // periodicity will be implemented using vectors (and removing points)
    // Periodicity kick
    inline void kick(const int_vector_t &filter, const int index);
    inline void kick(const ftype *__restrict__ beam_dt,

@@ -10,21 +10,25 @@
 Beams::~Beams()
 {
 
-   util::delete_array(this->dt);
-   util::delete_array(this->dE);
-   util::delete_array(this->id);
+   //util::delete_array(this->dt);
+   //util::delete_array(this->dE);
+   //util::delete_array(this->id);
 
 }
 
-Beams::Beams(const int _n_macroparticles,const long _intensity)
+Beams::Beams(const int _n_macroparticles, const long _intensity)
 {
    //global++;
 
    //this->gp = _gp;
    this->n_macroparticles = _n_macroparticles;
    this->intensity = _intensity;
-   this->dt = new ftype[n_macroparticles];
-   this->dE = new ftype[n_macroparticles];
+   this->dt = std::vector<ftype>(n_macroparticles);
+   this->dE = std::vector<ftype>(n_macroparticles);
+   this->id = std::vector<int>(n_macroparticles);
+
+   //this->dt = new ftype[n_macroparticles];
+   //this->dE = new ftype[n_macroparticles];
    //this->dE = (ftype *) aligned_malloc(sizeof(ftype) * n_macroparticles);
    //this->dt = (ftype *) aligned_malloc(sizeof(ftype) * n_macroparticles);
    this->mean_dt = this->mean_dE = 0;
@@ -32,7 +36,7 @@ Beams::Beams(const int _n_macroparticles,const long _intensity)
    this->ratio = intensity / n_macroparticles;
    this->epsn_rms_l = 0;
    this->n_macroparticles_lost = 0;
-   this->id = new int[n_macroparticles];
+   //this->id = new int[n_macroparticles];
    for (int i = 0; i < n_macroparticles; ++i) {
       id[i] = i + 1;
    }

@@ -156,7 +156,7 @@ TEST_F(testInducedVoltage, totalInducedVoltageTrack)
    util::read_vector_from_file(v, params + "dE.txt");
 
    // WARNING checking only the fist 500 elems
-   std::vector<ftype> res(Beam->dE, Beam->dE + 500);
+   std::vector<ftype> res(Beam->dE.data(), Beam->dE.data() + 500);
    ASSERT_EQ(v.size(), res.size());
 
    ftype epsilon = 1e-8;
@@ -176,7 +176,7 @@ TEST_F(testInducedVoltage, totalInducedVoltageTrack)
    util::read_vector_from_file(v, params + "dt.txt");
 
    // WARNING checking only the fist 500 elems
-   res = std::vector<ftype>(Beam->dt, Beam->dt + 500);
+   res = std::vector<ftype>(Beam->dt.data(), Beam->dt.data() + 500);
    ASSERT_EQ(v.size(), res.size());
 
    epsilon = 1e-8;

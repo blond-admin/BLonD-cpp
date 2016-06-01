@@ -132,7 +132,7 @@ inline void InducedVoltageTime::track()
                   std::bind1st(std::multiplies<ftype>(),
                                GP->charge));
 
-   linear_interp_kick(Beam->dt, Beam->dE, v.data(),
+   linear_interp_kick(Beam->dt.data(), Beam->dE.data(), v.data(),
                       Slice->bin_centers, Slice->n_slices,
                       Beam->n_macroparticles, 0.0);
 
@@ -275,7 +275,7 @@ void TotalInducedVoltage::track()
                                GP->charge));
    //std::cout << "I am here\n";
 
-   linear_interp_kick(Beam->dt, Beam->dE, v.data(),
+   linear_interp_kick(Beam->dt.data(), Beam->dE.data(), v.data(),
                       Slice->bin_centers, Slice->n_slices,
                       Beam->n_macroparticles, 0.0);
    //std::cout << "I am here\n";

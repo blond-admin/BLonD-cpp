@@ -160,8 +160,8 @@ TEST_F(testBeam, test_macroparticles_lost)
 TEST_F(testBeam, test_losses_long_cut)
 {
 
-   Beam->losses_longitudinal_cut(Beam->dt, Beam->mean_dt,
-                                 10 * fabs(Beam->mean_dt), Beam->id);
+   Beam->losses_longitudinal_cut(Beam->dt.data(), Beam->mean_dt,
+                                 10 * fabs(Beam->mean_dt), Beam->id.data());
 
    std::vector<ftype> v;
    util::read_vector_from_file(v, long_cut_params + "id");
@@ -175,8 +175,8 @@ TEST_F(testBeam, test_losses_long_cut)
 TEST_F(testBeam, test_losses_energy_cut)
 {
 
-   Beam->losses_longitudinal_cut(Beam->dE, Beam->mean_dE,
-                                 10 * fabs(Beam->mean_dE), Beam->id);
+   Beam->losses_longitudinal_cut(Beam->dE.data(), Beam->mean_dE,
+                                 10 * fabs(Beam->mean_dE), Beam->id.data());
 
    std::vector<ftype> v;
    util::read_vector_from_file(v, energy_cut_params + "id");

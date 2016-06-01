@@ -287,6 +287,8 @@ void RingAndRfSection::track()
          }
       }
       if (indices_left_outside.size() > 0) {
+         std::cout << "Found some left outside particle!\n";
+
          // This will update only the indices_left_outside values
          //  need to test this
 
@@ -410,6 +412,7 @@ inline void RingAndRfSection::set_periodicity()
    // as done in the python version
    for (int i = 0; i < Beam->n_macroparticles; ++i) {
       if (Beam->dt[i] > GP->t_rev[RfP->counter + 1]) {
+         std::cout << "Found a right outside particle!\n";
          indices_right_outside.push_back(i);
       } else {
          indices_inside_frame.push_back(i);

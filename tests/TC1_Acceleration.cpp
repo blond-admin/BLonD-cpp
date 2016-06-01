@@ -4,18 +4,15 @@
  *  Created on: Mar 9, 2016
  *      Author: kiliakis
  */
-#include "globals.h"
-#include "utilities.h"
-#include "math_functions.h"
 #include <omp.h>
 #include <stdio.h>
-#include "../input_parameters/GeneralParameters.h"
-#include "../input_parameters/RfParameters.h"
-#include "../beams/Beams.h"
-#include "../beams/Slices.h"
-#include "../beams/Distributions.h"
-#include "../trackers/Tracker.h"
-#include "optionparser.h"
+
+#include <blond/globals.h>
+#include <blond/math_functions.h>
+#include <blond/beams/Distributions.h>
+#include <blond/trackers/Tracker.h>
+#include <algorithm>
+using namespace blond;
 
 // Simulation parameters --------------------------------------------------------
 // Bunch parameters
@@ -38,14 +35,7 @@ const int n_sections = 1;
 int N_t = 10000;    // Number of turns to track
 int N_p = 10000;         // Macro-particles
 
-int n_threads = 1;
 int N_slices = 100;
-
-GeneralParameters *GP;
-Beams *Beam;
-Slices *Slice;
-RfParameters *RfP;
-
 
 void parse_args(int argc, char **argv);
 
@@ -61,13 +51,13 @@ int main(int argc, char **argv)
    //n_threads =
    //   atoi(util::GETENV("N_THREADS")) ? atoi(util::GETENV("N_THREADS")) : n_threads;
 
-   omp_set_num_threads(n_threads);
+   omp_set_num_threads(context.n_threads);
 
    printf("Setting up the simulation...\n\n");
    printf("Number of turns: %d\n", N_t);
    printf("Number of macro-particles: %d\n", N_p);
    printf("Number of Slices: %d\n", N_slices);
-   printf("Number of openmp threads: %d\n", n_threads);
+   printf("Number of openmp threads: %d\n", context.n_threads);
 
    timespec begin, end;
    util::get_time(begin);
@@ -92,12 +82,13 @@ int main(int argc, char **argv)
 
 // TODO variables must be in the correct format (arrays for all)
 
-   GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum,
+   auto GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum,
                               proton);
-
-   Beam = new Beams(N_p, N_b);
-
-   RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
+   context.GP = GP;
+   auto Beam = new Beams(N_p, N_b);
+   context.Beam = Beam;
+   auto RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
+   context.RfP = RfP;
    //printf("omega_rf = %lf\n",RfP->omega_RF[0]);
 
    RingAndRfSection *long_tracker = new RingAndRfSection();
@@ -105,7 +96,8 @@ int main(int argc, char **argv)
 
    longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
 
-   Slice = new Slices(N_slices);
+   auto Slice = new Slices(N_slices);
+   context.Slice = Slice;
 
    //util::dump(Slice->bin_centers, N_slices, "bin_centers\n");
    //util::dump(Beam->dt, 10, "dt\n");
@@ -250,7 +242,7 @@ void parse_args(int argc, char **argv)
             //fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
             break;
          case N_THREADS:
-            n_threads = atoi(opt.arg);
+            context.n_threads = atoi(opt.arg);
             //fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
             break;
          case N_SLICES:

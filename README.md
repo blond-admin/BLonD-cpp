@@ -4,8 +4,10 @@ C++ Version of [CERN's BLonD code][1]
 
 NOT Stable - Under heavy development
 
-[![Build Status](https://travis-ci.org/kiliakis/BLonD-minimal-cpp.svg?branch=master)](https://travis-ci.org/kiliakis/BLonD-minimal-cpp)
-[![Coverage Status](https://coveralls.io/repos/github/kiliakis/BLonD-minimal-cpp/badge.svg?branch=master)](https://coveralls.io/github/kiliakis/BLonD-minimal-cpp?branch=master)
+[![Linux and Mac Build Status](https://travis-ci.org/olegjakushkin/BLonD-minimal-cpp.svg?branch=master)](https://travis-ci.org/kiliakis/BLonD-minimal-cpp)
+[![Windows Build status](https://ci.appveyor.com/api/projects/status/uua8m6cnwq6wbaa3?svg=true)](https://ci.appveyor.com/project/OlegJakushkin/blond-minimal-cpp)
+[![Coverage Status](https://coveralls.io/repos/github/olegjakushkin/BLonD-minimal-cpp/badge.svg?branch=master)](https://coveralls.io/github/kiliakis/BLonD-minimal-cpp?branch=master)
+[**Documentation online**](http://olegjakushkin.github.io/BLonD-minimal-cpp/)
 
 ## Requirements
 * cmake version >= 3.0.2 [install](https://cmake.org/install/)
@@ -75,6 +77,14 @@ ctest -VV
 lcov --capture --directory .. --output-file coverage.info
 genhtml coverage.info --output-directory html
 ```
+
+## Buiding HTML Classes and Namespaces Documentation
+```bash
+cd home  
+doxygen Doxyfile ;
+```
+
+documentation folder with Html web site in it would be created. Requires doxygen for objects interconnection graphs.
 
 ## Original BLonD Links
 

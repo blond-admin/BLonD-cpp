@@ -4,20 +4,18 @@
  *  Created on: May 9, 2016
  *      Author: kiliakis
  */
-#include "globals.h"
-#include "utilities.h"
-#include "math_functions.h"
-#include <omp.h>
 #include <stdio.h>
-#include "../input_parameters/GeneralParameters.h"
-#include "../input_parameters/RfParameters.h"
-#include "../beams/Beams.h"
-#include "../beams/Slices.h"
-#include "../beams/Distributions.h"
-#include "../trackers/Tracker.h"
-//#include "../impedances/Intensity.h"
-#include "../impedances/InducedVoltage.h"
 #include <complex>
+
+#include <omp.h>
+
+#include <blond/globals.h>
+#include <blond/math_functions.h>
+#include <blond/beams/Distributions.h>
+#include <blond/trackers/Tracker.h>
+//#include <blond/impedances/Intensity.h"
+#include <blond/impedances/InducedVoltage.h>
+using namespace blond;
 
 
 const std::string datafiles =
@@ -44,13 +42,7 @@ const int n_sections = 1;
 unsigned N_t = 1000;    // Number of turns to track
 unsigned N_p = 5000000;         // Macro-particles
 
-int n_threads = 1;
 unsigned N_slices = 1 << 8; // = (2^8)
-
-GeneralParameters *GP;
-Beams *Beam;
-Slices *Slice;
-RfParameters *RfP;
 
 
 void parse_args(int argc, char **argv);
@@ -61,7 +53,7 @@ int main(int argc, char **argv)
 
    parse_args(argc, argv);
 
-   omp_set_num_threads(n_threads);
+   omp_set_num_threads(context.n_threads);
 
    /// initializations
 
@@ -97,18 +89,19 @@ int main(int argc, char **argv)
    ftype *dphi_array = new ftype[n_sections * (N_t + 1)];
    std::fill_n(dphi_array, (N_t + 1) * n_sections, dphi);
 
-   GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum,
+   auto GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum,
                               proton);
-
-   Beam = new Beams(N_p, N_b);
-
-   RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
-
+   context.GP = GP;
+   auto Beam = new Beams(N_p, N_b);
+   context.Beam = Beam;
+   auto RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
+   context.RfP = RfP;
    RingAndRfSection *long_tracker = new RingAndRfSection();
 
    longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
 
-   Slice = new Slices(N_slices, 0, 0, 2 * constant::pi, rad);
+   auto Slice = new Slices(N_slices, 0, 0, 2 * constant::pi, rad);
+   context.Slice = Slice;
    //util::dump(Slice->bin_centers, 10, "bin_centers\n");
 
    std::vector<ftype> v;
@@ -234,7 +227,7 @@ void parse_args(int argc, char **argv)
             //fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
             break;
          case N_THREADS:
-            n_threads = atoi(opt.arg);
+            context.n_threads = atoi(opt.arg);
             //fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
             break;
          case N_SLICES:

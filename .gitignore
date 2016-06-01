@@ -1,11 +1,6 @@
 *~
 *report
 *documentation
-build/CMake*
-build/*.cmake
-build/libblond.a
-build/test1
-build/CMakeCache.txt
-build/TC8_Phase_Loop
-build/TC1_Acceleration
-build/LHC_restart
+build/*
+external/install/*
+.idea*

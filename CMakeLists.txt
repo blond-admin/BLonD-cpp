@@ -2,20 +2,72 @@
 cmake_minimum_required(VERSION 3.0.2)
 project(BLonD-minimal-cpp CXX)
 include(CheckCXXCompilerFlag)
+include(ExternalProject)
+include(ProcessorCount)
+include(CTest)
 
-# TODO is 4.8 really the minimum requirement?
-if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS "4.8.0")
-    message(FATAL_ERROR "ERROR: Insufficient compiler version, need at lest 4.8 to continue")
+
+# Variables default values list
+set(CMAKE_BUILD_TYPE Release)
+set(TEST_ENABLED "False")
+set(SHARED_LIBRARY_ENABLED "True")
+set(GOOGLETEST_ROOT external/googletest/googletest CACHE STRING "Google Test source root")
+set(GSL_ROOT external/gsl CACHE STRING "GSL - GNU Scientific Library source root")
+set(EXTERNAL_ROOT external/install CACHE STRING "External libraries installation folder (with subfolders lib and include)")
+
+
+# CPU for build count
+ProcessorCount(N)
+if(NOT N EQUAL 0)
+  set(CTEST_BUILD_FLAGS -j${N})
+  set(ctest_test_args ${ctest_test_args} PARALLEL_LEVEL ${N})
 endif()
 
+
+# Code editors usabilety feature
+set_property(GLOBAL PROPERTY USE_FOLDERS On) 
+
+if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
+    set(CMAKE_CXX_FLAGS         "-std=c++11 -fopenmp -Wall -pedantic -Wno-rtti -Wunused")
+    set(CMAKE_CXX_FLAGS_DEBUG   "-O0 -g3")
+    set(CMAKE_CXX_FLAGS_RELEASE "-march=native")
+    
+    if ((CMAKE_C_COMPILER_ID == "Clang") AND (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 3.8))
+        set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
+    else()
+        set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Ofast")
+    endif()
+
+    set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-flto")
+    if(TEST_ENABLED STREQUAL "True")
+        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fprofile-arcs -ftest-coverage")
+        set(CMAKE_EXE_LINKER_FLAGS_DEBUG "--coverage")
+    else()
+        message(STATUS "code test coveredge is enabeled only in Debug mode")
+    endif()
+elseif(MSVC)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj -Zm500  /MP${N} /openmp")
+endif()
+
+# TODO is 4.8 really the minimum requirement?
+# TODO do we really want to check for this its 2016 already?
+if(CMAKE_CXX_COMPILER_ID MATCHES GNU AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS "4.8.0")
+    message(FATAL_ERROR "ERROR: Insufficient compiler version, need at lest 4.8 to continue")
+endif()
 check_cxx_compiler_flag(-std=c++11 COMPILER_HAS_CXX11)
 if(!COMPILER_HAS_CXX11)
 	message(FATAL_ERROR "ERROR: Compiler is lacking support for c++11")
 endif()
 
 
+# optimization checks
+check_cxx_compiler_flag(-ffast-math COMPILER_HAS_FAST_MATH)
+if(COMPILER_HAS_FAST_MATH)
+	add_compile_options(-ffast-math)
+endif()
 
-set(GOOGLETEST_ROOT external/googletest/googletest CACHE STRING "Google Test source root")
+
+# Autoenabeling tests if gtest is presented
 if(EXISTS ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT})
     set(TEST_ENABLED "True")
     message(STATUS "Found Google Test library source")
@@ -24,133 +76,132 @@ else()
 endif()
 
 
-#set(CMAKE_BUILD_TYPE Release)
-if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
-      set(CMAKE_CXX_FLAGS         "-std=c++11 -fopenmp -Wall -pedantic -fno-rtti -Wunused")
-      set(CMAKE_CXX_FLAGS_DEBUG   "-O0 -g3")
-      set(CMAKE_CXX_FLAGS_RELEASE "-O3 -march=native")
-      
-      CHECK_CXX_COMPILER_FLAG(-ffast-math COMPILER_HAS_FAST_MATH)
-      if(COMPILER_HAS_FAST_MATH)
-         set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -ffast-math")
-      endif()
-      
-      set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-flto")
-      if(TEST_ENABLED)
-        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fprofile-arcs -ftest-coverage")
-	     set(CMAKE_EXE_LINKER_FLAGS_DEBUG "--coverage")
-      endif()
-endif()
-
-# Absolutely required packages
+# required packages
 find_package(OpenMP REQUIRED)
-find_package(GSL REQUIRED)
-
-
-if(TEST_ENABLED)
-    include_directories(
-        ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}
-        ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}/include
-        )
-
-    set(GOOGLETEST_SOURCES
-        ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}/src/gtest-all.cc
-        ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}/src/gtest_main.cc
-        )
-
-    foreach(_source ${GOOGLETEST_SOURCES})
-        set_source_files_properties(${_source} PROPERTIES GENERATED 1)
-    endforeach()
-
-    add_library(googletest ${GOOGLETEST_SOURCES})
+#GSL (build from source into external instal)
+if(EXISTS ${PROJECT_SOURCE_DIR}/${GSL_ROOT})
+    message(STATUS "Found GNU Scientific Library ")
+    set(gslLib "${CMAKE_STATIC_LIBRARY_PREFIX}gsl${CMAKE_STATIC_LIBRARY_SUFFIX}" )
+    set(gslcblasLib "${CMAKE_STATIC_LIBRARY_PREFIX}gslcblas${CMAKE_STATIC_LIBRARY_SUFFIX}" )
+    ExternalProject_Add(
+        gsl-src
+        SOURCE_DIR ${PROJECT_SOURCE_DIR}/${GSL_ROOT}
+	PATCH_COMMAND cmake -DPROJECT_SOURCE_DIR=${PROJECT_SOURCE_DIR} -DGSL_ROOT=${GSL_ROOT} -P ${PROJECT_SOURCE_DIR}/external/gsl.patch.cmake 
+        CMAKE_ARGS -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+                   -DDO_TESTS="False"
+                   -DCMAKE_INSTALL_PREFIX=${PROJECT_SOURCE_DIR}/external/install
+                   -DCMAKE_RULE_MESSAGES=OFF
+        TMP_DIR ${PROJECT_SOURCE_DIR}/${GSL_ROOT}/build/tmp
+        TEST_BEFORE_INSTALL False
+        TEST_AFTER_INSTALL False
+        BINARY_DIR ${PROJECT_SOURCE_DIR}/${GSL_ROOT}/build
+    )
+else()
+  message(FATAL_ERROR "Not GNU Scientific Library - please provide GSL_ROOT path or use '--recursive' argument in git clone")
 endif()
 
+
+# path to external libraries and headers
+include_directories(${EXTERNAL_ROOT}/include)
+link_directories(${EXTERNAL_ROOT}/lib)
+
+
+# Code editors usabilety function (structure code as it is placed in folders)
+function(assign_source_group)
+    foreach(_source IN ITEMS ${ARGN})
+        if(IS_ABSOLUTE ${_source})
+            file(RELATIVE_PATH _source_rel ${CMAKE_CURRENT_SOURCE_DIR} ${_source})
+        else()
+            set(source_rel ${_source})
+        endif()
+        get_filename_component(_source_path ${_source_rel} PATH)
+        string(REPLACE "/" "\\" _source_path_msvc ${_source_path})
+        source_group("${_source_path_msvc}" FILES ${_source})
+    endforeach()
+endfunction(assign_source_group)
+
+
+# main library
 include_directories(include)
-#link_directories(/usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64 /afs/cern.ch/user/k/kiliakis/opt/lib)
-link_directories(/usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64)
+SET(LIBRARIES 
+   gsl
+   gslcblas)
 
-# Generate simulation executables
-set(SOURCE_FILES 
-    beams/Beams.cpp 
-    beams/Slices.cpp
-    input_parameters/GeneralParameters.cpp
-    input_parameters/RfParameters.cpp
-    trackers/Tracker.cpp
-    llrf/PhaseLoop.cpp
-    impedances/Intensity.cpp
-    impedances/InducedVoltage.cpp
-    )
+file(GLOB_RECURSE SOURCES
+    "src/*"
+    "include/*"
+)
+set(SOURCE_FILES ${SOURCES} )
+assign_source_group(${SOURCE_FILES})
 
-# -fopt-info-vec=file
-foreach(source ${SOURCE_FILES})
-   set_source_files_properties(${source} PROPERTIES COMPILE_FLAGS "-fopt-info-vec=report.txt")
+if(SHARED_LIBRARY_ENABLED)
+    add_library(blond SHARED ${SOURCE_FILES})
+    target_compile_definitions(blond PRIVATE SHARED=1)
+else()
+    add_library(blond STATIC ${SOURCE_FILES})
+    target_compile_definitions(blond PRIVATE STATIC=1)
+endif()
+target_link_libraries( blond ${LIBRARIES})
+
+#SET_TARGET_PROPERTIES(blond PROPERTIES LINKER_LANGUAGE CXX)
+
+# demo executables
+LIST(APPEND LIBRARIES blond)
+
+file(GLOB EXECUTABLE_SOURCES "tests/*.cpp" )
+set(EXECUTABLE_FILES ${EXECUTABLE_SOURCES} )
+# demo dependencies 
+
+foreach(src ${EXECUTABLE_FILES})
+    file(RELATIVE_PATH testfile ${CMAKE_CURRENT_SOURCE_DIR} ${src})
+    string( REPLACE ".cpp" "" testname ${testfile})
+    string( REPLACE "tests/" "" testname ${testname})
+    add_executable( ${testname} ${src})
+    add_dependencies(${testname} blond gsl-src)
+    target_link_libraries( ${testname} ${LIBRARIES})
 endforeach()
 
-# SHARED for dynamic LINKING
-# STATIC for static LINKING
-add_library(blond SHARED ${SOURCE_FILES})
-#add_library(gsl SHARED)
-#add_library(gslcblas SHARED IMPORTED)
-    
-add_executable(TC1_Acceleration tests/TC1_Acceleration.cpp)
-add_executable(LHC_restart tests/LHC_restart.cpp)
-add_executable(TC5_Wake_impedance tests/TC5_Wake_impedance.cpp)
 
-
-SET(LIBRARIES 
-   blond
-   gsl
-   gslcblas
-   m)
-
-target_link_libraries(TC1_Acceleration ${LIBRARIES})
-target_link_libraries(LHC_restart ${LIBRARIES})
-target_link_libraries(TC5_Wake_impedance ${LIBRARIES})
-
-# Generate unit tests
+# testing
 if(TEST_ENABLED)
-    set(TEST_SOURCE_FILES
-        unit-tests/testGP.cpp
-        unit-tests/testRFP.cpp
-        unit-tests/testBigaussian.cpp
-        unit-tests/testBeam.cpp
-        unit-tests/testSlices.cpp
-        unit-tests/testTracker.cpp
-        unit-tests/testTC1_Acceleration.cpp
-        unit-tests/testPL.cpp
-        unit-tests/testLHC_Restart.cpp
-        unit-tests/testResonator.cpp
-        unit-tests/testInputTableIntensity.cpp
-        unit-tests/testInducedVoltage.cpp
-        unit-tests/testTC5_Wake_impedance.cpp
+    message(STATUS "generating test executables")
+    # packages required for testing
+    #GoogleTest (build from source into external instal)
+    ExternalProject_Add(
+        googletest-src
+        SOURCE_DIR ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}/
+        CMAKE_ARGS -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} 
+                   -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG:PATH=DebugLibs
+                   -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE:PATH=ReleaseLibs
+                   -Dgtest_force_shared_crt=ON
+                   -DBUILD_GTEST=ON
+                   -DCMAKE_INSTALL_PREFIX=${PROJECT_SOURCE_DIR}/external/install
+                   -DCMAKE_RULE_MESSAGES=OFF
+        TMP_DIR ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}/build/tmp
+        TEST_BEFORE_INSTALL False
+        TEST_AFTER_INSTALL False
+        BINARY_DIR ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}/build
     )
+    LIST(APPEND LIBRARIES gtest)
 
-    foreach(src ${TEST_SOURCE_FILES})
-        string( REPLACE ".cpp" "" testname ${src})
-        string( REPLACE "unit-tests/" "" testname ${testname})
-        add_executable( ${testname} ${src})
-	     target_link_libraries( ${testname} ${LIBRARIES} googletest)
-        add_test(${testname} ${testname})
-    endforeach( src ${TEST_SOURCE_FILES})
-
-    #TODO: rename testMyMath, merge with TEST_SOURCE_FILES
-    add_executable(testMyMath unit-tests/testMyMath.cpp)
-    target_link_libraries(testMyMath googletest gsl gslcblas m)
-    add_test(testMyMath testMyMath )
-
-    include(CTest)
-    enable_testing()
 
     if(UNIX)
       set(CTEST_MEMORYCHECK_COMMAND, "usr/bin/valgrind")
       set(CTEST_MEMORYCHECK_COMMAND_OPTIONS, "--leak-check=full")
     endif()
+
+    file(GLOB UNIT_TEST_SOURCES "./unit-tests/*.cpp" )
+    set(UNIT_TEST_FILES ${UNIT_TEST_SOURCES} )
+
+    foreach(src ${UNIT_TEST_FILES})
+        file(RELATIVE_PATH testfile ${CMAKE_CURRENT_SOURCE_DIR} ${src})
+        string( REPLACE ".cpp" "" testname ${testfile})
+        string( REPLACE "unit-tests/" "" testname ${testname})
+        add_executable( ${testname} ${src})
+	add_dependencies(${testname} googletest-src gsl-src)
+        target_link_libraries( ${testname} ${LIBRARIES} gtest)
+        add_test(${testname} ${testname})
+    endforeach()
+    
+    enable_testing()
 endif()
-
-
-
-
-
-
-
-

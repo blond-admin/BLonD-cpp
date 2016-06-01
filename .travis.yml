@@ -1,74 +1,76 @@
 sudo: false
+os:
+ - linux
+# - osx
+
 language: cpp
 
-os:
-  - linux
-
-compiler:
-  - gcc
 env:
   matrix:
     - BUILD_TYPE=Debug
     - BUILD_TYPE=Release
   global:
+    - secure: inwXVLS3LG1+J8XHpN92Si87FLs8tT/SEWcg71us65o2AYDVCqqbXhFRpTqRY+K6ciT6IHd41LnmOaK1lID86YMcGUsQxvMJHbwMBCDPs+Qjup/g8xSjOZo11gnt9b2Jp5O/vEXOKdVoyBBXtR+J0JQ4ogS6VxvQyP2WDYH7FFFxsYZ83i93qCDUs7XnOwtN/f/wJMkMRQP+49Lp7EKWJEWXK87YM83fshQcLl2uOZfzdS9esN0QPXAW5W+jvB2EkvtjTy2EyDpdF1FMLLH50Uj4wP4A7FutnqfG4pRbhtdkDXqL429R9COyzXLdEiyTEoX7rbGLYqwfDpPC8huqUsp3NxdiSlx+ZdeBGySRkzcUmwKGzwapEgWEHu6Sujto1vLtU3tv0/Ywlf1nHsQ4jngnswtlVWi+pWPBVO5yyG3feKsj3fdvNdceszhU2Dj2e4zW6o9Ys7mJ41fbj1QsTSepVjcR/r9PU11948R+dyA37wF3lLdCApTbdI2PrVFUrQuHPr59s43ZGb52R24fdCi8Ao6Fd4oyJw9zLnhJDCehWDWYM5UcrC/mllzo8K1v4BqrEVlCeIBPx7SIsWUXjQ/gNv/JFp5+jYU1ibqz7VeS6ZhHd6tj6mUKkQ5Cqb9bkDkFBA48X0tet2qFQzuCoXUHqds/08odhMgVf0741Jc=
 
 addons:
   apt:
     sources:
-      - ubuntu-toolchain-r-test
-      - george-edison55-precise-backports
-      - libreoffice/libreoffice-4-2
+     - ubuntu-toolchain-r-test
+     - george-edison55-precise-backports
+     - libreoffice/libreoffice-4-2
     packages:
-      - cmake
-      - cmake-data
-      - gcc-4.8
-      - g++-4.8
-      - libgsl0ldbl
-      - libgtest-dev
-      - libgsl0-dev
-      - valgrind
-      - gcov-4.8
-      - lcov
-      - doxygen
-      - graphviz
-
-install:
-  - pip install --user cpp-coveralls
+     - cmake
+     - cmake-data
+     - gcc-4.8
+     - g++-4.8
+     - valgrind
+     - gcov-4.8
+     - lcov
+     - doxygen
+     - graphviz
 
 cache:
-  - apt
-  - pip
+ - apt
+ - pip
 
 before_install:
-  - export CC=/usr/bin/gcc-4.8
-  - export CXX=/usr/bin/g++-4.8
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      brew update;
+      brew install clang-omp;
+      brew install cmake;
+      sudo ln -s /usr/local/bin/clang-omp++ /usr/local/bin/clang++-omp;
+      export CC=/usr/local/bin/clang-omp;
+      export CXX=/usr/local/bin/clang++-omp;
+    fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+       export CC=/usr/bin/gcc-4.8;
+       export CXX=/usr/bin/g++-4.8;
+    fi
+  - ls external/gsl
+  - ls external/googletest/
 
 before_script:
   - mkdir build
   - cd build
-  - cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
-    #-DCMAKE_CXX_FLAGS_RELEASE="-Ofast -DNDEBUG -march=native"
-    #-DCMAKE_EXE_LINKER_FLAGS_RELEASE="-flto"
-    #..
+  - cmake -DCMAKE_BUILD_TYPE="$BUILD_TYPE" .. -DCMAKE_C_FLAGS="-fPIC"
 
 script:
-  - make -j4 VERBOSE=1
+  - make -j1
   - ctest -VV
 
 after_success:
- - coveralls --help
- - coveralls --gcov gcov-4.8  --root .. -E ".*external.*" -E ".*CMakeFiles.*" -E ".*unit-tests/.*.cpp.*" -E "/usr/include/.*"
- - ./TC1_Acceleration --threads 4
- - if [ "$BUILD_TYPE" == "Debug" ]; then
+  - ./TC1_Acceleration --threads 2
+  - if [ "$TRAVIS_OS_NAME" == "linux" ] && [ "$BUILD_TYPE" == "Debug" ]; then
+     pip install --user cpp-coveralls ;
+     coveralls --gcov gcov-4.8  --root .. -E ".*external.*" -E ".*CMakeFiles.*" -E ".*unit-tests/.*.cpp.*" -E "/usr/include/.*" ; 
      cd ../ ;
      doxygen Doxyfile ;
      export BUILD_PATH=`pwd` ;
      cd "$TRAVIS_BUILD_DIR" ;
-     git clone --branch=gh-pages --recursive https://github.com/kiliakis/BLonD-minimal-cpp.git web ;
+     git clone --branch=gh-pages --recursive https://github.com/OlegJakushkin/BLonD-minimal-cpp.git web ;
      cd web ;
      cp -rf $BUILD_PATH/documentation/html/* ./ ;
      git add -A ;
      git -c user.name='travis' -c user.email='travis' commit -am "documentation update" ;
-     git push -f -q https://kiliakis:$GITHUB_API_KEY@github.com/kiliakis/BLonD-minimal-cpp.git gh-pages ;
-   fi
-
+     git push -f -q https://OlegJakushkin:$GITHUB_API_KEY@github.com/OlegJakushkin/BLonD-minimal-cpp.git gh-pages ;
+    fi

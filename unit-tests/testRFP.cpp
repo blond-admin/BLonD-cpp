@@ -1,23 +1,17 @@
 #include <iostream>
-#include <string>
-#include <list>
-
-#include <unistd.h>
 
 #include <gtest/gtest.h>
-#include "math_functions.h"
-#include "utilities.h"
-#include "../input_parameters/GeneralParameters.h"
-#include "constants.h"
+#include <blond/math_functions.h>
+#include <blond/utilities.h>
+#include <blond/input_parameters/GeneralParameters.h>
+#include <blond/beams/Beams.h>
+#include <blond/input_parameters/RfParameters.h>
+#include <blond/globals.h>
+
+using namespace blond;
 
 const ftype epsilon = 1e-8;
 const std::string params = "../unit-tests/references/RFP/RFP_params/";
-
-GeneralParameters *GP;
-Beams *Beam;
-RfParameters *RfP;
-Slices *Slice;
-int n_threads = 1;
 
 class testRFP : public ::testing::Test {
 
@@ -43,12 +37,12 @@ protected:
       ftype *dphi_array = new ftype[n_sections * (N_t + 1)];
       std::fill_n(dphi_array, (N_t + 1) * n_sections, dphi);
 
-      GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum,
+      context.GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum,
                                  proton);
 
-      Beam = new Beams(N_p, N_b);
+      context.Beam = new Beams(N_p, N_b);
 
-      RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
+      context.RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
    }
 
 
@@ -56,9 +50,9 @@ protected:
    {
       // Code here will be called immediately after each test
       // (right before the destructor).
-      delete GP;
-      delete Beam;
-      delete RfP;
+      delete context.GP;
+      delete context.Beam;
+      delete context.RfP;
    }
 
 
@@ -93,7 +87,7 @@ TEST_F(testRFP, test_length_ratio)
    util::read_vector_from_file(v, params + "length_ratio");
    //std::cout << v[0];
    ftype ref = v[0];
-   ftype real = RfP->length_ratio;
+   ftype real = context.RfP->length_ratio;
    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
@@ -104,7 +98,7 @@ TEST_F(testRFP, test_E_increment)
    //std::cout << v.size() << std::endl;
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = RfP->E_increment[i];
+      ftype real = context.RfP->E_increment[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
 }
@@ -116,7 +110,7 @@ TEST_F(testRFP, test_phi_s)
    //std::cout << v.size() << std::endl;
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = RfP->phi_s[i];
+      ftype real = context.RfP->phi_s[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
 }
@@ -128,7 +122,7 @@ TEST_F(testRFP, test_Qs)
    //std::cout << v.size() << std::endl;
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = RfP->Qs[i];
+      ftype real = context.RfP->Qs[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
 }
@@ -140,7 +134,7 @@ TEST_F(testRFP, test_omega_s0)
    //std::cout << v.size() << std::endl;
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = RfP->omega_s0[i];
+      ftype real = context.RfP->omega_s0[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
 }
@@ -152,7 +146,7 @@ TEST_F(testRFP, test_omega_RF_d)
    //std::cout << v.size() << std::endl;
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = RfP->omega_RF_d[i];
+      ftype real = context.RfP->omega_RF_d[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
 }
@@ -164,7 +158,7 @@ TEST_F(testRFP, test_omega_RF)
    //std::cout << v.size() << std::endl;
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = RfP->omega_RF[i];
+      ftype real = context.RfP->omega_RF[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
 }
@@ -176,7 +170,7 @@ TEST_F(testRFP, test_t_RF)
    //std::cout << v.size() << std::endl;
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = RfP->t_RF[i];
+      ftype real = context.RfP->t_RF[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
 }

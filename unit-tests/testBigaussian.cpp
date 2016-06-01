@@ -1,24 +1,14 @@
 #include <iostream>
-#include <string>
-#include <list>
-
-#include <unistd.h>
 
 #include <gtest/gtest.h>
-#include "math_functions.h"
-#include "utilities.h"
-#include "../beams/Distributions.h"
-#include "../input_parameters/GeneralParameters.h"
-#include "constants.h"
+#include <blond/math_functions.h>
+#include <blond/utilities.h>
+#include <blond/beams/Distributions.h>
+
+using namespace blond;
 
 const ftype epsilon = 1e-8;
 const std::string fixed_params = "../unit-tests/references/Bigaussian/Bigaussian_fixed_params/";
-
-GeneralParameters *GP;
-Beams *Beam;
-RfParameters *RfP;
-Slices *Slice;
-int n_threads = 1;
 
 class testBigaussian : public ::testing::Test {
 
@@ -47,14 +37,13 @@ protected:
       ftype *dphi_array = new ftype[n_sections * (N_t + 1)];
       std::fill_n(dphi_array, (N_t + 1) * n_sections, dphi);
 
-      GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum,
+      auto GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum,
                                  proton);
-
-      Beam = new Beams(N_p, N_b);
-
-      RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
-
-
+      context.GP = GP;
+      auto Beam = new Beams(N_p, N_b);
+      context.Beam = Beam;
+      auto RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
+      context.RfP = RfP;
    }
 
 
@@ -62,9 +51,9 @@ protected:
    {
       // Code here will be called immediately after each test
       // (right before the destructor).
-      delete GP;
-      delete Beam;
-      delete RfP;
+      delete context.GP;
+      delete context.Beam;
+      delete context.RfP;
    }
 
 
@@ -101,7 +90,7 @@ TEST_F(testBigaussian, test_sigma_dE)
 
    util::read_vector_from_file(v, fixed_params + "sigma_dE");
    ftype ref = v[0];
-   ftype real = Beam->sigma_dE;
+   ftype real = context.Beam->sigma_dE;
    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
@@ -114,7 +103,7 @@ TEST_F(testBigaussian, test_sigma_dt)
 
    util::read_vector_from_file(v, fixed_params + "sigma_dt");
    ftype ref = v[0];
-   ftype real = Beam->sigma_dt;
+   ftype real = context.Beam->sigma_dt;
    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
@@ -127,7 +116,7 @@ TEST_F(testBigaussian, test_dE)
    util::read_vector_from_file(v, fixed_params + "dE");
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = Beam->dE[i];
+      ftype real = context.Beam->dE[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
 }
@@ -141,7 +130,7 @@ TEST_F(testBigaussian, test_dt)
    util::read_vector_from_file(v, fixed_params + "dt");
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = Beam->dt[i];
+      ftype real = context.Beam->dt[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
 }

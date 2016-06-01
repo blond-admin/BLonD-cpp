@@ -5,18 +5,11 @@
 #include <blond/math_functions.h>
 #include <blond/utilities.h>
 #include <blond/beams/Distributions.h>
-#include <blond/input_parameters/GeneralParameters.h>
 #include <blond/trackers/Tracker.h>
+using namespace blond;
 
 const ftype epsilon = 1e-8;
 const std::string params = "../unit-tests/references/TC1_final/TC1_final_params/";
-
-GeneralParameters *GP;
-Beams *Beam;
-RfParameters *RfP;
-Slices *Slice;
-int n_threads = 1;
-
 
 class testTC1 : public ::testing::Test {
 
@@ -49,16 +42,16 @@ protected:
       ftype *dphi_array = new ftype[n_sections * (N_t + 1)];
       std::fill_n(dphi_array, (N_t + 1) * n_sections, dphi);
 
-      GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum,
+      context.GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum,
                                  proton);
 
-      Beam = new Beams(N_p, N_b);
+      context.Beam = new Beams(N_p, N_b);
 
-      RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
+      context.RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
 
       longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
 
-      Slice = new Slices(N_slices);
+      context.Slice = new Slices(N_slices);
 
    }
 
@@ -67,10 +60,10 @@ protected:
    {
       // Code here will be called immediately after each test
       // (right before the destructor).
-      delete GP;
-      delete Beam;
-      delete RfP;
-      delete Slice;
+      delete context.GP;
+      delete context.Beam;
+      delete context.RfP;
+      delete context.Slice;
    }
 
 
@@ -96,13 +89,13 @@ private:
 
 TEST_F(testTC1, phaseSpace)
 {
-
-   omp_set_num_threads(n_threads);
+   auto Beam = context.Beam;
+   omp_set_num_threads(context.n_threads);
    RingAndRfSection *long_tracker = new RingAndRfSection();
    for (int i = 0; i < N_t; ++i) {
       long_tracker->track();
-      Slice->track();
-      RfP->counter++;
+      context.Slice->track();
+      context.RfP->counter++;
       //beam->losses_longitudinal_cut(beam->dt, 0, 2.5e-9, beam->id);
    }
 

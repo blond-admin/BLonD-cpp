@@ -31,7 +31,7 @@ namespace blond {
 		virtual ~Intensity() {};
 	};
 
-	class Resonators : public Intensity {
+	class API Resonators : public Intensity {
 	public:
 		// *Shunt impepdance in* [:math:`\Omega`]
 		std::vector<ftype> fRS;
@@ -51,7 +51,7 @@ namespace blond {
 	};
 
 
-	class InputTable : public Intensity {
+	class API InputTable : public Intensity {
 	public:
 		std::vector<ftype> fFrequencyArrayLoaded;
 		std::vector<ftype> fReZArrayLoaded;

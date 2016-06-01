@@ -3,7 +3,8 @@
 #include <gtest/gtest.h>
 #include <blond/math_functions.h>
 #include <blond/utilities.h>
-#include <blond/configuration.h>
+
+using namespace blond;
 
 
 TEST(testLinspace, test1)

@@ -4,18 +4,13 @@
 #include <blond/math_functions.h>
 #include <blond/utilities.h>
 #include <blond/beams/Distributions.h>
-#include <blond/input_parameters/GeneralParameters.h>
+
+using namespace blond;
 
 const ftype epsilon = 1e-8;
 const std::string statistics_params = "../unit-tests/references/Beam/Beam_statistics_params/";
 const std::string long_cut_params = "../unit-tests/references/Beam/Beam_long_cut_params/";
 const std::string energy_cut_params = "../unit-tests/references/Beam/Beam_energy_cut_params/";
-
-GeneralParameters *GP;
-Beams *Beam;
-RfParameters *RfP;
-Slices *Slice;
-int n_threads = 1;
 
 class testBeam : public ::testing::Test {
 
@@ -44,13 +39,13 @@ protected:
       ftype *dphi_array = new ftype[n_sections * (N_t + 1)];
       std::fill_n(dphi_array, (N_t + 1) * n_sections, dphi);
 
-      GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum,
+      auto GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum,
                                  proton);
-
-      Beam = new Beams(N_p, N_b);
-
-      RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
-
+      context.GP = GP;
+      auto Beam = new Beams(N_p, N_b);
+      context.Beam = Beam;
+      auto RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
+      context.RfP = RfP;
       longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
       Beam->statistics();
 
@@ -61,9 +56,9 @@ protected:
    {
       // Code here will be called immediately after each test
       // (right before the destructor).
-      delete GP;
-      delete Beam;
-      delete RfP;
+      delete context.GP;
+      delete context.Beam;
+      delete context.RfP;
    }
 
 
@@ -98,7 +93,7 @@ TEST_F(testBeam, test_sigma_dE)
 
    util::read_vector_from_file(v, statistics_params + "sigma_dE");
    ftype ref = v[0];
-   ftype real = Beam->sigma_dE;
+   ftype real = context.Beam->sigma_dE;
    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
@@ -108,7 +103,7 @@ TEST_F(testBeam, test_sigma_dt)
 
    util::read_vector_from_file(v, statistics_params + "sigma_dt");
    ftype ref = v[0];
-   ftype real = Beam->sigma_dt;
+   ftype real = context.Beam->sigma_dt;
    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
@@ -118,7 +113,7 @@ TEST_F(testBeam, test_mean_dE)
 
    util::read_vector_from_file(v, statistics_params + "mean_dE");
    ftype ref = v[0];
-   ftype real = Beam->mean_dE;
+   ftype real = context.Beam->mean_dE;
    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
@@ -128,7 +123,7 @@ TEST_F(testBeam, test_mean_dt)
 
    util::read_vector_from_file(v, statistics_params + "mean_dt");
    ftype ref = v[0];
-   ftype real = Beam->mean_dt;
+   ftype real = context.Beam->mean_dt;
    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
@@ -138,7 +133,7 @@ TEST_F(testBeam, test_epsn_rms_l)
 
    util::read_vector_from_file(v, statistics_params + "epsn_rms_l");
    ftype ref = v[0];
-   ftype real = Beam->epsn_rms_l;
+   ftype real = context.Beam->epsn_rms_l;
    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
@@ -148,13 +143,13 @@ TEST_F(testBeam, test_macroparticles_lost)
 
    util::read_vector_from_file(v, statistics_params + "n_macroparticles_lost");
    ftype ref = v[0];
-   ftype real = Beam->n_macroparticles_lost;
+   ftype real = context.Beam->n_macroparticles_lost;
    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
 TEST_F(testBeam, test_losses_long_cut)
 {
-
+   auto Beam = context.Beam;
    Beam->losses_longitudinal_cut(Beam->dt, Beam->mean_dt,
                                  10 * fabs(Beam->mean_dt), Beam->id);
 
@@ -169,7 +164,7 @@ TEST_F(testBeam, test_losses_long_cut)
 
 TEST_F(testBeam, test_losses_energy_cut)
 {
-
+   auto Beam = context.Beam;
    Beam->losses_longitudinal_cut(Beam->dE, Beam->mean_dE,
                                  10 * fabs(Beam->mean_dE), Beam->id);
 

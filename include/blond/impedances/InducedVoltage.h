@@ -44,7 +44,7 @@ namespace blond {
 
 
 
-	class InducedVoltageTime : public InducedVoltage {
+	class API InducedVoltageTime : public InducedVoltage {
 	public:
 
 
@@ -77,7 +77,7 @@ namespace blond {
 	};
 
 
-	class TotalInducedVoltage : public InducedVoltage {
+	class API TotalInducedVoltage : public InducedVoltage {
 	public:
 		std::vector<InducedVoltage *> fInducedVoltageList;
 		std::vector<ftype> fTimeArray;

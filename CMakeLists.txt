@@ -46,7 +46,7 @@ if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
         message(STATUS "code test coveredge is enabeled only in Debug mode")
     endif()
 elseif(MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj -Zm500  /MP${N}")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj -Zm500  /MP${N} /openmp")
 endif()
 
 # TODO is 4.8 really the minimum requirement?

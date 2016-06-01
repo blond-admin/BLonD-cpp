@@ -1,15 +1,10 @@
 #include <blond/globals.h>
-#include <blond/utilities.h>
 #include <blond/math_functions.h>
 #include <omp.h>
-#include <stdio.h>
-#include <blond/input_parameters/GeneralParameters.h>
-#include <blond/input_parameters/RfParameters.h>
-#include <blond/beams/Beams.h>
-#include <blond/beams/Slices.h>
 #include <blond/beams/Distributions.h>
 #include <blond/impedances/InducedVoltage.h>
 #include <gtest/gtest.h>
+using namespace blond;
 
 
 const std::string datafiles =
@@ -36,13 +31,8 @@ const int n_sections = 1;
 int N_t = 2;    // Number of turns to track
 int N_p = 5000000;         // Macro-particles
 
-int n_threads = 1;
 int N_slices = 1 << 8; // = (2^8)
 
-GeneralParameters *GP;
-Beams *Beam;
-Slices *Slice;
-RfParameters *RfP;
 //RingAndRfSection *long_tracker;
 Resonators *resonator;
 
@@ -53,7 +43,7 @@ protected:
    virtual void SetUp()
    {
 
-      omp_set_num_threads(n_threads);
+      omp_set_num_threads(context.n_threads);
 
       ftype *momentum = new ftype[N_t + 1];
       std::fill_n(momentum, N_t + 1, p_i);
@@ -73,18 +63,19 @@ protected:
       ftype *dphi_array = new ftype[n_sections * (N_t + 1)];
       std::fill_n(dphi_array, (N_t + 1) * n_sections, dphi);
 
-      GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum,
+      auto GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum,
                                  proton);
-
-      Beam = new Beams(N_p, N_b);
-
-      RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
-
+      context.GP = GP;
+      auto Beam = new Beams(N_p, N_b);
+      context.Beam = Beam;
+      auto RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
+      context.RfP = RfP;
       //RingAndRfSection *long_tracker = new RingAndRfSection();
 
       longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
 
-      Slice = new Slices(N_slices, 0, 0, 2 * constant::pi, rad);
+      auto Slice = new Slices(N_slices, 0, 0, 2 * constant::pi, rad);
+      context.Slice = Slice;
       //util::dump(Slice->bin_centers, 10, "bin_centers\n");
 
       std::vector<ftype> v;
@@ -113,10 +104,10 @@ protected:
    {
       // Code here will be called immediately after each test
       // (right before the destructor).
-      delete GP;
-      delete Beam;
-      delete RfP;
-      delete Slice;
+      delete context.GP;
+      delete context.Beam;
+      delete context.RfP;
+      delete context.Slice;
       //delete long_tracker;
    }
 
@@ -194,6 +185,7 @@ TEST_F(testInducedVoltage, InducedVoltageTimeReprocess)
    std::vector<Intensity *> wakeSourceList({resonator});
    //wakeSourceList.push_back(resonator);
    InducedVoltageTime *indVoltTime = new InducedVoltageTime(wakeSourceList);
+   auto Slice = context.Slice;
 
    Slice->track();
 
@@ -263,7 +255,7 @@ TEST_F(testInducedVoltage, InducedVoltageTimeReprocess)
 
 TEST_F(testInducedVoltage, induced_voltage_generation)
 {
-   Slice->track();
+   context.Slice->track();
 
    std::vector<Intensity *> wakeSourceList({resonator});
    InducedVoltageTime *indVoltTime = new InducedVoltageTime(wakeSourceList);
@@ -296,7 +288,7 @@ TEST_F(testInducedVoltage, induced_voltage_generation)
 
 TEST_F(testInducedVoltage, induced_voltage_generation_convolution)
 {
-   Slice->track();
+   context.Slice->track();
 
    std::vector<Intensity *> wakeSourceList({resonator});
    InducedVoltageTime *indVoltTime = new InducedVoltageTime(wakeSourceList, time_or_freq::time_domain);
@@ -328,7 +320,8 @@ TEST_F(testInducedVoltage, induced_voltage_generation_convolution)
 
 TEST_F(testInducedVoltage, track)
 {
-   Slice->track();
+   auto Beam = context.Beam;
+   context.Slice->track();
 
    std::vector<Intensity *> wakeSourceList({resonator});
    InducedVoltageTime *indVoltTime = new InducedVoltageTime(wakeSourceList);
@@ -360,7 +353,7 @@ TEST_F(testInducedVoltage, track)
 
 TEST_F(testInducedVoltage, totalInducedVoltageSum)
 {
-   Slice->track();
+   context.Slice->track();
 
    std::vector<Intensity *> wakeSourceList({resonator});
    InducedVoltageTime *indVoltTime = new InducedVoltageTime(wakeSourceList);
@@ -421,7 +414,7 @@ TEST_F(testInducedVoltage, totalInducedVoltageSum)
 
 TEST_F(testInducedVoltage, totalInducedVoltageTrack)
 {
-
+   auto Beam = context.Beam;
    //Slice->track(0, Beam->n_macroparticles);
 
    std::vector<Intensity *> wakeSourceList({resonator});
@@ -456,8 +449,6 @@ TEST_F(testInducedVoltage, totalInducedVoltageTrack)
    }
 
 }
-
-
 
 
 int main(int ac, char *av[])

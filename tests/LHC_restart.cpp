@@ -6,17 +6,9 @@
  */
 
 #include <blond/globals.h>
-#include <blond/utilities.h>
 #include <blond/math_functions.h>
 #include <omp.h>
-#include <stdio.h>
-#include <blond/input_parameters/GeneralParameters.h>
-#include <blond/input_parameters/RfParameters.h>
-#include <blond/beams/Beams.h>
-#include <blond/beams/Slices.h>
 #include <blond/trackers/Tracker.h>
-#include <blond/llrf/PhaseLoop.h>
-#include <blond/optionparser.h>
 #include <algorithm>
 // Simulation parameters --------------------------------------------------------
 using namespace blond;
@@ -59,6 +51,7 @@ int main(int argc, char **argv)
    n_threads =
        atoi(util::GETENV("N_THREADS")) ? atoi(util::GETENV("N_THREADS")) : n_threads;
    */
+	std::cout << context.n_threads << std::endl;
    omp_set_num_threads(context.n_threads);
 
    printf("Setting up the simulation...\n\n");

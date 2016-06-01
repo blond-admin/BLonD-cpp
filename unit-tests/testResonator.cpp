@@ -1,16 +1,11 @@
 #include <blond/globals.h>
-#include <blond/utilities.h>
 #include <blond/math_functions.h>
 #include <omp.h>
-#include <stdio.h>
-#include <blond/input_parameters/GeneralParameters.h>
-#include <blond/input_parameters/RfParameters.h>
-#include <blond/beams/Beams.h>
-#include <blond/beams/Slices.h>
 #include <blond/beams/Distributions.h>
 #include <blond/impedances/Intensity.h>
 #include <gtest/gtest.h>
-#include <complex>
+
+using namespace blond;
 
 
 const std::string datafiles =
@@ -37,13 +32,8 @@ const int n_sections = 1;
 int N_t = 2;    // Number of turns to track
 int N_p = 5000000;         // Macro-particles
 
-int n_threads = 1;
 int N_slices = 1 << 8; // = (2^8)
 
-GeneralParameters *GP;
-Beams *Beam;
-Slices *Slice;
-RfParameters *RfP;
 //RingAndRfSection *long_tracker;
 Resonators *resonator;
 
@@ -54,7 +44,7 @@ protected:
    virtual void SetUp()
    {
 
-      omp_set_num_threads(n_threads);
+      omp_set_num_threads(context.n_threads);
 
       ftype *momentum = new ftype[N_t + 1];
       std::fill_n(momentum, N_t + 1, p_i);
@@ -74,18 +64,18 @@ protected:
       ftype *dphi_array = new ftype[n_sections * (N_t + 1)];
       std::fill_n(dphi_array, (N_t + 1) * n_sections, dphi);
 
-      GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum,
+      context.GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum,
                                  proton);
 
-      Beam = new Beams(N_p, N_b);
+      context.Beam = new Beams(N_p, N_b);
 
-      RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
+      context.RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
 
       //RingAndRfSection *long_tracker = new RingAndRfSection();
 
       longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
 
-      Slice = new Slices(N_slices, 0, 0, 2 * constant::pi, rad);
+      context.Slice = new Slices(N_slices, 0, 0, 2 * constant::pi, rad);
       //util::dump(Slice->bin_centers, 10, "bin_centers\n");
 
       std::vector<ftype> v;
@@ -114,10 +104,10 @@ protected:
    {
       // Code here will be called immediately after each test
       // (right before the destructor).
-      delete GP;
-      delete Beam;
-      delete RfP;
-      delete Slice;
+      delete context.GP;
+      delete context.Beam;
+      delete context.RfP;
+      delete context.Slice;
       //delete long_tracker;
    }
 
@@ -196,6 +186,8 @@ TEST_F(testResonator, wake_calc)
 
    std::vector<ftype> timeArray;
    timeArray.reserve(N_slices);
+
+   auto Slice = context.Slice;
    for (int i = 0; i < N_slices; ++i)
    {
       timeArray.push_back(Slice->bin_centers[i] - Slice->bin_centers[0]);
@@ -230,6 +222,9 @@ TEST_F(testResonator, imped_calc)
 
    std::vector<ftype> timeArray;
    timeArray.reserve(N_slices);
+
+   auto Slice = context.Slice;
+
    for (int i = 0; i < N_slices; ++i)
    {
       timeArray.push_back((Slice->bin_centers[i] - Slice->bin_centers[0])*1e10 );

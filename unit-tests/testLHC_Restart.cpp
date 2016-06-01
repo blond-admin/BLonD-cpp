@@ -4,23 +4,16 @@
 #include <blond/math_functions.h>
 #include <blond/utilities.h>
 #include <blond/beams/Distributions.h>
-#include <blond/input_parameters/GeneralParameters.h>
 #include <blond/trackers/Tracker.h>
-#include <blond/llrf/PhaseLoop.h>
 #include <omp.h>
+using namespace blond;
 
 
 //const ftype epsilon = 1e-3;
 const std::string params = "../unit-tests/references/PL/LHC_restart_params/";
 
-GeneralParameters *GP;
-Beams *Beam;
-RfParameters *RfP;
-Slices *Slice;
 LHC *PL;
 RingAndRfSection *long_tracker;
-int n_threads = 1;
-
 
 class testLHC_Restart : public ::testing::Test {
 
@@ -34,7 +27,7 @@ protected:
    virtual void SetUp()
    {
       //printf("ok here\n");
-      omp_set_num_threads(n_threads);
+      omp_set_num_threads(context.n_threads);
 
       std::vector < ftype > v;
       util::read_vector_from_file(v, datafiles + "LHC_momentum_programme");
@@ -62,8 +55,9 @@ protected:
       ftype *C_array = new ftype[n_sections];
       std::fill_n(C_array, n_sections, C);
 
-      GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, ps,
+      auto GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, ps,
                                  proton);
+      context.GP = GP;
 
       // Define rf_params
       ftype *dphi_array = new ftype[n_sections * (N_t + 1)];
@@ -72,10 +66,11 @@ protected:
       ftype *h_array = new ftype[n_sections * (N_t + 1)];
       std::fill_n(h_array, (N_t + 1) * n_sections, h);
 
-      RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
+      context.RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
 
       // Define beam and distribution: Load matched, filamented distribution
-      Beam = new Beams(N_p, N_b);
+      auto Beam = new Beams(N_p, N_b);
+      context.Beam = Beam;
       std::vector < ftype > v2;
       util::read_vector_from_file(v2, datafiles + "coords_13000001.dat");
 
@@ -87,7 +82,7 @@ protected:
          k++;
       }
 
-      Slice = new Slices(N_slices, 0, -0.5e-9, 3e-9);
+      context.Slice = new Slices(N_slices, 0, -0.5e-9, 3e-9);
 
       // Define phase loop and frequency loop gain
       ftype PL_gain = 1 / (5 * GP->t_rev[0]);
@@ -107,10 +102,10 @@ protected:
    {
       // Code here will be called immediately after each test
       // (right before the destructor).
-      delete GP;
-      delete Beam;
-      delete RfP;
-      delete Slice;
+      delete context.GP;
+      delete context.Beam;
+      delete context.RfP;
+      delete context.Slice;
       delete PL;
       delete long_tracker;
    }
@@ -148,20 +143,20 @@ private:
 TEST_F(testLHC_Restart, dphi_RF_and_dphi)
 {
 
-
+   auto RfP = context.RfP;
+   auto Beam= context.Beam;
+   auto Slice = context.Slice;
 
    std::vector<ftype> real1, real2;
 
 
    for (int i = 0; i < 1000; ++i) {
-
-
       if (RfP->counter < 570000)
          PL->reference = 0.5236;
       else
          PL->reference = 1.0472;
 
-      Slice->track();
+      context.Slice->track();
 
       long_tracker->track();
 

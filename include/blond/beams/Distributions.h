@@ -18,6 +18,10 @@ namespace blond {
 	inline void longitudinal_bigaussian(ftype sigma_dt, ftype sigma_dE = 0,
 		int seed = 0, bool reinsertion = false)
 	{
+		auto GP = context.GP;
+		auto RfP = context.RfP;
+		auto Beam = context.Beam;
+		
 		if (GP->n_sections > 1) {
 			dprintf(
 				"WARNING: longitudinal_bigaussian is not yet properly computed for several sections!");

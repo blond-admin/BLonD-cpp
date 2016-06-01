@@ -23,26 +23,52 @@ inline void InducedVoltage::linear_interp_kick(
    const int n_macroparticles,
    const ftype acc_kick)
 {
-   
+
+   //int LOOP_UNROLL = 8;
+   //LOOP_UNROLL = atoi(util::GETENV("LOOP_UNROLL")) ? atoi(util::GETENV("LOOP_UNROLL")) : LOOP_UNROLL;
+
+
    const ftype binFirst = bin_centers[0];
    const ftype binLast = bin_centers[n_slices - 1];
 
    const ftype inv_bin_width = (n_slices - 1) / (binLast - binFirst);
-   
-   #pragma omp parallel for
+   #pragma omp parallel for 
    for (int i = 0; i < n_macroparticles; i++) {
-      ftype a = beam_dt[i];
-      //ftype fbin = (a - binFirst) * inv_bin_width;
-      int ffbin = static_cast<int>((a - binFirst) * inv_bin_width);
-      //unsigned ffbin = (unsigned)(fbin);
-      ftype voltageKick = ((a < binFirst) || (a > binLast)) ?
+      const ftype a = beam_dt[i];
+      const int ffbin = static_cast<int>((a - binFirst) * inv_bin_width);
+      const ftype voltageKick = ((a < binFirst) || (a > binLast)) ?
                           0 : voltage_array[ffbin] + (a - bin_centers[ffbin])
                           * (voltage_array[ffbin + 1] - voltage_array[ffbin])
                           * inv_bin_width;
       beam_dE[i] += voltageKick + acc_kick;
    }
-   
-   
+
+   //int * __restrict b;
+   //ftype *__restrict a = (ftype *) malloc(LOOP_UNROLL * sizeof(ftype));//[LOOP_UNROLL];
+   //int *__restrict ffbin = (int *) malloc(LOOP_UNROLL * sizeof(int));;//[LOOP_UNROLL];
+   //ftype *__restrict voltageKick = (ftype *) malloc(LOOP_UNROLL * sizeof(ftype));;//[LOOP_UNROLL];
+
+   /*
+   #pragma omp parallel for //private(a, ffbin, voltageKick)
+   for (int i = 0; i < n_macroparticles; i++) {
+      std::vector<ftype> a(LOOP_UNROLL);
+      std::vector<int> ffbin(LOOP_UNROLL);
+      std::vector<ftype> voltageKick(LOOP_UNROLL);
+
+      for (int j = 0; j < LOOP_UNROLL && i + j < n_macroparticles; ++j) {
+         a[j] = beam_dt[i + j];
+         //ftype fbin = (a - binFirst) * inv_bin_width;
+         ffbin[j] = static_cast<int>((a[j] - binFirst) * inv_bin_width);
+         //unsigned ffbin = (unsigned)(fbin);
+         voltageKick[j] = ((a[j] < binFirst) || (a[j] > binLast)) ?
+                          0 : voltage_array[ffbin[j]] + (a[j] - bin_centers[ffbin[j]])
+                          * (voltage_array[ffbin[j] + 1] - voltage_array[ffbin[j]])
+                          * inv_bin_width;
+         beam_dE[i + j] += voltageKick[j] + acc_kick;
+      }
+   }
+   */
+
    //ftype inv_bin_width = (n_slices-1) / (bin_centers[n_slices-1] - bin_centers[0]);
    /*
    double inv_bin_width = (n_slices-1) / (bin_centers[n_slices-1] - bin_centers[0]);

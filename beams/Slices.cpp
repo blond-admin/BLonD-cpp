@@ -279,23 +279,34 @@ inline void Slices::histogram(const ftype *__restrict__ input,
 
    const ftype inv_bin_width = n_slices / (cut_right - cut_left);
 
-   ftype *h = (ftype *) calloc(omp_get_max_threads() * n_slices, sizeof(ftype));
+   // histogram is faster with ints
+   typedef int hist_t;
+
+   //hist_t *res = (hist_t *) calloc(n_slices, sizeof(hist_t));
+   //ftype *h = (ftype *) calloc(omp_get_max_threads() * n_slices, sizeof(ftype));
+   hist_t *h;
    #pragma omp parallel
    {
+      const int threads = omp_get_num_threads();
+
 
       const int id = omp_get_thread_num();
-      const int threads = omp_get_num_threads();
       int tile = static_cast<int>((n_macroparticles + threads - 1) / threads);
       int start = id * tile;
+
       int end = std::min(start + tile, n_macroparticles);
       const int row = id * n_slices;
+
+      #pragma omp single
+      h = (hist_t *) calloc(threads * n_slices, sizeof(hist_t));
 
       for (int i = start; i < end; i++) {
          ftype a = input[i];
          if ((a < cut_left) || (a > cut_right))
             continue;
          int ffbin = static_cast<int>((a - cut_left) * inv_bin_width);
-         h[row + ffbin] = h[row + ffbin] + 1.0;
+         //h[row + ffbin] = h[row + ffbin] + 1.0;
+         h[row + ffbin] = h[row + ffbin] + 1;
       }
       #pragma omp barrier
 
@@ -305,10 +316,12 @@ inline void Slices::histogram(const ftype *__restrict__ input,
 
       for (int i = start; i < end; i++)
          output[i] = 0.0;
+      //memset(&output[start], 0, (end-start) * sizeof(ftype));
 
       for (int i = 0; i < threads; ++i) {
          const int r = i * n_slices;
          for (int j = start; j < end; ++j) {
+            //res += h[r + j];
             output[j] += h[r + j];
          }
       }

@@ -39,13 +39,18 @@ inline void RingAndRfSection::kick(const ftype *__restrict__ beam_dt,
    //beam_dE[0] += 1;
 // KICK
 
+
+
    int k = 0;
    for (int j = 0; j < n_rf; j++) {
+      //const ftype orf = omega_RF[k];
+      //const ftype prf = phi_RF[k];
+      //const ftype v = voltage[k];
       #pragma omp parallel for
       for (int i = start; i < end; i++) {
-         beam_dE[i] += voltage[k]
-                       * vdt::fast_sin(omega_RF[k] * beam_dt[i] + phi_RF[k]);
-         //printf("angle = %lf, sin = %lf\n",omega_RF[k] * beam_dt[i] + phi_RF[k], vdt::fast_sin(omega_RF[k] * beam_dt[i] + phi_RF[k]) );
+         //beam_dE[i] += v * vdt::fast_sin(orf * beam_dt[i] + prf);
+         beam_dE[i] += voltage[k] *
+                       vdt::fast_sin(omega_RF[k] * beam_dt[i] + phi_RF[k]);
       }
       k += GP->n_turns;
    }

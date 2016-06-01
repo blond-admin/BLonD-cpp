@@ -5,13 +5,21 @@
  *      Author: kiliakis
  */
 
-#include <blond/globals.h>
-#include <blond/math_functions.h>
+#include "globals.h"
+#include "utilities.h"
+#include "math_functions.h"
 #include <omp.h>
-#include <blond/trackers/Tracker.h>
-#include <algorithm>
+#include <stdio.h>
+#include "../input_parameters/GeneralParameters.h"
+#include "../input_parameters/RfParameters.h"
+#include "../beams/Beams.h"
+#include "../beams/Slices.h"
+#include "../beams/Distributions.h"
+#include "../trackers/Tracker.h"
+#include "../llrf/PhaseLoop.h"
+#include "optionparser.h"
 // Simulation parameters --------------------------------------------------------
-using namespace blond;
+
 const int N_b = 1.2e9;          // Intensity
 int N_p = 100000;         // Macro-particles
 
@@ -33,7 +41,12 @@ int N_slices = 151;
 const std::string datafiles =
    "../tests/input_files/LHC_restart/";
 
-// Global variables are now inside devoted class
+// Global variables
+GeneralParameters *GP;
+Beams *Beam;
+Slices *Slice;
+RfParameters *RfP;
+int n_threads = 1;
 //const int size = 14e6;
 const int from_line = 0;
 
@@ -42,6 +55,7 @@ void parse_args(int argc, char **argv);
 // Simulation setup -------------------------------------------------------------
 int main(int argc, char **argv)
 {
+
    parse_args(argc, argv);
    // Environmental variables
    /*
@@ -51,8 +65,7 @@ int main(int argc, char **argv)
    n_threads =
        atoi(util::GETENV("N_THREADS")) ? atoi(util::GETENV("N_THREADS")) : n_threads;
    */
-	std::cout << context.n_threads << std::endl;
-   omp_set_num_threads(context.n_threads);
+   omp_set_num_threads(n_threads);
 
    printf("Setting up the simulation...\n\n");
    printf("Number of turns: %d\n", N_t);
@@ -101,9 +114,9 @@ int main(int argc, char **argv)
 
    ftype *C_array = new ftype[n_sections];
    C_array[0] = C;
-   auto GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, ps,
-	   proton);
-   context.GP = GP;
+
+   GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, ps,
+                              proton);
 
    printf("General parameters set...\n");
    // Define rf_params
@@ -113,13 +126,11 @@ int main(int argc, char **argv)
    ftype *h_array = new ftype[n_sections * (N_t + 1)];
    std::fill_n(h_array, (N_t + 1) * n_sections, h);
 
-   auto RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
-   context.RfP = RfP;
+   RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
    printf("RF parameters set...\n");
 
    // Define beam and distribution: Load matched, filamented distribution
-   auto Beam = new Beams(N_p, N_b);
-   context.Beam = Beam;
+   Beam = new Beams(N_p, N_b);
    std::vector < ftype > v2;
    util::read_vector_from_file(v2, datafiles + "coords_13000001.dat");
    int k = 0;
@@ -130,8 +141,7 @@ int main(int argc, char **argv)
       k++;
    }
 
-   auto Slice = new Slices(N_slices, 0, -0.5e-9, 3e-9);
-   context.Slice = Slice;
+   Slice = new Slices(N_slices, 0, -0.5e-9, 3e-9);
    printf("Beam generated, slices set...\n");
    // Define phase loop and frequency loop gain
    ftype PL_gain = 1 / (5 * GP->t_rev[0]);
@@ -312,7 +322,7 @@ void parse_args(int argc, char **argv)
             //fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
             break;
          case N_THREADS:
-            context.n_threads = atoi(opt.arg);
+            n_threads = atoi(opt.arg);
             //fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
             break;
          case N_SLICES:

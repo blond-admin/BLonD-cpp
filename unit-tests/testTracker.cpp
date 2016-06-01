@@ -1,14 +1,26 @@
 #include <iostream>
+#include <string>
+#include <list>
+
+#include <unistd.h>
 
 #include <gtest/gtest.h>
-#include <blond/math_functions.h>
-#include <blond/utilities.h>
-#include <blond/beams/Distributions.h>
-#include <blond/trackers/Tracker.h>
-using namespace blond;
+#include "math_functions.h"
+#include "utilities.h"
+#include "../beams/Distributions.h"
+#include "../input_parameters/GeneralParameters.h"
+#include "../trackers/Tracker.h"
+#include "constants.h"
 
 const ftype epsilon = 1e-8;
 const std::string track_params = "../unit-tests/references/Tracker/Tracker_track_params/";
+
+GeneralParameters *GP;
+Beams *Beam;
+RfParameters *RfP;
+Slices *Slice;
+int n_threads = 1;
+
 
 class testTracker : public ::testing::Test {
 
@@ -37,16 +49,16 @@ protected:
       ftype *dphi_array = new ftype[n_sections * (N_t + 1)];
       std::fill_n(dphi_array, (N_t + 1) * n_sections, dphi);
 
-      context.GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum,
+      GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum,
                                  proton);
 
-      context.Beam = new Beams(N_p, N_b);
+      Beam = new Beams(N_p, N_b);
 
-      context.RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
+      RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
 
       longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
 
-      context.Slice = new Slices(N_slices);
+      Slice = new Slices(N_slices);
 
    }
 
@@ -55,10 +67,10 @@ protected:
    {
       // Code here will be called immediately after each test
       // (right before the destructor).
-      delete context.GP;
-      delete context.Beam;
-      delete context.RfP;
-      delete context.Slice;
+      delete GP;
+      delete Beam;
+      delete RfP;
+      delete Slice;
    }
 
 
@@ -95,7 +107,7 @@ TEST_F(testTracker, track_dE)
    util::read_vector_from_file(v, track_params + "dE");
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = context.Beam->dE[i];
+      ftype real = Beam->dE[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
    delete long_tracker;
@@ -111,7 +123,7 @@ TEST_F(testTracker, track_dt)
    util::read_vector_from_file(v, track_params + "dt");
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = context.Beam->dt[i];
+      ftype real = Beam->dt[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
    delete long_tracker;

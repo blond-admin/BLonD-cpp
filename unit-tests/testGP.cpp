@@ -1,14 +1,21 @@
 #include <iostream>
+#include <string>
+#include <list>
+
+#include <unistd.h>
 
 #include <gtest/gtest.h>
-#include <blond/math_functions.h>
-#include <blond/utilities.h>
-#include <blond/input_parameters/GeneralParameters.h>
-#include <blond/globals.h>
+#include "math_functions.h"
+#include "utilities.h"
+#include "../input_parameters/GeneralParameters.h"
 //#include "constants.h"
-using namespace blond;
 
 const ftype epsilon = 1e-8;
+GeneralParameters *GP;
+Beams *Beam;
+RfParameters *RfP;
+Slices *Slice;
+int n_threads = 1;
 
 class testGP : public ::testing::Test {
 
@@ -25,9 +32,8 @@ protected:
       ftype *C_array = new ftype[n_sections];
       std::fill_n(C_array, n_sections, C);
 
-      auto GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum,
+      GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum,
                                  proton);
-      context.GP = GP;
    }
 
 
@@ -35,7 +41,7 @@ protected:
    {
       // Code here will be called immediately after each test
       // (right before the destructor).
-      delete context.GP;
+      delete GP;
    }
 
 
@@ -67,7 +73,7 @@ TEST_F(testGP, test_charge)
    util::read_vector_from_file(v, GP_params + "charge");
    //std::cout << v[0];
    ftype ref = v[0];
-   ftype real = context.GP->charge;
+   ftype real = GP->charge;
    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
@@ -78,7 +84,7 @@ TEST_F(testGP, test_mass)
    util::read_vector_from_file(v, GP_params + "mass");
    //std::cout << v[0];
    ftype ref = v[0];
-   ftype real = context.GP->mass;
+   ftype real = GP->mass;
    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
@@ -89,7 +95,7 @@ TEST_F(testGP, test_ring_radius)
    util::read_vector_from_file(v, GP_params + "ring_radius");
    //std::cout << v[0];
    ftype ref = v[0];
-   ftype real = context.GP->ring_radius;
+   ftype real = GP->ring_radius;
    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
@@ -102,7 +108,7 @@ TEST_F(testGP, test_t_rev)
    //ASSERT_EQ(v.size(), GP->n_turns+1 );
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = context.GP->t_rev[i];
+      ftype real = GP->t_rev[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
 
@@ -116,7 +122,7 @@ TEST_F(testGP, test_cycle_time)
    //ASSERT_EQ(v.size(), GP->n_turns+1);
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = context.GP->cycle_time[i];
+      ftype real = GP->cycle_time[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
 }
@@ -130,7 +136,7 @@ TEST_F(testGP, test_omega_rev)
    //ASSERT_EQ(v.size(), GP->n_turns+1);
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = context.GP->omega_rev[i];
+      ftype real = GP->omega_rev[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
 }
@@ -144,7 +150,7 @@ TEST_F(testGP, test_eta_0)
    //ASSERT_EQ(v.size(), GP->n_turns +1);
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = context.GP->eta_0[i];
+      ftype real = GP->eta_0[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
 }

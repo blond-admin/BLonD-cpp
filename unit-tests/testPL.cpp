@@ -1,18 +1,28 @@
 #include <iostream>
+#include <string>
+#include <list>
+
+#include <unistd.h>
 
 #include <gtest/gtest.h>
-#include <blond/math_functions.h>
-#include <blond/utilities.h>
-#include <blond/beams/Distributions.h>
-#include <blond/trackers/Tracker.h>
-
-using namespace blond;
+#include "math_functions.h"
+#include "utilities.h"
+#include "../beams/Distributions.h"
+#include "../input_parameters/GeneralParameters.h"
+#include "../trackers/Tracker.h"
+#include "../llrf/PhaseLoop.h"
 
 const ftype epsilon = 1e-7;
 const std::string params = "../unit-tests/references/PL/PL_params/";
 
+GeneralParameters *GP;
+Beams *Beam;
+RfParameters *RfP;
+Slices *Slice;
 LHC *PL;
 RingAndRfSection *long_tracker;
+int n_threads = 1;
+
 
 class testPL : public ::testing::Test {
 
@@ -51,9 +61,8 @@ protected:
       ftype *C_array = new ftype[n_sections];
       std::fill_n(C_array, n_sections, C);
 
-      auto GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, ps,
+      GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, ps,
                                  proton);
-      context.GP = GP;
 
       // Define rf_params
       ftype *dphi_array = new ftype[n_sections * (N_t + 1)];
@@ -62,11 +71,10 @@ protected:
       ftype *h_array = new ftype[n_sections * (N_t + 1)];
       std::fill_n(h_array, (N_t + 1) * n_sections, h);
 
-      context.RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
+      RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
 
       // Define beam and distribution: Load matched, filamented distribution
-      auto Beam = new Beams(N_p, N_b);
-      context.Beam = Beam;
+      Beam = new Beams(N_p, N_b);
       std::vector < ftype > v2;
       util::read_vector_from_file(v2, datafiles + "coords_13000001.dat");
 
@@ -78,7 +86,7 @@ protected:
          k++;
       }
 
-      context.Slice = new Slices(N_slices, 0, -0.5e-9, 3e-9);
+      Slice = new Slices(N_slices, 0, -0.5e-9, 3e-9);
 
       // Define phase loop and frequency loop gain
       ftype PL_gain = 1 / (5 * GP->t_rev[0]);
@@ -98,10 +106,10 @@ protected:
    {
       // Code here will be called immediately after each test
       // (right before the destructor).
-      delete context.GP;
-      delete context.Beam;
-      delete context.RfP;
-      delete context.Slice;
+      delete GP;
+      delete Beam;
+      delete RfP;
+      delete Slice;
       delete PL;
       delete long_tracker;
    }
@@ -144,7 +152,7 @@ TEST_F(testPL, lhc_a)
    util::read_vector_from_file(v, params + "lhc_a");
    // Only check 1 out of 10 elements
    // otherwise refernece file too big
-   ASSERT_EQ(v.size(), context.GP->n_turns / 10 + 1);
+   ASSERT_EQ(v.size(), GP->n_turns / 10 + 1);
    for (unsigned int i = 0; i < v.size(); ++i) {
       //printf("ok here \n");
 
@@ -163,7 +171,7 @@ TEST_F(testPL, lhc_t)
    util::read_vector_from_file(v, params + "lhc_t");
    // Only check 1 out of 10 elements
    // otherwise refernece file too big
-   ASSERT_EQ(v.size(), context.GP->n_turns / 10 + 1);
+   ASSERT_EQ(v.size(), GP->n_turns / 10 + 1);
    for (unsigned int i = 0; i < v.size(); ++i) {
       //printf("%d\n", i);
       ftype ref = v[i];
@@ -174,7 +182,7 @@ TEST_F(testPL, lhc_t)
 
 TEST_F(testPL, phi_beam)
 {
-   context.Slice->track();
+   Slice->track();
    PL->beam_phase();
 
    std::vector<ftype> v;
@@ -186,7 +194,7 @@ TEST_F(testPL, phi_beam)
 
 TEST_F(testPL, dphi)
 {
-   context.Slice->track();
+   Slice->track();
    PL->beam_phase();
    PL->phase_difference();
 
@@ -199,7 +207,7 @@ TEST_F(testPL, dphi)
 
 TEST_F(testPL, domega_RF)
 {
-   context.Slice->track();
+   Slice->track();
    PL->beam_phase();
    PL->phase_difference();
    long_tracker->track();
@@ -212,7 +220,7 @@ TEST_F(testPL, domega_RF)
 
 TEST_F(testPL, lhc_y)
 {
-   context.Slice->track();
+   Slice->track();
    PL->beam_phase();
    PL->phase_difference();
    long_tracker->track();
@@ -225,8 +233,7 @@ TEST_F(testPL, lhc_y)
 
 TEST_F(testPL, omega_RF)
 {
-   auto RfP = context.RfP;
-   context.Slice->track();
+   Slice->track();
    PL->beam_phase();
    PL->phase_difference();
    long_tracker->track();
@@ -242,8 +249,7 @@ TEST_F(testPL, omega_RF)
 
 TEST_F(testPL, dphi_RF)
 {
-   auto RfP = context.RfP;
-   context.Slice->track();
+   Slice->track();
    PL->beam_phase();
    PL->phase_difference();
    long_tracker->track();
@@ -258,8 +264,7 @@ TEST_F(testPL, dphi_RF)
 
 TEST_F(testPL, phi_RF)
 {
-   auto RfP = context.RfP;
-   context.Slice->track();
+   Slice->track();
    PL->beam_phase();
    PL->phase_difference();
    long_tracker->track();

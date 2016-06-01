@@ -1,10 +1,14 @@
 #include <iostream>
+#include <string>
+#include <list>
+
+#include <unistd.h>
 
 #include <gtest/gtest.h>
-#include <blond/math_functions.h>
-#include <blond/utilities.h>
-
-using namespace blond;
+#include "math_functions.h"
+#include "utilities.h"
+#include "constants.h"
+#include "configuration.h"
 
 
 TEST(testLinspace, test1)

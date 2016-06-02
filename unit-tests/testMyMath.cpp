@@ -56,6 +56,51 @@ TEST(testSTD, test1)
    ASSERT_DOUBLE_EQ(std1, std2);
 }
 
+
+TEST(testMin, double_type)
+{
+   ftype b[10] = {0.8, 9.14 , 2.1, 2, 10.25, 1.3, 2.12, 3, 4, 5};
+   int i = mymath::min<ftype>(b, 10);
+   ASSERT_DOUBLE_EQ(b[i], 0.8);
+
+   ftype a[5] = {10.1, 1.2, -1.3, 1.4, 1.5};
+   i = mymath::min<ftype>(a, 5);
+   ASSERT_DOUBLE_EQ(a[i], -1.3);
+}
+
+TEST(testMin, int_type)
+{
+   int b[10] = {1, 9 , 2, 2, 10, 0, 2, 3, 4, 5};
+   int i = mymath::min<int>(b, 10);
+   ASSERT_EQ(b[i], 0);
+
+   int a[5] = {10, 1, -1, 1, 1};
+   i = mymath::min<int>(a, 5);
+   ASSERT_EQ(a[i], -1);
+}
+
+TEST(testMax, double_type)
+{
+   ftype b[10] = {0.8, 9.14 , 2.1, 2, 10.25, 1.3, 2.12, 3, 4, 5};
+   int i = mymath::max<ftype>(b, 10);
+   ASSERT_DOUBLE_EQ(b[i], 10.25);
+
+   ftype a[5] = {10.1, 1.2, -1.3, 1.4, 1.5};
+   i = mymath::max<ftype>(a, 5);
+   ASSERT_DOUBLE_EQ(a[i], 10.1);
+}
+
+TEST(testMax, int_type)
+{
+   int b[10] = {1, 9 , 2, 2, 10, 0, 2, 3, 4, 5};
+   int i = mymath::max<int>(b, 10);
+   ASSERT_EQ(b[i], 10);
+
+   int a[5] = {10, 1, -1, 100, 1};
+   i = mymath::max<int>(a, 5);
+   ASSERT_EQ(a[i], 100);
+}
+
 TEST(testTrapezoid, test1)
 {
    ftype b[5] = {1, 2, 3, 4, 5};

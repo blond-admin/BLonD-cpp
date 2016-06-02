@@ -319,12 +319,12 @@ namespace mymath {
 
    }
    template<typename T>
-   static inline int min(T *a, int size, int step)
+   static inline int min(T *a, int size, int step=1)
    {
       int p = 0;
       T min = a[0];
-      #pragma omp parallel for reduction(min : min)
-      for (int i = 0; i < size; i += step) {
+      //#pragma omp parallel for  shared(p) reduction(min : min)
+      for (int i = 1; i < size; i += step) {
          if (a[i] < min) {
             min = a[i];
             p = i;
@@ -335,12 +335,12 @@ namespace mymath {
    }
 
    template<typename T>
-   static inline int max(T *a, int size, int step)
+   static inline int max(T *a, int size, int step=1)
    {
       int p = 0;
       T max = a[0];
-      #pragma omp parallel for reduction(max : max)
-      for (int i = 0; i < size; i += step) {
+      //#pragma omp parallel for shared(p) reduction(max : max)
+      for (int i = 1; i < size; i += step) {
          if (a[i] > max) {
             max = a[i];
             p = i;

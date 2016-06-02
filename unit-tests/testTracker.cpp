@@ -206,13 +206,133 @@ TEST_F(testTracker, track_dt)
 
 }
 
+
+TEST_F(testTrackerPeriodicity, kick)
+{
+   auto params = std::string("../unit-tests/references/Tracker/periodicity/kick/");
+   RingAndRfSection *long_tracker = new RingAndRfSection(simple, NULL, NULL, true, 0.0);
+
+   int_vector_t indices = {1, 2, 4, 8, 16, 32, 64};
+
+   for (int i = 0; i < 100; ++i) {
+      long_tracker->kick(indices, RfP->counter);
+      //long_tracker->track();
+   }
+   //util::dump(Beam->dE.data(), 100, "Beam->dE\n");
+   std::vector<ftype> v;
+   util::read_vector_from_file(v, params + "beam_dE.txt");
+
+   auto res = std::vector<ftype>(Beam->dE.data(), Beam->dE.data() + Beam->n_macroparticles);
+
+   ASSERT_EQ(v.size(), res.size());
+   auto epsilon = 1e-8;
+
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      ftype ref = v[i];
+      ftype real = res[i];
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of Beam->dE failed on i "
+            << i << std::endl;
+   }
+
+   delete long_tracker;
+
+}
+
+
+TEST_F(testTrackerPeriodicity, drift)
+{
+   auto params = std::string("../unit-tests/references/Tracker/periodicity/drift/");
+   RingAndRfSection *long_tracker = new RingAndRfSection(simple, NULL, NULL, true, 0.0);
+
+   int_vector_t indices = {0, 1, 2, 3, 4, 98, 99};
+
+   for (int i = 0; i < 100; ++i) {
+      long_tracker->drift(indices, RfP->counter);
+      //long_tracker->track();
+   }
+   //util::dump(Beam->dE.data(), 100, "Beam->dE\n");
+   std::vector<ftype> v;
+   util::read_vector_from_file(v, params + "beam_dt.txt");
+
+   auto res = std::vector<ftype>(Beam->dt.data(), Beam->dt.data() + Beam->n_macroparticles);
+
+   ASSERT_EQ(v.size(), res.size());
+   auto epsilon = 1e-8;
+
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      ftype ref = v[i];
+      ftype real = res[i];
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of Beam->dt failed on i "
+            << i << std::endl;
+   }
+
+   delete long_tracker;
+
+}
+
+TEST_F(testTrackerPeriodicity, set_periodicity)
+{
+   auto params = std::string("../unit-tests/references/Tracker/periodicity/set_periodicity/");
+   RingAndRfSection *long_tracker = new RingAndRfSection(simple, NULL, NULL, true, 0.0);
+
+   ftype mean = mymath::mean<ftype>(Beam->dt.data(), Beam->dt.size());
+
+   GP->t_rev[RfP->counter + 1 ] = mean;
+
+   long_tracker->set_periodicity();
+
+
+   std::vector<ftype> v;
+   util::read_vector_from_file(v, params + "indices_right_outside.txt");
+
+   auto res = long_tracker->indices_right_outside;
+
+   ASSERT_EQ(v.size(), res.size());
+   auto epsilon = 1e-8;
+
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      ftype ref = v[i];
+      ftype real = res[i];
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of Beam->indices_right_outside failed on i "
+            << i << std::endl;
+   }
+
+   v.clear();
+   res.clear();
+   util::read_vector_from_file(v, params + "indices_inside_frame.txt");
+
+   res = long_tracker->indices_inside_frame;
+
+   ASSERT_EQ(v.size(), res.size());
+   epsilon = 1e-8;
+
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      ftype ref = v[i];
+      ftype real = res[i];
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of Beam->indices_inside_frame failed on i "
+            << i << std::endl;
+   }
+
+
+   delete long_tracker;
+
+}
+
+/*
 TEST_F(testTrackerPeriodicity, periodicity)
 {
    auto params = std::string("../unit-tests/references/Tracker/periodicity/");
    RingAndRfSection *long_tracker = new RingAndRfSection(simple, NULL, NULL, true, 0.0);
 
-   for(auto &v: Beam->dt)
-      v += 0.5*v;
+   for (auto &v : Beam->dt)
+      v += 1.5 * v;
+
+   //util::dump(Beam->dt.data(), Beam->dt.size(), "Beam->dt before tracking\n");
+
 
    for (int i = 0; i < 100; ++i) {
       long_tracker->track();
@@ -220,7 +340,7 @@ TEST_F(testTrackerPeriodicity, periodicity)
    std::vector<ftype> v;
    util::read_vector_from_file(v, params + "beam_dt.txt");
 
-
+   //util::dump(Beam->dt.data(), Beam->dt.size(), "Beam->dt\n");
    std::vector<ftype> res(Beam->dt.data(), Beam->dt.data() + Beam->n_macroparticles);
    ASSERT_EQ(v.size(), res.size());
    ftype epsilon = 1e-6;
@@ -255,6 +375,7 @@ TEST_F(testTrackerPeriodicity, periodicity)
    delete long_tracker;
 
 }
+*/
 
 
 

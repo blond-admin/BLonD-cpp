@@ -28,9 +28,9 @@ public:
    int_vector_t indices_right_outside;
    int_vector_t indices_inside_frame;
    int_vector_t indices_left_outside;
-   inline void set_periodicity();
+   void set_periodicity();
    // Periodicity kick
-   inline void kick(const int_vector_t &filter, const int index);
+   void kick(const int_vector_t &filter, const int index);
    inline void kick(const ftype *__restrict__ beam_dt,
                     ftype *__restrict__ beam_dE, const int n_rf,
                     const ftype *__restrict__ voltage,
@@ -47,7 +47,7 @@ public:
                     const ftype acc_kick);
 
    // Periodicity drift
-   inline void drift(const int_vector_t &filter, const int index);
+   void drift(const int_vector_t &filter, const int index);
    inline void drift(ftype *__restrict__ beam_dt,
                      const ftype *__restrict__ beam_dE, const solver_type solver,
                      const ftype T0, const ftype length_ratio, const int alpha_order,

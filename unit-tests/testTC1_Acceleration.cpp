@@ -106,7 +106,7 @@ TEST_F(testTC1, phaseSpace)
    for (int i = 0; i < N_t; ++i) {
       long_tracker->track();
       Slice->track();
-      RfP->counter++;
+      //RfP->counter++;
       //beam->losses_longitudinal_cut(beam->dt, 0, 2.5e-9, beam->id);
    }
 

@@ -170,6 +170,7 @@ inline void RingAndRfSection::drift(ftype *__restrict__ beam_dt,
 void RingAndRfSection::track()
 {
 
+
    // Determine phase loop correction on RF phase and frequency
    if (PL != NULL && RfP->counter >= PL->delay)
       PL->track();
@@ -179,6 +180,9 @@ void RingAndRfSection::track()
       // frame; these particles skip one kick and drift
       //for (int i = 0; i < Beam->n_macroparticles; ++i) {
       if (indices_right_outside.size() > 0) {
+         //std::cout << "Found "
+         //          << indices_right_outside.size()
+         //          << " right outside particles\n";
          for (const auto &i : indices_right_outside)
             Beam->dt[i] -= GP->t_rev[RfP->counter + 1];
       }
@@ -189,7 +193,8 @@ void RingAndRfSection::track()
 
       kick(indices_inside_frame, RfP->counter);
       drift(indices_inside_frame, RfP->counter + 1);
-
+      //std::cout << "dt[0] : " << Beam->dt[0] << "\n";
+      //std::cout << "dE[0] : " << Beam->dE[0] << "\n";
       // find left outside particles and kick, drift them one more time
       //int a = 0;
 
@@ -201,7 +206,9 @@ void RingAndRfSection::track()
          }
       }
       if (indices_left_outside.size() > 0) {
-         std::cout << "Found some left outside particle!\n";
+         //std::cout << "Found "
+         //          << indices_left_outside.size()
+         //          << " left outside particles\n";
 
          // This will update only the indices_left_outside values
          //  need to test this
@@ -211,6 +218,8 @@ void RingAndRfSection::track()
 
          kick(indices_left_outside, RfP->counter);
          drift(indices_left_outside, RfP->counter + 1);
+         //std::cout << "dt[0] : " << Beam->dt[0] << "\n";
+         //std::cout << "dE[0] : " << Beam->dE[0] << "\n";
 
       }
 
@@ -221,16 +230,21 @@ void RingAndRfSection::track()
    } else {
       kick(RfP->counter);
       drift(RfP->counter + 1);
+
    }
 
    if (dE_max > 0)
       horizontal_cut();
-//RfP->counter++;
+
+   RfP->counter++;
+   //std::cout << "insiders : " << indices_inside_frame.size() << "\n";
+   //std::cout << "right : " << indices_right_outside.size() << "\n";
+   //std::cout << "left : " << indices_left_outside.size() << "\n";
 }
 
 inline void RingAndRfSection::horizontal_cut()
 {
-   
+
    for (int i = 0; i < Beam->n_macroparticles; ++i) {
       if (Beam->dE[i] > - dE_max) {
          Beam->dE.erase(Beam->dE.begin() + i);
@@ -239,7 +253,7 @@ inline void RingAndRfSection::horizontal_cut()
       }
    }
    Beam->n_macroparticles = Beam->dE.size();
-   
+
 }
 
 RingAndRfSection::RingAndRfSection(solver_type _solver, PhaseLoop *_PhaseLoop,
@@ -286,7 +300,7 @@ RingAndRfSection::RingAndRfSection(solver_type _solver, PhaseLoop *_PhaseLoop,
 
 }
 
-inline void RingAndRfSection::set_periodicity()
+void RingAndRfSection::set_periodicity()
 {
    indices_right_outside.clear();
    indices_inside_frame.clear();
@@ -294,7 +308,7 @@ inline void RingAndRfSection::set_periodicity()
    // as done in the python version
    for (int i = 0; i < Beam->n_macroparticles; ++i) {
       if (Beam->dt[i] > GP->t_rev[RfP->counter + 1]) {
-         std::cout << "Found a right outside particle!\n";
+         //std::cout << "Found a right outside particle!\n";
          indices_right_outside.push_back(i);
       } else {
          indices_inside_frame.push_back(i);
@@ -309,14 +323,14 @@ inline void RingAndRfSection::kick(const int index)
         acceleration_kick[index]);
 }
 
-inline void RingAndRfSection::kick(const int_vector_t &filter, const int index)
+void RingAndRfSection::kick(const int_vector_t &filter, const int index)
 {
    kick(Beam->dt.data(), Beam->dE.data(), RfP->n_rf, &RfP->voltage[index],
         &RfP->omega_RF[index], &RfP->phi_RF[index], Beam->n_macroparticles,
         acceleration_kick[index], filter);
 }
 
-inline void RingAndRfSection::drift(const int_vector_t &filter, const int index)
+void RingAndRfSection::drift(const int_vector_t &filter, const int index)
 {
    drift(Beam->dt.data(), Beam->dE.data(), solver, GP->t_rev[index], RfP->length_ratio,
          GP->alpha_order, RfP->eta_0(index), RfP->eta_1(index),

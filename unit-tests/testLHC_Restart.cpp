@@ -169,7 +169,7 @@ TEST_F(testLHC_Restart, dphi_RF_and_dphi)
 
       long_tracker->track();
 
-      RfP->counter++;
+      //RfP->counter++;
       //printf("   Beam energy %.6e eV\n", GP->energy[0]);
       //printf("   RF phase %.6e rad\n", RfP->dphi_RF[0]);
       //printf("   PL phase correction %.6e rad\n", PL->dphi);

@@ -237,7 +237,7 @@ TEST_F(testPL, omega_RF)
    PL->beam_phase();
    PL->phase_difference();
    long_tracker->track();
-   RfP->counter++;
+   //RfP->counter++;
    int counter = RfP->counter;
 
    std::vector<ftype> v;
@@ -253,7 +253,7 @@ TEST_F(testPL, dphi_RF)
    PL->beam_phase();
    PL->phase_difference();
    long_tracker->track();
-   RfP->counter++;
+   //RfP->counter++;
 
    std::vector<ftype> v;
    util::read_vector_from_file(v, params + "dphi_RF");
@@ -268,7 +268,7 @@ TEST_F(testPL, phi_RF)
    PL->beam_phase();
    PL->phase_difference();
    long_tracker->track();
-   RfP->counter++;
+   //RfP->counter++;
 
    int counter = RfP->counter;
 

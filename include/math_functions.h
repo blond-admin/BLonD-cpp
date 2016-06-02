@@ -200,6 +200,17 @@ namespace mymath {
       gsl_fft_complex_workspace_free(work);
    }
 
+   static inline f_vector_t rfftfreq(const uint n, const ftype d = 1.0)
+   {
+      f_vector_t v(n / 2 + 1);
+      const ftype factor = 1.0 / (d * n);
+      #pragma omp parallel for
+      for(uint i = 0; i < v.size(); ++i){
+         v[i] = i * factor;
+      }
+      return std::move(v);
+   }
+
 
    // Parameters are like python's np.interp
    // @x: x-coordinates of the interpolated values
@@ -245,7 +256,8 @@ namespace mymath {
 
 // Function to implement integration of f(x) over the interval
 // [a,b] using the trapezoid rule with nsub subdivisions.
-   static inline ftype *cum_trapezoid(ftype *f, ftype deltaX, int nsub)
+   template<typename T>
+   static inline ftype *cum_trapezoid(const T *f, const T deltaX, const int nsub)
    {
       // initialize the partial sum to be f(a)+f(b) and
       // deltaX to be the step size using nsub subdivisions
@@ -253,7 +265,8 @@ namespace mymath {
       psum[0] = 0;
 
       // increment the partial sum
-      for (int i = 1; i < nsub; i++)
+      //#pragma omp parallel for
+      for (int i = 1; i < nsub; ++i)
          psum[i] = psum[i - 1] + (f[i] + f[i - 1]) * (deltaX / 2.0);
 
       return psum;
@@ -261,17 +274,17 @@ namespace mymath {
    }
 
    template<typename T>
-   static inline ftype trapezoid(T *f, ftype *deltaX, int nsub)
+   static inline ftype trapezoid(const T *f, const T *deltaX, const int nsub)
    {
       // initialize the partial sum to be f(a)+f(b) and
       // deltaX to be the step size using nsub subdivisions
 
-      ftype psum = 0;
+      ftype psum = 0.0;
       // increment the partial sum
-      for (int index = 1; index < nsub; index++) {
-         psum = psum
-                + (f[index] + f[index - 1])
-                * (deltaX[index] - deltaX[index - 1]);
+      #pragma omp parallel for reduction(+ : psum)
+      for (int index = 1; index < nsub; ++index) {
+         psum += (f[index] + f[index - 1])
+                 * (deltaX[index] - deltaX[index - 1]);
       }
 
       // return approximation
@@ -280,7 +293,7 @@ namespace mymath {
    }
 
    template<typename T>
-   static inline ftype trapezoid(T *f, ftype deltaX, int nsub)
+   static inline ftype trapezoid(const T *f, const T deltaX, const int nsub)
    {
       // initialize the partial sum to be f(a)+f(b) and
       // deltaX to be the step size using nsub subdivisions
@@ -288,8 +301,9 @@ namespace mymath {
       //ftype deltaX = (b-a)/nsub;
 
       // increment the partial sum
-      for (int index = 1; index < nsub - 1; index++) {
-         psum = psum + 2 * f[index];
+      #pragma omp parallel for reduction(+ : psum)
+      for (int index = 1; index < nsub - 1; ++index) {
+         psum += 2 * f[index];
       }
 
       // multiply the sum by the constant deltaX/2.0
@@ -304,6 +318,7 @@ namespace mymath {
    {
       int p = 0;
       T min = a[0];
+      #pragma omp parallel for reduction(min : min)
       for (int i = 0; i < size; i += step) {
          if (a[i] < min) {
             min = a[i];
@@ -318,7 +333,8 @@ namespace mymath {
    static inline int max(T *a, int size, int step)
    {
       int p = 0;
-      ftype max = a[0];
+      T max = a[0];
+      #pragma omp parallel for reduction(max : max)
       for (int i = 0; i < size; i += step) {
          if (a[i] > max) {
             max = a[i];
@@ -332,42 +348,47 @@ namespace mymath {
    static inline void linspace(ftype *a, const ftype start, const ftype end,
                                const int n, const int keep_from = 0)
    {
-      ftype step = (end - start) / (n - 1);
-      ftype value = start;
+      const ftype step = (end - start) / (n - 1);
+      //ftype value = start;
+      #pragma omp parallel for
       for (int i = 0; i < n; ++i) {
          if (i >= keep_from)
-            a[i - keep_from] = value;
-         value += step;
+            a[i - keep_from] = start + i * step;
+         //value += step;
       }
    }
 
-   static inline ftype mean(const ftype data[], const int n)
+   template<typename T>
+   static inline ftype mean(const T data[], const int n)
    {
-      ftype m = 0;
+      ftype m = 0.0;
+      #pragma omp parallel for reduction(+ : m)
       for (int i = 0; i < n; ++i) {
          m += data[i];
       }
       return m / n;
    }
 
-   static inline ftype standard_deviation(const ftype data[], const int n,
+   template<typename T>
+   static inline ftype standard_deviation(const T data[], const int n,
                                           const ftype mean)
    {
       ftype sum_deviation = 0.0;
-      int i;
-      for (i = 0; i < n; ++i)
+      #pragma omp parallel for reduction(+ : sum_deviation)
+      for (int i = 0; i < n; ++i)
          sum_deviation += (data[i] - mean) * (data[i] - mean);
-      return sqrt(sum_deviation / n);
+      return std::sqrt(sum_deviation / n);
    }
 
-   static inline ftype standard_deviation(const ftype data[], const int n)
+   template<typename T>
+   static inline ftype standard_deviation(const T data[], const int n)
    {
-      ftype mean = mymath::mean(data, n);
+      const ftype mean = mymath::mean(data, n);
       ftype sum_deviation = 0.0;
-      int i;
-      for (i = 0; i < n; ++i)
+      #pragma omp parallel for reduction(+ : sum_deviation)
+      for (int i = 0; i < n; ++i)
          sum_deviation += (data[i] - mean) * (data[i] - mean);
-      return sqrt(sum_deviation / n);
+      return std::sqrt(sum_deviation / n);
    }
 
 }

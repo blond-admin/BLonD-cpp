@@ -211,7 +211,10 @@ TEST_F(testTrackerPeriodicity, periodicity)
    auto params = std::string("../unit-tests/references/Tracker/periodicity/");
    RingAndRfSection *long_tracker = new RingAndRfSection(simple, NULL, NULL, true, 0.0);
 
-   for (int i = 0; i < 10; ++i) {
+   for(auto &v: Beam->dt)
+      v += 0.5*v;
+
+   for (int i = 0; i < 100; ++i) {
       long_tracker->track();
    }
    std::vector<ftype> v;

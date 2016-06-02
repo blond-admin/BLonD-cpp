@@ -22,7 +22,12 @@
 enum time_or_freq {
    time_domain, freq_domain
 };
-//unsigned int next_regular(unsigned int target);
+
+typedef enum freq_res_option_t {
+   round_option, ceil_option, floor_option
+} freq_res_option_t;
+
+//uint next_regular(uint target);
 
 
 
@@ -40,7 +45,7 @@ public:
                                   const ftype acc_kick = 0.0);
    virtual void track() = 0;
    virtual void reprocess() = 0;
-   virtual std::vector<ftype> induced_voltage_generation(unsigned int length = 0) = 0;
+   virtual std::vector<ftype> induced_voltage_generation(uint length = 0) = 0;
    virtual ~InducedVoltage() {};
 };
 
@@ -53,15 +58,15 @@ public:
    std::vector<Intensity *> fWakeSourceList;
    std::vector<ftype> fTimeArray;
    std::vector<ftype> fTotalWake;
-   unsigned int fCut;
-   unsigned int fShape;
+   uint fCut;
+   uint fShape;
    time_or_freq fTimeOrFreq;
 
 
    void track();
    void sum_wakes(std::vector<ftype> &v);
    void reprocess();
-   std::vector<ftype> induced_voltage_generation(unsigned int length = 0);
+   std::vector<ftype> induced_voltage_generation(uint length = 0);
    InducedVoltageTime(std::vector<Intensity *> &WakeSourceList,
                       time_or_freq TimeOrFreq = freq_domain);
    ~InducedVoltageTime() {};
@@ -70,11 +75,55 @@ public:
 
 class InducedVoltageFreq: public InducedVoltage {
 public:
+
+   // Impedance sources inputed as a list (eg: list of BBResonators objects)*
+   std::vector<Intensity *> fImpedanceSourceList;
+
+   // *Input frequency resolution in [Hz], the beam profile sampling for the spectrum
+   // will be adapted according to the freq_res_option.*
+   ftype fFreqResolutionInput;
+
+   // Number of turns to be considered as memory for induced voltage calculation.*
+   uint fNTurnsMem;
+   // *Length of one slice.*
+   ftype fTimeResolution;
+   bool fRecalculationImpedance;
+   bool fSaveIndividualVoltages;
+   // *Real frequency resolution in [Hz], according to the obtained n_fft_sampling.*
+   ftype fFreqResolution;
+   // *Frequency array of the impedance in [Hz]*
+   f_vector_t fFreqArray;
+   uint fNFFTSampling;
+   freq_res_option_t fFreqResOption;
+   // *Total impedance array of all sources in* [:math:`\Omega`]
+   complex_vector_t fTotalImpedance;
+   complex_vector_t fMatrixSaveIndividualImpedances;
+   f_vector_t fMatrixSaveIndividualVoltages;
+
+   uint fLenArrayMem;
+   uint fLenArrayMemExt;
+   uint fNPointsFFT;
+
+   f_vector_t fFreqArrayMem;
+   complex_vector_t fTotalImpedanceMem;
+   f_vector_t fTimeArrayMem;
+
+   // Do we need this?
+   // *Induced voltage from the sum of the wake sources in [V]*
+   f_vector_t fInducedVoltage;
+
+   // and many more! //
+
    void track();
-   void sum_impedances();
+   void sum_impedances(f_vector_t &);
    void reprocess();
-   std::vector<ftype> induced_voltage_generation(unsigned int length = 0);
-   InducedVoltageFreq();
+   std::vector<ftype> induced_voltage_generation(uint length = 0);
+   InducedVoltageFreq(std::vector<Intensity *> &impedanceSourceList,
+                      ftype freqResolutionInput = 0.0,
+                      freq_res_option_t freq_res_option = freq_res_option_t::round_option,
+                      uint NTurnsMem = 0,
+                      bool recalculationImpedance = false,
+                      bool saveIndividualVoltages = false);
    ~InducedVoltageFreq() {};
 };
 
@@ -84,19 +133,19 @@ public:
    std::vector<InducedVoltage *> fInducedVoltageList;
    std::vector<ftype> fTimeArray;
    std::vector<ftype> fRevTimeArray;
-   unsigned int fCounterTurn = 0;
-   unsigned int fNTurnsMemory;
+   uint fCounterTurn = 0;
+   uint fNTurnsMemory;
    bool fInductiveImpedanceOn = false;
 
    void track();
    void track_memory();
    void track_ghosts_particles();
-   std::vector<ftype> induced_voltage_sum(unsigned int length = 0);
+   std::vector<ftype> induced_voltage_sum(uint length = 0);
    void reprocess();
-   std::vector<ftype> induced_voltage_generation(unsigned int length = 0);
-   
+   std::vector<ftype> induced_voltage_generation(uint length = 0);
+
    TotalInducedVoltage(std::vector<InducedVoltage *> &InducedVoltageList,
-                       unsigned int NTurnsMemory = 0,
+                       uint NTurnsMemory = 0,
                        std::vector<ftype> RevTimeArray = std::vector<ftype>());
    ~TotalInducedVoltage() {};
 

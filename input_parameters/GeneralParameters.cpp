@@ -151,9 +151,9 @@ GeneralParameters::GeneralParameters(const int _n_turns, ftype *_ring_length,
 
    for (int i = 0; i < n_sections * (n_turns + 1); ++i) {
       ftype momentumsq = momentum[i] * momentum[i];
-      this->beta[i] = sqrt(1 / (1 + (masssq / momentumsq)));
-      this->gamma[i] = sqrt(1 + (momentumsq / masssq));
-      this->energy[i] = sqrt(masssq + momentumsq);
+      this->beta[i] = std::sqrt(1 / (1 + (masssq / momentumsq)));
+      this->gamma[i] = std::sqrt(1 + (momentumsq / masssq));
+      this->energy[i] = std::sqrt(masssq + momentumsq);
       this->kin_energy[i] = energy[i] - mass;
    }
 

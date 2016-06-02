@@ -59,33 +59,33 @@ TEST(testSTD, test1)
 TEST(testTrapezoid, test1)
 {
    ftype b[5] = {1, 2, 3, 4, 5};
-   ftype trap = mymath::trapezoid(b, 1, 5);
+   ftype trap = mymath::trapezoid<ftype>(b, 1, 5);
    ASSERT_DOUBLE_EQ(trap, 12);
 
    ftype a[5] = {1.1, 1.2, 1.3, 1.4, 1.5};
-   trap = mymath::trapezoid(a, 0.1, 5);
+   trap = mymath::trapezoid<ftype>(a, 0.1, 5);
    ASSERT_DOUBLE_EQ(trap, 0.52);
 
-   trap = mymath::trapezoid(a, 1, 5);
+   trap = mymath::trapezoid<ftype>(a, 1, 5);
    ASSERT_DOUBLE_EQ(trap, 5.2);
 
    ftype c[10] = { -0.61, -0.51, 0.39, -0.54,
                    0.67, 1.4, 1.1, 1.4, 0.16, 0.9
                  };
-   trap = mymath::trapezoid(c, 1, 10);
+   trap = mymath::trapezoid<ftype>(c, 1, 10);
    ASSERT_NEAR(trap, 4.215, 1e-8);
 }
 
 TEST(testTrapezoid, test2)
 {
    ftype a[5] = {1.1, 1.2, 1.3, 1.4, 1.5};
-   ftype trap = mymath::trapezoid(a, a, 5);
+   ftype trap = mymath::trapezoid<ftype>(a, a, 5);
    ASSERT_NEAR(trap, 0.52, 1e-8);
 
    ftype c[10] = { -0.61, -0.51, 0.39, -0.54,
                    0.67, 1.4, 1.1, 1.4, 0.16, 0.9
                  };
-   trap = mymath::trapezoid(c, c, 10);
+   trap = mymath::trapezoid<ftype>(c, c, 10);
    ASSERT_NEAR(trap, 0.21895, 1e-8);
 }
 
@@ -97,7 +97,7 @@ TEST(testCumTrap, test1)
    ftype a[10] =  { -0.61, -0.51, 0.39, -0.54,
                     0.67, 1.4, 1.1, 1.4, 0.16, 0.9
                   };
-   ftype *trap = mymath::cum_trapezoid(a, 1, 10);
+   ftype *trap = mymath::cum_trapezoid<ftype>(a, 1, 10);
    //dump(trap, 10, "trap\n");
    /*
    std::string result = util::exec(
@@ -323,7 +323,7 @@ TEST(testConvolution, test1)
             << "Testing of convolution1 failed on i "
             << i << std::endl;
    }
-   
+
    v.clear();
 
 
@@ -353,7 +353,7 @@ TEST(testConvolution, test2)
             << "Testing of convolution2 failed on i "
             << i << std::endl;
    }
-   
+
    v.clear();
 
 
@@ -362,8 +362,8 @@ TEST(testConvolution, test2)
 TEST(testConvolution, test3)
 {
    std::vector<ftype> c, a, b, v;
-   a = {0,0,0,0,1,1,1,0,0,0};
-   b = {1,1,1,1,0,0,0,1,1,1};
+   a = {0, 0, 0, 0, 1, 1, 1, 0, 0, 0};
+   b = {1, 1, 1, 1, 0, 0, 0, 1, 1, 1};
    c = mymath::convolution(a, b);
 
 
@@ -382,9 +382,90 @@ TEST(testConvolution, test3)
             << "Testing of convolution3 failed on i "
             << i << std::endl;
    }
-   
+
    v.clear();
 
+
+}
+
+TEST(testRFFTFREQ, even_no_spacing)
+{
+   ftype epsilon;
+
+   std::vector<ftype> real, res;
+   real = mymath::rfftfreq(10);
+   res = {0, 0.1, 0.2, 0.3, 0.4, 0.5};
+
+   ASSERT_EQ(real.size(), res.size());
+   epsilon = 1e-7;
+   for (unsigned int i = 0; i < res.size(); ++i) {
+      ftype ref = res[i];
+      ftype real2 = real[i];
+      ASSERT_NEAR(ref, real2, epsilon * std::max(fabs(ref), fabs(real2)))
+            << "Testing of rfftfreq failed on i "
+            << i << std::endl;
+   }
+
+
+}
+
+TEST(testRFFTFREQ, odd_no_spacing)
+{
+   ftype epsilon;
+
+   std::vector<ftype> real, res;
+   real = mymath::rfftfreq(11);
+   res = {0, 0.09090909, 0.18181818, 0.27272727, 0.36363636, 0.45454545};
+
+   ASSERT_EQ(real.size(), res.size());
+   epsilon = 1e-7;
+   for (unsigned int i = 0; i < res.size(); ++i) {
+      ftype ref = res[i];
+      ftype real2 = real[i];
+      ASSERT_NEAR(ref, real2, epsilon * std::max(fabs(ref), fabs(real2)))
+            << "Testing of rfftfreq failed on i "
+            << i << std::endl;
+   }
+
+}
+
+TEST(testRFFTFREQ, even_spacing)
+{
+   ftype epsilon;
+
+   std::vector<ftype> real, res;
+   real = mymath::rfftfreq(10, 1.5);
+   res = {0, 0.066666667, 0.133333333, 0.2, 0.26666666667, 0.3333333};
+
+   ASSERT_EQ(real.size(), res.size());
+   epsilon = 1e-7;
+   for (unsigned int i = 0; i < res.size(); ++i) {
+      ftype ref = res[i];
+      ftype real2 = real[i];
+      ASSERT_NEAR(ref, real2, epsilon * std::max(fabs(ref), fabs(real2)))
+            << "Testing of rfftfreq failed on i "
+            << i << std::endl;
+   }
+
+}
+
+TEST(testRFFTFREQ, odd_spacing)
+{
+   ftype epsilon;
+
+   std::vector<ftype> real, res;
+   real = mymath::rfftfreq(11, 2.5);
+   res = {0, 0.03636364, 0.07272727, 0.10909091, 0.14545455, 0.18181818};
+
+   ASSERT_EQ(real.size(), res.size());
+   epsilon = 1e-7;
+   for (unsigned int i = 0; i < res.size(); ++i) {
+      ftype ref = res[i];
+      ftype real2 = real[i];
+      ASSERT_NEAR(ref, real2, epsilon * std::max(fabs(ref), fabs(real2)))
+            << "Testing of rfftfreq failed on i "
+            << i << std::endl;
+   }
 
 }
 

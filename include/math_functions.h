@@ -200,6 +200,11 @@ namespace mymath {
       gsl_fft_complex_workspace_free(work);
    }
 
+
+   // Same as python's numpy.fft.rfftfreq
+   // @ n: window length
+   // @ d (optional) : Sample spacing
+   // @return: A vector of length (n div 2) + 1 of the sample frequencies
    static inline f_vector_t rfftfreq(const uint n, const ftype d = 1.0)
    {
       f_vector_t v(n / 2 + 1);

@@ -248,7 +248,9 @@ InducedVoltageFreq::InducedVoltageFreq(
 
    fImpedanceSourceList = impedanceSourceList;
    fFreqResolutionInput = freqResolutionInput;
-   fTimeResolution = (Slice->bin_centers[1] - Slice->bin_centers[0]);
+
+   // *Length of one slice.*
+   auto timeResolution = (Slice->bin_centers[1] - Slice->bin_centers[0]);
    fRecalculationImpedance = recalculationImpedance;
    fFreqResOption = freq_res_option;
 
@@ -258,7 +260,7 @@ InducedVoltageFreq::InducedVoltageFreq(
          fNFFTSampling = Slice->n_slices;
       } else {
          int a;
-         ftype b = 1 / (fFreqResolutionInput * fTimeResolution);
+         ftype b = 1 / (fFreqResolutionInput * timeResolution);
          switch (fFreqResOption) {
             case freq_res_option_t::round_option:
                a = std::round(b);
@@ -287,10 +289,10 @@ InducedVoltageFreq::InducedVoltageFreq(
          }
       }
 
-      fFreqResolution = 1 / (fNFFTSampling * fTimeResolution);
+      fFreqResolution = 1 / (fNFFTSampling * timeResolution);
 
       //self.frequency_array = rfftfreq(self.n_fft_sampling, self.slices.bin_centers[1] - self.slices.bin_centers[0])
-      fFreqArray = mymath::rfftfreq(fNFFTSampling, fTimeResolution);
+      fFreqArray = mymath::rfftfreq(fNFFTSampling, timeResolution);
       sum_impedances(fFreqArray);
 
       fSaveIndividualVoltages = saveIndividualVoltages;
@@ -313,7 +315,7 @@ InducedVoltageFreq::InducedVoltageFreq(
       fLenArrayMem = (fNTurnsMem + 1) * Slice->n_slices;
       fLenArrayMemExt = (fNTurnsMem + 2) * Slice->n_slices;
       fNPointsFFT = next_regular(fLenArrayMemExt);
-      fFreqArrayMem = mymath::rfftfreq(fNPointsFFT, fTimeResolution);
+      fFreqArrayMem = mymath::rfftfreq(fNPointsFFT, timeResolution);
       fTotalImpedanceMem = complex_vector_t(fFreqArrayMem.size(), complex_t(0, 0));
 
       fTimeArrayMem.reserve(fNTurnsMem * Slice->n_slices);
@@ -342,7 +344,51 @@ void InducedVoltageFreq::track() {}
 
 void InducedVoltageFreq::sum_impedances(f_vector_t &) {}
 
-void InducedVoltageFreq::reprocess() {}
+void InducedVoltageFreq::reprocess()
+{
+   auto timeResolution = (Slice->bin_centers[1] - Slice->bin_centers[0]);
+   if (fFreqResolutionInput == 0) {
+      fNFFTSampling = Slice->n_slices;
+   } else {
+      int a;
+      ftype b = 1 / (fFreqResolutionInput * timeResolution);
+      switch (fFreqResOption) {
+         case freq_res_option_t::round_option:
+            a = std::round(b);
+            break;
+         case freq_res_option_t::ceil_option:
+            a = std::ceil(b);
+            break;
+         case freq_res_option_t::floor_option:
+            a = std::floor(b);
+            break;
+         default:
+            std::cerr << "The input freq_res_option is not recognized\n";
+            exit(-1);
+            break;
+      }
+      fNFFTSampling = next_regular(a);
+
+
+      if (fNFFTSampling < (uint) Slice->n_slices) {
+         std::cerr << "The input frequency resolution step is too big, and the whole\n"
+                   << "bunch is not sliced... The number of sampling points for the\n"
+                   << "FFT is corrected in order to sample the whole bunch (and\n"
+                   << "you might consider changing the input in order to have\n"
+                   << "a finer resolution\n";
+         fNFFTSampling = next_regular(Slice->n_slices);
+      }
+   }
+
+   fFreqResolution = 1 / (fNFFTSampling * timeResolution);
+
+   //Slice->beam_spectrum_generation(fNFFTSampling, only_rfft = true)
+   // fFreqArray = Slice->beam_spectrum_freq;
+
+   fTotalImpedance.clear();
+   sum_impedances(fFreqArray);
+
+}
 
 std::vector<ftype> InducedVoltageFreq::induced_voltage_generation(uint length)
 {

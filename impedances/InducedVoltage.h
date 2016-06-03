@@ -85,8 +85,6 @@ public:
 
    // Number of turns to be considered as memory for induced voltage calculation.*
    uint fNTurnsMem;
-   // *Length of one slice.*
-   ftype fTimeResolution;
    bool fRecalculationImpedance;
    bool fSaveIndividualVoltages;
    // *Real frequency resolution in [Hz], according to the obtained n_fft_sampling.*
@@ -116,6 +114,8 @@ public:
 
    void track();
    void sum_impedances(f_vector_t &);
+
+   //Reprocess the impedance contributions with respect to the new_slicing.
    void reprocess();
    std::vector<ftype> induced_voltage_generation(uint length = 0);
    InducedVoltageFreq(std::vector<Intensity *> &impedanceSourceList,

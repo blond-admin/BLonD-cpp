@@ -19,6 +19,7 @@
 
 namespace mymath {
 
+   // Wrapper function for vdt::fast_sin
    static inline ftype fast_sin(ftype x)
    {
       return vdt::fast_sin(x);

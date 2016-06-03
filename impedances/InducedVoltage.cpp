@@ -340,10 +340,40 @@ InducedVoltageFreq::InducedVoltageFreq(
 
 }
 
-void InducedVoltageFreq::track() {}
+// TODO test this function
+void InducedVoltageFreq::track()
+{
+   // Tracking Method
+   induced_voltage_generation();
+   auto v = fInducedVoltage;
+   std::transform(v.begin(), v.end(), v.begin(),
+                  std::bind1st(std::multiplies<ftype>(),
+                               GP->charge));
 
-void InducedVoltageFreq::sum_impedances(f_vector_t &) {}
+   linear_interp_kick(Beam->dt.data(), Beam->dE.data(), v.data(),
+                      Slice->bin_centers, Slice->n_slices,
+                      Beam->n_macroparticles, 0.0);
 
+}
+
+// TODO test this function
+void InducedVoltageFreq::sum_impedances(f_vector_t &freq_array)
+{
+   fTotalImpedance.resize(freq_array.size());
+   std::fill(fTotalImpedance.begin(),
+             fTotalImpedance.end(),
+             complex_t(0, 0));
+   for (auto &i : fImpedanceSourceList) {
+      i->imped_calc(freq_array);
+      std::transform(fTotalImpedance.begin(), fTotalImpedance.end(),
+                     i->fImpedance.begin(), fTotalImpedance.begin(),
+                     std::plus<complex_t>());
+
+   }
+}
+
+
+// TODO test this function
 void InducedVoltageFreq::reprocess()
 {
    auto timeResolution = (Slice->bin_centers[1] - Slice->bin_centers[0]);
@@ -382,8 +412,8 @@ void InducedVoltageFreq::reprocess()
 
    fFreqResolution = 1 / (fNFFTSampling * timeResolution);
 
-   //Slice->beam_spectrum_generation(fNFFTSampling, only_rfft = true)
-   // fFreqArray = Slice->beam_spectrum_freq;
+   Slice->beam_spectrum_generation(fNFFTSampling, true);
+   fFreqArray = Slice->fBeamSpectrumFreq;
 
    fTotalImpedance.clear();
    sum_impedances(fFreqArray);
@@ -392,6 +422,17 @@ void InducedVoltageFreq::reprocess()
 
 std::vector<ftype> InducedVoltageFreq::induced_voltage_generation(uint length)
 {
+   if (fRecalculationImpedance)
+      sum_impedances(fFreqArray);
+
+   Slice->beam_spectrum_generation(fNFFTSampling);
+
+   if(fSaveIndividualVoltages){
+      for(uint i = 0; i < fImpedanceSourceList.size(); ++i){
+         // I need to implement an irfft :)
+      }
+   }
+
    return std::vector<ftype>();
 }
 

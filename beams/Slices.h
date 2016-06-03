@@ -53,12 +53,20 @@ public:
    ftype *edges;
    ftype *bin_centers;
    fit_type fit_option;
-   ftype beam_spectrum;
-   ftype beam_spectrum_freq;
+
+   complex_vector_t fBeamSpectrum;
+   
+   f_vector_t fBeamSpectrumFreq;
+   
    ftype bl_gauss = 0;
    ftype bp_gauss = 0;
+
+   void beam_spectrum_generation(uint n, bool onlyRFFT = false);
+   void beam_profile_derivative();
+   void beam_profile_filter_chebyshev();
+
 private:
-   ftype *h;
+   //ftype *h;
    void set_cuts();
    void sort_particles();
    inline ftype convert_coordinates(ftype cut, cuts_unit_type type);
@@ -85,9 +93,6 @@ private:
    // not for now
    void fwhm_multibunch();
    // when intensity effects
-   void beam_spectrum_generation();
-   void beam_profile_derivative();
-   void beam_profile_filter_chebyshev();
 
 };
 #endif /* BEAMS_SLICES_H_ */

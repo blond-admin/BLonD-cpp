@@ -14,6 +14,7 @@
 //#include <gsl/gsl_multifit_nlin.h>
 //#include <gsl/gsl_vector.h>
 
+
 Slices::Slices(int _n_slices, int _n_sigma, ftype _cut_left, ftype _cut_right,
                cuts_unit_type _cuts_unit, fit_type _fit_option, bool direct_slicing)
 {
@@ -24,11 +25,11 @@ Slices::Slices(int _n_slices, int _n_sigma, ftype _cut_left, ftype _cut_right,
    this->cuts_unit = _cuts_unit;
    this->fit_option = _fit_option;
    this->n_sigma = _n_sigma;
-   this->beam_spectrum = 0;
-   this->beam_spectrum_freq = 0;
+   //this->beam_spectrum = 0;
+   //this->beam_spectrum_freq = 0;
 
    //this->h = new ftype[omp_get_num_threads()][n_slices];
-   this->h = (ftype *) malloc(n_threads * n_slices * sizeof(ftype));
+   //this->h = (ftype *) malloc(n_threads * n_slices * sizeof(ftype));
 
    this->n_macroparticles = new ftype[n_slices];
    for (int i = 0; i < n_slices; ++i)
@@ -48,13 +49,15 @@ Slices::Slices(int _n_slices, int _n_sigma, ftype _cut_left, ftype _cut_right,
       track();
 }
 
+
+
 Slices::~Slices()
 {
    util::delete_array(n_macroparticles);
    util::delete_array(bin_centers);
    util::delete_array(edges);
    //delete_array (h);
-   free(h);
+   //free(h);
 }
 
 void Slices::set_cuts()
@@ -538,8 +541,16 @@ void Slices::fwhm_multibunch()
 {
 }
 
-void Slices::beam_spectrum_generation()
+void Slices::beam_spectrum_generation(uint n, bool onlyRFFT)
 {
+
+   fBeamSpectrumFreq = mymath::rfftfreq(n, bin_centers[1] - bin_centers[0]);
+
+   if( not onlyRFFT ){
+      // TODO remove this when you have moved to vectors
+      f_vector_t v(n_macroparticles, n_macroparticles + n_slices);
+      mymath::rfft(v, n, fBeamSpectrum);
+   }
 }
 
 void Slices::beam_profile_derivative()

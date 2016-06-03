@@ -174,6 +174,49 @@ TEST(testCumTrap, test1)
 }
 
 
+// TODO implement and irfft using ifft
+// Watch out for even - odd size
+// the following method works with odd size 
+// but not if you try to use 2 * size
+TEST(testRFFT, rfft_playing)
+{
+   //std::string params = "../unit-tests/references/MyMath/fft/";
+
+   f_vector_t in;
+   complex_vector_t in2;
+   complex_vector_t out1, out2, out3, out4;
+
+   //in.resize(256);
+   //mymath::linspace(in.data(), 0.f, 100.f, in.size());
+
+   in = {1, 2, 3, 4, 5};
+   //mymath::rfft(in, 2 * in.size(), out1);
+   mymath::rfft(in, in.size(), out1);
+
+   util::dump(out1.data(), out1.size(), "rfft\n");
+
+   mymath::real_to_complex(in, in2);
+
+   mymath::fft(in2, in2.size(), out2);
+   //mymath::fft(in2, 2 * in2.size(), out2);
+   util::dump(out2.data(), out2.size(), "fft\n");
+
+   mymath::ifft(out2, out2.size(), out3);
+   util::dump(out3.data(), out3.size(), "ifft after fft\n");
+
+   uint n = out1.size();
+   for (uint i = n - 1; i > 0; --i) {
+      out1.push_back(std::conj(out1[i]));
+   }
+
+   mymath::ifft(out1, out1.size(), out4);
+   util::dump(out4.data(), out4.size(), "ifft after rfft\n");
+
+
+
+}
+
+
 
 TEST(testRFFT, rfft1)
 {
@@ -217,6 +260,8 @@ TEST(testRFFT, rfft1)
    v.clear();
 
 }
+
+
 
 
 TEST(testRFFT, rfft2)

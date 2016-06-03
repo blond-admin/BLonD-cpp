@@ -78,8 +78,8 @@ if(TEST_ENABLED)
 endif()
 
 include_directories(include)
-link_directories(/usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64 /afs/cern.ch/user/k/kiliakis/opt/lib)
-#link_directories(/usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64)
+#link_directories(/usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64 /afs/cern.ch/user/k/kiliakis/opt/lib)
+link_directories(/usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64)
 
 # Generate simulation executables
 set(SOURCE_FILES 

@@ -18,6 +18,7 @@ typedef std::vector<ftype> f_vector_t;
 typedef std::vector<int> int_vector_t;
 typedef std::vector<complex_t> complex_vector_t;
 const unsigned PRECISION = 8;
+
 // Compile time switches
 // Needs re-compile every time a change is made
 
@@ -29,5 +30,6 @@ const unsigned PRECISION = 8;
 
 // switch on/off result printing
 #define PRINT_RESULTS
+
 
 #endif /* INCLUDES_CONFIGURATION_H_ */

@@ -347,7 +347,7 @@ TEST_F(testTrackerPeriodicity, track1)
    //util::dump(Beam->dt.data(), Beam->dt.size(), "Beam->dt\n");
    std::vector<ftype> res(Beam->dt.data(), Beam->dt.data() + Beam->n_macroparticles);
    ASSERT_EQ(v.size(), res.size());
-   ftype epsilon = 1e-6;
+   ftype epsilon = 1e-5;
 
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];

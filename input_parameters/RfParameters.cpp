@@ -275,7 +275,7 @@ void RfParameters::calc_phi_s(accelerating_systems_type acc_sys)
 
             for (int k = 0; k < 1000; ++k) {
                totalRF[k] += voltage[row + i + 1]
-                             * vdt::fast_sin(
+                             * mymath::fast_sin(
                                 (harmonic[row + i + 1] / min)
                                 * (phase_array[k]
                                    + transition_phase_offset[i

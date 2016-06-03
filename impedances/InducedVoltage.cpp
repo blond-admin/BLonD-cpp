@@ -318,7 +318,7 @@ InducedVoltageFreq::InducedVoltageFreq(
 
       fTimeArrayMem.reserve(fNTurnsMem * Slice->n_slices);
       const ftype factor = Slice->edges[Slice->n_slices + 1] - Slice->edges[0];
-      for (uint i = 1; i < fNTurnsMem + 1; ++i) {
+      for (uint i = 0; i < fNTurnsMem + 1; ++i) {
          for (uint j = 0; j < (uint) Slice->n_slices; ++j) {
             fTimeArrayMem.push_back(Slice->bin_centers[j] + factor * i);
          }

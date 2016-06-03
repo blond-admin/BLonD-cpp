@@ -575,7 +575,6 @@ TEST_F(testInducedVoltage, InducedVoltageFreq_Constructor2)
    v.clear();
 
    util::read_vector_from_file(v, params + "frequency_array_memory.txt");
-
    // Only fist 1k elements of frequency_array_memory are tested
    epsilon = 1e-8;
    for (unsigned int i = 0; i < v.size(); ++i) {
@@ -588,7 +587,6 @@ TEST_F(testInducedVoltage, InducedVoltageFreq_Constructor2)
    v.clear();
 
    util::read_vector_from_file(v, params + "time_array_memory.txt");
-
    // Only fist 100 elements of frequency_array_memory are tested
    epsilon = 1e-8;
    for (unsigned int i = 0; i < v.size(); ++i) {
@@ -596,6 +594,18 @@ TEST_F(testInducedVoltage, InducedVoltageFreq_Constructor2)
       auto real = indVoltFreq->fTimeArrayMem[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
             << "Testing of indVoltFreq->fTimeArrayMem failed on i "
+            << i << std::endl;
+   }
+   v.clear();
+
+   util::read_vector_from_file(v, params + "total_impedance_memory.txt");
+   // Only fist 1000 elements of total_impedance_memory are tested
+   epsilon = 1e-8;
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      auto ref = v[i];
+      auto real = std::abs(indVoltFreq->fTotalImpedanceMem[i]);
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of indVoltFreq->fTotalImpedanceMem failed on i "
             << i << std::endl;
    }
    v.clear();

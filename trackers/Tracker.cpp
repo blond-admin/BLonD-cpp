@@ -40,7 +40,7 @@ inline void RingAndRfSection::kick(const ftype *__restrict__ beam_dt,
       for (int i = 0; i < n_macroparticles; i++) {
          //beam_dE[i] += v * vdt::fast_sin(orf * beam_dt[i] + prf);
          beam_dE[i] += voltage[k] *
-                       vdt::fast_sin(omega_RF[k] * beam_dt[i] + phi_RF[k]);
+                       mymath::fast_sin(omega_RF[k] * beam_dt[i] + phi_RF[k]);
       }
       k += GP->n_turns;
    }
@@ -65,7 +65,7 @@ inline void RingAndRfSection::kick(const ftype *__restrict__ beam_dt,
    for (int j = 0; j < n_rf; j++) {
       for (const auto &i : filter)
          beam_dE[i] += voltage[k] *
-                       vdt::fast_sin(omega_RF[k] * beam_dt[i] + phi_RF[k]);
+                       mymath::fast_sin(omega_RF[k] * beam_dt[i] + phi_RF[k]);
       k += GP->n_turns;
    }
 

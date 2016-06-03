@@ -9,6 +9,7 @@
 #define INCLUDES_MATH_FUNCTIONS_H_
 
 #include <cmath>
+#include "sin.h"
 #include "configuration.h"
 #include <gsl/gsl_interp.h>
 #include <gsl/gsl_fft_real.h>
@@ -18,6 +19,15 @@
 
 namespace mymath {
 
+   static inline ftype fast_sin(ftype x)
+   {
+      return vdt::fast_sin(x);
+   }
+
+   static inline ftype fast_cos(ftype x)
+   {
+      return vdt::fast_sin(x + M_PI_2);
+   }
 
    // linear convolution function
    // @a: first vector
@@ -210,7 +220,7 @@ namespace mymath {
       f_vector_t v(n / 2 + 1);
       const ftype factor = 1.0 / (d * n);
       #pragma omp parallel for
-      for(uint i = 0; i < v.size(); ++i){
+      for (uint i = 0; i < v.size(); ++i) {
          v[i] = i * factor;
       }
       return std::move(v);
@@ -319,7 +329,7 @@ namespace mymath {
 
    }
    template<typename T>
-   static inline int min(T *a, int size, int step=1)
+   static inline int min(T *a, int size, int step = 1)
    {
       int p = 0;
       T min = a[0];
@@ -335,7 +345,7 @@ namespace mymath {
    }
 
    template<typename T>
-   static inline int max(T *a, int size, int step=1)
+   static inline int max(T *a, int size, int step = 1)
    {
       int p = 0;
       T max = a[0];

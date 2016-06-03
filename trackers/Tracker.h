@@ -12,7 +12,6 @@
 #include "../input_parameters/GeneralParameters.h"
 #include "../input_parameters/RfParameters.h"
 #include "../beams/Beams.h"
-#include "sin.h"
 #include "../llrf/PhaseLoop.h"
 
 enum solver_type {

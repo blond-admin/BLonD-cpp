@@ -14,7 +14,7 @@ class RfParameters;
 #include "../beams/Beams.h"
 //#include "../includes/utilities.h"
 #include "math_functions.h"
-#include "../trackers/sin.h"
+//#include "../trackers/sin.h"
 #include <algorithm>    // std::cops
 #include <iterator>
 #include "globals.h"

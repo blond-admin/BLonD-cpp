@@ -322,14 +322,18 @@ TEST_F(testTrackerPeriodicity, set_periodicity)
 
 }
 
-/*
-TEST_F(testTrackerPeriodicity, periodicity)
+
+TEST_F(testTrackerPeriodicity, track1)
 {
-   auto params = std::string("../unit-tests/references/Tracker/periodicity/");
+   auto params = std::string("../unit-tests/references/Tracker/periodicity/track1/");
    RingAndRfSection *long_tracker = new RingAndRfSection(simple, NULL, NULL, true, 0.0);
 
-   for (auto &v : Beam->dt)
-      v += 1.5 * v;
+   ftype mean = mymath::mean<ftype>(Beam->dt.data(), Beam->dt.size());
+
+   for (uint i = 0; i < Beam->dt.size(); ++i) {
+      if (i % 5 == 0)
+         Beam->dt[i] += mean;
+   }
 
    //util::dump(Beam->dt.data(), Beam->dt.size(), "Beam->dt before tracking\n");
 
@@ -375,7 +379,64 @@ TEST_F(testTrackerPeriodicity, periodicity)
    delete long_tracker;
 
 }
-*/
+
+
+TEST_F(testTrackerPeriodicity, track2)
+{
+   auto params = std::string("../unit-tests/references/Tracker/periodicity/track2/");
+   RingAndRfSection *long_tracker = new RingAndRfSection(simple, NULL, NULL, true, 0.0);
+
+   ftype mean = mymath::mean<ftype>(Beam->dt.data(), Beam->dt.size());
+
+   for (uint i = 0; i < Beam->dt.size(); ++i) {
+      if (i % 2 == 0)
+         Beam->dt[i] = std::max( Beam->dt[i] - mean, 0.0);
+      else if (i % 3 == 0)
+         Beam->dt[i] += mean;
+   }
+
+
+   for (int i = 0; i < 100; ++i) {
+      long_tracker->track();
+   }
+   std::vector<ftype> v;
+   util::read_vector_from_file(v, params + "beam_dt.txt");
+
+   //util::dump(Beam->dt.data(), Beam->dt.size(), "Beam->dt\n");
+   std::vector<ftype> res(Beam->dt.data(), Beam->dt.data() + Beam->n_macroparticles);
+   ASSERT_EQ(v.size(), res.size());
+   ftype epsilon = 1e-6;
+
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      ftype ref = v[i];
+      ftype real = res[i];
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of Beam->dt failed on i "
+            << i << std::endl;
+   }
+
+
+   v.clear();
+   res.clear();
+
+   res = std::vector<ftype>(Beam->dE.data(), Beam->dE.data() + Beam->n_macroparticles);
+
+   util::read_vector_from_file(v, params + "beam_dE.txt");
+
+   ASSERT_EQ(v.size(), res.size());
+   epsilon = 1e-5;
+
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      ftype ref = v[i];
+      ftype real = res[i];
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of Beam->dE failed on i "
+            << i << std::endl;
+   }
+
+   delete long_tracker;
+
+}
 
 
 

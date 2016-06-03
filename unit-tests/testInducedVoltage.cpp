@@ -432,7 +432,7 @@ TEST_F(testInducedVoltage, totalInducedVoltageTrack)
 
 
    TotalInducedVoltage *totVol = new TotalInducedVoltage(indVoltList);
-   
+
    totVol->track();
    //std::cout << "made it here\n";
 
@@ -459,7 +459,149 @@ TEST_F(testInducedVoltage, totalInducedVoltageTrack)
 
 }
 
+TEST_F(testInducedVoltage, InducedVoltageFreq_Constructor1)
+{
 
+   std::vector<Intensity *> ImpSourceList({resonator});
+   //wakeSourceList.push_back(resonator);
+   auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
+
+   auto params = std::string("../unit-tests/references/Impedances/")
+                 + "InducedVoltage/InducedVoltageFreq/constructor1/";
+
+   std::vector<ftype> v;
+
+   util::read_vector_from_file(v, params + "n_fft_sampling.txt");
+   //ASSERT_EQ(v.size(), indVoltTime->fTotalWake.size());
+
+   auto epsilon = 1e-8;
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      auto ref = v[i];
+      auto real = indVoltFreq->fNFFTSampling;
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of indVoltFreq->fNFFTSampling failed on i "
+            << i << std::endl;
+   }
+   v.clear();
+
+   util::read_vector_from_file(v, params + "frequency_resolution.txt");
+
+   epsilon = 1e-8;
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      auto ref = v[i];
+      auto real = indVoltFreq->fFreqResolution;
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of indVoltFreq->fFreqResolution failed on i "
+            << i << std::endl;
+   }
+   v.clear();
+
+   util::read_vector_from_file(v, params + "frequency_array.txt");
+   // only first 1k elements of frequency_array are tested
+   epsilon = 1e-8;
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      auto ref = v[i];
+      auto real = indVoltFreq->fFreqArray[i];
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of indVoltFreq->fFreqArray failed on i "
+            << i << std::endl;
+   }
+   v.clear();
+
+
+}
+
+TEST_F(testInducedVoltage, InducedVoltageFreq_Constructor2)
+{
+
+   std::vector<Intensity *> ImpSourceList({resonator});
+   //wakeSourceList.push_back(resonator);
+   auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5,
+         round_option, 100);
+
+   auto params = std::string("../unit-tests/references/Impedances/")
+                 + "InducedVoltage/InducedVoltageFreq/constructor2/";
+
+   std::vector<ftype> v;
+
+   util::read_vector_from_file(v, params + "n_turns_memory.txt");
+   //ASSERT_EQ(v.size(), indVoltTime->fTotalWake.size());
+
+   auto epsilon = 1e-8;
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      auto ref = v[i];
+      auto real = indVoltFreq->fNTurnsMem;
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of indVoltFreq->fNTurnsMem failed on i "
+            << i << std::endl;
+   }
+   v.clear();
+
+   util::read_vector_from_file(v, params + "len_array_memory.txt");
+
+   epsilon = 1e-8;
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      auto ref = v[i];
+      auto real = indVoltFreq->fLenArrayMem;
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of indVoltFreq->fLenArrayMem failed on i "
+            << i << std::endl;
+   }
+   v.clear();
+
+   util::read_vector_from_file(v, params + "len_array_memory_extended.txt");
+
+   epsilon = 1e-8;
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      auto ref = v[i];
+      auto real = indVoltFreq->fLenArrayMemExt;
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of indVoltFreq->fLenArrayMemExt failed on i "
+            << i << std::endl;
+   }
+   v.clear();
+
+
+   util::read_vector_from_file(v, params + "n_points_fft.txt");
+
+   epsilon = 1e-8;
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      auto ref = v[i];
+      auto real = indVoltFreq->fNPointsFFT;
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of indVoltFreq->fNPointsFFT failed on i "
+            << i << std::endl;
+   }
+   v.clear();
+
+   util::read_vector_from_file(v, params + "frequency_array_memory.txt");
+
+   // Only fist 1k elements of frequency_array_memory are tested
+   epsilon = 1e-8;
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      auto ref = v[i];
+      auto real = indVoltFreq->fFreqArrayMem[i];
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of indVoltFreq->fFreqArrayMem failed on i "
+            << i << std::endl;
+   }
+   v.clear();
+
+   util::read_vector_from_file(v, params + "time_array_memory.txt");
+
+   // Only fist 100 elements of frequency_array_memory are tested
+   epsilon = 1e-8;
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      auto ref = v[i];
+      auto real = indVoltFreq->fTimeArrayMem[i];
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of indVoltFreq->fTimeArrayMem failed on i "
+            << i << std::endl;
+   }
+   v.clear();
+
+
+}
 
 
 int main(int ac, char *av[])

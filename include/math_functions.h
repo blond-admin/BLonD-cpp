@@ -138,6 +138,8 @@ namespace mymath {
       gsl_fft_real_wavetable_free(real);
       gsl_fft_real_workspace_free(work);
    }
+   
+
 
    // Parameters are like python's numpy.fft.fft
    // @in:  input data
@@ -209,6 +211,23 @@ namespace mymath {
 
       gsl_fft_complex_wavetable_free(wave);
       gsl_fft_complex_workspace_free(work);
+   }
+
+   static inline void irfft(complex_vector_t in, f_vector_t &out)
+   {
+      assert(in.size() > 0);
+      
+      const uint n = in.size() % 2 == 0 ? in.size() - 2 : in.size() - 1;
+      
+      for(uint i = n; i>0; --i){
+         in.push_back(std::conj(in[i]));
+      }
+      
+      complex_vector_t temp;
+      mymath::ifft(in, in.size(), temp);
+
+      mymath::complex_to_real(temp, out);
+   
    }
 
 

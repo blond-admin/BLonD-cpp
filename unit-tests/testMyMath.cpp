@@ -264,6 +264,87 @@ TEST(testIRFFT, rfft_odd)
 
 }
 
+TEST(testIRFFT, irfft_big)
+{
+   std::string params = "../unit-tests/references/MyMath/fft/irfft/";
+
+   complex_vector_t in2;
+   f_vector_t out;
+   f_vector_t in1(10000);
+
+
+   for (uint i = 0; i < in1.size(); ++i) {
+      in1[i] = i;
+   }
+
+   mymath::rfft(in1, in1.size(), in2);
+
+   mymath::irfft(in2, out);
+
+   std::vector<ftype> v;
+
+   util::read_vector_from_file(v, params + "irfft1.txt");
+
+   ASSERT_EQ(v.size(), out.size());
+
+   ftype max = *max_element(out.begin(), out.end(),
+   [](ftype i, ftype j) {return fabs(i) < fabs(j);});
+   ftype epsilon = 1e-9 * max;
+
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      ftype ref = v[i];
+      ftype real = out[i];
+
+      ASSERT_NEAR(ref, real, epsilon)
+            << "Testing of irfft failed on i "
+            << i << std::endl;
+
+
+   }
+}
+
+
+TEST(testIRFFT, irfft_big2)
+{
+   
+   std::string params = "../unit-tests/references/MyMath/fft/irfft/";
+
+   complex_vector_t in(101);
+   f_vector_t out;
+
+
+   for (uint i = 0; i < in.size(); ++i) {
+      if(i < 100)
+         in[i] = complex_t(std::sin(i), std::sqrt(i));
+      else
+         in[i] = complex_t(std::sin(i), 0.0);
+   }
+
+   mymath::irfft(in, out);
+
+   std::vector<ftype> v;
+
+   util::read_vector_from_file(v, params + "irfft2.txt");
+
+   ASSERT_EQ(v.size(), out.size());
+
+   ftype max = *max_element(out.begin(), out.end(),
+   [](ftype i, ftype j) {return fabs(i) < fabs(j);});
+   ftype epsilon = 1e-9 * max;
+
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      ftype ref = v[i];
+      ftype real = out[i];
+
+      ASSERT_NEAR(ref, real, epsilon)
+            << "Testing of irfft failed on i "
+            << i << std::endl;
+
+
+   }
+   
+}
+
 
 
 TEST(testRFFT, rfft1)

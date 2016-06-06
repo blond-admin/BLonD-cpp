@@ -217,15 +217,20 @@ namespace mymath {
    // Inverse of rfft
    // @in: input vector which must be the result of a rfft
    // @out: irfft of input, always real
-   // Missing n: size of output 
+   // Missing n: size of output
+   // TODO fix this one!!  
    static inline void irfft(complex_vector_t in, f_vector_t &out)
    {
       assert(in.size() > 1);
 
       //const uint n = in.size() % 2 == 0 ? in.size() - 2 : in.size() - 1;
-      const uint n = in.back().imag() == 0 ? in.size() - 2 : in.size() - 1;
+      uint n = in.back().imag() == 0 ? in.size() - 2 : in.size() - 1;
+      //if((n + in.size()) % 2 ==1 )
+      //   n--;
+      //std::cout << "Imag part of last element is " << in.back().imag() << "\n";
       //in.size() - 1;
-
+      //const uint n = in.size() - 2;
+      
       for (uint i = n; i > 0; --i) {
          in.push_back(std::conj(in[i]));
       }

@@ -17,38 +17,41 @@
 const std::string datafiles =
    "../tests/input_files/TC5_Wake_impedance/";
 
-// Simulation parameters --------------------------------------------------------
-// Bunch parameters
-const long int N_b = (long int) 1e10;                          // Intensity
-const ftype tau_0 = 2e-9;                       // Initial bunch length, 4 sigma [s]
-// const particle_type particle = proton;
-// Machine and RF parameters
-const ftype C = 6911.56;                        // Machine circumference [m]
-const ftype p_i = 25.92e9;                      // Synchronous momentum [eV/c]
-//const ftype p_f = 460.005e9;                  // Synchronous momentum, final
-const long h = 4620;                            // Harmonic number
-const ftype V = 0.9e6;                          // RF voltage [V]
-const ftype dphi = 0;                           // Phase modulation/offset
-const ftype gamma_t = 1 / std::sqrt(0.00192);   // Transition gamma
-const ftype alpha = 1.0 / gamma_t / gamma_t;    // First order mom. comp. factor
-const int alpha_order = 1;
-const int n_sections = 1;
-// Tracking details
-
-int N_t = 2;    // Number of turns to track
-int N_p = 5000000;         // Macro-particles
-
-int n_threads = 1;
-int N_slices = 1 << 8; // = (2^8)
-
 GeneralParameters *GP;
 Beams *Beam;
 Slices *Slice;
 RfParameters *RfP;
 //RingAndRfSection *long_tracker;
 Resonators *resonator;
+int n_threads = 1;
+
+
 
 class testInducedVoltage : public ::testing::Test {
+public:
+   // Simulation parameters --------------------------------------------------------
+// Bunch parameters
+   const long int N_b = (long int) 1e10;                          // Intensity
+   const ftype tau_0 = 2e-9;                       // Initial bunch length, 4 sigma [s]
+// const particle_type particle = proton;
+// Machine and RF parameters
+   const ftype C = 6911.56;                        // Machine circumference [m]
+   const ftype p_i = 25.92e9;                      // Synchronous momentum [eV/c]
+//const ftype p_f = 460.005e9;                  // Synchronous momentum, final
+   const long h = 4620;                            // Harmonic number
+   const ftype V = 0.9e6;                          // RF voltage [V]
+   const ftype dphi = 0;                           // Phase modulation/offset
+   const ftype gamma_t = 1 / std::sqrt(0.00192);   // Transition gamma
+   const ftype alpha = 1.0 / gamma_t / gamma_t;    // First order mom. comp. factor
+   const int alpha_order = 1;
+   const int n_sections = 1;
+// Tracking details
+
+   int N_t = 2;    // Number of turns to track
+   int N_p = 5000000;         // Macro-particles
+
+   int N_slices = 1 << 8; // = (2^8)
+
 
 protected:
 
@@ -125,7 +128,33 @@ protected:
 
 };
 
-class testInducedVoltageFreq : public ::testing::Test {
+class testInducedVoltageSmall : public ::testing::Test {
+
+public:
+   // Simulation parameters --------------------------------------------------------
+// Bunch parameters
+   const long int N_b = (long int) 1e10;                          // Intensity
+   const ftype tau_0 = 2e-9;                       // Initial bunch length, 4 sigma [s]
+// const particle_type particle = proton;
+// Machine and RF parameters
+   const ftype C = 6911.56;                        // Machine circumference [m]
+   const ftype p_i = 25.92e9;                      // Synchronous momentum [eV/c]
+//const ftype p_f = 460.005e9;                  // Synchronous momentum, final
+   const long h = 4620;                            // Harmonic number
+   const ftype V = 0.9e6;                          // RF voltage [V]
+   const ftype dphi = 0;                           // Phase modulation/offset
+   const ftype gamma_t = 1 / std::sqrt(0.00192);   // Transition gamma
+   const ftype alpha = 1.0 / gamma_t / gamma_t;    // First order mom. comp. factor
+   const int alpha_order = 1;
+   const int n_sections = 1;
+// Tracking details
+
+   int N_t = 2;    // Number of turns to track
+   int N_p = 1000;         // Macro-particles
+
+   int n_threads = 1;
+   int N_slices = 1 << 5; // = (2^8)
+
 
 protected:
 
@@ -532,7 +561,7 @@ TEST_F(testInducedVoltage, totalInducedVoltageTrack)
 
 }
 
-TEST_F(testInducedVoltageFreq, constructor1)
+TEST_F(testInducedVoltage, Freq_constructor1)
 {
    std::vector<Intensity *> ImpSourceList({resonator});
 
@@ -583,7 +612,7 @@ TEST_F(testInducedVoltageFreq, constructor1)
 
 }
 
-TEST_F(testInducedVoltageFreq, constructor2)
+TEST_F(testInducedVoltage, Freq_constructor2)
 {
    std::vector<Intensity *> ImpSourceList({resonator});
 
@@ -684,7 +713,7 @@ TEST_F(testInducedVoltageFreq, constructor2)
 
 }
 
-TEST_F(testInducedVoltageFreq, sum_impedances1)
+TEST_F(testInducedVoltage, Freq_sum_impedances1)
 {
    std::vector<Intensity *> ImpSourceList({resonator});
 
@@ -714,7 +743,7 @@ TEST_F(testInducedVoltageFreq, sum_impedances1)
 }
 
 
-TEST_F(testInducedVoltageFreq, sum_impedances2)
+TEST_F(testInducedVoltage, Freq_sum_impedances2)
 {
    std::vector<Intensity *> ImpSourceList({resonator});
 
@@ -745,7 +774,7 @@ TEST_F(testInducedVoltageFreq, sum_impedances2)
 
 
 
-TEST_F(testInducedVoltageFreq, reprocess1)
+TEST_F(testInducedVoltage, Freq_reprocess1)
 {
    std::vector<Intensity *> ImpSourceList({resonator});
 
@@ -796,6 +825,38 @@ TEST_F(testInducedVoltageFreq, reprocess1)
             << i << std::endl;
    }
    v.clear();
+}
+
+
+TEST_F(testInducedVoltageSmall, Freq_induced_voltage_generation1)
+{
+   std::vector<Intensity *> ImpSourceList({resonator});
+
+   auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
+   Slice->track();
+
+   indVoltFreq->induced_voltage_generation();
+   //util::dump(indVoltFreq->fInducedVoltage.data(), 10, "irfft\n");
+   auto params = std::string("../unit-tests/references/Impedances/")
+                 + "InducedVoltage/InducedVoltageFreq/induced_voltage_generation1/";
+
+   std::vector<ftype> v;
+
+   util::read_vector_from_file(v, params + "induced_voltage.txt");
+
+   ASSERT_EQ(v.size(), indVoltFreq->fInducedVoltage.size());
+
+   auto epsilon = 1e-4;
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      auto ref = v[i];
+      ftype real = indVoltFreq->fInducedVoltage[i];
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of indVoltFreq->fInducedVoltage failed on i "
+            << i << std::endl;
+   }
+   v.clear();
+
+
 }
 
 

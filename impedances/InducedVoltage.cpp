@@ -318,13 +318,16 @@ InducedVoltageFreq::InducedVoltageFreq(
       fFreqArrayMem = mymath::rfftfreq(fNPointsFFT, timeResolution);
       fTotalImpedanceMem = complex_vector_t(fFreqArrayMem.size(), complex_t(0, 0));
 
-      fTimeArrayMem.reserve(fNTurnsMem * Slice->n_slices);
-      const ftype factor = Slice->edges[Slice->n_slices + 1] - Slice->edges[0];
+
+      fTimeArrayMem.reserve((fNTurnsMem + 1) * Slice->n_slices);
+      const ftype factor = Slice->edges[Slice->n_slices] - Slice->edges[0];
+
       for (uint i = 0; i < fNTurnsMem + 1; ++i) {
          for (uint j = 0; j < (uint) Slice->n_slices; ++j) {
             fTimeArrayMem.push_back(Slice->bin_centers[j] + factor * i);
          }
       }
+
 
       for (const auto &impObj : fImpedanceSourceList) {
          impObj->imped_calc(fFreqArrayMem);
@@ -373,7 +376,6 @@ void InducedVoltageFreq::sum_impedances(f_vector_t &freq_array)
 }
 
 
-// TODO test this function
 void InducedVoltageFreq::reprocess()
 {
    auto timeResolution = (Slice->bin_centers[1] - Slice->bin_centers[0]);
@@ -435,6 +437,7 @@ std::vector<ftype> InducedVoltageFreq::induced_voltage_generation(uint length)
    const auto factor = - GP->charge * constant::e *
                        Beam->ratio * Slice->fBeamSpectrumFreq[1]
                        * 2 * (Slice->fBeamSpectrum.size() - 1);
+
    if (fSaveIndividualVoltages) {
 
       for (uint i = 0; i < n; ++i) {
@@ -482,19 +485,33 @@ std::vector<ftype> InducedVoltageFreq::induced_voltage_generation(uint length)
       for (uint j = 0; j < in.size(); ++j) {
          in[j] = fTotalImpedance[j] * Slice->fBeamSpectrum[j];
       }
+
+      //util::dump(in.data(), 10, "product array\n");
+      //std::cout << "factor " << factor << "\n";
+      //std::cout << "in size is " << in.size() << std::endl;
       mymath::irfft(in, res);
+      //std::cout << "res size is " << res.size() << std::endl;
+      //util::dump(res.data(), 10, "irfft\n");
 
       assert((int) res.size() >= Slice->n_slices);
 
       res.resize((uint)Slice->n_slices);
 
+      std::transform(res.begin(),
+                     res.end(),
+                     res.begin(),
+                     std::bind1st(
+                        std::multiplies<ftype>(),
+                        factor));
+
       fInducedVoltage = res;
 
-      if (length > res.size())
-         res.resize(length, 0);
-      else
-         res.resize(length);
-
+      if (length > 0) {
+         if (length > res.size())
+            res.resize(length, 0);
+         else
+            res.resize(length);
+      }
       return res;
    }
 

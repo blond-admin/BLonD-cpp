@@ -107,6 +107,7 @@ add_library(blond SHARED ${SOURCE_FILES})
 add_executable(TC1_Acceleration tests/TC1_Acceleration.cpp)
 add_executable(LHC_restart tests/LHC_restart.cpp)
 add_executable(TC5_Wake_impedance tests/TC5_Wake_impedance.cpp)
+#add_executable(irfft_test tests/test.cpp)
 
 
 SET(LIBRARIES 
@@ -118,6 +119,7 @@ SET(LIBRARIES
 target_link_libraries(TC1_Acceleration ${LIBRARIES})
 target_link_libraries(LHC_restart ${LIBRARIES})
 target_link_libraries(TC5_Wake_impedance ${LIBRARIES})
+#target_link_libraries(irfft_test ${LIBRARIES})
 
 # Generate unit tests
 if(TEST_ENABLED)

@@ -173,12 +173,10 @@ TEST(testCumTrap, test1)
    */
 }
 
+// TODO
+// Test irfft a little further
 
-// TODO implement and irfft using ifft
-// Watch out for even - odd size
-// the following method works with odd size 
-// but not if you try to use 2 * size
-TEST(testRFFT, rfft_playing_even)
+TEST(testIRFFT, rfft_even)
 {
    //std::string params = "../unit-tests/references/MyMath/fft/";
 
@@ -189,34 +187,40 @@ TEST(testRFFT, rfft_playing_even)
    //in.resize(256);
    //mymath::linspace(in.data(), 0.f, 100.f, in.size());
 
-   in = {1, 2, 3, 4, 5, 6};
+   in = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
    //mymath::rfft(in, 2 * in.size(), out1);
    mymath::rfft(in, in.size(), out1);
 
-   util::dump(out1.data(), out1.size(), "rfft\n");
+   //util::dump(out1.data(), out1.size(), "rfft\n");
 
    mymath::real_to_complex(in, in2);
 
    mymath::fft(in2, in2.size(), out2);
    //mymath::fft(in2, 2 * in2.size(), out2);
-   util::dump(out2.data(), out2.size(), "fft\n");
+   //util::dump(out2.data(), out2.size(), "fft\n");
 
    mymath::ifft(out2, out2.size(), out3);
-   util::dump(out3.data(), out3.size(), "ifft after fft\n");
-
-//   uint n = out1.size() % 2 == 0 ? out1.size() - 1 : out1.size();
-//   for (uint i = n - 1; i > 0; --i) {
-//      out1.push_back(std::conj(out1[i]));
-//   }
+   //util::dump(out3.data(), out3.size(), "ifft after fft\n");
 
    mymath::irfft(out1, out4);
-   util::dump(out4.data(), out4.size(), "ifft after rfft\n");
+   //util::dump(out4.data(), out4.size(), "ifft after rfft\n");
 
+   ASSERT_EQ(out4.size(), out3.size());
+
+   auto epsilon = 1e-8;
+
+   for (uint i = 0; i < out3.size(); ++i) {
+      ftype ref = out3[i].real();
+      ftype real = out4[i];
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of out4 failed on i "
+            << i << std::endl;
+   }
 
 
 }
 
-TEST(testRFFT, rfft_playing_odd)
+TEST(testIRFFT, rfft_odd)
 {
    //std::string params = "../unit-tests/references/MyMath/fft/";
 
@@ -227,29 +231,35 @@ TEST(testRFFT, rfft_playing_odd)
    //in.resize(256);
    //mymath::linspace(in.data(), 0.f, 100.f, in.size());
 
-   in = {1, 2, 3, 4, 5};
+   in = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
    //mymath::rfft(in, 2 * in.size(), out1);
    mymath::rfft(in, in.size(), out1);
 
-   util::dump(out1.data(), out1.size(), "rfft\n");
+   //util::dump(out1.data(), out1.size(), "rfft\n");
 
    mymath::real_to_complex(in, in2);
 
    mymath::fft(in2, in2.size(), out2);
    //mymath::fft(in2, 2 * in2.size(), out2);
-   util::dump(out2.data(), out2.size(), "fft\n");
+   //util::dump(out2.data(), out2.size(), "fft\n");
 
    mymath::ifft(out2, out2.size(), out3);
-   util::dump(out3.data(), out3.size(), "ifft after fft\n");
-
-   //uint n = out1.size() % 2 == 0 ? out1.size() - 2 : out1.size() - 1;
-   //for (uint i = n - 1; i > 0; --i) {
-   //   out1.push_back(std::conj(out1[i]));
-   //}
+   //util::dump(out3.data(), out3.size(), "ifft after fft\n");
 
    mymath::irfft(out1, out4);
-   util::dump(out4.data(), out4.size(), "ifft after rfft\n");
+   //util::dump(out4.data(), out4.size(), "ifft after rfft\n");
 
+   ASSERT_EQ(out4.size(), out3.size());
+
+   auto epsilon = 1e-8;
+
+   for (uint i = 0; i < out3.size(); ++i) {
+      ftype ref = out3[i].real();
+      ftype real = out4[i];
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of out4 failed on i "
+            << i << std::endl;
+   }
 
 
 }

@@ -356,9 +356,9 @@ void InducedVoltageFreq::track()
 
 }
 
-// TODO test this function
 void InducedVoltageFreq::sum_impedances(f_vector_t &freq_array)
 {
+
    fTotalImpedance.resize(freq_array.size());
    std::fill(fTotalImpedance.begin(),
              fTotalImpedance.end(),
@@ -420,8 +420,12 @@ void InducedVoltageFreq::reprocess()
 
 }
 
+
+//TODO test this function
 std::vector<ftype> InducedVoltageFreq::induced_voltage_generation(uint length)
 {
+   //    Method to calculate the induced voltage from the inverse FFT of the
+   //    impedance times the spectrum (fourier convolution).
    if (fRecalculationImpedance)
       sum_impedances(fFreqArray);
 
@@ -470,7 +474,7 @@ std::vector<ftype> InducedVoltageFreq::induced_voltage_generation(uint length)
          fInducedVoltage[i] = sum;
       }
 
-      return std::vector<ftype>();
+      return f_vector_t();
 
    } else {
       f_vector_t res;

@@ -125,6 +125,79 @@ protected:
 
 };
 
+class testInducedVoltageFreq : public ::testing::Test {
+
+protected:
+
+   virtual void SetUp()
+   {
+
+      omp_set_num_threads(n_threads);
+
+      ftype *momentum = new ftype[N_t + 1];
+      std::fill_n(momentum, N_t + 1, p_i);
+
+      ftype *alpha_array = new ftype[(alpha_order + 1) * n_sections];
+      std::fill_n(alpha_array, (alpha_order + 1) * n_sections, alpha);
+
+      ftype *C_array = new ftype[n_sections];
+      std::fill_n(C_array, n_sections, C);
+
+      ftype *h_array = new ftype[n_sections * (N_t + 1)];
+      std::fill_n(h_array, (N_t + 1) * n_sections, h);
+
+      ftype *V_array = new ftype[n_sections * (N_t + 1)];
+      std::fill_n(V_array, (N_t + 1) * n_sections, V);
+
+      ftype *dphi_array = new ftype[n_sections * (N_t + 1)];
+      std::fill_n(dphi_array, (N_t + 1) * n_sections, dphi);
+
+      GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum,
+                                 proton);
+
+      Beam = new Beams(N_p, N_b);
+
+      RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
+
+      //RingAndRfSection *long_tracker = new RingAndRfSection();
+
+      longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
+
+      Slice = new Slices(N_slices, 0, 0, 2 * constant::pi, rad);
+      //util::dump(Slice->bin_centers, 10, "bin_centers\n");
+
+      std::vector<ftype> v;
+      util::read_vector_from_file(v, datafiles +
+                                  "TC5_new_HQ_table.dat");
+      assert(v.size() % 3 == 0);
+
+      std::vector<ftype> R_shunt, f_res, Q_factor;
+
+      R_shunt.reserve(v.size() / 3);
+      f_res.reserve(v.size() / 3);
+      Q_factor.reserve(v.size() / 3);
+
+      for (uint i = 0; i < v.size(); i += 3) {
+         f_res.push_back(v[i] * 1e9);
+         Q_factor.push_back(v[i + 1]);
+         R_shunt.push_back(v[i + 2] * 1e6);
+      }
+
+      resonator = new Resonators(R_shunt, f_res, Q_factor);
+   }
+
+
+   virtual void TearDown()
+   {
+      delete GP;
+      delete Beam;
+      delete RfP;
+      delete Slice;
+   }
+
+
+};
+
 
 TEST_F(testInducedVoltage, InducedVoltageTime_Constructor)
 {
@@ -459,11 +532,10 @@ TEST_F(testInducedVoltage, totalInducedVoltageTrack)
 
 }
 
-TEST_F(testInducedVoltage, InducedVoltageFreq_Constructor1)
+TEST_F(testInducedVoltageFreq, constructor1)
 {
-
    std::vector<Intensity *> ImpSourceList({resonator});
-   //wakeSourceList.push_back(resonator);
+
    auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
 
    auto params = std::string("../unit-tests/references/Impedances/")
@@ -511,11 +583,10 @@ TEST_F(testInducedVoltage, InducedVoltageFreq_Constructor1)
 
 }
 
-TEST_F(testInducedVoltage, InducedVoltageFreq_Constructor2)
+TEST_F(testInducedVoltageFreq, constructor2)
 {
-
    std::vector<Intensity *> ImpSourceList({resonator});
-   //wakeSourceList.push_back(resonator);
+
    auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5,
          round_option, 100);
 
@@ -612,6 +683,63 @@ TEST_F(testInducedVoltage, InducedVoltageFreq_Constructor2)
 
 
 }
+
+TEST_F(testInducedVoltageFreq, sum_impedances1)
+{
+   std::vector<Intensity *> ImpSourceList({resonator});
+
+   auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
+
+   auto freq_array = mymath::rfftfreq(Slice->n_slices);
+
+   indVoltFreq->sum_impedances(freq_array);
+
+   auto params = std::string("../unit-tests/references/Impedances/")
+                 + "InducedVoltage/InducedVoltageFreq/sum_impedances/";
+
+   std::vector<ftype> v;
+
+   util::read_vector_from_file(v, params + "total_impedance.txt");
+
+   auto epsilon = 1e-8;
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      auto ref = v[i];
+      auto real = std::abs(indVoltFreq->fTotalImpedance[i]);
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of indVoltFreq->fTotalImpedance failed on i "
+            << i << std::endl;
+   }
+}
+
+
+TEST_F(testInducedVoltageFreq, sum_impedances2)
+{
+   std::vector<Intensity *> ImpSourceList({resonator});
+
+   auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
+
+   auto freq_array = mymath::rfftfreq(Slice->n_slices,
+                                      Slice->bin_centers[1] - Slice->bin_centers[0]);
+
+   indVoltFreq->sum_impedances(freq_array);
+
+   auto params = std::string("../unit-tests/references/Impedances/")
+                 + "InducedVoltage/InducedVoltageFreq/sum_impedances2/";
+
+   std::vector<ftype> v;
+
+   util::read_vector_from_file(v, params + "total_impedance.txt");
+
+   auto epsilon = 1e-8;
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      auto ref = v[i];
+      auto real = std::abs(indVoltFreq->fTotalImpedance[i]);
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of indVoltFreq->fTotalImpedance failed on i "
+            << i << std::endl;
+   }
+}
+
 
 
 int main(int ac, char *av[])

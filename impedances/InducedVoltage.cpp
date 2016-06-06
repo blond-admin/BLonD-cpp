@@ -427,13 +427,73 @@ std::vector<ftype> InducedVoltageFreq::induced_voltage_generation(uint length)
 
    Slice->beam_spectrum_generation(fNFFTSampling);
 
-   if(fSaveIndividualVoltages){
-      for(uint i = 0; i < fImpedanceSourceList.size(); ++i){
-         // I need to implement an irfft :)
+   const auto n = fImpedanceSourceList.size();
+   const auto factor = - GP->charge * constant::e *
+                       Beam->ratio * Slice->fBeamSpectrumFreq[1]
+                       * 2 * (Slice->fBeamSpectrum.size() - 1);
+   if (fSaveIndividualVoltages) {
+
+      for (uint i = 0; i < n; ++i) {
+         f_vector_t res;
+         complex_vector_t in(Slice->fBeamSpectrum.size());
+
+         for (uint j = 0; j < in.size(); ++j) {
+            in[j] = fMatrixSaveIndividualImpedances[j * n + i]
+                    * Slice->fBeamSpectrum[j];
+         }
+
+         mymath::irfft(in, res);
+
+         assert((int) res.size() >= Slice->n_slices);
+
+         res.resize(Slice->n_slices);
+
+         std::transform(res.begin(),
+                        res.end(),
+                        res.begin(),
+                        std::bind1st(
+                           std::multiplies<ftype>(),
+                           factor));
+
+         for (uint j = 0; j < (uint) Slice->n_slices; ++j) {
+            fMatrixSaveIndividualVoltages[j * n + i] = res[j];
+         }
       }
+
+      fInducedVoltage.clear();
+      fInducedVoltage.resize(Slice->fBeamSpectrum.size());
+      for (uint i = 0; i < Slice->fBeamSpectrum.size(); ++i) {
+         ftype sum = 0.0;
+         for (uint j = 0; j < n; ++j) {
+            sum += fMatrixSaveIndividualVoltages[i * n + j];
+         }
+         fInducedVoltage[i] = sum;
+      }
+
+      return std::vector<ftype>();
+
+   } else {
+      f_vector_t res;
+      complex_vector_t in(Slice->fBeamSpectrum.size());
+      for (uint j = 0; j < in.size(); ++j) {
+         in[j] = fTotalImpedance[j] * Slice->fBeamSpectrum[j];
+      }
+      mymath::irfft(in, res);
+
+      assert((int) res.size() >= Slice->n_slices);
+
+      res.resize((uint)Slice->n_slices);
+
+      fInducedVoltage = res;
+
+      if (length > res.size())
+         res.resize(length, 0);
+      else
+         res.resize(length);
+
+      return res;
    }
 
-   return std::vector<ftype>();
 }
 
 

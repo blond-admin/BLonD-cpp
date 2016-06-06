@@ -701,6 +701,8 @@ TEST_F(testInducedVoltageFreq, sum_impedances1)
 
    util::read_vector_from_file(v, params + "total_impedance.txt");
 
+   ASSERT_EQ(v.size(), indVoltFreq->fTotalImpedance.size());
+
    auto epsilon = 1e-8;
    for (unsigned int i = 0; i < v.size(); ++i) {
       auto ref = v[i];
@@ -729,6 +731,7 @@ TEST_F(testInducedVoltageFreq, sum_impedances2)
    std::vector<ftype> v;
 
    util::read_vector_from_file(v, params + "total_impedance.txt");
+   ASSERT_EQ(v.size(), indVoltFreq->fTotalImpedance.size());
 
    auto epsilon = 1e-8;
    for (unsigned int i = 0; i < v.size(); ++i) {
@@ -738,6 +741,61 @@ TEST_F(testInducedVoltageFreq, sum_impedances2)
             << "Testing of indVoltFreq->fTotalImpedance failed on i "
             << i << std::endl;
    }
+}
+
+
+
+TEST_F(testInducedVoltageFreq, reprocess1)
+{
+   std::vector<Intensity *> ImpSourceList({resonator});
+
+   auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
+
+   for (int i = 0; i < Slice->n_slices; ++i) {
+      Slice->bin_centers[i] = 1.1 * Slice->bin_centers[i];
+   }
+
+   indVoltFreq->reprocess();
+
+   auto params = std::string("../unit-tests/references/Impedances/")
+                 + "InducedVoltage/InducedVoltageFreq/reprocess1/";
+
+   std::vector<ftype> v;
+
+   util::read_vector_from_file(v, params + "n_fft_sampling.txt");
+   auto epsilon = 1e-8;
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      auto ref = v[i];
+      auto real = indVoltFreq->fNFFTSampling;
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of indVoltFreq->fNFFTSampling failed on i "
+            << i << std::endl;
+   }
+   v.clear();
+
+   util::read_vector_from_file(v, params + "frequency_resolution.txt");
+
+   epsilon = 1e-8;
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      auto ref = v[i];
+      auto real = indVoltFreq->fFreqResolution;
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of indVoltFreq->fFreqResolution failed on i "
+            << i << std::endl;
+   }
+   v.clear();
+
+   util::read_vector_from_file(v, params + "frequency_array.txt");
+   // only first 1k elements of frequency_array are tested
+   epsilon = 1e-8;
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      auto ref = v[i];
+      auto real = indVoltFreq->fFreqArray[i];
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of indVoltFreq->fFreqArray failed on i "
+            << i << std::endl;
+   }
+   v.clear();
 }
 
 

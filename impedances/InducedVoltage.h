@@ -106,9 +106,8 @@ public:
    complex_vector_t fTotalImpedanceMem;
    f_vector_t fTimeArrayMem;
 
-   // Do we need this?
    // *Induced voltage from the sum of the wake sources in [V]*
-   f_vector_t fInducedVoltage;
+   //f_vector_t fInducedVoltage;
 
    // and many more! //
 

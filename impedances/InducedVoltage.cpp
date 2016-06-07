@@ -36,6 +36,9 @@ inline void InducedVoltage::linear_interp_kick(
    for (int i = 0; i < n_macroparticles; i++) {
       const ftype a = beam_dt[i];
       const int ffbin = static_cast<int>((a - binFirst) * inv_bin_width);
+      // if(ffbin > 100)
+      //    std::cout << "ffbin : " <<ffbin << "\n";
+      //const ftype voltageKick = 0.1L;
       const ftype voltageKick = ((a < binFirst) || (a > binLast)) ?
                                 0 : voltage_array[ffbin] + (a - bin_centers[ffbin])
                                 * (voltage_array[ffbin + 1] - voltage_array[ffbin])
@@ -503,6 +506,7 @@ std::vector<ftype> InducedVoltageFreq::induced_voltage_generation(uint length)
                         factor));
 
       fInducedVoltage = res;
+      // std::cout << "fInducedVoltage : " << fInducedVoltage.size() << "\n";
 
       if (length > 0) {
          if (length > res.size())
@@ -510,7 +514,12 @@ std::vector<ftype> InducedVoltageFreq::induced_voltage_generation(uint length)
          else
             res.resize(length);
       }
+      //std::cout << "fInducedVoltage : " << fInducedVoltage.size() << "\n";
+
+      //std::cout << "res size : " << res.size() << "\n";
       return res;
+      //return f_vector_t();
+      
    }
 
 }
@@ -541,6 +550,9 @@ void TotalInducedVoltage::track()
                                GP->charge));
    //std::cout << "I am here\n";
 
+   // std::cout << "beam size : " << Beam->dt.size() << "\n";
+   // std::cout << "v size : " << v.size() << "\n";
+
    linear_interp_kick(Beam->dt.data(), Beam->dE.data(), v.data(),
                       Slice->bin_centers, Slice->n_slices,
                       Beam->n_macroparticles, 0.0);
@@ -565,8 +577,9 @@ std::vector<ftype> TotalInducedVoltage::induced_voltage_sum(uint length)
    std::vector<ftype> extIndVolt;
 
    for (auto &v : fInducedVoltageList) {
-      std::vector<ftype> a;
-      a = v->induced_voltage_generation(length);
+      auto a = v->induced_voltage_generation(length);
+
+      //std::cout << "fInducedVoltage size = " << v->fInducedVoltage.size() << std::endl;
       //std::cout << "a size is " << a.size() << '\n';
       if (length > 0) {
          extIndVolt.resize(a.size(), 0);
@@ -581,7 +594,6 @@ std::vector<ftype> TotalInducedVoltage::induced_voltage_sum(uint length)
    }
 
    fInducedVoltage = tempIndVolt;
-   //std::cout << "extIndVolt size = " << extIndVolt.size() << std::endl;
    return extIndVolt;
 
 

@@ -35,8 +35,8 @@ const int alpha_order = 1;
 const int n_sections = 1;
 // Tracking details
 
-unsigned N_t = 2;    // Number of turns to track
-unsigned N_p = 5000000;         // Macro-particles
+unsigned N_t = 100;    // Number of turns to track
+unsigned N_p = 500;         // Macro-particles
 
 int n_threads = 1;
 unsigned N_slices = 1 << 8; // = (2^8)
@@ -48,7 +48,7 @@ RfParameters *RfP;
 RingAndRfSection *long_tracker;
 Resonators *resonator;
 
-class testInducedVoltage : public ::testing::Test {
+class testTC5 : public ::testing::Test {
 
 protected:
 
@@ -128,7 +128,7 @@ protected:
 
 
 
-TEST_F(testInducedVoltage, totalInducedVoltageTrack)
+TEST_F(testTC5, timeTrack)
 {
 
    //Slice->track(0, Beam->n_macroparticles);
@@ -150,7 +150,7 @@ TEST_F(testInducedVoltage, totalInducedVoltageTrack)
    }
 
    auto params = std::string("../unit-tests/references/")
-                 + "TC5_final/";
+                 + "TC5_final/time/";
 
    std::vector<ftype> v;
    util::read_vector_from_file(v, params + "dE.txt");
@@ -160,7 +160,6 @@ TEST_F(testInducedVoltage, totalInducedVoltageTrack)
    ASSERT_EQ(v.size(), res.size());
 
    ftype epsilon = 1e-8;
-   // warning checking only the first 100 elems
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
       ftype real = res[i];
@@ -180,7 +179,6 @@ TEST_F(testInducedVoltage, totalInducedVoltageTrack)
    ASSERT_EQ(v.size(), res.size());
 
    epsilon = 1e-8;
-   // warning checking only the first 100 elems
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
       ftype real = res[i];
@@ -210,9 +208,91 @@ TEST_F(testInducedVoltage, totalInducedVoltageTrack)
             << i << std::endl;
    }
 
+}
+
+
+
+TEST_F(testTC5, freqTrack)
+{
+
+
+   std::vector<Intensity *> ImpSourceList({resonator});
+   auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
+   std::vector<InducedVoltage *> indVoltList({indVoltFreq});
+
+
+   TotalInducedVoltage *totVol = new TotalInducedVoltage(indVoltList);
+
+
+   for (unsigned i = 0; i < N_t; ++i) {
+      totVol->track();
+      long_tracker->track();
+      Slice->track();
+   }
+
+   auto params = std::string("../unit-tests/references/")
+                 + "TC5_final/freq/";
+
+   std::vector<ftype> v;
+   util::read_vector_from_file(v, params + "dE.txt");
+
+   // WARNING checking only the fist 500 elems
+   std::vector<ftype> res(Beam->dE.data(), Beam->dE.data() + 500);
+   ASSERT_EQ(v.size(), res.size());
+
+   ftype epsilon = 1e-8;
+   // warning checking only the first 100 elems
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      ftype ref = v[i];
+      ftype real = res[i];
+
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of Beam->dE failed on i "
+            << i << std::endl;
+   }
+
+
+   v.clear();
+   res.clear();
+   util::read_vector_from_file(v, params + "dt.txt");
+
+   // WARNING checking only the fist 500 elems
+   res = std::vector<ftype>(Beam->dt.data(), Beam->dt.data() + 500);
+   ASSERT_EQ(v.size(), res.size());
+
+   epsilon = 1e-8;
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      ftype ref = v[i];
+      ftype real = res[i];
+
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of Beam->dt failed on i "
+            << i << std::endl;
+   }
+
+   v.clear();
+   res.clear();
+   util::read_vector_from_file(v, params + "n_macroparticles.txt");
+
+   // WARNING checking only the fist 500 elems
+   res = std::vector<ftype>(Slice->n_macroparticles,
+                            Slice->n_macroparticles + Slice->n_slices);
+   ASSERT_EQ(v.size(), res.size());
+
+   epsilon = 1e-8;
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      ftype ref = v[i];
+      ftype real = res[i];
+
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of Slice->n_macroparticles failed on i "
+            << i << std::endl;
+   }
+
 
 
 }
+
 
 
 

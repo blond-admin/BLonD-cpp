@@ -30,7 +30,7 @@ endif()
 #set(CMAKE_BUILD_TYPE Release)
 if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
       set(CMAKE_CXX_FLAGS         "-std=c++11 -fopenmp -Wall -pedantic -fno-rtti -Wunused")
-      set(CMAKE_CXX_FLAGS_DEBUG   "-O0 -g3")
+      set(CMAKE_CXX_FLAGS_DEBUG   "-O0 -g3") #-fsanitize=address")
       set(CMAKE_CXX_FLAGS_RELEASE "-march=native")
       
       #CHECK_CXX_COMPILER_FLAG(-ffast-math COMPILER_HAS_FAST_MATH)

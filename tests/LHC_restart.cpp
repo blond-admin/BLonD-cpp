@@ -287,14 +287,14 @@ void parse_args(int argc, char **argv)
          "Options:"
       },
       {  HELP, 0, "h", "help", Arg::None,                "  --help,              -h        Print usage and exit." },
-      {N_TURNS, 0, "t", "turns", util::Arg::Numeric,        "  --turns=<num>,       -t <num>  Number of turns (default: 10k)" },
-      {N_PARTICLES, 0, "p", "particles", util::Arg::Numeric,   "  --particles=<num>,   -p <num>  Number of particles (default: 10k)" },
-      {N_SLICES, 0, "s", "slices", util::Arg::Numeric,      "  --slices=<num>,      -s <num>  Number of slices (default: 100)" },
+      {N_TURNS, 0, "t", "turns", util::Arg::Numeric,        "  --turns=<num>,       -t <num>  Number of turns (default: 1M)" },
+      {N_PARTICLES, 0, "p", "particles", util::Arg::Numeric,   "  --particles=<num>,   -p <num>  Number of particles (default: 100k)" },
+      {N_SLICES, 0, "s", "slices", util::Arg::Numeric,      "  --slices=<num>,      -s <num>  Number of slices (default: 151)" },
       {N_THREADS, 0, "m", "threads", util::Arg::Numeric,       "  --threads=<num>,     -m <num>  Number of threads (default: 1)" },
       {
          UNKNOWN, 0, "", "", Arg::None,                  "\nExamples:\n"
          "\t./LHC_restart\n"
-         "\t./LHC_restart -t 1000 -p 10000 -m 4\n"
+         "\t./LHC_restart -t 1000000 -p 100000 -m 4\n"
       },
       {0, 0, 0, 0, 0, 0}
    };

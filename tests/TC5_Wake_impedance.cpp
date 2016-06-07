@@ -129,6 +129,23 @@ int main(int argc, char **argv)
    }
 
    Resonators *resonator = new Resonators(R_shunt, f_res, Q_factor);
+
+   /*
+   std::vector<Intensity *> ImpSourceList({resonator});
+
+   auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
+
+   auto freq_array = mymath::rfftfreq(Slice->n_slices,
+                                      Slice->bin_centers[1] - Slice->bin_centers[0]);
+
+   indVoltFreq->sum_impedances(freq_array);
+   auto sum = 0.0;
+   for (unsigned int i = 0; i < indVoltFreq->fTotalImpedance.size(); ++i) {
+      sum += std::abs(indVoltFreq->fTotalImpedance[i]);
+   }
+   std::cout << "sum : " << sum << "\n";
+   */
+   
    std::vector<Intensity *> wakeSourceList({resonator});
    InducedVoltageTime *indVoltTime = new InducedVoltageTime(wakeSourceList);
    std::vector<InducedVoltage *> indVoltList({indVoltTime});
@@ -180,6 +197,7 @@ int main(int argc, char **argv)
    delete resonator;
    delete indVoltTime;
    delete totVol;
+   
    printf("Done!\n");
 
 }

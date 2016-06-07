@@ -11,6 +11,7 @@
 #include <cmath>
 #include "sin.h"
 #include  <cassert>
+#include "utilities.h"
 #include "configuration.h"
 #include <gsl/gsl_interp.h>
 #include <gsl/gsl_fft_real.h>
@@ -71,7 +72,7 @@ namespace mymath {
    {
       assert(out.empty());
       for (unsigned int i = 0; i < in.size(); i += 2) {
-         complex_t z(in[i], in[i + 1]);
+         //complex_t z(in[i], in[i + 1]);
          out.push_back(complex_t(in[i], in[i + 1]));
       }
 
@@ -108,11 +109,12 @@ namespace mymath {
    //       if n > in.size() then input is padded with zeros
    // @out: the transformed array
 
-   static inline void rfft(std::vector<ftype> &in, const unsigned int n,
+   static inline void rfft(const std::vector<ftype> &in, const unsigned int n,
                            std::vector<complex_t> &out)
    {
-      std::vector<ftype> v(in);
+      auto v = in;
       v.resize(n, 0);
+      //in.resize(n, 0.0);
 
       gsl_fft_real_wavetable *real;
       gsl_fft_real_workspace *work;
@@ -121,20 +123,23 @@ namespace mymath {
       real = gsl_fft_real_wavetable_alloc(n);
 
       gsl_fft_real_transform(v.data(), 1, n, real, work);
-      //printf("result data %lu \n",v.size() );
+
       // unpack result into complex format
+
       out.clear();
-      out.push_back(complex_t(v[0], 0));
-      //v.back() = 0;
-      for (unsigned int i = 1; i < v.size(); i += 2) {
-         out.push_back(complex_t(v[i], v[i + 1]));
-      }
-      //out.push_back(complex_t(v.back(), 0));
-      // TODO if n is even then last element is zero ??
+      out.reserve(v.size() / 2);
+      // first element is real => imag is zero
+      v.insert(v.begin() + 1, 0.0);
+
+      // if n is even => last element is real 
       if (n % 2 == 0)
-         out.back() = complex_t(out.back().real(), 0);
-      //printf("out size %lu \n", out.size());
-      //out.push_back(complex_t(v.back(), 0));
+         v.push_back(0.0);
+
+      //util::dump(v.data(), v.size(), "result\n");
+
+      assert(v.size() % 2 == 0);
+
+      pack_to_complex(v, out);
 
       gsl_fft_real_wavetable_free(real);
       gsl_fft_real_workspace_free(work);

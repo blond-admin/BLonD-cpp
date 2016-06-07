@@ -101,14 +101,10 @@ endforeach()
 # SHARED for dynamic LINKING
 # STATIC for static LINKING
 add_library(blond SHARED ${SOURCE_FILES})
-#add_library(gsl SHARED)
-#add_library(gslcblas SHARED IMPORTED)
     
 add_executable(TC1_Acceleration tests/TC1_Acceleration.cpp)
 add_executable(LHC_restart tests/LHC_restart.cpp)
 add_executable(TC5_Wake_impedance tests/TC5_Wake_impedance.cpp)
-#add_executable(irfft_test tests/test.cpp)
-
 
 SET(LIBRARIES 
    blond
@@ -119,7 +115,6 @@ SET(LIBRARIES
 target_link_libraries(TC1_Acceleration ${LIBRARIES})
 target_link_libraries(LHC_restart ${LIBRARIES})
 target_link_libraries(TC5_Wake_impedance ${LIBRARIES})
-#target_link_libraries(irfft_test ${LIBRARIES})
 
 # Generate unit tests
 if(TEST_ENABLED)
@@ -137,6 +132,7 @@ if(TEST_ENABLED)
         unit-tests/testInputTableIntensity.cpp
         unit-tests/testInducedVoltage.cpp
         unit-tests/testTC5_Wake_impedance.cpp
+        unit-tests/testInducedVoltageFreq.cpp
     )
 
     foreach(src ${TEST_SOURCE_FILES})

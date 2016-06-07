@@ -28,7 +28,8 @@ int n_threads = 1;
 
 
 class testInducedVoltage : public ::testing::Test {
-public:
+
+protected:
    // Simulation parameters --------------------------------------------------------
 // Bunch parameters
    const long int N_b = (long int) 1e10;                          // Intensity
@@ -51,9 +52,6 @@ public:
    int N_p = 5000000;         // Macro-particles
 
    int N_slices = 1 << 8; // = (2^8)
-
-
-protected:
 
    virtual void SetUp()
    {
@@ -128,6 +126,7 @@ protected:
 
 };
 
+/*
 class testInducedVoltageSmall : public ::testing::Test {
 
 public:
@@ -226,6 +225,7 @@ protected:
 
 
 };
+*/
 
 
 TEST_F(testInducedVoltage, InducedVoltageTime_Constructor)
@@ -561,6 +561,7 @@ TEST_F(testInducedVoltage, totalInducedVoltageTrack)
 
 }
 
+
 TEST_F(testInducedVoltage, Freq_constructor1)
 {
    std::vector<Intensity *> ImpSourceList({resonator});
@@ -611,6 +612,8 @@ TEST_F(testInducedVoltage, Freq_constructor1)
 
 
 }
+
+
 
 TEST_F(testInducedVoltage, Freq_constructor2)
 {
@@ -713,11 +716,17 @@ TEST_F(testInducedVoltage, Freq_constructor2)
 
 }
 
+
+
 TEST_F(testInducedVoltage, Freq_sum_impedances1)
 {
+   
    std::vector<Intensity *> ImpSourceList({resonator});
 
    auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
+
+
+   //f_vector_t freq_array(100, 0.0);
 
    auto freq_array = mymath::rfftfreq(Slice->n_slices);
 
@@ -740,8 +749,10 @@ TEST_F(testInducedVoltage, Freq_sum_impedances1)
             << "Testing of indVoltFreq->fTotalImpedance failed on i "
             << i << std::endl;
    }
+   
 }
 
+/*
 
 TEST_F(testInducedVoltage, Freq_sum_impedances2)
 {
@@ -827,7 +838,9 @@ TEST_F(testInducedVoltage, Freq_reprocess1)
    v.clear();
 }
 
+*/
 
+/*
 TEST_F(testInducedVoltageSmall, Freq_induced_voltage_generation1)
 {
    std::vector<Intensity *> ImpSourceList({resonator});
@@ -858,6 +871,7 @@ TEST_F(testInducedVoltageSmall, Freq_induced_voltage_generation1)
 
 
 }
+*/
 
 
 

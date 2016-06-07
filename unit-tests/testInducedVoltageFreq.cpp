@@ -271,7 +271,7 @@ TEST_F(testInducedVoltageFreq, constructor2)
 
 TEST_F(testInducedVoltageFreq, sum_impedances1)
 {
-   
+
    std::vector<Intensity *> ImpSourceList({resonator});
 
    auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
@@ -297,7 +297,7 @@ TEST_F(testInducedVoltageFreq, sum_impedances1)
             << "Testing of indVoltFreq->fTotalImpedance failed on i "
             << i << std::endl;
    }
-   
+
 }
 
 
@@ -404,12 +404,73 @@ TEST_F(testInducedVoltageFreq, induced_voltage_generation1)
 
    ASSERT_EQ(v.size(), indVoltFreq->fInducedVoltage.size());
 
-   auto epsilon = 1e-4;
+   auto epsilon = 1e-8;
    for (unsigned int i = 0; i < v.size(); ++i) {
       auto ref = v[i];
       ftype real = indVoltFreq->fInducedVoltage[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
             << "Testing of indVoltFreq->fInducedVoltage failed on i "
+            << i << std::endl;
+   }
+   v.clear();
+}
+
+TEST_F(testInducedVoltageFreq, track1)
+{
+   std::vector<Intensity *> ImpSourceList({resonator});
+
+   auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
+   Slice->track();
+
+   indVoltFreq->track();
+   auto params = std::string("../unit-tests/references/Impedances/")
+                 + "InducedVoltage/InducedVoltageFreq/track1/";
+
+   std::vector<ftype> v;
+
+   util::read_vector_from_file(v, params + "beam_dE.txt");
+
+   //ASSERT_EQ(v.size(), Beam->dE.size());
+   // only testing 1k particles
+
+   auto epsilon = 1e-8;
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      auto ref = v[i];
+      ftype real = Beam->dE[i];
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of Beam->dE failed on i "
+            << i << std::endl;
+   }
+   v.clear();
+}
+
+
+TEST_F(testInducedVoltageFreq, track2)
+{
+   std::vector<Intensity *> ImpSourceList({resonator});
+
+   auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
+   Slice->track();
+
+   for (auto i = 0; i < 10; i++)
+      indVoltFreq->track();
+
+   auto params = std::string("../unit-tests/references/Impedances/")
+                 + "InducedVoltage/InducedVoltageFreq/track2/";
+
+   std::vector<ftype> v;
+
+   util::read_vector_from_file(v, params + "beam_dE.txt");
+
+   //ASSERT_EQ(v.size(), Beam->dE.size());
+   // only testing 1k particles
+
+   auto epsilon = 1e-8;
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      auto ref = v[i];
+      ftype real = Beam->dE[i];
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of Beam->dE failed on i "
             << i << std::endl;
    }
    v.clear();

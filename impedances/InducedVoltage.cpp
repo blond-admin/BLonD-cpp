@@ -343,7 +343,6 @@ InducedVoltageFreq::InducedVoltageFreq(
 
 }
 
-// TODO test this function
 void InducedVoltageFreq::track()
 {
    // Tracking Method
@@ -423,7 +422,6 @@ void InducedVoltageFreq::reprocess()
 }
 
 
-//TODO test this function
 std::vector<ftype> InducedVoltageFreq::induced_voltage_generation(uint length)
 {
    //    Method to calculate the induced voltage from the inverse FFT of the

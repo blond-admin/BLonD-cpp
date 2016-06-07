@@ -10,6 +10,7 @@
 
 #include <cmath>
 #include "sin.h"
+#include  <cassert>
 #include "configuration.h"
 #include <gsl/gsl_interp.h>
 #include <gsl/gsl_fft_real.h>
@@ -218,35 +219,40 @@ namespace mymath {
    // @in: input vector which must be the result of a rfft
    // @out: irfft of input, always real
    // Missing n: size of output
-   // TODO fix this one!!  
-   static inline void irfft(complex_vector_t in, f_vector_t &out)
+   // TODO fix this one!!
+   static inline void irfft(complex_vector_t in, f_vector_t &out, uint n = 0)
    {
       assert(in.size() > 1);
 
-      //const uint n = in.size() % 2 == 0 ? in.size() - 2 : in.size() - 1;
-      uint n = in.back().imag() == 0 ? in.size() - 2 : in.size() - 1;
-      //if((n + in.size()) % 2 ==1 )
-      //   n--;
-      //std::cout << "Imag part of last element is " << in.back().imag() << "\n";
-      //in.size() - 1;
-      //const uint n = in.size() - 2;
-      
-      for (uint i = n; i > 0; --i) {
+      uint last = in.size() - 2;
+      n = (n == 0) ? 2 * (in.size() - 1) : n;
+
+      if (n == 2 * in.size() - 1) {
+         last = in.size() - 1;
+      } else if (n == 2 * (in.size() - 1)) {
+         ;
+      } else {
+         std::cerr << "[mymath::ifft] Size not supported!\n"
+                   << "[mymath::ifft] default size: " << n
+                   << " will be used\n";
+      }
+
+      for (uint i = last; i > 0; --i) {
          in.push_back(std::conj(in[i]));
       }
 
       complex_vector_t temp;
-      mymath::ifft(in, in.size(), temp);
+      mymath::ifft(in, n, temp);
 
       mymath::complex_to_real(temp, out);
 
    }
 
 
-   // Same as python's numpy.fft.rfftfreq
-   // @ n: window length
-   // @ d (optional) : Sample spacing
-   // @return: A vector of length (n div 2) + 1 of the sample frequencies
+// Same as python's numpy.fft.rfftfreq
+// @ n: window length
+// @ d (optional) : Sample spacing
+// @return: A vector of length (n div 2) + 1 of the sample frequencies
    static inline f_vector_t rfftfreq(const uint n, const ftype d = 1.0)
    {
       f_vector_t v(n / 2 + 1);
@@ -259,13 +265,13 @@ namespace mymath {
    }
 
 
-   // Parameters are like python's np.interp
-   // @x: x-coordinates of the interpolated values
-   // @xp: The x-coords of the data points
-   // @fp: the y-coords of the data points
-   // @y: the interpolated values, same shape as x
-   // @left: value to return for x < xp[0]
-   // @right: value to return for x > xp[last]
+// Parameters are like python's np.interp
+// @x: x-coordinates of the interpolated values
+// @xp: The x-coords of the data points
+// @fp: the y-coords of the data points
+// @y: the interpolated values, same shape as x
+// @left: value to return for x < xp[0]
+// @right: value to return for x > xp[last]
    static inline void lin_interp(const std::vector<ftype> &x, const std::vector<ftype> &xp,
                                  const std::vector<ftype> &fp, std::vector<ftype> &y,
                                  const ftype left = 0, const ftype right = 0)

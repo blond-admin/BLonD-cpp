@@ -9,7 +9,13 @@
 #include "utilities.h"
 #include "constants.h"
 #include "configuration.h"
+#include "globals.h"
 
+GeneralParameters *GP;
+Beams *Beam;
+RfParameters *RfP;
+Slices *Slice;
+int n_threads = 1;
 
 TEST(testLinspace, test1)
 {

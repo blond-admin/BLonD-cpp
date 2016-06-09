@@ -195,17 +195,17 @@ TEST(testIRFFT, rfft_even)
 
    in = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
    //mymath::rfft(in, 2 * in.size(), out1);
-   mymath::rfft(in, in.size(), out1);
+   mymath::rfft(in, out1, in.size());
 
    //util::dump(out1.data(), out1.size(), "rfft\n");
 
    mymath::real_to_complex(in, in2);
 
-   mymath::fft(in2, in2.size(), out2);
+   mymath::fft(in2, out2, in2.size());
    //mymath::fft(in2, 2 * in2.size(), out2);
    //util::dump(out2.data(), out2.size(), "fft\n");
 
-   mymath::ifft(out2, out2.size(), out3);
+   mymath::ifft(out2, out3, out2.size());
    //util::dump(out3.data(), out3.size(), "ifft after fft\n");
 
    mymath::irfft(out1, out4);
@@ -239,17 +239,17 @@ TEST(testIRFFT, rfft_odd)
 
    in = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
    //mymath::rfft(in, 2 * in.size(), out1);
-   mymath::rfft(in, in.size(), out1);
+   mymath::rfft(in, out1, in.size());
 
    //util::dump(out1.data(), out1.size(), "rfft\n");
 
    mymath::real_to_complex(in, in2);
 
-   mymath::fft(in2, in2.size(), out2);
+   mymath::fft(in2, out2, in2.size());
    //mymath::fft(in2, 2 * in2.size(), out2);
    //util::dump(out2.data(), out2.size(), "fft\n");
 
-   mymath::ifft(out2, out2.size(), out3);
+   mymath::ifft(out2, out3, out2.size());
    //util::dump(out3.data(), out3.size(), "ifft after fft\n");
 
    mymath::irfft(out1, out4, 15);
@@ -283,7 +283,7 @@ TEST(testIRFFT, irfft_big)
       in1[i] = i;
    }
 
-   mymath::rfft(in1, in1.size(), in2);
+   mymath::rfft(in1,  in2, in1.size());
 
    mymath::irfft(in2, out);
 
@@ -312,7 +312,7 @@ TEST(testIRFFT, irfft_big)
 
 TEST(testIRFFT, irfft_big2)
 {
-   
+
    std::string params = "../unit-tests/references/MyMath/fft/irfft/";
 
    complex_vector_t in(101);
@@ -320,7 +320,7 @@ TEST(testIRFFT, irfft_big2)
 
 
    for (uint i = 0; i < in.size(); ++i) {
-      if(i < 100)
+      if (i < 100)
          in[i] = complex_t(std::sin(i), std::sqrt(i));
       else
          in[i] = complex_t(std::sin(i), 0.0);
@@ -348,12 +348,12 @@ TEST(testIRFFT, irfft_big2)
 
 
    }
-   
+
 }
 
 TEST(testIRFFT, irfft_test)
 {
-   
+
    std::string params = "../unit-tests/references/MyMath/fft/irfft/";
 
    complex_vector_t in(101);
@@ -361,7 +361,7 @@ TEST(testIRFFT, irfft_test)
 
 
    for (uint i = 0; i < in.size(); ++i) {
-      if(i < 100)
+      if (i < 100)
          in[i] = complex_t(std::sin(i), std::sqrt(i));
       else
          in[i] = complex_t(std::sin(i), 0.0);
@@ -389,7 +389,7 @@ TEST(testIRFFT, irfft_test)
 
 
    }
-   
+
 }
 
 
@@ -403,7 +403,7 @@ TEST(testRFFT, rfft1)
    std::vector<complex_t> out;
    in.resize(256);
    mymath::linspace(in.data(), 0.f, 100.f, in.size());
-   mymath::rfft(in, 512, out);
+   mymath::rfft(in,  out, 512);
 
    util::read_vector_from_file(v, params + "rfft1_real.txt");
 
@@ -452,7 +452,7 @@ TEST(testRFFT, rfft2)
 
    in.resize(256);
    mymath::linspace(in.data(), 0.f, 1000.f, in.size());
-   mymath::rfft(in, 256, out);
+   mymath::rfft(in, out,  256);
 
    util::read_vector_from_file(v, params + "rfft2_real.txt");
 
@@ -506,10 +506,10 @@ TEST(testRFFT, irfft)
    mymath::real_to_complex(b, bz);
    //printf("ok here\n");
 
-   mymath::fft(az, 512, az);
+   mymath::fft(az, az, 512);
    //printf("ok here\n");
 
-   mymath::fft(bz, 512, bz);
+   mymath::fft(bz, bz, 512);
 
    std::transform(az.begin(), az.end(), bz.begin(),
                   az.begin(), std::multiplies<complex_t>());
@@ -520,7 +520,7 @@ TEST(testRFFT, irfft)
    //   printf("outA * outB: %+.8e\n", std::abs(outA[i]));
    //}
    //az.clear();
-   mymath::ifft(az, 512, az);
+   mymath::ifft(az, az, 512);
    //util::dump(a.data(), 10, "inverse complex fft");
    //printf("ok here\n");
 

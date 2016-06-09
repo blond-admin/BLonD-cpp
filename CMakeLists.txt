@@ -51,10 +51,14 @@ endif()
 find_package(OpenMP REQUIRED)
 find_package(GSL REQUIRED)
 
+SET(LIBRARIES blond gsl gslcblas m)
+
+
 if(USE_FFTW)
    message(STATUS "using fftw")
    find_path(FFTW_INCLUDES fftw3.h)
    find_library(FFTW_LIBRARIES NAMES fftw3 libfftw3)
+   #list(APPEND ${LIBRARIES} fftw3 fftw3_omp)
    set(LIBRARIES "${LIBRARIES} -lfftw3 -lfftw3_omp")
    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DUSE_FFTW")
    #string(CONCAT ${LIBRARIES} ${LIBRARIES} "rfftw fftw")
@@ -78,7 +82,6 @@ if(TEST_ENABLED)
    add_library(googletest ${GOOGLETEST_SOURCES})
 endif()
 
-SET(LIBRARIES "${LIBRARIES} blond gsl gslcblas m")
 
 
 

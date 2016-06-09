@@ -195,13 +195,13 @@ std::vector<ftype> InducedVoltageTime::induced_voltage_generation(uint length)
       in = fTotalWake;
       mymath::real_to_complex(in, fft2);
 
-      mymath::fft(fft1, fShape, fft1);
-      mymath::fft(fft2, fShape, fft2);
+      mymath::fft(fft1, fft1, fShape);
+      mymath::fft(fft2, fft2, fShape);
 
       std::transform(fft1.begin(), fft1.end(), fft2.begin(),
                      fft1.begin(), std::multiplies<complex_t>());
 
-      mymath::ifft(fft1, fShape, fft1);
+      mymath::ifft(fft1, fft1, fShape);
 
       mymath::complex_to_real(fft1, inducedVoltage);
 

@@ -10,14 +10,22 @@
 
 #include <cmath>
 #include "sin.h"
+#include <omp.h>
 #include  <cassert>
 #include "utilities.h"
 #include "configuration.h"
 #include <gsl/gsl_interp.h>
-#include <gsl/gsl_fft_real.h>
-//#include <gsl/gsl_fft_halfcomplex.h>
-#include <gsl/gsl_fft_complex.h>
 #include <gsl/gsl_errno.h>
+#include <algorithm>
+
+
+#ifdef USE_FFTW
+#include <fftw3.h>
+#else
+#include <gsl/gsl_fft_real.h>
+#include <gsl/gsl_fft_halfcomplex.h>
+#include <gsl/gsl_fft_complex.h>
+#endif
 
 namespace mymath {
 
@@ -26,6 +34,7 @@ namespace mymath {
    {
       return vdt::fast_sin(x);
    }
+
 
    static inline ftype fast_cos(ftype x)
    {
@@ -56,17 +65,16 @@ namespace mymath {
       return res;
    }
 
+
    static inline void real_to_complex(const std::vector<ftype> &in,
                                       std::vector<complex_t> &out)
    {
       assert(out.empty());
       out.reserve(in.size());
-      //for (unsigned int i = 0; i < in.size(); i++) {
-      for(const auto &real : in){
+      for (const auto &real : in)
          out.push_back(complex_t(real, 0));
-      }
-
    }
+
 
    static inline void pack_to_complex(const std::vector<ftype> &in,
                                       std::vector<complex_t> &out)
@@ -74,10 +82,8 @@ namespace mymath {
       assert(out.empty());
       assert(in.size() % 2 == 0);
       out.reserve(in.size() / 2);
-      for (unsigned int i = 0; i < in.size(); i += 2) {
+      for (unsigned int i = 0; i < in.size(); i += 2)
          out.push_back(complex_t(in[i], in[i + 1]));
-      }
-
    }
 
 
@@ -86,10 +92,8 @@ namespace mymath {
    {
       assert(out.empty());
       out.reserve(in.size());
-      for (const auto &z : in) {
+      for (const auto &z : in)
          out.push_back(z.real());
-      }
-
    }
 
    static inline void unpack_complex(const std::vector<complex_t> &in,
@@ -97,15 +101,78 @@ namespace mymath {
    {
       assert(out.empty());
       out.reserve(2 * in.size());
-      //for (unsigned int i = 0; i < in.size(); ++i) {
       for (const auto &z : in) {
-         //out[2 * i] = in[i].real();
-         //out[2 * i + 1] = in[i].imag();
          out.push_back(z.real());
          out.push_back(z.imag());
       }
+   }
+
+
+#ifdef USE_FFTW
+   static inline fftw_plan init_fft(const int n,
+                                    complex_t *in,
+                                    complex_t *out,
+                                    const int sign = FFTW_FORWARD,
+                                    const unsigned flag = FFTW_ESTIMATE,
+                                    const int threads = 1)
+   {
+      if (threads > 1) {
+         fftw_init_threads();
+         fftw_plan_with_nthreads(threads);
+      }
+      fftw_complex *a, *b;
+      a = reinterpret_cast<fftw_complex *>(in);
+      b = reinterpret_cast<fftw_complex *>(out);
+      return fftw_plan_dft_1d(n, a, b, sign, flag);
+   }
+
+
+
+   static inline fftw_plan init_rfft(const int n,
+                                     ftype *in,
+                                     complex_t *out,
+                                     const unsigned flag = FFTW_ESTIMATE,
+                                     const int threads = 1)
+
+   {
+      if (threads > 1) {
+         fftw_init_threads();
+         fftw_plan_with_nthreads(threads);
+      }
+      fftw_complex *b;
+      b = reinterpret_cast<fftw_complex *>(out);
+      return fftw_plan_dft_r2c_1d(n, in, b, flag);
+   }
+
+   static inline fftw_plan init_irfft(const int n,
+                                      complex_t *in,
+                                      ftype *out,
+                                      const unsigned flag = FFTW_ESTIMATE,
+                                      const int threads = 1)
+   {
+      if (threads > 1) {
+         fftw_init_threads();
+         fftw_plan_with_nthreads(threads);
+      }
+      fftw_complex *b;
+      b = reinterpret_cast<fftw_complex *>(in);
+      return fftw_plan_dft_c2r_1d(n, b, out, flag);
 
    }
+
+   static inline void run_fft(const fftw_plan &p)
+   {
+      fftw_execute(p);
+   }
+
+   static inline void destroy_fft(fftw_plan &p)
+   {
+      fftw_destroy_plan(p);
+   }
+
+
+#endif
+
 
 
    // Parameters are like python's numpy.fft.rfft
@@ -114,12 +181,27 @@ namespace mymath {
    //       if n > in.size() then input is padded with zeros
    // @out: the transformed array
 
-   static inline void rfft(const std::vector<ftype> &in, const unsigned int n,
-                           std::vector<complex_t> &out)
+   static inline void rfft(f_vector_t &in,
+                           complex_vector_t &out,
+                           uint n = 0,
+                           const uint threads = 1)
    {
-      auto v = in;
-      v.resize(n, 0);
-      //in.resize(n, 0.0);
+      if (n == 0)
+         n = in.size();
+      else
+         in.resize(n);
+
+#ifdef USE_FFTW
+      out.resize(n / 2 + 1);
+      //out.resize(n);
+      auto p = mymath::init_rfft(n, in.data(), out.data(),
+                                 FFTW_ESTIMATE, threads);
+      mymath::run_fft(p);
+      mymath::destroy_fft(p);
+
+#else
+      std::cerr << "Use of gsl ffts is depricated\n";
+
 
       gsl_fft_real_wavetable *real;
       gsl_fft_real_workspace *work;
@@ -127,29 +209,25 @@ namespace mymath {
       work = gsl_fft_real_workspace_alloc(n);
       real = gsl_fft_real_wavetable_alloc(n);
 
-      gsl_fft_real_transform(v.data(), 1, n, real, work);
-
-      // unpack result into complex format
+      gsl_fft_real_transform(in.data(), 1, n, real, work);
 
       out.clear();
-      out.reserve(v.size() / 2);
+      out.reserve(in.size() / 2);
       // first element is real => imag is zero
-      v.insert(v.begin() + 1, 0.0);
+      in.insert(in.begin() + 1, 0.0);
 
       // if n is even => last element is real
       if (n % 2 == 0)
-         v.push_back(0.0);
+         in.push_back(0.0);
 
-      //util::dump(v.data(), v.size(), "result\n");
-
-      //assert(v.size() % 2 == 0);
-
-      pack_to_complex(v, out);
+      //pack_to_complex(v, out);
+      pack_to_complex(in, out);
 
       gsl_fft_real_wavetable_free(real);
       gsl_fft_real_workspace_free(work);
-   }
 
+#endif
+   }
 
 
    // Parameters are like python's numpy.fft.fft
@@ -158,9 +236,25 @@ namespace mymath {
    //       if n > in.size() then input is padded with zeros
    // @out: the transformed array
 
-   static inline void fft(std::vector<complex_t> &in, const unsigned int n,
-                          std::vector<complex_t> &out)
+   static inline void fft(complex_vector_t &in,
+                          complex_vector_t &out,
+                          uint n = 0,
+                          const uint threads = 1)
    {
+      if (n == 0)
+         n = in.size();
+
+#ifdef USE_FFTW
+      out.resize(n);
+
+      auto p = mymath::init_fft(n, in.data(), out.data(), FFTW_FORWARD,
+                                FFTW_ESTIMATE, threads);
+      mymath::run_fft(p);
+      mymath::destroy_fft(p);
+
+#else
+      std::cerr << "Use of gsl ffts is depricated\n";
+
       std::vector<ftype> v;
       //v.resize(2 * n, 0);
       unpack_complex(in, v);
@@ -187,19 +281,37 @@ namespace mymath {
       gsl_fft_complex_workspace_free(work);
       //printf("ok here8\n");
 
+#endif
+
    }
 
 
+// Parameters are like python's numpy.fft.ifft
+// @in:  input data
+// @n:   number of points to use. If n < in.size() then the input is cropped
+//       if n > in.size() then input is padded with zeros
+// @out: the inverse Fourier transform of input data
 
-   // Parameters are like python's numpy.fft.ifft
-   // @in:  input data
-   // @n:   number of points to use. If n < in.size() then the input is cropped
-   //       if n > in.size() then input is padded with zeros
-   // @out: the inverse Fourier transform of input data
-
-   static inline void ifft(std::vector<complex_t> &in, const unsigned int n,
-                           std::vector<complex_t> &out)
+   static inline void ifft(complex_vector_t &in,
+                           complex_vector_t &out,
+                           uint n = 0,
+                           const uint threads = 1)
    {
+      if (n == 0)
+         n = in.size();
+
+#ifdef USE_FFTW
+      out.resize(n);
+      auto p = mymath::init_fft(n, in.data(), out.data(), FFTW_BACKWARD,
+                                FFTW_ESTIMATE, threads);
+      mymath::run_fft(p);
+      std::transform(out.begin(), out.end(), out.begin(),
+                     std::bind2nd(std::divides<complex_t>(), n));
+      mymath::destroy_fft(p);
+
+#else
+      std::cerr << "Use of gsl ffts is depricated\n";
+
       std::vector<ftype> v;
       //v.resize(2 * n, 0);
 
@@ -222,20 +334,39 @@ namespace mymath {
 
       gsl_fft_complex_wavetable_free(wave);
       gsl_fft_complex_workspace_free(work);
+#endif
    }
 
 
-   // Inverse of rfft
-   // @in: input vector which must be the result of a rfft
-   // @out: irfft of input, always real
-   // Missing n: size of output
-   // TODO fix this one!!
-   static inline void irfft(complex_vector_t in, f_vector_t &out, uint n = 0)
+// Inverse of rfft
+// @in: input vector which must be the result of a rfft
+// @out: irfft of input, always real
+// Missing n: size of output
+// TODO fix this one!!
+   static inline void irfft(complex_vector_t in,
+                            f_vector_t &out,
+                            uint n = 0,
+                            const uint threads = 1)
    {
+      n = (n == 0) ? 2 * (in.size() - 1) : n;
+
+#ifdef USE_FFTW
+      out.resize(n);
+
+      auto p = mymath::init_irfft(n, in.data(), out.data(),
+                                  FFTW_ESTIMATE, threads);
+      mymath::run_fft(p);
+      std::transform(out.begin(), out.end(), out.begin(),
+                     std::bind2nd(std::divides<ftype>(), n));
+      mymath::destroy_fft(p);
+
+
+#else
+      std::cerr << "Use of gsl ffts is depricated\n";
+
       assert(in.size() > 1);
 
       uint last = in.size() - 2;
-      n = (n == 0) ? 2 * (in.size() - 1) : n;
 
       if (n == 2 * in.size() - 1) {
          last = in.size() - 1;
@@ -255,6 +386,7 @@ namespace mymath {
       mymath::ifft(in, n, temp);
 
       mymath::complex_to_real(temp, out);
+#endif
 
    }
 

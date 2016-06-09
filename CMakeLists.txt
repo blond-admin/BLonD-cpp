@@ -51,6 +51,14 @@ endif()
 find_package(OpenMP REQUIRED)
 find_package(GSL REQUIRED)
 
+if(USE_FFTW)
+   message(STATUS "using fftw")
+   find_path(FFTW_INCLUDES fftw3.h)
+   find_library(FFTW_LIBRARIES NAMES fftw3 libfftw3)
+   set(LIBRARIES "${LIBRARIES} -lfftw3 -lfftw3_omp")
+   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DUSE_FFTW")
+   #string(CONCAT ${LIBRARIES} ${LIBRARIES} "rfftw fftw")
+endif()
 
 if(TEST_ENABLED)
    include_directories(
@@ -70,8 +78,14 @@ if(TEST_ENABLED)
    add_library(googletest ${GOOGLETEST_SOURCES})
 endif()
 
+SET(LIBRARIES "${LIBRARIES} blond gsl gslcblas m")
+
+
+
+
 include_directories(include)
 link_directories(/usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64)
+#link_directories(/afs/cern.ch/user/k/kiliakis/opt/lib)
 
 file(GLOB SOURCES 
       beams/*.cpp
@@ -91,12 +105,7 @@ endforeach()
 # STATIC for static LINKING
 add_library(blond SHARED ${SOURCE_FILES})
 
-SET(LIBRARIES 
-   blond
-   gsl
-   gslcblas
-   m
-   )
+
 
 
 file(GLOB EXECUTABLE_SOURCES "tests/*.cpp")

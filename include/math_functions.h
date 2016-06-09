@@ -60,9 +60,10 @@ namespace mymath {
                                       std::vector<complex_t> &out)
    {
       assert(out.empty());
-      for (unsigned int i = 0; i < in.size(); i++) {
-         //complex_t z(in[i], 0);
-         out.push_back(complex_t(in[i], 0));
+      out.reserve(in.size());
+      //for (unsigned int i = 0; i < in.size(); i++) {
+      for(const auto &real : in){
+         out.push_back(complex_t(real, 0));
       }
 
    }
@@ -71,8 +72,9 @@ namespace mymath {
                                       std::vector<complex_t> &out)
    {
       assert(out.empty());
+      assert(in.size() % 2 == 0);
+      out.reserve(in.size() / 2);
       for (unsigned int i = 0; i < in.size(); i += 2) {
-         //complex_t z(in[i], in[i + 1]);
          out.push_back(complex_t(in[i], in[i + 1]));
       }
 
@@ -83,10 +85,9 @@ namespace mymath {
                                       std::vector<ftype> &out)
    {
       assert(out.empty());
-
-      for (complex_t z : in) {
+      out.reserve(in.size());
+      for (const auto &z : in) {
          out.push_back(z.real());
-         //out.push_back(z.imag());
       }
 
    }
@@ -94,10 +95,14 @@ namespace mymath {
    static inline void unpack_complex(const std::vector<complex_t> &in,
                                      std::vector<ftype> &out)
    {
-      //assert(out.empty());
-      for (unsigned int i = 0; i < in.size(); ++i) {
-         out[2 * i] = in[i].real();
-         out[2 * i + 1] = in[i].imag();
+      assert(out.empty());
+      out.reserve(2 * in.size());
+      //for (unsigned int i = 0; i < in.size(); ++i) {
+      for (const auto &z : in) {
+         //out[2 * i] = in[i].real();
+         //out[2 * i + 1] = in[i].imag();
+         out.push_back(z.real());
+         out.push_back(z.imag());
       }
 
    }
@@ -131,13 +136,13 @@ namespace mymath {
       // first element is real => imag is zero
       v.insert(v.begin() + 1, 0.0);
 
-      // if n is even => last element is real 
+      // if n is even => last element is real
       if (n % 2 == 0)
          v.push_back(0.0);
 
       //util::dump(v.data(), v.size(), "result\n");
 
-      assert(v.size() % 2 == 0);
+      //assert(v.size() % 2 == 0);
 
       pack_to_complex(v, out);
 
@@ -157,7 +162,7 @@ namespace mymath {
                           std::vector<complex_t> &out)
    {
       std::vector<ftype> v;
-      v.resize(2 * n, 0);
+      //v.resize(2 * n, 0);
       unpack_complex(in, v);
 
       gsl_fft_complex_wavetable *wave;
@@ -196,7 +201,7 @@ namespace mymath {
                            std::vector<complex_t> &out)
    {
       std::vector<ftype> v;
-      v.resize(2 * n, 0);
+      //v.resize(2 * n, 0);
 
       unpack_complex(in, v);
 

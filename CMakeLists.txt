@@ -50,19 +50,17 @@ endif()
 # Absolutely required packages
 find_package(OpenMP REQUIRED)
 find_package(GSL REQUIRED)
+find_path(FFTW_INCLUDES fftw3.h)
+find_library(FFTW_LIBRARIES NAMES fftw3 libfftw3)
 
-SET(LIBRARIES blond gsl gslcblas m)
+SET(LIBRARIES blond gsl gslcblas fftw3 fftw3_omp m)
 
 
-if(USE_FFTW)
-   message(STATUS "Using FFTW")
-   find_path(FFTW_INCLUDES fftw3.h)
-   find_library(FFTW_LIBRARIES NAMES fftw3 libfftw3)
-   #list(APPEND ${LIBRARIES} fftw3 fftw3_omp)
-   set(LIBRARIES "${LIBRARIES} -lfftw3 -lfftw3_omp")
-   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DUSE_FFTW")
-   #string(CONCAT ${LIBRARIES} ${LIBRARIES} "rfftw fftw")
-endif()
+#if(USE_FFTW)
+#message(STATUS "Using FFTW")
+#set(LIBRARIES "${LIBRARIES} -lfftw3 -lfftw3_omp")
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DUSE_FFTW")
+#endif()
 
 if(TEST_ENABLED)
    include_directories(
@@ -83,12 +81,9 @@ if(TEST_ENABLED)
 endif()
 
 
-
-
-
 include_directories(include)
 link_directories(/usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64)
-#link_directories(/afs/cern.ch/user/k/kiliakis/opt/lib)
+link_directories("$ENV{HOME}/opt/lib")
 
 file(GLOB SOURCES 
       beams/*.cpp

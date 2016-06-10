@@ -14,6 +14,7 @@
 //#include <complex>
 #include <vector>
 #include "Intensity.h"
+#include "fft.h"
 
 //typedef std::complex<float> complex_t;
 
@@ -105,6 +106,8 @@ public:
    f_vector_t fFreqArrayMem;
    complex_vector_t fTotalImpedanceMem;
    f_vector_t fTimeArrayMem;
+
+   std::vector<fft::fft_plan_t> fFFTPlanVec;
 
    // *Induced voltage from the sum of the wake sources in [V]*
    //f_vector_t fInducedVoltage;

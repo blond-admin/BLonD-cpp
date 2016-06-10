@@ -6,6 +6,7 @@
 #include "math_functions.h"
 #include "Ham.h"
 #include "globals.h"
+#include <omp.h>
 
 
 std::vector<ftype> TotalInducedVoltage::induced_voltage_generation(uint length)
@@ -189,21 +190,16 @@ std::vector<ftype> InducedVoltageTime::induced_voltage_generation(uint length)
       std::vector<ftype> in(Slice->n_macroparticles,
                             Slice->n_macroparticles + Slice->n_slices);
 
-      mymath::real_to_complex(in, fft1);
 
-      in.clear();
+      fft::rfft(in, fft1, fShape);
+
       in = fTotalWake;
-      mymath::real_to_complex(in, fft2);
-
-      mymath::fft(fft1, fft1, fShape);
-      mymath::fft(fft2, fft2, fShape);
+      fft::rfft(in, fft2, fShape);
 
       std::transform(fft1.begin(), fft1.end(), fft2.begin(),
                      fft1.begin(), std::multiplies<complex_t>());
 
-      mymath::ifft(fft1, fft1, fShape);
-
-      mymath::complex_to_real(fft1, inducedVoltage);
+      fft::irfft(fft1, inducedVoltage, fShape);
 
       std::transform(inducedVoltage.begin(),
                      inducedVoltage.end(),
@@ -281,7 +277,6 @@ InducedVoltageFreq::InducedVoltageFreq(
          }
          fNFFTSampling = next_regular(a);
 
-
          if (fNFFTSampling < (uint) Slice->n_slices) {
             std::cerr << "The input frequency resolution step is too big, and the whole\n"
                       << "bunch is not sliced... The number of sampling points for the\n"
@@ -295,7 +290,7 @@ InducedVoltageFreq::InducedVoltageFreq(
       fFreqResolution = 1 / (fNFFTSampling * timeResolution);
 
       //self.frequency_array = rfftfreq(self.n_fft_sampling, self.slices.bin_centers[1] - self.slices.bin_centers[0])
-      fFreqArray = mymath::rfftfreq(fNFFTSampling, timeResolution);
+      fFreqArray = fft::rfftfreq(fNFFTSampling, timeResolution);
       sum_impedances(fFreqArray);
 
       fSaveIndividualVoltages = saveIndividualVoltages;
@@ -318,7 +313,7 @@ InducedVoltageFreq::InducedVoltageFreq(
       fLenArrayMem = (fNTurnsMem + 1) * Slice->n_slices;
       fLenArrayMemExt = (fNTurnsMem + 2) * Slice->n_slices;
       fNPointsFFT = next_regular(fLenArrayMemExt);
-      fFreqArrayMem = mymath::rfftfreq(fNPointsFFT, timeResolution);
+      fFreqArrayMem = fft::rfftfreq(fNPointsFFT, timeResolution);
       fTotalImpedanceMem = complex_vector_t(fFreqArrayMem.size(), complex_t(0, 0));
 
 
@@ -433,7 +428,7 @@ std::vector<ftype> InducedVoltageFreq::induced_voltage_generation(uint length)
       sum_impedances(fFreqArray);
 
    Slice->beam_spectrum_generation(fNFFTSampling);
-
+   //std::cout << "fNFFTSampling : " << fNFFTSampling << "\n";
    const auto n = fImpedanceSourceList.size();
    const auto factor = - GP->charge * constant::e *
                        Beam->ratio * Slice->fBeamSpectrumFreq[1]
@@ -450,7 +445,7 @@ std::vector<ftype> InducedVoltageFreq::induced_voltage_generation(uint length)
                     * Slice->fBeamSpectrum[j];
          }
 
-         mymath::irfft(in, res);
+         fft::irfft(in, res);
 
          assert((int) res.size() >= Slice->n_slices);
 
@@ -490,7 +485,10 @@ std::vector<ftype> InducedVoltageFreq::induced_voltage_generation(uint length)
       //util::dump(in.data(), 10, "product array\n");
       //std::cout << "factor " << factor << "\n";
       //std::cout << "in size is " << in.size() << std::endl;
-      mymath::irfft(in, res);
+      //std::cout << "fFFTPlanVec size : " << fFFTPlanVec.size() << std::endl;
+      //std::cout << "max" << omp_get_max_threads() << "\n";
+      fft::irfft(in, res, fFFTPlanVec, 0, std::min(14, n_threads));
+
       //std::cout << "res size is " << res.size() << std::endl;
       //util::dump(res.data(), 10, "irfft\n");
 
@@ -519,7 +517,7 @@ std::vector<ftype> InducedVoltageFreq::induced_voltage_generation(uint length)
       //std::cout << "res size : " << res.size() << "\n";
       return res;
       //return f_vector_t();
-      
+
    }
 
 }

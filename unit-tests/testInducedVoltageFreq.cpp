@@ -276,7 +276,7 @@ TEST_F(testInducedVoltageFreq, sum_impedances1)
 
    auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
 
-   auto freq_array = mymath::rfftfreq(Slice->n_slices);
+   auto freq_array = fft::rfftfreq(Slice->n_slices);
 
    indVoltFreq->sum_impedances(freq_array);
 
@@ -308,7 +308,7 @@ TEST_F(testInducedVoltageFreq, sum_impedances2)
 
    auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
 
-   auto freq_array = mymath::rfftfreq(Slice->n_slices,
+   auto freq_array = fft::rfftfreq(Slice->n_slices,
                                       Slice->bin_centers[1] - Slice->bin_centers[0]);
 
    indVoltFreq->sum_impedances(freq_array);

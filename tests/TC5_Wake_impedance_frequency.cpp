@@ -144,8 +144,8 @@ int main(int argc, char **argv)
 
       util::get_time(begin);
       totVol->track();
-      //util::print_time_elapsed("Induced Voltage Track", begin);
       indTrack += util::time_elapsed(begin);
+      //util::print_time_elapsed("Induced Voltage Track", begin);
 
       util::get_time(begin);
       long_tracker->track();
@@ -161,19 +161,19 @@ int main(int argc, char **argv)
    }
 
    std::cout << std::scientific;
-   // std::cout << "Average Turn Time : "
-   //           << (indTrack + longTrack + sliceTrack) / N_t
-   //           << std::endl;
+   std::cout << "Average Turn Time : "
+             << (indTrack + longTrack + sliceTrack) / N_t
+             << std::endl;
    std::cout << "Average Induced Voltage Frequency Track Time : "
-             << indTrack / N_t << std::endl;
-   // std::cout << "Average Tracker Track Time : "
-   //           << longTrack / N_t << std::endl;
-   // std::cout << "Average Slice Track Time : "
-   //           << sliceTrack / N_t << std::endl;
+            << indTrack / N_t << std::endl;
+   std::cout << "Average Tracker Track Time : "
+             << longTrack / N_t << std::endl;
+   std::cout << "Average Slice Track Time : "
+             << sliceTrack / N_t << std::endl;
 
-   //util::dump(Beam->dE, 10, "dE\n");
-   //util::dump(Beam->dt, 10, "dt\n");
-   //util::dump(Slice->n_macroparticles, 10, "n_macroparticles\n");
+   // util::dump(Beam->dE.data(), 10, "dE\n");
+   // util::dump(Beam->dt.data(), 10, "dt\n");
+   // util::dump(Slice->n_macroparticles, 10, "n_macroparticles\n");
 
    delete Slice;
    delete long_tracker;

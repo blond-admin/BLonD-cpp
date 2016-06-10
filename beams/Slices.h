@@ -12,6 +12,7 @@ class Slices;
 
 #include "../input_parameters/GeneralParameters.h"
 #include "../input_parameters/RfParameters.h"
+#include "fft.h"
 #include "Beams.h"
 #include "utilities.h"
 #include "configuration.h"

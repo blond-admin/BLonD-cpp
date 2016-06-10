@@ -544,14 +544,14 @@ void Slices::fwhm_multibunch()
 void Slices::beam_spectrum_generation(uint n, bool onlyRFFT)
 {
 
-   fBeamSpectrumFreq = mymath::rfftfreq(n, bin_centers[1] - bin_centers[0]);
+   fBeamSpectrumFreq = fft::rfftfreq(n, bin_centers[1] - bin_centers[0]);
 
    if (onlyRFFT == false) {
       // TODO remove this when you have moved to vectors
       f_vector_t v(n_macroparticles, n_macroparticles + n_slices);
       //std:: cout << "n is " << n << "\n";
       //std:: cout << "n_slices is " << n_slices << "\n";
-      mymath::rfft(v, fBeamSpectrum, n);
+      fft::rfft(v, fBeamSpectrum, n);
       //std:: cout << "size of fBeamSpectrum is " << fBeamSpectrum.size() << "\n";
 
    }

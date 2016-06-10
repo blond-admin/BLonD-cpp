@@ -88,10 +88,12 @@ namespace fft {
                                     const unsigned flag = FFTW_ESTIMATE,
                                     const int threads = 1)
    {
+#ifdef USE_FFTW_OMP
       if (threads > 1) {
          fftw_init_threads();
          fftw_plan_with_nthreads(threads);
       }
+#endif
       fftw_complex *a, *b;
       a = reinterpret_cast<fftw_complex *>(in);
       b = reinterpret_cast<fftw_complex *>(out);
@@ -107,10 +109,12 @@ namespace fft {
                                      const int threads = 1)
 
    {
+#ifdef USE_FFTW_OMP
       if (threads > 1) {
          fftw_init_threads();
          fftw_plan_with_nthreads(threads);
       }
+#endif
       fftw_complex *b;
       b = reinterpret_cast<fftw_complex *>(out);
       return fftw_plan_dft_r2c_1d(n, in, b, flag);
@@ -122,10 +126,12 @@ namespace fft {
                                       const unsigned flag = FFTW_ESTIMATE,
                                       const int threads = 1)
    {
+#ifdef USE_FFTW_OMP
       if (threads > 1) {
          fftw_init_threads();
          fftw_plan_with_nthreads(threads);
       }
+#endif
       fftw_complex *b;
       b = reinterpret_cast<fftw_complex *>(in);
       return fftw_plan_dft_c2r_1d(n, b, out, flag);
@@ -280,36 +286,36 @@ namespace fft {
       out.resize(n / 2 + 1);
 
       std::copy(&to[0], &to[n / 2 + 1], out.begin());
-/*
-#else
-      std::cerr << "Use of gsl ffts is depricated\n";
+      /*
+      #else
+            std::cerr << "Use of gsl ffts is depricated\n";
 
 
-      gsl_fft_real_wavetable *real;
-      gsl_fft_real_workspace *work;
+            gsl_fft_real_wavetable *real;
+            gsl_fft_real_workspace *work;
 
-      work = gsl_fft_real_workspace_alloc(n);
-      real = gsl_fft_real_wavetable_alloc(n);
+            work = gsl_fft_real_workspace_alloc(n);
+            real = gsl_fft_real_wavetable_alloc(n);
 
-      gsl_fft_real_transform(in.data(), 1, n, real, work);
+            gsl_fft_real_transform(in.data(), 1, n, real, work);
 
-      out.clear();
-      out.reserve(in.size() / 2);
-      // first element is real => imag is zero
-      in.insert(in.begin() + 1, 0.0);
+            out.clear();
+            out.reserve(in.size() / 2);
+            // first element is real => imag is zero
+            in.insert(in.begin() + 1, 0.0);
 
-      // if n is even => last element is real
-      if (n % 2 == 0)
-         in.push_back(0.0);
+            // if n is even => last element is real
+            if (n % 2 == 0)
+               in.push_back(0.0);
 
-      //pack_to_complex(v, out);
-      pack_to_complex(in, out);
+            //pack_to_complex(v, out);
+            pack_to_complex(in, out);
 
-      gsl_fft_real_wavetable_free(real);
-      gsl_fft_real_workspace_free(work);
+            gsl_fft_real_wavetable_free(real);
+            gsl_fft_real_workspace_free(work);
 
-#endif
-*/
+      #endif
+      */
    }
 
 
@@ -325,7 +331,7 @@ namespace fft {
    {
       if (n == 0)
          n = in.size();
-      
+
       out.resize(n);
       auto p = fft::init_fft(n, in.data(), out.data(), FFTW_FORWARD,
                              FFTW_ESTIMATE, threads);
@@ -355,38 +361,38 @@ namespace fft {
       out.resize(n);
 
       std::copy(&to[0], &to[n], out.begin());
-/*
-#else
-      std::cerr << "Use of gsl ffts is depricated\n";
+      /*
+      #else
+            std::cerr << "Use of gsl ffts is depricated\n";
 
-      std::vector<ftype> v;
-      //v.resize(2 * n, 0);
-      unpack_complex(in, v);
+            std::vector<ftype> v;
+            //v.resize(2 * n, 0);
+            unpack_complex(in, v);
 
-      gsl_fft_complex_wavetable *wave;
-      gsl_fft_complex_workspace *work;
+            gsl_fft_complex_wavetable *wave;
+            gsl_fft_complex_workspace *work;
 
-      wave = gsl_fft_complex_wavetable_alloc(n);
-      work = gsl_fft_complex_workspace_alloc(n);
+            wave = gsl_fft_complex_wavetable_alloc(n);
+            work = gsl_fft_complex_workspace_alloc(n);
 
-      gsl_fft_complex_forward(v.data(), 1, n, wave, work);
+            gsl_fft_complex_forward(v.data(), 1, n, wave, work);
 
-      //printf("ok inside\n");
+            //printf("ok inside\n");
 
-      out.clear();
+            out.clear();
 
-      pack_to_complex(v, out);
+            pack_to_complex(v, out);
 
-      out.resize(n, 0);
+            out.resize(n, 0);
 
-      gsl_fft_complex_wavetable_free(wave);
-      //printf("ok here7\n");
+            gsl_fft_complex_wavetable_free(wave);
+            //printf("ok here7\n");
 
-      gsl_fft_complex_workspace_free(work);
-      //printf("ok here8\n");
+            gsl_fft_complex_workspace_free(work);
+            //printf("ok here8\n");
 
-#endif
-*/
+      #endif
+      */
    }
 
 
@@ -436,34 +442,34 @@ namespace fft {
       //std::copy(&to[0], &to[n], out.begin());
       std::transform(&to[0], &to[n], out.begin(),
                      std::bind2nd(std::divides<complex_t>(), n));
-/*
-#else
-      std::cerr << "Use of gsl ffts is depricated\n";
+      /*
+      #else
+            std::cerr << "Use of gsl ffts is depricated\n";
 
-      std::vector<ftype> v;
-      //v.resize(2 * n, 0);
+            std::vector<ftype> v;
+            //v.resize(2 * n, 0);
 
-      unpack_complex(in, v);
+            unpack_complex(in, v);
 
-      gsl_fft_complex_wavetable *wave;
-      gsl_fft_complex_workspace *work;
+            gsl_fft_complex_wavetable *wave;
+            gsl_fft_complex_workspace *work;
 
-      work = gsl_fft_complex_workspace_alloc(n);
-      wave = gsl_fft_complex_wavetable_alloc(n);
+            work = gsl_fft_complex_workspace_alloc(n);
+            wave = gsl_fft_complex_wavetable_alloc(n);
 
-      gsl_fft_complex_inverse(v.data(), 1, n, wave, work);
+            gsl_fft_complex_inverse(v.data(), 1, n, wave, work);
 
 
-      out.clear();
+            out.clear();
 
-      pack_to_complex(v, out);
+            pack_to_complex(v, out);
 
-      out.resize(n, 0);
+            out.resize(n, 0);
 
-      gsl_fft_complex_wavetable_free(wave);
-      gsl_fft_complex_workspace_free(work);
-#endif
-*/
+            gsl_fft_complex_wavetable_free(wave);
+            gsl_fft_complex_workspace_free(work);
+      #endif
+      */
    }
 
 
@@ -481,7 +487,7 @@ namespace fft {
       n = (n == 0) ? 2 * (in.size() - 1) : n;
 
       out.resize(n);
-      
+
       auto p = fft::init_irfft(n, in.data(), out.data(),
                                FFTW_ESTIMATE, threads);
       fft::run_fft(p);
@@ -515,34 +521,34 @@ namespace fft {
       std::transform(&to[0], &to[n], out.begin(),
                      std::bind2nd(std::divides<ftype>(), n));
 
-/*
-#else
-      std::cerr << "Use of gsl ffts is depricated\n";
+      /*
+      #else
+            std::cerr << "Use of gsl ffts is depricated\n";
 
-      assert(in.size() > 1);
+            assert(in.size() > 1);
 
-      uint last = in.size() - 2;
+            uint last = in.size() - 2;
 
-      if (n == 2 * in.size() - 1) {
-         last = in.size() - 1;
-      } else if (n == 2 * (in.size() - 1)) {
-         ;
-      } else {
-         std::cerr << "[fft::ifft] Size not supported!\n"
-                   << "[fft::ifft] default size: " << n
-                   << " will be used\n";
-      }
+            if (n == 2 * in.size() - 1) {
+               last = in.size() - 1;
+            } else if (n == 2 * (in.size() - 1)) {
+               ;
+            } else {
+               std::cerr << "[fft::ifft] Size not supported!\n"
+                         << "[fft::ifft] default size: " << n
+                         << " will be used\n";
+            }
 
-      for (uint i = last; i > 0; --i) {
-         in.push_back(std::conj(in[i]));
-      }
+            for (uint i = last; i > 0; --i) {
+               in.push_back(std::conj(in[i]));
+            }
 
-      complex_vector_t temp;
-      fft::ifft(in, temp, n);
+            complex_vector_t temp;
+            fft::ifft(in, temp, n);
 
-      fft::complex_to_real(temp, out);
-#endif
-*/
+            fft::complex_to_real(temp, out);
+      #endif
+      */
    }
 
 

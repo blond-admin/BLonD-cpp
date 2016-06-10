@@ -27,6 +27,7 @@ addons:
       - libgtest-dev
       - libgsl0-dev
       - libfftw3-dev
+      - libfftw3_omp-dev
       - valgrind
       - gcov-4.8
       - lcov

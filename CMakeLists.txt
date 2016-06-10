@@ -53,8 +53,13 @@ find_package(GSL REQUIRED)
 find_path(FFTW_INCLUDES fftw3.h)
 find_library(FFTW_LIBRARIES NAMES fftw3 libfftw3)
 
-SET(LIBRARIES blond gsl gslcblas fftw3 fftw3_omp m)
 
+set(LIBRARIES blond gsl gslcblas fftw3 fftw3_omp m)
+
+if(USE_FFTW_OMP)
+   set(LIBRARIES ${LIBRARIES} fftw3_omp)
+   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DUSE_FFTW_OMP")
+endif()
 
 #if(USE_FFTW)
 #message(STATUS "Using FFTW")

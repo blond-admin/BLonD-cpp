@@ -551,7 +551,7 @@ void Slices::beam_spectrum_generation(uint n, bool onlyRFFT)
       f_vector_t v(n_macroparticles, n_macroparticles + n_slices);
       //std:: cout << "n is " << n << "\n";
       //std:: cout << "n_slices is " << n_slices << "\n";
-      fft::rfft(v, fBeamSpectrum, n);
+      fft::rfft(v, fBeamSpectrum, fFFTPlanVec, n, std::min(n_threads, 14));
       //std:: cout << "size of fBeamSpectrum is " << fBeamSpectrum.size() << "\n";
 
    }

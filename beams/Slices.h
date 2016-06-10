@@ -59,6 +59,8 @@ public:
    
    f_vector_t fBeamSpectrumFreq;
    
+   std::vector<fft::fft_plan_t> fFFTPlanVec;
+
    ftype bl_gauss = 0;
    ftype bp_gauss = 0;
 

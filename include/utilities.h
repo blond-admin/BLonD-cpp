@@ -113,6 +113,20 @@ namespace util {
    }
 
    template<typename T>
+   static inline void dump(const std::vector<T> &a, const char *s, uint n = 0)
+   {
+#ifdef PRINT_RESULTS
+      n = (n == 0) ? a.size() : n;
+      std::cout.precision(PRECISION);
+      std::cout << s;
+      std::cout << std::scientific << std::showpos;
+      for (uint i = 0; i < n; ++i)
+         std::cout << a[i] << std::endl;
+      std::cout << std::endl;
+#endif
+   }
+
+   template<typename T>
    static inline void dump(const T a, const char *s)
    {
 #ifdef PRINT_RESULTS

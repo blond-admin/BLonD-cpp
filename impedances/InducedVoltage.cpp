@@ -9,11 +9,6 @@
 #include <omp.h>
 
 
-std::vector<ftype> TotalInducedVoltage::induced_voltage_generation(uint length)
-{
-   return std::vector<ftype>();
-}
-
 
 inline void InducedVoltage::linear_interp_kick(
    const ftype *__restrict__ beam_dt,
@@ -25,70 +20,20 @@ inline void InducedVoltage::linear_interp_kick(
    const ftype acc_kick)
 {
 
-   //int LOOP_UNROLL = 8;
-   //LOOP_UNROLL = atoi(util::GETENV("LOOP_UNROLL")) ? atoi(util::GETENV("LOOP_UNROLL")) : LOOP_UNROLL;
-
-
    const ftype binFirst = bin_centers[0];
    const ftype binLast = bin_centers[n_slices - 1];
-
    const ftype inv_bin_width = (n_slices - 1) / (binLast - binFirst);
+
    #pragma omp parallel for
    for (int i = 0; i < n_macroparticles; i++) {
       const ftype a = beam_dt[i];
       const int ffbin = static_cast<int>((a - binFirst) * inv_bin_width);
-      // if(ffbin > 100)
-      //    std::cout << "ffbin : " <<ffbin << "\n";
-      //const ftype voltageKick = 0.1L;
       const ftype voltageKick = ((a < binFirst) || (a > binLast)) ?
                                 0 : voltage_array[ffbin] + (a - bin_centers[ffbin])
                                 * (voltage_array[ffbin + 1] - voltage_array[ffbin])
                                 * inv_bin_width;
       beam_dE[i] += voltageKick + acc_kick;
    }
-
-   //int * __restrict b;
-   //ftype *__restrict a = (ftype *) malloc(LOOP_UNROLL * sizeof(ftype));//[LOOP_UNROLL];
-   //int *__restrict ffbin = (int *) malloc(LOOP_UNROLL * sizeof(int));;//[LOOP_UNROLL];
-   //ftype *__restrict voltageKick = (ftype *) malloc(LOOP_UNROLL * sizeof(ftype));;//[LOOP_UNROLL];
-
-   /*
-   #pragma omp parallel for //private(a, ffbin, voltageKick)
-   for (int i = 0; i < n_macroparticles; i++) {
-      std::vector<ftype> a(LOOP_UNROLL);
-      std::vector<int> ffbin(LOOP_UNROLL);
-      std::vector<ftype> voltageKick(LOOP_UNROLL);
-
-      for (int j = 0; j < LOOP_UNROLL && i + j < n_macroparticles; ++j) {
-         a[j] = beam_dt[i + j];
-         //ftype fbin = (a - binFirst) * inv_bin_width;
-         ffbin[j] = static_cast<int>((a[j] - binFirst) * inv_bin_width);
-         //unsigned ffbin = (unsigned)(fbin);
-         voltageKick[j] = ((a[j] < binFirst) || (a[j] > binLast)) ?
-                          0 : voltage_array[ffbin[j]] + (a[j] - bin_centers[ffbin[j]])
-                          * (voltage_array[ffbin[j] + 1] - voltage_array[ffbin[j]])
-                          * inv_bin_width;
-         beam_dE[i + j] += voltageKick[j] + acc_kick;
-      }
-   }
-   */
-
-   //ftype inv_bin_width = (n_slices-1) / (bin_centers[n_slices-1] - bin_centers[0]);
-   /*
-   double inv_bin_width = (n_slices-1) / (bin_centers[n_slices-1] - bin_centers[0]);
-   #pragma omp parallel for
-   for (int i = 0; i < n_macroparticles; i++) {
-      double a = beam_dt[i];
-      double fbin = (a - bin_centers[0]) * inv_bin_width;
-      int ffbin = (int)(fbin);
-      double voltageKick;
-      if ((a < bin_centers[0])||(a > bin_centers[n_slices-1]))
-         voltageKick = 0.;
-      else
-         voltageKick = voltage_array[ffbin] + (a - bin_centers[ffbin]) * (voltage_array[ffbin+1]-voltage_array[ffbin]) * inv_bin_width;
-      beam_dE[i] = beam_dE[i] + voltageKick + acc_kick;
-    }
-   */
 
 }
 
@@ -129,8 +74,6 @@ inline void InducedVoltageTime::track()
 {
    // Tracking Method
    std::vector<ftype> v = this->induced_voltage_generation();
-
-   //std::cout << "induced v size is " << v.size() << "\n";
 
    std::transform(v.begin(), v.end(), v.begin(),
                   std::bind1st(std::multiplies<ftype>(),
@@ -191,15 +134,18 @@ std::vector<ftype> InducedVoltageTime::induced_voltage_generation(uint length)
                             Slice->n_macroparticles + Slice->n_slices);
 
 
-      fft::rfft(in, fft1, fShape);
+      fft::rfft(in, fft1, fFFTPlanVec, fShape,
+                std::min(14, n_threads));
 
       in = fTotalWake;
-      fft::rfft(in, fft2, fShape);
+      fft::rfft(in, fft2, fFFTPlanVec, fShape,
+                std::min(14, n_threads));
 
       std::transform(fft1.begin(), fft1.end(), fft2.begin(),
                      fft1.begin(), std::multiplies<complex_t>());
 
-      fft::irfft(fft1, inducedVoltage, fShape);
+      fft::irfft(fft1, inducedVoltage, fFFTPlanVec,
+                 fShape, std::min(14, n_threads));
 
       std::transform(inducedVoltage.begin(),
                      inducedVoltage.end(),
@@ -229,7 +175,6 @@ std::vector<ftype> InducedVoltageTime::induced_voltage_generation(uint length)
       inducedVoltage.resize(
          std::min((uint) Slice->n_slices, length), 0);
 
-   //std::cout << "inducedVoltage size is " << inducedVoltage.size() << "\n";
    return inducedVoltage;
 
 }
@@ -335,11 +280,9 @@ InducedVoltageFreq::InducedVoltageFreq(
                         fTotalImpedanceMem.begin(),
                         std::plus<complex_t>());
       }
-
-
    }
-
 }
+
 
 void InducedVoltageFreq::track()
 {
@@ -355,6 +298,7 @@ void InducedVoltageFreq::track()
                       Beam->n_macroparticles, 0.0);
 
 }
+
 
 void InducedVoltageFreq::sum_impedances(f_vector_t &freq_array)
 {
@@ -445,7 +389,7 @@ std::vector<ftype> InducedVoltageFreq::induced_voltage_generation(uint length)
                     * Slice->fBeamSpectrum[j];
          }
 
-         fft::irfft(in, res);
+         fft::irfft(in, res, fFFTPlanVec, 0, std::min(14, n_threads));
 
          assert((int) res.size() >= Slice->n_slices);
 
@@ -482,15 +426,7 @@ std::vector<ftype> InducedVoltageFreq::induced_voltage_generation(uint length)
          in[j] = fTotalImpedance[j] * Slice->fBeamSpectrum[j];
       }
 
-      //util::dump(in.data(), 10, "product array\n");
-      //std::cout << "factor " << factor << "\n";
-      //std::cout << "in size is " << in.size() << std::endl;
-      //std::cout << "fFFTPlanVec size : " << fFFTPlanVec.size() << std::endl;
-      //std::cout << "max" << omp_get_max_threads() << "\n";
       fft::irfft(in, res, fFFTPlanVec, 0, std::min(14, n_threads));
-
-      //std::cout << "res size is " << res.size() << std::endl;
-      //util::dump(res.data(), 10, "irfft\n");
 
       assert((int) res.size() >= Slice->n_slices);
 
@@ -504,7 +440,6 @@ std::vector<ftype> InducedVoltageFreq::induced_voltage_generation(uint length)
                         factor));
 
       fInducedVoltage = res;
-      // std::cout << "fInducedVoltage : " << fInducedVoltage.size() << "\n";
 
       if (length > 0) {
          if (length > res.size())
@@ -512,14 +447,9 @@ std::vector<ftype> InducedVoltageFreq::induced_voltage_generation(uint length)
          else
             res.resize(length);
       }
-      //std::cout << "fInducedVoltage : " << fInducedVoltage.size() << "\n";
 
-      //std::cout << "res size : " << res.size() << "\n";
       return res;
-      //return f_vector_t();
-
    }
-
 }
 
 
@@ -536,37 +466,34 @@ TotalInducedVoltage::TotalInducedVoltage(
 
 }
 
+
 void TotalInducedVoltage::track()
 {
-   //std::cout << "I am here\n";
    this->induced_voltage_sum();
    auto v = this->fInducedVoltage;
-   //std::cout << "total v size is " << v.size() << "\n";
 
    std::transform(v.begin(), v.end(), v.begin(),
                   std::bind1st(std::multiplies<ftype>(),
                                GP->charge));
-   //std::cout << "I am here\n";
-
-   // std::cout << "beam size : " << Beam->dt.size() << "\n";
-   // std::cout << "v size : " << v.size() << "\n";
 
    linear_interp_kick(Beam->dt.data(), Beam->dE.data(), v.data(),
                       Slice->bin_centers, Slice->n_slices,
                       Beam->n_macroparticles, 0.0);
-   //std::cout << "I am here\n";
-
 }
+
 
 void TotalInducedVoltage::track_memory() {}
 
+
 void TotalInducedVoltage::track_ghosts_particles() {}
+
 
 void TotalInducedVoltage::reprocess()
 {
    for (auto &v : fInducedVoltageList)
       v->reprocess();
 }
+
 
 std::vector<ftype> TotalInducedVoltage::induced_voltage_sum(uint length)
 {
@@ -577,8 +504,6 @@ std::vector<ftype> TotalInducedVoltage::induced_voltage_sum(uint length)
    for (auto &v : fInducedVoltageList) {
       auto a = v->induced_voltage_generation(length);
 
-      //std::cout << "fInducedVoltage size = " << v->fInducedVoltage.size() << std::endl;
-      //std::cout << "a size is " << a.size() << '\n';
       if (length > 0) {
          extIndVolt.resize(a.size(), 0);
          std::transform(extIndVolt.begin(), extIndVolt.end(),
@@ -593,6 +518,4 @@ std::vector<ftype> TotalInducedVoltage::induced_voltage_sum(uint length)
 
    fInducedVoltage = tempIndVolt;
    return extIndVolt;
-
-
 }

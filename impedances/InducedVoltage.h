@@ -63,6 +63,7 @@ public:
    uint fShape;
    time_or_freq fTimeOrFreq;
 
+   std::vector<fft::fft_plan_t> fFFTPlanVec;
 
    void track();
    void sum_wakes(std::vector<ftype> &v);
@@ -144,7 +145,10 @@ public:
    void track_ghosts_particles();
    std::vector<ftype> induced_voltage_sum(uint length = 0);
    void reprocess();
-   std::vector<ftype> induced_voltage_generation(uint length = 0);
+   std::vector<ftype> induced_voltage_generation(uint length = 0)
+   {
+      return std::vector<ftype>();
+   };
 
    TotalInducedVoltage(std::vector<InducedVoltage *> &InducedVoltageList,
                        uint NTurnsMemory = 0,

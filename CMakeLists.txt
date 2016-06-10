@@ -55,7 +55,7 @@ SET(LIBRARIES blond gsl gslcblas m)
 
 
 if(USE_FFTW)
-   message(STATUS "using fftw")
+   message(STATUS "Using FFTW")
    find_path(FFTW_INCLUDES fftw3.h)
    find_library(FFTW_LIBRARIES NAMES fftw3 libfftw3)
    #list(APPEND ${LIBRARIES} fftw3 fftw3_omp)

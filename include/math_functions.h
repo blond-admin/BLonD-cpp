@@ -383,7 +383,7 @@ namespace mymath {
       }
 
       complex_vector_t temp;
-      mymath::ifft(in, n, temp);
+      mymath::ifft(in, temp, n);
 
       mymath::complex_to_real(temp, out);
 #endif

@@ -72,13 +72,15 @@ namespace mymath {
    {
       assert(y.empty());
 
-      gsl_interp *interp =
+      auto interp =
          gsl_interp_alloc(gsl_interp_linear, xp.size());
 
       gsl_interp_init(interp, &xp[0], &fp[0], xp.size());
 
-      gsl_interp_accel *acc = gsl_interp_accel_alloc();
+      auto acc = gsl_interp_accel_alloc();
 
+      y.reserve(x.size());
+      
       for (uint i = 0; i < x.size(); ++i) {
          double val;
          if (x[i] < interp->xmin) {

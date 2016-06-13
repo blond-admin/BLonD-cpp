@@ -427,7 +427,8 @@ std::vector<ftype> InducedVoltageFreq::induced_voltage_generation(uint length)
       }
 
       fft::irfft(in, res, fFFTPlanVec, 0, std::min(14, n_threads));
-
+      //std::cout << "res size : " << res.size() << std::endl;
+      //std::cout << "n_slices : " << Slice->n_slices << std::endl;
       assert((int) res.size() >= Slice->n_slices);
 
       res.resize((uint)Slice->n_slices);

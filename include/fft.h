@@ -15,16 +15,26 @@
 #include "configuration.h"
 #include <algorithm>
 
-//#ifdef USE_FFTW
 #include <fftw3.h>
-// #else
-// #include <gsl/gsl_fft_real.h>
-// #include <gsl/gsl_errno.h>
-// #include <gsl/gsl_fft_halfcomplex.h>
-// #include <gsl/gsl_fft_complex.h>
-//#endif
+
 
 namespace fft {
+
+   // FFTW_PATIENT: run a lot of ffts to discover the best plan.
+   // Will not use the multithreaded version unless the fft size
+   // is reasonable enough
+
+   // FFTW_MEASURE : run some ffts to find the best plan.
+   // (first run should take some more seconds)
+
+   // FFTW_ESTIMATE : dont run any ffts, just make an estimation.
+   // Usually leads to suboptimal solutions
+
+   // FFTW_DESTROY_INPUT : use the original input to store arbitaty data.
+   // May yield better performance but the input is not usable any more.
+   // Can be combined with all the above
+   const uint FFTW_FLAGS = FFTW_ESTIMATE | FFTW_DESTROY_INPUT;
+
 
    enum fft_type_t {
       FFT, IFFT, RFFT, IRFFT
@@ -38,7 +48,7 @@ namespace fft {
       void *out;
    };
 
-   static inline void real_to_complex(const std::vector<ftype> &in,
+   static inline void rqeal_to_complex(const std::vector<ftype> &in,
                                       std::vector<complex_t> &out)
    {
       assert(out.empty());
@@ -156,7 +166,7 @@ namespace fft {
                                       uint threads,
                                       std::vector<fft_plan_t> &v)
    {
-      const uint flag = FFTW_ESTIMATE;
+      const uint flag = FFTW_FLAGS;
       auto it = std::find_if(v.begin(),
                              v.end(),
                              [n, type]
@@ -183,7 +193,7 @@ namespace fft {
 
             auto p = init_fft(n, reinterpret_cast<complex_t *>(in),
                               reinterpret_cast<complex_t *>(out),
-                              FFTW_FORWARD, flag, threads);
+                              FFTW_FORWARD, flag , threads);
             plan.p = p;
             plan.in = in;
             plan.out = out;
@@ -203,6 +213,7 @@ namespace fft {
             fftw_complex *out = (fftw_complex *) fftw_malloc(sizeof(fftw_complex) * (n / 2 + 1));
             auto p = init_rfft(n, in, reinterpret_cast<complex_t *>(out),
                                flag, threads);
+            //std::cout << "threads : " << threads << "\n";
             plan.p = p;
             plan.in = in;
             plan.out = out;

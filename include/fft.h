@@ -48,7 +48,7 @@ namespace fft {
       void *out;
    };
 
-   static inline void rqeal_to_complex(const std::vector<ftype> &in,
+   static inline void real_to_complex(const std::vector<ftype> &in,
                                       std::vector<complex_t> &out)
    {
       assert(out.empty());

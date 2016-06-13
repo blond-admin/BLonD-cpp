@@ -39,10 +39,9 @@ If you are using a Linux distribution, in most of the cases, the following set o
     make 
     make install #you may need sudo access for this step, if you don't have it then try ./configure --prefix=/path/to/install
     ```
+  *Note that if you want to use the multi-threaded version of this library you must configure as `./configure --enable-openmp`.*
 
-*Note that if you want to use the multi-threaded version of this library you must configure as `./configure --enable-openmp`.*
-
-#### BLonD installation
+#### BLonD++ installation
 
 1. clone the code into a directory (lets call it BLonD++/)  
     ```bash  
@@ -61,7 +60,7 @@ If you are using a Linux distribution, in most of the cases, the following set o
 3. The executables should be ready!
 
 4. Developer's Notes:
-* By default, the Release version of the code is compiled. You can build a debug version with `cmake -DCMAKE_BUILD_TYPE=Debug ..`.     
+  * By default, the Release version of the code is compiled. You can build a debug version with `cmake -DCMAKE_BUILD_TYPE=Debug ..`     
 
 ## Configuration
 

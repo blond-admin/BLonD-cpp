@@ -32,8 +32,8 @@ namespace fft {
 
    // FFTW_DESTROY_INPUT : use the original input to store arbitaty data.
    // May yield better performance but the input is not usable any more.
-   // Can be combined with all the above
-   const uint FFTW_FLAGS = FFTW_ESTIMATE | FFTW_DESTROY_INPUT;
+   // Can be combined with all the above as FFTW_ESTIMATE | FFTW_DESTROY_INPUT 
+   const uint FFTW_FLAGS = FFTW_ESTIMATE;
 
 
    enum fft_type_t {

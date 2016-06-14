@@ -23,9 +23,9 @@ addons:
       - cmake-data
       - gcc-4.8
       - g++-4.8
-      - libgsl0ldbl
+      #- libgsl0ldbl
       - libgtest-dev
-      - libgsl0-dev
+      #- libgsl0-dev
       - libfftw3-dev
       - valgrind
       - gcov-4.8

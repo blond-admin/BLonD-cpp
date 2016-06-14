@@ -11,16 +11,17 @@
 #include <cmath>
 #include "sin.h"
 #include <omp.h>
-#include <cassert>
+#include  <cassert>
 #include "utilities.h"
 #include "configuration.h"
-#include <gsl/gsl_interp.h>
-#include <gsl/gsl_errno.h>
+//#include <gsl/gsl_interp.h>
+//#include <gsl/gsl_errno.h>
 #include <algorithm>
 
 
-namespace mymath {
+#include <fftw3.h>
 
+namespace mymath {
 
    // Wrapper function for vdt::fast_sin
    static inline ftype fast_sin(ftype x)
@@ -58,6 +59,50 @@ namespace mymath {
       return res;
    }
 
+   /*
+   // Parameters are like python's np.interp
+   // @x: x-coordinates of the interpolated values
+   // @xp: The x-coords of the data points
+   // @fp: the y-coords of the data points
+   // @y: the interpolated values, same shape as x
+   // @left: value to return for x < xp[0]
+   // @right: value to return for x > xp[last]
+      static inline void lin_interp(const std::vector<ftype> &x, const std::vector<ftype> &xp,
+                                    const std::vector<ftype> &fp, std::vector<ftype> &y,
+                                    const ftype left = 0, const ftype right = 0)
+      {
+         //assert(y.empty());
+
+         gsl_interp *interp =
+            gsl_interp_alloc(gsl_interp_linear, xp.size());
+
+         gsl_interp_init(interp, &xp[0], &fp[0], xp.size());
+
+         gsl_interp_accel *acc = gsl_interp_accel_alloc();
+
+         y.resize(x.size());
+         for (uint i = 0; i < x.size(); ++i) {
+            double val;
+            if (x[i] < interp->xmin) {
+               //std::cout << "here\n";
+               val = left;
+            } else if (x[i] > interp->xmax) {
+               //std::cout << "here\n";
+
+               val = right;
+            } else {
+               val = gsl_interp_eval(interp, &xp[0],
+                                     &fp[0], x[i],
+                                     acc);
+            }
+            y[i] = val;
+         }
+
+         gsl_interp_free(interp);
+         gsl_interp_accel_free(acc);
+
+      }
+   */
 
 // Parameters are like python's np.interp
 // @x: x-coordinates of the interpolated values
@@ -67,38 +112,48 @@ namespace mymath {
 // @left: value to return for x < xp[0]
 // @right: value to return for x > xp[last]
    static inline void lin_interp(const std::vector<ftype> &x, const std::vector<ftype> &xp,
-                                 const std::vector<ftype> &fp, std::vector<ftype> &y,
-                                 const ftype left = 0, const ftype right = 0)
+                                 const std::vector<ftype> &yp, std::vector<ftype> &y,
+                                 const ftype left = 0.0, const ftype right = 0.0)
    {
-      assert(y.empty());
+      //assert(y.empty());
+      assert(xp.size() == yp.size());
 
-      auto interp =
-         gsl_interp_alloc(gsl_interp_linear, xp.size());
+      y.resize(x.size());
 
-      gsl_interp_init(interp, &xp[0], &fp[0], xp.size());
+      const uint N = x.size();
+      //const uint M = xp.size();
+      const auto max = xp.back();
+      const auto min = xp.front();
+      const auto end = xp.end();
+      const auto begin = xp.begin();
 
-      auto acc = gsl_interp_accel_alloc();
-
-      y.reserve(x.size());
-      
-      for (uint i = 0; i < x.size(); ++i) {
-         double val;
-         if (x[i] < interp->xmin) {
-            val = left;
-         } else if (x[i] > interp->xmax) {
-            val = right;
-         } else {
-            val = gsl_interp_eval(interp, &xp[0],
-                                  &fp[0], x[i],
-                                  acc);
-         }
-         y.push_back(val);
+      uint k = 0;
+      while (x[k] < min and k < N) {
+         y[k] = left;
+         ++k;
       }
 
-      gsl_interp_free(interp);
-      gsl_interp_accel_free(acc);
+      auto j = begin + k;
+
+      for (uint i = k; i < N; ++i) {
+         if (x[i] > max) {
+            y[i] = right;
+            continue;
+         }
+         j = std::lower_bound(j, end, x[i]);
+         const auto pos = j - begin;
+         if (*j == x[i]) {
+            y[i] = yp[pos];
+         } else {
+            y[i] = yp[pos - 1]
+                   + (yp[pos] - yp[pos - 1])
+                   * (x[i] - xp[pos - 1])
+                   / (xp[pos] - xp[pos - 1]);
+         }
+      }
 
    }
+
 
 
 // Function to implement integration of f(x) over the interval

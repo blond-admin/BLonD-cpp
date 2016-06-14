@@ -5,11 +5,11 @@ environment:
 install:
   - choco install cmake
   - choco upgrade cmake
-  - cd external
-  - cd gsl
-  - cmake .
-  - DIR
-  - msbuild GSL.sln /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+  #- cd external
+  #- cd gsl
+  #- cmake .
+  #- DIR
+  #- msbuild GSL.sln /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
   - cd ../
   - cd googletest
   - cmake .

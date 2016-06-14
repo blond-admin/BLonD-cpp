@@ -49,7 +49,7 @@ endif()
 
 # Absolutely required packages
 find_package(OpenMP REQUIRED)
-find_package(GSL REQUIRED)
+#find_package(GSL REQUIRED)
 find_path(FFTW_INCLUDES fftw3.h)
 find_library(FFTW_LIBRARIES NAMES fftw3 libfftw3)
 

@@ -134,18 +134,15 @@ std::vector<ftype> InducedVoltageTime::induced_voltage_generation(uint length)
                             Slice->n_macroparticles + Slice->n_slices);
 
 
-      fft::rfft(in, fft1, fFFTPlanVec, fShape,
-                std::min(14, n_threads));
+      fft::rfft(in, fft1, fFFTPlanVec, fShape, n_threads);
 
       in = fTotalWake;
-      fft::rfft(in, fft2, fFFTPlanVec, fShape,
-                std::min(14, n_threads));
+      fft::rfft(in, fft2, fFFTPlanVec, fShape, n_threads);
 
       std::transform(fft1.begin(), fft1.end(), fft2.begin(),
                      fft1.begin(), std::multiplies<complex_t>());
 
-      fft::irfft(fft1, inducedVoltage, fFFTPlanVec,
-                 fShape, std::min(14, n_threads));
+      fft::irfft(fft1, inducedVoltage, fFFTPlanVec, fShape, n_threads);
 
       std::transform(inducedVoltage.begin(),
                      inducedVoltage.end(),
@@ -389,7 +386,7 @@ std::vector<ftype> InducedVoltageFreq::induced_voltage_generation(uint length)
                     * Slice->fBeamSpectrum[j];
          }
 
-         fft::irfft(in, res, fFFTPlanVec, 0, std::min(14, n_threads));
+         fft::irfft(in, res, fFFTPlanVec, 0, n_threads);
 
          assert((int) res.size() >= Slice->n_slices);
 
@@ -426,7 +423,7 @@ std::vector<ftype> InducedVoltageFreq::induced_voltage_generation(uint length)
          in[j] = fTotalImpedance[j] * Slice->fBeamSpectrum[j];
       }
 
-      fft::irfft(in, res, fFFTPlanVec, 0, std::min(14, n_threads));
+      fft::irfft(in, res, fFFTPlanVec, 0, n_threads);
       //std::cout << "res size : " << res.size() << std::endl;
       //std::cout << "n_slices : " << Slice->n_slices << std::endl;
       assert((int) res.size() >= Slice->n_slices);

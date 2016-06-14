@@ -32,8 +32,10 @@ namespace fft {
 
    // FFTW_DESTROY_INPUT : use the original input to store arbitaty data.
    // May yield better performance but the input is not usable any more.
-   // Can be combined with all the above as FFTW_ESTIMATE | FFTW_DESTROY_INPUT 
+   // Can be combined with all the above
    const uint FFTW_FLAGS = FFTW_ESTIMATE;
+   const uint ELEMS_PER_THREAD_FFT = 10000;
+   const uint ELEMS_PER_THREAD_RFFT = 15000;
 
 
    enum fft_type_t {
@@ -101,7 +103,9 @@ namespace fft {
 #ifdef USE_FFTW_OMP
       if (threads > 1) {
          fftw_init_threads();
-         fftw_plan_with_nthreads(threads);
+         fftw_plan_with_nthreads(
+            std::min(threads,
+                     (int)((n + ELEMS_PER_THREAD_FFT - 1) / ELEMS_PER_THREAD_FFT)));
       }
 #endif
       fftw_complex *a, *b;
@@ -122,7 +126,9 @@ namespace fft {
 #ifdef USE_FFTW_OMP
       if (threads > 1) {
          fftw_init_threads();
-         fftw_plan_with_nthreads(threads);
+         fftw_plan_with_nthreads(
+            std::min(threads,
+                     (int)((n + ELEMS_PER_THREAD_RFFT - 1) / ELEMS_PER_THREAD_RFFT)));
       }
 #endif
       fftw_complex *b;
@@ -139,7 +145,9 @@ namespace fft {
 #ifdef USE_FFTW_OMP
       if (threads > 1) {
          fftw_init_threads();
-         fftw_plan_with_nthreads(threads);
+         fftw_plan_with_nthreads(
+            std::min(threads,
+                     (int)((n + ELEMS_PER_THREAD_FFT - 1) / ELEMS_PER_THREAD_FFT)));
       }
 #endif
       fftw_complex *b;

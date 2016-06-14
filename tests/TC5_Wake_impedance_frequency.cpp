@@ -171,9 +171,9 @@ int main(int argc, char **argv)
    std::cout << "Average Slice Track Time : "
              << sliceTrack / N_t << std::endl;
 
-   // util::dump(Beam->dE.data(), 10, "dE\n");
-   // util::dump(Beam->dt.data(), 10, "dt\n");
-   // util::dump(Slice->n_macroparticles, 10, "n_macroparticles\n");
+   //util::dump(Beam->dE.data(), 10, "dE\n");
+   //util::dump(Beam->dt.data(), 10, "dt\n");
+   //util::dump(Slice->n_macroparticles, 10, "n_macroparticles\n");
 
    delete Slice;
    delete long_tracker;

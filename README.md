@@ -9,8 +9,7 @@ NOT Stable - Under heavy development
 
 ## Requirements
 * cmake version >= 3.0.2 [install](https://cmake.org/install/)
-* gcc version >= 4.8.0 [install](https://gcc.gnu.org/wiki/InstallingGCC)
-* GNU Scientific Library [install](http://www.gnu.org/software/gsl/)
+* gcc version >= 4.8.0 [install](https://gcc.gnu.org/wiki/InstallingGCC)  
 * FFTW3 Library [install](http://www.fftw.org/download.html)
 
 
@@ -18,19 +17,9 @@ NOT Stable - Under heavy development
 
 #### Libraries Installation
 
-* GNU Scientific Library
-If you are using a Linux distribution, in most of the cases, the following set of commands should be enough:
-    ```bash
-    wget ftp://ftp.gnu.org/gnu/gsl/gsl-latest.tar.gz
-    tar -xzvf gsl-2.1.tar.gz gsl-home
-    cd gsl-2.1
-    ./configure
-    make
-    make install #you may need sudo access for this step, if you don't have it then try ./configure --prefix=/path/to/install
-    ```
-
-* FFTW3 Library
-If you are using a Linux distribution, in most of the cases, the following set of commands should be enough:
+* FFTW3 Library  
+  If you are using a Linux distribution, in most of the cases, the following set of commands should be enough:
+    
     ```bash
     wget http://www.fftw.org/fftw-3.3.4.tar.gz
     tar -xzvf fftw-3.3.4.tar.gz

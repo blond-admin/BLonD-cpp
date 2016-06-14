@@ -54,7 +54,8 @@ find_path(FFTW_INCLUDES fftw3.h)
 find_library(FFTW_LIBRARIES NAMES fftw3 libfftw3)
 
 
-set(LIBRARIES blond gsl gslcblas fftw3 m)
+#set(LIBRARIES blond gsl gslcblas fftw3 m)
+set(LIBRARIES blond fftw3 m)
 
 if(USE_FFTW_OMP)
    set(LIBRARIES ${LIBRARIES} fftw3_omp)

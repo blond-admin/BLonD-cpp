@@ -22,8 +22,9 @@ class testGP : public ::testing::Test {
 protected:
    virtual void SetUp()
    {
-      ftype *momentum = new ftype[N_t + 1];
-      mymath::linspace(momentum, p_i, p_f, N_t + 1);
+      //ftype *momentum = new ftype[N_t + 1];
+      f_vector_t momentum(N_t+1);
+      mymath::linspace(momentum.data(), p_i, p_f, N_t + 1);
 
       ftype *alpha_array = new ftype[(alpha_order + 1) * n_sections];
 
@@ -32,7 +33,7 @@ protected:
       ftype *C_array = new ftype[n_sections];
       std::fill_n(C_array, n_sections, C);
 
-      GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum,
+      GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum.data(),
                                  proton);
    }
 

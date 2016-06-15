@@ -71,7 +71,10 @@ public:
    std::vector<ftype> induced_voltage_generation(uint length = 0);
    InducedVoltageTime(std::vector<Intensity *> &WakeSourceList,
                       time_or_freq TimeOrFreq = freq_domain);
-   ~InducedVoltageTime() {};
+   ~InducedVoltageTime()
+   {
+      fft::destroy_plans(fFFTPlanVec);
+   };
 };
 
 
@@ -127,7 +130,10 @@ public:
                       uint NTurnsMem = 0,
                       bool recalculationImpedance = false,
                       bool saveIndividualVoltages = false);
-   ~InducedVoltageFreq() {};
+   ~InducedVoltageFreq()
+   {
+      fft::destroy_plans(fFFTPlanVec);
+   };
 };
 
 

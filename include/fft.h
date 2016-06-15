@@ -169,6 +169,15 @@ namespace fft {
 
 //#endif
 
+   static inline void destroy_plans(std::vector<fft_plan_t> &v)
+   {
+      for( auto &i : v){
+         fftw_destroy_plan(i.p);
+         fftw_free(i.in);
+         fftw_free(i.out);
+      }
+   }
+
    static inline fft_plan_t find_plan(uint n,
                                       fft_type_t type,
                                       uint threads,
@@ -368,6 +377,7 @@ namespace fft {
          n = in.size();
 
 //#ifdef USE_FFTW
+      out.resize(n);
 
       fft_plan_t plan = fft::find_plan(n, FFT, threads, planV);
 
@@ -377,7 +387,6 @@ namespace fft {
 
       run_fft(plan.p);
 
-      out.resize(n);
 
       std::copy(&to[0], &to[n], out.begin());
       /*
@@ -447,6 +456,8 @@ namespace fft {
       if (n == 0)
          n = in.size();
 
+      out.resize(n);
+
 //#ifdef USE_FFTW
       fft_plan_t plan = fft::find_plan(n, IFFT, threads, planV);
 
@@ -456,7 +467,6 @@ namespace fft {
 
       run_fft(plan.p);
 
-      out.resize(n);
 
       //std::copy(&to[0], &to[n], out.begin());
       std::transform(&to[0], &to[n], out.begin(),

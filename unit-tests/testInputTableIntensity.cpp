@@ -57,8 +57,8 @@ protected:
 
       omp_set_num_threads(n_threads);
 
-      ftype *momentum = new ftype[N_t + 1];
-      std::fill_n(momentum, N_t + 1, p_i);
+      f_vector_t momentum(N_t + 1);
+      std::fill_n(momentum.begin(), N_t + 1, p_i);
 
       ftype *alpha_array = new ftype[(alpha_order + 1) * n_sections];
       std::fill_n(alpha_array, (alpha_order + 1) * n_sections, alpha);
@@ -75,7 +75,7 @@ protected:
       ftype *dphi_array = new ftype[n_sections * (N_t + 1)];
       std::fill_n(dphi_array, (N_t + 1) * n_sections, dphi);
 
-      GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum,
+      GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum.data(),
                                  proton);
 
       Beam = new Beams(N_p, N_b);
@@ -167,6 +167,7 @@ TEST_F(testInputTableIntensity, wake_calc)
             << i << std::endl;
    }
    v.clear();
+   delete inputTable;
 }
 
 
@@ -214,6 +215,8 @@ TEST_F(testInputTableIntensity, imped_calc)
             << i << std::endl;
    }
    v.clear();
+   delete inputTable;
+
 }
 
 

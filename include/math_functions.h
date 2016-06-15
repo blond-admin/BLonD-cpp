@@ -183,7 +183,7 @@ namespace mymath {
 
       ftype psum = 0.0;
       // increment the partial sum
-      #pragma omp parallel for reduction(+ : psum)
+      //#pragma omp parallel for reduction(+ : psum)
       for (int index = 1; index < nsub; ++index) {
          psum += (f[index] + f[index - 1])
                  * (deltaX[index] - deltaX[index - 1]);
@@ -252,7 +252,7 @@ namespace mymath {
    {
       const ftype step = (end - start) / (n - 1);
       //ftype value = start;
-      #pragma omp parallel for
+      //#pragma omp parallel for
       for (int i = 0; i < n; ++i) {
          if (i >= keep_from)
             a[i - keep_from] = start + i * step;

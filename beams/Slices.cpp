@@ -56,6 +56,8 @@ Slices::~Slices()
    util::delete_array(n_macroparticles);
    util::delete_array(bin_centers);
    util::delete_array(edges);
+   fft::destroy_plans(fFFTPlanVec);
+
    //delete_array (h);
    //free(h);
 }
@@ -329,6 +331,7 @@ inline void Slices::histogram(const ftype *__restrict__ input,
          }
       }
    }
+   free(h);
 }
 
 void Slices::track_cuts()

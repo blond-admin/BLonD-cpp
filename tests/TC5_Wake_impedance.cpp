@@ -160,15 +160,15 @@ int main(int argc, char **argv)
    }
 
    std::cout << std::scientific;
-   // std::cout << "Average Turn Time : "
-   //           << (indTrack + longTrack + sliceTrack) / N_t
-   //           << std::endl;
+   std::cout << "Average Turn Time : "
+             << (indTrack + longTrack + sliceTrack) / N_t
+             << std::endl;
    std::cout << "Average Induced Voltage Track Time : "
-             << indTrack / N_t << std::endl;
-   // std::cout << "Average Tracker Track Time : "
-   //           << longTrack / N_t << std::endl;
-   // std::cout << "Average Slice Track Time : "
-   //           << sliceTrack / N_t << std::endl;
+            << indTrack / N_t << std::endl;
+   std::cout << "Average Tracker Track Time : "
+             << longTrack / N_t << std::endl;
+   std::cout << "Average Slice Track Time : "
+             << sliceTrack / N_t << std::endl;
 
    //util::dump(Beam->dE, 10, "dE\n");
    //util::dump(Beam->dt, 10, "dt\n");

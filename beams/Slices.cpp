@@ -305,7 +305,7 @@ inline void Slices::histogram(const ftype *__restrict__ input,
       #pragma omp single
       h = (hist_t *) calloc(threads * n_slices, sizeof(hist_t));
 
-      for (int i = start; i < end; i++) {
+      for (int i = start; i < end; ++i) {
          ftype a = input[i];
          if ((a < cut_left) || (a > cut_right))
             continue;

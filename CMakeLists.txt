@@ -87,7 +87,7 @@ if(TEST_ENABLED)
 endif()
 
 
-include_directories(include)
+include_directories(include $ENV{HOME}/opt/include)
 link_directories(/usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64)
 link_directories("$ENV{HOME}/opt/lib")
 

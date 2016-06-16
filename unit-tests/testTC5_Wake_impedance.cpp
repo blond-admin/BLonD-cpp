@@ -57,7 +57,7 @@ protected:
 
       omp_set_num_threads(n_threads);
 
-      f_vector_t momentum(N_t+1);
+      f_vector_t momentum(N_t + 1);
       std::fill_n(momentum.begin(), N_t + 1, p_i);
 
       ftype *alpha_array = new ftype[(alpha_order + 1) * n_sections];
@@ -131,17 +131,12 @@ protected:
 TEST_F(testTC5, timeTrack)
 {
 
-   //Slice->track(0, Beam->n_macroparticles);
-
    std::vector<Intensity *> wakeSourceList({resonator});
    InducedVoltageTime *indVoltTime = new InducedVoltageTime(wakeSourceList);
    std::vector<InducedVoltage *> indVoltList({indVoltTime});
 
-
    TotalInducedVoltage *totVol = new TotalInducedVoltage(indVoltList);
 
-   //totVol->track();
-   //std::cout << "made it here\n";
 
    for (unsigned i = 0; i < N_t; ++i) {
       totVol->track();
@@ -208,21 +203,20 @@ TEST_F(testTC5, timeTrack)
             << i << std::endl;
    }
 
+   delete indVoltTime;
+   delete totVol;
+
 }
 
 
 
 TEST_F(testTC5, freqTrack)
 {
-
-
    std::vector<Intensity *> ImpSourceList({resonator});
    auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
    std::vector<InducedVoltage *> indVoltList({indVoltFreq});
 
-
    TotalInducedVoltage *totVol = new TotalInducedVoltage(indVoltList);
-
 
    for (unsigned i = 0; i < N_t; ++i) {
       totVol->track();
@@ -289,7 +283,8 @@ TEST_F(testTC5, freqTrack)
             << i << std::endl;
    }
 
-
+   delete indVoltFreq;
+   delete totVol;
 
 }
 

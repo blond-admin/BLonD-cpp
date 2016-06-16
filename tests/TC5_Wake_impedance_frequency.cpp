@@ -79,8 +79,8 @@ int main(int argc, char **argv)
    timespec begin;
    //timespec end;
 
-   ftype *momentum = new ftype[N_t + 1];
-   std::fill_n(momentum, N_t + 1, p_i);
+   f_vector_t momentum(N_t + 1);
+   std::fill_n(momentum.data(), N_t + 1, p_i);
 
    ftype *alpha_array = new ftype[(alpha_order + 1) * n_sections];
    std::fill_n(alpha_array, (alpha_order + 1) * n_sections, alpha);
@@ -97,7 +97,7 @@ int main(int argc, char **argv)
    ftype *dphi_array = new ftype[n_sections * (N_t + 1)];
    std::fill_n(dphi_array, (N_t + 1) * n_sections, dphi);
 
-   GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum,
+   GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum.data(),
                               proton);
 
    Beam = new Beams(N_p, N_b);
@@ -130,7 +130,7 @@ int main(int argc, char **argv)
 
    Resonators *resonator = new Resonators(R_shunt, f_res, Q_factor);
 
-   
+
    std::vector<Intensity *> ImpSourceList({resonator});
 
    auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
@@ -165,7 +165,7 @@ int main(int argc, char **argv)
              << (indTrack + longTrack + sliceTrack) / N_t
              << std::endl;
    std::cout << "Average Induced Voltage Frequency Track Time : "
-            << indTrack / N_t << std::endl;
+             << indTrack / N_t << std::endl;
    std::cout << "Average Tracker Track Time : "
              << longTrack / N_t << std::endl;
    std::cout << "Average Slice Track Time : "
@@ -183,7 +183,7 @@ int main(int argc, char **argv)
    delete resonator;
    delete indVoltFreq;
    delete totVol;
-   
+
    printf("Done!\n");
 
 }

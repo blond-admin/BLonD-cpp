@@ -131,7 +131,7 @@ int main(int argc, char **argv)
 
 
    std::vector<Intensity *> wakeSourceList({resonator});
-   InducedVoltageTime *indVoltTime = new InducedVoltageTime(wakeSourceList, freq_domain);
+   InducedVoltageTime *indVoltTime = new InducedVoltageTime(wakeSourceList, time_domain);
    std::vector<InducedVoltage *> indVoltList({indVoltTime});
 
 

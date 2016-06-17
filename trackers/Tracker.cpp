@@ -33,8 +33,9 @@ inline void RingAndRfSection::kick(const ftype *__restrict__ beam_dt,
    for (int j = 0; j < n_rf; ++j) {
       #pragma omp parallel for
       for (int i = 0; i < n_macroparticles; ++i) {
+         const ftype a = omega_RF[k]*beam_dt[i] + phi_RF[k];
          beam_dE[i] += voltage[k] *
-                       mymath::fast_sin(omega_RF[k] * beam_dt[i] + phi_RF[k]);
+                       mymath::fast_sin(a/*omega_RF[k] * beam_dt[i] + phi_RF[k]*/);
       }
       k += GP->n_turns;
    }

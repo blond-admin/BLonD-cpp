@@ -171,7 +171,9 @@ TEST(testConvolution, test1)
    b.resize(20);
    mymath::linspace(a.data(), 0.f, 100.f, a.size());
    mymath::linspace(b.data(), 100.f, 1000.f, b.size());
-   c = mymath::convolution(a, b);
+   c.resize(a.size() + b.size() - 1);
+   mymath::convolution(a.data(), a.size(),
+                       b.data(), b.size(), c.data());
 
 
    std::string params = "../unit-tests/references/MyMath/convolution/";
@@ -201,7 +203,9 @@ TEST(testConvolution, test2)
    a.resize(100, 0);
    b.resize(20);
    mymath::linspace(b.data(), 100.f, 1000.f, b.size());
-   c = mymath::convolution(a, b);
+   c.resize(a.size() + b.size() - 1);
+   mymath::convolution(a.data(), a.size(),
+                       b.data(), b.size(), c.data());
 
 
    std::string params = "../unit-tests/references/MyMath/convolution/";
@@ -230,7 +234,9 @@ TEST(testConvolution, test3)
    std::vector<ftype> c, a, b, v;
    a = {0, 0, 0, 0, 1, 1, 1, 0, 0, 0};
    b = {1, 1, 1, 1, 0, 0, 0, 1, 1, 1};
-   c = mymath::convolution(a, b);
+   c.resize(a.size() + b.size() - 1);
+   mymath::convolution(a.data(), a.size(),
+                       b.data(), b.size(), c.data());
 
 
    std::string params = "../unit-tests/references/MyMath/convolution/";

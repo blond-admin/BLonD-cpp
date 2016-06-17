@@ -152,8 +152,11 @@ std::vector<ftype> InducedVoltageTime::induced_voltage_generation(uint length)
    } else if (fTimeOrFreq == time_domain) {
       std::vector<ftype> temp(Slice->n_macroparticles,
                               Slice->n_macroparticles + Slice->n_slices);
-      inducedVoltage =
-         mymath::convolution(fTotalWake, temp);
+      //inducedVoltage =
+      inducedVoltage.resize(fTotalWake.size() + temp.size() - 1);
+      mymath::convolution(fTotalWake.data(), fTotalWake.size(),
+                          temp.data(), temp.size(),
+                          inducedVoltage.data());
 
       std::transform(inducedVoltage.begin(),
                      inducedVoltage.end(),

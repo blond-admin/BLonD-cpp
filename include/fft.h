@@ -14,11 +14,13 @@
 #include "utilities.h"
 #include "configuration.h"
 #include <algorithm>
-
 #include <fftw3.h>
 
 
 namespace fft {
+
+
+
 
    // FFTW_PATIENT: run a lot of ffts to discover the best plan.
    // Will not use the multithreaded version unless the fft size
@@ -33,7 +35,8 @@ namespace fft {
    // FFTW_DESTROY_INPUT : use the original input to store arbitaty data.
    // May yield better performance but the input is not usable any more.
    // Can be combined with all the above
-   const uint FFTW_FLAGS = FFTW_ESTIMATE;
+   const uint FFTW_FLAGS = FFTW_ESTIMATE | FFTW_DESTROY_INPUT;
+   //const uint FFTW_FLAGS = FFTW_ESTIMATE;// | FFTW_DESTROY_INPUT;
    const uint ELEMS_PER_THREAD_FFT = 10000;
    const uint ELEMS_PER_THREAD_RFFT = 15000;
 
@@ -49,6 +52,8 @@ namespace fft {
       void *in;
       void *out;
    };
+
+   static std::vector<fft::fft_plan_t> planV;
 
    static inline void real_to_complex(const std::vector<ftype> &in,
                                       std::vector<complex_t> &out)
@@ -167,16 +172,17 @@ namespace fft {
    }
 
 
-//#endif
-
-   static inline void destroy_plans(std::vector<fft_plan_t> &v)
+   static inline void destroy_plans()
    {
-      for( auto &i : v){
+      for (auto &i : planV) {
          fftw_destroy_plan(i.p);
          fftw_free(i.in);
          fftw_free(i.out);
       }
+      planV.clear();
    }
+
+//#endif
 
    static inline fft_plan_t find_plan(uint n,
                                       fft_type_t type,
@@ -245,18 +251,9 @@ namespace fft {
             plan.out = out;
 
          } else {
-            std::cerr << "[fft::find_plan]: "
-                      << "Wrong fft type!\n"
-                      << "A regular forward fft will be used.\n";
-            fftw_complex *in = (fftw_complex *) fftw_malloc(sizeof(fftw_complex) * n);
-            fftw_complex *out = (fftw_complex *) fftw_malloc(sizeof(fftw_complex) * n);
-            auto p = init_fft(n, reinterpret_cast<complex_t *>(in),
-                              reinterpret_cast<complex_t *>(out),
-                              FFTW_FORWARD, flag, threads);
-            plan.p = p;
-
-            plan.in = in;
-            plan.out = out;
+            std::cerr << "[fft::find_plan]: ERROR "
+                      << "Wrong fft type!\n";
+            exit(-1);
          }
 
          v.push_back(plan);
@@ -285,65 +282,16 @@ namespace fft {
          in.resize(n);
 
       out.resize(n / 2 + 1);
-      auto p = fft::init_rfft(n, in.data(), out.data(),
-                              FFTW_ESTIMATE, threads);
-      fft::run_fft(p);
-      fft::destroy_fft(p);
-   }
 
+      auto plan = fft::find_plan(n, RFFT, threads, planV);
+      auto *from = (ftype *)plan.in;
+      auto *to = (complex_t *)plan.out;
 
-   static inline void rfft(f_vector_t &in,
-                           complex_vector_t &out,
-                           std::vector<fft_plan_t> &planV,
-                           uint n = 0,
-                           const uint threads = 1)
-   {
-      if (n == 0)
-         n = in.size();
-      else
-         in.resize(n);
-
-//#ifdef USE_FFTW
-      fft_plan_t plan = fft::find_plan(n, RFFT, threads, planV);
-      ftype *from = (ftype *)plan.in;
-      complex_t *to = (complex_t *)plan.out;
       std::copy(in.begin(), in.end(), from);
 
       run_fft(plan.p);
 
-      out.resize(n / 2 + 1);
-
       std::copy(&to[0], &to[n / 2 + 1], out.begin());
-      /*
-      #else
-            std::cerr << "Use of gsl ffts is depricated\n";
-
-
-            gsl_fft_real_wavetable *real;
-            gsl_fft_real_workspace *work;
-
-            work = gsl_fft_real_workspace_alloc(n);
-            real = gsl_fft_real_wavetable_alloc(n);
-
-            gsl_fft_real_transform(in.data(), 1, n, real, work);
-
-            out.clear();
-            out.reserve(in.size() / 2);
-            // first element is real => imag is zero
-            in.insert(in.begin() + 1, 0.0);
-
-            // if n is even => last element is real
-            if (n % 2 == 0)
-               in.push_back(0.0);
-
-            //pack_to_complex(v, out);
-            pack_to_complex(in, out);
-
-            gsl_fft_real_wavetable_free(real);
-            gsl_fft_real_workspace_free(work);
-
-      #endif
-      */
    }
 
 
@@ -361,66 +309,16 @@ namespace fft {
          n = in.size();
 
       out.resize(n);
-      auto p = fft::init_fft(n, in.data(), out.data(), FFTW_FORWARD,
-                             FFTW_ESTIMATE, threads);
-      fft::run_fft(p);
-      fft::destroy_fft(p);
-   }
 
-   static inline void fft(complex_vector_t &in,
-                          complex_vector_t &out,
-                          std::vector<fft_plan_t> &planV,
-                          uint n = 0,
-                          const uint threads = 1)
-   {
-      if (n == 0)
-         n = in.size();
+      auto plan = fft::find_plan(n, FFT, threads, planV);
+      auto *from = (complex_t *)plan.in;
+      auto *to = (complex_t *)plan.out;
 
-//#ifdef USE_FFTW
-      out.resize(n);
-
-      fft_plan_t plan = fft::find_plan(n, FFT, threads, planV);
-
-      complex_t *from = (complex_t *)plan.in;
-      complex_t *to = (complex_t *)plan.out;
       std::copy(in.begin(), in.end(), from);
 
       run_fft(plan.p);
 
-
       std::copy(&to[0], &to[n], out.begin());
-      /*
-      #else
-            std::cerr << "Use of gsl ffts is depricated\n";
-
-            std::vector<ftype> v;
-            //v.resize(2 * n, 0);
-            unpack_complex(in, v);
-
-            gsl_fft_complex_wavetable *wave;
-            gsl_fft_complex_workspace *work;
-
-            wave = gsl_fft_complex_wavetable_alloc(n);
-            work = gsl_fft_complex_workspace_alloc(n);
-
-            gsl_fft_complex_forward(v.data(), 1, n, wave, work);
-
-            //printf("ok inside\n");
-
-            out.clear();
-
-            pack_to_complex(v, out);
-
-            out.resize(n, 0);
-
-            gsl_fft_complex_wavetable_free(wave);
-            //printf("ok here7\n");
-
-            gsl_fft_complex_workspace_free(work);
-            //printf("ok here8\n");
-
-      #endif
-      */
    }
 
 
@@ -429,27 +327,8 @@ namespace fft {
 // @n:   number of points to use. If n < in.size() then the input is cropped
 //       if n > in.size() then input is padded with zeros
 // @out: the inverse Fourier transform of input data
-
    static inline void ifft(complex_vector_t &in,
                            complex_vector_t &out,
-                           uint n = 0,
-                           const uint threads = 1)
-   {
-      if (n == 0)
-         n = in.size();
-      out.resize(n);
-      auto p = fft::init_fft(n, in.data(), out.data(), FFTW_BACKWARD,
-                             FFTW_ESTIMATE, threads);
-      fft::run_fft(p);
-      std::transform(out.begin(), out.end(), out.begin(),
-                     std::bind2nd(std::divides<complex_t>(), n));
-      fft::destroy_fft(p);
-   }
-
-
-   static inline void ifft(complex_vector_t &in,
-                           complex_vector_t &out,
-                           std::vector<fft_plan_t> &planV,
                            uint n = 0,
                            const uint threads = 1)
    {
@@ -458,47 +337,15 @@ namespace fft {
 
       out.resize(n);
 
-//#ifdef USE_FFTW
-      fft_plan_t plan = fft::find_plan(n, IFFT, threads, planV);
-
-      complex_t *from = (complex_t *)plan.in;
-      complex_t *to = (complex_t *)plan.out;
+      auto plan = fft::find_plan(n, IFFT, threads, planV);
+      auto *from = (complex_t *)plan.in;
+      auto *to = (complex_t *)plan.out;
       std::copy(in.begin(), in.end(), from);
 
       run_fft(plan.p);
 
-
-      //std::copy(&to[0], &to[n], out.begin());
       std::transform(&to[0], &to[n], out.begin(),
                      std::bind2nd(std::divides<complex_t>(), n));
-      /*
-      #else
-            std::cerr << "Use of gsl ffts is depricated\n";
-
-            std::vector<ftype> v;
-            //v.resize(2 * n, 0);
-
-            unpack_complex(in, v);
-
-            gsl_fft_complex_wavetable *wave;
-            gsl_fft_complex_workspace *work;
-
-            work = gsl_fft_complex_workspace_alloc(n);
-            wave = gsl_fft_complex_wavetable_alloc(n);
-
-            gsl_fft_complex_inverse(v.data(), 1, n, wave, work);
-
-
-            out.clear();
-
-            pack_to_complex(v, out);
-
-            out.resize(n, 0);
-
-            gsl_fft_complex_wavetable_free(wave);
-            gsl_fft_complex_workspace_free(work);
-      #endif
-      */
    }
 
 
@@ -506,78 +353,25 @@ namespace fft {
 // @in: input vector which must be the result of a rfft
 // @out: irfft of input, always real
 // Missing n: size of output
-// TODO fix this one!!
-
    static inline void irfft(complex_vector_t in,
                             f_vector_t &out,
-                            uint n = 0,
-                            const uint threads = 1)
-   {
-      n = (n == 0) ? 2 * (in.size() - 1) : n;
-
-      out.resize(n);
-
-      auto p = fft::init_irfft(n, in.data(), out.data(),
-                               FFTW_ESTIMATE, threads);
-      fft::run_fft(p);
-      std::transform(out.begin(), out.end(), out.begin(),
-                     std::bind2nd(std::divides<ftype>(), n));
-      fft::destroy_fft(p);
-   }
-
-
-   static inline void irfft(complex_vector_t in,
-                            f_vector_t &out,
-                            std::vector<fft_plan_t> &planV,
                             uint n = 0,
                             const uint threads = 1)
    {
       n = (n == 0) ? 2 * (in.size() - 1) : n;
       //std::cout << "out size will be " << n << "\n";
+      out.resize(n);
 
-//#ifdef USE_FFTW
-      fft_plan_t plan = fft::find_plan(n, IRFFT, threads, planV);
+      auto plan = fft::find_plan(n, IRFFT, threads, planV);
+      auto *from = (complex_t *)plan.in;
+      auto *to = (ftype *)plan.out;
 
-      complex_t *from = (complex_t *)plan.in;
-      ftype *to = (ftype *)plan.out;
       std::copy(in.begin(), in.end(), from);
 
       run_fft(plan.p);
 
-      out.resize(n);
-
-      //std::copy(&to[0], &to[n], out.begin());
       std::transform(&to[0], &to[n], out.begin(),
                      std::bind2nd(std::divides<ftype>(), n));
-
-      /*
-      #else
-            std::cerr << "Use of gsl ffts is depricated\n";
-
-            assert(in.size() > 1);
-
-            uint last = in.size() - 2;
-
-            if (n == 2 * in.size() - 1) {
-               last = in.size() - 1;
-            } else if (n == 2 * (in.size() - 1)) {
-               ;
-            } else {
-               std::cerr << "[fft::ifft] Size not supported!\n"
-                         << "[fft::ifft] default size: " << n
-                         << " will be used\n";
-            }
-
-            for (uint i = last; i > 0; --i) {
-               in.push_back(std::conj(in[i]));
-            }
-
-            complex_vector_t temp;
-            fft::ifft(in, temp, n);
-
-            fft::complex_to_real(temp, out);
-      #endif
-      */
    }
 
 
@@ -595,8 +389,83 @@ namespace fft {
       }
       return std::move(v);
    }
+   /*
+    static inline void rfft(f_vector_t &in,
+                            complex_vector_t &out,
+                            uint n = 0,
+                            const uint threads = 1)
+    {
 
+       if (n == 0)
+          n = in.size();
+       else
+          in.resize(n);
+
+       out.resize(n / 2 + 1);
+       auto p = fft::init_rfft(n, in.data(), out.data(),
+                               FFTW_ESTIMATE, threads);
+       fft::run_fft(p);
+       fft::destroy_fft(p);
+
+    }
+    */
+
+   /*
+   static inline void irfft(complex_vector_t in,
+                            f_vector_t &out,
+                            uint n = 0,
+                            const uint threads = 1)
+   {
+      n = (n == 0) ? 2 * (in.size() - 1) : n;
+
+      out.resize(n);
+
+      auto p = fft::init_irfft(n, in.data(), out.data(),
+                               FFTW_ESTIMATE, threads);
+      fft::run_fft(p);
+      std::transform(out.begin(), out.end(), out.begin(),
+                     std::bind2nd(std::divides<ftype>(), n));
+      fft::destroy_fft(p);
+   }
+   */
+
+   /*
+   static inline void ifft(complex_vector_t &in,
+                        complex_vector_t &out,
+                        uint n = 0,
+                        const uint threads = 1)
+   {
+   if (n == 0)
+      n = in.size();
+   out.resize(n);
+   auto p = fft::init_fft(n, in.data(), out.data(), FFTW_BACKWARD,
+                          FFTW_ESTIMATE, threads);
+   fft::run_fft(p);
+   std::transform(out.begin(), out.end(), out.begin(),
+                  std::bind2nd(std::divides<complex_t>(), n));
+   fft::destroy_fft(p);
+   }
+   */
+
+   /*
+   static inline void fft(complex_vector_t &in,
+                        complex_vector_t &out,
+                        uint n = 0,
+                        const uint threads = 1)
+   {
+    if (n == 0)
+       n = in.size();
+
+    out.resize(n);
+    auto p = fft::init_fft(n, in.data(), out.data(), FFTW_FORWARD,
+                           FFTW_ESTIMATE, threads);
+    fft::run_fft(p);
+    fft::destroy_fft(p);
+   }
+   */
 
 }
+
+
 
 #endif /* INCLUDE_FFT_H_ */

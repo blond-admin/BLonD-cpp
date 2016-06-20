@@ -56,7 +56,7 @@ Slices::~Slices()
    util::delete_array(n_macroparticles);
    util::delete_array(bin_centers);
    util::delete_array(edges);
-   fft::destroy_plans(fFFTPlanVec);
+   fft::destroy_plans();
 
    //delete_array (h);
    //free(h);
@@ -554,7 +554,7 @@ void Slices::beam_spectrum_generation(uint n, bool onlyRFFT)
       f_vector_t v(n_macroparticles, n_macroparticles + n_slices);
       //std:: cout << "n is " << n << "\n";
       //std:: cout << "n_slices is " << n_slices << "\n";
-      fft::rfft(v, fBeamSpectrum, fFFTPlanVec, n, n_threads);
+      fft::rfft(v, fBeamSpectrum, n, n_threads);
       //std:: cout << "size of fBeamSpectrum is " << fBeamSpectrum.size() << "\n";
 
    }

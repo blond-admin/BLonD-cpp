@@ -14,11 +14,8 @@
 #include  <cassert>
 #include "utilities.h"
 #include "configuration.h"
-//#include <gsl/gsl_interp.h>
-//#include <gsl/gsl_errno.h>
+#include "fft.h"
 #include <algorithm>
-
-
 #include <fftw3.h>
 
 namespace mymath {
@@ -61,11 +58,13 @@ namespace mymath {
    }
    */
    // linear convolution function
+
+// linear convolution function
    static inline void convolution(const ftype *__restrict__ signal,
-                                   const uint SignalLen,
-                                   const ftype *__restrict__ kernel,
-                                   const uint KernelLen,
-                                   ftype *__restrict__ res)
+                                  const uint SignalLen,
+                                  const ftype *__restrict__ kernel,
+                                  const uint KernelLen,
+                                  ftype *__restrict__ res)
    {
       const uint size = KernelLen + SignalLen - 1;
 
@@ -80,6 +79,27 @@ namespace mymath {
             //--j;
          }
       }
+
+   }
+
+
+   static inline void convolution_with_ffts(f_vector_t signal,
+                                   f_vector_t kernel,
+                                   f_vector_t &res)
+   {
+      complex_vector_t v1;//(signal.size());
+      complex_vector_t v2;//(kernel.size());
+      const uint size = signal.size() + kernel.size() - 1;
+      res.resize(size);
+      
+      fft::rfft(signal, v1, size, omp_get_max_threads());
+      fft::rfft(kernel, v2, size, omp_get_max_threads());
+
+      std::transform(v1.begin(), v1.end(),
+                     v2.begin(), v1.begin(),
+                     std::multiplies<complex_t>());
+
+      fft::irfft(v1, res, size, omp_get_max_threads());
 
    }
 

@@ -63,7 +63,6 @@ public:
    uint fShape;
    time_or_freq fTimeOrFreq;
 
-   std::vector<fft::fft_plan_t> fFFTPlanVec;
 
    void track();
    void sum_wakes(std::vector<ftype> &v);
@@ -73,7 +72,7 @@ public:
                       time_or_freq TimeOrFreq = freq_domain);
    ~InducedVoltageTime()
    {
-      fft::destroy_plans(fFFTPlanVec);
+      fft::destroy_plans();
    };
 };
 
@@ -111,7 +110,6 @@ public:
    complex_vector_t fTotalImpedanceMem;
    f_vector_t fTimeArrayMem;
 
-   std::vector<fft::fft_plan_t> fFFTPlanVec;
 
    // *Induced voltage from the sum of the wake sources in [V]*
    //f_vector_t fInducedVoltage;
@@ -132,7 +130,7 @@ public:
                       bool saveIndividualVoltages = false);
    ~InducedVoltageFreq()
    {
-      fft::destroy_plans(fFFTPlanVec);
+      fft::destroy_plans();
    };
 };
 

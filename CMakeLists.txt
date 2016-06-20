@@ -1,5 +1,5 @@
 # Requirements list
-cmake_minimum_required(VERSION 3.0.2)
+cmake_minimum_required(VERSION 2.8.11)
 project(BLonD-minimal-cpp CXX)
 include(CheckCXXCompilerFlag)
 
@@ -13,8 +13,13 @@ if(!COMPILER_HAS_CXX11)
 	message(FATAL_ERROR "ERROR: Compiler is lacking support for c++11")
 endif()
 
+include_directories(include $ENV{HOME}/opt/include)
+#include_directories(external/opt/include)
+link_directories(/usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64)
+link_directories($ENV{HOME}/opt/lib)
+#link_directories(external/opt/lib)
 
-
+#set(TEST_ENABLED "True")
 set(GOOGLETEST_ROOT external/googletest/googletest CACHE STRING "Google Test source root")
 if(EXISTS ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT})
    set(TEST_ENABLED "True")
@@ -41,15 +46,14 @@ if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
       endif()
       
       set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-flto")
-      if(TEST_ENABLED)
-         set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fprofile-arcs -ftest-coverage")
-         set(CMAKE_EXE_LINKER_FLAGS_DEBUG "--coverage")
-      endif()
+      #if(TEST_ENABLED)
+      set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fprofile-arcs -ftest-coverage")
+      set(CMAKE_EXE_LINKER_FLAGS_DEBUG "--coverage")
+      #endif()
 endif()
 
 # Absolutely required packages
 find_package(OpenMP REQUIRED)
-#find_package(GSL REQUIRED)
 find_path(FFTW_INCLUDES fftw3.h)
 find_library(FFTW_LIBRARIES NAMES fftw3 libfftw3)
 
@@ -67,6 +71,7 @@ endif()
 #set(LIBRARIES "${LIBRARIES} -lfftw3 -lfftw3_omp")
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DUSE_FFTW")
 #endif()
+
 
 if(TEST_ENABLED)
    include_directories(
@@ -87,9 +92,6 @@ if(TEST_ENABLED)
 endif()
 
 
-include_directories(include $ENV{HOME}/opt/include)
-link_directories(/usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64)
-link_directories("$ENV{HOME}/opt/lib")
 
 file(GLOB SOURCES 
       beams/*.cpp
@@ -102,7 +104,7 @@ file(GLOB SOURCES
 set(SOURCE_FILES ${SOURCES})
 
 foreach(source ${SOURCE_FILES})
-   set_source_files_properties(${source} PROPERTIES COMPILE_FLAGS "-fopt-info-vec=report.txt")
+   set_source_files_properties(${source} PROPERTIES COMPILE_FLAGS "")#"-fopt-info-vec=report.txt")
 endforeach()
 
 # SHARED for dynamic LINKING

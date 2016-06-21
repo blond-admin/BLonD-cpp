@@ -84,14 +84,14 @@ namespace mymath {
 
 
    static inline void convolution_with_ffts(f_vector_t signal,
-                                   f_vector_t kernel,
-                                   f_vector_t &res)
+         f_vector_t kernel,
+         f_vector_t &res)
    {
       complex_vector_t v1;//(signal.size());
       complex_vector_t v2;//(kernel.size());
       const uint size = signal.size() + kernel.size() - 1;
       res.resize(size);
-      
+
       fft::rfft(signal, v1, size, omp_get_max_threads());
       fft::rfft(kernel, v2, size, omp_get_max_threads());
 
@@ -302,6 +302,16 @@ namespace mymath {
             a[i - keep_from] = start + i * step;
          //value += step;
       }
+   }
+
+
+   template<typename T>
+   static inline std::vector<T> arange(T start, T stop, T step = 1)
+   {
+      std::vector<T> values;
+      for (T value = start; value < stop; value += step)
+         values.push_back(value);
+      return values;
    }
 
    template<typename T>

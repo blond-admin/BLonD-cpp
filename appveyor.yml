@@ -2,20 +2,6 @@ environment:
   matrix:
     - VSVER: Visual Studio 14 2015 Win64
 
-install:
-  - choco install cmake
-  - choco upgrade cmake
-  #- cd external
-  #- cd gsl
-  #- cmake .
-  #- DIR
-  #- msbuild GSL.sln /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
-  - cd ../
-  - cd googletest
-  - cmake .
-  - DIR 
-  - msbuild gtest.sln /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
-
 cache: 
   - C:\ProgramData\chocolatey\bin -> appveyor.yml 
   - C:\ProgramData\chocolatey\lib -> appveyor.yml
@@ -24,6 +10,22 @@ configuration:
   - Debug
   - Release
 
-build:
-  project: BLonD.sln
+install:
+  - choco install cmake
+  - choco upgrade cmake
+  - git submodule update --init --recursive
+  - DIR external\gsl
+  - DIR external\gsl\contrib
 
+before_build:
+  - mkdir build
+  - cd build
+  - cmake ..
+  - DIR
+
+build:
+    project: C:\projects\blond-minimal-cpp\build\BLonD-minimal-cpp.sln
+    parallel: true   
+
+test_script:
+  - ctest -VV

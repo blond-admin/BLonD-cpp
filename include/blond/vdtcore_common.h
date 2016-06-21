@@ -5,7 +5,7 @@
  *      Author: kiliakis
  */
 
-#include "inttypes.h"
+#include <blond/inttypes.h>
 #include <cmath>
 
 #ifndef TRACKERS_VDTCORE_COMMON_H_

@@ -5,7 +5,7 @@
  *      Author: kiliakis
  */
 
-#include "Beams.h"
+#include <blond/Beams.h>
 
 Beams::~Beams() {
 

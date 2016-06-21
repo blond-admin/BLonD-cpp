@@ -5,7 +5,7 @@
  *      Author: kiliakis
  */
 
-#include "Slices.h"
+#include <blond/Slices.h>
 #include <algorithm>
 #include <iterator>
 #include <math_functions.h>

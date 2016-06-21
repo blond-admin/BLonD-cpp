@@ -10,14 +10,14 @@
 
 class Slices;
 
-#include "../input_parameters/GeneralParameters.h"
-#include "../input_parameters/RfParameters.h"
-#include "fft.h"
-#include "Beams.h"
-#include "utilities.h"
-#include "configuration.h"
-#include "constants.h"
-#include "globals.h"
+#include <blond/input_parameters/GeneralParameters.h>
+#include <blond/input_parameters/RfParameters.h>
+#include <blond/fft.h>
+#include <blond/Beams.h>
+#include <blond/utilities.h>
+#include <blond/configuration.h>
+#include <blond/constants.h>
+#include <blond/globals.h>
 
 const ftype cfwhm = 2 * sqrt(2 * log(2));
 

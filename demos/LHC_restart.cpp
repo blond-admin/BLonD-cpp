@@ -5,19 +5,19 @@
  *      Author: kiliakis
  */
 
-#include "globals.h"
-#include "utilities.h"
-#include "math_functions.h"
+#include <blond/globals.h>
+#include <blond/utilities.h>
+#include <blond/math_functions.h>
 #include <omp.h>
 #include <stdio.h>
-#include "../input_parameters/GeneralParameters.h"
-#include "../input_parameters/RfParameters.h"
-#include "../beams/Beams.h"
-#include "../beams/Slices.h"
-#include "../beams/Distributions.h"
-#include "../trackers/Tracker.h"
-#include "../llrf/PhaseLoop.h"
-#include "optionparser.h"
+#include <blond/input_parameters/GeneralParameters.h>
+#include <blond/input_parameters/RfParameters.h>
+#include <blond/beams/Beams.h>
+#include <blond/beams/Slices.h>
+#include <blond/beams/Distributions.h>
+#include <blond/trackers/Tracker.h>
+#include <blond/llrf/PhaseLoop.h>
+#include <blond/optionparser.h>
 // Simulation parameters --------------------------------------------------------
 
 const int N_b = 1.2e9;          // Intensity
@@ -39,7 +39,7 @@ int bl_target = 1.25e-9;  // 4 sigma r.m.s. target bunch length in [s]
 
 int N_slices = 151;
 const std::string datafiles =
-   "../tests/input_files/LHC_restart/";
+   "../demos/input_files/LHC_restart/";
 
 // Global variables
 GeneralParameters *GP;
@@ -286,7 +286,7 @@ void parse_args(int argc, char **argv)
          UNKNOWN, 0, "", "", Arg::None,                  "USAGE: ./LHC_restart [options]\n\n"
          "Options:"
       },
-      {  HELP, 0, "h", "help", Arg::None,                "  --help,              -h        Print usage and exit." },
+      {  HELP, 0, .h>, "help", Arg::None,                "  --help,              -h        Print usage and exit." },
       {N_TURNS, 0, "t", "turns", util::Arg::Numeric,        "  --turns=<num>,       -t <num>  Number of turns (default: 1M)" },
       {N_PARTICLES, 0, "p", "particles", util::Arg::Numeric,   "  --particles=<num>,   -p <num>  Number of particles (default: 100k)" },
       {N_SLICES, 0, "s", "slices", util::Arg::Numeric,      "  --slices=<num>,      -s <num>  Number of slices (default: 151)" },

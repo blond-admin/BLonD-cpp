@@ -9,12 +9,12 @@
 #define INCLUDES_MATH_FUNCTIONS_H_
 
 #include <cmath>
-#include "sin.h"
+#include <blond/sin.h>
 #include <omp.h>
 #include  <cassert>
-#include "utilities.h"
-#include "configuration.h"
-#include "fft.h"
+#include <blond/utilities.h>
+#include <blond/configuration.h>
+#include <blond/fft.h>
 #include <algorithm>
 #include <fftw3.h>
 

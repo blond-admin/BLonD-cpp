@@ -5,7 +5,7 @@
  *      Author: kiliakis
  */
 
-#include "GeneralParameters.h"
+#include <blond/GeneralParameters.h>
 
 GeneralParameters::~GeneralParameters() {
     util::delete_array(alpha);

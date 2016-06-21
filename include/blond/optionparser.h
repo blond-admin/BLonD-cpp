@@ -51,7 +51,7 @@
  *
  * @par Highlights:
  * <ul style="padding-left:1em;margin-left:0">
- * <li> It is a header-only library. Just <code>\#include "optionparser.h"</code> and you're set.
+ * <li> It is a header-only library. Just <code>\#include <blond/optionparser.h></code> and you're set.
  * <li> It is freestanding. There are no dependencies whatsoever, not even the
  *      C or C++ standard library.
  * <li> It has a usage message formatter that supports column alignment and
@@ -91,7 +91,7 @@
  * Tarball with examples and test programs:
  * <a style="font-size:larger;font-weight:bold" href="http://sourceforge.net/projects/optionparser/files/optionparser-1.4.tar.gz/download">optionparser-1.4.tar.gz</a> @n
  * Just the header (this is all you really need):
- * <a style="font-size:larger;font-weight:bold" href="http://optionparser.sourceforge.net/optionparser.h">optionparser.h</a>
+ * <a style="font-size:larger;font-weight:bold" href="http://optionparser.sourceforge.net/optionparser.h>>optionparser.h</a>
  *
  * @par Changelog:
  * <b>Version 1.4:</b> Fixed 2 printUsage() bugs that messed up output with small COLUMNS values @n
@@ -115,7 +115,7 @@
  * @code
  * #error EXAMPLE SHORTENED FOR READABILITY. BETTER EXAMPLES ARE IN THE .TAR.GZ!
  * #include <iostream>
- * #include "optionparser.h"
+ * #include <blond/optionparser.h>
  *
  * enum  optionIndex { UNKNOWN, HELP, PLUS };
  * const option::Descriptor usage[] =
@@ -1097,7 +1097,7 @@ namespace option {
          *               their CheckArg will be called) but not stored. @n
          *               If you used Stats::buffer_max to dimension this array, you can pass
          *               -1 (or not pass @c bufmax at all) which tells parse() that the buffer is
-         *               "large enough".
+         *               "large enou.h>.
          * @attention
          * Remember that @c options and @c buffer store Option @e objects, not pointers. Therefore it
          * is not possible for the same object to be in both arrays. For those options that are found in
@@ -1366,14 +1366,14 @@ namespace option {
         Parser &parser;
         Option *options;
         Option *buffer;
-        int bufmax; //! Number of slots in @c buffer. @c -1 means "large enough".
+        int bufmax; //! Number of slots in @c buffer. @c -1 means "large enou.h>.
     public:
         /**
          * @brief Creates a new StoreOption action.
          * @param parser_ the parser whose op_count should be updated.
          * @param options_ each Option @c o is chained into the linked list @c options_[o.desc->index]
          * @param buffer_ each Option is appended to this array as long as there's a free slot.
-         * @param bufmax_ number of slots in @c buffer_. @c -1 means "large enough".
+         * @param bufmax_ number of slots in @c buffer_. @c -1 means "large enou.h>.
          */
         StoreOptionAction(Parser &parser_, Option options_[], Option buffer_[], int bufmax_) :
                 parser(parser_), options(options_), buffer(buffer_), bufmax(bufmax_) {

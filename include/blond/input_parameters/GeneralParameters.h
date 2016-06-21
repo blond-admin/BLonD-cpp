@@ -10,14 +10,14 @@
 
 class GeneralParameters;
 
-#include "globals.h"
+#include <blond/globals.h>
 #include <vector>
 #include <cmath>
 #include <numeric>
 #include <cstring>
-#include "constants.h"
-#include "configuration.h"
-#include "utilities.h"
+#include <blond/constants.h>
+#include <blond/configuration.h>
+#include <blond/utilities.h>
 
 enum particle_type {
     proton, electron, user_input, none

@@ -4,24 +4,24 @@
  *  Created on: May 9, 2016
  *      Author: kiliakis
  */
-#include "globals.h"
-#include "utilities.h"
-#include "math_functions.h"
+#include <blond/globals.h>
+#include <blond/utilities.h>
+#include <blond/math_functions.h>
 #include <omp.h>
 #include <stdio.h>
-#include "../input_parameters/GeneralParameters.h"
-#include "../input_parameters/RfParameters.h"
-#include "../beams/Beams.h"
-#include "../beams/Slices.h"
-#include "../beams/Distributions.h"
-#include "../trackers/Tracker.h"
-//#include "../impedances/Intensity.h"
-#include "../impedances/InducedVoltage.h"
+#include <blond/input_parameters/GeneralParameters.h>
+#include <blond/input_parameters/RfParameters.h>
+#include <blond/beams/Beams.h>
+#include <blond/beams/Slices.h>
+#include <blond/beams/Distributions.h>
+#include <blond/trackers/Tracker.h>
+//#include <blond/impedances/Intensity.h>
+#include <blond/impedances/InducedVoltage.h>
 #include <complex>
 
 
 const std::string datafiles =
-   "../tests/input_files/TC5_Wake_impedance/";
+   "../demos/input_files/TC5_Wake_impedance/";
 
 // Simulation parameters --------------------------------------------------------
 // Bunch parameters
@@ -200,7 +200,7 @@ void parse_args(int argc, char **argv)
          UNKNOWN, 0, "", "", Arg::None,                  "USAGE: ./TC5_Wake_impedance [options]\n\n"
          "Options:"
       },
-      {  HELP, 0, "h", "help", Arg::None,                "  --help,              -h        Print usage and exit." },
+      {  HELP, 0, .h>, "help", Arg::None,                "  --help,              -h        Print usage and exit." },
       {N_TURNS, 0, "t", "turns", util::Arg::Numeric,        "  --turns=<num>,       -t <num>  Number of turns (default: 10k)" },
       {N_PARTICLES, 0, "p", "particles", util::Arg::Numeric,   "  --particles=<num>,   -p <num>  Number of particles (default: 10k)" },
       {N_SLICES, 0, "s", "slices", util::Arg::Numeric,      "  --slices=<num>,      -s <num>  Number of slices (default: 100)" },

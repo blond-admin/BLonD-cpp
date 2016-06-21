@@ -9,9 +9,9 @@
 #define BEAMS_DISTRIBUTIONS_H_
 
 #include <cmath>
-#include "globals.h"
-#include "configuration.h"
-#include "constants.h"
+#include <blond/globals.h>
+#include <blond/configuration.h>
+#include <blond/constants.h>
 #include <stdlib.h>
 #include <random>
 

@@ -5,7 +5,7 @@
  *      Author: kiliakis
  */
 
-#include "RfParameters.h"
+#include <blond/RfParameters.h>
 
 RfParameters::~RfParameters() {
     util::delete_array(this->E_increment);

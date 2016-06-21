@@ -1,10 +1,10 @@
-#include "InducedVoltage.h"
+#include <blond/InducedVoltage.h>
 
-#include "Ham.h"
-#include "constants.h"
-#include "globals.h"
-#include "math_functions.h"
-#include "utilities.h"
+#include <blond/Ham.h>
+#include <blond/constants.h>
+#include <blond/globals.h>
+#include <blond/math_functions.h>
+#include <blond/utilities.h>
 #include <omp.h>
 
 inline void InducedVoltage::linear_interp_kick(

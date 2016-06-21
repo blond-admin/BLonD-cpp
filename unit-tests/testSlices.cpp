@@ -5,12 +5,12 @@
 #include <unistd.h>
 
 #include <gtest/gtest.h>
-#include "math_functions.h"
-#include "utilities.h"
-#include "../beams/Distributions.h"
-#include "../input_parameters/GeneralParameters.h"
-#include "../trackers/Tracker.h"
-#include "constants.h"
+#include <blond/math_functions.h>
+#include <blond/utilities.h>
+#include <blond/beams/Distributions.h>
+#include <blond/input_parameters/GeneralParameters.h>
+#include <blond/trackers/Tracker.h>
+#include <blond/constants.h>
 
 const ftype epsilon = 1e-8;
 const std::string track_params = "../unit-tests/references/Slices/Slices_track_params/";

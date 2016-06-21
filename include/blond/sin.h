@@ -5,7 +5,7 @@
  *      Author: kiliakis
  */
 
-#include "sincos.h"
+#include <blond/sincos.h>
 
 #ifndef TRACKERS_SIN_H_
 #define TRACKERS_SIN_H_

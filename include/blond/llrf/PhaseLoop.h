@@ -10,10 +10,10 @@
 
 class PhaseLoop;
 
-#include "globals.h"
-#include "utilities.h"
-#include "configuration.h"
-#include "constants.h"
+#include <blond/globals.h>
+#include <blond/utilities.h>
+#include <blond/configuration.h>
+#include <blond/constants.h>
 
 class PhaseLoop {
 public:

@@ -8,7 +8,7 @@
 #ifndef INCLUDES_CONSTANTS_H_
 #define INCLUDES_CONSTANTS_H_
 
-#include "configuration.h"
+#include <blond/configuration.h>
 
 namespace constant {
 

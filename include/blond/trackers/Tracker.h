@@ -8,11 +8,11 @@
 #ifndef TRACKERS_TRACKER_H_
 #define TRACKERS_TRACKER_H_
 
-#include "utilities.h"
-#include "../input_parameters/GeneralParameters.h"
-#include "../input_parameters/RfParameters.h"
-#include "../beams/Beams.h"
-#include "../llrf/PhaseLoop.h"
+#include <blond/utilities.h>
+#include <blond/input_parameters/GeneralParameters.h>
+#include <blond/input_parameters/RfParameters.h>
+#include <blond/beams/Beams.h>
+#include <blond/llrf/PhaseLoop.h>
 
 enum solver_type {
     simple, full

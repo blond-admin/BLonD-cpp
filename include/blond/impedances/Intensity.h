@@ -10,7 +10,7 @@
 
 //class Intensity;
 
-#include "configuration.h"
+#include <blond/configuration.h>
 #include <complex>
 #include <vector>
 

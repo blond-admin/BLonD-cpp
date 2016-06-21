@@ -10,11 +10,11 @@
 
 //class InducedVoltage;
 
-#include "configuration.h"
+#include <blond/configuration.h>
 //#include <complex>
 #include <vector>
-#include "Intensity.h"
-#include "fft.h"
+#include <blond/Intensity.h>
+#include <blond/fft.h>
 
 //typedef std::complex<float> complex_t;
 

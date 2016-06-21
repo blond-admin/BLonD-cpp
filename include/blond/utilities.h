@@ -20,7 +20,7 @@
 #include <math.h>
 #include <mm_malloc.h>
 #include <sys/time.h>
-#include "configuration.h"
+#include <blond/configuration.h>
 #include <memory>
 #include <optionparser.h>
 

@@ -5,7 +5,7 @@
  *      Author: kiliakis
  */
 
-#include "vdtcore_common.h"
+#include <blond/vdtcore_common.h>
 #include <cmath>
 #include <limits>
 

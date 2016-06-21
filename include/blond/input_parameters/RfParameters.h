@@ -10,16 +10,16 @@
 
 class RfParameters;
 
-#include "GeneralParameters.h"
-#include "../beams/Beams.h"
-//#include "../includes/utilities.h"
-#include "math_functions.h"
-//#include "../trackers/sin.h"
+#include <blond/GeneralParameters.h>
+#include <blond/beams/Beams.h>
+//#include <blond/includes/utilities.h>
+#include <blond/math_functions.h>
+//#include <blond/trackers/sin.h>
 #include <algorithm>    // std::cops
 #include <iterator>
-#include "globals.h"
+#include <blond/globals.h>
 
-//#include "../includes/globals.h"
+//#include <blond/includes/globals.h>
 
 enum accelerating_systems_type {
     as_single, all, first

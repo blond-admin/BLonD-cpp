@@ -5,7 +5,7 @@
  *      Author: kiliakis
  */
 
-#include "PhaseLoop.h"
+#include <blond/PhaseLoop.h>
 
 PhaseLoop::PhaseLoop(ftype *PL_gain, ftype window_coefficient, int _delay,
                      ftype *_phaseNoise, ftype *_LHCNoiseFB) {

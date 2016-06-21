@@ -8,15 +8,15 @@
 #ifndef INCLUDES_GLOBALS_H_
 #define INCLUDES_GLOBALS_H_
 
-#include "../input_parameters/GeneralParameters.h"
-#include "../beams/Beams.h"
-#include "../input_parameters/RfParameters.h"
-#include "../beams/Slices.h"
+#include <blond/beams/Beams.h>
+#include <blond/beams/Slices.h>
+#include <blond/input_parameters/GeneralParameters.h>
+#include <blond/input_parameters/RfParameters.h>
 
-extern GeneralParameters *GP;
-extern Beams *Beam;
-extern RfParameters *RfP;
-extern Slices *Slice;
+extern GeneralParameters* GP;
+extern Beams* Beam;
+extern RfParameters* RfP;
+extern Slices* Slice;
 
 // TODO num of threads is global
 // should it?

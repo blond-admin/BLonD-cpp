@@ -5,10 +5,10 @@
 * @Last Modified time: 2016-05-04 15:25:33
 */
 
-#include "Intensity.h"
-#include "constants.h"
-#include "math_functions.h"
-#include "utilities.h"
+#include <blond/Intensity.h>
+#include <blond/constants.h>
+#include <blond/math_functions.h>
+#include <blond/utilities.h>
 
 Resonators::Resonators(std::vector <ftype> &RS, std::vector <ftype> &FrequencyR,
                        std::vector <ftype> &Q) {

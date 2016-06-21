@@ -32,7 +32,7 @@ void GeneralParameters::eta_generation() {
         _eta2();
     if (alpha_order > 2)
         dprintf("WARNING: Momentum compaction factor is implemented only up to "
-                        "2nd order");
+                "2nd order");
 }
 
 void GeneralParameters::_eta0() {
@@ -67,10 +67,10 @@ void GeneralParameters::_eta2() {
 }
 
 GeneralParameters::GeneralParameters(
-        const int _n_turns, ftype *_ring_length, ftype *_alpha,
-        const int _alpha_order, ftype *_momentum, const particle_type _particle,
-        ftype user_mass, ftype user_charge, particle_type _particle2,
-        ftype user_mass_2, ftype user_charge_2, int number_of_sections) {
+    const int _n_turns, ftype* _ring_length, ftype* _alpha,
+    const int _alpha_order, ftype* _momentum, const particle_type _particle,
+    ftype user_mass, ftype user_charge, particle_type _particle2,
+    ftype user_mass_2, ftype user_charge_2, int number_of_sections) {
 
     // global++;
     // dprintf("Global variable is %d\n", global);
@@ -93,7 +93,8 @@ GeneralParameters::GeneralParameters(
         exit(-1);
     }
 
-    if (particle_2 == none) { ;
+    if (particle_2 == none) {
+        ;
     } else if (particle_2 == proton) {
         mass2 = constant::m_p * constant::c * constant::c / constant::e;
         charge2 = 1;
@@ -122,7 +123,7 @@ GeneralParameters::GeneralParameters(
     this->ring_length = _ring_length;
 
     this->ring_circumference =
-            std::accumulate(&ring_length[0], &ring_length[n_sections], 0.0);
+        std::accumulate(&ring_length[0], &ring_length[n_sections], 0.0);
     this->ring_radius = ring_circumference / (2 * constant::pi);
 
     if (n_sections > 1) {
@@ -153,7 +154,7 @@ GeneralParameters::GeneralParameters(
     for (int j = 0; j < n_turns + 1; ++j)
         for (int k = 0; k < n_sections; ++k)
             t_rev[j] +=
-                    ring_length[k] / (beta[k * (n_turns + 1) + j] * constant::c);
+                ring_length[k] / (beta[k * (n_turns + 1) + j] * constant::c);
 
     // dump(t_rev, 10, "t_rev\n");
 
@@ -174,7 +175,7 @@ GeneralParameters::GeneralParameters(
 
     if (alpha_order > 3) {
         dprintf("WARNING: Momentum compaction factor is implemented only up to "
-                        "2nd order");
+                "2nd order");
         alpha_order = 3;
     }
     this->eta_0 = new ftype[n_sections * (n_turns + 1)];

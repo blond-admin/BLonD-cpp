@@ -11,13 +11,13 @@
 class Beams;
 
 //#include <blond/input_parameters/GeneralParameters.h>
-#include <blond/globals.h>
-#include <blond/utilities.h>
 #include <blond/configuration.h>
 #include <blond/constants.h>
+#include <blond/globals.h>
+#include <blond/utilities.h>
 
 class Beams {
-public:
+  public:
     f_vector_t dt;
     f_vector_t dE;
     int_vector_t id;
@@ -32,18 +32,19 @@ public:
     int n_macroparticles;
     long intensity;
 
-    //GeneralParameters *gp;
+    // GeneralParameters *gp;
     Beams(const int _n_macroparticles, const long _intensity);
 
     ~Beams();
 
     int n_macroparticles_alive();
 
-    void losses_longitudinal_cut(const ftype *__restrict__ dt,
-                                 const ftype dt_min, const ftype dt_max, int *__restrict__ id);
+    void losses_longitudinal_cut(const ftype* __restrict__ dt,
+                                 const ftype dt_min, const ftype dt_max,
+                                 int* __restrict__ id);
 
-    void losses_energy_cut(const ftype *__restrict__ dE, const ftype dE_min,
-                           const ftype dE_max, int *__restrict__ id);
+    void losses_energy_cut(const ftype* __restrict__ dE, const ftype dE_min,
+                           const ftype dE_max, int* __restrict__ id);
 
     void statistics();
 };

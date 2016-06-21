@@ -10,22 +10,20 @@
 
 class GeneralParameters;
 
-#include <blond/globals.h>
-#include <vector>
-#include <cmath>
-#include <numeric>
-#include <cstring>
-#include <blond/constants.h>
 #include <blond/configuration.h>
+#include <blond/constants.h>
+#include <blond/globals.h>
 #include <blond/utilities.h>
+#include <cmath>
+#include <cstring>
+#include <numeric>
+#include <vector>
 
-enum particle_type {
-    proton, electron, user_input, none
-};
+enum particle_type { proton, electron, user_input, none };
 
 class GeneralParameters {
 
-private:
+  private:
     void eta_generation();
 
     void _eta0();
@@ -34,37 +32,36 @@ private:
 
     void _eta2();
 
-public:
+  public:
     int n_sections;
     particle_type particle, particle_2;
     int n_turns;
     ftype mass, mass2;
     ftype charge, charge2;
     ftype cumulative_times;
-    ftype *alpha;
-    ftype *momentum;
+    ftype* alpha;
+    ftype* momentum;
     int alpha_order;
-    ftype *ring_length;
+    ftype* ring_length;
     ftype ring_circumference;
     ftype ring_radius;
-    ftype *beta;
-    ftype *gamma;
-    ftype *energy;
-    ftype *kin_energy;
-    ftype *cycle_time;
+    ftype* beta;
+    ftype* gamma;
+    ftype* energy;
+    ftype* kin_energy;
+    ftype* cycle_time;
     ftype *f_rev, *omega_rev;
     std::vector<ftype> t_rev;
     ftype *eta_0, *eta_1, *eta_2;
 
-    GeneralParameters(const int n_turns, ftype *ring_length, ftype *alpha,
-                      const int alpha_order, ftype *momentum,
+    GeneralParameters(const int n_turns, ftype* ring_length, ftype* alpha,
+                      const int alpha_order, ftype* momentum,
                       const particle_type particle, ftype user_mass = 0,
                       ftype user_charge = 0, particle_type particle2 = none,
                       ftype user_mass_2 = 0, ftype user_charge_2 = 0,
                       int number_of_sectrions = 1);
 
     ~GeneralParameters();
-
 };
 
 #endif /* INPUT_PARAMETERS_GENERALPARAMETERS_H_ */

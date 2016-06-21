@@ -10,8 +10,8 @@
 #include <blond/math_functions.h>
 #include <blond/utilities.h>
 
-Resonators::Resonators(std::vector <ftype> &RS, std::vector <ftype> &FrequencyR,
-                       std::vector <ftype> &Q) {
+Resonators::Resonators(std::vector<ftype>& RS, std::vector<ftype>& FrequencyR,
+                       std::vector<ftype>& Q) {
 
     /*
     *Impedance contribution from resonators, analytic formulas for both wake and
@@ -51,7 +51,7 @@ Resonators::Resonators(std::vector <ftype> &RS, std::vector <ftype> &FrequencyR,
     }
 }
 
-void Resonators::wake_calc(std::vector <ftype> &NewTimeArray) {
+void Resonators::wake_calc(std::vector<ftype>& NewTimeArray) {
     /*
     * Wake calculation method as a function of time.*
     */
@@ -77,7 +77,7 @@ void Resonators::wake_calc(std::vector <ftype> &NewTimeArray) {
     }
 }
 
-void Resonators::imped_calc(std::vector <ftype> &NewFrequencyArray) {
+void Resonators::imped_calc(std::vector<ftype>& NewFrequencyArray) {
     /*
     * Impedance calculation method as a function of frequency.*
     */
@@ -90,15 +90,15 @@ void Resonators::imped_calc(std::vector <ftype> &NewFrequencyArray) {
     for (uint i = 0; i < fNResonators; ++i) {
         for (uint j = 1; j < fImpedance.size(); ++j) {
             fImpedance[j] +=
-                    complex_t(fRS[i], 0) /
-                    complex_t(1, fQ[i] * (fFreqArray[j] / fFrequencyR[i] -
-                                          fFrequencyR[i] / fFreqArray[j]));
+                complex_t(fRS[i], 0) /
+                complex_t(1, fQ[i] * (fFreqArray[j] / fFrequencyR[i] -
+                                      fFrequencyR[i] / fFreqArray[j]));
         }
     }
 }
 
-InputTable::InputTable(std::vector <ftype> &input1, std::vector <ftype> &input2,
-                       std::vector <ftype> input3) {
+InputTable::InputTable(std::vector<ftype>& input1, std::vector<ftype>& input2,
+                       std::vector<ftype> input3) {
     if (input3.empty()) {
 
         fTimeArray = input1;
@@ -124,14 +124,14 @@ InputTable::InputTable(std::vector <ftype> &input1, std::vector <ftype> &input2,
     }
 }
 
-void InputTable::wake_calc(std::vector <ftype> &NewTimeArray) {
+void InputTable::wake_calc(std::vector<ftype>& NewTimeArray) {
     mymath::lin_interp(NewTimeArray, fTimeArray, fWakeArray, fWake, 0.0f, 0.0f);
 }
 
-void InputTable::imped_calc(std::vector <ftype> &NewFrequencyArray) {
+void InputTable::imped_calc(std::vector<ftype>& NewFrequencyArray) {
     // Impedance calculation method as a function of frequency.*
-    std::vector <ftype> ReZ;
-    std::vector <ftype> ImZ;
+    std::vector<ftype> ReZ;
+    std::vector<ftype> ImZ;
 
     mymath::lin_interp(NewFrequencyArray, fFrequencyArrayLoaded,
                        fReZArrayLoaded, ReZ, 0.0f, 0.0f);

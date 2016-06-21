@@ -7,8 +7,8 @@
 
 #include <blond/PhaseLoop.h>
 
-PhaseLoop::PhaseLoop(ftype *PL_gain, ftype window_coefficient, int _delay,
-                     ftype *_phaseNoise, ftype *_LHCNoiseFB) {
+PhaseLoop::PhaseLoop(ftype* PL_gain, ftype window_coefficient, int _delay,
+                     ftype* _phaseNoise, ftype* _LHCNoiseFB) {
 
     // General initializations
     this->delay = _delay;
@@ -19,8 +19,8 @@ PhaseLoop::PhaseLoop(ftype *PL_gain, ftype window_coefficient, int _delay,
     // End of general initializations
 }
 
-LHC::LHC(ftype *PL_gain, ftype SL_gain, ftype window_coefficient,
-         ftype *_phaseNoise, ftype *_LHCNoiseFB, int _delay) {
+LHC::LHC(ftype* PL_gain, ftype SL_gain, ftype window_coefficient,
+         ftype* _phaseNoise, ftype* _LHCNoiseFB, int _delay) {
 
     // PhaseLoop(PL_gain, window_coefficient, _delay, _phaseNoise, _LHCNoiseFB);
     // General Initializations
@@ -45,7 +45,7 @@ LHC::LHC(ftype *PL_gain, ftype SL_gain, ftype window_coefficient,
             lhc_t[i] = (2 * constant::pi * RfP->Qs[i] * sqrt(lhc_a[i])) /
                        sqrt(1 +
                             gain[i] / gain2 *
-                            sqrt((1 + 1 / lhc_a[i]) / (1 + lhc_a[i])));
+                                sqrt((1 + 1 / lhc_a[i]) / (1 + lhc_a[i])));
         }
     } else {
         util::zero(lhc_a, GP->n_turns + 1);
@@ -59,9 +59,9 @@ LHC::~LHC() {
     util::delete_array(gain);
 }
 
-PSB::PSB(ftype *PL_gain, ftype *_RL_gain, ftype _PL_period, ftype _RL_period,
-         ftype *_coefficients, ftype window_coefficient, ftype *_phaseNoise,
-         ftype *_LHCNoiseFB, int _delay) {
+PSB::PSB(ftype* PL_gain, ftype* _RL_gain, ftype _PL_period, ftype _RL_period,
+         ftype* _coefficients, ftype window_coefficient, ftype* _phaseNoise,
+         ftype* _LHCNoiseFB, int _delay) {
 
     PhaseLoop(PL_gain, window_coefficient, _delay, _phaseNoise, _LHCNoiseFB);
 
@@ -132,8 +132,8 @@ void PhaseLoop::beam_phase() {
     ftype phi_RF = RfP->phi_RF[RfP->counter];
     // Convolve with window function
     //
-    ftype *base = new ftype[Slice->n_slices];
-    ftype *array = new ftype[Slice->n_slices];
+    ftype* base = new ftype[Slice->n_slices];
+    ftype* array = new ftype[Slice->n_slices];
 
 #pragma omp parallel for
     for (int i = 0; i < Slice->n_slices; ++i) {
@@ -147,7 +147,7 @@ void PhaseLoop::beam_phase() {
         array[i] = base[i] * sin(a);
     }
     ftype scoeff =
-            mymath::trapezoid(array, Slice->bin_centers, Slice->n_slices);
+        mymath::trapezoid(array, Slice->bin_centers, Slice->n_slices);
 
 #pragma omp parallel for
     for (int i = 0; i < Slice->n_slices; ++i) {
@@ -156,7 +156,7 @@ void PhaseLoop::beam_phase() {
     }
 
     ftype ccoeff =
-            mymath::trapezoid(array, Slice->bin_centers, Slice->n_slices);
+        mymath::trapezoid(array, Slice->bin_centers, Slice->n_slices);
 
     phi_beam = atan(scoeff / ccoeff) + constant::pi;
 
@@ -180,7 +180,7 @@ void PhaseLoop::phase_difference() {
     }
 }
 
-void PhaseLoop::radial_steering_from_freq() { }
+void PhaseLoop::radial_steering_from_freq() {}
 
 void PhaseLoop::default_track() {
     /*
@@ -194,7 +194,7 @@ void PhaseLoop::default_track() {
     for (int i = 0; i < RfP->n_rf; ++i) {
         int row = i * (turns + 1);
         RfP->omega_RF[row + counter] +=
-                domega_RF * RfP->harmonic[row + counter] / RfP->harmonic[counter];
+            domega_RF * RfP->harmonic[row + counter] / RfP->harmonic[counter];
     }
 
     // Update the RF phase of all systems for the next turn
@@ -202,9 +202,9 @@ void PhaseLoop::default_track() {
     for (int i = 0; i < RfP->n_rf; ++i) {
         int row = i * (turns + 1);
         RfP->dphi_RF[i] +=
-                2 * constant::pi * RfP->harmonic[row + counter] *
-                (RfP->omega_RF[row + counter] - RfP->omega_RF_d[row + counter]) /
-                RfP->omega_RF_d[row + counter];
+            2 * constant::pi * RfP->harmonic[row + counter] *
+            (RfP->omega_RF[row + counter] - RfP->omega_RF_d[row + counter]) /
+            RfP->omega_RF_d[row + counter];
     }
 
     // Total phase offset
@@ -301,10 +301,10 @@ void PSB::track() {
     // Add correction from radial loop
     if (PL_counter % dt[1] == 0) {
         drho = (RfP->omega_RF[counter] - RfP->omega_RF_d[counter]) /
-               (RfP->omega_RF_d[counter] *
-                (1 / (GP->alpha[0] * RfP->gamma(counter) *
-                      RfP->gamma(counter)) -
-                 1)) +
+                   (RfP->omega_RF_d[counter] *
+                    (1 / (GP->alpha[0] * RfP->gamma(counter) *
+                          RfP->gamma(counter)) -
+                     1)) +
                reference;
 
         domega_RL = domega_RL - gain2[0] * (drho - drho_prev) -

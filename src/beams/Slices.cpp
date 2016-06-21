@@ -5,8 +5,8 @@
  *      Author: kiliakis
  */
 
-#include <blond/Slices.h>
 #include <algorithm>
+#include <blond/Slices.h>
 #include <iterator>
 #include <math_functions.h>
 #include <omp.h>
@@ -73,21 +73,21 @@ void Slices::set_cuts() {
         if (n_sigma == 0) {
             sort_particles();
             cut_left =
-                    Beam->dt[0] -
-                    0.05 * (Beam->dt[Beam->n_macroparticles - 1] - Beam->dt[0]);
+                Beam->dt[0] -
+                0.05 * (Beam->dt[Beam->n_macroparticles - 1] - Beam->dt[0]);
             cut_right =
-                    Beam->dt[Beam->n_macroparticles - 1] +
-                    0.05 * (Beam->dt[Beam->n_macroparticles - 1] - Beam->dt[0]);
+                Beam->dt[Beam->n_macroparticles - 1] +
+                0.05 * (Beam->dt[Beam->n_macroparticles - 1] - Beam->dt[0]);
 
             // dprintf("cut_left = %e\n", cut_left);
             // dprintf("cut_right = %e\n", cut_right);
 
         } else {
             ftype mean_coords =
-                    mymath::mean(Beam->dt.data(), Beam->n_macroparticles);
+                mymath::mean(Beam->dt.data(), Beam->n_macroparticles);
             // dprintf("mean coors = %e\n", mean_coords);
             ftype sigma_coords = mymath::standard_deviation(
-                    Beam->dt.data(), Beam->n_macroparticles, mean_coords);
+                Beam->dt.data(), Beam->n_macroparticles, mean_coords);
             // dprintf("mean coors = %e\n", mean_coords);
 
             cut_left = mean_coords - n_sigma * sigma_coords / 2;
@@ -261,8 +261,8 @@ int n_macroparticles,
 }
 */
 
-inline void Slices::histogram(const ftype *__restrict__ input,
-                              ftype *__restrict__ output, const ftype cut_left,
+inline void Slices::histogram(const ftype* __restrict__ input,
+                              ftype* __restrict__ output, const ftype cut_left,
                               const ftype cut_right, const int n_slices,
                               const int n_macroparticles) {
 
@@ -274,7 +274,7 @@ inline void Slices::histogram(const ftype *__restrict__ input,
     // hist_t *res = (hist_t *) calloc(n_slices, sizeof(hist_t));
     // ftype *h = (ftype *) calloc(omp_get_max_threads() * n_slices,
     // sizeof(ftype));
-    hist_t *h;
+    hist_t* h;
 #pragma omp parallel
     {
         const int threads = omp_get_num_threads();
@@ -287,7 +287,7 @@ inline void Slices::histogram(const ftype *__restrict__ input,
         const int row = id * n_slices;
 
 #pragma omp single
-        h = (hist_t *) calloc(threads * n_slices, sizeof(hist_t));
+        h = (hist_t*)calloc(threads * n_slices, sizeof(hist_t));
 
         for (int i = start; i < end; ++i) {
             ftype a = input[i];
@@ -336,8 +336,8 @@ void Slices::track_cuts() {
     }
 }
 
-inline void Slices::smooth_histogram(const ftype *__restrict__ input,
-                                     ftype *__restrict__ output,
+inline void Slices::smooth_histogram(const ftype* __restrict__ input,
+                                     ftype* __restrict__ output,
                                      const ftype cut_left,
                                      const ftype cut_right, const int n_slices,
                                      const int n_macroparticles) {
@@ -363,14 +363,14 @@ inline void Slices::smooth_histogram(const ftype *__restrict__ input,
             (a > (cut_right - bin_width * 0.5)))
             continue;
         fbin = (a - cut_left) * inv_bin_width;
-        ffbin = (int) (fbin);
+        ffbin = (int)(fbin);
         distToCenter = fbin - (ftype)(ffbin);
         if (distToCenter > 0.5)
-            fffbin = (int) (fbin + 1.0);
+            fffbin = (int)(fbin + 1.0);
         ratioffbin = 1.5 - distToCenter;
         ratiofffbin = 1 - ratioffbin;
         if (distToCenter < 0.5)
-            fffbin = (int) (fbin - 1.0);
+            fffbin = (int)(fbin - 1.0);
         ratioffbin = 0.5 - distToCenter;
         ratiofffbin = 1 - ratioffbin;
         output[ffbin] = output[ffbin] + ratioffbin;
@@ -392,8 +392,8 @@ void Slices::rms() {
      * Computation of the RMS bunch length and position from the line density
      (bunch length = 4sigma).*
      */
-    ftype *lineDenNormalized = new ftype[n_slices];
-    ftype *array = new ftype[n_slices];
+    ftype* lineDenNormalized = new ftype[n_slices];
+    ftype* array = new ftype[n_slices];
 
     ftype timeResolution = bin_centers[1] - bin_centers[0];
     ftype trap = mymath::trapezoid(n_macroparticles, timeResolution,
@@ -461,12 +461,12 @@ void Slices::fwhm(const ftype shift) {
         try {
             t1 = bin_centers[taux1] -
                  (n_macroparticles[taux1] - half_max) /
-                 (n_macroparticles[taux1] - n_macroparticles[taux1 - 1]) *
-                 timeResolution;
+                     (n_macroparticles[taux1] - n_macroparticles[taux1 - 1]) *
+                     timeResolution;
             t2 = bin_centers[taux2] +
                  (n_macroparticles[taux2] - half_max) /
-                 (n_macroparticles[taux2] - n_macroparticles[taux2 + 1]) *
-                 timeResolution;
+                     (n_macroparticles[taux2] - n_macroparticles[taux2 + 1]) *
+                     timeResolution;
             // dprintf("t1 = %e\n", t1);
             // dprintf("t2 = %e\n", t2);
 
@@ -514,7 +514,7 @@ ftype Slices::fast_fwhm() {
     return cfwhm * (bin_centers[taux2] - bin_centers[taux1]);
 }
 
-void Slices::fwhm_multibunch() { }
+void Slices::fwhm_multibunch() {}
 
 void Slices::beam_spectrum_generation(uint n, bool onlyRFFT) {
 
@@ -531,16 +531,16 @@ void Slices::beam_spectrum_generation(uint n, bool onlyRFFT) {
     }
 }
 
-void Slices::beam_profile_derivative() { }
+void Slices::beam_profile_derivative() {}
 
-void Slices::beam_profile_filter_chebyshev() { }
+void Slices::beam_profile_filter_chebyshev() {}
 
 ftype Slices::gauss(const ftype x, const ftype x0, const ftype sx,
                     const ftype A) {
     return A * exp(-(x - x0) * (x - x0) / 2.0 / (sx * sx));
 }
 
-void Slices::gaussian_fit() { }
+void Slices::gaussian_fit() {}
 
 /*
 

@@ -38,9 +38,9 @@ RfParameters::~RfParameters() {
  */
 // RfParameters == RfSectionParameters
 // completely removed accelerating_systems
-RfParameters::RfParameters(int _n_rf, ftype *_harmonic, ftype *_voltage,
-                           ftype *_phi_offset, ftype *_phi_noise,
-                           ftype *_omega_RF, int _section_index,
+RfParameters::RfParameters(int _n_rf, ftype* _harmonic, ftype* _voltage,
+                           ftype* _phi_offset, ftype* _phi_noise,
+                           ftype* _omega_RF, int _section_index,
                            accelerating_systems_type accelerating_systems) {
 
     this->counter = 0;
@@ -68,9 +68,9 @@ RfParameters::RfParameters(int _n_rf, ftype *_harmonic, ftype *_voltage,
     this->Qs = new ftype[(GP->n_turns + 1)];
     for (int i = 0; i < GP->n_turns + 1; ++i) {
         Qs[i] = sqrt(
-                harmonic[i] * GP->charge * voltage[i] *
-                fabs(eta_0(i) * cos(phi_s[i])) /
-                (2 * constant::pi * GP->beta[i] * GP->beta[i] * GP->energy[i]));
+            harmonic[i] * GP->charge * voltage[i] *
+            fabs(eta_0(i) * cos(phi_s[i])) /
+            (2 * constant::pi * GP->beta[i] * GP->beta[i] * GP->energy[i]));
         // if (i < 3)
         // dprintf("%lf \n", harmonic[i] * GP->charge * voltage[i]);
         // dprintf("%.4e \n", std::abs(eta_0(i) * cos(phi_s[i])));
@@ -128,7 +128,7 @@ RfParameters::RfParameters(int _n_rf, ftype *_harmonic, ftype *_voltage,
     }
 }
 
-ftype RfParameters::eta_tracking(const Beams *beam, const int counter,
+ftype RfParameters::eta_tracking(const Beams* beam, const int counter,
                                  const ftype dE) {
     ftype eta = 0;
     if (GP->alpha_order == 1)
@@ -142,7 +142,7 @@ ftype RfParameters::eta_tracking(const Beams *beam, const int counter,
             eta += eta_2(counter) * delta * delta;
         if (GP->alpha_order > 2)
             dprintf("WARNING: Momentum compaction factor is implemented only "
-                            "up to 2nd order");
+                    "up to 2nd order");
     }
     return eta;
 }
@@ -200,20 +200,20 @@ void RfParameters::calc_phi_s(accelerating_systems_type acc_sys) {
     // ftype eta0 = rf_params->eta0;
     if (acc_sys == as_single) {
 
-        ftype *denergy = new ftype[n_turns + 1];
+        ftype* denergy = new ftype[n_turns + 1];
         for (int j = 0; j < n_turns; ++j)
             denergy[j] = E_increment[j];
         denergy[n_turns] = E_increment[n_turns - 1];
 
-        ftype *acceleration_ratio = new ftype[n_turns + 1];
+        ftype* acceleration_ratio = new ftype[n_turns + 1];
         for (int i = 0; i < n_turns + 1; ++i)
             acceleration_ratio[i] = denergy[i] / (GP->charge * voltage[0 + i]);
 
         for (int i = 0; i < n_turns + 1; ++i)
             if (acceleration_ratio[i] > 1 || acceleration_ratio[i] < -1)
                 dprintf("Warning!!! Acceleration is not possible (momentum "
-                                "increment is too big or voltage too low) at index "
-                                "%d\n",
+                        "increment is too big or voltage too low) at index "
+                        "%d\n",
                         i);
 
         for (int i = 0; i < n_turns + 1; ++i)
@@ -245,7 +245,7 @@ void RfParameters::calc_phi_s(accelerating_systems_type acc_sys) {
          of the potential well is taken)
          */
 
-        ftype *transition_phase_offset = new ftype[n_turns + 1];
+        ftype* transition_phase_offset = new ftype[n_turns + 1];
         for (int i = 0; i < n_turns + 1; ++i) {
             phi_s[i] = 0;
             if (eta_0(i) > 0)
@@ -265,18 +265,18 @@ void RfParameters::calc_phi_s(accelerating_systems_type acc_sys) {
 
                 for (int k = 0; k < 1000; ++k) {
                     totalRF[k] +=
-                            voltage[row + i + 1] *
-                            mymath::fast_sin((harmonic[row + i + 1] / min) *
+                        voltage[row + i + 1] *
+                        mymath::fast_sin((harmonic[row + i + 1] / min) *
                                              (phase_array[k] +
                                               transition_phase_offset[i + 1]) +
-                                             phi_offset[row + i + 1]);
+                                         phi_offset[row + i + 1]);
                 }
             }
             int transition_factor = transition_phase_offset[i] == 0 ? +1 : -1;
             // dump(totalRF, 10, "totalRF\n");
 
             ftype potential_well[1000] = {0};
-            ftype *f = new ftype[1000];
+            ftype* f = new ftype[1000];
             for (int k = 0; k < 1000; ++k) {
                 f[k] = totalRF[k] - E_increment[i] / GP->charge;
             }
@@ -285,8 +285,8 @@ void RfParameters::calc_phi_s(accelerating_systems_type acc_sys) {
 
             // dprintf("dx %.12lf\n", phase_array[1] - phase_array[0]);
 
-            ftype *trap =
-                    mymath::cum_trapezoid(f, phase_array[1] - phase_array[0], 1000);
+            ftype* trap =
+                mymath::cum_trapezoid(f, phase_array[1] - phase_array[0], 1000);
 
             for (int k = 0; k < 1000; ++k) {
                 potential_well[k] = transition_factor * trap[k];
@@ -312,7 +312,7 @@ void RfParameters::calc_phi_s(accelerating_systems_type acc_sys) {
         ;
     } else {
         dprintf("Did not recognize the option accelerating_systems in "
-                        "calc_phi_s function\n");
+                "calc_phi_s function\n");
         exit(-1);
     }
 

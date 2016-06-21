@@ -8,10 +8,10 @@
 #ifndef INCLUDE_FFT_H_
 #define INCLUDE_FFT_H_
 
+#include <algorithm>
+#include <algorithm>
 #include <blond/configuration.h>
 #include <blond/utilities.h>
-#include <algorithm>
-#include <algorithm>
 #include <cassert>
 #include <cmath>
 #include <fftw3.h>

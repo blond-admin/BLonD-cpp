@@ -68,13 +68,13 @@ else ()
         message(FATAL_ERROR "ERROR: Compiler is lacking support for c++11")
     endif ()
 
-    set(CMAKE_CXX_FLAGS "-fPIC -std=c++11 -fopenmp -Wall -pedantic -Wno-rtti -Wunused")
-    set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g3")
-    set(CMAKE_CXX_FLAGS_RELEASE "-march=native")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -std=c++11 -fopenmp -Wall -pedantic -Wno-rtti -Wunused")
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g3")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -march=native")
 
     if (TEST_ENABLED STREQUAL "True")
         set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fprofile-arcs -ftest-coverage")
-        set(CMAKE_EXE_LINKER_FLAGS_DEBUG "--coverage")
+        set(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} --coverage")
     else ()
         message(STATUS "code test coveredge is enabeled only in Debug mode")
     endif ()
@@ -99,7 +99,7 @@ if (CMAKE_CXX_COMPILER_ID MATCHES GNU)
         message(FATAL_ERROR "ERROR: Insufficient compiler version, need at lest 4.8 to continue")
     endif ()
 
-    set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-flto")
+    set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -flto")
 elseif (CMAKE_C_COMPILER_ID MATCHES "Clang")
     if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 3.8)
         set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
@@ -107,10 +107,10 @@ elseif (CMAKE_C_COMPILER_ID MATCHES "Clang")
         set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Ofast")
     endif ()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -std=c++11 -fopenmp -Wall -pedantic -Wno-rtti -Wunused")
-    set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g3")
-    set(CMAKE_CXX_FLAGS_RELEASE "-march=native")
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g3")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -march=native")
 
-    set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-flto")
+    set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE}-flto")
 endif ()
 
 # Default packages
@@ -143,17 +143,25 @@ endif ()
 message(STATUS "Building required started...")
 execute_process(
         COMMAND cmake
+        #options
+        -DWITH_FFTW=${WITH_FFTW}
+        -DWITH_GSL=${WITH_GSL}
+        -DWITH_BENCHMARK=${WITH_BENCHMARK}
+        -DWITH_GOOGLETEST=${WITH_GOOGLETEST}
+        #destinations
+        -DINSTALL_DIR=${EXTERNAL_INSTALL_DIR}
         -DCOMPILE_FLAGS=${COMPILE_FLAGS}
         -DGOOGLETEST_ROOT=${GOOGLETEST_ROOT}
         -DBENCHMARK_ROOT=${BENCHMARK_ROOT}
         -DGOOGLETEST_ROOT=${GOOGLETEST_ROOT}
         -DGSL_ROOT=${GSL_ROOT}
-        -DWITH_FFTW=${WITH_FFTW}
-        -DWITH_GSL=${WITH_GSL}
-        -DWITH_BENCHMARK=${WITH_BENCHMARK}
-        -DWITH_GOOGLETEST=${WITH_GOOGLETEST}
-        -DINSTALL_DIR=${EXTERNAL_INSTALL_DIR}
+        #forward all collected compilation arguments
         -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} #todo figure out if debug libs are in any way relevant on linux
+        -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}
+        -DCMAKE_CXX_FLAGS_DEBUG=${CMAKE_CXX_FLAGS_DEBUG}
+        -DCMAKE_CXX_FLAGS_RELEASE=${CMAKE_CXX_FLAGS_RELEASE}
+        -DCMAKE_EXE_LINKER_FLAGS_RELEASE=${CMAKE_EXE_LINKER_FLAGS_RELEASE}
+        -DCMAKE_EXE_LINKER_FLAGS_DEBUG=${CMAKE_EXE_LINKER_FLAGS_DEBUG}
         -G ${CMAKE_GENERATOR}
         ${PROJECT_SOURCE_DIR}/external/
         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/external/build
@@ -164,6 +172,7 @@ execute_process(
         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/external/build
 )
 message(STATUS "Building required librasries complete")
+
 # path to external libraries and headers
 include_directories(${EXTERNAL_INSTALL_DIR}/include)
 link_directories(${EXTERNAL_INSTALL_DIR}/lib)

@@ -10,7 +10,7 @@
 
 class Slices;
 
-#include <blond/Beams.h>
+#include <blond/beams/Beams.h>
 #include <blond/configuration.h>
 #include <blond/constants.h>
 #include <blond/fft.h>

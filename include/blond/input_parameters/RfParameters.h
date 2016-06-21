@@ -10,7 +10,7 @@
 
 class RfParameters;
 
-#include <blond/GeneralParameters.h>
+#include <blond/input_parameters/GeneralParameters.h>
 #include <blond/beams/Beams.h>
 //#include <blond/includes/utilities.h>
 #include <blond/math_functions.h>

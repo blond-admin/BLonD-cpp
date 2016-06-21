@@ -12,7 +12,7 @@
 
 #include <blond/configuration.h>
 //#include <complex>
-#include <blond/Intensity.h>
+#include <blond/impedances/Intensity.h>
 #include <blond/fft.h>
 #include <vector>
 

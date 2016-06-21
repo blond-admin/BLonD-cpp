@@ -110,6 +110,7 @@ protected:
       delete Beam;
       delete RfP;
       delete Slice;
+      delete resonator;
    }
 
 
@@ -163,6 +164,9 @@ TEST_F(testInducedVoltageFreq, constructor1)
             << i << std::endl;
    }
    v.clear();
+
+   delete indVoltFreq;
+
 }
 
 
@@ -264,7 +268,7 @@ TEST_F(testInducedVoltageFreq, constructor2)
    }
    v.clear();
 
-
+   delete indVoltFreq;
 }
 
 
@@ -298,6 +302,8 @@ TEST_F(testInducedVoltageFreq, sum_impedances1)
             << i << std::endl;
    }
 
+   delete indVoltFreq;
+
 }
 
 
@@ -329,6 +335,8 @@ TEST_F(testInducedVoltageFreq, sum_impedances2)
             << "Testing of indVoltFreq->fTotalImpedance failed on i "
             << i << std::endl;
    }
+
+   delete indVoltFreq;
 }
 
 
@@ -384,6 +392,9 @@ TEST_F(testInducedVoltageFreq, reprocess1)
             << i << std::endl;
    }
    v.clear();
+
+   delete indVoltFreq;
+
 }
 
 
@@ -412,7 +423,8 @@ TEST_F(testInducedVoltageFreq, induced_voltage_generation1)
             << "Testing of indVoltFreq->fInducedVoltage failed on i "
             << i << std::endl;
    }
-   v.clear();
+
+   delete indVoltFreq;
 }
 
 TEST_F(testInducedVoltageFreq, track1)
@@ -441,7 +453,8 @@ TEST_F(testInducedVoltageFreq, track1)
             << "Testing of Beam->dE failed on i "
             << i << std::endl;
    }
-   v.clear();
+
+   delete indVoltFreq;
 }
 
 
@@ -473,7 +486,8 @@ TEST_F(testInducedVoltageFreq, track2)
             << "Testing of Beam->dE failed on i "
             << i << std::endl;
    }
-   v.clear();
+
+   delete indVoltFreq;
 }
 
 

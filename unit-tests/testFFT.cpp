@@ -59,6 +59,8 @@ TEST(testIRFFT, rfft_even)
             << i << std::endl;
    }
 
+   fft::destroy_plans();
+
 
 }
 
@@ -106,6 +108,7 @@ TEST(testIRFFT, rfft_odd)
             << "Testing of out4 failed on i "
             << i << std::endl;
    }
+   fft::destroy_plans();
 
 
 }
@@ -147,6 +150,8 @@ TEST(testIRFFT, irfft_big)
 
 
    }
+   fft::destroy_plans();
+
 }
 
 
@@ -187,6 +192,8 @@ TEST(testIRFFT, irfft_big2)
             << i << std::endl;
 
    }
+   fft::destroy_plans();
+
 
 }
 
@@ -228,6 +235,7 @@ TEST(testIRFFT, irfft_test)
 
 
    }
+   fft::destroy_plans();
 
 }
 
@@ -273,6 +281,7 @@ TEST(testRFFT, rfft1)
             << i << std::endl;
    }
    v.clear();
+   fft::destroy_plans();
 
 }
 
@@ -324,6 +333,8 @@ TEST(testRFFT, rfft2)
             << i << std::endl;
    }
    v.clear();
+   fft::destroy_plans();
+
 
 }
 
@@ -399,6 +410,8 @@ TEST(testRFFT, irfft)
 
    }
    v.clear();
+   fft::destroy_plans();
+   
 
 }
 

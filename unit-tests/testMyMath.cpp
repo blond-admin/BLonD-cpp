@@ -260,6 +260,75 @@ TEST(testConvolution, test3)
 
 }
 
+TEST(arange, test1)
+{
+   std::string params = "../unit-tests/references/MyMath/arange/";
+   f_vector_t v;
+
+   auto a = mymath::arange<ftype>(0, 100);
+
+   ftype epsilon = 1e-8;
+
+   util::read_vector_from_file(v, params + "arange1.txt");
+
+   ASSERT_EQ(v.size(), a.size());
+
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      ftype ref = v[i];
+      ftype real = a[i];
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of a failed on i "
+            << i << std::endl;
+   }
+
+}
+
+
+TEST(arange, test2)
+{
+   std::string params = "../unit-tests/references/MyMath/arange/";
+   f_vector_t v;
+   auto a = mymath::arange<ftype>(0, 100, 2.5);
+
+   ftype epsilon = 1e-8;
+
+   util::read_vector_from_file(v, params + "arange2.txt");
+
+   ASSERT_EQ(v.size(), a.size());
+
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      ftype ref = v[i];
+      ftype real = a[i];
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of a failed on i "
+            << i << std::endl;
+   }
+
+}
+
+
+TEST(arange, test3)
+{
+   std::string params = "../unit-tests/references/MyMath/arange/";
+   f_vector_t v;
+
+   auto a = mymath::arange<int>(10, 80, 2);
+   util::read_vector_from_file(v, params + "arange3.txt");
+   //util::dump(v, "integer vector");
+
+   ASSERT_EQ(v.size(), a.size());
+
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      auto ref = v[i];
+      auto real = a[i];
+      ASSERT_EQ(ref, real)
+            << "Testing of a failed on i "
+            << i << std::endl;
+   }
+
+}
+
+
 
 
 int main(int ac, char *av[])

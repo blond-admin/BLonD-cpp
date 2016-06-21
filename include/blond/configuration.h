@@ -22,7 +22,7 @@ const unsigned PRECISION = 8;
 // Compile time switches
 // Needs re-compile every time a change is made
 
-//switch on/off fixed beam distribution
+// switch on/off fixed beam distribution
 #define FIXED_PARTICLES
 
 // switch on/off timing
@@ -30,6 +30,5 @@ const unsigned PRECISION = 8;
 
 // switch on/off result printing
 #define PRINT_RESULTS
-
 
 #endif /* INCLUDES_CONFIGURATION_H_ */

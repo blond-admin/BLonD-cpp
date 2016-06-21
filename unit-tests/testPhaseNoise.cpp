@@ -58,11 +58,11 @@ protected:
 
 
 
-TEST_F(testPhaseNoise, spectrum_to_phase_noise1)
+TEST_F(testPhaseNoise, spectrum_to_phase_noise_real1)
 {
 
    auto freqV = mymath::arange<ftype>(0.0, 100.0, 2.0);
-   f_vector_t spectrumV(10.0, 10);
+   f_vector_t spectrumV(10, 10.0);
    spectrumV.resize(50, 0);
 
    auto RFNoise = new PhaseNoise(freqV, spectrumV, 1, 2);
@@ -130,7 +130,89 @@ TEST_F(testPhaseNoise, spectrum_to_phase_noise1)
 
    epsilon = 0.5;
    ASSERT_NEAR(meanV, meanR, epsilon * std::min(fabs(meanV), fabs(meanR)));
-   
+
+   epsilon = 0.5;
+   ASSERT_NEAR(stdV, stdR, epsilon * std::min(fabs(stdV), fabs(stdR)));
+
+
+   delete RFNoise;
+}
+
+
+
+TEST_F(testPhaseNoise, spectrum_to_phase_noise_complex1)
+{
+
+   auto freqV = mymath::arange<ftype>(0.0, 1000.0, 1.0);
+   f_vector_t spectrumV(50, 0.5);
+   spectrumV.resize(freqV.size(), 0);
+
+   auto RFNoise = new PhaseNoise(freqV, spectrumV, 100, 200);
+   RFNoise->spectrum_to_phase_noise(PhaseNoise::transform_t::c);
+
+
+
+   auto params = std::string("../unit-tests/references/")
+                 + "PhaseNoise/spectrum_to_phase_noise/test2/";
+   f_vector_t v;
+
+   util::read_vector_from_file(v, params + "nt.txt");
+
+   //ASSERT_EQ(v.size(), res.size());
+
+   auto epsilon = 1e-8;
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      auto ref = v[i];
+      auto real = RFNoise->fNt;
+
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of fNt failed on i "
+            << i << std::endl;
+   }
+
+   v.clear();
+   util::read_vector_from_file(v, params + "dt.txt");
+
+   epsilon = 1e-8;
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      auto ref = v[i];
+      auto real = RFNoise->fDt;
+
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of fDt failed on i "
+            << i << std::endl;
+   }
+
+   v.clear();
+   util::read_vector_from_file(v, params + "t.txt");
+   ASSERT_EQ(v.size(), RFNoise->fT.size());
+
+   epsilon = 1e-8;
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      auto ref = v[i];
+      auto real = RFNoise->fT[i];
+
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of fT failed on i "
+            << i << std::endl;
+   }
+
+   v.clear();
+
+   util::read_vector_from_file(v, params + "dphi.txt");
+   //ASSERT_EQ(v.size(), RFNoise->fDphi.size());
+
+   auto meanV = mymath::mean(v.data(), v.size());
+   auto stdV = mymath::standard_deviation(v.data(), v.size(), meanV);
+
+   auto real = RFNoise->fDphi;
+
+   auto meanR = mymath::mean(real.data(), real.size());
+   auto stdR = mymath::standard_deviation(real.data(), real.size(), meanR);
+
+   // epsilon = 0.5;
+   // ASSERT_NEAR(meanV, meanR, epsilon * std::min(fabs(meanV), fabs(meanR)));
+
    epsilon = 0.5;
    ASSERT_NEAR(stdV, stdR, epsilon * std::min(fabs(stdV), fabs(stdR)));
 

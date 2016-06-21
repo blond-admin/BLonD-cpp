@@ -70,8 +70,8 @@ void PhaseNoise::spectrum_to_phase_noise(PhaseNoise::transform_t transform)
    //    r1[i - 1] = r2[i - 1] = (1.0 * i) / (fNt + 1);
    // }
 
-   //std::cout << "mean r1 : " << mymath::mean(r1.data(), r1.size()) << "\n";
-   //std::cout << "mean r2 : " << mymath::mean(r2.data(), r2.size()) << "\n";
+   // std::cout << "mean r1 : " << mymath::mean(r1.data(), r1.size()) << "\n";
+   // std::cout << "mean r2 : " << mymath::mean(r2.data(), r2.size()) << "\n";
 
    if (transform == transform_t::None or transform == transform_t::r) {
       f_vector_t Gt(fNt);
@@ -176,13 +176,27 @@ void PhaseNoise::spectrum_to_phase_noise(PhaseNoise::transform_t transform)
                      Gt.begin(),
                      f3);
 
+      // auto sum = 0.0;
+      // for (const auto &v : Gt)
+      //    sum += std::abs(v);
+
+      // std::cout << "mean abs(Gt) : " << sum / Gt.size() << "\n";
+
       // FFT to frequency domain
       complex_vector_t Gf;
       fft::fft(Gt, Gf);
 
+      // sum = 0.0;
+      // for (const auto &v : Gf)
+      //    sum += std::abs(v);
+
+      // std::cout << "mean abs(Gf) : " << sum / Gf.size() << "\n";
+
       // Multiply by desired noise probability density
 
       auto factor2 = fFreqArrayMax;
+      // std::cout << factor2 << "\n";
+      // std::cout << fRes.size() << "\n";
       auto f4 = [factor2](ftype x) {return std::sqrt(factor2 * x);};
 
       r1.resize(fRes.size());
@@ -190,6 +204,14 @@ void PhaseNoise::spectrum_to_phase_noise(PhaseNoise::transform_t transform)
                      fRes.end(),
                      r1.begin(),
                      f4);
+      //util::dump(fRes, "fRes\n");
+
+      // sum = 0.0;
+      // for (const auto &v : r1)
+      //    sum += v;
+
+      // std::cout << "mean abs(s) : " << sum / r1.size() << "\n";
+
 
       auto f5 = [](ftype r, complex_t z) {return r * z;};
       std::transform(r1.begin(),
@@ -198,9 +220,22 @@ void PhaseNoise::spectrum_to_phase_noise(PhaseNoise::transform_t transform)
                      Gf.begin(),
                      f5);
 
+      // sum = 0.0;
+      // for (const auto &v : Gf)
+      //    sum += std::abs(v);
+
+      // std::cout << "mean abs(dPf) : " << sum / Gf.size() << "\n";
+
+
       // fft back to time domain to get final phase shift
       Gt.clear();
       fft::ifft(Gf, Gt);
+
+      // sum = 0.0;
+      // for (const auto &v : Gt)
+      //    sum += std::abs(v);
+
+      // std::cout << "mean abs(dPt) : " << sum / Gt.size() << "\n";
 
       // Use only real part of the phase shift and normalize
       fT.resize(fNt);
@@ -215,6 +250,9 @@ void PhaseNoise::spectrum_to_phase_noise(PhaseNoise::transform_t transform)
                      fDphi.begin(),
                      f6);
    }
+
+   //std::cout << "mean dphi : " << mymath::mean(fDphi.data(), fDphi.size()) << "\n";
+
 
 
 

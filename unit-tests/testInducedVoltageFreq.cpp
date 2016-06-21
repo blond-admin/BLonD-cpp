@@ -15,7 +15,7 @@
 
 
 const std::string datafiles =
-   "../demos/input_files/TC5_Wake_impedance/";
+        "../demos/input_files/TC5_Wake_impedance/";
 
 GeneralParameters *GP;
 Beams *Beam;
@@ -28,458 +28,745 @@ int n_threads = 1;
 class testInducedVoltageFreq : public ::testing::Test {
 
 protected:
-   const long int N_b = (long int) 1e10;                          // Intensity
-   const ftype tau_0 = 2e-9;                       // Initial bunch length, 4 sigma [s]
-   const ftype C = 6911.56;                        // Machine circumference [m]
-   const ftype p_i = 25.92e9;                      // Synchronous momentum [eV/c]
-   const long h = 4620;                            // Harmonic number
-   const ftype V = 0.9e6;                          // RF voltage [V]
-   const ftype dphi = 0;                           // Phase modulation/offset
-   const ftype gamma_t = 1 / std::sqrt(0.00192);   // Transition gamma
-   const ftype alpha = 1.0 / gamma_t / gamma_t;    // First order mom. comp. factor
-   const int alpha_order = 1;
-   const int n_sections = 1;
+    const long int N_b = (long int) 1e10;                          // Intensity
+    const ftype tau_0 = 2e-9;                       // Initial bunch length, 4 sigma [s]
+    const ftype C = 6911.56;                        // Machine circumference [m]
+    const ftype p_i = 25.92e9;                      // Synchronous momentum [eV/c]
+    const long h = 4620;                            // Harmonic number
+    const ftype V = 0.9e6;                          // RF voltage [V]
+    const ftype dphi = 0;                           // Phase modulation/offset
+    const ftype gamma_t = 1 / std::sqrt(0.00192);   // Transition gamma
+    const ftype alpha = 1.0 / gamma_t / gamma_t;    // First order mom. comp. factor
+    const int alpha_order = 1;
+    const int n_sections = 1;
 
-   int N_t = 2;    // Number of turns to track
-   int N_p = 5000000;         // Macro-particles
+    int N_t = 2;    // Number of turns to track
+    int N_p = 5000000;         // Macro-particles
 
-   int N_slices = 1 << 8; // = (2^8)
+    int N_slices = 1 << 8; // = (2^8)
 
-   virtual void SetUp()
-   {
+    virtual void SetUp() {
 
-      omp_set_num_threads(n_threads);
+        omp_set_num_threads(n_threads);
 
-      f_vector_t momentum(N_t + 1);
-      std::fill_n(momentum.begin(), N_t + 1, p_i);
+        f_vector_t momentum(N_t + 1);
+        std::fill_n(momentum.begin(), N_t + 1, p_i);
 
-      ftype *alpha_array = new ftype[(alpha_order + 1) * n_sections];
-      std::fill_n(alpha_array, (alpha_order + 1) * n_sections, alpha);
+        ftype *alpha_array = new ftype[(alpha_order + 1) * n_sections];
+        std::fill_n(alpha_array, (alpha_order + 1) * n_sections, alpha);
 
-      ftype *C_array = new ftype[n_sections];
-      std::fill_n(C_array, n_sections, C);
+        ftype *C_array = new ftype[n_sections];
+        std::fill_n(C_array, n_sections, C);
 
-      ftype *h_array = new ftype[n_sections * (N_t + 1)];
-      std::fill_n(h_array, (N_t + 1) * n_sections, h);
+        ftype *h_array = new ftype[n_sections * (N_t + 1)];
+        std::fill_n(h_array, (N_t + 1) * n_sections, h);
 
-      ftype *V_array = new ftype[n_sections * (N_t + 1)];
-      std::fill_n(V_array, (N_t + 1) * n_sections, V);
+        ftype *V_array = new ftype[n_sections * (N_t + 1)];
+        std::fill_n(V_array, (N_t + 1) * n_sections, V);
 
-      ftype *dphi_array = new ftype[n_sections * (N_t + 1)];
-      std::fill_n(dphi_array, (N_t + 1) * n_sections, dphi);
+        ftype *dphi_array = new ftype[n_sections * (N_t + 1)];
+        std::fill_n(dphi_array, (N_t + 1) * n_sections, dphi);
 
-      GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum.data(),
-                                 proton);
+        GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum.data(),
+                                   proton);
 
-      Beam = new Beams(N_p, N_b);
+        Beam = new Beams(N_p, N_b);
 
-      RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
-
-
-      longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
-
-      Slice = new Slices(N_slices, 0, 0, 2 * constant::pi, rad);
-
-      std::vector<ftype> v;
-      util::read_vector_from_file(v, datafiles +
-                                  "TC5_new_HQ_table.dat");
-      assert(v.size() % 3 == 0);
-
-      std::vector<ftype> R_shunt, f_res, Q_factor;
-
-      R_shunt.reserve(v.size() / 3);
-      f_res.reserve(v.size() / 3);
-      Q_factor.reserve(v.size() / 3);
-
-      for (uint i = 0; i < v.size(); i += 3) {
-         f_res.push_back(v[i] * 1e9);
-         Q_factor.push_back(v[i + 1]);
-         R_shunt.push_back(v[i + 2] * 1e6);
-      }
-
-      resonator = new Resonators(R_shunt, f_res, Q_factor);
-
-   }
+        RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
 
 
-   virtual void TearDown()
-   {
-      // Code here will be called immediately after each test
-      // (right before the destructor).
-      delete GP;
-      delete Beam;
-      delete RfP;
-      delete Slice;
-   }
+        longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
+
+        Slice = new Slices(N_slices, 0, 0, 2 * constant::pi, rad);
+
+        std::vector<ftype> v;
+        util::read_vector_from_file(v, datafiles +
+                                       "TC5_new_HQ_table.dat");
+        assert(v.size() % 3 == 0);
+
+        std::vector<ftype> R_shunt, f_res, Q_factor;
+
+        R_shunt.reserve(v.size() / 3);
+        f_res.reserve(v.size() / 3);
+        Q_factor.reserve(v.size() / 3);
+
+        for (uint i = 0; i < v.size(); i += 3) {
+            f_res.push_back(v[i] * 1e9);
+            Q_factor.push_back(v[i + 1]);
+            R_shunt.push_back(v[i + 2] * 1e6);
+        }
+
+        resonator = new Resonators(R_shunt, f_res, Q_factor);
+
+    }
+
+
+    virtual void TearDown() {
+        // Code here will be called immediately after each test
+        // (right before the destructor).
+        delete GP;
+        delete Beam;
+        delete RfP;
+        delete Slice;
+    }
 
 
 };
 
 
-TEST_F(testInducedVoltageFreq, constructor1)
+TEST_F(testInducedVoltageFreq, constructor1
+)
 {
-   std::vector<Intensity *> ImpSourceList({resonator});
+std::vector<Intensity *> ImpSourceList({resonator});
 
-   auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
+auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
 
-   auto params = std::string("../unit-tests/references/Impedances/")
-                 + "InducedVoltage/InducedVoltageFreq/constructor1/";
+auto params = std::string("../unit-tests/references/Impedances/")
+              + "InducedVoltage/InducedVoltageFreq/constructor1/";
 
-   std::vector<ftype> v;
+std::vector<ftype> v;
 
-   util::read_vector_from_file(v, params + "n_fft_sampling.txt");
-   //ASSERT_EQ(v.size(), indVoltTime->fTotalWake.size());
+util::read_vector_from_file(v, params
++ "n_fft_sampling.txt");
+//ASSERT_EQ(v.size(), indVoltTime->fTotalWake.size());
 
-   auto epsilon = 1e-8;
-   for (unsigned int i = 0; i < v.size(); ++i) {
-      auto ref = v[i];
-      auto real = indVoltFreq->fNFFTSampling;
-      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of indVoltFreq->fNFFTSampling failed on i "
-            << i << std::endl;
-   }
-   v.clear();
+auto epsilon = 1e-8;
+for (
+unsigned int i = 0;
+i<v.
 
-   util::read_vector_from_file(v, params + "frequency_resolution.txt");
+size();
 
-   epsilon = 1e-8;
-   for (unsigned int i = 0; i < v.size(); ++i) {
-      auto ref = v[i];
-      auto real = indVoltFreq->fFreqResolution;
-      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of indVoltFreq->fFreqResolution failed on i "
-            << i << std::endl;
-   }
-   v.clear();
-
-   util::read_vector_from_file(v, params + "frequency_array.txt");
-   // only first 1k elements of frequency_array are tested
-   epsilon = 1e-8;
-   for (unsigned int i = 0; i < v.size(); ++i) {
-      auto ref = v[i];
-      auto real = indVoltFreq->fFreqArray[i];
-      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of indVoltFreq->fFreqArray failed on i "
-            << i << std::endl;
-   }
-   v.clear();
+++i) {
+auto ref = v[i];
+auto real = indVoltFreq->fNFFTSampling;
+ASSERT_NEAR(ref, real, epsilon
+*
+std::max(fabs(ref), fabs(real)
+))
+<< "Testing of indVoltFreq->fNFFTSampling failed on i "
+<< i <<
+std::endl;
 }
+v.
 
+clear();
 
-TEST_F(testInducedVoltageFreq, constructor2)
-{
-   std::vector<Intensity *> ImpSourceList({resonator});
+util::read_vector_from_file(v, params
++ "frequency_resolution.txt");
 
-   auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5,
-         round_option, 100);
+epsilon = 1e-8;
+for (
+unsigned int i = 0;
+i<v.
 
-   auto params = std::string("../unit-tests/references/Impedances/")
-                 + "InducedVoltage/InducedVoltageFreq/constructor2/";
+size();
 
-   std::vector<ftype> v;
+++i) {
+auto ref = v[i];
+auto real = indVoltFreq->fFreqResolution;
+ASSERT_NEAR(ref, real, epsilon
+*
+std::max(fabs(ref), fabs(real)
+))
+<< "Testing of indVoltFreq->fFreqResolution failed on i "
+<< i <<
+std::endl;
+}
+v.
 
-   util::read_vector_from_file(v, params + "n_turns_memory.txt");
-   //ASSERT_EQ(v.size(), indVoltTime->fTotalWake.size());
+clear();
 
-   auto epsilon = 1e-8;
-   for (unsigned int i = 0; i < v.size(); ++i) {
-      auto ref = v[i];
-      auto real = indVoltFreq->fNTurnsMem;
-      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of indVoltFreq->fNTurnsMem failed on i "
-            << i << std::endl;
-   }
-   v.clear();
+util::read_vector_from_file(v, params
++ "frequency_array.txt");
+// only first 1k elements of frequency_array are tested
+epsilon = 1e-8;
+for (
+unsigned int i = 0;
+i<v.
 
-   util::read_vector_from_file(v, params + "len_array_memory.txt");
+size();
 
-   epsilon = 1e-8;
-   for (unsigned int i = 0; i < v.size(); ++i) {
-      auto ref = v[i];
-      auto real = indVoltFreq->fLenArrayMem;
-      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of indVoltFreq->fLenArrayMem failed on i "
-            << i << std::endl;
-   }
-   v.clear();
+++i) {
+auto ref = v[i];
+auto real = indVoltFreq->fFreqArray[i];
+ASSERT_NEAR(ref, real, epsilon
+*
+std::max(fabs(ref), fabs(real)
+))
+<< "Testing of indVoltFreq->fFreqArray failed on i "
+<< i <<
+std::endl;
+}
+v.
 
-   util::read_vector_from_file(v, params + "len_array_memory_extended.txt");
-
-   epsilon = 1e-8;
-   for (unsigned int i = 0; i < v.size(); ++i) {
-      auto ref = v[i];
-      auto real = indVoltFreq->fLenArrayMemExt;
-      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of indVoltFreq->fLenArrayMemExt failed on i "
-            << i << std::endl;
-   }
-   v.clear();
-
-
-   util::read_vector_from_file(v, params + "n_points_fft.txt");
-
-   epsilon = 1e-8;
-   for (unsigned int i = 0; i < v.size(); ++i) {
-      auto ref = v[i];
-      auto real = indVoltFreq->fNPointsFFT;
-      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of indVoltFreq->fNPointsFFT failed on i "
-            << i << std::endl;
-   }
-   v.clear();
-
-   util::read_vector_from_file(v, params + "frequency_array_memory.txt");
-   // Only fist 1k elements of frequency_array_memory are tested
-   epsilon = 1e-8;
-   for (unsigned int i = 0; i < v.size(); ++i) {
-      auto ref = v[i];
-      auto real = indVoltFreq->fFreqArrayMem[i];
-      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of indVoltFreq->fFreqArrayMem failed on i "
-            << i << std::endl;
-   }
-   v.clear();
-
-   util::read_vector_from_file(v, params + "time_array_memory.txt");
-   // Only fist 100 elements of frequency_array_memory are tested
-   epsilon = 1e-8;
-   for (unsigned int i = 0; i < v.size(); ++i) {
-      auto ref = v[i];
-      auto real = indVoltFreq->fTimeArrayMem[i];
-      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of indVoltFreq->fTimeArrayMem failed on i "
-            << i << std::endl;
-   }
-   v.clear();
-
-   util::read_vector_from_file(v, params + "total_impedance_memory.txt");
-   // Only fist 1000 elements of total_impedance_memory are tested
-   epsilon = 1e-8;
-   for (unsigned int i = 0; i < v.size(); ++i) {
-      auto ref = v[i];
-      auto real = std::abs(indVoltFreq->fTotalImpedanceMem[i]);
-      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of indVoltFreq->fTotalImpedanceMem failed on i "
-            << i << std::endl;
-   }
-   v.clear();
-
+clear();
 
 }
 
 
-
-TEST_F(testInducedVoltageFreq, sum_impedances1)
+TEST_F(testInducedVoltageFreq, constructor2
+)
 {
+std::vector<Intensity *> ImpSourceList({resonator});
 
-   std::vector<Intensity *> ImpSourceList({resonator});
+auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5,
+                                          round_option, 100);
 
-   auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
+auto params = std::string("../unit-tests/references/Impedances/")
+              + "InducedVoltage/InducedVoltageFreq/constructor2/";
 
-   auto freq_array = fft::rfftfreq(Slice->n_slices);
+std::vector<ftype> v;
 
-   indVoltFreq->sum_impedances(freq_array);
+util::read_vector_from_file(v, params
++ "n_turns_memory.txt");
+//ASSERT_EQ(v.size(), indVoltTime->fTotalWake.size());
 
-   auto params = std::string("../unit-tests/references/Impedances/")
-                 + "InducedVoltage/InducedVoltageFreq/sum_impedances/";
+auto epsilon = 1e-8;
+for (
+unsigned int i = 0;
+i<v.
 
-   std::vector<ftype> v;
+size();
 
-   util::read_vector_from_file(v, params + "total_impedance.txt");
+++i) {
+auto ref = v[i];
+auto real = indVoltFreq->fNTurnsMem;
+ASSERT_NEAR(ref, real, epsilon
+*
+std::max(fabs(ref), fabs(real)
+))
+<< "Testing of indVoltFreq->fNTurnsMem failed on i "
+<< i <<
+std::endl;
+}
+v.
 
-   ASSERT_EQ(v.size(), indVoltFreq->fTotalImpedance.size());
+clear();
 
-   auto epsilon = 1e-8;
-   for (unsigned int i = 0; i < v.size(); ++i) {
-      auto ref = v[i];
-      auto real = std::abs(indVoltFreq->fTotalImpedance[i]);
-      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of indVoltFreq->fTotalImpedance failed on i "
-            << i << std::endl;
-   }
+util::read_vector_from_file(v, params
++ "len_array_memory.txt");
+
+epsilon = 1e-8;
+for (
+unsigned int i = 0;
+i<v.
+
+size();
+
+++i) {
+auto ref = v[i];
+auto real = indVoltFreq->fLenArrayMem;
+ASSERT_NEAR(ref, real, epsilon
+*
+std::max(fabs(ref), fabs(real)
+))
+<< "Testing of indVoltFreq->fLenArrayMem failed on i "
+<< i <<
+std::endl;
+}
+v.
+
+clear();
+
+util::read_vector_from_file(v, params
++ "len_array_memory_extended.txt");
+
+epsilon = 1e-8;
+for (
+unsigned int i = 0;
+i<v.
+
+size();
+
+++i) {
+auto ref = v[i];
+auto real = indVoltFreq->fLenArrayMemExt;
+ASSERT_NEAR(ref, real, epsilon
+*
+std::max(fabs(ref), fabs(real)
+))
+<< "Testing of indVoltFreq->fLenArrayMemExt failed on i "
+<< i <<
+std::endl;
+}
+v.
+
+clear();
+
+
+util::read_vector_from_file(v, params
++ "n_points_fft.txt");
+
+epsilon = 1e-8;
+for (
+unsigned int i = 0;
+i<v.
+
+size();
+
+++i) {
+auto ref = v[i];
+auto real = indVoltFreq->fNPointsFFT;
+ASSERT_NEAR(ref, real, epsilon
+*
+std::max(fabs(ref), fabs(real)
+))
+<< "Testing of indVoltFreq->fNPointsFFT failed on i "
+<< i <<
+std::endl;
+}
+v.
+
+clear();
+
+util::read_vector_from_file(v, params
++ "frequency_array_memory.txt");
+// Only fist 1k elements of frequency_array_memory are tested
+epsilon = 1e-8;
+for (
+unsigned int i = 0;
+i<v.
+
+size();
+
+++i) {
+auto ref = v[i];
+auto real = indVoltFreq->fFreqArrayMem[i];
+ASSERT_NEAR(ref, real, epsilon
+*
+std::max(fabs(ref), fabs(real)
+))
+<< "Testing of indVoltFreq->fFreqArrayMem failed on i "
+<< i <<
+std::endl;
+}
+v.
+
+clear();
+
+util::read_vector_from_file(v, params
++ "time_array_memory.txt");
+// Only fist 100 elements of frequency_array_memory are tested
+epsilon = 1e-8;
+for (
+unsigned int i = 0;
+i<v.
+
+size();
+
+++i) {
+auto ref = v[i];
+auto real = indVoltFreq->fTimeArrayMem[i];
+ASSERT_NEAR(ref, real, epsilon
+*
+std::max(fabs(ref), fabs(real)
+))
+<< "Testing of indVoltFreq->fTimeArrayMem failed on i "
+<< i <<
+std::endl;
+}
+v.
+
+clear();
+
+util::read_vector_from_file(v, params
++ "total_impedance_memory.txt");
+// Only fist 1000 elements of total_impedance_memory are tested
+epsilon = 1e-8;
+for (
+unsigned int i = 0;
+i<v.
+
+size();
+
+++i) {
+auto ref = v[i];
+auto real = std::abs(indVoltFreq->fTotalImpedanceMem[i]);
+ASSERT_NEAR(ref, real, epsilon
+*
+std::max(fabs(ref), fabs(real)
+))
+<< "Testing of indVoltFreq->fTotalImpedanceMem failed on i "
+<< i <<
+std::endl;
+}
+v.
+
+clear();
+
 
 }
 
 
-
-TEST_F(testInducedVoltageFreq, sum_impedances2)
+TEST_F(testInducedVoltageFreq, sum_impedances1
+)
 {
-   std::vector<Intensity *> ImpSourceList({resonator});
 
-   auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
+std::vector<Intensity *> ImpSourceList({resonator});
 
-   auto freq_array = fft::rfftfreq(Slice->n_slices,
-                                   Slice->bin_centers[1] - Slice->bin_centers[0]);
+auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
 
-   indVoltFreq->sum_impedances(freq_array);
+auto freq_array = fft::rfftfreq(Slice->n_slices);
 
-   auto params = std::string("../unit-tests/references/Impedances/")
-                 + "InducedVoltage/InducedVoltageFreq/sum_impedances2/";
+indVoltFreq->
+sum_impedances(freq_array);
 
-   std::vector<ftype> v;
+auto params = std::string("../unit-tests/references/Impedances/")
+              + "InducedVoltage/InducedVoltageFreq/sum_impedances/";
 
-   util::read_vector_from_file(v, params + "total_impedance.txt");
-   ASSERT_EQ(v.size(), indVoltFreq->fTotalImpedance.size());
+std::vector<ftype> v;
 
-   auto epsilon = 1e-8;
-   for (unsigned int i = 0; i < v.size(); ++i) {
-      auto ref = v[i];
-      auto real = std::abs(indVoltFreq->fTotalImpedance[i]);
-      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of indVoltFreq->fTotalImpedance failed on i "
-            << i << std::endl;
-   }
+util::read_vector_from_file(v, params
++ "total_impedance.txt");
+
+ASSERT_EQ(v
+.
+
+size(), indVoltFreq
+
+->fTotalImpedance.
+
+size()
+
+);
+
+auto epsilon = 1e-8;
+for (
+unsigned int i = 0;
+i<v.
+
+size();
+
+++i) {
+auto ref = v[i];
+auto real = std::abs(indVoltFreq->fTotalImpedance[i]);
+ASSERT_NEAR(ref, real, epsilon
+*
+std::max(fabs(ref), fabs(real)
+))
+<< "Testing of indVoltFreq->fTotalImpedance failed on i "
+<< i <<
+std::endl;
+}
+
 }
 
 
-
-TEST_F(testInducedVoltageFreq, reprocess1)
+TEST_F(testInducedVoltageFreq, sum_impedances2
+)
 {
-   std::vector<Intensity *> ImpSourceList({resonator});
+std::vector<Intensity *> ImpSourceList({resonator});
 
-   auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
+auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
 
-   for (int i = 0; i < Slice->n_slices; ++i) {
-      Slice->bin_centers[i] = 1.1 * Slice->bin_centers[i];
-   }
+auto freq_array = fft::rfftfreq(Slice->n_slices,
+                                Slice->bin_centers[1] - Slice->bin_centers[0]);
 
-   indVoltFreq->reprocess();
+indVoltFreq->
+sum_impedances(freq_array);
 
-   auto params = std::string("../unit-tests/references/Impedances/")
-                 + "InducedVoltage/InducedVoltageFreq/reprocess1/";
+auto params = std::string("../unit-tests/references/Impedances/")
+              + "InducedVoltage/InducedVoltageFreq/sum_impedances2/";
 
-   std::vector<ftype> v;
+std::vector<ftype> v;
 
-   util::read_vector_from_file(v, params + "n_fft_sampling.txt");
-   auto epsilon = 1e-8;
-   for (unsigned int i = 0; i < v.size(); ++i) {
-      auto ref = v[i];
-      auto real = indVoltFreq->fNFFTSampling;
-      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of indVoltFreq->fNFFTSampling failed on i "
-            << i << std::endl;
-   }
-   v.clear();
+util::read_vector_from_file(v, params
++ "total_impedance.txt");
+ASSERT_EQ(v
+.
 
-   util::read_vector_from_file(v, params + "frequency_resolution.txt");
+size(), indVoltFreq
 
-   epsilon = 1e-8;
-   for (unsigned int i = 0; i < v.size(); ++i) {
-      auto ref = v[i];
-      auto real = indVoltFreq->fFreqResolution;
-      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of indVoltFreq->fFreqResolution failed on i "
-            << i << std::endl;
-   }
-   v.clear();
+->fTotalImpedance.
 
-   util::read_vector_from_file(v, params + "frequency_array.txt");
-   // only first 1k elements of frequency_array are tested
-   epsilon = 1e-8;
-   for (unsigned int i = 0; i < v.size(); ++i) {
-      auto ref = v[i];
-      auto real = indVoltFreq->fFreqArray[i];
-      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of indVoltFreq->fFreqArray failed on i "
-            << i << std::endl;
-   }
-   v.clear();
+size()
+
+);
+
+auto epsilon = 1e-8;
+for (
+unsigned int i = 0;
+i<v.
+
+size();
+
+++i) {
+auto ref = v[i];
+auto real = std::abs(indVoltFreq->fTotalImpedance[i]);
+ASSERT_NEAR(ref, real, epsilon
+*
+std::max(fabs(ref), fabs(real)
+))
+<< "Testing of indVoltFreq->fTotalImpedance failed on i "
+<< i <<
+std::endl;
+}
 }
 
 
-TEST_F(testInducedVoltageFreq, induced_voltage_generation1)
+TEST_F(testInducedVoltageFreq, reprocess1
+)
 {
-   std::vector<Intensity *> ImpSourceList({resonator});
+std::vector<Intensity *> ImpSourceList({resonator});
 
-   auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
-   Slice->track();
+auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
 
-   indVoltFreq->induced_voltage_generation();
-   auto params = std::string("../unit-tests/references/Impedances/")
-                 + "InducedVoltage/InducedVoltageFreq/induced_voltage_generation1/";
-
-   std::vector<ftype> v;
-
-   util::read_vector_from_file(v, params + "induced_voltage.txt");
-
-   ASSERT_EQ(v.size(), indVoltFreq->fInducedVoltage.size());
-
-   auto epsilon = 1e-8;
-   for (unsigned int i = 0; i < v.size(); ++i) {
-      auto ref = v[i];
-      ftype real = indVoltFreq->fInducedVoltage[i];
-      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of indVoltFreq->fInducedVoltage failed on i "
-            << i << std::endl;
-   }
-   v.clear();
+for (
+int i = 0;
+i<Slice->
+n_slices;
+++i) {
+Slice->bin_centers[i] = 1.1 * Slice->bin_centers[i];
 }
 
-TEST_F(testInducedVoltageFreq, track1)
-{
-   std::vector<Intensity *> ImpSourceList({resonator});
+indVoltFreq->
 
-   auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
-   Slice->track();
+reprocess();
 
-   indVoltFreq->track();
-   auto params = std::string("../unit-tests/references/Impedances/")
-                 + "InducedVoltage/InducedVoltageFreq/track1/";
+auto params = std::string("../unit-tests/references/Impedances/")
+              + "InducedVoltage/InducedVoltageFreq/reprocess1/";
 
-   std::vector<ftype> v;
+std::vector<ftype> v;
 
-   util::read_vector_from_file(v, params + "beam_dE.txt");
+util::read_vector_from_file(v, params
++ "n_fft_sampling.txt");
+auto epsilon = 1e-8;
+for (
+unsigned int i = 0;
+i<v.
 
-   //ASSERT_EQ(v.size(), Beam->dE.size());
-   // only testing 1k particles
+size();
 
-   auto epsilon = 1e-8;
-   for (unsigned int i = 0; i < v.size(); ++i) {
-      auto ref = v[i];
-      ftype real = Beam->dE[i];
-      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of Beam->dE failed on i "
-            << i << std::endl;
-   }
-   v.clear();
+++i) {
+auto ref = v[i];
+auto real = indVoltFreq->fNFFTSampling;
+ASSERT_NEAR(ref, real, epsilon
+*
+std::max(fabs(ref), fabs(real)
+))
+<< "Testing of indVoltFreq->fNFFTSampling failed on i "
+<< i <<
+std::endl;
+}
+v.
+
+clear();
+
+util::read_vector_from_file(v, params
++ "frequency_resolution.txt");
+
+epsilon = 1e-8;
+for (
+unsigned int i = 0;
+i<v.
+
+size();
+
+++i) {
+auto ref = v[i];
+auto real = indVoltFreq->fFreqResolution;
+ASSERT_NEAR(ref, real, epsilon
+*
+std::max(fabs(ref), fabs(real)
+))
+<< "Testing of indVoltFreq->fFreqResolution failed on i "
+<< i <<
+std::endl;
+}
+v.
+
+clear();
+
+util::read_vector_from_file(v, params
++ "frequency_array.txt");
+// only first 1k elements of frequency_array are tested
+epsilon = 1e-8;
+for (
+unsigned int i = 0;
+i<v.
+
+size();
+
+++i) {
+auto ref = v[i];
+auto real = indVoltFreq->fFreqArray[i];
+ASSERT_NEAR(ref, real, epsilon
+*
+std::max(fabs(ref), fabs(real)
+))
+<< "Testing of indVoltFreq->fFreqArray failed on i "
+<< i <<
+std::endl;
+}
+v.
+
+clear();
+
 }
 
 
-TEST_F(testInducedVoltageFreq, track2)
+TEST_F(testInducedVoltageFreq, induced_voltage_generation1
+)
 {
-   std::vector<Intensity *> ImpSourceList({resonator});
+std::vector<Intensity *> ImpSourceList({resonator});
 
-   auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
-   Slice->track();
+auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
+Slice->
 
-   for (auto i = 0; i < 10; i++)
-      indVoltFreq->track();
+track();
 
-   auto params = std::string("../unit-tests/references/Impedances/")
-                 + "InducedVoltage/InducedVoltageFreq/track2/";
+indVoltFreq->
 
-   std::vector<ftype> v;
+induced_voltage_generation();
 
-   util::read_vector_from_file(v, params + "beam_dE.txt");
+auto params = std::string("../unit-tests/references/Impedances/")
+              + "InducedVoltage/InducedVoltageFreq/induced_voltage_generation1/";
 
-   //ASSERT_EQ(v.size(), Beam->dE.size());
-   // only testing 1k particles
+std::vector<ftype> v;
 
-   auto epsilon = 1e-8;
-   for (unsigned int i = 0; i < v.size(); ++i) {
-      auto ref = v[i];
-      ftype real = Beam->dE[i];
-      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of Beam->dE failed on i "
-            << i << std::endl;
-   }
-   v.clear();
+util::read_vector_from_file(v, params
++ "induced_voltage.txt");
+
+ASSERT_EQ(v
+.
+
+size(), indVoltFreq
+
+->fInducedVoltage.
+
+size()
+
+);
+
+auto epsilon = 1e-8;
+for (
+unsigned int i = 0;
+i<v.
+
+size();
+
+++i) {
+auto ref = v[i];
+ftype real = indVoltFreq->fInducedVoltage[i];
+ASSERT_NEAR(ref, real, epsilon
+*
+std::max(fabs(ref), fabs(real)
+))
+<< "Testing of indVoltFreq->fInducedVoltage failed on i "
+<< i <<
+std::endl;
+}
+v.
+
+clear();
+
+}
+
+TEST_F(testInducedVoltageFreq, track1
+)
+{
+std::vector<Intensity *> ImpSourceList({resonator});
+
+auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
+Slice->
+
+track();
+
+indVoltFreq->
+
+track();
+
+auto params = std::string("../unit-tests/references/Impedances/")
+              + "InducedVoltage/InducedVoltageFreq/track1/";
+
+std::vector<ftype> v;
+
+util::read_vector_from_file(v, params
++ "beam_dE.txt");
+
+//ASSERT_EQ(v.size(), Beam->dE.size());
+// only testing 1k particles
+
+auto epsilon = 1e-8;
+for (
+unsigned int i = 0;
+i<v.
+
+size();
+
+++i) {
+auto ref = v[i];
+ftype real = Beam->dE[i];
+ASSERT_NEAR(ref, real, epsilon
+*
+std::max(fabs(ref), fabs(real)
+))
+<< "Testing of Beam->dE failed on i "
+<< i <<
+std::endl;
+}
+v.
+
+clear();
+
 }
 
 
-
-int main(int ac, char *av[])
+TEST_F(testInducedVoltageFreq, track2
+)
 {
-   ::testing::InitGoogleTest(&ac, av);
-   return RUN_ALL_TESTS();
+std::vector<Intensity *> ImpSourceList({resonator});
+
+auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
+Slice->
+
+track();
+
+for (
+auto i = 0;
+i < 10; i++)
+indVoltFreq->
+
+track();
+
+auto params = std::string("../unit-tests/references/Impedances/")
+              + "InducedVoltage/InducedVoltageFreq/track2/";
+
+std::vector<ftype> v;
+
+util::read_vector_from_file(v, params
++ "beam_dE.txt");
+
+//ASSERT_EQ(v.size(), Beam->dE.size());
+// only testing 1k particles
+
+auto epsilon = 1e-8;
+for (
+unsigned int i = 0;
+i<v.
+
+size();
+
+++i) {
+auto ref = v[i];
+ftype real = Beam->dE[i];
+ASSERT_NEAR(ref, real, epsilon
+*
+std::max(fabs(ref), fabs(real)
+))
+<< "Testing of Beam->dE failed on i "
+<< i <<
+std::endl;
+}
+v.
+
+clear();
+
+}
+
+
+int main(int ac, char *av[]) {
+    ::testing::InitGoogleTest(&ac, av);
+    return RUN_ALL_TESTS();
 }

@@ -160,8 +160,8 @@ int main(int argc, char **argv)
 
    std::cout << std::scientific;
    std::cout << "Average Turn Time : "
-             << (indTrack + longTrack + sliceTrack) / N_t
-             << std::endl;
+            << (indTrack + longTrack + sliceTrack) / N_t
+            << std::endl;
    std::cout << "Average Induced Voltage Track Time : "
              << indTrack / N_t << std::endl;
    std::cout << "Average Tracker Track Time : "

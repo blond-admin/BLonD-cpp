@@ -25,7 +25,7 @@ inline void InducedVoltage::linear_interp_kick(
    const ftype inv_bin_width = (n_slices - 1) / (binLast - binFirst);
 
    #pragma omp parallel for
-   for (int i = 0; i < n_macroparticles; i++) {
+   for (int i = 0; i < n_macroparticles; ++i) {
       const ftype a = beam_dt[i];
       const int ffbin = static_cast<int>((a - binFirst) * inv_bin_width);
       const ftype voltageKick = ((a < binFirst) || (a > binLast)) ?
@@ -130,7 +130,7 @@ std::vector<ftype> InducedVoltageTime::induced_voltage_generation(uint length)
    if (fTimeOrFreq == freq_domain) {
       //std::vector<complex_t> fft1, fft2;
       f_vector_t in1(Slice->n_macroparticles,
-                            Slice->n_macroparticles + Slice->n_slices);
+                     Slice->n_macroparticles + Slice->n_slices);
       f_vector_t in2 = fTotalWake;
 
       mymath::convolution_with_ffts(in1, in2, inducedVoltage);

@@ -45,11 +45,13 @@ if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
          set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
       endif()
       
+      #set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fopt-info-vec=report.txt")
+      
       set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-flto")
-      #if(TEST_ENABLED)
-      set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fprofile-arcs -ftest-coverage")
-      set(CMAKE_EXE_LINKER_FLAGS_DEBUG "--coverage")
-      #endif()
+      if(TEST_ENABLED)
+         set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fprofile-arcs -ftest-coverage")
+         set(CMAKE_EXE_LINKER_FLAGS_DEBUG "--coverage")
+      endif()
 endif()
 
 # Absolutely required packages
@@ -103,9 +105,11 @@ file(GLOB SOURCES
 
 set(SOURCE_FILES ${SOURCES})
 
-foreach(source ${SOURCE_FILES})
-   set_source_files_properties(${source} PROPERTIES COMPILE_FLAGS "")#"-fopt-info-vec=report.txt")
-endforeach()
+#set_source_files_properties(impedances/InducedVoltage.cpp PROPERTIES COMPILE_FLAGS "-fopt-info-vec=report.txt")
+
+#foreach(source ${SOURCE_FILES})
+#   set_source_files_properties(${source} PROPERTIES COMPILE_FLAGS "-fopt-info-vec=report.txt")
+#endforeach()
 
 # SHARED for dynamic LINKING
 # STATIC for static LINKING
@@ -124,7 +128,8 @@ foreach(src ${EXECUTABLE_FILES})
    add_executable( ${testname} ${src})
    target_link_libraries( ${testname} ${LIBRARIES})
 endforeach()
-    
+
+
 # Generate unit tests
 if(TEST_ENABLED)
    file(GLOB TEST_SOURCES unit-tests/*.cpp)

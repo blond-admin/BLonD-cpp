@@ -21,16 +21,23 @@ class RfParameters;
 
 //#include "../includes/globals.h"
 
-enum accelerating_systems_type {
-   as_single, all, first
-};
+
 
 class RfParameters {
 public:
-   RfParameters(int _n_rf, ftype *_harmonic, ftype *_voltage,
-                ftype *_phi_offset, ftype *_phi_noise = NULL, ftype *_omega_rf =
-                   NULL, int _section_index = 1,
-                accelerating_systems_type accelerating_systems = as_single);
+   enum accelerating_systems_t {
+      as_single,
+      all,
+      first
+   };
+   RfParameters(int _n_rf,
+                ftype *_harmonic,
+                ftype *_voltage,
+                ftype *_phi_offset,
+                ftype *_phi_noise = NULL,
+                ftype *_omega_rf = NULL,
+                int _section_index = 1,
+                accelerating_systems_t accelerating_systems = as_single);
 
    ftype *E_increment;
    ftype *phi_s;
@@ -52,7 +59,6 @@ public:
    ftype energy(const int i);
    ftype momentum(const int i);
    int sign_eta_0(const int i);
-   void calc_phi_s(const accelerating_systems_type acc_sys = as_single);
 
    // TODO assume input_value is an array
    // that is why we don't have any input_check function
@@ -71,5 +77,11 @@ public:
 
 private:
 };
+
+void calc_phi_s(ftype *out,
+                RfParameters *rfp,
+                const RfParameters::accelerating_systems_t acc_sys
+                = RfParameters::accelerating_systems_t::as_single);
+
 
 #endif /* INPUT_PARAMETERS_RFPARAMETERS_H_ */

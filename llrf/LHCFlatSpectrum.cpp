@@ -53,12 +53,18 @@ LHCFlatSpectrum::LHCFlatSpectrum(uint time_points,
       RfP,
       RfParameters::accelerating_systems_t::as_single);
 
-   fFs.resize(phis.size());
 
+   fFs.resize(phis.size());
+   // std::cout << "c " << constant::c << "\n";
+   // std::cout << "ring_circumference " << GP->ring_circumference << "\n";
+   // std::cout << "harmonic[0] " << RfP->harmonic[0] << "\n";
+   // std::cout << "voltage[0] " << RfP->voltage[0] << "\n";
+
+   //uint row = RfP->section_index * (fNTurns + 1);
    for (uint i = 0; i < fFs.size(); ++i) {
       fFs[i] = constant::c
                / GP->ring_circumference
-               * std::sqrt(RfP->harmonic[0] * RfP->voltage[0]
+               * std::sqrt(RfP->harmonic[i] * RfP->voltage[i]
                            * std::fabs(RfP->eta_0(i) * std::cos(phis[i]))
                            / (2 * constant::pi * RfP->energy(i)));
    }

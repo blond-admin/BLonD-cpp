@@ -13,7 +13,7 @@ const long int N_b = (long int) 1e9;            // Intensity
 const ftype tau_0 = 0.4e-9;                     // Initial bunch length, 4 sigma [s]
 
 // Machine and RF parameters
-const ftype C = 25558.883;                      // Machine circumference [m]
+const ftype C = 26658.883;                      // Machine circumference [m]
 const ftype p_i = 450e9;                        // Synchronous momentum [eV/c]
 const long h = 35640;                           // Harmonic number
 const ftype V = 6e6;                            // RF voltage [V]
@@ -42,7 +42,7 @@ protected:
    virtual void SetUp()
    {
       f_vector_t momentum(N_t + 1);
-      mymath::linspace(momentum.data(), p_i, p_f, N_t + 1);
+      mymath::linspace(momentum.data(), p_i, 1.01 * p_i, N_t + 1);
 
       ftype *alpha_array = new ftype[(alpha_order + 1) * n_sections];
 
@@ -93,7 +93,7 @@ TEST_F(testLHCFlatSpectrum, constructor1)
    f_vector_t v;
 
    util::read_vector_from_file(v, params + "fs.txt");
-
+   //util::dump(lhcfs->fFs, "fs\n");
    //ASSERT_EQ(v.size(), res.size());
 
    auto epsilon = 1e-8;
@@ -106,7 +106,7 @@ TEST_F(testLHCFlatSpectrum, constructor1)
             << i << std::endl;
    }
 
-   delete lhcf;
+   delete lhcfs;
 }
 
 

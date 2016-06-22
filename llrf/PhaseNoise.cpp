@@ -10,12 +10,11 @@
 * :Authors: **Helga Timko**
 */
 
-#include "PhaseNoise.h"
+#include "PhaseNoise.h" 
 #include <random>
 #include <algorithm>
-#include "constants.h"
-#include "fft.h"
-#include "math_functions.h"
+#include <constants.h>
+#include <math_functions.h>
 
 
 PhaseNoise::PhaseNoise(f_vector_t freqArray,
@@ -49,6 +48,7 @@ void PhaseNoise::spectrum_to_phase_noise(PhaseNoise::transform_t transform)
       std::cerr << "ERROR: The choise of Fourier transform for the\n"
                 << "RF noise generation could not be recognized.\n"
                 << "Use 'r' or 'c'.\n";
+      exit(-1);
    }
 
 

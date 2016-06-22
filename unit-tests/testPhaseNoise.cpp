@@ -221,7 +221,6 @@ TEST_F(testPhaseNoise, spectrum_to_phase_noise_complex1)
 }
 
 
-
 int main(int ac, char *av[])
 {
    ::testing::InitGoogleTest(&ac, av);

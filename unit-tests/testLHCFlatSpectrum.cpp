@@ -110,6 +110,166 @@ TEST_F(testLHCFlatSpectrum, constructor1)
 }
 
 
+TEST_F(testLHCFlatSpectrum, generate_exp1)
+{
+
+   auto lhcfs = new LHCFlatSpectrum(1000, 10, 0.1,
+                                    1, 0.1, 1, 2,
+                                    LHCFlatSpectrum::predistortion_t::exponential);
+   lhcfs->generate();
+
+   auto params = std::string("../unit-tests/references/")
+                 + "LHCFlatSpectrum/generate/exponential/";
+   f_vector_t v;
+
+   util::read_vector_from_file(v, params + "dphi.txt");
+
+   auto epsilon = 0.1;
+
+   auto meanV = mymath::mean(v.data(), v.size());
+   auto stdV = mymath::standard_deviation(v.data(), v.size(), meanV);
+
+   auto real = lhcfs->fDphi;
+
+   auto meanR = mymath::mean(real.data(), real.size());
+   auto stdR = mymath::standard_deviation(real.data(), real.size(), meanR);
+
+   //ASSERT_NEAR(meanV, meanR, epsilon * std::min(fabs(meanV), fabs(meanR)));
+
+   ASSERT_NEAR(stdV, stdR, epsilon * std::min(fabs(stdV), fabs(stdR)));
+
+
+   delete lhcfs;
+}
+
+TEST_F(testLHCFlatSpectrum, generate_lin1)
+{
+
+   auto lhcfs = new LHCFlatSpectrum(1000, 10, 0.1,
+                                    1, 0.1, 1, 2,
+                                    LHCFlatSpectrum::predistortion_t::linear);
+   lhcfs->generate();
+
+   auto params = std::string("../unit-tests/references/")
+                 + "LHCFlatSpectrum/generate/linear/";
+   f_vector_t v;
+
+   util::read_vector_from_file(v, params + "dphi.txt");
+
+   auto epsilon = 0.1;
+
+   auto meanV = mymath::mean(v.data(), v.size());
+   auto stdV = mymath::standard_deviation(v.data(), v.size(), meanV);
+
+   auto real = lhcfs->fDphi;
+
+   auto meanR = mymath::mean(real.data(), real.size());
+   auto stdR = mymath::standard_deviation(real.data(), real.size(), meanR);
+
+   //ASSERT_NEAR(meanV, meanR, epsilon * std::min(fabs(meanV), fabs(meanR)));
+
+   ASSERT_NEAR(stdV, stdR, epsilon * std::min(fabs(stdV), fabs(stdR)));
+
+
+   delete lhcfs;
+}
+
+TEST_F(testLHCFlatSpectrum, generate_weight1)
+{
+
+   auto lhcfs = new LHCFlatSpectrum(1000, 10, 0.1,
+                                    1, 0.1, 1, 2,
+                                    LHCFlatSpectrum::predistortion_t::weightfunction);
+   lhcfs->generate();
+
+   auto params = std::string("../unit-tests/references/")
+                 + "LHCFlatSpectrum/generate/weightfunction/";
+   f_vector_t v;
+
+   util::read_vector_from_file(v, params + "dphi.txt");
+
+   auto epsilon = 0.1;
+
+   auto meanV = mymath::mean(v.data(), v.size());
+   auto stdV = mymath::standard_deviation(v.data(), v.size(), meanV);
+
+   auto real = lhcfs->fDphi;
+
+   auto meanR = mymath::mean(real.data(), real.size());
+   auto stdR = mymath::standard_deviation(real.data(), real.size(), meanR);
+
+   //ASSERT_NEAR(meanV, meanR, epsilon * std::min(fabs(meanV), fabs(meanR)));
+
+   ASSERT_NEAR(stdV, stdR, epsilon * std::min(fabs(stdV), fabs(stdR)));
+
+
+   delete lhcfs;
+}
+
+TEST_F(testLHCFlatSpectrum, generate_hyper1)
+{
+
+   auto lhcfs = new LHCFlatSpectrum(1000, 10, 0.1,
+                                    1, 0.1, 1, 2,
+                                    LHCFlatSpectrum::predistortion_t::hyperbolic);
+   lhcfs->generate();
+
+   auto params = std::string("../unit-tests/references/")
+                 + "LHCFlatSpectrum/generate/hyperbolic/";
+   f_vector_t v;
+
+   util::read_vector_from_file(v, params + "dphi.txt");
+
+   auto epsilon = 0.1;
+
+   auto meanV = mymath::mean(v.data(), v.size());
+   auto stdV = mymath::standard_deviation(v.data(), v.size(), meanV);
+
+   auto real = lhcfs->fDphi;
+
+   auto meanR = mymath::mean(real.data(), real.size());
+   auto stdR = mymath::standard_deviation(real.data(), real.size(), meanR);
+
+   //ASSERT_NEAR(meanV, meanR, epsilon * std::min(fabs(meanV), fabs(meanR)));
+
+   ASSERT_NEAR(stdV, stdR, epsilon * std::min(fabs(stdV), fabs(stdR)));
+
+
+   delete lhcfs;
+}
+
+TEST_F(testLHCFlatSpectrum, generate_none1)
+{
+
+   auto lhcfs = new LHCFlatSpectrum(1000, 10, 0.1,
+                                    1, 0.1, 1, 2,
+                                    LHCFlatSpectrum::predistortion_t::None);
+   lhcfs->generate();
+
+   auto params = std::string("../unit-tests/references/")
+                 + "LHCFlatSpectrum/generate/none/";
+   f_vector_t v;
+
+   util::read_vector_from_file(v, params + "dphi.txt");
+
+   auto epsilon = 0.05;
+
+   auto meanV = mymath::mean(v.data(), v.size());
+   auto stdV = mymath::standard_deviation(v.data(), v.size(), meanV);
+
+   auto real = lhcfs->fDphi;
+
+   auto meanR = mymath::mean(real.data(), real.size());
+   auto stdR = mymath::standard_deviation(real.data(), real.size(), meanR);
+
+   //ASSERT_NEAR(meanV, meanR, epsilon * std::min(fabs(meanV), fabs(meanR)));
+
+   ASSERT_NEAR(stdV, stdR, epsilon * std::min(fabs(stdV), fabs(stdR)));
+
+
+   delete lhcfs;
+}
+
 
 int main(int ac, char *av[])
 {

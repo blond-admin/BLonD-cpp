@@ -5,7 +5,7 @@
 #include <../beams/Distributions.h>
 #include "../llrf/LHCNoiseFB.h"
 #include <gtest/gtest.h>
-
+#include "../trackers/Tracker.h"
 
 // Simulation parameters --------------------------------------------------------
 
@@ -70,7 +70,6 @@ protected:
       longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
       Slice = new Slices(N_slices);
 
-
    }
 
 
@@ -83,7 +82,6 @@ protected:
       delete RfP;
       delete Slice;
    }
-
 
 };
 
@@ -162,167 +160,149 @@ TEST_F(testLHCNoiseFB, constructor3)
 }
 
 
-/*
-TEST_F(testLHCNoiseFB, generate_exp1)
+TEST_F(testLHCNoiseFB, fwhm_interpolation1)
 {
 
-   auto lhcfs = new LHCFlatSpectrum(1000, 10, 0.1,
-                                    1, 0.1, 1, 2,
-                                    LHCFlatSpectrum::predistortion_t::exponential);
-   lhcfs->generate();
+   auto lhcnfb = new LHCNoiseFB(1.0);
+   Slice->track();
 
    auto params = std::string("../unit-tests/references/")
-                 + "LHCFlatSpectrum/generate/exponential/";
+                 + "LHCNoiseFB/fwhm_interpolation/test1/";
    f_vector_t v;
 
-   util::read_vector_from_file(v, params + "dphi.txt");
-
-   auto epsilon = 0.1;
-
-   auto meanV = mymath::mean(v.data(), v.size());
-   auto stdV = mymath::standard_deviation(v.data(), v.size(), meanV);
-
-   auto real = lhcfs->fDphi;
-
-   auto meanR = mymath::mean(real.data(), real.size());
-   auto stdR = mymath::standard_deviation(real.data(), real.size(), meanR);
-
-   //ASSERT_NEAR(meanV, meanR, epsilon * std::min(fabs(meanV), fabs(meanR)));
-
-   ASSERT_NEAR(stdV, stdR, epsilon * std::min(fabs(stdV), fabs(stdR)));
+   util::read_vector_from_file(v, params + "return.txt");
+   //util::dump(lhcnfb->fG, "fG\n");
+   auto index = mymath::arange<int>(10, 20);
+   auto epsilon = 1e-8;
+   auto ref = v[0];
+   auto real = lhcnfb->fwhm_interpolation(index, 1e-9);
+   ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 
 
-   delete lhcfs;
+   delete lhcnfb;
 }
 
-TEST_F(testLHCNoiseFB, generate_lin1)
+
+TEST_F(testLHCNoiseFB, fwhm_interpolation2)
 {
 
-   auto lhcfs = new LHCFlatSpectrum(1000, 10, 0.1,
-                                    1, 0.1, 1, 2,
-                                    LHCFlatSpectrum::predistortion_t::linear);
-   lhcfs->generate();
+   auto lhcnfb = new LHCNoiseFB(1.0);
+   for (int i = 0; i < Slice->n_slices; i++) {
+      Slice->n_macroparticles[i] = 100 * i;
+      Slice->bin_centers[i] = 1e10 * (i + 1) / Slice->n_slices;
+   }
 
    auto params = std::string("../unit-tests/references/")
-                 + "LHCFlatSpectrum/generate/linear/";
+                 + "LHCNoiseFB/fwhm_interpolation/test2/";
    f_vector_t v;
 
-   util::read_vector_from_file(v, params + "dphi.txt");
-
-   auto epsilon = 0.1;
-
-   auto meanV = mymath::mean(v.data(), v.size());
-   auto stdV = mymath::standard_deviation(v.data(), v.size(), meanV);
-
-   auto real = lhcfs->fDphi;
-
-   auto meanR = mymath::mean(real.data(), real.size());
-   auto stdR = mymath::standard_deviation(real.data(), real.size(), meanR);
-
-   //ASSERT_NEAR(meanV, meanR, epsilon * std::min(fabs(meanV), fabs(meanR)));
-
-   ASSERT_NEAR(stdV, stdR, epsilon * std::min(fabs(stdV), fabs(stdR)));
+   util::read_vector_from_file(v, params + "return.txt");
+   //util::dump(lhcnfb->fG, "fG\n");
+   auto index = mymath::arange<int>(0, 99);
+   auto epsilon = 1e-8;
+   auto ref = v[0];
+   auto real = lhcnfb->fwhm_interpolation(index, 1);
+   ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 
 
-   delete lhcfs;
+   delete lhcnfb;
 }
 
-TEST_F(testLHCNoiseFB, generate_weight1)
+
+TEST_F(testLHCNoiseFB, fwhm_single_bunch1)
 {
 
-   auto lhcfs = new LHCFlatSpectrum(1000, 10, 0.1,
-                                    1, 0.1, 1, 2,
-                                    LHCFlatSpectrum::predistortion_t::weightfunction);
-   lhcfs->generate();
+   auto lhcnfb = new LHCNoiseFB(1.0);
+   for (int i = 0; i < Slice->n_slices; i++) {
+      Slice->n_macroparticles[i] = (Slice->n_slices - i);
+      Slice->bin_centers[i] = 1e10 * (i + 1) / Slice->n_slices;
+   }
+   lhcnfb->fwhm_single_bunch();
 
    auto params = std::string("../unit-tests/references/")
-                 + "LHCFlatSpectrum/generate/weightfunction/";
+                 + "LHCNoiseFB/fwhm_single_bunch/test1/";
    f_vector_t v;
 
-   util::read_vector_from_file(v, params + "dphi.txt");
-
-   auto epsilon = 0.1;
-
-   auto meanV = mymath::mean(v.data(), v.size());
-   auto stdV = mymath::standard_deviation(v.data(), v.size(), meanV);
-
-   auto real = lhcfs->fDphi;
-
-   auto meanR = mymath::mean(real.data(), real.size());
-   auto stdR = mymath::standard_deviation(real.data(), real.size(), meanR);
-
-   //ASSERT_NEAR(meanV, meanR, epsilon * std::min(fabs(meanV), fabs(meanR)));
-
-   ASSERT_NEAR(stdV, stdR, epsilon * std::min(fabs(stdV), fabs(stdR)));
+   util::read_vector_from_file(v, params + "bl_meas.txt");
+   //util::dump(lhcnfb->fG, "fG\n");
+   auto epsilon = 1e-8;
+   auto ref = v[0];
+   auto real = lhcnfb->fBlMeas;
+   ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 
 
-   delete lhcfs;
+   delete lhcnfb;
 }
 
-TEST_F(testLHCNoiseFB, generate_hyper1)
+
+TEST_F(testLHCNoiseFB, DISABLED_fwhm_multi_bunch1)
 {
 
-   auto lhcfs = new LHCFlatSpectrum(1000, 10, 0.1,
-                                    1, 0.1, 1, 2,
-                                    LHCFlatSpectrum::predistortion_t::hyperbolic);
-   lhcfs->generate();
+   f_vector_t a = {1, 2, 3, 4, 5};
+   auto lhcnfb = new LHCNoiseFB(1.0, 0.1, 0.9, 100, false, a);
+
+   for (int i = 0; i < Slice->n_slices; i++) {
+      Slice->n_macroparticles[i] = (Slice->n_slices - i);
+      Slice->bin_centers[i] = 1e10 * (i + 1) / Slice->n_slices;
+   }
+   lhcnfb->fwhm_multi_bunch();
 
    auto params = std::string("../unit-tests/references/")
-                 + "LHCFlatSpectrum/generate/hyperbolic/";
+                 + "LHCNoiseFB/fwhm_multi_bunch/test1/";
    f_vector_t v;
 
-   util::read_vector_from_file(v, params + "dphi.txt");
-
-   auto epsilon = 0.1;
-
-   auto meanV = mymath::mean(v.data(), v.size());
-   auto stdV = mymath::standard_deviation(v.data(), v.size(), meanV);
-
-   auto real = lhcfs->fDphi;
-
-   auto meanR = mymath::mean(real.data(), real.size());
-   auto stdR = mymath::standard_deviation(real.data(), real.size(), meanR);
-
-   //ASSERT_NEAR(meanV, meanR, epsilon * std::min(fabs(meanV), fabs(meanR)));
-
-   ASSERT_NEAR(stdV, stdR, epsilon * std::min(fabs(stdV), fabs(stdR)));
+   util::read_vector_from_file(v, params + "bl_meas.txt");
+   //util::dump(lhcnfb->fG, "fG\n");
+   auto epsilon = 1e-8;
+   auto ref = v[0];
+   auto real = lhcnfb->fBlMeas;
+   ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 
 
-   delete lhcfs;
+   delete lhcnfb;
 }
 
-TEST_F(testLHCNoiseFB, generate_none1)
+
+TEST_F(testLHCNoiseFB, track1)
 {
 
-   auto lhcfs = new LHCFlatSpectrum(1000, 10, 0.1,
-                                    1, 0.1, 1, 2,
-                                    LHCFlatSpectrum::predistortion_t::None);
-   lhcfs->generate();
+   auto long_tracker = new RingAndRfSection();
+
+   auto lhcnfb = new LHCNoiseFB(1.0, 0.1, 0.9, 1);
+
+   f_vector_t res;
+   for (uint i = 0; i < 100; ++i) {
+      long_tracker->track();
+      Slice->track();
+      lhcnfb->track();
+      res.push_back(lhcnfb->fX);
+   }
 
    auto params = std::string("../unit-tests/references/")
-                 + "LHCFlatSpectrum/generate/none/";
+                 + "LHCNoiseFB/track/test1/";
    f_vector_t v;
 
-   util::read_vector_from_file(v, params + "dphi.txt");
+   util::read_vector_from_file(v, params + "x.txt");
+   //util::dump(lhcnfb->fG, "fG\n");
 
-   auto epsilon = 0.05;
+   ASSERT_EQ(v.size(), res.size());
 
-   auto meanV = mymath::mean(v.data(), v.size());
-   auto stdV = mymath::standard_deviation(v.data(), v.size(), meanV);
+   auto epsilon = 1e-8;
+   for (unsigned int i = 0; i < v.size(); ++i) {
+      auto ref = v[i];
+      auto real = res[i];
 
-   auto real = lhcfs->fDphi;
-
-   auto meanR = mymath::mean(real.data(), real.size());
-   auto stdR = mymath::standard_deviation(real.data(), real.size(), meanR);
-
-   //ASSERT_NEAR(meanV, meanR, epsilon * std::min(fabs(meanV), fabs(meanR)));
-
-   ASSERT_NEAR(stdV, stdR, epsilon * std::min(fabs(stdV), fabs(stdR)));
+      ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+            << "Testing of fX failed on i "
+            << i << std::endl;
+   }
 
 
-   delete lhcfs;
+   delete lhcnfb;
+   delete long_tracker;
 }
-*/
+
+
 
 int main(int ac, char *av[])
 {

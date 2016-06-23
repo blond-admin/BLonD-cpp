@@ -73,24 +73,34 @@ void LHCNoiseFB::track()
 
 
 
-// TODO test this function
 ftype LHCNoiseFB::fwhm_interpolation(int_vector_t index, ftype half_height)
 {
    const auto time_resolution = Slice->bin_centers[1] - Slice->bin_centers[0];
 
    const auto first = index[0];
+   const auto prev = first > 0 ? first - 1 : Slice->n_slices - 1;
    const auto left = Slice->bin_centers[first]
                      - (Slice->n_macroparticles[first] - half_height)
                      / (Slice->n_macroparticles[first]
-                        - Slice->n_macroparticles[first - 1])
+                        - Slice->n_macroparticles[prev])
                      * time_resolution;
 
    const auto last = index.back();
-   const auto right = Slice->bin_centers[last]
-                      - (Slice->n_macroparticles[last] - half_height)
-                      / (Slice->n_macroparticles[last]
-                         - Slice->n_macroparticles[last + 1])
-                      * time_resolution;
+   auto right = 0.0;
+   if (last < Slice->n_slices) {
+      right = Slice->bin_centers[last]
+              + (Slice->n_macroparticles[last] - half_height)
+              / (Slice->n_macroparticles[last]
+                 - Slice->n_macroparticles[last + 1])
+              * time_resolution;
+   }
+
+
+   // std::cout << "first " << first << '\n';
+   // std::cout << "left " << left << '\n';
+   // std::cout << "last " << last << '\n';
+   // std::cout << "right " << right << '\n';
+   // std::cout << "cfwhm " << cfwhm << '\n';
 
    return cfwhm * (right - left);
 }

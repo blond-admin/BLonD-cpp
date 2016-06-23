@@ -14,7 +14,6 @@
 
 class PhaseNoise {
 private:
-   constexpr static ftype cfwhm = std::sqrt(2.0 * std::log(2.0));
 
 public:
    

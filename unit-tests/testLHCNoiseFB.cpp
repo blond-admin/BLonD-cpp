@@ -164,7 +164,10 @@ TEST_F(testLHCNoiseFB, fwhm_interpolation1)
 {
 
    auto lhcnfb = new LHCNoiseFB(1.0);
-   Slice->track();
+   for (int i = 0; i < Slice->n_slices; i++) {
+      Slice->n_macroparticles[i] = 100 * i;
+      Slice->bin_centers[i] = 1e10 * (i + 1) / Slice->n_slices;
+   }
 
    auto params = std::string("../unit-tests/references/")
                  + "LHCNoiseFB/fwhm_interpolation/test1/";

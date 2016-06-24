@@ -9,7 +9,7 @@
 #include "../beams/Slices.h"
 #include "../beams/Distributions.h"
 #include "../trackers/Tracker.h"
-#include "../impedances/Intensity.h"
+//#include "../impedances/Intensity.h"
 #include <gtest/gtest.h>
 #include <complex>
 
@@ -57,30 +57,24 @@ protected:
 
       omp_set_num_threads(n_threads);
 
-      f_vector_t momentum(N_t + 1);
-      std::fill_n(momentum.begin(), N_t + 1, p_i);
+      f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1, p_i));
 
-      ftype *alpha_array = new ftype[(alpha_order + 1) * n_sections];
-      std::fill_n(alpha_array, (alpha_order + 1) * n_sections, alpha);
+      f_vector_2d_t alphaVec(alpha_order + 1, f_vector_t(n_sections, alpha));
 
-      ftype *C_array = new ftype[n_sections];
-      std::fill_n(C_array, n_sections, C);
+      f_vector_t CVec(n_sections, C);
 
-      ftype *h_array = new ftype[n_sections * (N_t + 1)];
-      std::fill_n(h_array, (N_t + 1) * n_sections, h);
+      f_vector_2d_t hVec(n_sections , f_vector_t(N_t + 1, h));
 
-      ftype *V_array = new ftype[n_sections * (N_t + 1)];
-      std::fill_n(V_array, (N_t + 1) * n_sections, V);
+      f_vector_2d_t voltageVec(n_sections , f_vector_t(N_t + 1, V));
 
-      ftype *dphi_array = new ftype[n_sections * (N_t + 1)];
-      std::fill_n(dphi_array, (N_t + 1) * n_sections, dphi);
+      f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 
-      GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum.data(),
-                                 proton);
+      GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
+                                 momentumVec, proton);
 
       Beam = new Beams(N_p, N_b);
 
-      RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
+      RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
 
       //RingAndRfSection *long_tracker = new RingAndRfSection();
 
@@ -93,7 +87,7 @@ protected:
       util::read_vector_from_file(v, datafiles +
                                   "TC5_new_HQ_table.dat");
       assert(v.size() % 3 == 0);
-      
+
       std::vector<ftype> R_shunt, f_res, Q_factor;
 
       R_shunt.reserve(v.size() / 3);
@@ -149,7 +143,7 @@ TEST_F(testResonator, initializations)
 
    util::read_vector_from_file(v, params + "Q_factor.txt");
    ASSERT_EQ(v.size(), resonator->fQ.size());
-   
+
    epsilon = 1e-8;
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
@@ -198,8 +192,7 @@ TEST_F(testResonator, wake_calc)
 
    std::vector<ftype> timeArray;
    timeArray.reserve(N_slices);
-   for (int i = 0; i < N_slices; ++i)
-   {
+   for (int i = 0; i < N_slices; ++i) {
       timeArray.push_back(Slice->bin_centers[i] - Slice->bin_centers[0]);
    }
    resonator->wake_calc(timeArray);
@@ -232,18 +225,17 @@ TEST_F(testResonator, imped_calc)
 
    std::vector<ftype> timeArray;
    timeArray.reserve(N_slices);
-   for (int i = 0; i < N_slices; ++i)
-   {
-      timeArray.push_back((Slice->bin_centers[i] - Slice->bin_centers[0])*1e10 );
+   for (int i = 0; i < N_slices; ++i) {
+      timeArray.push_back((Slice->bin_centers[i] - Slice->bin_centers[0]) * 1e10);
    }
 
    //util::dump(&timeArray[0], 10, "timeArray\n");
-   
+
    resonator->imped_calc(timeArray);
    //util::dump(&resonator->fImpedance[0], 10, "Impedance\n");
 
    ASSERT_EQ(v.size(), resonator->fImpedance.size());
-   
+
    ftype epsilon = 1e-6;
 
    for (unsigned int i = 0; i < v.size(); ++i) {

@@ -102,7 +102,6 @@ file(GLOB SOURCES
       llrf/*.cpp
       impedances/*.cpp
       )
-
 set(SOURCE_FILES ${SOURCES})
 
 #set_source_files_properties(impedances/InducedVoltage.cpp PROPERTIES COMPILE_FLAGS "-fopt-info-vec=report.txt")
@@ -114,9 +113,6 @@ set(SOURCE_FILES ${SOURCES})
 # SHARED for dynamic LINKING
 # STATIC for static LINKING
 add_library(blond SHARED ${SOURCE_FILES})
-
-
-
 
 file(GLOB EXECUTABLE_SOURCES "tests/*.cpp")
 set(EXECUTABLE_FILES ${EXECUTABLE_SOURCES})
@@ -130,7 +126,7 @@ foreach(src ${EXECUTABLE_FILES})
 endforeach()
 
 
-# Generate unit tests
+#Generate unit tests
 if(TEST_ENABLED)
    file(GLOB TEST_SOURCES unit-tests/*.cpp)
    set(TEST_SOURCE_FILES ${TEST_SOURCES})

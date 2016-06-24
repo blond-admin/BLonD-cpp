@@ -67,7 +67,7 @@ LHCFlatSpectrum::LHCFlatSpectrum(uint time_points,
    for (uint i = 0; i < fFs.size(); ++i) {
       fFs[i] = constant::c
                / GP->ring_circumference
-               * std::sqrt(RfP->harmonic[i] * RfP->voltage[i]
+               * std::sqrt(RfP->harmonic[RfP->idx][i] * RfP->voltage[RfP->idx][i]
                            * std::fabs(RfP->eta_0(i) * std::cos(phis[i]))
                            / (2 * constant::pi * RfP->energy(i)));
    }
@@ -153,7 +153,7 @@ void LHCFlatSpectrum::generate()
 
          // frequency relative to fs0
          f_vector_t frel(&freq[nmin], &freq[nmax + 1]);
-         
+
          std::transform(frel.begin(),
                         frel.end(),
                         frel.begin(),

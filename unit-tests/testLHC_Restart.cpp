@@ -31,7 +31,7 @@ class testLHC_Restart : public ::testing::Test {
 protected:
    const int N_p = 100000;         // Macro-particles
    //const ftype tau_0 = 0.4e-9;          // Initial bunch length, 4 sigma [s]
-   const int N_t = 1000000;        // Number of turns to track; full ramp: 8700001
+   const uint N_t = 1000000;        // Number of turns to track; full ramp: 8700001
 
    const int N_slices = 151;
 
@@ -40,43 +40,50 @@ protected:
       //printf("ok here\n");
       omp_set_num_threads(n_threads);
 
-      std::vector < ftype > v;
-      util::read_vector_from_file(v, datafiles + "LHC_momentum_programme");
+      f_vector_2d_t momentumVec(1, f_vector_t());
+      util::read_vector_from_file(momentumVec[0], datafiles + "LHC_momentum_programme");
 
       // optional
-      v.erase(v.begin(), v.begin() + from_line);
+      momentumVec[0].erase(
+         momentumVec[0].begin(),
+         momentumVec[0].begin() + from_line);
 
-      int remaining = N_t + 1 - v.size();
+      //std::cout << "vector size is " << v.size() << "\n";
+      int remaining = N_t + 1 - momentumVec[0].size();
       for (int i = 0; i < remaining; ++i) {
-         v.push_back(6.5e12);
+         momentumVec[0].push_back(6.5e12);
       }
-      assert((int) v.size() == N_t + 1);
-      ftype *ps = &v[0];  //new ftype[v.size()];
+      assert(momentumVec[0].size() == N_t + 1);
+      //ftype *ps = &v[0];   //new ftype[v.size()];
 
+      printf("Length of ps is %lu\n", momentumVec[0].size());
+      printf("Flat top momentum %.4e eV\n", momentumVec[0][N_t]);
 
-      ftype *V_array = new ftype[N_t + 1];
-      mymath::linspace(V_array, 6e6, 10e6, 13563374, 13e6);
-      std::fill_n(&V_array[563374], 436627, 10e6);
+      //ftype *V_array = new ftype[N_t + 1];
+      f_vector_2d_t voltageVec(1, f_vector_t(N_t + 1));
+      mymath::linspace(voltageVec[0].data(), 6e6, 10e6, 13563374, 13e6);
+      std::fill_n(&voltageVec[0][563374], 436627, 10e6);
+      printf("Length of V is %d\n", N_t + 1);
+      printf("Flat top voltage %.4e eV\n", voltageVec[0][N_t]);
+      printf("Momentum and voltage loaded\n");
 
       // Define general parameters
+      int alpha_order = 1;
+      int n_sections = 1;
+      f_vector_2d_t alphaVec(alpha_order + 1, f_vector_t(n_sections, alpha));
 
-      ftype *alpha_array = new ftype[(alpha_order + 1) * n_sections];
-      std::fill_n(alpha_array, (alpha_order + 1) * n_sections, alpha);
+      f_vector_t CVec(n_sections, C);
 
-      ftype *C_array = new ftype[n_sections];
-      std::fill_n(C_array, n_sections, C);
+      GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
+                                 momentumVec, proton);
 
-      GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, ps,
-                                 proton);
-
+      printf("General parameters set...\n");
       // Define rf_params
-      ftype *dphi_array = new ftype[n_sections * (N_t + 1)];
-      std::fill_n(dphi_array, (N_t + 1) * n_sections, dphi);
+      f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 
-      ftype *h_array = new ftype[n_sections * (N_t + 1)];
-      std::fill_n(h_array, (N_t + 1) * n_sections, h);
+      f_vector_2d_t hVec(n_sections , f_vector_t(N_t + 1, h));
 
-      RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
+      RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
 
       // Define beam and distribution: Load matched, filamented distribution
       Beam = new Beams(N_p, N_b);
@@ -97,10 +104,9 @@ protected:
       ftype PL_gain = 1 / (5 * GP->t_rev[0]);
       ftype SL_gain = PL_gain / 10;
 
-      ftype *PL_gain_array = new ftype[N_t + 1];
-      std::fill_n(PL_gain_array, N_t + 1, PL_gain);
+      f_vector_t PL_gainVec(N_t + 1, PL_gain);
 
-      PL = new LHC(PL_gain_array, SL_gain);
+      LHC *PL = new LHC(PL_gainVec, SL_gain);
 
       long_tracker = new RingAndRfSection(simple, PL);
 

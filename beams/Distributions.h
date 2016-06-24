@@ -27,17 +27,17 @@ inline void longitudinal_bigaussian(ftype sigma_dt, ftype sigma_dE = 0,
          "WARNING: longitudinal_bigaussian for multiple RF is not yet implemented");
    }
 
-   int counter = RfP->counter;
-   ftype harmonic = RfP->harmonic[counter];
-   ftype energy = GP->energy[counter];
-   ftype beta = GP->beta[counter];
-   ftype omega_RF = RfP->omega_RF[counter];
+   uint counter = RfP->counter;
+   ftype harmonic = RfP->harmonic[0][counter];
+   ftype energy = GP->energy[0][counter];
+   ftype beta = GP->beta[0][counter];
+   ftype omega_RF = RfP->omega_RF[0][counter];
    ftype phi_s = RfP->phi_s[counter];
-   ftype phi_RF = RfP->phi_RF[counter];
+   ftype phi_RF = RfP->phi_RF[0][counter];
 
    ftype voltage, eta0, phi_b;
    if (sigma_dE == 0) {
-      voltage = GP->charge * RfP->voltage[0 + counter];
+      voltage = GP->charge * RfP->voltage[0][counter];
       eta0 = RfP->eta_0(counter);
       phi_b = omega_RF * sigma_dt + phi_s;
       sigma_dE = sqrt(
@@ -60,14 +60,14 @@ inline void longitudinal_bigaussian(ftype sigma_dt, ftype sigma_dE = 0,
    Beam->sigma_dE = sigma_dE;
    Beam->sigma_dt = sigma_dt;
    //srand(seed);
-   //int fixed_particles = atoi(util::GETENV("FIXED_PARTICLES"));
+   //uint fixed_particles = atoi(util::GETENV("FIXED_PARTICLES"));
    //#ifdef FIXED_PARTICLES
    //fixed_particles =1;
    //#endif
 
    //if(fixed_particles){
 #ifdef FIXED_PARTICLES
-   for (int i = 0; i < Beam->n_macroparticles; ++i) {
+   for (uint i = 0; i < Beam->n_macroparticles; ++i) {
       ftype r = 1.0 * (i + 1) / Beam->n_macroparticles;
       //ftype r = distribution(generator);
       Beam->dt[i] = sigma_dt * r + (phi_s - phi_RF) / omega_RF;
@@ -81,7 +81,7 @@ inline void longitudinal_bigaussian(ftype sigma_dt, ftype sigma_dE = 0,
 #else
    std::default_random_engine generator(seed);
    std::normal_distribution < ftype > distribution(0.0, 1.0);
-   for (int i = 0; i < Beam->n_macroparticles; ++i) {
+   for (uint i = 0; i < Beam->n_macroparticles; ++i) {
       //ftype r = 1.0 * rand() / RAND_MAX;
       ftype r = distribution(generator);
       Beam->dt[i] = sigma_dt * r + (phi_s - phi_RF) / omega_RF;

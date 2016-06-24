@@ -28,13 +28,13 @@ public:
    ftype sigma_dE;
    ftype ratio;
    ftype epsn_rms_l;
-   int n_macroparticles_lost;
-   int n_macroparticles;
+   uint n_macroparticles_lost;
+   uint n_macroparticles;
    long intensity;
    //GeneralParameters *gp;
-   Beams(const int _n_macroparticles, const long _intensity);
+   Beams(const uint _n_macroparticles, const long _intensity);
    ~Beams();
-   int n_macroparticles_alive();
+   uint n_macroparticles_alive();
    void losses_longitudinal_cut(const ftype *__restrict__ dt,
                                 const ftype dt_min, const ftype dt_max, int *__restrict__ id);
    void losses_energy_cut(const ftype *__restrict__ dE, const ftype dE_min,

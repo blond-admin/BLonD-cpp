@@ -9,7 +9,7 @@
 #include "../beams/Slices.h"
 #include "../beams/Distributions.h"
 #include "../trackers/Tracker.h"
-#include "../impedances/Intensity.h"
+//#include "../impedances/Intensity.h"
 #include <gtest/gtest.h>
 #include <complex>
 
@@ -57,30 +57,25 @@ protected:
 
       omp_set_num_threads(n_threads);
 
-      f_vector_t momentum(N_t + 1);
-      std::fill_n(momentum.begin(), N_t + 1, p_i);
+      f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1, p_i));
 
-      ftype *alpha_array = new ftype[(alpha_order + 1) * n_sections];
-      std::fill_n(alpha_array, (alpha_order + 1) * n_sections, alpha);
+      f_vector_2d_t alphaVec(alpha_order + 1, f_vector_t(n_sections, alpha));
 
-      ftype *C_array = new ftype[n_sections];
-      std::fill_n(C_array, n_sections, C);
+      f_vector_t CVec(n_sections, C);
 
-      ftype *h_array = new ftype[n_sections * (N_t + 1)];
-      std::fill_n(h_array, (N_t + 1) * n_sections, h);
+      f_vector_2d_t hVec(n_sections , f_vector_t(N_t + 1, h));
 
-      ftype *V_array = new ftype[n_sections * (N_t + 1)];
-      std::fill_n(V_array, (N_t + 1) * n_sections, V);
+      f_vector_2d_t voltageVec(n_sections , f_vector_t(N_t + 1, V));
 
-      ftype *dphi_array = new ftype[n_sections * (N_t + 1)];
-      std::fill_n(dphi_array, (N_t + 1) * n_sections, dphi);
+      f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 
-      GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum.data(),
-                                 proton);
+      GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
+                                 momentumVec, proton);
 
       Beam = new Beams(N_p, N_b);
 
-      RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
+      RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+
 
       //RingAndRfSection *long_tracker = new RingAndRfSection();
 
@@ -188,7 +183,7 @@ TEST_F(testInputTableIntensity, imped_calc)
    Re.resize(resonator->fImpedance.size());
    std::vector<ftype> Im;
    Im.resize(resonator->fImpedance.size());
-   
+
    std::transform(resonator->fImpedance.begin(), resonator->fImpedance.end(),
    Re.begin(), [](complex_t a) {return a.real();});
    std::transform(resonator->fImpedance.begin(), resonator->fImpedance.end(),

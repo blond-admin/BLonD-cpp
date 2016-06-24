@@ -125,71 +125,28 @@ int main(int argc, char **argv)
       Slice->track();
       slice_time += util::time_elapsed(begin_t);
 
-      Slice->fwhm();
+      //Slice->fwhm();
 
-      if (i % 1000 == 0) {
-         util::dump(Slice->bl_fwhm, "bl_fwhm");
-         util::dump(Slice->bp_fwhm, "bp_fwhm");
-      }
+      // if (i % 1000 == 0) {
+      //    util::dump(Slice->bl_fwhm, "bl_fwhm");
+      //    util::dump(Slice->bp_fwhm, "bp_fwhm");
+      // }
 
-      RfP->counter++;
+      //RfP->counter++;
    }
 
 
-
-   /*
-      #pragma omp parallel
-      {
-         int id = omp_get_thread_num();
-         int threads = omp_get_num_threads();
-         int tile = std::ceil(1.0 * N_p / threads);
-         int start = id * tile;
-         int end = std::min(start + tile, N_p);
-         //printf("id, threads, tile, start, end = %d, %d, %d, %d, %d\n", id,
-         //    threads, tile, start, end);
-         for (int i = 0; i < N_t; ++i) {
-
-            if (id == 0) util::get_time(begin_t);
-
-            long_tracker->track(start, end);
-
-            #pragma omp barrier
-
-            if (id == 0) track_time += util::time_elapsed(begin_t);
-            if (id == 0) util::get_time(begin_t);
-
-            Slice->track(start, end);
-
-            #pragma omp barrier
-
-            if (id == 0) slice_time += util::time_elapsed(begin_t);
-
-            #pragma omp single
-            {
-               Slice->fwhm();
-
-               if (i % 1000 == 0) {
-                  util::dump(Slice->bl_fwhm, "bl_fwhm");
-                  util::dump(Slice->bp_fwhm, "bp_fwhm");
-               }
-
-               RfP->counter++;
-            }
-         }
-      }
-   */
-
    util::get_time(end);
    util::print_time("Simulation Time", begin, end);
-   double total_time = track_time + slice_time;
-   printf("Track time : %.4lf ( %.2lf %% )\n", track_time,
-          100 * track_time / total_time);
-   printf("Slice time : %.4lf ( %.2lf %% )\n", slice_time,
-          100 * slice_time / total_time);
+   // double total_time = track_time + slice_time;
+   // printf("Track time : %.4lf ( %.2lf %% )\n", track_time,
+   //        100 * track_time / total_time);
+   // printf("Slice time : %.4lf ( %.2lf %% )\n", slice_time,
+   //        100 * slice_time / total_time);
 
-   util::dump(Beam->dE.data(), 10, "dE\n");
-   util::dump(Beam->dt.data(), 10, "dt\n");
-   util::dump(Slice->n_macroparticles, 10, "n_macroparticles\n");
+   // util::dump(Beam->dE.data(), 10, "dE\n");
+   // util::dump(Beam->dt.data(), 10, "dt\n");
+   // util::dump(Slice->n_macroparticles, 10, "n_macroparticles\n");
    delete Slice;
    delete long_tracker;
    delete RfP;

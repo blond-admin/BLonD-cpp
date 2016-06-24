@@ -196,7 +196,7 @@ int main(int argc, char **argv)
 
       printf("   RF phase %.6e rad\n", RfP->dphi_RF[0]);
       printf("   PL phase correction %.6e rad\n", PL->dphi);
-      RfP->counter++;
+      //RfP->counter++;
 
    }
 

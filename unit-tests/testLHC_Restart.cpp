@@ -70,7 +70,7 @@ protected:
       // Define general parameters
       int alpha_order = 1;
       int n_sections = 1;
-      f_vector_2d_t alphaVec(alpha_order + 1, f_vector_t(n_sections, alpha));
+      f_vector_2d_t alphaVec(n_sections , f_vector_t(alpha_order+1, alpha));
 
       f_vector_t CVec(n_sections, C);
 

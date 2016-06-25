@@ -54,18 +54,10 @@ protected:
          momentumVec[0].push_back(6.5e12);
       }
       assert(momentumVec[0].size() == N_t + 1);
-      //ftype *ps = &v[0];   //new ftype[v.size()];
 
-      printf("Length of ps is %lu\n", momentumVec[0].size());
-      printf("Flat top momentum %.4e eV\n", momentumVec[0][N_t]);
-
-      //ftype *V_array = new ftype[N_t + 1];
       f_vector_2d_t voltageVec(1, f_vector_t(N_t + 1));
       mymath::linspace(voltageVec[0].data(), 6e6, 10e6, 13563374, 13e6);
       std::fill_n(&voltageVec[0][563374], 436627, 10e6);
-      printf("Length of V is %d\n", N_t + 1);
-      printf("Flat top voltage %.4e eV\n", voltageVec[0][N_t]);
-      printf("Momentum and voltage loaded\n");
 
       // Define general parameters
       f_vector_2d_t alphaVec(n_sections , f_vector_t(alpha_order+1, alpha));
@@ -75,7 +67,6 @@ protected:
       GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
                                  momentumVec, proton);
 
-      printf("General parameters set...\n");
       // Define rf_params
       f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 

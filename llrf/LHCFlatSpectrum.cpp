@@ -197,8 +197,8 @@ void LHCFlatSpectrum::generate()
       }
 
       //util::dump(spectrum, "spectrum\n");
-      auto noise = new PhaseNoise(freq, spectrum, fSeed1, fSeed2);
-      noise->spectrum_to_phase_noise();
+      auto noise = PhaseNoise(freq, spectrum, fSeed1, fSeed2);
+      noise.spectrum_to_phase_noise();
       fSeed1 += 239;
       fSeed2 += 158;
 
@@ -206,11 +206,11 @@ void LHCFlatSpectrum::generate()
 
       const uint kmax = i < fNTurns / fCorr - 1 ? (i + 1) * fCorr : fNTurns + 1;
 
-      std::copy(noise->fDphi.begin(),
-                noise->fDphi.begin() + kmax - k,
+      std::copy(noise.fDphi.begin(),
+                noise.fDphi.begin() + kmax - k,
                 fDphi.begin() + k);
 
-      //return;
+      //delete noise;
 
    }
 

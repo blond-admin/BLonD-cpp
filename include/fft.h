@@ -55,6 +55,7 @@ namespace fft {
 
    static std::vector<fft::fft_plan_t> planV;
 
+
    static inline void real_to_complex(const std::vector<ftype> &in,
                                       std::vector<complex_t> &out)
    {

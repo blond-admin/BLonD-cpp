@@ -10,7 +10,6 @@
 
 #include <utilities.h>
 #include <configuration.h>
-#include <fft.h>
 
 class PhaseNoise {
 private:
@@ -38,12 +37,9 @@ public:
                                    transform_t::None);
    PhaseNoise(f_vector_t freqArray, f_vector_t realPartOfSpectrum,
               int seed1 = 0, int seed2 = 0);
-   ~PhaseNoise()
-   {
-      fft::destroy_plans();
-   };
+   
+   ~PhaseNoise();
 
 };
-
 
 #endif /* LLRF_PHASENOISE_H_ */

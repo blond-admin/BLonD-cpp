@@ -39,7 +39,7 @@ public:
    ftype cut_right;
    int n_sigma;
    cuts_unit_type cuts_unit;
-   uint_vector_t n_macroparticles;
+   int_vector_t n_macroparticles;
    f_vector_t edges;
    f_vector_t bin_centers;
    fit_type fit_option;
@@ -66,13 +66,13 @@ private:
    inline ftype convert_coordinates(ftype cut, cuts_unit_type type);
 
    inline void histogram(const ftype *__restrict__ input,
-                         uint *__restrict__ output,
+                         int *__restrict__ output,
                          const ftype cut_left,
                          const ftype cut_right,
                          const uint n_slices,
                          const uint n_macroparticles);
    inline void smooth_histogram(const ftype *__restrict__ input,
-                                uint *__restrict__ output,
+                                int *__restrict__ output,
                                 const ftype cut_left,
                                 const ftype cut_right,
                                 const uint n_slices,

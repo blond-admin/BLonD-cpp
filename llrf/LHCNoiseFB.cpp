@@ -88,24 +88,27 @@ ftype LHCNoiseFB::fwhm_interpolation(uint_vector_t index, ftype half_height)
 
    const auto last = index.back();
    auto right = 0.0;
-   if (last < Slice->n_slices) {
+   if (last < Slice->n_slices-1) {
       right = Slice->bin_centers[last]
               + (Slice->n_macroparticles[last] - half_height)
               / (Slice->n_macroparticles[last]
                  - Slice->n_macroparticles[last + 1])
               * time_resolution;
    }
-
-   // util::dump(Slice->n_macroparticles, 100, "n_macroparticles\n");
-   std::cout << "time_resolution " << time_resolution << '\n';
-   std::cout << "first " << first << '\n';
-   std::cout << "bin_centers[first] " << Slice->bin_centers[first] << '\n';
-   std::cout << "n_macroparticles[first] " << Slice->n_macroparticles[first] << '\n';
-   std::cout << "n_macroparticles[prev] " << Slice->n_macroparticles[prev] << '\n';
-   std::cout << "left " << left << '\n';
-   std::cout << "last " << last << '\n';
-   std::cout << "right " << right << '\n';
-   std::cout << "cfwhm " << cfwhm << '\n';
+   
+   // std::cout << "time_resolution " << time_resolution << '\n';
+   // std::cout << "half_height " << half_height << '\n';
+   // std::cout << "first " << first << '\n';
+   // std::cout << "bin_centers[first] " << Slice->bin_centers[first] << '\n';
+   // std::cout << "bin_centers[last] " << Slice->bin_centers[last] << '\n';
+   // std::cout << "n_macroparticles[first] " << Slice->n_macroparticles[first] << '\n';
+   // std::cout << "n_macroparticles[prev] " << Slice->n_macroparticles[prev] << '\n';
+   // std::cout << "n_macroparticles[last] " << Slice->n_macroparticles[last] << '\n';
+   // std::cout << "n_macroparticles[last+1] " << Slice->n_macroparticles[last+1] << '\n';
+   // std::cout << "left " << left << '\n';
+   // std::cout << "last " << last << '\n';
+   // std::cout << "right " << right << '\n';
+   // std::cout << "cfwhm " << cfwhm << '\n';
 
    return cfwhm * (right - left);
 }
@@ -116,7 +119,7 @@ void LHCNoiseFB::fwhm_single_bunch()
 {
    // Single-bunch FWHM bunch length calculation with interpolation.
    auto i = mymath::max(Slice->n_macroparticles.data(), Slice->n_slices);
-   uint half_height = Slice->n_macroparticles[i] / 2;
+   ftype half_height = Slice->n_macroparticles[i] / 2;
 
    uint_vector_t index;
 
@@ -159,7 +162,7 @@ void LHCNoiseFB::fwhm_multi_bunch()
          if (val) bind.push_back(j);
       }
 
-      uint hheight = 0;
+      ftype hheight = 0;
       for (const auto &j : bind) {
          if (Slice->n_macroparticles[j] > hheight)
             hheight = Slice->n_macroparticles[j];

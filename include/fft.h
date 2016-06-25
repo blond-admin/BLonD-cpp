@@ -174,7 +174,7 @@ namespace fft {
 
    static inline void destroy_plans()
    {
-      std::cout<<"planV size = " << planV.size()<<"\n";
+      //std::cout<<"planV size = " << planV.size()<<"\n";
       for (auto &i : planV) {
          fftw_destroy_plan(i.p);
          fftw_free(i.in);

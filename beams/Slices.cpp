@@ -154,7 +154,7 @@ inline void Slices::slice_constant_space_histogram()
 
 
 inline void Slices::histogram(const ftype *__restrict__ input,
-                              uint *__restrict__ output,
+                              int *__restrict__ output,
                               const ftype cut_left,
                               const ftype cut_right,
                               const uint n_slices,
@@ -164,7 +164,7 @@ inline void Slices::histogram(const ftype *__restrict__ input,
    const ftype inv_bin_width = n_slices / (cut_right - cut_left);
 
    // histogram is faster with ints
-   typedef uint hist_t;
+   typedef int hist_t;
 
    hist_t *h;
    #pragma omp parallel
@@ -231,7 +231,7 @@ void Slices::track_cuts()
 }
 
 inline void Slices::smooth_histogram(const ftype *__restrict__ input,
-                                     uint *__restrict__ output,
+                                     int *__restrict__ output,
                                      const ftype cut_left,
                                      const ftype cut_right,
                                      const uint n_slices,

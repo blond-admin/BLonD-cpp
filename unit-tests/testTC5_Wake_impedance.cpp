@@ -59,7 +59,8 @@ protected:
 
       f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1, p_i));
 
-      f_vector_2d_t alphaVec(alpha_order + 1, f_vector_t(n_sections, alpha));
+      //f_vector_2d_t alphaVec(alpha_order + 1, f_vector_t(n_sections, alpha));
+      f_vector_2d_t alphaVec(n_sections, f_vector_t(alpha_order +1, alpha));
 
       f_vector_t CVec(n_sections, C);
 
@@ -145,7 +146,8 @@ TEST_F(testTC5, timeTrack)
    util::read_vector_from_file(v, params + "dE.txt");
 
    // WARNING checking only the fist 500 elems
-   std::vector<ftype> res(Beam->dE.data(), Beam->dE.data() + 500);
+   std::vector<ftype> res = Beam->dE;
+   res.resize(500);
    ASSERT_EQ(v.size(), res.size());
 
    ftype epsilon = 1e-8;
@@ -181,9 +183,7 @@ TEST_F(testTC5, timeTrack)
    res.clear();
    util::read_vector_from_file(v, params + "n_macroparticles.txt");
 
-   // WARNING checking only the fist 500 elems
-   //res = std::vector<ftype>(Slice->n_macroparticles,
-   //                         Slice->n_macroparticles + Slice->n_slices);
+   res = f_vector_t(Slice->n_macroparticles.begin(), Slice->n_macroparticles.end());
    ASSERT_EQ(v.size(), res.size());
 
    epsilon = 1e-8;
@@ -262,9 +262,7 @@ TEST_F(testTC5, freqTrack)
    res.clear();
    util::read_vector_from_file(v, params + "n_macroparticles.txt");
 
-   // WARNING checking only the fist 500 elems
-   //res = std::vector<ftype>(Slice->n_macroparticles,
-   //                         Slice->n_macroparticles + Slice->n_slices);
+   res = f_vector_t(Slice->n_macroparticles.begin(), Slice->n_macroparticles.end());
    ASSERT_EQ(v.size(), res.size());
 
    epsilon = 1e-8;

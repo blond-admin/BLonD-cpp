@@ -43,6 +43,7 @@ fi
 
 cd ${BLOND_HOME}
 
+'''
 if [ -e ${OPT}/include/gtest/gtest.h ] && [ -e ${OPT}/lib/libgtest.a ] \
    && [ -e ${OPT}/lib/libgtest_main.a ]; then
    echo -e "---- Looks like googletest is already installed,"
@@ -76,5 +77,6 @@ if [ "${INSTALL_GTEST}" = "true" ] ; then
       echo -e "---- You will have to manually install this library\n\n"
    fi
 fi
+'''
 
 rm -r tmp &> /dev/null

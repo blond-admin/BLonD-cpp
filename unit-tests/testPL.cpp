@@ -7,6 +7,7 @@
 #include <gtest/gtest.h>
 #include "math_functions.h"
 #include "utilities.h"
+#include "configuration.h"
 #include "../beams/Distributions.h"
 #include "../input_parameters/GeneralParameters.h"
 #include "../trackers/Tracker.h"
@@ -53,8 +54,6 @@ protected:
       std::fill_n(&voltageVec[0][563374], 436627, 10e6);
 
       // Define general parameters
-      int alpha_order = 1;
-      int n_sections = 1;
       f_vector_2d_t alphaVec(alpha_order + 1, f_vector_t(n_sections, alpha));
 
       f_vector_t CVec(n_sections, C);
@@ -82,15 +81,15 @@ protected:
 
       Slice = new Slices(N_slices, 0, -0.5e-9, 3e-9);
       // Define phase loop and frequency loop gain
-      //ftype PL_gain = 1 / (5 * GP->t_rev[0]);
-      //ftype SL_gain = PL_gain / 10;
+      ftype PL_gain = 1 / (5 * GP->t_rev[0]);
+      ftype SL_gain = PL_gain / 10;
 
-      //f_vector_t PL_gainVec(N_t + 1, PL_gain);
+      f_vector_t PL_gainVec(N_t + 1, PL_gain);
 
-      //LHC *PL = new LHC(PL_gainVec, SL_gain);
+      PL = new LHC(PL_gainVec, SL_gain);
 
       // Injecting noise in the cavity, PL on
-      //RingAndRfSection *long_tracker = new RingAndRfSection(simple, PL);
+      long_tracker = new RingAndRfSection(simple, PL);
 
    }
 
@@ -125,7 +124,7 @@ private:
    const int alpha_order = 1;
    const int n_sections = 1;
    const uint N_t = 1000000;        // Number of turns to track; full ramp: 8700001
-   const int bl_target = 1.25e-9;  // 4 sigma r.m.s. target bunch length in [s]
+   const ftype bl_target = 1.25e-9;  // 4 sigma r.m.s. target bunch length in [s]
 
    const int N_slices = 151;
 

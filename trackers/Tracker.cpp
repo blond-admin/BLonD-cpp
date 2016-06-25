@@ -12,10 +12,10 @@ RingAndRfSection::~RingAndRfSection()
    //util::delete_array(this->TotalInducedVoltage);
    //util::delete_array(this->acceleration_kick);
    //util::delete_array(this->Slices);
-   if (slices) delete slices;
-   if (totalInducedVoltage) delete totalInducedVoltage;
-   if (noiseFB) delete noiseFB;
-   if (PL) delete PL;
+   //if (slices) delete slices;
+   //if (totalInducedVoltage) delete totalInducedVoltage;
+   //if (noiseFB) delete noiseFB;
+   //if (PL) delete PL;
 }
 
 // Two versions of kick, drift one with periodicity and another without periodiciy

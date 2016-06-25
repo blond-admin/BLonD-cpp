@@ -32,7 +32,6 @@ LHC::LHC(f_vector_t PL_gain,
          uint _delay)
 {
 
-   //PhaseLoop(PL_gain, window_coefficient, _delay, _phaseNoise, _LHCNoiseFB);
    // General Initializations
    this->delay = _delay;
    this->alpha = window_coefficient;
@@ -57,16 +56,9 @@ LHC::LHC(f_vector_t PL_gain,
                                   / (1 + lhc_a[i])));
       }
    }
-   // } else {
-   //    util::zero(lhc_a, GP->n_turns + 1);
-   //    util::zero(lhc_t, GP->n_turns + 1);
-   // }
 }
 
-LHC::~LHC()
-{
 
-}
 
 PSB::PSB(f_vector_t PL_gain,
          f_vector_t _RL_gain,
@@ -125,7 +117,7 @@ PSB::PSB(f_vector_t PL_gain,
    //domega_RF = 0;
 }
 
-PSB::~PSB() {}
+
 
 void PhaseLoop::beam_phase()
 {
@@ -267,12 +259,12 @@ void LHC::track()
 
    // Frequency correction from phase loop and synchro loop
 
-   domega_RF = -gain[counter] * dphi
-               - gain2 * (lhc_y + lhc_a[counter] * (dphi_RF + reference));
+   domega_RF = -gain[counter] * dphi - gain2 
+               * (lhc_y + lhc_a[counter] * (dphi_RF + reference));
 
    // Update recursion variable
-   lhc_y = (1 - lhc_t[counter]) * lhc_y
-           + (1 - lhc_a[counter]) * lhc_t[counter] * (dphi_RF + reference);
+   lhc_y = (1 - lhc_t[counter]) * lhc_y + (1 - lhc_a[counter]) 
+            * lhc_t[counter] * (dphi_RF + reference);
 
    default_track();
 }

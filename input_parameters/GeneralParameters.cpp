@@ -81,7 +81,7 @@ void GeneralParameters::_eta2()
 GeneralParameters::GeneralParameters(const uint _n_turns,
                                      f_vector_t &_ring_length,
                                      f_vector_2d_t &_alpha,
-                                     const int _alpha_order,
+                                     const uint _alpha_order,
                                      f_vector_2d_t &_momentum,
                                      const particle_type _particle,
                                      ftype user_mass,
@@ -136,7 +136,7 @@ GeneralParameters::GeneralParameters(const uint _n_turns,
 
    this->momentum = _momentum;
 
-   this->alpha_order = _alpha_order;
+   this->alpha_order = _alpha_order - 1;
 
    this->alpha = _alpha;
 

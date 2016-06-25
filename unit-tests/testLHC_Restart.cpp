@@ -68,8 +68,6 @@ protected:
       printf("Momentum and voltage loaded\n");
 
       // Define general parameters
-      int alpha_order = 1;
-      int n_sections = 1;
       f_vector_2d_t alphaVec(n_sections , f_vector_t(alpha_order+1, alpha));
 
       f_vector_t CVec(n_sections, C);
@@ -106,7 +104,7 @@ protected:
 
       f_vector_t PL_gainVec(N_t + 1, PL_gain);
 
-      LHC *PL = new LHC(PL_gainVec, SL_gain);
+      PL = new LHC(PL_gainVec, SL_gain);
 
       long_tracker = new RingAndRfSection(simple, PL);
 
@@ -158,13 +156,9 @@ private:
 TEST_F(testLHC_Restart, dphi_RF_and_dphi)
 {
 
-
-
-   std::vector<ftype> real1, real2;
-
+   f_vector_t real1, real2;
 
    for (int i = 0; i < 1000; ++i) {
-
 
       if (RfP->counter < 570000)
          PL->reference = 0.5236;
@@ -175,19 +169,15 @@ TEST_F(testLHC_Restart, dphi_RF_and_dphi)
 
       long_tracker->track();
 
-      //RfP->counter++;
       //printf("   Beam energy %.6e eV\n", GP->energy[0]);
       //printf("   RF phase %.6e rad\n", RfP->dphi_RF[0]);
       //printf("   PL phase correction %.6e rad\n", PL->dphi);
-      //ftype ref = v1[i];
-      //ftype real = RfP->dphi_RF[RfP->counter];
       real1.push_back(RfP->dphi_RF[0]);
       real2.push_back(PL->dphi);
 
    }
 
-   std::vector<ftype> v;
-
+   f_vector_t v;
 
    util::read_vector_from_file(v, params + "dphi_RF[0]");
 

@@ -53,7 +53,7 @@ public:
    f_vector_t lhc_a;
    f_vector_t lhc_t;
 
-   ~LHC();
+   ~LHC(){};
    void track();
    LHC(f_vector_t PL_gain,
        ftype SL_gain = 0,
@@ -80,7 +80,7 @@ private:
    ftype domega_RL;
    //ftype domega_RF;
 public:
-   ~PSB();
+   ~PSB(){};
    void track();
    PSB(f_vector_t PL_gain,
        f_vector_t RL_gain = f_vector_t(),

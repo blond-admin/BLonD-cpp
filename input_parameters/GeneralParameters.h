@@ -55,7 +55,7 @@ public:
    GeneralParameters(const uint n_turns,
                      f_vector_t &ring_length,
                      f_vector_2d_t &alpha,
-                     const int alpha_order,
+                     const uint alpha_order,
                      f_vector_2d_t &momentum,
                      const particle_type particle,
                      ftype user_mass = 0,

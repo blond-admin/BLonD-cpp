@@ -97,15 +97,15 @@ ftype LHCNoiseFB::fwhm_interpolation(uint_vector_t index, ftype half_height)
    }
 
    // util::dump(Slice->n_macroparticles, 100, "n_macroparticles\n");
-   // std::cout << "time_resolution " << time_resolution << '\n';
-   // std::cout << "first " << first << '\n';
-   // std::cout << "bin_centers[first] " << Slice->bin_centers[first] << '\n';
-   // std::cout << "n_macroparticles[first] " << Slice->n_macroparticles[first] << '\n';
-   // std::cout << "n_macroparticles[prev] " << Slice->n_macroparticles[prev] << '\n';
-   // std::cout << "left " << left << '\n';
-   // std::cout << "last " << last << '\n';
-   // std::cout << "right " << right << '\n';
-   // std::cout << "cfwhm " << cfwhm << '\n';
+   std::cout << "time_resolution " << time_resolution << '\n';
+   std::cout << "first " << first << '\n';
+   std::cout << "bin_centers[first] " << Slice->bin_centers[first] << '\n';
+   std::cout << "n_macroparticles[first] " << Slice->n_macroparticles[first] << '\n';
+   std::cout << "n_macroparticles[prev] " << Slice->n_macroparticles[prev] << '\n';
+   std::cout << "left " << left << '\n';
+   std::cout << "last " << last << '\n';
+   std::cout << "right " << right << '\n';
+   std::cout << "cfwhm " << cfwhm << '\n';
 
    return cfwhm * (right - left);
 }

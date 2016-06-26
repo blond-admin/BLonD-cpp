@@ -5,19 +5,22 @@
 * @Last Modified time: 2016-06-21 14:38:41
 */
 
-#ifndef IMPEDANCES_PHASENOISE_H_
-#define IMPEDANCES_PHASENOISE_H_
+#ifndef LLRF_PHASENOISE_H_
+#define LLRF_PHASENOISE_H_
 
 #include <utilities.h>
 #include <configuration.h>
+#include <fft.h>
 
 class PhaseNoise {
 private:
-   constexpr static ftype cfwhm = std::sqrt(2.0 * std::log(2.0));
 
 public:
+   
    enum transform_t {
-      r, c, None
+      r,
+      c,
+      None
    };
 
    f_vector_t fFreqArray;
@@ -35,9 +38,12 @@ public:
                                    transform_t::None);
    PhaseNoise(f_vector_t freqArray, f_vector_t realPartOfSpectrum,
               int seed1 = 0, int seed2 = 0);
-   ~PhaseNoise() {};
+   ~PhaseNoise()
+   {
+      fft::destroy_plans();
+   };
 
 };
 
 
-#endif /* IMPEDANCES_PHASENOISE_H_ */
+#endif /* LLRF_PHASENOISE_H_ */

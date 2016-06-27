@@ -13,11 +13,11 @@
 // Kick without periodicity
 inline void RingAndRfSection::kick(const ftype *__restrict__ beam_dt,
                                    ftype *__restrict__ beam_dE,
-                                   const uint n_rf,
+                                   const int n_rf,
                                    const ftype *__restrict__ voltage,
                                    const ftype *__restrict__ omega_RF,
                                    const ftype *__restrict__ phi_RF,
-                                   const uint n_macroparticles,
+                                   const int n_macroparticles,
                                    const ftype acc_kick)
 {
 
@@ -25,10 +25,10 @@ inline void RingAndRfSection::kick(const ftype *__restrict__ beam_dt,
 
       // KICK
 
-      #pragma omp parallel for collapse(2)
-      for (uint j = 0; j < n_rf; ++j) {
-         //#pragma omp parallel for
-         for (uint i = 0; i < n_macroparticles; ++i) {
+      //#pragma omp parallel for collapse(2)
+      for (int j = 0; j < n_rf; ++j) {
+         #pragma omp parallel for
+         for (int i = 0; i < n_macroparticles; ++i) {
             //const ftype a = omega_RF[j] * beam_dt[i] + phi_RF[j];
             beam_dE[i] += voltage[j]
                           * mymath::fast_sin(omega_RF[j] * beam_dt[i]
@@ -39,21 +39,21 @@ inline void RingAndRfSection::kick(const ftype *__restrict__ beam_dt,
 
       // SYNCHRONOUS ENERGY CHANGE
       #pragma omp parallel for
-      for (uint i = 0; i < n_macroparticles; ++i)
+      for (int i = 0; i < n_macroparticles; ++i)
          beam_dE[i] += acc_kick;
 
    } else {
 
       // KICK
-      for (uint j = 0; j < n_rf; ++j) {
-         for (uint i = 0; i < n_macroparticles; ++i) {
+      for (int j = 0; j < n_rf; ++j) {
+         for (int i = 0; i < n_macroparticles; ++i) {
             const ftype a = omega_RF[j] * beam_dt[i] + phi_RF[j];
             beam_dE[i] += voltage[j] * mymath::fast_sin(a);
          }
       }
 
       // SYNCHRONOUS ENERGY CHANGE
-      for (uint i = 0; i < n_macroparticles; ++i)
+      for (int i = 0; i < n_macroparticles; ++i)
          beam_dE[i] += acc_kick;
 
    }

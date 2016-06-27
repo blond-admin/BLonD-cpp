@@ -62,11 +62,11 @@ public:
    inline void kick(const uint index);
    inline void kick(const ftype *__restrict__ beam_dt,
                     ftype *__restrict__ beam_dE,
-                    const uint n_rf,
+                    const int n_rf,
                     const ftype *__restrict__ voltage,
                     const ftype *__restrict__ omega_RF,
                     const ftype *__restrict__ phi_RF,
-                    const uint n_macroparticles,
+                    const int n_macroparticles,
                     const ftype acc_kick);
 
    // Periodicity drift

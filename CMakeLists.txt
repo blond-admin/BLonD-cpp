@@ -45,7 +45,7 @@ if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
          set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
       endif()
       
-      #set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fopt-info-vec=report.txt")
+      set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fopt-info-vec=report.txt")
       
       set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-flto")
       if(TEST_ENABLED)

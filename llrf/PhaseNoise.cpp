@@ -10,7 +10,7 @@
 * :Authors: **Helga Timko**
 */
 
-#include "PhaseNoise.h" 
+#include "PhaseNoise.h"
 #include <random>
 #include <algorithm>
 #include <constants.h>
@@ -20,7 +20,8 @@
 
 PhaseNoise::PhaseNoise(f_vector_t freqArray,
                        f_vector_t realPartOfSpectrum,
-                       int seed1, int seed2)
+                       int seed1,
+                       int seed2)
 {
 
    fFreqArray = freqArray;

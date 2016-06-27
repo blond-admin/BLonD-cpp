@@ -8,12 +8,9 @@
 #include "Beams.h"
 #include <math_functions.h>
 
-Beams::~Beams()
-{
 
-}
-
-Beams::Beams(const uint _n_macroparticles, const long _intensity)
+Beams::Beams(const uint _n_macroparticles,
+             const long _intensity)
 {
 
    this->n_macroparticles = _n_macroparticles;
@@ -28,11 +25,15 @@ Beams::Beams(const uint _n_macroparticles, const long _intensity)
    this->n_macroparticles_lost = 0;
 }
 
+Beams::~Beams() {}
+
+
 inline uint Beams::n_macroparticles_alive()
 {
 
    return n_macroparticles - n_macroparticles_lost;
 }
+
 
 void Beams::statistics()
 {
@@ -63,6 +64,7 @@ void Beams::statistics()
    n_macroparticles_lost = n_macroparticles - n;
 }
 
+
 void Beams::losses_longitudinal_cut(const ftype *__restrict__ dt,
                                     const ftype dt_min,
                                     const ftype dt_max,
@@ -75,6 +77,7 @@ void Beams::losses_longitudinal_cut(const ftype *__restrict__ dt,
    }
 }
 
+
 void Beams::losses_energy_cut(const ftype *__restrict__ dE,
                               const ftype dE_min,
                               const ftype dE_max,
@@ -85,4 +88,3 @@ void Beams::losses_energy_cut(const ftype *__restrict__ dE,
       id[i] = (dE[i] - dE_min) * (dE_max - dE[i]) < 0 ? 0 : id[i];
    }
 }
-

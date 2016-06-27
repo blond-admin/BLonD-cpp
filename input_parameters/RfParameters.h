@@ -12,15 +12,10 @@ class RfParameters;
 
 #include "GeneralParameters.h"
 #include "../beams/Beams.h"
-//#include "../includes/utilities.h"
 #include "math_functions.h"
-//#include "../trackers/sin.h"
-#include <algorithm>    // std::cops
-#include <iterator>
+//#include <algorithm>
+//#include <iterator>
 #include "globals.h"
-
-//#include "../includes/globals.h"
-
 
 
 class RfParameters {
@@ -30,14 +25,6 @@ public:
       all,
       first
    };
-   RfParameters(uint _n_rf,
-                f_vector_2d_t _harmonic,
-                f_vector_2d_t _voltage,
-                f_vector_2d_t _phi_offset,
-                f_vector_t _phi_noise = f_vector_t(),
-                f_vector_2d_t _omega_rf = f_vector_2d_t(),
-                uint _section_index = 1,
-                accelerating_systems_t accelerating_systems = as_single);
 
    f_vector_t E_increment;
    f_vector_t phi_s;
@@ -49,16 +36,6 @@ public:
    f_vector_t dphi_RF_steering;
    f_vector_t t_RF;
    f_vector_2d_t omega_RF;
-
-   ftype eta_tracking(const Beams *beam, const uint counter, const ftype dE);
-   ftype eta_0(const uint i);
-   ftype eta_1(const uint i);
-   ftype eta_2(const uint i);
-   ftype beta(const uint i);
-   ftype gamma(const uint i);
-   ftype energy(const uint i);
-   ftype momentum(const uint i);
-   int sign_eta_0(const uint i);
 
    // TODO assume input_value is an array
    // that is why we don't have any input_check function
@@ -73,6 +50,24 @@ public:
    ftype length_ratio;
    ftype section_length;
 
+   ftype eta_tracking(const Beams *beam, const uint counter, const ftype dE);
+   ftype eta_0(const uint i);
+   ftype eta_1(const uint i);
+   ftype eta_2(const uint i);
+   ftype beta(const uint i);
+   ftype gamma(const uint i);
+   ftype energy(const uint i);
+   ftype momentum(const uint i);
+   int sign_eta_0(const uint i);
+
+   RfParameters(uint _n_rf,
+                f_vector_2d_t _harmonic,
+                f_vector_2d_t _voltage,
+                f_vector_2d_t _phi_offset,
+                f_vector_t _phi_noise = f_vector_t(),
+                f_vector_2d_t _omega_rf = f_vector_2d_t(),
+                uint _section_index = 1,
+                accelerating_systems_t accelerating_systems = as_single);
    ~RfParameters();
 
 private:

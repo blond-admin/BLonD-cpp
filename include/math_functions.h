@@ -32,32 +32,6 @@ namespace mymath {
       return vdt::fast_sin(x + M_PI_2);
    }
 
-   // linear convolution function
-   // @a: first vector
-   // @b: second vector
-   // @return convolution of a and b
-   /*
-   template<typename T>
-   static inline std::vector<T> convolution(const std::vector<T> &a,
-         const std::vector<T> &b)
-   {
-      std::vector<T> res;
-      res.resize(a.size() + b.size() - 1);
-      for (unsigned int i = 0; i < res.size(); i++) {
-         unsigned int i1 = i;
-         T temp = T();
-         for (unsigned int j = 0; j < b.size(); ++j) {
-            if (i1 >= 0 && i1 < a.size()) {
-               temp += a[i1] * b[j];
-            }
-            i1--;
-            res[i] = temp;
-         }
-      }
-      return res;
-   }
-   */
-   // linear convolution function
 
 // linear convolution function
    static inline void convolution(const ftype *__restrict__ signal,
@@ -155,9 +129,12 @@ namespace mymath {
 // @y: the interpolated values, same shape as x
 // @left: value to return for x < xp[0]
 // @right: value to return for x > xp[last]
-   static inline void lin_interp(const std::vector<ftype> &x, const std::vector<ftype> &xp,
-                                 const std::vector<ftype> &yp, std::vector<ftype> &y,
-                                 const ftype left = 0.0, const ftype right = 0.0)
+   static inline void lin_interp(const std::vector<ftype> &x,
+                                 const std::vector<ftype> &xp,
+                                 const std::vector<ftype> &yp,
+                                 std::vector<ftype> &y,
+                                 const ftype left = 0.0,
+                                 const ftype right = 0.0)
    {
       //assert(y.empty());
       assert(xp.size() == yp.size());
@@ -203,7 +180,9 @@ namespace mymath {
 // Function to implement integration of f(x) over the interval
 // [a,b] using the trapezoid rule with nsub subdivisions.
    template<typename T>
-   static inline ftype *cum_trapezoid(const T *f, const T deltaX, const int nsub)
+   static inline ftype *cum_trapezoid(const T *f,
+                                      const T deltaX,
+                                      const uint nsub)
    {
       // initialize the partial sum to be f(a)+f(b) and
       // deltaX to be the step size using nsub subdivisions
@@ -212,15 +191,18 @@ namespace mymath {
 
       // increment the partial sum
       //#pragma omp parallel for
-      for (int i = 1; i < nsub; ++i)
+      for (uint i = 1; i < nsub; ++i)
          psum[i] = psum[i - 1] + (f[i] + f[i - 1]) * (deltaX / 2.0);
 
       return psum;
 
    }
 
+
    template<typename T>
-   static inline ftype trapezoid(T *f, const ftype *deltaX, const uint nsub)
+   static inline ftype trapezoid(T *f,
+                                 const ftype *deltaX,
+                                 const uint nsub)
    {
       // initialize the partial sum to be f(a)+f(b) and
       // deltaX to be the step size using nsub subdivisions
@@ -228,7 +210,7 @@ namespace mymath {
       ftype psum = 0.0;
       // increment the partial sum
       //#pragma omp parallel for reduction(+ : psum)
-      for (int index = 1; index < nsub; ++index) {
+      for (uint index = 1; index < nsub; ++index) {
          psum += (f[index] + f[index - 1])
                  * (deltaX[index] - deltaX[index - 1]);
       }
@@ -238,8 +220,11 @@ namespace mymath {
 
    }
 
+
    template<typename T>
-   static inline ftype trapezoid(T *f, const ftype deltaX, const uint nsub)
+   static inline ftype trapezoid(T *f,
+                                 const ftype deltaX,
+                                 const uint nsub)
    {
       // initialize the partial sum to be f(a)+f(b) and
       // deltaX to be the step size using nsub subdivisions
@@ -248,7 +233,7 @@ namespace mymath {
 
       // increment the partial sum
       #pragma omp parallel for reduction(+ : psum)
-      for (int index = 1; index < nsub - 1; ++index) {
+      for (uint index = 1; index < nsub - 1; ++index) {
          psum += 2 * f[index];
       }
 
@@ -259,8 +244,12 @@ namespace mymath {
       return psum;
 
    }
+
+
    template<typename T>
-   static inline uint min(T *a, uint size, uint step = 1)
+   static inline uint min(T *a,
+                          uint size,
+                          uint step = 1)
    {
       uint p = 0;
       T min = a[0];
@@ -276,7 +265,9 @@ namespace mymath {
    }
 
    template<typename T>
-   static inline uint max(T *a, uint size, uint step = 1)
+   static inline uint max(T *a,
+                          uint size,
+                          uint step = 1)
    {
       uint p = 0;
       T max = a[0];
@@ -291,8 +282,12 @@ namespace mymath {
 
    }
 
-   static inline void linspace(ftype *a, const ftype start, const ftype end,
-                               const uint n, const uint keep_from = 0)
+
+   static inline void linspace(ftype *a,
+                               const ftype start,
+                               const ftype end,
+                               const uint n,
+                               const uint keep_from = 0)
    {
       const ftype step = (end - start) / (n - 1);
       //ftype value = start;
@@ -306,7 +301,9 @@ namespace mymath {
 
 
    template<typename T>
-   static inline std::vector<T> arange(T start, T stop, T step = 1)
+   static inline std::vector<T> arange(T start,
+                                       T stop,
+                                       T step = 1)
    {
       std::vector<T> values;
       for (T value = start; value < stop; value += step)
@@ -314,8 +311,10 @@ namespace mymath {
       return values;
    }
 
+
    template<typename T>
-   static inline ftype mean(const T data[], const uint n)
+   static inline ftype mean(const T data[],
+                            const uint n)
    {
       ftype m = 0.0;
       #pragma omp parallel for reduction(+ : m)
@@ -325,8 +324,10 @@ namespace mymath {
       return m / n;
    }
 
+
    template<typename T>
-   static inline ftype standard_deviation(const T data[], const uint n,
+   static inline ftype standard_deviation(const T data[],
+                                          const uint n,
                                           const ftype mean)
    {
       ftype sum_deviation = 0.0;
@@ -336,8 +337,10 @@ namespace mymath {
       return std::sqrt(sum_deviation / n);
    }
 
+
    template<typename T>
-   static inline ftype standard_deviation(const T data[], const uint n)
+   static inline ftype standard_deviation(const T data[],
+                                          const uint n)
    {
       const ftype mean = mymath::mean(data, n);
       ftype sum_deviation = 0.0;

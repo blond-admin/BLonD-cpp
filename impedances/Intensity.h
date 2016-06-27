@@ -47,8 +47,9 @@ public:
    void wake_calc(const f_vector_t &NewTimeArray);
    void imped_calc(const f_vector_t &NewFrequencyArray);
    Resonators(f_vector_t &RS,
-              f_vector_t &FrequencyR, f_vector_t &Q);
-   ~Resonators() {} ;
+              f_vector_t &FrequencyR,
+              f_vector_t &Q);
+   ~Resonators();
 };
 
 
@@ -62,13 +63,10 @@ public:
 
    void wake_calc(const f_vector_t &NewTimeArray);
    void imped_calc(const f_vector_t &NewFrequencyArray);
-   InputTable(const f_vector_t &input1, const f_vector_t &input2,
+   InputTable(const f_vector_t &input1,
+              const f_vector_t &input2,
               const f_vector_t input3 = f_vector_t());
-   //InputTable(f_vector_t &input1, f_vector_t &input2) {
-   //   f_vector_t v;
-   //   InputTable(input1, input2, v);
-   //};
-   ~InputTable() {};
+   ~InputTable();
 };
 
 #endif /* IMPEDANCES_INTENSITY_H_ */

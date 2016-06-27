@@ -7,23 +7,6 @@
 
 #include "RfParameters.h"
 
-RfParameters::~RfParameters()
-{
-   // util::delete_array(this->E_increment);
-   // util::delete_array(this->phi_s);
-   // util::delete_array(this->Qs);
-   // util::delete_array(this->omega_RF_d);
-   // util::delete_array(this->omega_s0);
-   // util::delete_array(this->phi_RF);
-   // util::delete_array(this->dphi_RF);
-   // util::delete_array(this->dphi_RF_steering);
-   // util::delete_array(this->t_RF);
-   // util::delete_array(this->omega_RF);
-   // util::delete_array(this->harmonic);
-   // util::delete_array(this->voltage);
-   // util::delete_array(this->phi_offset);
-   // util::delete_array(this->phi_noise);
-}
 
 /*
  :How to use RF programs:
@@ -33,8 +16,7 @@ RfParameters::~RfParameters()
  - For several RF systems and constant values of V, h or phi, input lists of single values
  - For several RF systems and varying values of V, h or phi, input lists of arrays of n_turns values
  */
-// RfParameters == RfSectionParameters
-// completely removed accelerating_systems
+ 
 RfParameters::RfParameters(uint _n_rf,
                            f_vector_2d_t _harmonic,
                            f_vector_2d_t _voltage,
@@ -52,21 +34,16 @@ RfParameters::RfParameters(uint _n_rf,
    this->harmonic = _harmonic;
    this->voltage = _voltage;
    this->phi_offset = _phi_offset;
-   //this->phi_noise = NULL;
-
    this->section_length = GP->ring_length[idx];
    this->length_ratio = section_length / GP->ring_circumference;
 
    // wiped out all the imports
-   //this->E_increment = new ftype[GP->n_turns];
    E_increment.resize(GP->n_turns);
-   // Don't have n_turns +1 cause of the way np.diff works
    for (uint j = 0; j < GP->n_turns; ++j) {
       E_increment[j] = GP->energy[idx][j + 1] - GP->energy[idx][j];
    }
 
    phi_s.resize(GP->n_turns + 1);
-   // = new ftype[GP->n_turns + 1];
    calc_phi_s(phi_s.data(), this, accelerating_systems);
 
    this->Qs.resize(GP->n_turns + 1);
@@ -76,69 +53,36 @@ RfParameters::RfParameters(uint _n_rf,
                  * std::fabs(eta_0(i) * cos(phi_s[i]))
                  / (2 * constant::pi * GP->beta[idx][i]
                     * GP->beta[idx][i] * GP->energy[idx][i]));
-   //if (i < 3)
-   //dprintf("%lf \n", harmonic[i] * GP->charge * voltage[i]);
-   //dprintf("%.4e \n", std::abs(eta_0(i) * cos(phi_s[i])));
-   //dump(Qs, 10, "Qs\n");
 
    this->omega_s0.resize(GP->n_turns + 1);
-   // = new ftype[(GP->n_turns + 1)];
    for (uint i = 0; i < (GP->n_turns + 1); ++i)
       this->omega_s0[i] = Qs[i] * GP->omega_rev[i];
 
 
    this->omega_RF_d.resize(n_rf, f_vector_t(GP->n_turns + 1));
-   //= new ftype[n_rf * (GP->n_turns + 1)];
 
    for (uint i = 0; i < n_rf; ++i)
       for (uint j = 0; j < GP->n_turns + 1; ++j)
          omega_RF_d[i][j] = 2 * constant::pi * GP->beta[i][j]
                             * constant::c * harmonic[i][j] / GP->ring_circumference;
 
-   //dump(omega_RF_d, 10, "omega_RF_d\n");
-   //dprintf("ring_circumference %.12lf\n", GP->ring_circumference);
-   //dprintf("pi %.12lf\n", pi);
-   //dprintf("c %.12lf\n", c);
-   //dprintf("pi*c %.12lf\n", pi*c);
-   /*
-    this->omega_RF = new ftype[n_rf * (GP->n_turns + 1)];
-    if (omega_RF == NULL) {
-    dprintf("It was null!\n");
-    for (int i = 0; i < n_rf * (GP->n_turns + 1); ++i) {
-    omega_RF[i] = omega_RF_d[i];
-    }
-    }
-    */
    if (_omega_rf.empty()) {
       omega_RF = omega_RF_d;
-      //this->omega_RF.resize(n_rf, f_vector_t(GP->n_turns + 1));
-      //= new ftype[n_rf * (GP->n_turns + 1)];
-      // std::copy(omega_RF_d.begin(), &omega_RF_d[n_rf * (GP->n_turns + 1)],
-      //           omega_RF);
    } else {
       this->omega_RF = _omega_rf;
    }
 
-   //this->phi_RF.resize(n_rf, f_vector_t(GP->n_turns + 1));
-   // = new ftype[n_rf * (GP->n_turns + 1)];
-   //this->phi_RF = (ftype *) aligned_malloc(
-   //    sizeof(ftype) * n_rf * (GP->n_turns + 1));
-   //std::copy(&phi_offset[0], &phi_offset[n_rf * (GP->n_turns + 1)], phi_RF);
    phi_RF = phi_offset;
-
    this->dphi_RF.resize(n_rf, 0);
-   //= new ftype[n_rf];
-   //std::fill_n(dphi_RF, n_rf, 0);
-
    this->dphi_RF_steering.resize(n_rf, 0);
-   // = new ftype[n_rf];
-   //std::fill_n(dphi_RF_steering, n_rf, 0);
-
-   //this->t_RF = new ftype[GP->n_turns + 1];
    t_RF.resize(GP->n_turns + 1);
    for (uint i = 0; i < GP->n_turns + 1; ++i)
       t_RF[i] = 2 * constant::pi / omega_RF[idx][i];
 }
+
+
+RfParameters::~RfParameters() {}
+
 
 ftype RfParameters::eta_tracking(const Beams *beam, const uint counter,
                                  const ftype dE)
@@ -325,7 +269,7 @@ void calc_phi_s(ftype *out,
                       + transition_phase_offset[i + 1];
 
       }
-     // delete[] transition_phase_offset;
+      // delete[] transition_phase_offset;
       out[0] = out[1];
       //dump(out, 10, "out\n");
 

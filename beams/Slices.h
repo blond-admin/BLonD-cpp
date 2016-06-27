@@ -48,22 +48,28 @@ public:
    ftype bl_gauss = 0;
    ftype bp_gauss = 0;
 
-   Slices(uint _n_slices, int _n_sigma = 0, ftype cut_left = 0,
-          ftype cut_right = 0, cuts_unit_type cuts_unit = s,
-          fit_type fit_option = normal_fit, bool direct_slicing = false);
+   Slices(uint _n_slices,
+          int _n_sigma = 0,
+          ftype cut_left = 0,
+          ftype cut_right = 0,
+          cuts_unit_type cuts_unit = s,
+          fit_type fit_option = normal_fit,
+          bool direct_slicing = false);
 
    ~Slices();
    void track();
    ftype fast_fwhm();
    void fwhm(const ftype shift = 0);
-   void beam_spectrum_generation(uint n, bool onlyRFFT = false);
+   void beam_spectrum_generation(uint n,
+                                 bool onlyRFFT = false);
    void beam_profile_derivative();
    void beam_profile_filter_chebyshev();
 
 private:
    void set_cuts();
    void sort_particles();
-   inline ftype convert_coordinates(ftype cut, cuts_unit_type type);
+   inline ftype convert_coordinates(ftype cut,
+                                    cuts_unit_type type);
 
    inline void histogram(const ftype *__restrict__ input,
                          int *__restrict__ output,
@@ -81,7 +87,10 @@ private:
    void track_cuts();
    void slice_constant_space_histogram_smooth();
    void rms();
-   ftype gauss(const ftype x, const ftype x0, const ftype sx, const ftype A);
+   ftype gauss(const ftype x,
+               const ftype x0,
+               const ftype sx,
+               const ftype A);
 
    // not for now
    void gaussian_fit();

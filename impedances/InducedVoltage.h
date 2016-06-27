@@ -8,16 +8,11 @@
 #ifndef IMPEDANCES_INDUCEDVOLTAGE_H_
 #define IMPEDANCES_INDUCEDVOLTAGE_H_
 
-//class InducedVoltage;
 
 #include "configuration.h"
-//#include <complex>
 #include <vector>
 #include "Intensity.h"
 #include "fft.h"
-
-//typedef std::complex<float> complex_t;
-
 
 
 enum time_or_freq {
@@ -27,9 +22,6 @@ enum time_or_freq {
 typedef enum freq_res_option_t {
    round_option, ceil_option, floor_option
 } freq_res_option_t;
-
-//uint next_regular(uint target);
-
 
 
 class InducedVoltage {
@@ -70,10 +62,8 @@ public:
    std::vector<ftype> induced_voltage_generation(uint length = 0);
    InducedVoltageTime(std::vector<Intensity *> &WakeSourceList,
                       time_or_freq TimeOrFreq = freq_domain);
-   ~InducedVoltageTime()
-   {
-      fft::destroy_plans();
-   };
+
+   ~InducedVoltageTime();
 };
 
 
@@ -114,8 +104,6 @@ public:
    // *Induced voltage from the sum of the wake sources in [V]*
    //f_vector_t fInducedVoltage;
 
-   // and many more! //
-
    void track();
    void sum_impedances(f_vector_t &);
 
@@ -128,10 +116,7 @@ public:
                       uint NTurnsMem = 0,
                       bool recalculationImpedance = false,
                       bool saveIndividualVoltages = false);
-   ~InducedVoltageFreq()
-   {
-      fft::destroy_plans();
-   };
+   ~InducedVoltageFreq();
 };
 
 
@@ -159,10 +144,7 @@ public:
                        uint NTurnsMemory = 0,
                        std::vector<ftype> RevTimeArray = std::vector<ftype>());
    
-   ~TotalInducedVoltage()
-   {
-      fft::destroy_plans();
-   };
+   ~TotalInducedVoltage();
 
 };
 

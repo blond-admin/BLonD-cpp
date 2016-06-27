@@ -70,6 +70,12 @@ InducedVoltageTime::InducedVoltageTime(std::vector<Intensity *> &WakeSourceList,
 }
 
 
+InducedVoltageTime::~InducedVoltageTime()
+{
+   fft::destroy_plans();
+}
+
+
 inline void InducedVoltageTime::track()
 {
    // Tracking Method
@@ -304,6 +310,11 @@ InducedVoltageFreq::InducedVoltageFreq(
 }
 
 
+InducedVoltageFreq::~InducedVoltageFreq()
+{
+   fft::destroy_plans();
+}
+
 void InducedVoltageFreq::track()
 {
    // Tracking Method
@@ -488,9 +499,12 @@ TotalInducedVoltage::TotalInducedVoltage(
    fNTurnsMemory = NTurnsMemory;
    fInducedVoltage = f_vector_t();
    fTimeArray = Slice->bin_centers;
-   //f_vector_t (Slice->bin_centers,
-   //                         Slice->bin_centers + Slice->n_slices);
+}
 
+
+TotalInducedVoltage::~TotalInducedVoltage()
+{
+   fft::destroy_plans();
 }
 
 

@@ -15,8 +15,13 @@
 //#include <gsl/gsl_vector.h>
 
 
-Slices::Slices(uint _n_slices, int _n_sigma, ftype _cut_left, ftype _cut_right,
-               cuts_unit_type _cuts_unit, fit_type _fit_option, bool direct_slicing)
+Slices::Slices(uint _n_slices,
+               int _n_sigma,
+               ftype _cut_left,
+               ftype _cut_right,
+               cuts_unit_type _cuts_unit,
+               fit_type _fit_option,
+               bool direct_slicing)
 {
 
    this->n_slices = _n_slices;
@@ -41,6 +46,7 @@ Slices::~Slices()
 {
    fft::destroy_plans();
 }
+
 
 void Slices::set_cuts()
 {
@@ -145,7 +151,6 @@ inline void Slices::slice_constant_space_histogram()
     *This method is faster than the classic slice_constant_space method
     for high number of particles (~1e6).*
     */
-
 
    histogram(Beam->dt.data(), n_macroparticles.data(), cut_left, cut_right, n_slices,
              Beam->n_macroparticles);
@@ -402,9 +407,7 @@ ftype Slices::fast_fwhm()
 }
 
 
-void Slices::fwhm_multibunch()
-{
-}
+void Slices::fwhm_multibunch(){}
 
 void Slices::beam_spectrum_generation(uint n, bool onlyRFFT)
 {

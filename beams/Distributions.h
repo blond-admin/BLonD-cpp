@@ -15,8 +15,10 @@
 #include <stdlib.h>
 #include <random>
 
-inline void longitudinal_bigaussian(ftype sigma_dt, ftype sigma_dE = 0,
-                                    int seed = 0, bool reinsertion = false)
+inline void longitudinal_bigaussian(ftype sigma_dt,
+                                    ftype sigma_dE = 0,
+                                    int seed = 0,
+                                    bool reinsertion = false)
 {
    if (GP->n_sections > 1) {
       dprintf(
@@ -45,27 +47,11 @@ inline void longitudinal_bigaussian(ftype sigma_dt, ftype sigma_dE = 0,
                     * (cos(phi_b) - cos(phi_s)
                        + (phi_b - phi_s) * sin(phi_s))
                     / (constant::pi * harmonic * eta0));
-      //dprintf("cos(phi_s): %.12lf \n", cos(phi_s));
-      //dprintf("cos(phi_b): %.12lf \n", cos(phi_b));
-      //dprintf("sin(phi_s): %.12lf \n", sin(phi_s));
-
    }
-   //dprintf("omega_RF: %.12lf \n", omega_RF);
-   //dprintf("sigma_dt: %.12lf \n", sigma_dt);
-   //dprintf("phi_s: %.12lf \n", phi_s);
-//
-   //dprintf("phi_b: %.12lf \n", phi_b);
-   //dprintf("sigma_dE: %.12lf \n", sigma_dE);
 
    Beam->sigma_dE = sigma_dE;
    Beam->sigma_dt = sigma_dt;
-   //srand(seed);
-   //uint fixed_particles = atoi(util::GETENV("FIXED_PARTICLES"));
-   //#ifdef FIXED_PARTICLES
-   //fixed_particles =1;
-   //#endif
 
-   //if(fixed_particles){
 #ifdef FIXED_PARTICLES
    for (uint i = 0; i < Beam->n_macroparticles; ++i) {
       ftype r = 1.0 * (i + 1) / Beam->n_macroparticles;
@@ -75,9 +61,7 @@ inline void longitudinal_bigaussian(ftype sigma_dt, ftype sigma_dE = 0,
       //r = distribution(generator);
       Beam->dE[i] = sigma_dE * r;
       //dprintf("beam_dE: %.8lf \n", Beam->dE[i]);
-
    }
-   //}else{
 #else
    std::default_random_engine generator(seed);
    std::normal_distribution < ftype > distribution(0.0, 1.0);
@@ -89,10 +73,8 @@ inline void longitudinal_bigaussian(ftype sigma_dt, ftype sigma_dE = 0,
       r = distribution(generator);
       Beam->dE[i] = sigma_dE * r;
       //dprintf("beam_dE: %.8lf \n", Beam->dE[i]);
-
    }
 #endif
-//}
 
 // TODO if reinsertion == true
    if (reinsertion) {

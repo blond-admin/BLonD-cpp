@@ -7,24 +7,119 @@
 
 #include "GeneralParameters.h"
 
-GeneralParameters::~GeneralParameters()
+GeneralParameters::GeneralParameters(const uint _n_turns,
+                                     f_vector_t &_ring_length,
+                                     f_vector_2d_t &_alpha,
+                                     const uint _alpha_order,
+                                     f_vector_2d_t &_momentum,
+                                     const particle_type _particle,
+                                     ftype user_mass,
+                                     ftype user_charge,
+                                     const particle_type _particle2,
+                                     ftype user_mass_2,
+                                     ftype user_charge_2,
+                                     const uint number_of_sections)
 {
-   // util::delete_array(alpha);
-   // util::delete_array(ring_length);
-   // util::delete_array(beta);
-   // util::delete_array(gamma);
-   // util::delete_array(energy);
-   // util::delete_array(kin_energy);
-   // util::delete_array(cycle_time);
-   // util::delete_array(f_rev);
-   // util::delete_array(omega_rev);
-   // util::delete_array(eta_0);
-   // util::delete_array(eta_1);
-   // util::delete_array(eta_2);
-   //delete t_rev;
-   //util::delete_array (momentum);
 
+   this->particle = _particle;
+   this->particle_2 = _particle2;
+   this->n_sections = number_of_sections;
+
+   if (particle == proton) {
+      mass = constant::m_p * constant::c * constant::c / constant::e;
+      charge = 1;
+   } else if (particle == electron) {
+      mass = constant::m_e * constant::c * constant::c / constant::e;
+      charge = -1;
+   } else if (particle == user_input) {
+      mass = user_mass;
+      charge = user_charge;
+   } else {
+      dprintf("ERROR: Particle type not recognized!");
+      exit(-1);
+   }
+
+   if (particle_2 == none) {
+      ;
+   } else if (particle_2 == proton) {
+      mass2 = constant::m_p * constant::c * constant::c / constant::e;
+      charge2 = 1;
+   } else if (particle == electron) {
+      mass2 = constant::m_e * constant::c * constant::c / constant::e;
+      charge2 = -1;
+   } else if (particle == user_input) {
+      mass2 = user_mass_2;
+      charge2 = user_charge_2;
+   } else {
+      dprintf("ERROR: Second particle type not recognized!");
+      exit(-1);
+   }
+
+   this->n_turns = _n_turns;
+   this->momentum = _momentum;
+   this->alpha_order = _alpha_order - 1;
+   this->alpha = _alpha;
+   this->ring_length = _ring_length;
+   this->ring_circumference = std::accumulate(&ring_length[0],
+                              &ring_length[n_sections], 0.0);
+   this->ring_radius = ring_circumference / (2 * constant::pi);
+
+   if (n_sections > 1) {
+      // TODO do some things inside here
+      // Should ask danilo about this
+      // Danilo told me we could skip this for now
+   }
+
+   this->gamma.resize(n_sections, f_vector_t(n_turns + 1));
+   this->beta.resize(n_sections, f_vector_t(n_turns + 1));
+   this->energy.resize(n_sections, f_vector_t(n_turns + 1));
+   this->kin_energy.resize(n_sections, f_vector_t(n_turns + 1));
+
+   const ftype masssq = mass * mass;
+
+   for (uint i = 0; i < n_sections; ++i) {
+      for (uint j = 0; j < n_turns + 1; ++j) {
+         const ftype momentumsq = momentum[i][j] * momentum[i][j];
+         this->beta[i][j] = std::sqrt(1 / (1 + (masssq / momentumsq)));
+         this->gamma[i][j] = std::sqrt(1 + (momentumsq / masssq));
+         this->energy[i][j] = std::sqrt(masssq + momentumsq);
+         this->kin_energy[i][j] = energy[i][j] - mass;
+      }
+   }
+
+   t_rev.resize(n_turns + 1, 0);
+
+   for (uint i = 0; i < n_sections; ++i)
+      for (uint j = 0; j < n_turns + 1; ++j)
+         t_rev[j] += ring_length[i] / (beta[i][j] * constant::c);
+
+
+   cycle_time.resize(n_turns);
+   cycle_time[0] = 0;
+   for (uint i = 1; i < n_turns; ++i)
+      cycle_time[i] = t_rev[i] + cycle_time[i - 1];
+
+   f_rev.resize(n_turns + 1);
+   for (uint i = 0; i < n_turns + 1; ++i)
+      f_rev[i] = 1 / t_rev[i];
+
+   omega_rev.resize(n_turns + 1);
+   for (uint i = 0; i < n_turns + 1; ++i)
+      omega_rev[i] = 2 * constant::pi * f_rev[i];
+
+   if (alpha_order > 3) {
+      dprintf(
+         "WARNING: Momentum compaction factor is implemented only up to 2nd order");
+      alpha_order = 3;
+   }
+   this->eta_0.resize(n_sections, f_vector_t(n_turns + 1));
+   this->eta_1.resize(n_sections, f_vector_t(n_turns + 1));
+   this->eta_2.resize(n_sections, f_vector_t(n_turns + 1));
+   eta_generation();
 }
+
+
+GeneralParameters::~GeneralParameters() {}
 
 
 void GeneralParameters::eta_generation()
@@ -78,145 +173,5 @@ void GeneralParameters::_eta2()
 
 }
 
-GeneralParameters::GeneralParameters(const uint _n_turns,
-                                     f_vector_t &_ring_length,
-                                     f_vector_2d_t &_alpha,
-                                     const uint _alpha_order,
-                                     f_vector_2d_t &_momentum,
-                                     const particle_type _particle,
-                                     ftype user_mass,
-                                     ftype user_charge,
-                                     const particle_type _particle2,
-                                     ftype user_mass_2,
-                                     ftype user_charge_2,
-                                     const uint number_of_sections)
-{
 
-   //global++;
-   //dprintf("Global variable is %d\n", global);
-
-   this->particle = _particle;
-   this->particle_2 = _particle2;
-   this->n_sections = number_of_sections;
-
-   if (particle == proton) {
-      mass = constant::m_p * constant::c * constant::c / constant::e;
-      charge = 1;
-   } else if (particle == electron) {
-      mass = constant::m_e * constant::c * constant::c / constant::e;
-      charge = -1;
-   } else if (particle == user_input) {
-      mass = user_mass;
-      charge = user_charge;
-   } else {
-      dprintf("ERROR: Particle type not recognized!");
-      exit(-1);
-   }
-
-   if (particle_2 == none) {
-      ;
-   } else if (particle_2 == proton) {
-      mass2 = constant::m_p * constant::c * constant::c / constant::e;
-      charge2 = 1;
-   } else if (particle == electron) {
-      mass2 = constant::m_e * constant::c * constant::c / constant::e;
-      charge2 = -1;
-   } else if (particle == user_input) {
-      mass2 = user_mass_2;
-      charge2 = user_charge_2;
-   } else {
-      dprintf("ERROR: Second particle type not recognized!");
-      exit(-1);
-   }
-
-   this->n_turns = _n_turns;
-
-   // We don't have tuple momentum == we don't need cumulative_times
-   // assuming that momentum is a 2d array
-
-   this->momentum = _momentum;
-
-   this->alpha_order = _alpha_order - 1;
-
-   this->alpha = _alpha;
-
-   this->ring_length = _ring_length;
-
-   this->ring_circumference = std::accumulate(&ring_length[0],
-                              &ring_length[n_sections], 0.0);
-   this->ring_radius = ring_circumference / (2 * constant::pi);
-
-   if (n_sections > 1) {
-      // TODO do some things inside here
-      // Should ask danilo about this
-      // Danilo told me we could skip this for now
-   }
-
-   this->gamma.resize(n_sections, f_vector_t(n_turns + 1));
-   //= new ftype[n_sections * (n_turns + 1)];
-   this->beta.resize(n_sections, f_vector_t(n_turns + 1));
-   //  = new ftype[n_sections * (n_turns + 1)];
-   this->energy.resize(n_sections, f_vector_t(n_turns + 1));
-   //  = new ftype[n_sections * (n_turns + 1)];
-   this->kin_energy.resize(n_sections, f_vector_t(n_turns + 1));
-   //  = new ftype[n_sections * (n_turns + 1)];
-
-   const ftype masssq = mass * mass;
-
-   for (uint i = 0; i < n_sections; ++i) {
-      for (uint j = 0; j < n_turns + 1; ++j) {
-         const ftype momentumsq = momentum[i][j] * momentum[i][j];
-         this->beta[i][j] = std::sqrt(1 / (1 + (masssq / momentumsq)));
-         this->gamma[i][j] = std::sqrt(1 + (momentumsq / masssq));
-         this->energy[i][j] = std::sqrt(masssq + momentumsq);
-         this->kin_energy[i][j] = energy[i][j] - mass;
-      }
-   }
-
-   t_rev.resize(n_turns + 1, 0);
-   //for (int i = 0; i < n_turns + 1; ++i)
-   //   t_rev.push_back(0);
-   //dump(ring_length, 1, "ring_length\n");
-
-   // for (int j = 0; j < n_turns + 1; ++j)
-   //    for (int k = 0; k < n_sections; ++k)
-   //       t_rev[j] += ring_length[k] / (beta[k * (n_turns + 1) + j] * constant::c);
-
-   for (uint i = 0; i < n_sections; ++i)
-      for (uint j = 0; j < n_turns + 1; ++j)
-         t_rev[j] += ring_length[i] / (beta[i][j] * constant::c);
-
-   //dump(t_rev, 10, "t_rev\n");
-
-   //this->cycle_time = new ftype[n_turns];
-   cycle_time.resize(n_turns);
-   cycle_time[0] = 0;//t_rev[0];
-   for (uint i = 1; i < n_turns; ++i)
-      cycle_time[i] = t_rev[i] + cycle_time[i - 1];
-
-   //dump(cycle_time, 10, "cycle_time\n");
-   f_rev.resize(n_turns + 1);
-   //this->f_rev = new ftype[n_turns + 1];
-   for (uint i = 0; i < n_turns + 1; ++i)
-      f_rev[i] = 1 / t_rev[i];
-
-   //this->omega_rev = new ftype[n_turns + 1];
-   omega_rev.resize(n_turns + 1);
-   for (uint i = 0; i < n_turns + 1; ++i)
-      omega_rev[i] = 2 * constant::pi * f_rev[i];
-
-   if (alpha_order > 3) {
-      dprintf(
-         "WARNING: Momentum compaction factor is implemented only up to 2nd order");
-      alpha_order = 3;
-   }
-   this->eta_0.resize(n_sections, f_vector_t(n_turns + 1));
-   // = new ftype[n_sections * (n_turns + 1)];
-   this->eta_1.resize(n_sections, f_vector_t(n_turns + 1));
-   // = new ftype[n_sections * (n_turns + 1)];
-   this->eta_2.resize(n_sections, f_vector_t(n_turns + 1));
-   // = new ftype[n_sections * (n_turns + 1)];
-
-   eta_generation();
-}
 

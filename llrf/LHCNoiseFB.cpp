@@ -19,9 +19,12 @@
 
 
 
-LHCNoiseFB::LHCNoiseFB(ftype bl_target, ftype gain,
-                       ftype factor, ftype update_frequency,
-                       bool variable_gain, f_vector_t bunch_pattern)
+LHCNoiseFB::LHCNoiseFB(ftype bl_target,
+                       ftype gain,
+                       ftype factor,
+                       ftype update_frequency,
+                       bool variable_gain,
+                       f_vector_t bunch_pattern)
 {
    fX = 0.0;
    fBlTarg = bl_target;
@@ -49,6 +52,8 @@ LHCNoiseFB::LHCNoiseFB(ftype bl_target, ftype gain,
 
 }
 
+LHCNoiseFB::~LHCNoiseFB() {}
+
 
 // TODO test this function
 void LHCNoiseFB::track()
@@ -74,7 +79,8 @@ void LHCNoiseFB::track()
 
 
 
-ftype LHCNoiseFB::fwhm_interpolation(uint_vector_t index, ftype half_height)
+ftype LHCNoiseFB::fwhm_interpolation(uint_vector_t index,
+                                     ftype half_height)
 {
    const auto time_resolution = Slice->bin_centers[1] - Slice->bin_centers[0];
 
@@ -88,14 +94,14 @@ ftype LHCNoiseFB::fwhm_interpolation(uint_vector_t index, ftype half_height)
 
    const auto last = index.back();
    auto right = 0.0;
-   if (last < Slice->n_slices-1) {
+   if (last < Slice->n_slices - 1) {
       right = Slice->bin_centers[last]
               + (Slice->n_macroparticles[last] - half_height)
               / (Slice->n_macroparticles[last]
                  - Slice->n_macroparticles[last + 1])
               * time_resolution;
    }
-   
+
    // std::cout << "time_resolution " << time_resolution << '\n';
    // std::cout << "half_height " << half_height << '\n';
    // std::cout << "first " << first << '\n';

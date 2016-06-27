@@ -42,6 +42,9 @@ public:
    Slices *slices;
    TotalInducedVoltage *totalInducedVoltage;
 
+   //helping arrays for kick
+   ftype *vol, *omeg, *phi; 
+
    void set_periodicity();
    // Periodicity kick
    void kick(const int_vector_t &filter,
@@ -110,7 +113,6 @@ public:
                     Slices *Slices = NULL,
                     TotalInducedVoltage *TotalInducedVoltage = NULL);
    ~RingAndRfSection();
-
 
 };
 

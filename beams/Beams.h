@@ -10,7 +10,6 @@
 
 class Beams;
 
-//#include "../input_parameters/GeneralParameters.h"
 #include "globals.h"
 #include "utilities.h"
 #include "configuration.h"
@@ -31,14 +30,17 @@ public:
    uint n_macroparticles_lost;
    uint n_macroparticles;
    long intensity;
-   //GeneralParameters *gp;
    Beams(const uint _n_macroparticles, const long _intensity);
    ~Beams();
    uint n_macroparticles_alive();
    void losses_longitudinal_cut(const ftype *__restrict__ dt,
-                                const ftype dt_min, const ftype dt_max, int *__restrict__ id);
-   void losses_energy_cut(const ftype *__restrict__ dE, const ftype dE_min,
-                          const ftype dE_max, int *__restrict__ id);
+                                const ftype dt_min,
+                                const ftype dt_max,
+                                int *__restrict__ id);
+   void losses_energy_cut(const ftype *__restrict__ dE,
+                          const ftype dE_min,
+                          const ftype dE_max,
+                          int *__restrict__ id);
 
    void statistics();
 };

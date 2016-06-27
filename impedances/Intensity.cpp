@@ -10,7 +10,8 @@
 #include "constants.h"
 #include "math_functions.h"
 
-Resonators::Resonators(f_vector_t &RS, f_vector_t &FrequencyR,
+Resonators::Resonators(f_vector_t &RS,
+                       f_vector_t &FrequencyR,
                        f_vector_t &Q)
 {
    fRS = RS;
@@ -18,11 +19,11 @@ Resonators::Resonators(f_vector_t &RS, f_vector_t &FrequencyR,
    fQ = Q;
    fNResonators = RS.size();
    fOmegaR.reserve(fNResonators);
-   for (unsigned int i = 0; i < fNResonators; ++i) {
+   for (unsigned int i = 0; i < fNResonators; ++i)
       fOmegaR.push_back(2 * constant::pi * fFrequencyR[i]);
-   }
 }
 
+Resonators::~Resonators() {}
 
 
 void Resonators::wake_calc(const f_vector_t &NewTimeArray)
@@ -39,8 +40,6 @@ void Resonators::wake_calc(const f_vector_t &NewTimeArray)
       ftype alpha = fOmegaR[i] / (2 * fQ[i]);
       ftype omega_bar = std::sqrt(fOmegaR[i] * fOmegaR[i] -
                                   alpha * alpha);
-      //util::dump(&alpha, 1, "alpha ");
-      //util::dump(&omega_bar, 1, "omega_bar ");
 
       for (uint j = 0; j < fWake.size(); ++j) {
          ftype temp = fTimeArray[j];
@@ -79,7 +78,8 @@ void Resonators::imped_calc(const f_vector_t &NewFrequencyArray)
 
 }
 
-InputTable::InputTable(const f_vector_t &input1, const f_vector_t &input2,
+InputTable::InputTable(const f_vector_t &input1,
+                       const f_vector_t &input2,
                        const f_vector_t input3)
 {
    if (input3.empty()) {
@@ -107,6 +107,8 @@ InputTable::InputTable(const f_vector_t &input1, const f_vector_t &input2,
 
    }
 }
+
+InputTable::~InputTable() {}
 
 
 void InputTable::wake_calc(const f_vector_t &NewTimeArray)

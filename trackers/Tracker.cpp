@@ -7,17 +7,6 @@
 
 #include "Tracker.h"
 
-RingAndRfSection::~RingAndRfSection()
-{
-   //util::delete_array(this->TotalInducedVoltage);
-   //util::delete_array(this->acceleration_kick);
-   //util::delete_array(this->Slices);
-   //if (slices) delete slices;
-   //if (totalInducedVoltage) delete totalInducedVoltage;
-   //if (noiseFB) delete noiseFB;
-   //if (PL) delete PL;
-}
-
 // Two versions of kick, drift one with periodicity and another without periodiciy
 // First go the versions without periodicity
 
@@ -32,38 +21,45 @@ inline void RingAndRfSection::kick(const ftype *__restrict__ beam_dt,
                                    const ftype acc_kick)
 {
 
-   //beam_dE[0] += 1;
-   
-   if(n_threads > 1){
-      
+   if (n_threads > 1) {
+
       // KICK
+
       #pragma omp parallel for collapse(2)
-      for (uint j = 0; j < n_rf; ++j){
+      for (uint j = 0; j < n_rf; ++j) {
+         //#pragma omp parallel for
          for (uint i = 0; i < n_macroparticles; ++i) {
-            const ftype a = omega_RF[j] * beam_dt[i] + phi_RF[j];
-            beam_dE[i] += voltage[j] * mymath::fast_sin(a);
+            //const ftype a = omega_RF[j] * beam_dt[i] + phi_RF[j];
+            beam_dE[i] += voltage[j]
+                          * mymath::fast_sin(omega_RF[j] * beam_dt[i]
+                                             + phi_RF[j]);
          }
       }
+
 
       // SYNCHRONOUS ENERGY CHANGE
       #pragma omp parallel for
       for (uint i = 0; i < n_macroparticles; ++i)
          beam_dE[i] += acc_kick;
-   
-   }else{
+
+   } else {
+
       // KICK
-      for (uint j = 0; j < n_rf; ++j){
+      for (uint j = 0; j < n_rf; ++j) {
          for (uint i = 0; i < n_macroparticles; ++i) {
             const ftype a = omega_RF[j] * beam_dt[i] + phi_RF[j];
             beam_dE[i] += voltage[j] * mymath::fast_sin(a);
          }
       }
+
       // SYNCHRONOUS ENERGY CHANGE
       for (uint i = 0; i < n_macroparticles; ++i)
          beam_dE[i] += acc_kick;
+
    }
 
 }
+
 
 // kick with periodicity
 
@@ -106,19 +102,19 @@ inline void RingAndRfSection::drift(ftype *__restrict__ beam_dt,
                                     const ftype energy,
                                     const uint n_macroparticles)
 {
- 
+
    const ftype T = T0 * length_ratio;
 
    if (solver == simple) {
       const ftype T_x_coeff = T * eta_zero / (beta * beta * energy);
-      if(n_threads > 1)
+      if (n_threads > 1)
          #pragma omp parallel for
          for (uint i = 0; i < n_macroparticles; i++)
             beam_dt[i] += T_x_coeff * beam_dE[i];
       else
          for (uint i = 0; i < n_macroparticles; i++)
             beam_dt[i] += T_x_coeff * beam_dE[i];
-   }else {
+   } else {
       const ftype coeff = 1. / (beta * beta * energy);
       const ftype eta0 = eta_zero * coeff;
       const ftype eta1 = eta_one * coeff * coeff;
@@ -251,8 +247,6 @@ void RingAndRfSection::track()
 
          kick(indices_left_outside, RfP->counter);
          drift(indices_left_outside, RfP->counter + 1);
-         //std::cout << "dt[0] : " << Beam->dt[0] << "\n";
-         //std::cout << "dE[0] : " << Beam->dE[0] << "\n";
 
       }
 
@@ -268,6 +262,7 @@ void RingAndRfSection::track()
 
    if (dE_max > 0)
       horizontal_cut();
+
 
    RfP->counter++;
    //std::cout << "insiders : " << indices_inside_frame.size() << "\n";
@@ -336,7 +331,19 @@ RingAndRfSection::RingAndRfSection(solver_type _solver,
       GP->t_rev.push_back(GP->t_rev.back());
    }
 
+   vol = new ftype[RfP->n_rf];
+   omeg = new ftype[RfP->n_rf];
+   phi = new ftype[RfP->n_rf];
+
 }
+
+RingAndRfSection::~RingAndRfSection()
+{
+   delete[] vol;
+   delete[] omeg;
+   delete[] phi;
+}
+
 
 void RingAndRfSection::set_periodicity()
 {
@@ -355,9 +362,9 @@ void RingAndRfSection::set_periodicity()
 
 inline void RingAndRfSection::kick(const uint index)
 {
-   auto vol = new ftype[RfP->n_rf];
-   auto omeg = new ftype[RfP->n_rf];
-   auto phi = new ftype[RfP->n_rf];
+   // auto vol = new ftype[RfP->n_rf];
+   // auto omeg = new ftype[RfP->n_rf];
+   // auto phi = new ftype[RfP->n_rf];
 
    for (uint i = 0; i < RfP->n_rf; ++i) {
       vol[i] = RfP->voltage[i][index];
@@ -374,16 +381,16 @@ inline void RingAndRfSection::kick(const uint index)
         Beam->n_macroparticles,
         acceleration_kick[index]);
 
-   delete[] vol;
-   delete[] omeg;
-   delete[] phi;
+   //delete[] vol;
+   //delete[] omeg;
+   //delete[] phi;
 }
 
 void RingAndRfSection::kick(const int_vector_t &filter, const uint index)
 {
-   auto vol = new ftype[RfP->n_rf];
-   auto omeg = new ftype[RfP->n_rf];
-   auto phi = new ftype[RfP->n_rf];
+   // auto vol = new ftype[RfP->n_rf];
+   // auto omeg = new ftype[RfP->n_rf];
+   // auto phi = new ftype[RfP->n_rf];
 
    for (uint i = 0; i < RfP->n_rf; ++i) {
       vol[i] = RfP->voltage[i][index];
@@ -401,9 +408,9 @@ void RingAndRfSection::kick(const int_vector_t &filter, const uint index)
         acceleration_kick[index],
         filter);
 
-   delete[] vol;
-   delete[] omeg;
-   delete[] phi;
+   // delete[] vol;
+   // delete[] omeg;
+   // delete[] phi;
 }
 
 void RingAndRfSection::drift(const int_vector_t &filter, const uint index)

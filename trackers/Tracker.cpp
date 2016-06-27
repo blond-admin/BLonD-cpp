@@ -33,18 +33,35 @@ inline void RingAndRfSection::kick(const ftype *__restrict__ beam_dt,
 {
 
    //beam_dE[0] += 1;
-   // KICK
-   #pragma omp parallel for collapse(2)
-   for (uint j = 0; j < n_rf; ++j) {
-      for (uint i = 0; i < n_macroparticles; ++i) {
-         const ftype a = omega_RF[j] * beam_dt[i] + phi_RF[j];
-         beam_dE[i] += voltage[j] * mymath::fast_sin(a);
+   
+   if(n_threads > 1){
+      
+      // KICK
+      #pragma omp parallel for collapse(2)
+      for (uint j = 0; j < n_rf; ++j){
+         for (uint i = 0; i < n_macroparticles; ++i) {
+            const ftype a = omega_RF[j] * beam_dt[i] + phi_RF[j];
+            beam_dE[i] += voltage[j] * mymath::fast_sin(a);
+         }
       }
+
+      // SYNCHRONOUS ENERGY CHANGE
+      #pragma omp parallel for
+      for (uint i = 0; i < n_macroparticles; ++i)
+         beam_dE[i] += acc_kick;
+   
+   }else{
+      // KICK
+      for (uint j = 0; j < n_rf; ++j){
+         for (uint i = 0; i < n_macroparticles; ++i) {
+            const ftype a = omega_RF[j] * beam_dt[i] + phi_RF[j];
+            beam_dE[i] += voltage[j] * mymath::fast_sin(a);
+         }
+      }
+      // SYNCHRONOUS ENERGY CHANGE
+      for (uint i = 0; i < n_macroparticles; ++i)
+         beam_dE[i] += acc_kick;
    }
-   // SYNCHRONOUS ENERGY CHANGE
-   #pragma omp parallel for
-   for (uint i = 0; i < n_macroparticles; ++i)
-      beam_dE[i] += acc_kick;
 
 }
 
@@ -89,35 +106,37 @@ inline void RingAndRfSection::drift(ftype *__restrict__ beam_dt,
                                     const ftype energy,
                                     const uint n_macroparticles)
 {
-
-//beam_dt[0] += 0.000001;
-
-   uint i;
-   ftype T = T0 * length_ratio;
+ 
+   const ftype T = T0 * length_ratio;
 
    if (solver == simple) {
-      ftype coeff = eta_zero / (beta * beta * energy);
-      #pragma omp parallel for
-      for (i = 0; i < n_macroparticles; i++)
-         beam_dt[i] += T * coeff * beam_dE[i];
-   }
-
-   else {
+      const ftype T_x_coeff = T * eta_zero / (beta * beta * energy);
+      if(n_threads > 1)
+         #pragma omp parallel for
+         for (uint i = 0; i < n_macroparticles; i++)
+            beam_dt[i] += T_x_coeff * beam_dE[i];
+      else
+         for (uint i = 0; i < n_macroparticles; i++)
+            beam_dt[i] += T_x_coeff * beam_dE[i];
+   }else {
       const ftype coeff = 1. / (beta * beta * energy);
       const ftype eta0 = eta_zero * coeff;
       const ftype eta1 = eta_one * coeff * coeff;
       const ftype eta2 = eta_two * coeff * coeff * coeff;
 
       if (alpha_order == 1)
-         for (i = 0; i < n_macroparticles; i++)
+         #pragma omp parallel for
+         for (uint i = 0; i < n_macroparticles; i++)
             beam_dt[i] += T * (1. / (1. - eta0 * beam_dE[i]) - 1.);
       else if (alpha_order == 2)
-         for (i = 0; i < n_macroparticles; i++)
+         #pragma omp parallel for
+         for (uint i = 0; i < n_macroparticles; i++)
             beam_dt[i] += T * (1. / (1. - eta0 * beam_dE[i]
                                      - eta1 * beam_dE[i]
                                      * beam_dE[i]) - 1.);
       else
-         for (i = 0; i < n_macroparticles; i++)
+         #pragma omp parallel for
+         for (uint i = 0; i < n_macroparticles; i++)
             beam_dt[i] += T * (1. / (1. - eta0 * beam_dE[i]
                                      - eta1 * beam_dE[i]
                                      * beam_dE[i] - eta2

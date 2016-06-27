@@ -7,7 +7,6 @@
 #include <gtest/gtest.h>
 #include "math_functions.h"
 #include "utilities.h"
-#include "configuration.h"
 #include "../beams/Distributions.h"
 #include "../input_parameters/GeneralParameters.h"
 #include "../trackers/Tracker.h"

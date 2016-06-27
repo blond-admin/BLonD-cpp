@@ -55,12 +55,6 @@ int main(int argc, char **argv)
 
    parse_args(argc, argv);
 
-   //N_t = atoi(util::GETENV("N_TURNS")) ? atoi(util::GETENV("N_TURNS")) : N_t;
-   //N_p = atoi(util::GETENV("N_PARTICLES")) ? atoi(util::GETENV("N_PARTICLES")) : N_p;
-   //N_slices = atoi(util::GETENV("N_SLICES")) ? atoi(util::GETENV("N_SLICES")) : N_slices;
-   //n_threads =
-   //   atoi(util::GETENV("N_THREADS")) ? atoi(util::GETENV("N_THREADS")) : n_threads;
-
    omp_set_num_threads(n_threads);
 
    printf("Setting up the simulation...\n\n");
@@ -69,8 +63,8 @@ int main(int argc, char **argv)
    printf("Number of Slices: %d\n", N_slices);
    printf("Number of openmp threads: %d\n", n_threads);
 
-   timespec begin, end;
-   util::get_time(begin);
+   // timespec begin, end;
+   // util::get_time(begin);
 
    f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1));
    for (auto &v : momentumVec)
@@ -86,28 +80,20 @@ int main(int argc, char **argv)
 
    f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 
-
    GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order, momentumVec,
                               proton);
 
    Beam = new Beams(N_p, N_b);
 
    RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
-   //printf("omega_rf = %lf\n",RfP->omega_RF[0]);
 
    RingAndRfSection *long_tracker = new RingAndRfSection();
-   //util::dump(Beam->dE, 10, "dE\n");
 
    longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
 
    Slice = new Slices(N_slices);
 
-   //util::dump(Slice->bin_centers, N_slices, "bin_centers\n");
-   //util::dump(Beam->dt, 10, "dt\n");
-   //util::dump(Beam->dE, 10, "dE\n");
-
    double slice_time = 0, track_time = 0;
-
    timespec begin_t;
 
    for (int i = 0; i < N_t; ++i) {
@@ -131,13 +117,14 @@ int main(int argc, char **argv)
    }
 
 
-   util::get_time(end);
-   util::print_time("Simulation Time", begin, end);
-   // double total_time = track_time + slice_time;
-   // printf("Track time : %.4lf ( %.2lf %% )\n", track_time,
-   //        100 * track_time / total_time);
-   // printf("Slice time : %.4lf ( %.2lf %% )\n", slice_time,
-   //        100 * slice_time / total_time);
+   std::cout << std::scientific;
+   std::cout << "Average Turn Time : "
+             << (slice_time + track_time) / N_t
+             << std::endl;
+   std::cout << "Average Tracker Track Time : "
+             << track_time / N_t << std::endl;
+   std::cout << "Average Slice Track Time : "
+             << slice_time / N_t << std::endl;
 
    // util::dump(Beam->dE.data(), 10, "dE\n");
    // util::dump(Beam->dt.data(), 10, "dt\n");

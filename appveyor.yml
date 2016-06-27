@@ -23,9 +23,8 @@ before_build:
   - cmake ..
   - DIR
 
-build:
-    project: C:\projects\blond-minimal-cpp\build\BLonD-minimal-cpp.sln
-    parallel: true   
+build_script::
+  - cmake --build .. -- /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 
 test_script:
   - ctest -VV

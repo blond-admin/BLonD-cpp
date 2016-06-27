@@ -41,9 +41,10 @@ NOT Stable - Under heavy development
     ```bash
     cd BLonD++
     mkdir build  
-    cd build  
-    cmake .. # or cmake -DUSE_FFTW_OMP=True .. for the multithreaded version
-    make  
+    cd build 
+    cmake --help .. # to see avaliable options
+    cmake .. # use opptions like cmake -DUSE_FFTW_OMP=True .. for the multithreaded version on Linux
+    cmake --build ..
     ```
 
 3. The executables should be ready!

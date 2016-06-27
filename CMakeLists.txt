@@ -35,6 +35,7 @@ set(BENCHMARK_ROOT ${PROJECT_SOURCE_DIR}/external/benchmark CACHE STRING "Google
 
 if (MSVC)
     #set(WITH_GSL "True")
+    #set(WITH_BOOST "True")
     set(WITH_FFTW "True")
     set(WITH_GOOGLETEST "True")
     set(WITH_BENCHMARK "True")
@@ -43,13 +44,22 @@ endif ()
 # Package settings
 set(USE_FFTW_OMP "False" CACHE STRING "Should use OpenMP flavour of FFTW library (linux only)")
 
-
 # CPU for build count
 ProcessorCount(N)
 if (NOT N EQUAL 0)
-    set(CTEST_BUILD_FLAGS -j${N})
     set(ctest_test_args ${ctest_test_args} PARALLEL_LEVEL ${N})
 endif ()
+
+set(ARCHITECTURE "Default"  CACHE STRING "Two architectures avaliable 'Dafault' and 'x64', it is impartant for external libraries")
+if((${CMAKE_GENERATOR} MATCHES ".*(64).*") OR (${CMAKE_SIZEOF_VOID_P} MATCHES ".*(64).*"))
+    set(ARCHITECTURE "x64")
+    message(FATAL_ERROR "Unknown architecture: ${CMAKE_SIZEOF_VOID_P}")
+endif()
+
+set(ARCHITECTURE "x64" CACHE STRING "Should we use x86 or x64 architecture")
+
+if()
+
 
 #Compiler, Linker options
 

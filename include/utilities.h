@@ -36,7 +36,8 @@
 namespace util {
 
    template<typename T>
-   static inline void read_vector_from_file(std::vector<T> &v, std::string file)
+   static inline void read_vector_from_file(std::vector<T> &v,
+         std::string file)
    {
 
       std::ifstream source(file);
@@ -100,7 +101,9 @@ namespace util {
    }
 
    template<typename T>
-   static inline void dump(const T *a, const unsigned n, const char *s)
+   static inline void dump(const T *a,
+                           const unsigned n,
+                           const char *s)
    {
 #ifdef PRINT_RESULTS
       std::cout.precision(PRECISION);
@@ -113,7 +116,9 @@ namespace util {
    }
 
    template<typename T>
-   static inline void dump(const std::vector<T> &a, const char *s, uint n = 0)
+   static inline void dump(const std::vector<T> &a,
+                           const char *s,
+                           uint n = 0)
    {
 #ifdef PRINT_RESULTS
       n = (n == 0) ? a.size() : n;
@@ -127,7 +132,8 @@ namespace util {
    }
 
    template<typename T>
-   static inline void dump(const T a, const char *s)
+   static inline void dump(const T a,
+                           const char *s)
    {
 #ifdef PRINT_RESULTS
       std::cout.precision(PRECISION);
@@ -138,7 +144,8 @@ namespace util {
    }
 
 
-   static inline double time_diff(timespec const &end, timespec const &begin)
+   static inline double time_diff(timespec const &end,
+                                  timespec const &begin)
    {
 #ifdef TIMING
       double result;
@@ -183,7 +190,8 @@ namespace util {
 #endif
    }
 
-   static inline void print_time(char const *prompt, timespec const &begin,
+   static inline void print_time(char const *prompt,
+                                 timespec const &begin,
                                  timespec const &end)
    {
 #ifdef TIMING
@@ -191,7 +199,8 @@ namespace util {
 #endif
    }
 
-   static inline void print_time(char const *prompt, double diff)
+   static inline void print_time(char const *prompt,
+                                 double diff)
    {
 #ifdef TIMING
       dprintf("%s : %.3f\n", prompt, diff);

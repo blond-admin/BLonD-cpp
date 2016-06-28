@@ -18,9 +18,13 @@
 #include <constants.h>
 
 
-LHCNoiseFB::LHCNoiseFB(ftype bl_target, ftype gain,
-                       ftype factor, ftype update_frequency,
-                       bool variable_gain, f_vector_t bunch_pattern)
+
+LHCNoiseFB::LHCNoiseFB(ftype bl_target,
+                       ftype gain,
+                       ftype factor,
+                       ftype update_frequency,
+                       bool variable_gain,
+                       f_vector_t bunch_pattern)
 {
    fX = 0.0;
    fBlTarg = bl_target;
@@ -48,6 +52,8 @@ LHCNoiseFB::LHCNoiseFB(ftype bl_target, ftype gain,
 
 }
 
+LHCNoiseFB::~LHCNoiseFB() {}
+
 
 // TODO test this function
 void LHCNoiseFB::track()
@@ -73,7 +79,8 @@ void LHCNoiseFB::track()
 
 
 
-ftype LHCNoiseFB::fwhm_interpolation(int_vector_t index, ftype half_height)
+ftype LHCNoiseFB::fwhm_interpolation(uint_vector_t index,
+                                     ftype half_height)
 {
    const auto time_resolution = Slice->bin_centers[1] - Slice->bin_centers[0];
 
@@ -87,7 +94,7 @@ ftype LHCNoiseFB::fwhm_interpolation(int_vector_t index, ftype half_height)
 
    const auto last = index.back();
    auto right = 0.0;
-   if (last < Slice->n_slices) {
+   if (last < Slice->n_slices - 1) {
       right = Slice->bin_centers[last]
               + (Slice->n_macroparticles[last] - half_height)
               / (Slice->n_macroparticles[last]
@@ -95,12 +102,15 @@ ftype LHCNoiseFB::fwhm_interpolation(int_vector_t index, ftype half_height)
               * time_resolution;
    }
 
-   // util::dump(Slice->n_macroparticles, 100, "n_macroparticles\n");
    // std::cout << "time_resolution " << time_resolution << '\n';
+   // std::cout << "half_height " << half_height << '\n';
    // std::cout << "first " << first << '\n';
    // std::cout << "bin_centers[first] " << Slice->bin_centers[first] << '\n';
+   // std::cout << "bin_centers[last] " << Slice->bin_centers[last] << '\n';
    // std::cout << "n_macroparticles[first] " << Slice->n_macroparticles[first] << '\n';
    // std::cout << "n_macroparticles[prev] " << Slice->n_macroparticles[prev] << '\n';
+   // std::cout << "n_macroparticles[last] " << Slice->n_macroparticles[last] << '\n';
+   // std::cout << "n_macroparticles[last+1] " << Slice->n_macroparticles[last + 1] << '\n';
    // std::cout << "left " << left << '\n';
    // std::cout << "last " << last << '\n';
    // std::cout << "right " << right << '\n';
@@ -114,12 +124,12 @@ ftype LHCNoiseFB::fwhm_interpolation(int_vector_t index, ftype half_height)
 void LHCNoiseFB::fwhm_single_bunch()
 {
    // Single-bunch FWHM bunch length calculation with interpolation.
-   auto i = mymath::max(Slice->n_macroparticles, Slice->n_slices);
-   auto half_height = Slice->n_macroparticles[i] / 2;
+   auto i = mymath::max(Slice->n_macroparticles.data(), Slice->n_slices);
+   ftype half_height = Slice->n_macroparticles[i] / 2;
 
-   int_vector_t index;
+   uint_vector_t index;
 
-   for (int i = 0; i < Slice->n_slices; ++i)
+   for (uint i = 0; i < Slice->n_slices; ++i)
       if (Slice->n_macroparticles[i] > half_height)
          index.push_back(i);
 
@@ -135,8 +145,8 @@ void LHCNoiseFB::fwhm_multi_bunch()
 
    // Find correct RF buckets
 
-   f_vector_t phi_RF(&RfP->phi_RF[0], &RfP->phi_RF[RfP->counter]);
-   f_vector_t omega_RF(&RfP->omega_RF[0], &RfP->omega_RF[RfP->counter]);
+   f_vector_t phi_RF(RfP->phi_RF[0].begin(), RfP->phi_RF[0].end());
+   f_vector_t omega_RF(RfP->omega_RF[0].begin(), RfP->omega_RF[0].end());
 
    f_vector_t bucket_min(phi_RF.size());
 
@@ -151,22 +161,22 @@ void LHCNoiseFB::fwhm_multi_bunch()
 
    // Bunch-by-bunch FWHM bunch length
    for (uint i = 0; i < fBunchPattern.size(); ++i) {
-      int_vector_t bind;
-      for (int j = 0; j < Slice->n_slices; ++j) {
+      uint_vector_t bind;
+      for (uint j = 0; j < Slice->n_slices; ++j) {
          auto val = (Slice->bin_centers[j] - bucket_min[i])
                     * (Slice->bin_centers[j] - bucket_max[i]) < 0;
          if (val) bind.push_back(j);
       }
 
-      auto hheight = 0;
+      ftype hheight = 0;
       for (const auto &j : bind) {
          if (Slice->n_macroparticles[j] > hheight)
             hheight = Slice->n_macroparticles[j];
       }
 
-      int_vector_t index;
+      uint_vector_t index;
 
-      int k = 0;
+      uint k = 0;
       for (const auto &j : bind) {
          if (Slice->n_macroparticles[j] > hheight)
             index.push_back(bind[k]);

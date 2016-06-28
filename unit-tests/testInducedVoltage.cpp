@@ -58,30 +58,25 @@ protected:
 
       omp_set_num_threads(n_threads);
 
-      f_vector_t momentum(N_t+1);
-      std::fill_n(momentum.begin(), N_t + 1, p_i);
+      f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1, p_i));
 
-      ftype *alpha_array = new ftype[(alpha_order + 1) * n_sections];
-      std::fill_n(alpha_array, (alpha_order + 1) * n_sections, alpha);
+      f_vector_2d_t alphaVec(n_sections , f_vector_t(alpha_order+1, alpha));
 
-      ftype *C_array = new ftype[n_sections];
-      std::fill_n(C_array, n_sections, C);
+      f_vector_t CVec(n_sections, C);
 
-      ftype *h_array = new ftype[n_sections * (N_t + 1)];
-      std::fill_n(h_array, (N_t + 1) * n_sections, h);
+      f_vector_2d_t hVec(n_sections , f_vector_t(N_t + 1, h));
 
-      ftype *V_array = new ftype[n_sections * (N_t + 1)];
-      std::fill_n(V_array, (N_t + 1) * n_sections, V);
+      f_vector_2d_t voltageVec(n_sections , f_vector_t(N_t + 1, V));
 
-      ftype *dphi_array = new ftype[n_sections * (N_t + 1)];
-      std::fill_n(dphi_array, (N_t + 1) * n_sections, dphi);
+      f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 
-      GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum.data(),
-                                 proton);
+      GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
+                                 momentumVec, proton);
 
       Beam = new Beams(N_p, N_b);
 
-      RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
+      RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+
 
       //RingAndRfSection *long_tracker = new RingAndRfSection();
 
@@ -203,7 +198,7 @@ TEST_F(testInducedVoltage, InducedVoltageTimeReprocess)
 
    Slice->track();
 
-   for (int i = 0; i < Slice->n_slices; i++)
+   for (uint i = 0; i < Slice->n_slices; i++)
       Slice->bin_centers[i] *= 1.1;
 
    indVoltTime->reprocess();

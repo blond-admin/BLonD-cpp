@@ -14,10 +14,10 @@ if(!COMPILER_HAS_CXX11)
 endif()
 
 include_directories(include $ENV{HOME}/opt/include)
-#include_directories(external/opt/include)
+include_directories(external/opt/include)
 link_directories(/usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64)
 link_directories($ENV{HOME}/opt/lib)
-#link_directories(external/opt/lib)
+link_directories(external/opt/lib)
 
 #set(TEST_ENABLED "True")
 set(GOOGLETEST_ROOT external/googletest/googletest CACHE STRING "Google Test source root")
@@ -45,7 +45,7 @@ if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
          set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
       endif()
       
-      set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fopt-info-vec=report.txt")
+      set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}") #-fopt-info-vec=report.txt")
       
       set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-flto")
       if(TEST_ENABLED)
@@ -102,7 +102,6 @@ file(GLOB SOURCES
       llrf/*.cpp
       impedances/*.cpp
       )
-
 set(SOURCE_FILES ${SOURCES})
 
 #set_source_files_properties(impedances/InducedVoltage.cpp PROPERTIES COMPILE_FLAGS "-fopt-info-vec=report.txt")
@@ -114,9 +113,6 @@ set(SOURCE_FILES ${SOURCES})
 # SHARED for dynamic LINKING
 # STATIC for static LINKING
 add_library(blond SHARED ${SOURCE_FILES})
-
-
-
 
 file(GLOB EXECUTABLE_SOURCES "tests/*.cpp")
 set(EXECUTABLE_FILES ${EXECUTABLE_SOURCES})
@@ -130,7 +126,7 @@ foreach(src ${EXECUTABLE_FILES})
 endforeach()
 
 
-# Generate unit tests
+#Generate unit tests
 if(TEST_ENABLED)
    file(GLOB TEST_SOURCES unit-tests/*.cpp)
    set(TEST_SOURCE_FILES ${TEST_SOURCES})

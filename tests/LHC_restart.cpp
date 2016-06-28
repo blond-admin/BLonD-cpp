@@ -31,10 +31,7 @@ const float gamma_t = 55.759505;  // Transition gamma
 const float alpha = 1. / gamma_t / gamma_t;     // First order mom. comp. factor
 
 // Tracking details
-int N_t = 1000000;        // Number of turns to track; full ramp: 8700001
-int dt_plt = 100000;      // Time steps between plots
-int dt_mon = 1;           // Time steps between monitoring
-int dt_save = 1000000;    // Time steps between saving coordinates
+uint N_t = 1000000;        // Number of turns to track; full ramp: 8700001
 int bl_target = 1.25e-9;  // 4 sigma r.m.s. target bunch length in [s]
 
 int N_slices = 151;
@@ -71,67 +68,61 @@ int main(int argc, char **argv)
    printf("Number of turns: %d\n", N_t);
    printf("Number of macro-particles: %d\n", N_p);
    printf("Number of Slices: %d\n", N_slices);
-
-   #pragma omp parallel
-   {
-      if (omp_get_thread_num() == 0)
-         printf("Number of openmp threads: %d\n", omp_get_num_threads());
-   }
+   printf("Number of openmp threads: %d\n", n_threads);
 
    //printf("Setting up the simulation..\n");
    timespec begin, end;
    util::get_time(begin);
 
-   std::vector < ftype > v;
-   util::read_vector_from_file(v, datafiles + "LHC_momentum_programme");
+   f_vector_2d_t momentumVec(1, f_vector_t());
+   util::read_vector_from_file(momentumVec[0], datafiles + "LHC_momentum_programme");
 
    // optional
-   v.erase(v.begin(), v.begin() + from_line);
+   momentumVec[0].erase(
+      momentumVec[0].begin(),
+      momentumVec[0].begin() + from_line);
 
    //std::cout << "vector size is " << v.size() << "\n";
-   int remaining = N_t + 1 - v.size();
+   int remaining = N_t + 1 - momentumVec[0].size();
    for (int i = 0; i < remaining; ++i) {
-      v.push_back(6.5e12);
+      momentumVec[0].push_back(6.5e12);
    }
-   assert((int) v.size() == N_t + 1);
-   ftype *ps = &v[0];   //new ftype[v.size()];
+   assert(momentumVec[0].size() == N_t + 1);
+   //ftype *ps = &v[0];   //new ftype[v.size()];
 
-   printf("Length of ps is %lu\n", v.size());
-   printf("Flat top momentum %.4e eV\n", ps[N_t]);
+   printf("Length of ps is %lu\n", momentumVec[0].size());
+   printf("Flat top momentum %.4e eV\n", momentumVec[0][N_t]);
 
-   ftype *V_array = new ftype[N_t + 1];
-   mymath::linspace(V_array, 6e6, 10e6, 13563374, 13e6);
-   std::fill_n(&V_array[563374], 436627, 10e6);
+   //ftype *V_array = new ftype[N_t + 1];
+   f_vector_2d_t voltageVec(1, f_vector_t(N_t + 1));
+   mymath::linspace(voltageVec[0].data(), 6e6, 10e6, 13563374, 13e6);
+   std::fill_n(&voltageVec[0][563374], 436627, 10e6);
    printf("Length of V is %d\n", N_t + 1);
-   printf("Flat top voltage %.4e eV\n", V_array[N_t]);
+   printf("Flat top voltage %.4e eV\n", voltageVec[0][N_t]);
    printf("Momentum and voltage loaded\n");
 
    // Define general parameters
    int alpha_order = 1;
    int n_sections = 1;
-   ftype *alpha_array = new ftype[(alpha_order + 1) * n_sections];
-   std::fill_n(alpha_array, (alpha_order + 1) * n_sections, alpha);
+   f_vector_2d_t alphaVec(n_sections, f_vector_t(alpha_order+1, alpha));
 
-   ftype *C_array = new ftype[n_sections];
-   C_array[0] = C;
+   f_vector_t CVec(n_sections, C);
 
-   GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, ps,
-                              proton);
+   GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
+                              momentumVec, proton);
 
    printf("General parameters set...\n");
    // Define rf_params
-   ftype *dphi_array = new ftype[n_sections * (N_t + 1)];
-   std::fill_n(dphi_array, (N_t + 1) * n_sections, dphi);
+   f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 
-   ftype *h_array = new ftype[n_sections * (N_t + 1)];
-   std::fill_n(h_array, (N_t + 1) * n_sections, h);
+   f_vector_2d_t hVec(n_sections , f_vector_t(N_t + 1, h));
 
-   RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
+   RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
    printf("RF parameters set...\n");
 
    // Define beam and distribution: Load matched, filamented distribution
    Beam = new Beams(N_p, N_b);
-   std::vector < ftype > v2;
+   f_vector_t v2;
    util::read_vector_from_file(v2, datafiles + "coords_13000001.dat");
    int k = 0;
    for (unsigned int i = 0; i < v2.size(); i += 3) {
@@ -146,9 +137,10 @@ int main(int argc, char **argv)
    // Define phase loop and frequency loop gain
    ftype PL_gain = 1 / (5 * GP->t_rev[0]);
    ftype SL_gain = PL_gain / 10;
-   ftype *PL_gain_array = new ftype[N_t + 1];
-   std::fill_n(PL_gain_array, N_t + 1, PL_gain);
-   LHC *PL = new LHC(PL_gain_array, SL_gain);
+
+   f_vector_t PL_gainVec(N_t + 1, PL_gain);
+
+   LHC *PL = new LHC(PL_gainVec, SL_gain);
 
    printf("\tPL gain is %.4e 1/s for initial turn T0 = %.4e s\n", PL->gain[0],
           GP->t_rev[0]);
@@ -174,7 +166,7 @@ int main(int argc, char **argv)
 
    printf("Ready for tracking!\n");
 
-   for (int i = 0; i < N_t; ++i) {
+   for (uint i = 0; i < N_t; ++i) {
 
       printf("\nTurn %d\n", i);
 
@@ -184,14 +176,11 @@ int main(int argc, char **argv)
          PL->reference = 1.0472;
 
       util::get_time(begin_t);
-
       Slice->track();
-
       slice_time += util::time_elapsed(begin_t);
+
       util::get_time(begin_t);
-
       long_tracker->track();
-
       track_time += util::time_elapsed(begin_t);
 
       printf("   RF phase %.6e rad\n", RfP->dphi_RF[0]);
@@ -201,54 +190,6 @@ int main(int argc, char **argv)
    }
 
 
-
-   /*
-   #pragma omp parallel
-   {
-      int id = omp_get_thread_num();
-      int threads = omp_get_num_threads();
-      int tile = std::ceil(1.0 * N_p / threads);
-      int start = id * tile;
-      int end = std::min(start + tile, N_p);
-      //printf("id, threads, tile, start, end = %d, %d, %d, %d, %d\n", id,
-      //    threads, tile, start, end);
-      for (int i = 0; i < N_t; ++i) {
-
-         #pragma omp single
-         {
-            printf("\nTurn %d\n", i);
-
-            if (RfP->counter < 570000)
-               PL->reference = 0.5236;
-            else
-               PL->reference = 1.0472;
-
-         }
-
-         if (id == 0) util::get_time(begin_t);
-
-         Slice->track(start, end);
-
-         #pragma omp barrier
-         if (id == 0) slice_time += util::time_elapsed(begin_t);
-         if (id == 0) util::get_time(begin_t);
-
-         long_tracker->track(start, end);
-
-         #pragma omp barrier
-         if (id == 0) track_time += util::time_elapsed(begin_t);
-
-         #pragma omp single
-         {
-            //printf("   Beam energy %.6e eV\n", GP->energy[0]);
-            printf("   RF phase %.6e rad\n", RfP->dphi_RF[0]);
-            printf("   PL phase correction %.6e rad\n", PL->dphi);
-            RfP->counter++;
-         }
-
-      }
-   }
-   */
    util::get_time(end);
    util::print_time("Simulation Time", begin, end);
 
@@ -259,7 +200,7 @@ int main(int argc, char **argv)
           100 * slice_time / total_time);
    util::dump(Beam->dE.data(), 10, "dE\n");
    util::dump(Beam->dt.data(), 10, "dt\n");
-   util::dump(Slice->n_macroparticles, 10, "n_macroparticles\n");
+   util::dump(Slice->n_macroparticles.data(), 10, "n_macroparticles\n");
 
    delete PL;
    delete Slice;

@@ -16,7 +16,14 @@ typedef unsigned int uint;
 typedef std::complex<ftype> complex_t;
 typedef std::vector<ftype> f_vector_t;
 typedef std::vector<int> int_vector_t;
+typedef std::vector<uint> uint_vector_t;
 typedef std::vector<complex_t> complex_vector_t;
+
+typedef std::vector<f_vector_t> f_vector_2d_t;
+typedef std::vector<int_vector_t> int_vector_2d_t;
+typedef std::vector<uint_vector_t> uint_vector__2d_t;
+typedef std::vector<complex_vector_t> complex_vector_2d_t;
+
 const unsigned PRECISION = 8;
 
 // Compile time switches

@@ -10,16 +10,18 @@
 * :Authors: **Helga Timko**
 */
 
-#include "PhaseNoise.h" 
+#include "PhaseNoise.h"
 #include <random>
 #include <algorithm>
 #include <constants.h>
+#include <fft.h>
 #include <math_functions.h>
 
 
 PhaseNoise::PhaseNoise(f_vector_t freqArray,
                        f_vector_t realPartOfSpectrum,
-                       int seed1, int seed2)
+                       int seed1,
+                       int seed2)
 {
 
    fFreqArray = freqArray;
@@ -32,7 +34,12 @@ PhaseNoise::PhaseNoise(f_vector_t freqArray,
    fDt = 0;
 }
 
-// TODO test this function
+PhaseNoise::~PhaseNoise()
+{
+   fft::destroy_plans();
+}
+
+
 void PhaseNoise::spectrum_to_phase_noise(PhaseNoise::transform_t transform)
 {
 
@@ -101,7 +108,6 @@ void PhaseNoise::spectrum_to_phase_noise(PhaseNoise::transform_t transform)
       // FFT to frequency domain
       complex_vector_t Gf;
       fft::rfft(Gt, Gf);
-
       // auto sum = 0.0;
       // for (const auto &v : Gf)
       //    sum += std::abs(v);
@@ -252,8 +258,5 @@ void PhaseNoise::spectrum_to_phase_noise(PhaseNoise::transform_t transform)
    }
 
    //std::cout << "mean dphi : " << mymath::mean(fDphi.data(), fDphi.size()) << "\n";
-
-
-
 
 }

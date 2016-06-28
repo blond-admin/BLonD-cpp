@@ -66,32 +66,26 @@ int main(int argc, char **argv)
    // timespec begin, end;
    // util::get_time(begin);
 
-   ftype *momentum = new ftype[N_t + 1];
-   mymath::linspace(momentum, p_i, p_f, N_t + 1);
+   f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1));
+   for (auto &v : momentumVec)
+      mymath::linspace(v.data(), p_i, p_f, N_t + 1);
 
-   ftype *alpha_array = new ftype[(alpha_order + 1) * n_sections];
-   std::fill_n(alpha_array, (alpha_order + 1) * n_sections, alpha);
+   f_vector_2d_t alphaVec(n_sections, f_vector_t(alpha_order+1, alpha));
 
-   ftype *C_array = new ftype[n_sections];
-   std::fill_n(C_array, n_sections, C);
+   f_vector_t CVec(n_sections, C);
 
-   ftype *h_array = new ftype[n_sections * (N_t + 1)];
-   std::fill_n(h_array, (N_t + 1) * n_sections, h);
+   f_vector_2d_t hVec(n_sections , f_vector_t(N_t + 1, h));
 
-   ftype *V_array = new ftype[n_sections * (N_t + 1)];
-   std::fill_n(V_array, (N_t + 1) * n_sections, V);
+   f_vector_2d_t voltageVec(n_sections , f_vector_t(N_t + 1, V));
 
-   ftype *dphi_array = new ftype[n_sections * (N_t + 1)];
-   std::fill_n(dphi_array, (N_t + 1) * n_sections, dphi);
+   f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 
-// TODO variables must be in the correct format (arrays for all)
-
-   GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum,
+   GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order, momentumVec,
                               proton);
 
    Beam = new Beams(N_p, N_b);
 
-   RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
+   RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
 
    RingAndRfSection *long_tracker = new RingAndRfSection();
 
@@ -100,7 +94,6 @@ int main(int argc, char **argv)
    Slice = new Slices(N_slices);
 
    double slice_time = 0, track_time = 0;
-
    timespec begin_t;
 
    for (int i = 0; i < N_t; ++i) {
@@ -132,6 +125,7 @@ int main(int argc, char **argv)
              << track_time / N_t << std::endl;
    std::cout << "Average Slice Track Time : "
              << slice_time / N_t << std::endl;
+
    // util::dump(Beam->dE.data(), 10, "dE\n");
    // util::dump(Beam->dt.data(), 10, "dt\n");
    // util::dump(Slice->n_macroparticles, 10, "n_macroparticles\n");

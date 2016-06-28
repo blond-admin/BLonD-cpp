@@ -33,51 +33,43 @@ protected:
 
    virtual void SetUp()
    {
-      //printf("ok here\n");
-
-      std::vector < ftype > v;
-      util::read_vector_from_file(v, datafiles + "LHC_momentum_programme");
+      f_vector_2d_t momentumVec(1, f_vector_t());
+      util::read_vector_from_file(momentumVec[0], datafiles + "LHC_momentum_programme");
 
       // optional
-      v.erase(v.begin(), v.begin() + from_line);
+      momentumVec[0].erase(
+         momentumVec[0].begin(),
+         momentumVec[0].begin() + from_line);
 
-      int remaining = N_t + 1 - v.size();
+      //std::cout << "vector size is " << v.size() << "\n";
+      int remaining = N_t + 1 - momentumVec[0].size();
       for (int i = 0; i < remaining; ++i) {
-         v.push_back(6.5e12);
+         momentumVec[0].push_back(6.5e12);
       }
-      assert((int) v.size() == N_t + 1);
-      ftype *ps = &v[0];  //new ftype[v.size()];
-
-
-      ftype *V_array = new ftype[N_t + 1];
-      mymath::linspace(V_array, 6e6, 10e6, 13563374, 13e6);
-      std::fill_n(&V_array[563374], 436627, 10e6);
+      assert(momentumVec[0].size() == N_t + 1);
+      //ftype *V_array = new ftype[N_t + 1];
+      f_vector_2d_t voltageVec(1, f_vector_t(N_t + 1));
+      mymath::linspace(voltageVec[0].data(), 6e6, 10e6, 13563374, 13e6);
+      std::fill_n(&voltageVec[0][563374], 436627, 10e6);
 
       // Define general parameters
+      f_vector_2d_t alphaVec(alpha_order + 1, f_vector_t(n_sections, alpha));
 
-      ftype *alpha_array = new ftype[(alpha_order + 1) * n_sections];
-      std::fill_n(alpha_array, (alpha_order + 1) * n_sections, alpha);
+      f_vector_t CVec(n_sections, C);
 
-      ftype *C_array = new ftype[n_sections];
-      std::fill_n(C_array, n_sections, C);
+      GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
+                                 momentumVec, proton);
 
-      GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, ps,
-                                 proton);
+      f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 
-      // Define rf_params
-      ftype *dphi_array = new ftype[n_sections * (N_t + 1)];
-      std::fill_n(dphi_array, (N_t + 1) * n_sections, dphi);
+      f_vector_2d_t hVec(n_sections , f_vector_t(N_t + 1, h));
 
-      ftype *h_array = new ftype[n_sections * (N_t + 1)];
-      std::fill_n(h_array, (N_t + 1) * n_sections, h);
-
-      RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
+      RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
 
       // Define beam and distribution: Load matched, filamented distribution
       Beam = new Beams(N_p, N_b);
-      std::vector < ftype > v2;
+      f_vector_t v2;
       util::read_vector_from_file(v2, datafiles + "coords_13000001.dat");
-
       int k = 0;
       for (unsigned int i = 0; i < v2.size(); i += 3) {
          Beam->dt[k] = v2[i] * 1e-9; // [s]
@@ -87,16 +79,15 @@ protected:
       }
 
       Slice = new Slices(N_slices, 0, -0.5e-9, 3e-9);
-
       // Define phase loop and frequency loop gain
       ftype PL_gain = 1 / (5 * GP->t_rev[0]);
       ftype SL_gain = PL_gain / 10;
 
-      ftype *PL_gain_array = new ftype[N_t + 1];
-      std::fill_n(PL_gain_array, N_t + 1, PL_gain);
+      f_vector_t PL_gainVec(N_t + 1, PL_gain);
 
-      PL = new LHC(PL_gain_array, SL_gain);
+      PL = new LHC(PL_gainVec, SL_gain);
 
+      // Injecting noise in the cavity, PL on
       long_tracker = new RingAndRfSection(simple, PL);
 
    }
@@ -131,8 +122,8 @@ private:
    const long N_b = 1e9;           // Intensity
    const int alpha_order = 1;
    const int n_sections = 1;
-   const int N_t = 1000000;        // Number of turns to track; full ramp: 8700001
-   const int bl_target = 1.25e-9;  // 4 sigma r.m.s. target bunch length in [s]
+   const uint N_t = 1000000;        // Number of turns to track; full ramp: 8700001
+   const ftype bl_target = 1.25e-9;  // 4 sigma r.m.s. target bunch length in [s]
 
    const int N_slices = 151;
 
@@ -243,7 +234,7 @@ TEST_F(testPL, omega_RF)
    std::vector<ftype> v;
    util::read_vector_from_file(v, params + "omega_RF");
    ftype ref = v[0];
-   ftype real = RfP->omega_RF[counter];
+   ftype real = RfP->omega_RF[0][counter];
    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
@@ -275,7 +266,7 @@ TEST_F(testPL, phi_RF)
    std::vector<ftype> v;
    util::read_vector_from_file(v, params + "phi_RF");
    ftype ref = v[0];
-   ftype real = RfP->phi_RF[counter];
+   ftype real = RfP->phi_RF[0][counter];
    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 

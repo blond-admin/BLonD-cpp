@@ -24,31 +24,28 @@ class testRFP : public ::testing::Test {
 protected:
    virtual void SetUp()
    {
-      f_vector_t momentum(N_t + 1);
-      mymath::linspace(momentum.data(), p_i, p_f, N_t + 1);
+      f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1));
+      for (auto &v : momentumVec)
+         mymath::linspace(v.data(), p_i, p_f, N_t + 1);
 
-      ftype *alpha_array = new ftype[(alpha_order + 1) * n_sections];
+      //f_vector_2d_t alphaVec(alpha_order + 1, f_vector_t(n_sections, alpha));
+      f_vector_2d_t alphaVec(n_sections, f_vector_t(alpha_order+1, alpha));
 
-      std::fill_n(alpha_array, (alpha_order + 1) * n_sections, alpha);
+      f_vector_t CVec(n_sections, C);
 
-      ftype *C_array = new ftype[n_sections];
-      std::fill_n(C_array, n_sections, C);
+      f_vector_2d_t hVec(n_sections , f_vector_t(N_t + 1, h));
 
-      ftype *h_array = new ftype[n_sections * (N_t + 1)];
-      std::fill_n(h_array, (N_t + 1) * n_sections, h);
+      f_vector_2d_t voltageVec(n_sections , f_vector_t(N_t + 1, V));
 
-      ftype *V_array = new ftype[n_sections * (N_t + 1)];
-      std::fill_n(V_array, (N_t + 1) * n_sections, V);
+      f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 
-      ftype *dphi_array = new ftype[n_sections * (N_t + 1)];
-      std::fill_n(dphi_array, (N_t + 1) * n_sections, dphi);
 
-      GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum.data(),
+      GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order, momentumVec,
                                  proton);
 
       Beam = new Beams(N_p, N_b);
 
-      RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
+      RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
    }
 
 
@@ -152,7 +149,7 @@ TEST_F(testRFP, test_omega_RF_d)
    //std::cout << v.size() << std::endl;
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = RfP->omega_RF_d[i];
+      ftype real = RfP->omega_RF_d[0][i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
 }
@@ -164,7 +161,7 @@ TEST_F(testRFP, test_omega_RF)
    //std::cout << v.size() << std::endl;
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = RfP->omega_RF[i];
+      ftype real = RfP->omega_RF[0][i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
 }

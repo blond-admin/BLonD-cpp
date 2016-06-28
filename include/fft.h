@@ -55,6 +55,7 @@ namespace fft {
 
    static std::vector<fft::fft_plan_t> planV;
 
+
    static inline void real_to_complex(const std::vector<ftype> &in,
                                       std::vector<complex_t> &out)
    {
@@ -174,6 +175,7 @@ namespace fft {
 
    static inline void destroy_plans()
    {
+      //std::cout<<"planV size = " << planV.size()<<"\n";
       for (auto &i : planV) {
          fftw_destroy_plan(i.p);
          fftw_free(i.in);
@@ -257,6 +259,7 @@ namespace fft {
          }
 
          v.push_back(plan);
+         //planV.push_back(plan);
          return plan;
       } else {
          return *it;

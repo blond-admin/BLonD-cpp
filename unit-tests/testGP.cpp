@@ -22,18 +22,15 @@ class testGP : public ::testing::Test {
 protected:
    virtual void SetUp()
    {
-      //ftype *momentum = new ftype[N_t + 1];
-      f_vector_t momentum(N_t+1);
-      mymath::linspace(momentum.data(), p_i, p_f, N_t + 1);
+      f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1));
+      for (auto &v : momentumVec)
+         mymath::linspace(v.data(), p_i, p_f, N_t + 1);
 
-      ftype *alpha_array = new ftype[(alpha_order + 1) * n_sections];
+      f_vector_2d_t alphaVec(n_sections, f_vector_t(alpha_order+1, alpha));
 
-      std::fill_n(alpha_array, (alpha_order + 1) * n_sections, alpha);
+      f_vector_t CVec(n_sections, C);
 
-      ftype *C_array = new ftype[n_sections];
-      std::fill_n(C_array, n_sections, C);
-
-      GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum.data(),
+      GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order, momentumVec,
                                  proton);
    }
 
@@ -151,7 +148,7 @@ TEST_F(testGP, test_eta_0)
    //ASSERT_EQ(v.size(), GP->n_turns +1);
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = GP->eta_0[i];
+      ftype real = GP->eta_0[0][i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
 }

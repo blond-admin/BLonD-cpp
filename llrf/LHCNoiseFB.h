@@ -56,12 +56,15 @@ public:
 
    std::function<void()> fFwhm;
 
-   LHCNoiseFB(ftype bl_target, ftype gain = 0.1e9,
-              ftype factor = 0.93, ftype update_frequency = 22500,
-              bool variable_gain = true, f_vector_t bunch_pattern = f_vector_t());
-   ~LHCNoiseFB() {};
+   LHCNoiseFB(ftype bl_target,
+              ftype gain = 0.1e9,
+              ftype factor = 0.93,
+              ftype update_frequency = 22500,
+              bool variable_gain = true,
+              f_vector_t bunch_pattern = f_vector_t());
+   ~LHCNoiseFB();
    void track();
-   ftype fwhm_interpolation(int_vector_t index, ftype half_height);
+   ftype fwhm_interpolation(uint_vector_t index, ftype half_height);
    void fwhm_single_bunch();
    void fwhm_multi_bunch();
 };

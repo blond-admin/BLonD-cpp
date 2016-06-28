@@ -42,31 +42,29 @@ protected:
 
    virtual void SetUp()
    {
-      f_vector_t momentum(N_t + 1);
-      mymath::linspace(momentum.data(), p_i, 1.01 * p_i, N_t + 1);
+      f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1));
+      for (auto &v : momentumVec)
+         mymath::linspace(v.data(), p_i, 1.01 * p_i, N_t + 1);
 
-      ftype *alpha_array = new ftype[(alpha_order + 1) * n_sections];
+      f_vector_2d_t alphaVec(n_sections, f_vector_t(alpha_order+1, alpha));
 
-      std::fill_n(alpha_array, (alpha_order + 1) * n_sections, alpha);
+      f_vector_t CVec(n_sections, C);
 
-      ftype *C_array = new ftype[n_sections];
-      std::fill_n(C_array, n_sections, C);
+      f_vector_2d_t hVec(n_sections , f_vector_t(N_t + 1, h));
 
-      ftype *h_array = new ftype[n_sections * (N_t + 1)];
-      std::fill_n(h_array, (N_t + 1) * n_sections, h);
+      f_vector_2d_t voltageVec(n_sections , f_vector_t(N_t + 1, V));
 
-      ftype *V_array = new ftype[n_sections * (N_t + 1)];
-      std::fill_n(V_array, (N_t + 1) * n_sections, V);
+      f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 
-      ftype *dphi_array = new ftype[n_sections * (N_t + 1)];
-      std::fill_n(dphi_array, (N_t + 1) * n_sections, dphi);
-
-      GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum.data(),
-                                 proton);
+      GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
+                                 momentumVec, proton);
 
       Beam = new Beams(N_p, N_b);
 
-      RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
+      RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+
+      //RingAndRfSection *long_tracker = new RingAndRfSection();
+
       longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
       Slice = new Slices(N_slices);
 
@@ -164,9 +162,9 @@ TEST_F(testLHCNoiseFB, fwhm_interpolation1)
 {
 
    auto lhcnfb = new LHCNoiseFB(1.0);
-   for (int i = 0; i < Slice->n_slices; i++) {
-      Slice->n_macroparticles[i] = 100 * i;
-      Slice->bin_centers[i] = 1e10 * (i + 1) / Slice->n_slices;
+   for (uint i = 0; i < Slice->n_slices; i++) {
+      Slice->n_macroparticles[i] = 50 * (i % 4);
+      Slice->bin_centers[i] = 1e8 * (i + 1) / Slice->n_slices;
    }
 
    auto params = std::string("../unit-tests/references/")
@@ -175,10 +173,10 @@ TEST_F(testLHCNoiseFB, fwhm_interpolation1)
 
    util::read_vector_from_file(v, params + "return.txt");
    //util::dump(lhcnfb->fG, "fG\n");
-   auto index = mymath::arange<int>(10, 20);
+   auto index = mymath::arange<uint>(10, 20);
    auto epsilon = 1e-8;
    auto ref = v[0];
-   auto real = lhcnfb->fwhm_interpolation(index, 1e-9);
+   auto real = lhcnfb->fwhm_interpolation(index, 100);
    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 
 
@@ -190,7 +188,7 @@ TEST_F(testLHCNoiseFB, fwhm_interpolation2)
 {
 
    auto lhcnfb = new LHCNoiseFB(1.0);
-   for (int i = 0; i < Slice->n_slices; i++) {
+   for (uint i = 0; i < Slice->n_slices; i++) {
       Slice->n_macroparticles[i] = 100 * i;
       Slice->bin_centers[i] = 1e10 * (i + 1) / Slice->n_slices;
    }
@@ -201,7 +199,7 @@ TEST_F(testLHCNoiseFB, fwhm_interpolation2)
 
    util::read_vector_from_file(v, params + "return.txt");
    //util::dump(lhcnfb->fG, "fG\n");
-   auto index = mymath::arange<int>(0, 99);
+   auto index = mymath::arange<uint>(0, 99);
    auto epsilon = 1e-8;
    auto ref = v[0];
    auto real = lhcnfb->fwhm_interpolation(index, 1);
@@ -216,7 +214,7 @@ TEST_F(testLHCNoiseFB, fwhm_single_bunch1)
 {
 
    auto lhcnfb = new LHCNoiseFB(1.0);
-   for (int i = 0; i < Slice->n_slices; i++) {
+   for (uint i = 0; i < Slice->n_slices; i++) {
       Slice->n_macroparticles[i] = (Slice->n_slices - i);
       Slice->bin_centers[i] = 1e10 * (i + 1) / Slice->n_slices;
    }
@@ -244,7 +242,7 @@ TEST_F(testLHCNoiseFB, DISABLED_fwhm_multi_bunch1)
    f_vector_t a = {1, 2, 3, 4, 5};
    auto lhcnfb = new LHCNoiseFB(1.0, 0.1, 0.9, 100, false, a);
 
-   for (int i = 0; i < Slice->n_slices; i++) {
+   for (uint i = 0; i < Slice->n_slices; i++) {
       Slice->n_macroparticles[i] = (Slice->n_slices - i);
       Slice->bin_centers[i] = 1e10 * (i + 1) / Slice->n_slices;
    }

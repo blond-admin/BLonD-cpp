@@ -57,30 +57,25 @@ protected:
 
       omp_set_num_threads(n_threads);
 
-      f_vector_t momentum(N_t + 1);
-      std::fill_n(momentum.begin(), N_t + 1, p_i);
+      f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1, p_i));
 
-      ftype *alpha_array = new ftype[(alpha_order + 1) * n_sections];
-      std::fill_n(alpha_array, (alpha_order + 1) * n_sections, alpha);
+      //f_vector_2d_t alphaVec(alpha_order + 1, f_vector_t(n_sections, alpha));
+      f_vector_2d_t alphaVec(n_sections, f_vector_t(alpha_order +1, alpha));
 
-      ftype *C_array = new ftype[n_sections];
-      std::fill_n(C_array, n_sections, C);
+      f_vector_t CVec(n_sections, C);
 
-      ftype *h_array = new ftype[n_sections * (N_t + 1)];
-      std::fill_n(h_array, (N_t + 1) * n_sections, h);
+      f_vector_2d_t hVec(n_sections , f_vector_t(N_t + 1, h));
 
-      ftype *V_array = new ftype[n_sections * (N_t + 1)];
-      std::fill_n(V_array, (N_t + 1) * n_sections, V);
+      f_vector_2d_t voltageVec(n_sections , f_vector_t(N_t + 1, V));
 
-      ftype *dphi_array = new ftype[n_sections * (N_t + 1)];
-      std::fill_n(dphi_array, (N_t + 1) * n_sections, dphi);
+      f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 
-      GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum.data(),
-                                 proton);
+      GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
+                                 momentumVec, proton);
 
       Beam = new Beams(N_p, N_b);
 
-      RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
+      RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
 
       long_tracker = new RingAndRfSection();
 
@@ -151,7 +146,8 @@ TEST_F(testTC5, timeTrack)
    util::read_vector_from_file(v, params + "dE.txt");
 
    // WARNING checking only the fist 500 elems
-   std::vector<ftype> res(Beam->dE.data(), Beam->dE.data() + 500);
+   std::vector<ftype> res = Beam->dE;
+   res.resize(500);
    ASSERT_EQ(v.size(), res.size());
 
    ftype epsilon = 1e-8;
@@ -187,16 +183,14 @@ TEST_F(testTC5, timeTrack)
    res.clear();
    util::read_vector_from_file(v, params + "n_macroparticles.txt");
 
-   // WARNING checking only the fist 500 elems
-   res = std::vector<ftype>(Slice->n_macroparticles,
-                            Slice->n_macroparticles + Slice->n_slices);
+   res = f_vector_t(Slice->n_macroparticles.begin(), Slice->n_macroparticles.end());
    ASSERT_EQ(v.size(), res.size());
 
    epsilon = 1e-8;
    // warning checking only the first 100 elems
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = res[i];
+      ftype real = Slice->n_macroparticles[i];
 
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
             << "Testing of Slice->n_macroparticles failed on i "
@@ -268,15 +262,13 @@ TEST_F(testTC5, freqTrack)
    res.clear();
    util::read_vector_from_file(v, params + "n_macroparticles.txt");
 
-   // WARNING checking only the fist 500 elems
-   res = std::vector<ftype>(Slice->n_macroparticles,
-                            Slice->n_macroparticles + Slice->n_slices);
+   res = f_vector_t(Slice->n_macroparticles.begin(), Slice->n_macroparticles.end());
    ASSERT_EQ(v.size(), res.size());
 
    epsilon = 1e-8;
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = res[i];
+      ftype real = Slice->n_macroparticles[i];
 
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
             << "Testing of Slice->n_macroparticles failed on i "

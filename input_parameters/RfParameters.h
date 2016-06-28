@@ -12,15 +12,10 @@ class RfParameters;
 
 #include "GeneralParameters.h"
 #include "../beams/Beams.h"
-//#include "../includes/utilities.h"
 #include "math_functions.h"
-//#include "../trackers/sin.h"
-#include <algorithm>    // std::cops
-#include <iterator>
+//#include <algorithm>
+//#include <iterator>
 #include "globals.h"
-
-//#include "../includes/globals.h"
-
 
 
 class RfParameters {
@@ -30,49 +25,49 @@ public:
       all,
       first
    };
-   RfParameters(int _n_rf,
-                ftype *_harmonic,
-                ftype *_voltage,
-                ftype *_phi_offset,
-                ftype *_phi_noise = NULL,
-                ftype *_omega_rf = NULL,
-                int _section_index = 1,
-                accelerating_systems_t accelerating_systems = as_single);
 
-   ftype *E_increment;
-   ftype *phi_s;
-   ftype *Qs;
-   ftype *omega_s0;
-   ftype *omega_RF_d;
-   ftype *phi_RF;
-   ftype *dphi_RF;
-   ftype *dphi_RF_steering;
-   ftype *t_RF;
-   ftype *omega_RF;
-
-   ftype eta_tracking(const Beams *beam, const int counter, const ftype dE);
-   ftype eta_0(const int i);
-   ftype eta_1(const int i);
-   ftype eta_2(const int i);
-   ftype beta(const int i);
-   ftype gamma(const int i);
-   ftype energy(const int i);
-   ftype momentum(const int i);
-   int sign_eta_0(const int i);
+   f_vector_t E_increment;
+   f_vector_t phi_s;
+   f_vector_t Qs;
+   f_vector_t omega_s0;
+   f_vector_2d_t omega_RF_d;
+   f_vector_2d_t phi_RF;
+   f_vector_t dphi_RF;
+   f_vector_t dphi_RF_steering;
+   f_vector_t t_RF;
+   f_vector_2d_t omega_RF;
 
    // TODO assume input_value is an array
    // that is why we don't have any input_check function
-   int counter;
-   int n_rf;
+   uint counter;
+   uint n_rf;
    //int n_turns;
-   ftype *harmonic;
-   ftype *voltage;
-   ftype *phi_offset;
-   ftype *phi_noise;
-   int section_index;
+   f_vector_2d_t harmonic;
+   f_vector_2d_t voltage;
+   f_vector_2d_t phi_offset;
+   f_vector_t phi_noise;
+   uint idx;
    ftype length_ratio;
    ftype section_length;
 
+   ftype eta_tracking(const Beams *beam, const uint counter, const ftype dE);
+   ftype eta_0(const uint i);
+   ftype eta_1(const uint i);
+   ftype eta_2(const uint i);
+   ftype beta(const uint i);
+   ftype gamma(const uint i);
+   ftype energy(const uint i);
+   ftype momentum(const uint i);
+   int sign_eta_0(const uint i);
+
+   RfParameters(uint _n_rf,
+                f_vector_2d_t _harmonic,
+                f_vector_2d_t _voltage,
+                f_vector_2d_t _phi_offset,
+                f_vector_t _phi_noise = f_vector_t(),
+                f_vector_2d_t _omega_rf = f_vector_2d_t(),
+                uint _section_index = 1,
+                accelerating_systems_t accelerating_systems = as_single);
    ~RfParameters();
 
 private:

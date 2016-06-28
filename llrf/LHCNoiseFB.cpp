@@ -110,7 +110,7 @@ ftype LHCNoiseFB::fwhm_interpolation(uint_vector_t index,
    // std::cout << "n_macroparticles[first] " << Slice->n_macroparticles[first] << '\n';
    // std::cout << "n_macroparticles[prev] " << Slice->n_macroparticles[prev] << '\n';
    // std::cout << "n_macroparticles[last] " << Slice->n_macroparticles[last] << '\n';
-   // std::cout << "n_macroparticles[last+1] " << Slice->n_macroparticles[last+1] << '\n';
+   // std::cout << "n_macroparticles[last+1] " << Slice->n_macroparticles[last + 1] << '\n';
    // std::cout << "left " << left << '\n';
    // std::cout << "last " << last << '\n';
    // std::cout << "right " << right << '\n';

@@ -163,8 +163,8 @@ TEST_F(testLHCNoiseFB, fwhm_interpolation1)
 
    auto lhcnfb = new LHCNoiseFB(1.0);
    for (uint i = 0; i < Slice->n_slices; i++) {
-      Slice->n_macroparticles[i] = 100 * i;
-      Slice->bin_centers[i] = 1e10 * (i + 1) / Slice->n_slices;
+      Slice->n_macroparticles[i] = 50 * (i % 4);
+      Slice->bin_centers[i] = 1e8 * (i + 1) / Slice->n_slices;
    }
 
    auto params = std::string("../unit-tests/references/")
@@ -176,7 +176,7 @@ TEST_F(testLHCNoiseFB, fwhm_interpolation1)
    auto index = mymath::arange<uint>(10, 20);
    auto epsilon = 1e-8;
    auto ref = v[0];
-   auto real = lhcnfb->fwhm_interpolation(index, 1e-9);
+   auto real = lhcnfb->fwhm_interpolation(index, 100);
    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 
 

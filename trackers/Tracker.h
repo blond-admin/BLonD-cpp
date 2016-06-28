@@ -43,7 +43,7 @@ public:
    TotalInducedVoltage *totalInducedVoltage;
 
    //helping arrays for kick
-   ftype *vol, *omeg, *phi; 
+   // ftype *vol, *omeg, *phi; 
 
    void set_periodicity();
    // Periodicity kick
@@ -51,11 +51,11 @@ public:
              const uint index);
    inline void kick(const ftype *__restrict__ beam_dt,
                     ftype *__restrict__ beam_dE,
-                    const uint n_rf,
+                    const int n_rf,
                     const ftype *__restrict__ voltage,
                     const ftype *__restrict__ omega_RF,
                     const ftype *__restrict__ phi_RF,
-                    const uint n_macroparticles,
+                    const int n_macroparticles,
                     const ftype acc_kick,
                     const int_vector_t &filter);
    // Regular kick
@@ -83,7 +83,7 @@ public:
                      const ftype eta_two,
                      const ftype beta,
                      const ftype energy,
-                     const uint n_macroparticles,
+                     const int n_macroparticles,
                      const int_vector_t &filter);
    // Regular drift
    inline void drift(const uint index);
@@ -98,7 +98,7 @@ public:
                      const ftype eta_two,
                      const ftype beta,
                      const ftype energy,
-                     const uint n_macroparticles);
+                     const int n_macroparticles);
 
 
    void track();

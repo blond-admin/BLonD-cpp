@@ -14,10 +14,10 @@ if(!COMPILER_HAS_CXX11)
 endif()
 
 include_directories(include $ENV{HOME}/opt/include)
-#include_directories(external/opt/include)
+include_directories(external/opt/include)
 link_directories(/usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64)
 link_directories($ENV{HOME}/opt/lib)
-#link_directories(external/opt/lib)
+link_directories(external/opt/lib)
 
 #set(TEST_ENABLED "True")
 set(GOOGLETEST_ROOT external/googletest/googletest CACHE STRING "Google Test source root")

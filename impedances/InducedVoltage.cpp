@@ -1,13 +1,11 @@
 
 #include "InducedVoltage.h"
-
 #include "utilities.h"
 #include "constants.h"
 #include "math_functions.h"
 #include "Ham.h"
 #include "globals.h"
 #include <omp.h>
-
 
 
 inline void InducedVoltage::linear_interp_kick(
@@ -24,6 +22,7 @@ inline void InducedVoltage::linear_interp_kick(
    const ftype binLast = bin_centers[n_slices - 1];
    const ftype inv_bin_width = (n_slices - 1) / (binLast - binFirst);
 
+
    #pragma omp parallel for
    for (int i = 0; i < n_macroparticles; ++i) {
       const ftype a = beam_dt[i];
@@ -36,6 +35,8 @@ inline void InducedVoltage::linear_interp_kick(
    }
 
 }
+
+
 
 InducedVoltageTime::InducedVoltageTime(std::vector<Intensity *> &WakeSourceList,
                                        time_or_freq TimeOrFreq)
@@ -97,6 +98,7 @@ inline void InducedVoltageTime::track()
 
 }
 
+
 void InducedVoltageTime::sum_wakes(f_vector_t &TimeArray)
 {
    // *Summing all the wake contributions in one total wake.*
@@ -114,6 +116,7 @@ void InducedVoltageTime::sum_wakes(f_vector_t &TimeArray)
 
 }
 
+
 void InducedVoltageTime::reprocess()
 {
    // *Reprocess the wake contributions with respect to the new_slicing.*
@@ -129,6 +132,7 @@ void InducedVoltageTime::reprocess()
    fShape = next_regular(fCut);
 
 }
+
 
 f_vector_t InducedVoltageTime::induced_voltage_generation(uint length)
 {
@@ -314,6 +318,7 @@ InducedVoltageFreq::~InducedVoltageFreq()
 {
    fft::destroy_plans();
 }
+
 
 void InducedVoltageFreq::track()
 {

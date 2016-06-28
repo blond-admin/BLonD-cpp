@@ -327,12 +327,12 @@ namespace mymath {
 
    template<typename T>
    static inline ftype standard_deviation(const T data[],
-                                          const uint n,
+                                          const int n,
                                           const ftype mean)
    {
       ftype sum_deviation = 0.0;
       #pragma omp parallel for reduction(+ : sum_deviation)
-      for (uint i = 0; i < n; ++i)
+      for (int i = 0; i < n; ++i)
          sum_deviation += (data[i] - mean) * (data[i] - mean);
       return std::sqrt(sum_deviation / n);
    }
@@ -340,12 +340,12 @@ namespace mymath {
 
    template<typename T>
    static inline ftype standard_deviation(const T data[],
-                                          const uint n)
+                                          const int n)
    {
       const ftype mean = mymath::mean(data, n);
       ftype sum_deviation = 0.0;
       #pragma omp parallel for reduction(+ : sum_deviation)
-      for (uint i = 0; i < n; ++i)
+      for (int i = 0; i < n; ++i)
          sum_deviation += (data[i] - mean) * (data[i] - mean);
       return std::sqrt(sum_deviation / n);
    }

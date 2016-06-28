@@ -106,9 +106,9 @@ set(SOURCE_FILES ${SOURCES})
 
 #set_source_files_properties(impedances/InducedVoltage.cpp PROPERTIES COMPILE_FLAGS "-fopt-info-vec=report.txt")
 
-#foreach(source ${SOURCE_FILES})
+# foreach(source ${SOURCE_FILES})
 #   set_source_files_properties(${source} PROPERTIES COMPILE_FLAGS "-fopt-info-vec=report.txt")
-#endforeach()
+# endforeach()
 
 # SHARED for dynamic LINKING
 # STATIC for static LINKING

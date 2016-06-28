@@ -43,40 +43,40 @@ fi
 
 cd ${BLOND_HOME}
 
-'''
-if [ -e ${OPT}/include/gtest/gtest.h ] && [ -e ${OPT}/lib/libgtest.a ] \
-   && [ -e ${OPT}/lib/libgtest_main.a ]; then
-   echo -e "---- Looks like googletest is already installed,"
-   echo -e "---- are you sure you want to reinstall it?"
-   select yn in "Yes" "No"; do
-      case $yn in
-         Yes ) INSTALL_GTEST=true; break;;
-         No ) INSTALL_GTEST=false; break;;
-      esac
-   done
-fi
 
-if [ "${INSTALL_GTEST}" = "true" ] ; then
+# if [ -e ${OPT}/include/gtest/gtest.h ] && [ -e ${OPT}/lib/libgtest.a ] \
+#    && [ -e ${OPT}/lib/libgtest_main.a ]; then
+#    echo -e "---- Looks like googletest is already installed,"
+#    echo -e "---- are you sure you want to reinstall it?"
+#    select yn in "Yes" "No"; do
+#       case $yn in
+#          Yes ) INSTALL_GTEST=true; break;;
+#          No ) INSTALL_GTEST=false; break;;
+#       esac
+#    done
+# fi
 
-   echo -e "\n\n---- Installing googletest\n\n"
+# if [ "${INSTALL_GTEST}" = "true" ] ; then
 
-   git clone https://github.com/google/googletest.git external/googletest
-   cd external/googletest/googletest
-   cp -r include/* "${OPT}/include/"
-   mkdir -p build
-   cd build && cmake .. && make
-   cp *.a "${OPT}/lib"
+#    echo -e "\n\n---- Installing googletest\n\n"
 
-   cd ${BLOND_HOME}
+#    git clone https://github.com/google/googletest.git external/googletest
+#    cd external/googletest/googletest
+#    cp -r include/* "${OPT}/include/"
+#    mkdir -p build
+#    cd build && cmake .. && make
+#    cp *.a "${OPT}/lib"
 
-   if [ -e ${OPT}/include/gtest/gtest.h ] && [ -e ${OPT}/lib/libgtest.a ] \
-      && [ -e ${OPT}/lib/libgtest_main.a ]; then
-      echo -e "\n\n---- Googletest is successfully installed\n\n"
-   else
-      echo -e "\n\n---- Googletest has failed to install successfully"
-      echo -e "---- You will have to manually install this library\n\n"
-   fi
-fi
-'''
+#    cd ${BLOND_HOME}
+
+#    if [ -e ${OPT}/include/gtest/gtest.h ] && [ -e ${OPT}/lib/libgtest.a ] \
+#       && [ -e ${OPT}/lib/libgtest_main.a ]; then
+#       echo -e "\n\n---- Googletest is successfully installed\n\n"
+#    else
+#       echo -e "\n\n---- Googletest has failed to install successfully"
+#       echo -e "---- You will have to manually install this library\n\n"
+#    fi
+# fi
+
 
 rm -r tmp &> /dev/null

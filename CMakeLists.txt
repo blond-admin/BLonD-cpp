@@ -8,9 +8,9 @@ include(CTest)
 
 # Code editors usabilety feature
 set_property(GLOBAL PROPERTY USE_FOLDERS On)
-
+set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "We have optemized configuration for Debug and Release configurations")
 # Variables default values list
-set(CMAKE_BUILD_TYPE Release)
+set(CMAKE_BUILD_TYPE Release  CACHE STRING "default build type for Make-like generators")
 set(SHARED_LIBRARY_ENABLED "True")
 set(EXTERNAL_INSTALL_DIR ${PROJECT_SOURCE_DIR}/external/install)
 set(TEST_ENABLED "True" CACHE STRING "Cerate unit-test projects")
@@ -50,19 +50,14 @@ if (NOT N EQUAL 0)
     set(ctest_test_args ${ctest_test_args} PARALLEL_LEVEL ${N})
 endif ()
 
+# Project architecture
 set(ARCHITECTURE "Default"  CACHE STRING "Two architectures avaliable 'Dafault' and 'x64', it is impartant for external libraries")
 if((${CMAKE_GENERATOR} MATCHES ".*(64).*") OR (${CMAKE_SIZEOF_VOID_P} MATCHES ".*(64).*"))
     set(ARCHITECTURE "x64")
-    message(FATAL_ERROR "Unknown architecture: ${CMAKE_SIZEOF_VOID_P}")
+    message(STATUS "architecture: ${ARCHITECTURE} detected from (${CMAKE_GENERATOR} and ${CMAKE_SIZEOF_VOID_P}) ")
 endif()
 
-set(ARCHITECTURE "x64" CACHE STRING "Should we use x86 or x64 architecture")
-
-if()
-
-
 #Compiler, Linker options
-
 #Compiler settings
 #MSVC vs Other
 if (MSVC)
@@ -147,15 +142,19 @@ if (!WITH_BENCHMARK AND BENCHMARK_ENABLED)
 endif ()
 
 if (NOT (EXISTS ${PROJECT_SOURCE_DIR}/external/build))
-    execute_process(COMMAND cmake -E make_directory ${PROJECT_SOURCE_DIR}/external/build)
+    execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/external/build)
+else()
+    execute_process(COMMAND ${CMAKE_COMMAND} -E remove_directory ${PROJECT_SOURCE_DIR}/external/build/)
+    execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/external/build)
 endif ()
 
 message(STATUS "Building required started...")
+
 execute_process(
-        COMMAND cmake
+        COMMAND ${CMAKE_COMMAND}
         #options
+        #-DWITH_GSL=${WITH_GSL}
         -DWITH_FFTW=${WITH_FFTW}
-        -DWITH_GSL=${WITH_GSL}
         -DWITH_BENCHMARK=${WITH_BENCHMARK}
         -DWITH_GOOGLETEST=${WITH_GOOGLETEST}
         #destinations
@@ -166,13 +165,13 @@ execute_process(
         -DGOOGLETEST_ROOT=${GOOGLETEST_ROOT}
         -DGSL_ROOT=${GSL_ROOT}
         #forward all collected compilation arguments
-        -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} #todo figure out if debug libs are in any way relevant on linux
+        -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} # relevant only for Make-like build files
         -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}
         -DCMAKE_CXX_FLAGS_DEBUG=${CMAKE_CXX_FLAGS_DEBUG}
         -DCMAKE_CXX_FLAGS_RELEASE=${CMAKE_CXX_FLAGS_RELEASE}
         -DCMAKE_EXE_LINKER_FLAGS_RELEASE=${CMAKE_EXE_LINKER_FLAGS_RELEASE}
         -DCMAKE_EXE_LINKER_FLAGS_DEBUG=${CMAKE_EXE_LINKER_FLAGS_DEBUG}
-        -G ${CMAKE_GENERATOR}
+        -G "${CMAKE_GENERATOR}"
         ${PROJECT_SOURCE_DIR}/external/
         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/external/build
 )
@@ -182,6 +181,8 @@ execute_process(
         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/external/build
 )
 message(STATUS "Building required librasries complete")
+
+return() # todo: remove!
 
 # path to external libraries and headers
 include_directories(${EXTERNAL_INSTALL_DIR}/include)

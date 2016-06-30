@@ -98,13 +98,13 @@ int main(int argc, char **argv)
 
    for (int i = 0; i < N_t; ++i) {
 
-      util::get_time(begin_t);
+      // util::get_time(begin_t);
       long_tracker->track();
-      track_time += util::time_elapsed(begin_t);
+      // track_time += util::time_elapsed(begin_t);
 
-      util::get_time(begin_t);
+      // util::get_time(begin_t);
       Slice->track();
-      slice_time += util::time_elapsed(begin_t);
+      // slice_time += util::time_elapsed(begin_t);
 
       //Slice->fwhm();
 

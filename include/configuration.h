@@ -30,7 +30,7 @@ const unsigned PRECISION = 8;
 // Needs re-compile every time a change is made
 
 //switch on/off fixed beam distribution
-#define FIXED_PARTICLES
+// #define FIXED_PARTICLES
 
 // switch on/off timing
 #define TIMING

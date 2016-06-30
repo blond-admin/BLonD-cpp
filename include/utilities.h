@@ -109,7 +109,7 @@ namespace util {
       std::cout.precision(PRECISION);
       std::cout << s;
       std::cout << std::scientific << std::showpos;
-      for (auto i = 0; i < n; ++i)
+      for (uint i = 0; i < n; ++i)
          std::cout << a[i] << std::endl;
       std::cout << std::endl;
 #endif

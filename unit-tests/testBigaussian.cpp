@@ -91,7 +91,7 @@ private:
 TEST_F(testBigaussian, test_sigma_dE)
 {
 
-   longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
+   longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
 
    std::vector<ftype> v;
 
@@ -104,7 +104,7 @@ TEST_F(testBigaussian, test_sigma_dE)
 TEST_F(testBigaussian, test_sigma_dt)
 {
 
-   longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
+   longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
 
    std::vector<ftype> v;
 
@@ -117,7 +117,7 @@ TEST_F(testBigaussian, test_sigma_dt)
 TEST_F(testBigaussian, test_dE)
 {
 
-   longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
+   longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
 
    std::vector<ftype> v;
    util::read_vector_from_file(v, fixed_params + "dE");
@@ -131,7 +131,7 @@ TEST_F(testBigaussian, test_dE)
 TEST_F(testBigaussian, test_dt)
 {
 
-   longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
+   longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
 
    std::vector<ftype> v;
    util::read_vector_from_file(v, fixed_params + "dt");

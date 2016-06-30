@@ -350,6 +350,13 @@ namespace mymath {
       return std::sqrt(sum_deviation / n);
    }
 
+
+   template <typename T>
+   int sign(T val)
+   {
+      return (T(0) < val) - (val < T(0));
+   }
+
 }
 
 #endif /* INCLUDES_MATH_FUNCTIONS_H_ */

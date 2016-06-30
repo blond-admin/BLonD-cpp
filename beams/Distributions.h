@@ -52,29 +52,29 @@ inline void longitudinal_bigaussian(ftype sigma_dt,
    Beam->sigma_dE = sigma_dE;
    Beam->sigma_dt = sigma_dt;
 
-#ifdef FIXED_PARTICLES
-   for (uint i = 0; i < Beam->n_macroparticles; ++i) {
-      ftype r = 1.0 * (i + 1) / Beam->n_macroparticles;
-      //ftype r = distribution(generator);
-      Beam->dt[i] = sigma_dt * r + (phi_s - phi_RF) / omega_RF;
-      //r = 1.0 * rand() / RAND_MAX;
-      //r = distribution(generator);
-      Beam->dE[i] = sigma_dE * r;
-      //dprintf("beam_dE: %.8lf \n", Beam->dE[i]);
+   if (seed < 0) {
+      for (uint i = 0; i < Beam->n_macroparticles; ++i) {
+         ftype r = 1.0 * (i + 1) / Beam->n_macroparticles;
+         //ftype r = distribution(generator);
+         Beam->dt[i] = sigma_dt * r + (phi_s - phi_RF) / omega_RF;
+         //r = 1.0 * rand() / RAND_MAX;
+         //r = distribution(generator);
+         Beam->dE[i] = sigma_dE * r;
+         //dprintf("beam_dE: %.8lf \n", Beam->dE[i]);
+      }
+   } else {
+      std::default_random_engine generator(seed);
+      std::normal_distribution < ftype > distribution(0.0, 1.0);
+      for (uint i = 0; i < Beam->n_macroparticles; ++i) {
+         //ftype r = 1.0 * rand() / RAND_MAX;
+         ftype r = distribution(generator);
+         Beam->dt[i] = sigma_dt * r + (phi_s - phi_RF) / omega_RF;
+         //r = 1.0 * rand() / RAND_MAX;
+         r = distribution(generator);
+         Beam->dE[i] = sigma_dE * r;
+         //dprintf("beam_dE: %.8lf \n", Beam->dE[i]);
+      }
    }
-#else
-   std::default_random_engine generator(seed);
-   std::normal_distribution < ftype > distribution(0.0, 1.0);
-   for (uint i = 0; i < Beam->n_macroparticles; ++i) {
-      //ftype r = 1.0 * rand() / RAND_MAX;
-      ftype r = distribution(generator);
-      Beam->dt[i] = sigma_dt * r + (phi_s - phi_RF) / omega_RF;
-      //r = 1.0 * rand() / RAND_MAX;
-      r = distribution(generator);
-      Beam->dE[i] = sigma_dE * r;
-      //dprintf("beam_dE: %.8lf \n", Beam->dE[i]);
-   }
-#endif
 
 // TODO if reinsertion == true
    if (reinsertion) {

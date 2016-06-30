@@ -29,12 +29,15 @@ public:
    void beam_phase();
    void phase_difference();
    void radial_steering_from_freq();
+   void radial_difference();
    PhaseLoop() {} ;
    uint delay = 0;
    ftype alpha = 0;
-   f_vector_t gain;
-   ftype drho = 0;
+   // f_vector_t gain;
+   // f_vector_t gain2;
    ftype domega_RF = 0;
+   ftype drho = 0;
+   //f_vector_t domega_RF;
    ftype phi_beam = 0;
    ftype dphi = 0;
    ftype reference = 0;
@@ -45,15 +48,14 @@ public:
 
 class LHC: public PhaseLoop {
 private:
-   //ftype gain;
-   //ftype domega_RF;
 public:
    ftype gain2;
+   f_vector_t gain;
    ftype lhc_y;
    f_vector_t lhc_a;
    f_vector_t lhc_t;
 
-   ~LHC(){};
+   ~LHC();
    void track();
    LHC(f_vector_t PL_gain,
        ftype SL_gain = 0,
@@ -65,10 +67,10 @@ public:
 
 class PSB: public PhaseLoop {
 private:
+public:
    f_vector_t gain2;
-   //f_vector_t gain;
+   f_vector_t gain;
    uint_vector_t dt;
-   ftype average_dE;
    uint PL_counter;
    uint_vector_t on_time;
    f_vector_t coefficients;
@@ -78,9 +80,7 @@ private:
    ftype t_accum;
    ftype domega_PL;
    ftype domega_RL;
-   //ftype domega_RF;
-public:
-   ~PSB(){};
+   ~PSB();
    void track();
    PSB(f_vector_t PL_gain,
        f_vector_t RL_gain = f_vector_t(),
@@ -91,8 +91,41 @@ public:
        PhaseNoise *phaseNoise = NULL,
        LHCNoiseFB *LHCNoiseFB = NULL,
        uint delay = 0);
-   void radial_difference();
    void precalculate_time();
+};
+
+
+class LHC_F: public PhaseLoop {
+private:
+public:
+   ftype gain2;
+   // f_vector_t domega_RF;
+   ftype gain;
+   LHC_F(ftype PL_gain,
+         ftype window_coefficient = 0,
+         ftype FL_gain = 0,
+         PhaseNoise *phaseNoise = NULL,
+         LHCNoiseFB *LHCNoiseFB = NULL,
+         uint delay = 0);
+   ~LHC_F();
+   void track();
+};
+
+class SPS_RL: public PhaseLoop {
+private:
+public:
+   ftype gain2;
+   // f_vector_t domega_RF;
+   ftype gain;
+
+   SPS_RL(ftype PL_gain,
+          ftype window_coefficient = 0,
+          ftype RL_gain = 0,
+          PhaseNoise *phaseNoise = NULL,
+          LHCNoiseFB *LHCNoiseFB = NULL,
+          uint delay = 0);
+   ~SPS_RL();
+   void track();
 };
 
 #endif /* PHASELOOP_H_ */

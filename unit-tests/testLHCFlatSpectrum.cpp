@@ -35,6 +35,7 @@ Beams *Beam;
 Slices *Slice;
 RfParameters *RfP;
 
+
 class testLHCFlatSpectrum : public ::testing::Test {
 
 protected:

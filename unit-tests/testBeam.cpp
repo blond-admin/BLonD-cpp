@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <string>
 #include <list>
@@ -10,6 +11,7 @@
 #include "../beams/Distributions.h"
 #include "../input_parameters/GeneralParameters.h"
 #include "constants.h"
+
 
 const ftype epsilon = 1e-8;
 const std::string statistics_params = "../unit-tests/references/Beam/Beam_statistics_params/";
@@ -53,7 +55,7 @@ protected:
 
       RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
 
-      longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
+      longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
       Beam->statistics();
 
    }

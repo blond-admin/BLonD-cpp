@@ -65,7 +65,7 @@ protected:
 
       //RingAndRfSection *long_tracker = new RingAndRfSection();
 
-      longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
+      longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
       Slice = new Slices(N_slices);
 
    }

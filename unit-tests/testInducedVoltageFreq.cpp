@@ -13,7 +13,6 @@
 #include <gtest/gtest.h>
 #include <complex>
 
-
 const std::string datafiles =
    "../tests/input_files/TC5_Wake_impedance/";
 
@@ -71,7 +70,7 @@ protected:
 
 
 
-      longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
+      longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
 
       Slice = new Slices(N_slices, 0, 0, 2 * constant::pi, rad);
 

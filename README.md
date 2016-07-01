@@ -15,21 +15,6 @@ NOT Stable - Under heavy development
 
 ## Installation
 
-#### Libraries Installation
-
-* FFTW3 Library  
-  If you are using a Linux distribution, in most of the cases, the following set of commands should be enough:
-    
-    ```bash
-    wget http://www.fftw.org/fftw-3.3.4.tar.gz
-    tar -xzvf fftw-3.3.4.tar.gz
-    cd fftw-3.3.4
-    ./configure  
-    make 
-    make install #you may need sudo access for this step, if you don't have it then try ./configure --prefix=/path/to/install
-    ```
-  *Note that if you want to use the multi-threaded version of this library you must configure as `./configure --enable-openmp`.*
-
 #### BLonD++ installation
 
 1. clone the code into a directory (lets call it BLonD++/)  
@@ -50,6 +35,27 @@ NOT Stable - Under heavy development
 
 4. Developer's Notes:
   * By default, the Release version of the code is compiled. You can build a debug version with `cmake -DCMAKE_BUILD_TYPE=Debug ..`     
+
+
+#### Libraries Installation
+
+* FFTW3 Library  
+  If you are using a Linux distribution, you can install FFTW3 simply by running the install-linux.sh script as:
+    ```bash
+    sh install-linux.sh
+    ```
+   
+   If this doesn't work, then you should try the following set of commands: 
+    ```bash
+    wget http://www.fftw.org/fftw-3.3.4.tar.gz
+    tar -xzvf fftw-3.3.4.tar.gz
+    cd fftw-3.3.4
+    ./configure  
+    make 
+    make install #you may need sudo access for this step, if you don't have it then try ./configure --prefix=/path/to/install
+    ```
+  *Note that if you want to use the multi-threaded version of this library you must configure as `./configure --enable-openmp`.*
+
 
 ## Configuration
 

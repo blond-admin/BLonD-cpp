@@ -86,7 +86,7 @@ void PhaseLoop::phase_difference()
    }
 }
 
-// TODO test this function
+
 void PhaseLoop::radial_steering_from_freq()
 {
    // Frequency and phase change for the current turn due to the
@@ -441,7 +441,6 @@ LHC_F::LHC_F(ftype PL_gain,
 LHC_F::~LHC_F() {}
 
 
-// TODO Test this function
 void LHC_F::track()
 {
    uint counter = RfP->counter;

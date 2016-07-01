@@ -24,8 +24,8 @@ const uint alpha_order = 1;
 const uint n_sections = 1;
 // Tracking details
 
-uint N_t = 2000;            // Number of turns to track
-uint N_p = 10000;         // Macro-particles
+uint N_t = 1000;            // Number of turns to track
+uint N_p = 100000;         // Macro-particles
 
 int n_threads = 1;
 uint N_slices = 200;       // = (2^8)
@@ -90,20 +90,20 @@ protected:
 TEST_F(testPLSPS_RL, track1)
 {
 
-   longitudinal_bigaussian(1e-9, 10e6, 42, false);
+   longitudinal_bigaussian(200e-9, 100e6, 42321, false);
 
-   auto lhcf = new LHC_F(1.0 / 25e-6, 0, 0);
+   auto sps = new SPS_RL(25e-6, 0, 5e-6);
 
 
    auto params = std::string("../unit-tests/references/")
-                 + "PL/LHCF/track1/";
+                 + "PL/SPS_RL/track1/";
 
    Slice->track();
    f_vector_t domega_RF;
 
    for (uint i = 0; i < N_t; ++i) {
-      lhcf->track();
-      domega_RF.push_back(lhcf->domega_RF);
+      sps->track();
+      domega_RF.push_back(sps->domega_RF);
       RfP->counter++;
    }
 
@@ -114,6 +114,7 @@ TEST_F(testPLSPS_RL, track1)
    auto epsilon = 1e-2;
    auto ref = v[0];
    auto real = mymath::mean(domega_RF.data(), domega_RF.size());
+   // std::cout << real << "\n";
    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
          << "Testing of domega_RF_mean failed\n";
 
@@ -122,11 +123,58 @@ TEST_F(testPLSPS_RL, track1)
    epsilon = 1e-2;
    ref = v[0];
    real = mymath::standard_deviation(domega_RF.data(), domega_RF.size());
+   // std::cout << real << "\n";
    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
          << "Testing of domega_RF_std failed\n";
 
 
-   delete lhcf;
+   delete sps;
+}
+
+
+TEST_F(testPLSPS_RL, track2)
+{
+
+   longitudinal_bigaussian(200e-9, 100e6, 42321, false);
+
+   auto sps = new SPS_RL(25e-6, 0, 5e-6);
+   sps->reference = 1e-6;
+
+
+   auto params = std::string("../unit-tests/references/")
+                 + "PL/SPS_RL/track2/";
+
+   Slice->track();
+   f_vector_t domega_RF;
+
+   for (uint i = 0; i < N_t; ++i) {
+      sps->track();
+      domega_RF.push_back(sps->domega_RF);
+      RfP->counter++;
+   }
+
+   f_vector_t v;
+
+   util::read_vector_from_file(v, params + "domega_RF_mean.txt");
+   // util::dump(domega_RF, "domega_RF");
+   auto epsilon = 1e-2;
+   auto ref = v[0];
+   auto real = mymath::mean(domega_RF.data(), domega_RF.size());
+   // std::cout << real << "\n";
+   ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+         << "Testing of domega_RF_mean failed\n";
+
+   v.clear();
+   util::read_vector_from_file(v, params + "domega_RF_std.txt");
+   epsilon = 1e-2;
+   ref = v[0];
+   real = mymath::standard_deviation(domega_RF.data(), domega_RF.size());
+   // std::cout << real << "\n";
+   ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+         << "Testing of domega_RF_std failed\n";
+
+
+   delete sps;
 }
 
 

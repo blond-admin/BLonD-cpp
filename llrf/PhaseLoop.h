@@ -70,7 +70,7 @@ private:
 public:
    f_vector_t gain2;
    f_vector_t gain;
-   uint_vector_t dt;
+   f_vector_t dt;
    uint PL_counter;
    uint_vector_t on_time;
    f_vector_t coefficients;

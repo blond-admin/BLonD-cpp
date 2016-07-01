@@ -368,7 +368,7 @@ void PSB::track()
    dphi_av = 0;
    // Add correction from radial loop
    // TODO Test this!
-   if (PL_counter % dt[1] == 0) {
+   if (PL_counter % static_cast<int>(dt[1]) == 0) {
 
       drho = (RfP->omega_RF[0][counter] - RfP->omega_RF_d[0][counter])
              / (RfP->omega_RF_d[0][counter]
@@ -405,13 +405,15 @@ void PSB::precalculate_time()
    uint n = delay + 1;
 
    while (n < GP->t_rev.size()) {
-      //dprintf("dt[0] = %d\n", dt[0]);
-      ftype summa = 0;
+      //dprintf("dt[0] = %f\n", dt[0]);
+      // std::cout << "dt[0] " << dt[0] << "\n";
+      // std::cout << "n " << n << "\n";
+      auto summa = 0.0;
       while (summa < dt[0]) {
-         try {
+         if (n < GP->t_rev.size()) {
             summa += GP->t_rev[n];
             n++;
-         } catch (...) {
+         } else {
             on_time.push_back(0);
             return;
          }

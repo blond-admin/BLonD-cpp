@@ -130,15 +130,18 @@ void PhaseLoop::radial_difference()
    //ftype array[GP->n_turns];
    for (uint i = 0; i < GP->n_turns; ++i) {
       if (Beam->dt[i] > Slice->bin_centers.front()
-            && Beam->dt[i] < Slice->bin_centers.back()) {
+            and Beam->dt[i] < Slice->bin_centers.back()) {
          sum += Beam->dE[i];
          n++;
       }
    }
-   auto average_dE = sum / n;
+   auto average_dE = n > 0 ? sum / n : 0.0;
+   // std::cout << "average_dE : " << average_dE << "\n";
    drho = GP->alpha[0][0] * GP->ring_radius * average_dE
           / (GP->beta[0][counter] * GP->beta[0][counter]
              * GP->energy[0][counter]);
+   // std::cout << "drho : " << drho << "\n";
+
 }
 
 
@@ -263,7 +266,6 @@ void LHC::track()
 }
 
 
-// TODO Test this function
 PSB::PSB(f_vector_t PL_gain,
          f_vector_t _RL_gain,
          ftype _PL_period,
@@ -332,7 +334,6 @@ PSB::PSB(f_vector_t PL_gain,
 PSB::~PSB() {}
 
 
-// TODO Test this function
 void PSB::track()
 {
    /*
@@ -393,8 +394,6 @@ void PSB::track()
    default_track();
 
 }
-
-
 
 
 void PSB::precalculate_time()

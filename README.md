@@ -42,6 +42,7 @@ NOT Stable - Under heavy development
 * FFTW3 Library  
   If you are using a Linux distribution, you can install FFTW3 simply by running the install-linux.sh script as:
     ```bash
+    cd BLonD++
     sh install-linux.sh
     ```
    
@@ -62,12 +63,10 @@ NOT Stable - Under heavy development
 The following definitions, found in file include/configuration.h, can be commented / uncommented to alter simulation's configuration:
 
 ```c
-#define FIXED_PARTICLES
 #define TIMING
 #define PRINT_RESULTS
 ```
-
-Note that a re-compile is needed every time a change is made. 
+*Note that a re-compile is needed every time a change is made.* 
 
 ## Usage
 

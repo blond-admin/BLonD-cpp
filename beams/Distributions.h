@@ -37,7 +37,7 @@ inline void longitudinal_bigaussian(ftype sigma_dt,
    ftype phi_s = RfP->phi_s[counter];
    ftype phi_RF = RfP->phi_RF[0][counter];
 
-   ftype voltage, eta0, phi_b;
+   ftype voltage, eta0 = 0.0, phi_b;
    if (sigma_dE == 0) {
       voltage = GP->charge * RfP->voltage[0][counter];
       eta0 = RfP->eta_0(counter);
@@ -51,7 +51,9 @@ inline void longitudinal_bigaussian(ftype sigma_dt,
 
    Beam->sigma_dE = sigma_dE;
    Beam->sigma_dt = sigma_dt;
-
+   // std::cout << sigma_dE << "\n";
+   // std::cout << sigma_dt << "\n";
+   // std::cout << (phi_s - phi_RF) / omega_RF << "\n";
    if (seed < 0) {
       for (uint i = 0; i < Beam->n_macroparticles; ++i) {
          ftype r = 1.0 * (i + 1) / Beam->n_macroparticles;
@@ -64,16 +66,19 @@ inline void longitudinal_bigaussian(ftype sigma_dt,
       }
    } else {
       std::default_random_engine generator(seed);
-      std::normal_distribution < ftype > distribution(0.0, 1.0);
+      std::normal_distribution<ftype> distribution(0.0, 1.0);
       for (uint i = 0; i < Beam->n_macroparticles; ++i) {
-         //ftype r = 1.0 * rand() / RAND_MAX;
          ftype r = distribution(generator);
-         Beam->dt[i] = sigma_dt * r + (phi_s - phi_RF) / omega_RF;
-         //r = 1.0 * rand() / RAND_MAX;
+         if (eta0 > 0)
+            Beam->dt[i] = sigma_dt * r + (phi_s - phi_RF) / omega_RF;
+         else
+            Beam->dt[i] = sigma_dt * r
+                          + (phi_s - phi_RF - constant::pi) / omega_RF;
          r = distribution(generator);
          Beam->dE[i] = sigma_dE * r;
-         //dprintf("beam_dE: %.8lf \n", Beam->dE[i]);
       }
+      // for (uint i = 0; i < Beam->n_macroparticles; ++i)
+         // Beam->dE[i] = sigma_dE * distribution(generator);
    }
 
 // TODO if reinsertion == true

@@ -357,34 +357,36 @@ void PSB::track()
    // Phase loop active on certain turns
 
    if (counter == on_time[PL_counter] && counter > delay) {
-      dphi_av /= (on_time[PL_counter] - on_time[PL_counter - 1]);
+      dphi_av /= (on_time[PL_counter]
+                  - on_time[PL_counter - 1]);
+
       domega_PL = 0.998 * domega_PL
-                  - gain[counter] * (dphi_av - dphi_av_prev + reference);
+                  - gain[counter]
+                  * (dphi_av - dphi_av_prev + reference);
+
+      // Update averaging variables
+      dphi_av_prev = dphi_av;
+      dphi_av = 0;
+
+      // Add correction from radial loop
+      if (PL_counter % static_cast<int>(dt[1]) == 0) {
+
+         drho = (RfP->omega_RF[0][counter] - RfP->omega_RF_d[0][counter])
+                / (RfP->omega_RF_d[0][counter]
+                   * (1 / (GP->alpha[0][0] * RfP->gamma(counter)
+                           * RfP->gamma(counter)) - 1))
+                + reference;
+
+         domega_RL = domega_RL - gain2[0] * (drho - drho_prev)
+                     - gain2[1] * drho * t_accum;
+
+         drho_prev = drho;
+         t_accum = 0;
+      }
+
+      // Counter to pick the next time step when the PL will be active
+      PL_counter++;
    }
-   //dprintf("After if\n");
-
-   // Update averaging variables
-   dphi_av_prev = dphi_av;
-   dphi_av = 0;
-   // Add correction from radial loop
-   // TODO Test this!
-   if (PL_counter % static_cast<int>(dt[1]) == 0) {
-
-      drho = (RfP->omega_RF[0][counter] - RfP->omega_RF_d[0][counter])
-             / (RfP->omega_RF_d[0][counter]
-                * (1 / (GP->alpha[0][0] * RfP->gamma(counter)
-                        * RfP->gamma(counter)) - 1))
-             + reference;
-
-      domega_RL = domega_RL - gain2[0] * (drho - drho_prev)
-                  - gain2[1] * drho * t_accum;
-
-      drho_prev = drho;
-      t_accum = 0;
-   }
-
-   // Counter to pick the next time step when the PL will be active
-   PL_counter++;
    // Apply frequency correction
    domega_RF = domega_PL + domega_RL;
 
@@ -395,7 +397,6 @@ void PSB::track()
 
 
 
-// TODO Test this function
 void PSB::precalculate_time()
 {
    /*
@@ -405,9 +406,6 @@ void PSB::precalculate_time()
    uint n = delay + 1;
 
    while (n < GP->t_rev.size()) {
-      //dprintf("dt[0] = %f\n", dt[0]);
-      // std::cout << "dt[0] " << dt[0] << "\n";
-      // std::cout << "n " << n << "\n";
       auto summa = 0.0;
       while (summa < dt[0]) {
          if (n < GP->t_rev.size()) {

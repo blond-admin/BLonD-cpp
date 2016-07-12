@@ -15,9 +15,9 @@ message( STATUS "Generator ${CMAKE_GENERATOR}" )
 
 
 #Check if required libs and includes are already presented
-set(INSTALL_LIB_DIR "${INSTALL_DIR}/lib/")
-set(INSTALL_BIN_DIR "${INSTALL_DIR}/bin/")
-set(INSTALL_INC_DIR "${INSTALL_DIR}/include/")
+set(INSTALL_LIB_DIR "${INSTALL_DIR}/lib")
+set(INSTALL_BIN_DIR "${INSTALL_DIR}/bin")
+set(INSTALL_INC_DIR "${INSTALL_DIR}/include")
 message(STATUS "starting FFTW")
 include("helpers.cmake")
 include("fftw.cmake")

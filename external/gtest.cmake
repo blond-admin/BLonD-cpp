@@ -3,6 +3,8 @@ if(WITH_GOOGLETEST)
     GetnerateLibName(${gtestLib})
     if( (NOT EXISTS ${INSTALL_LIB_DIR}${gtestLib}))
         set(BUILD_GOOGLETEST "True")
+    else()
+        set(BUILD_GOOGLETEST "False")
     endif()
 endif()
 
@@ -10,6 +12,7 @@ if(BUILD_GOOGLETEST)
     message(STATUS "generating test libraries")
     # packages required for testing
     #GoogleTest (build from source into external instal)
+    set(GOOGLETEST_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/build/gtest/)
     ExternalProject_Add(
             googletest-src
             GIT_REPOSITORY https://github.com/google/googletest
@@ -26,6 +29,7 @@ if(BUILD_GOOGLETEST)
             TEST_BEFORE_INSTALL False
             TEST_AFTER_INSTALL False
             BINARY_DIR ${GOOGLETEST_ROOT}/build
+            INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/install
     )
     add_dependencies(external googletest-src)
 endif()

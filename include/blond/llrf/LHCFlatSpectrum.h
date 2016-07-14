@@ -51,7 +51,7 @@ public:
                    int seed1 = 1234, int seed2 = 7564,
                    predistortion_t predistortion =
                       predistortion_t::None);
-   ~LHCFlatSpectrum() {};
+   ~LHCFlatSpectrum();
    void generate();
 };
 

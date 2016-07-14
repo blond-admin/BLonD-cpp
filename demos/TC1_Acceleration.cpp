@@ -55,12 +55,6 @@ int main(int argc, char **argv)
 
    parse_args(argc, argv);
 
-   //N_t = atoi(util::GETENV("N_TURNS")) ? atoi(util::GETENV("N_TURNS")) : N_t;
-   //N_p = atoi(util::GETENV("N_PARTICLES")) ? atoi(util::GETENV("N_PARTICLES")) : N_p;
-   //N_slices = atoi(util::GETENV("N_SLICES")) ? atoi(util::GETENV("N_SLICES")) : N_slices;
-   //n_threads =
-   //   atoi(util::GETENV("N_THREADS")) ? atoi(util::GETENV("N_THREADS")) : n_threads;
-
    omp_set_num_threads(n_threads);
 
    printf("Setting up the simulation...\n\n");
@@ -69,61 +63,48 @@ int main(int argc, char **argv)
    printf("Number of Slices: %d\n", N_slices);
    printf("Number of openmp threads: %d\n", n_threads);
 
-   timespec begin, end;
-   util::get_time(begin);
+   // timespec begin, end;
+   // util::get_time(begin);
 
-   ftype *momentum = new ftype[N_t + 1];
-   mymath::linspace(momentum, p_i, p_f, N_t + 1);
+   f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1));
+   for (auto &v : momentumVec)
+      mymath::linspace(v.data(), p_i, p_f, N_t + 1);
 
-   ftype *alpha_array = new ftype[(alpha_order + 1) * n_sections];
-   std::fill_n(alpha_array, (alpha_order + 1) * n_sections, alpha);
+   f_vector_2d_t alphaVec(n_sections, f_vector_t(alpha_order+1, alpha));
 
-   ftype *C_array = new ftype[n_sections];
-   std::fill_n(C_array, n_sections, C);
+   f_vector_t CVec(n_sections, C);
 
-   ftype *h_array = new ftype[n_sections * (N_t + 1)];
-   std::fill_n(h_array, (N_t + 1) * n_sections, h);
+   f_vector_2d_t hVec(n_sections , f_vector_t(N_t + 1, h));
 
-   ftype *V_array = new ftype[n_sections * (N_t + 1)];
-   std::fill_n(V_array, (N_t + 1) * n_sections, V);
+   f_vector_2d_t voltageVec(n_sections , f_vector_t(N_t + 1, V));
 
-   ftype *dphi_array = new ftype[n_sections * (N_t + 1)];
-   std::fill_n(dphi_array, (N_t + 1) * n_sections, dphi);
+   f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 
-// TODO variables must be in the correct format (arrays for all)
-
-   GP = new GeneralParameters(N_t, C_array, alpha_array, alpha_order, momentum,
+   GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order, momentumVec,
                               proton);
 
    Beam = new Beams(N_p, N_b);
 
-   RfP = new RfParameters(n_sections, h_array, V_array, dphi_array);
-   //printf("omega_rf = %lf\n",RfP->omega_RF[0]);
+   RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
 
    RingAndRfSection *long_tracker = new RingAndRfSection();
-   //util::dump(Beam->dE, 10, "dE\n");
 
    longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
 
    Slice = new Slices(N_slices);
 
-   //util::dump(Slice->bin_centers, N_slices, "bin_centers\n");
-   //util::dump(Beam->dt, 10, "dt\n");
-   //util::dump(Beam->dE, 10, "dE\n");
-
    double slice_time = 0, track_time = 0;
-
    timespec begin_t;
 
    for (int i = 0; i < N_t; ++i) {
 
-      util::get_time(begin_t);
+      // util::get_time(begin_t);
       long_tracker->track();
-      track_time += util::time_elapsed(begin_t);
+      // track_time += util::time_elapsed(begin_t);
 
-      util::get_time(begin_t);
+      // util::get_time(begin_t);
       Slice->track();
-      slice_time += util::time_elapsed(begin_t);
+      // slice_time += util::time_elapsed(begin_t);
 
       //Slice->fwhm();
 
@@ -136,13 +117,14 @@ int main(int argc, char **argv)
    }
 
 
-   util::get_time(end);
-   util::print_time("Simulation Time", begin, end);
-   // double total_time = track_time + slice_time;
-   // printf("Track time : %.4lf ( %.2lf %% )\n", track_time,
-   //        100 * track_time / total_time);
-   // printf("Slice time : %.4lf ( %.2lf %% )\n", slice_time,
-   //        100 * slice_time / total_time);
+   std::cout << std::scientific;
+   std::cout << "Average Turn Time : "
+             << (slice_time + track_time) / N_t
+             << std::endl;
+   std::cout << "Average Tracker Track Time : "
+             << track_time / N_t << std::endl;
+   std::cout << "Average Slice Track Time : "
+             << slice_time / N_t << std::endl;
 
    // util::dump(Beam->dE.data(), 10, "dE\n");
    // util::dump(Beam->dt.data(), 10, "dt\n");

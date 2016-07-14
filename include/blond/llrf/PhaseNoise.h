@@ -10,13 +10,12 @@
 
 #include <utilities.h>
 #include <configuration.h>
-#include <fft.h>
 
 class PhaseNoise {
 private:
 
 public:
-   
+
    enum transform_t {
       r,
       c,
@@ -36,14 +35,13 @@ public:
 
    void spectrum_to_phase_noise(transform_t transform =
                                    transform_t::None);
-   PhaseNoise(f_vector_t freqArray, f_vector_t realPartOfSpectrum,
-              int seed1 = 0, int seed2 = 0);
-   ~PhaseNoise()
-   {
-      fft::destroy_plans();
-   };
+   PhaseNoise(f_vector_t freqArray,
+              f_vector_t realPartOfSpectrum,
+              int seed1 = 0,
+              int seed2 = 0);
+
+   ~PhaseNoise();
 
 };
-
 
 #endif /* LLRF_PHASENOISE_H_ */

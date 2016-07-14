@@ -1,6 +1,7 @@
 #include "globals.h"
 #include "utilities.h"
 #include "math_functions.h"
+#include "fft.h"
 #include <stdio.h>
 #include "../llrf/PhaseNoise.h"
 #include <gtest/gtest.h>

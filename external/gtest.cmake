@@ -31,8 +31,10 @@ if(BUILD_GOOGLETEST)
 
     if(WIN32 AND NOT MINGW)
         #on windows projects require debug+release libraries
-        execute_process(COMMAND ${CMAKE_COMMAND} -E rename ${CMAKE_CURRENT_SOURCE_DIR}/install/lib/gtest.lib ${INSTALL_LIB_DIR}/gtest/Release/gtest.lib)
-        execute_process(COMMAND ${CMAKE_COMMAND} -E rename ${CMAKE_CURRENT_SOURCE_DIR}/install/lib/gtest_main.lib ${INSTALL_LIB_DIR}/gtest/Release/gtest_main.lib)
+        execute_process(
+                COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/install/lib/gtest.lib ${INSTALL_LIB_DIR}/gtest/Release/gtest.lib
+                COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/install/lib/gtest_main.lib ${INSTALL_LIB_DIR}/gtest/Release/gtest_main.lib
+                )
         set(GOOGLETEST_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/build/gtest-d/")
         ExternalProject_Add(
                 googletest-src-dbg
@@ -50,10 +52,14 @@ if(BUILD_GOOGLETEST)
                 TEST_BEFORE_INSTALL False
                 TEST_AFTER_INSTALL False
                 BINARY_DIR ${GOOGLETEST_ROOT}/build
-                INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/install/libs/Debug
+                INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/install/
         )
 
-        execute_process(COMMAND ${CMAKE_COMMAND} -E rename ${CMAKE_CURRENT_SOURCE_DIR}/install/lib/gtest.lib ${INSTALL_LIB_DIR}/gtest/Debug/gtest.lib)
-        execute_process(COMMAND ${CMAKE_COMMAND} -E rename ${CMAKE_CURRENT_SOURCE_DIR}/install/lib/gtest_main.lib ${INSTALL_LIB_DIR}/gtest/Debug/gtest_main.lib)
+        execute_process(
+                COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/install/lib/gtest.lib ${INSTALL_LIB_DIR}/gtest/Debug/gtest.lib
+                COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/install/lib/gtest_main.lib ${INSTALL_LIB_DIR}/gtest/Debug/gtest_main.lib
+                COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_CURRENT_SOURCE_DIR}/install/lib/gtest.lib
+                COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_CURRENT_SOURCE_DIR}/install/lib/gtest_main.lib
+                )
     endif()
 endif()

@@ -26,9 +26,16 @@ if(BUILD_BENCHMARK)
 
     if(WIN32 AND NOT MINGW)
         #on windows projects require debug+release libraries
-        execute_process(COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/install/lib/benchmark.lib ${INSTALL_LIB_DIR}/benchmark/Release/benchmark.lib)
-        set(BENCHMARK_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/build/gbench-d/")
 
+        #adding additional step to move release build libraries
+        ExternalProject_Add_Step(benchmark-src AFTER_INSTALL
+                COMMAND ${CMAKE_COMMAND} -E copy ${INSTALL_LIB_DIR}/benchmark.lib ${INSTALL_LIB_DIR}/benchmark/Release/benchmark.lib
+                COMMENT "Copy release files into release directory"
+                DEPENDEES Install
+                )
+
+        #building debug version
+        set(BENCHMARK_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/build/gbench-d/")
         ExternalProject_Add(
                 benchmark-src-d
                 GIT_REPOSITORY https://github.com/google/benchmark
@@ -43,10 +50,13 @@ if(BUILD_BENCHMARK)
                 INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/install/
         )
 
-        execute_process(
-                COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/install/lib/benchmark.lib ${INSTALL_LIB_DIR}/benchmark/Debug/benchmark.lib
-                COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_CURRENT_SOURCE_DIR}/install/lib/benchmark.lib
+        ExternalProject_Add_Step(benchmark-src-d AFTER_INSTALL
+                COMMAND ${CMAKE_COMMAND} -E copy ${INSTALL_LIB_DIR}/benchmark.lib ${INSTALL_LIB_DIR}/benchmark/Debug/benchmark.lib
+                COMMAND ${CMAKE_COMMAND} -E remove -f ${INSTALL_LIB_DIR}/benchmark.lib
+                COMMENT "Copy release files into release directory"
+                DEPENDEES Install
                 )
 
+        message(STATUS "note: on windows lib builds are seprate for debug and release")
     endif()
 endif()

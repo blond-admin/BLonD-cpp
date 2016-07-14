@@ -31,10 +31,15 @@ if(BUILD_GOOGLETEST)
 
     if(WIN32 AND NOT MINGW)
         #on windows projects require debug+release libraries
-        execute_process(
-                COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/install/lib/gtest.lib ${INSTALL_LIB_DIR}/gtest/Release/gtest.lib
-                COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/install/lib/gtest_main.lib ${INSTALL_LIB_DIR}/gtest/Release/gtest_main.lib
+        #adding additional step to move release build libraries
+        ExternalProject_Add_Step(googletest-src AFTER_INSTALL
+                COMMAND ${CMAKE_COMMAND} -E copy ${INSTALL_LIB_DIR}/gtest.lib ${INSTALL_LIB_DIR}/gtest/Release/gtest.lib
+                COMMAND ${CMAKE_COMMAND} -E copy ${INSTALL_LIB_DIR}/gtest_main.lib ${INSTALL_LIB_DIR}/gtest/Release/gtest_main.lib
+                COMMENT "Copy release files into release directory"
+                DEPENDEES Install
                 )
+
+        #building debug version
         set(GOOGLETEST_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/build/gtest-d/")
         ExternalProject_Add(
                 googletest-src-dbg
@@ -55,11 +60,15 @@ if(BUILD_GOOGLETEST)
                 INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/install/
         )
 
-        execute_process(
-                COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/install/lib/gtest.lib ${INSTALL_LIB_DIR}/gtest/Debug/gtest.lib
-                COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/install/lib/gtest_main.lib ${INSTALL_LIB_DIR}/gtest/Debug/gtest_main.lib
-                COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_CURRENT_SOURCE_DIR}/install/lib/gtest.lib
-                COMMAND ${CMAKE_COMMAND} -E remove -f ${CMAKE_CURRENT_SOURCE_DIR}/install/lib/gtest_main.lib
+        ExternalProject_Add_Step(googletest-src-dbg AFTER_INSTALL
+                COMMAND ${CMAKE_COMMAND} -E copy ${INSTALL_LIB_DIR}/gtest.lib ${INSTALL_LIB_DIR}/gtest/Debug/gtest.lib
+                COMMAND ${CMAKE_COMMAND} -E copy ${INSTALL_LIB_DIR}/gtest_main.lib ${INSTALL_LIB_DIR}/gtest/Debug/gtest_main.lib
+                COMMAND ${CMAKE_COMMAND} -E remove -f ${INSTALL_LIB_DIR}/gtest.lib
+                COMMAND ${CMAKE_COMMAND} -E remove -f ${INSTALL_LIB_DIR}/gtest_main.lib
+                COMMENT "Copy release files into release directory"
+                DEPENDEES Install
                 )
+
+        message(STATUS "note: on windows lib builds are seprate for debug and release")
     endif()
 endif()

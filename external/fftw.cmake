@@ -13,7 +13,7 @@ if (WITH_FFTW)
 endif ()
 
 if (BUILD_FFTW)
-    message(STATUS "not found, building fftw")
+        message(STATUS "not found, building fftw")
 
     if (WIN32 AND NOT MINGW)
         get_filename_component(VS_BIN_DIR "${CMAKE_LINKER}" DIRECTORY)

@@ -171,6 +171,7 @@ execute_process(
         -DCMAKE_CXX_FLAGS_RELEASE=${CMAKE_CXX_FLAGS_RELEASE}
         -DCMAKE_EXE_LINKER_FLAGS_RELEASE=${CMAKE_EXE_LINKER_FLAGS_RELEASE}
         -DCMAKE_EXE_LINKER_FLAGS_DEBUG=${CMAKE_EXE_LINKER_FLAGS_DEBUG}
+        -v
         -G "${CMAKE_GENERATOR}"
         ${PROJECT_SOURCE_DIR}/external/
         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/external/build
@@ -182,12 +183,15 @@ execute_process(
 )
 message(STATUS "Building required librasries complete")
 
-return() # todo: remove!
-
 # path to external libraries and headers
 include_directories(${EXTERNAL_INSTALL_DIR}/include)
 link_directories(${EXTERNAL_INSTALL_DIR}/lib)
 
+if(WIN32 AND NOT MINGW)
+    link_directories(${EXTERNAL_INSTALL_DIR}/lib/fftw/$<CONFIG>/)
+    link_directories(${EXTERNAL_INSTALL_DIR}/lib/gtest/$<CONFIG>/)
+    link_directories(${EXTERNAL_INSTALL_DIR}/lib/benchmark/$<CONFIG>/)
+endif()
 
 # Code editors usabilety function (structure code as it is placed in folders)
 function(assign_source_group)
@@ -207,8 +211,6 @@ endfunction(assign_source_group)
 # main library
 include_directories(include)
 SET(LIBRARIES
-        #gsl
-        #gslcblas
         fftw
         )
 
@@ -298,3 +300,11 @@ if (BENCHMARK_ENABLED)
 
     enable_testing()
 endif ()
+
+install(TARGETS blond
+        RUNTIME DESTINATION bin
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib/static
+        INCLUDES DESTINATION include
+        CONFIGURATIONS Debug|Release
+        )

@@ -12,7 +12,7 @@ if(BUILD_GOOGLETEST)
     set(GOOGLETEST_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/build/gtest/")
     ExternalProject_Add(
             googletest-src
-            GIT_REPOSITORY "https://github.com/google/googletest.git"
+            GIT_REPOSITORY https://github.com/google/googletest
             DOWNLOAD_DIR ${GOOGLETEST_ROOT}
             CMAKE_ARGS -DCMAKE_BUILD_TYPE=Release
             -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG:PATH=DebugLibs
@@ -20,13 +20,19 @@ if(BUILD_GOOGLETEST)
             -Dgtest_force_shared_crt=ON
             -DBUILD_GTEST=ON
             -DBUILD_GMOCK=OFF
+            -Dgtest_disable_pthreads=ON
             -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}
             -DCMAKE_RULE_MESSAGES=OFF
+            -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}
+            -DCMAKE_CXX_FLAGS_DEBUG=${CMAKE_CXX_FLAGS_DEBUG}
+            -DCMAKE_CXX_FLAGS_RELEASE=${CMAKE_CXX_FLAGS_RELEASE}
+            -DCMAKE_EXE_LINKER_FLAGS_RELEASE=${CMAKE_EXE_LINKER_FLAGS_RELEASE}
+            -DCMAKE_EXE_LINKER_FLAGS_DEBUG=${CMAKE_EXE_LINKER_FLAGS_DEBUG}
             TMP_DIR ${GOOGLETEST_ROOT}/build/tmp
             TEST_BEFORE_INSTALL False
             TEST_AFTER_INSTALL False
             BINARY_DIR ${GOOGLETEST_ROOT}/build
-            INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/install
+            INSTALL_DIR ${INSTALL_DIR}
     )
 
     if(WIN32 AND NOT MINGW)
@@ -43,7 +49,7 @@ if(BUILD_GOOGLETEST)
         set(GOOGLETEST_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/build/gtest-d/")
         ExternalProject_Add(
                 googletest-src-dbg
-                GIT_REPOSITORY "https://github.com/google/googletest.git"
+                GIT_REPOSITORY https://github.com/google/googletest
                 DOWNLOAD_DIR ${GOOGLETEST_ROOT}
                 CMAKE_ARGS -DCMAKE_BUILD_TYPE=Debug
                 -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG:PATH=DebugLibs
@@ -51,13 +57,19 @@ if(BUILD_GOOGLETEST)
                 -Dgtest_force_shared_crt=ON
                 -DBUILD_GTEST=ON
                 -DBUILD_GMOCK=OFF
+                -Dgtest_disable_pthreads=ON
                 -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}
                 -DCMAKE_RULE_MESSAGES=OFF
+                -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}
+                -DCMAKE_CXX_FLAGS_DEBUG=${CMAKE_CXX_FLAGS_DEBUG}
+                -DCMAKE_CXX_FLAGS_RELEASE=${CMAKE_CXX_FLAGS_RELEASE}
+                -DCMAKE_EXE_LINKER_FLAGS_RELEASE=${CMAKE_EXE_LINKER_FLAGS_RELEASE}
+                -DCMAKE_EXE_LINKER_FLAGS_DEBUG=${CMAKE_EXE_LINKER_FLAGS_DEBUG}
                 TMP_DIR ${GOOGLETEST_ROOT}/build/tmp
                 TEST_BEFORE_INSTALL False
                 TEST_AFTER_INSTALL False
                 BINARY_DIR ${GOOGLETEST_ROOT}/build
-                INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/install/
+                INSTALL_DIR ${INSTALL_DIR}
         )
 
         ExternalProject_Add_Step(googletest-src-dbg AFTER_INSTALL

@@ -73,7 +73,7 @@ if (BUILD_FFTW)
                     --enable-avx
                     --with-our-malloc
                     --with-incoming-stack-boundary=2
-                    --prefix=${CMAKE_CURRENT_SOURCE_DIR}/install
+                    --prefix=${INSTALL_DIR}
                 BUILD_COMMAND
                 COMMAND make # j ${n} # parallel FFTW builds do not perform well
                 INSTALL_COMMAND

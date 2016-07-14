@@ -18,7 +18,7 @@ set(BENCHMARK_ENABLED "True" CACHE STRING "Cerate benchmark projects")
 set(ARCHITECTURE "x64" CACHE STRING "Set architecture 'x86' or 'x32'")
 
 # Packages
-set(EXTERNAL_INSTALL_DIR external/install CACHE STRING "External libraries installation folder (with subfolders lib and include)")
+set(EXTERNAL_INSTALL_DIR ${PROJECT_SOURCE_DIR}/external/install CACHE STRING "External libraries installation folder (with subfolders lib and include)")
 
 # Abilety to build external libraries from source or install them from releases
 #set(WITH_GSL "False" CACHE STRING "Should Build GNU Scientific Library from source") #todo: default to false, always default true on windows

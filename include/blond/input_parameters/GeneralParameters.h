@@ -10,58 +10,63 @@
 
 class GeneralParameters;
 
-#include <blond/configuration.h>
-#include <blond/constants.h>
-#include <blond/globals.h>
-#include <blond/utilities.h>
-#include <cmath>
-#include <cstring>
-#include <numeric>
+#include "globals.h"
 #include <vector>
+#include <cmath>
+#include <numeric>
+#include <cstring>
+#include "constants.h"
+#include "configuration.h"
+#include "utilities.h"
 
-enum particle_type { proton, electron, user_input, none };
+enum particle_type {
+   proton, electron, user_input, none
+};
 
 class GeneralParameters {
 
-  private:
-    void eta_generation();
+private:
+   void eta_generation();
+   void _eta0();
+   void _eta1();
+   void _eta2();
+public:
+   uint n_sections;
+   uint n_turns;
+   uint alpha_order;   
+   particle_type particle, particle_2;
+   ftype mass, mass2;
+   ftype charge, charge2;
+   ftype cumulative_times;
+   f_vector_2d_t alpha;
+   f_vector_2d_t momentum;
+   f_vector_t ring_length;
+   ftype ring_circumference;
+   ftype ring_radius;
+   f_vector_2d_t beta;
+   f_vector_2d_t gamma;
+   f_vector_2d_t energy;
+   f_vector_2d_t kin_energy;
+   f_vector_t cycle_time;
+   f_vector_t f_rev, omega_rev;
+   f_vector_t t_rev;
+   f_vector_2d_t eta_0, eta_1, eta_2;
 
-    void _eta0();
+   GeneralParameters(const uint n_turns,
+                     f_vector_t &ring_length,
+                     f_vector_2d_t &alpha,
+                     const uint alpha_order,
+                     f_vector_2d_t &momentum,
+                     const particle_type particle,
+                     ftype user_mass = 0,
+                     ftype user_charge = 0,
+                     const particle_type particle2 = none,
+                     ftype user_mass_2 = 0,
+                     ftype user_charge_2 = 0,
+                     const uint number_of_sections = 1);
 
-    void _eta1();
+   ~GeneralParameters();
 
-    void _eta2();
-
-  public:
-    int n_sections;
-    particle_type particle, particle_2;
-    int n_turns;
-    ftype mass, mass2;
-    ftype charge, charge2;
-    ftype cumulative_times;
-    ftype* alpha;
-    ftype* momentum;
-    int alpha_order;
-    ftype* ring_length;
-    ftype ring_circumference;
-    ftype ring_radius;
-    ftype* beta;
-    ftype* gamma;
-    ftype* energy;
-    ftype* kin_energy;
-    ftype* cycle_time;
-    ftype *f_rev, *omega_rev;
-    std::vector<ftype> t_rev;
-    ftype *eta_0, *eta_1, *eta_2;
-
-    GeneralParameters(const int n_turns, ftype* ring_length, ftype* alpha,
-                      const int alpha_order, ftype* momentum,
-                      const particle_type particle, ftype user_mass = 0,
-                      ftype user_charge = 0, particle_type particle2 = none,
-                      ftype user_mass_2 = 0, ftype user_charge_2 = 0,
-                      int number_of_sectrions = 1);
-
-    ~GeneralParameters();
 };
 
 #endif /* INPUT_PARAMETERS_GENERALPARAMETERS_H_ */

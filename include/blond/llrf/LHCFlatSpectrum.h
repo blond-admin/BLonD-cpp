@@ -17,42 +17,38 @@
 #ifndef LLRF_LHCFLATSPECTRUM_H_
 #define LLRF_LHCFLATSPECTRUM_H_
 
-
+#include <blond/configuration.h>
 #include <blond/globals.h>
 #include <blond/utilities.h>
-#include <blond/configuration.h>
 
 class API LHCFlatSpectrum {
-private:
+  private:
+  public:
+    enum predistortion_t {
+        exponential,
+        linear,
+        hyperbolic,
+        weightfunction,
+        None
+    };
 
-public:
-   enum predistortion_t {
-      exponential,
-      linear,
-      hyperbolic,
-      weightfunction,
-      None
-   };
+    uint fNt;
+    uint fCorr;
+    ftype fFMin, fFMax;
+    ftype fAi;
+    int fSeed1, fSeed2;
+    predistortion_t fPredistortion;
+    uint fNTurns;
+    f_vector_t fDphi;
+    f_vector_t fFs;
 
-   uint fNt;
-   uint fCorr;
-   ftype fFMin, fFMax;
-   ftype fAi;
-   int fSeed1, fSeed2;
-   predistortion_t fPredistortion;
-   uint fNTurns;
-   f_vector_t fDphi;
-   f_vector_t fFs;
-
-   LHCFlatSpectrum(uint time_points, uint corr_time = 10000,
-                   ftype fmin = 0.8571, ftype fmax = 1.1,
-                   ftype initial_amplitude = 1e-6,
-                   int seed1 = 1234, int seed2 = 7564,
-                   predistortion_t predistortion =
-                      predistortion_t::None);
-   ~LHCFlatSpectrum();
-   void generate();
+    LHCFlatSpectrum(uint time_points, uint corr_time = 10000,
+                    ftype fmin = 0.8571, ftype fmax = 1.1,
+                    ftype initial_amplitude = 1e-6, int seed1 = 1234,
+                    int seed2 = 7564,
+                    predistortion_t predistortion = predistortion_t::None);
+    ~LHCFlatSpectrum();
+    void generate();
 };
-
 
 #endif /* LLRF_LHCFLATSPECTRUM_H_ */

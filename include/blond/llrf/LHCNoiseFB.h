@@ -19,56 +19,51 @@
 #ifndef LLRF_LHCNOISEFB_H_
 #define LLRF_LHCNOISEFB_H_
 
-
 #include <blond/configuration.h>
 #include <blond/utilities.h>
 #include <functional>
 
 class API LHCNoiseFB {
-private:
-	constexpr static ftype cfwhm = 2.57756788267; // std::sqrt(2.0 / std::log(2.0));
-public:
+  private:
+    constexpr static ftype cfwhm =
+        2.57756788267; // std::sqrt(2.0 / std::log(2.0));
+  public:
+    // Phase noise scaling factor. Initially 0
+    ftype fX;
 
-   // Phase noise scaling factor. Initially 0
-   ftype fX;
+    // Target bunch length [s], 4-sigma value.
+    ftype fBlTarg;
 
-   // Target bunch length [s], 4-sigma value.
-   ftype fBlTarg;
+    // Measured bunch length [s], FWHM.
+    ftype fBlMeas;
 
-   // Measured bunch length [s], FWHM.
-   ftype fBlMeas;
+    // Feedback recursion scaling factor.*
+    ftype fA;
 
-   // Feedback recursion scaling factor.*
-   ftype fA;
+    // Update feedback every n_update turns.*
+    uint fNUpdate;
 
-   // Update feedback every n_update turns.*
-   uint fNUpdate;
+    // Switch to use constant or variable gain*
+    bool fVariableGain;
 
-   // Switch to use constant or variable gain*
-   bool fVariableGain;
+    // Feedback gain [1/s]
+    f_vector_t fG;
 
-   // Feedback gain [1/s]
-   f_vector_t fG;
+    // Bunch pattern for multi-bunch simulations
+    f_vector_t fBunchPattern;
 
-   // Bunch pattern for multi-bunch simulations
-   f_vector_t fBunchPattern;
+    f_vector_t fBlMeasBBB;
 
-   f_vector_t fBlMeasBBB;
+    std::function<void()> fFwhm;
 
-   std::function<void()> fFwhm;
-
-   LHCNoiseFB(ftype bl_target,
-              ftype gain = 0.1e9,
-              ftype factor = 0.93,
-              ftype update_frequency = 22500,
-              bool variable_gain = true,
-              f_vector_t bunch_pattern = f_vector_t());
-   ~LHCNoiseFB();
-   void track();
-   ftype fwhm_interpolation(uint_vector_t index, ftype half_height);
-   void fwhm_single_bunch();
-   void fwhm_multi_bunch();
+    LHCNoiseFB(ftype bl_target, ftype gain = 0.1e9, ftype factor = 0.93,
+               ftype update_frequency = 22500, bool variable_gain = true,
+               f_vector_t bunch_pattern = f_vector_t());
+    ~LHCNoiseFB();
+    void track();
+    ftype fwhm_interpolation(uint_vector_t index, ftype half_height);
+    void fwhm_single_bunch();
+    void fwhm_multi_bunch();
 };
-
 
 #endif /* LLRF_LHCNOISEFB_H_ */

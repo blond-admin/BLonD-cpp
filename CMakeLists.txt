@@ -34,6 +34,8 @@ set(GOOGLETEST_ROOT ${PROJECT_SOURCE_DIR}/external/googletest/ CACHE STRING "Goo
 set(WITH_BENCHMARK "False" CACHE STRING "Should Build GoogleBenchmark library from source")
 set(BENCHMARK_ROOT ${PROJECT_SOURCE_DIR}/external/benchmark CACHE STRING "Google Benchmark Library root")
 
+set(WITH_FORMAT "False" CACHE STRING "Clang-Format all project files on build (requires clang-format)")
+
 if (MSVC)
     #set(WITH_GSL "True")
     #set(WITH_BOOST "True")
@@ -376,3 +378,5 @@ install(TARGETS blond
         INCLUDES DESTINATION include
         CONFIGURATIONS Debug|Release
         )
+
+include(clang-format.cmake)

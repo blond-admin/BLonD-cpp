@@ -1136,7 +1136,8 @@ namespace option {
          * See Parser::parse() for the meaning of the arguments.
          */
         void add(bool gnu, const Descriptor usage[], int argc,
-                 const char** argv, int min_abbr_len = 0, //
+                 const char** argv,
+                 int min_abbr_len = 0, //
                  bool single_minus_longopt = false);
 
         //! @brief add() with non-const argv.
@@ -3005,7 +3006,8 @@ namespace option {
      * @endcode
      *
      * @par Notes:
-     * @li the @c write() method of a class API that is to be passed as a temporary
+     * @li the @c write() method of a class API that is to be passed as a
+     * temporary
      *     as @c MyWriter() is in the example, must be a @c const method,
      * because
      *     temporary objects are passed as const reference. This only applies to

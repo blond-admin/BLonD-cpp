@@ -39,11 +39,7 @@ const std::string datafiles =
    "../demos/input_files/LHC_restart/";
 
 // Global variables
-GeneralParameters *GP;
-Beams *Beam;
-Slices *Slice;
-RfParameters *RfP;
-int n_threads = 1;
+
 //const int size = 14e6;
 const int from_line = 0;
 
@@ -52,7 +48,6 @@ void parse_args(int argc, char **argv);
 // Simulation setup -------------------------------------------------------------
 int main(int argc, char **argv)
 {
-
    parse_args(argc, argv);
    // Environmental variables
    /*
@@ -62,13 +57,13 @@ int main(int argc, char **argv)
    n_threads =
        atoi(util::GETENV("N_THREADS")) ? atoi(util::GETENV("N_THREADS")) : n_threads;
    */
-   omp_set_num_threads(n_threads);
+   omp_set_num_threads(Context::n_threads);
 
    printf("Setting up the simulation...\n\n");
    printf("Number of turns: %d\n", N_t);
    printf("Number of macro-particles: %d\n", N_p);
    printf("Number of Slices: %d\n", N_slices);
-   printf("Number of openmp threads: %d\n", n_threads);
+   printf("Number of openmp threads: %d\n", Context::n_threads);
 
    //printf("Setting up the simulation..\n");
    timespec begin, end;
@@ -108,8 +103,9 @@ int main(int argc, char **argv)
 
    f_vector_t CVec(n_sections, C);
 
-   GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
+	Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
                               momentumVec, proton);
+	auto GP = Context::GP;
 
    printf("General parameters set...\n");
    // Define rf_params
@@ -117,11 +113,14 @@ int main(int argc, char **argv)
 
    f_vector_2d_t hVec(n_sections , f_vector_t(N_t + 1, h));
 
-   RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+	Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+	auto RfP = Context::RfP;
+
    printf("RF parameters set...\n");
 
    // Define beam and distribution: Load matched, filamented distribution
-   Beam = new Beams(N_p, N_b);
+	Context::Beam = new Beams(N_p, N_b);
+	auto Beam = Context::Beam;
    f_vector_t v2;
    util::read_vector_from_file(v2, datafiles + "coords_13000001.dat");
    int k = 0;
@@ -132,7 +131,9 @@ int main(int argc, char **argv)
       k++;
    }
 
-   Slice = new Slices(N_slices, 0, -0.5e-9, 3e-9);
+	Context::Slice = new Slices(N_slices, 0, -0.5e-9, 3e-9);
+	auto Slice = Context::Slice;
+
    printf("Beam generated, slices set...\n");
    // Define phase loop and frequency loop gain
    ftype PL_gain = 1 / (5 * GP->t_rev[0]);
@@ -263,7 +264,7 @@ void parse_args(int argc, char **argv)
             //fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
             break;
          case N_THREADS:
-            n_threads = atoi(opt.arg);
+	         Context::n_threads = atoi(opt.arg);
             //fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
             break;
          case N_SLICES:

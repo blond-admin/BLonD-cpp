@@ -14,7 +14,6 @@
 #include <algorithm>
 #include <blond/math_functions.h>
 #include <blond/globals.h>
-#include <blond/utilities.h>
 #include <blond/constants.h>
 
 

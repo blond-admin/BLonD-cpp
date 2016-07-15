@@ -44,13 +44,9 @@ const int n_sections = 1;
 unsigned N_t = 1000;    // Number of turns to track
 unsigned N_p = 5000000;         // Macro-particles
 
-int n_threads = 1;
 unsigned N_slices = 1 << 8; // = (2^8)
 
-GeneralParameters *GP;
-Beams *Beam;
-Slices *Slice;
-RfParameters *RfP;
+
 
 
 void parse_args(int argc, char **argv);
@@ -58,10 +54,9 @@ void parse_args(int argc, char **argv);
 // Simulation setup -------------------------------------------------------------
 int main(int argc, char **argv)
 {
-
    parse_args(argc, argv);
 
-   omp_set_num_threads(n_threads);
+   omp_set_num_threads(Context::n_threads);
 
    /// initializations
 
@@ -69,7 +64,7 @@ int main(int argc, char **argv)
    printf("Number of turns: %d\n", N_t);
    printf("Number of macro-particles: %d\n", N_p);
    printf("Number of Slices: %d\n", N_slices);
-   printf("Number of openmp threads: %d\n", n_threads);
+   printf("Number of openmp threads: %d\n", Context::n_threads);
 
 
    timespec begin;
@@ -86,18 +81,18 @@ int main(int argc, char **argv)
 
    f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 
-   GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
+	Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
                               momentumVec, proton);
 
-   Beam = new Beams(N_p, N_b);
+	Context::Beam = new Beams(N_p, N_b);
 
-   RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+	Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
 
    RingAndRfSection *long_tracker = new RingAndRfSection();
 
    longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
 
-   Slice = new Slices(N_slices, 0, 0, 2 * constant::pi, rad);
+	Context::Slice = new Slices(N_slices, 0, 0, 2 * constant::pi, rad);
    //util::dump(Slice->bin_centers, 10, "bin_centers\n");
 
    std::vector<ftype> v;
@@ -141,7 +136,7 @@ int main(int argc, char **argv)
       longTrack += util::time_elapsed(begin);
 
       util::get_time(begin);
-      Slice->track();
+	   Context::Slice->track();
       sliceTrack += util::time_elapsed(begin);
 
       //util::print_time_elapsed("Slice Track", begin);
@@ -163,11 +158,11 @@ int main(int argc, char **argv)
    //util::dump(Beam->dt, 10, "dt\n");
    //util::dump(Slice->n_macroparticles, 10, "n_macroparticles\n");
 
-   delete Slice;
+   delete Context::Slice;
    delete long_tracker;
-   delete RfP;
-   delete GP;
-   delete Beam;
+   delete Context::RfP;
+   delete Context::GP;
+   delete Context::Beam;
    delete resonator;
    delete indVoltTime;
    delete totVol;
@@ -226,7 +221,7 @@ void parse_args(int argc, char **argv)
             //fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
             break;
          case N_THREADS:
-            n_threads = atoi(opt.arg);
+	         Context::n_threads = atoi(opt.arg);
             //fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
             break;
          case N_SLICES:

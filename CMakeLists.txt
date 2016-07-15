@@ -128,7 +128,7 @@ endif ()
 
 if (!WITH_FFTW)
     find_path(FFTW_INCLUDES fftw3.h)
-    find_library(FFTW_LIBRARIES NAMES fftw3 REQUIRED)
+    find_library(FFTW_LIB NAMES fftw3 REQUIRED)
 endif ()
 
 #not required
@@ -138,7 +138,7 @@ endif ()
 
 if (!WITH_BENCHMARK AND BENCHMARK_ENABLED)
     find_path(BENCHMARK_INCLUDES benchmark/benchmark.h.h)
-    find_library(BENCHMARK_LIBRARIES NAME benchmark REQUIRED)
+    find_library(BENCHMARK_LIB NAME benchmark REQUIRED)
 endif ()
 
 if (NOT (EXISTS ${PROJECT_SOURCE_DIR}/external/build))
@@ -187,17 +187,26 @@ message(STATUS "Building required librasries complete")
 include_directories(${EXTERNAL_INSTALL_DIR}/include)
 link_directories(${EXTERNAL_INSTALL_DIR}/lib)
 
-if(WIN32 AND NOT MINGW)
-    link_directories(${EXTERNAL_INSTALL_DIR}/lib/fftw/$(Configuration)/)
-    link_directories(${EXTERNAL_INSTALL_DIR}/lib/gtest/$(Configuration)/)
-    link_directories(${EXTERNAL_INSTALL_DIR}/lib/benchmark/$(Configuration)/)
-    find_library(FFTW_LIB
-            NAMES fftw libfftw3 libfftw-3.3
-            PATHS "${EXTERNAL_INSTALL_DIR}/lib/fftw/Debug"
-            )
+if(WITH_FFTW)
+    if(WIN32 AND NOT MINGW)
+        link_directories(${EXTERNAL_INSTALL_DIR}/lib/fftw/$(Configuration)/)
+        find_library(FFTW_LIB
+                NAMES fftw libfftw3 libfftw-3.3
+                PATHS "${EXTERNAL_INSTALL_DIR}/lib/fftw/Debug"
+                )
+    else()
+        find_library(FFTW_LIB
+                NAMES fftw libfftw3 libfftw-3.3
+                PATHS "${EXTERNAL_INSTALL_DIR}/lib/"
+                )
+    endif()
     get_filename_component(FFTW_LIB ${FFTW_LIB} NAME)
 
+    add_custom_command(TARGET ALL PRE_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_directory
+            "${EXTERNAL_INSTALL_DIR}/bin/" $<TARGET_FILE_DIR>)
 endif()
+
 
 # Code editors usabilety function (structure code as it is placed in folders)
 function(assign_source_group)
@@ -257,8 +266,35 @@ endforeach ()
 
 # testing
 if (TEST_ENABLED)
+    if(WITH_GOOGLETEST)
+        if(WIN32 AND NOT MINGW)
+            link_directories(${EXTERNAL_INSTALL_DIR}/lib/gtest/$(Configuration)/)
+            find_library(GTEST_LIB
+                    NAMES gtest libgtest
+                    PATHS "${EXTERNAL_INSTALL_DIR}/lib/gtest/Debug"
+                    )
+
+            find_library(GTEST_MAIN_LIB
+                    NAMES gtest_main libgtest_main
+                    PATHS "${EXTERNAL_INSTALL_DIR}/lib/gtest/Debug"
+                    )
+        else()
+            find_library(GTEST_LIB
+                    NAMES gtest libgtest
+                    PATHS "${EXTERNAL_INSTALL_DIR}/lib/"
+                    )
+            find_library(GTEST_MAIN_LIB
+                    NAMES gtest_main libgtest_main
+                    PATHS "${EXTERNAL_INSTALL_DIR}/lib/"
+                    )
+        endif()
+        get_filename_component(GTEST_MAIN_LIB ${GTEST_MAIN_LIB} NAME)
+    endif()
+
+
     message(STATUS "generating test executables")
-    LIST(APPEND LIBRARIES gtest)
+    LIST(APPEND LIBRARIES ${GTEST_LIB} )
+    LIST(APPEND LIBRARIES ${GTEST_MAIN_LIB} )
 
     if (UNIX)
         set(CTEST_MEMORYCHECK_COMMAND, "usr/bin/valgrind")
@@ -283,8 +319,24 @@ endif ()
 
 # benchmarks
 if (BENCHMARK_ENABLED)
+    if(WITH_BENCHMARK)
+        if(WIN32 AND NOT MINGW)
+            link_directories(${EXTERNAL_INSTALL_DIR}/lib/fftw/$(Configuration)/)
+            find_library(BENCHMARK_LIB
+                    NAMES benchmark libbenchmark
+                    PATHS "${EXTERNAL_INSTALL_DIR}/lib/benchmark/Debug"
+                    )
+        else()
+            find_library(BENCHMARK_LIB
+                    NAMES benchmark libbenchmark
+                    PATHS "${EXTERNAL_INSTALL_DIR}/lib/"
+                    )
+        endif()
+        get_filename_component(BENCHMARK_LIB ${BENCHMARK_LIB} NAME)
+    endif()
+
     message(STATUS "generating benchmark executables")
-    LIST(APPEND LIBRARIES benchmark)
+    LIST(APPEND LIBRARIES ${BENCHMARK_LIB})
 
     if (MSVC)
         LIST(APPEND LIBRARIES Shlwapi)

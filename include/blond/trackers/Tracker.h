@@ -9,9 +9,6 @@
 #define TRACKERS_TRACKER_H_
 
 #include <blond/utilities.h>
-#include <blond/input_parameters/GeneralParameters.h>
-#include <blond/input_parameters/RfParameters.h>
-#include <blond/beams/Beams.h>
 #include <blond/llrf/PhaseLoop.h>
 #include <blond/llrf/LHCNoiseFB.h>
 #include <blond/beams/Slices.h>

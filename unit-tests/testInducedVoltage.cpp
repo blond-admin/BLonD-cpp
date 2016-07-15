@@ -18,15 +18,9 @@
 const std::string datafiles =
    "../demos/input_files/TC5_Wake_impedance/";
 
-GeneralParameters *GP;
-Beams *Beam;
-Slices *Slice;
-RfParameters *RfP;
+
 //RingAndRfSection *long_tracker;
 Resonators *resonator;
-int n_threads = 1;
-
-
 
 class testInducedVoltage : public ::testing::Test {
 
@@ -57,7 +51,7 @@ protected:
    virtual void SetUp()
    {
 
-      omp_set_num_threads(n_threads);
+      omp_set_num_threads(Context::n_threads);
 
       f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1, p_i));
 
@@ -71,19 +65,19 @@ protected:
 
       f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 
-      GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
+	   Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
                                  momentumVec, proton);
 
-      Beam = new Beams(N_p, N_b);
+	   Context::Beam = new Beams(N_p, N_b);
 
-      RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+	   Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
 
 
       //RingAndRfSection *long_tracker = new RingAndRfSection();
 
       longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
 
-      Slice = new Slices(N_slices, 0, 0, 2 * constant::pi, rad);
+	   Context::Slice = new Slices(N_slices, 0, 0, 2 * constant::pi, rad);
       //util::dump(Slice->bin_centers, 10, "bin_centers\n");
 
       std::vector<ftype> v;
@@ -112,10 +106,10 @@ protected:
    {
       // Code here will be called immediately after each test
       // (right before the destructor).
-      delete GP;
-      delete Beam;
-      delete RfP;
-      delete Slice;
+      delete Context::GP;
+      delete Context::Beam;
+      delete Context::RfP;
+      delete Context::Slice;
       delete resonator;
       //delete long_tracker;
    }
@@ -196,7 +190,7 @@ TEST_F(testInducedVoltage, InducedVoltageTimeReprocess)
    std::vector<Intensity *> wakeSourceList({resonator});
    //wakeSourceList.push_back(resonator);
    InducedVoltageTime *indVoltTime = new InducedVoltageTime(wakeSourceList);
-
+   auto Slice = Context::Slice;
    Slice->track();
 
    for (uint i = 0; i < Slice->n_slices; i++)
@@ -266,7 +260,7 @@ TEST_F(testInducedVoltage, InducedVoltageTimeReprocess)
 
 TEST_F(testInducedVoltage, induced_voltage_generation)
 {
-   Slice->track();
+	Context::Slice->track();
 
    std::vector<Intensity *> wakeSourceList({resonator});
    InducedVoltageTime *indVoltTime = new InducedVoltageTime(wakeSourceList);
@@ -302,7 +296,7 @@ TEST_F(testInducedVoltage, induced_voltage_generation)
 
 TEST_F(testInducedVoltage, induced_voltage_generation_convolution)
 {
-   Slice->track();
+	Context::Slice->track();
 
    std::vector<Intensity *> wakeSourceList({resonator});
    InducedVoltageTime *indVoltTime = new InducedVoltageTime(wakeSourceList, time_or_freq::time_domain);
@@ -336,7 +330,8 @@ TEST_F(testInducedVoltage, induced_voltage_generation_convolution)
 
 TEST_F(testInducedVoltage, track)
 {
-   Slice->track();
+	auto Beam = Context::Beam;
+	Context::Slice->track();
 
    std::vector<Intensity *> wakeSourceList({resonator});
    InducedVoltageTime *indVoltTime = new InducedVoltageTime(wakeSourceList);
@@ -369,7 +364,7 @@ TEST_F(testInducedVoltage, track)
 
 TEST_F(testInducedVoltage, totalInducedVoltageSum)
 {
-   Slice->track();
+	Context::Slice->track();
 
    std::vector<Intensity *> wakeSourceList({resonator});
    InducedVoltageTime *indVoltTime = new InducedVoltageTime(wakeSourceList);
@@ -432,6 +427,7 @@ TEST_F(testInducedVoltage, totalInducedVoltageSum)
 TEST_F(testInducedVoltage, totalInducedVoltageTrack)
 {
 
+	auto Beam = Context::Beam;
 
    std::vector<Intensity *> wakeSourceList({resonator});
    InducedVoltageTime *indVoltTime = new InducedVoltageTime(wakeSourceList);

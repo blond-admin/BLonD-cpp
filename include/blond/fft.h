@@ -13,7 +13,6 @@
 #include <cassert>
 #include <blond/utilities.h>
 #include <blond/configuration.h>
-#include <algorithm>
 #include <fftw3.h>
 #include <functional>
 

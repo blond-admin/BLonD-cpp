@@ -6,6 +6,8 @@
  */
 
 #include <blond/input_parameters/GeneralParameters.h>
+#include <blond/constants.h>
+#include <numeric>
 
 GeneralParameters::GeneralParameters(const uint _n_turns,
                                      f_vector_t &_ring_length,

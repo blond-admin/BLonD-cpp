@@ -9,11 +9,6 @@
 #include <blond/configuration.h>
 #include <blond/globals.h>
 
-GeneralParameters *GP;
-Beams *Beam;
-RfParameters *RfP;
-Slices *Slice;
-int n_threads = 1;
 
 TEST(testLinspace, test1)
 {

@@ -6,7 +6,6 @@
  */
 
 #include <cstdint>
-#include <cmath>
 
 #ifndef TRACKERS_VDTCORE_COMMON_H_
 #define TRACKERS_VDTCORE_COMMON_H_

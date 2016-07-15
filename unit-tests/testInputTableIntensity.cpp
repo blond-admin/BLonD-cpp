@@ -37,13 +37,9 @@ const int n_sections = 1;
 int N_t = 2;    // Number of turns to track
 int N_p = 5000000;         // Macro-particles
 
-int n_threads = 1;
 int N_slices = 1 << 8; // = (2^8)
 
-GeneralParameters *GP;
-Beams *Beam;
-Slices *Slice;
-RfParameters *RfP;
+
 //RingAndRfSection *long_tracker;
 Resonators *resonator;
 
@@ -54,7 +50,7 @@ protected:
    virtual void SetUp()
    {
 
-      omp_set_num_threads(n_threads);
+      omp_set_num_threads(Context::n_threads);
 
       f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1, p_i));
 
@@ -68,19 +64,19 @@ protected:
 
       f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 
-      GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
+	   Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
                                  momentumVec, proton);
 
-      Beam = new Beams(N_p, N_b);
+	   Context::Beam = new Beams(N_p, N_b);
 
-      RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+	   Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
 
 
       //RingAndRfSection *long_tracker = new RingAndRfSection();
 
       longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
 
-      Slice = new Slices(N_slices, 0, 0, 2 * constant::pi, rad);
+	   Context::Slice = new Slices(N_slices, 0, 0, 2 * constant::pi, rad);
       //util::dump(Slice->bin_centers, 10, "bin_centers\n");
 
       std::vector<ftype> v;
@@ -113,10 +109,10 @@ protected:
    {
       // Code here will be called immediately after each test
       // (right before the destructor).
-      delete GP;
-      delete Beam;
-      delete RfP;
-      delete Slice;
+      delete Context::GP;
+      delete Context::Beam;
+      delete Context::RfP;
+      delete Context::Slice;
       delete resonator;
       //delete long_tracker;
    }
@@ -127,6 +123,7 @@ protected:
 
 TEST_F(testInputTableIntensity, wake_calc)
 {
+	auto Slice = Context::Slice;
 
    std::vector<ftype> timeArray;
    timeArray.reserve(N_slices);
@@ -167,6 +164,7 @@ TEST_F(testInputTableIntensity, wake_calc)
 
 TEST_F(testInputTableIntensity, imped_calc)
 {
+	auto Slice = Context::Slice;
 
    std::vector<ftype> timeArray;
    timeArray.reserve(N_slices);

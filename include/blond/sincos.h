@@ -7,7 +7,6 @@
 
 #include <blond/vdtcore_common.h>
 #include <cmath>
-#include <limits>
 
 #ifndef TRACKERS_SINCOS_H_
 #define TRACKERS_SINCOS_H_

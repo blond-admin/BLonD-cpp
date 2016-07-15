@@ -3,8 +3,6 @@
 #include <string>
 #include <list>
 
-#include <unistd.h>
-
 #include <gtest/gtest.h>
 #include <blond/math_functions.h>
 #include <blond/utilities.h>
@@ -18,14 +16,9 @@
 //const ftype epsilon = 1e-3;
 const std::string params = "../unit-tests/references/PL/LHC_restart_params/";
 
-GeneralParameters *GP;
-Beams *Beam;
-RfParameters *RfP;
-Slices *Slice;
+
 LHC *PL;
 RingAndRfSection *long_tracker;
-int n_threads = 1;
-
 
 class testLHC_Restart : public ::testing::Test {
 
@@ -39,7 +32,7 @@ protected:
    virtual void SetUp()
    {
       //printf("ok here\n");
-      omp_set_num_threads(n_threads);
+      omp_set_num_threads(Context::n_threads);
 
       f_vector_2d_t momentumVec(1, f_vector_t());
       util::read_vector_from_file(momentumVec[0], datafiles + "LHC_momentum_programme");
@@ -65,18 +58,19 @@ protected:
 
       f_vector_t CVec(n_sections, C);
 
-      GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
+	   Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
                                  momentumVec, proton);
-
+	   auto GP = Context::GP;
       // Define rf_params
       f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 
       f_vector_2d_t hVec(n_sections , f_vector_t(N_t + 1, h));
 
-      RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+	   Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
 
       // Define beam and distribution: Load matched, filamented distribution
-      Beam = new Beams(N_p, N_b);
+	   Context::Beam = new Beams(N_p, N_b);
+	   auto Beam = Context::Beam;
       std::vector < ftype > v2;
       util::read_vector_from_file(v2, datafiles + "coords_13000001.dat");
 
@@ -88,7 +82,7 @@ protected:
          k++;
       }
 
-      Slice = new Slices(N_slices, 0, -0.5e-9, 3e-9);
+	   Context::Slice = new Slices(N_slices, 0, -0.5e-9, 3e-9);
 
       // Define phase loop and frequency loop gain
       ftype PL_gain = 1 / (5 * GP->t_rev[0]);
@@ -107,10 +101,10 @@ protected:
    {
       // Code here will be called immediately after each test
       // (right before the destructor).
-      delete GP;
-      delete Beam;
-      delete RfP;
-      delete Slice;
+      delete Context::GP;
+      delete Context::Beam;
+      delete Context::RfP;
+      delete Context::Slice;
       delete PL;
       delete long_tracker;
    }
@@ -147,6 +141,9 @@ private:
 
 TEST_F(testLHC_Restart, dphi_RF_and_dphi)
 {
+	auto RfP = Context::RfP;
+	auto Beam = Context::Beam;
+	auto Slice= Context::Slice;
 
    f_vector_t real1, real2;
 
@@ -157,7 +154,7 @@ TEST_F(testLHC_Restart, dphi_RF_and_dphi)
       else
          PL->reference = 1.0472;
 
-      Slice->track();
+	   Context::Slice->track();
 
       long_tracker->track();
 

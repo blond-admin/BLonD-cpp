@@ -1,8 +1,5 @@
 #include <iostream>
-#include <string>
-#include <list>
 
-#include <unistd.h>
 
 #include <gtest/gtest.h>
 #include <blond/math_functions.h>
@@ -10,16 +7,9 @@
 #include <blond/beams/Distributions.h>
 #include <blond/input_parameters/GeneralParameters.h>
 #include <blond/trackers/Tracker.h>
-#include <blond/constants.h>
 
 const ftype epsilon = 1e-8;
 const std::string track_params = "../unit-tests/references/Tracker/Tracker_track_params/";
-
-GeneralParameters *GP;
-Beams *Beam;
-RfParameters *RfP;
-Slices *Slice;
-int n_threads = 1;
 
 
 class testTracker : public ::testing::Test {
@@ -45,16 +35,16 @@ protected:
       f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 
 
-      GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order, momentumVec,
+	   Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order, momentumVec,
                                  proton);
 
-      Beam = new Beams(N_p, N_b);
+	   Context::Beam = new Beams(N_p, N_b);
 
-      RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+	   Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
 
       longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
 
-      Slice = new Slices(N_slices);
+	   Context::Slice = new Slices(N_slices);
 
    }
 
@@ -63,10 +53,10 @@ protected:
    {
       // Code here will be called immediately after each test
       // (right before the destructor).
-      delete GP;
-      delete Beam;
-      delete RfP;
-      delete Slice;
+      delete Context::GP;
+      delete Context::Beam;
+      delete Context::RfP;
+      delete Context::Slice;
    }
 
 
@@ -116,16 +106,16 @@ protected:
       f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 
 
-      GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order, momentumVec,
+	   Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order, momentumVec,
                                  proton);
 
-      Beam = new Beams(N_p, N_b);
+	   Context::Beam = new Beams(N_p, N_b);
 
-      RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+	   Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
 
       longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
 
-      Slice = new Slices(N_slices);
+	   Context::Slice = new Slices(N_slices);
 
    }
 
@@ -134,10 +124,10 @@ protected:
    {
       // Code here will be called immediately after each test
       // (right before the destructor).
-      delete GP;
-      delete Beam;
-      delete RfP;
-      delete Slice;
+      delete Context::GP;
+      delete Context::Beam;
+      delete Context::RfP;
+      delete Context::Slice;
    }
 
 
@@ -174,7 +164,7 @@ TEST_F(testTracker, track_dE)
    util::read_vector_from_file(v, track_params + "dE");
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = Beam->dE[i];
+      ftype real = Context::Beam->dE[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
    delete long_tracker;
@@ -191,7 +181,7 @@ TEST_F(testTracker, track_dt)
    util::read_vector_from_file(v, track_params + "dt");
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = Beam->dt[i];
+      ftype real = Context::Beam->dt[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
    delete long_tracker;
@@ -201,13 +191,14 @@ TEST_F(testTracker, track_dt)
 
 TEST_F(testTrackerPeriodicity, kick)
 {
+	auto Beam = Context::Beam;
    auto params = std::string("../unit-tests/references/Tracker/periodicity/kick/");
    RingAndRfSection *long_tracker = new RingAndRfSection(simple, NULL, NULL, true, 0.0);
 
    int_vector_t indices = {1, 2, 4, 8, 16, 32, 64};
 
    for (int i = 0; i < 100; ++i) {
-      long_tracker->kick(indices, RfP->counter);
+      long_tracker->kick(indices, Context::RfP->counter);
       //long_tracker->track();
    }
    //util::dump(Beam->dE.data(), 100, "Beam->dE\n");
@@ -234,13 +225,15 @@ TEST_F(testTrackerPeriodicity, kick)
 
 TEST_F(testTrackerPeriodicity, drift)
 {
+	auto Beam = Context::Beam;
+
    auto params = std::string("../unit-tests/references/Tracker/periodicity/drift/");
    RingAndRfSection *long_tracker = new RingAndRfSection(simple, NULL, NULL, true, 0.0);
 
    int_vector_t indices = {0, 1, 2, 3, 4, 98, 99};
 
    for (int i = 0; i < 100; ++i) {
-      long_tracker->drift(indices, RfP->counter);
+      long_tracker->drift(indices, Context::RfP->counter);
       //long_tracker->track();
    }
    //util::dump(Beam->dE.data(), 100, "Beam->dE\n");
@@ -266,12 +259,14 @@ TEST_F(testTrackerPeriodicity, drift)
 
 TEST_F(testTrackerPeriodicity, set_periodicity)
 {
+	auto Beam = Context::Beam;
+
    auto params = std::string("../unit-tests/references/Tracker/periodicity/set_periodicity/");
    RingAndRfSection *long_tracker = new RingAndRfSection(simple, NULL, NULL, true, 0.0);
 
    ftype mean = mymath::mean<ftype>(Beam->dt.data(), Beam->dt.size());
 
-   GP->t_rev[RfP->counter + 1 ] = mean;
+	Context::GP->t_rev[Context::RfP->counter + 1 ] = mean;
 
    long_tracker->set_periodicity();
 
@@ -317,6 +312,8 @@ TEST_F(testTrackerPeriodicity, set_periodicity)
 
 TEST_F(testTrackerPeriodicity, track1)
 {
+	auto Beam = Context::Beam;
+
    auto params = std::string("../unit-tests/references/Tracker/periodicity/track1/");
    RingAndRfSection *long_tracker = new RingAndRfSection(simple, NULL, NULL, true, 0.0);
 
@@ -375,6 +372,8 @@ TEST_F(testTrackerPeriodicity, track1)
 
 TEST_F(testTrackerPeriodicity, track2)
 {
+	auto Beam = Context::Beam;
+
    auto params = std::string("../unit-tests/references/Tracker/periodicity/track2/");
    RingAndRfSection *long_tracker = new RingAndRfSection(simple, NULL, NULL, true, 0.0);
 

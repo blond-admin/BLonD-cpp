@@ -12,7 +12,6 @@
 #include <blond/globals.h>
 #include <blond/utilities.h>
 #include <blond/configuration.h>
-#include <blond/constants.h>
 #include <blond/llrf/PhaseNoise.h>
 #include <blond/llrf/LHCNoiseFB.h>
 

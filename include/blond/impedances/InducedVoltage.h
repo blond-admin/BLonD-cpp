@@ -12,7 +12,6 @@
 #include <blond/configuration.h>
 #include <vector>
 #include <blond/impedances/Intensity.h>
-#include <blond/fft.h>
 
 
 enum time_or_freq {

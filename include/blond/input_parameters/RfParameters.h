@@ -12,10 +12,8 @@ class RfParameters;
 
 #include <blond/input_parameters/GeneralParameters.h>
 #include <blond/beams/Beams.h>
-#include <blond/math_functions.h>
 //#include <algorithm>
 //#include <iterator>
-#include <blond/globals.h>
 
 
 class API RfParameters {

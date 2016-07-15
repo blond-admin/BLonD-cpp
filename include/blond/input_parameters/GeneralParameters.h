@@ -10,12 +10,7 @@
 
 class GeneralParameters;
 
-#include <blond/globals.h>
 #include <vector>
-#include <cmath>
-#include <numeric>
-#include <cstring>
-#include <blond/constants.h>
 #include <blond/configuration.h>
 #include <blond/utilities.h>
 

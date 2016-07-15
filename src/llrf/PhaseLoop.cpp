@@ -6,6 +6,8 @@
  */
 
 #include <blond/llrf/PhaseLoop.h>
+#include <blond/math_functions.h>
+#include <blond/constants.h>
 
 PhaseLoop::PhaseLoop(f_vector_t PL_gain,
                      ftype window_coefficient,

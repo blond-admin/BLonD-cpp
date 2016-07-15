@@ -29,13 +29,9 @@ const int n_sections = 1;
 unsigned N_t = 1000;          // Number of turns to track
 unsigned N_p = 10001;         // Macro-particles
 
-int n_threads = 1;
 unsigned N_slices = 1 << 8;   // = (2^8)
 
-GeneralParameters *GP;
-Beams *Beam;
-Slices *Slice;
-RfParameters *RfP;
+
 
 class testPhaseNoise : public ::testing::Test {
 

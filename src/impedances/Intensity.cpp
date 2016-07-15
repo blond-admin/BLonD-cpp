@@ -6,7 +6,6 @@
 */
 
 #include <blond/impedances/Intensity.h>
-#include <blond/utilities.h>
 #include <blond/constants.h>
 #include <blond/math_functions.h>
 

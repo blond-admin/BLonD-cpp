@@ -1,7 +1,7 @@
 #include <blond/globals.h>
 #include <blond/utilities.h>
 #include <blond/math_functions.h>
-#include <../beams/Distributions.h>
+#include <blond/beams/Distributions.h>
 #include <blond/llrf/PhaseLoop.h>
 #include <gtest/gtest.h>
 #include <blond/trackers/Tracker.h>
@@ -27,13 +27,9 @@ const uint n_sections = 1;
 uint N_t = 500;            // Number of turns to track
 uint N_p = 100000;         // Macro-particles
 
-int n_threads = 1;
 uint N_slices = 200;       // = (2^8)
 
-GeneralParameters *GP;
-Beams *Beam;
-Slices *Slice;
-RfParameters *RfP;
+
 // RingAndRFSection *long_tracker;
 
 class testPLPSB : public ::testing::Test {
@@ -54,17 +50,17 @@ protected:
 
       f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 
-      GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
+	   Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
                                  momentumVec, proton);
 
-      Beam = new Beams(N_p, N_b);
+	   Context::Beam = new Beams(N_p, N_b);
 
-      RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+	   Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
 
       // long_tracker = new RingAndRfSection();
 
 
-      Slice = new Slices(N_slices, 0,
+	   Context::Slice = new Slices(N_slices, 0,
                          -constant::pi,
                          constant::pi,
                          cuts_unit_type::rad);
@@ -76,10 +72,10 @@ protected:
    {
       // Code here will be called immediately after each test
       // (right before the destructor).
-      delete GP;
-      delete Beam;
-      delete RfP;
-      delete Slice;
+      delete Context::GP;
+      delete Context::Beam;
+      delete Context::RfP;
+      delete Context::Slice;
       // delete long_tracker;
    }
 
@@ -158,7 +154,7 @@ TEST_F(testPLPSB, track1)
                       10e-6,
                       7);
 
-   Slice->track();
+	Context::Slice->track();
    f_vector_t dphi_av, t_accum, domega_PL, drho, domega_RL, domega_RF;
 
    for (uint i = 0; i < 500; ++i) {
@@ -169,7 +165,7 @@ TEST_F(testPLPSB, track1)
       drho.push_back(psb->drho);
       domega_RL.push_back(psb->domega_RL);
       domega_RF.push_back(psb->domega_RF);
-      RfP->counter++;
+	   Context::RfP->counter++;
    }
 
    auto params = std::string("../unit-tests/references/")

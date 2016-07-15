@@ -12,11 +12,7 @@
 const ftype epsilon = 1e-8;
 const std::string fixed_params = "../unit-tests/references/Bigaussian/Bigaussian_fixed_params/";
 
-GeneralParameters *GP;
-Beams *Beam;
-RfParameters *RfP;
-Slices *Slice;
-int n_threads = 1;
+
 
 class testBigaussian : public ::testing::Test {
 
@@ -41,12 +37,12 @@ protected:
       f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 
 
-      GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order, momentumVec,
+	   Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order, momentumVec,
                                  proton);
 
-      Beam = new Beams(N_p, N_b);
+	   Context::Beam = new Beams(N_p, N_b);
 
-      RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+	   Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
 
 
    }
@@ -56,9 +52,9 @@ protected:
    {
       // Code here will be called immediately after each test
       // (right before the destructor).
-      delete GP;
-      delete Beam;
-      delete RfP;
+      delete Context::GP;
+      delete Context::Beam;
+      delete Context::RfP;
    }
 
 
@@ -103,12 +99,12 @@ class testBigaussianRandom : public ::testing::Test {
       f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 
 
-      GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order, momentumVec,
+	   Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order, momentumVec,
                                  proton);
 
-      Beam = new Beams(N_p, N_b);
+	   Context::Beam = new Beams(N_p, N_b);
 
-      RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+	   Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
 
 
    }
@@ -118,9 +114,9 @@ class testBigaussianRandom : public ::testing::Test {
    {
       // Code here will be called immediately after each test
       // (right before the destructor).
-      delete GP;
-      delete Beam;
-      delete RfP;
+      delete Context::GP;
+      delete Context::Beam;
+      delete Context::RfP;
    }
 
 
@@ -162,7 +158,7 @@ TEST_F(testBigaussian, test_sigma_dE)
 
    util::read_vector_from_file(v, fixed_params + "sigma_dE");
    ftype ref = v[0];
-   ftype real = Beam->sigma_dE;
+   ftype real = Context::Beam->sigma_dE;
    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
@@ -175,7 +171,7 @@ TEST_F(testBigaussian, test_sigma_dt)
 
    util::read_vector_from_file(v, fixed_params + "sigma_dt");
    ftype ref = v[0];
-   ftype real = Beam->sigma_dt;
+   ftype real = Context::Beam->sigma_dt;
    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
@@ -188,7 +184,7 @@ TEST_F(testBigaussian, test_dE)
    util::read_vector_from_file(v, fixed_params + "dE");
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = Beam->dE[i];
+      ftype real = Context::Beam->dE[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
 }
@@ -202,7 +198,7 @@ TEST_F(testBigaussian, test_dt)
    util::read_vector_from_file(v, fixed_params + "dt");
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = Beam->dt[i];
+      ftype real = Context::Beam->dt[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
 }
@@ -210,6 +206,8 @@ TEST_F(testBigaussian, test_dt)
 
 TEST_F(testBigaussianRandom, test_dE)
 {
+	auto Beam = Context::Beam;
+
    auto params = std::string("../unit-tests/references/")
                  + "Bigaussian/random/";
 
@@ -235,6 +233,7 @@ TEST_F(testBigaussianRandom, test_dE)
 
 TEST_F(testBigaussianRandom, test_dt)
 {
+	auto Beam = Context::Beam;
 
    auto params = std::string("../unit-tests/references/")
                  + "Bigaussian/random/";

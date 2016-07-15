@@ -5,7 +5,6 @@
 #include <blond/math_functions.h>
 #include <blond/impedances/Ham.h>
 #include <blond/globals.h>
-#include <omp.h>
 
 
 inline void InducedVoltage::linear_interp_kick(

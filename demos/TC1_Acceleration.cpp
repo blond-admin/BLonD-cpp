@@ -38,13 +38,9 @@ const int n_sections = 1;
 int N_t = 10000;    // Number of turns to track
 int N_p = 10000;         // Macro-particles
 
-int n_threads = 1;
 int N_slices = 100;
 
-GeneralParameters *GP;
-Beams *Beam;
-Slices *Slice;
-RfParameters *RfP;
+
 
 
 void parse_args(int argc, char **argv);
@@ -52,16 +48,15 @@ void parse_args(int argc, char **argv);
 // Simulation setup -------------------------------------------------------------
 int main(int argc, char **argv)
 {
-
    parse_args(argc, argv);
 
-   omp_set_num_threads(n_threads);
+   omp_set_num_threads(Context::n_threads);
 
    printf("Setting up the simulation...\n\n");
    printf("Number of turns: %d\n", N_t);
    printf("Number of macro-particles: %d\n", N_p);
    printf("Number of Slices: %d\n", N_slices);
-   printf("Number of openmp threads: %d\n", n_threads);
+   printf("Number of openmp threads: %d\n", Context::n_threads);
 
    // timespec begin, end;
    // util::get_time(begin);
@@ -80,18 +75,18 @@ int main(int argc, char **argv)
 
    f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 
-   GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order, momentumVec,
+	Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order, momentumVec,
                               proton);
 
-   Beam = new Beams(N_p, N_b);
+	Context::Beam = new Beams(N_p, N_b);
 
-   RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+	Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
 
    RingAndRfSection *long_tracker = new RingAndRfSection();
 
    longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
 
-   Slice = new Slices(N_slices);
+	Context::Slice = new Slices(N_slices);
 
    double slice_time = 0, track_time = 0;
    timespec begin_t;
@@ -103,7 +98,7 @@ int main(int argc, char **argv)
       // track_time += util::time_elapsed(begin_t);
 
       // util::get_time(begin_t);
-      Slice->track();
+	   Context::Slice->track();
       // slice_time += util::time_elapsed(begin_t);
 
       //Slice->fwhm();
@@ -129,11 +124,11 @@ int main(int argc, char **argv)
    // util::dump(Beam->dE.data(), 10, "dE\n");
    // util::dump(Beam->dt.data(), 10, "dt\n");
    // util::dump(Slice->n_macroparticles, 10, "n_macroparticles\n");
-   delete Slice;
+   delete Context::Slice;
    delete long_tracker;
-   delete RfP;
-   delete GP;
-   delete Beam;
+   delete Context::RfP;
+   delete Context::GP;
+   delete Context::Beam;
 
    printf("Done!\n");
 
@@ -189,7 +184,7 @@ void parse_args(int argc, char **argv)
             //fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
             break;
          case N_THREADS:
-            n_threads = atoi(opt.arg);
+	         Context::n_threads = atoi(opt.arg);
             //fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
             break;
          case N_SLICES:

@@ -1,8 +1,5 @@
 #include <iostream>
-#include <string>
-#include <list>
 
-#include <unistd.h>
 
 #include <gtest/gtest.h>
 #include <blond/math_functions.h>
@@ -15,14 +12,9 @@
 const ftype epsilon = 1e-7;
 const std::string params = "../unit-tests/references/PL/PL_params/";
 
-GeneralParameters *GP;
-Beams *Beam;
-RfParameters *RfP;
-Slices *Slice;
+
 LHC *PL;
 RingAndRfSection *long_tracker;
-int n_threads = 1;
-
 
 class testPL : public ::testing::Test {
 
@@ -57,17 +49,18 @@ protected:
 
       f_vector_t CVec(n_sections, C);
 
-      GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
+	   Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
                                  momentumVec, proton);
-
+	   auto GP = Context::GP;
       f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 
       f_vector_2d_t hVec(n_sections , f_vector_t(N_t + 1, h));
 
-      RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+	   Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
 
       // Define beam and distribution: Load matched, filamented distribution
-      Beam = new Beams(N_p, N_b);
+	   Context::Beam = new Beams(N_p, N_b);
+	   auto Beam = Context::Beam;
       f_vector_t v2;
       util::read_vector_from_file(v2, datafiles + "coords_13000001.dat");
       int k = 0;
@@ -78,7 +71,7 @@ protected:
          k++;
       }
 
-      Slice = new Slices(N_slices, 0, -0.5e-9, 3e-9);
+	   Context::Slice = new Slices(N_slices, 0, -0.5e-9, 3e-9);
       // Define phase loop and frequency loop gain
       ftype PL_gain = 1 / (5 * GP->t_rev[0]);
       ftype SL_gain = PL_gain / 10;
@@ -97,10 +90,10 @@ protected:
    {
       // Code here will be called immediately after each test
       // (right before the destructor).
-      delete GP;
-      delete Beam;
-      delete RfP;
-      delete Slice;
+      delete Context::GP;
+      delete Context::Beam;
+      delete Context::RfP;
+      delete Context::Slice;
       delete PL;
       delete long_tracker;
    }
@@ -153,17 +146,17 @@ class testPL2 : public ::testing::Test {
 
       f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 
-      GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
+	   Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
                                  momentumVec, proton);
 
-      Beam = new Beams(N_p, N_b);
+	   Context::Beam = new Beams(N_p, N_b);
 
-      RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+	   Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
 
       // long_tracker = new RingAndRfSection();
 
 
-      Slice = new Slices(N_slices, 0,
+	   Context::Slice = new Slices(N_slices, 0,
                          -constant::pi,
                          constant::pi,
                          cuts_unit_type::rad);
@@ -175,10 +168,10 @@ class testPL2 : public ::testing::Test {
    {
       // Code here will be called immediately after each test
       // (right before the destructor).
-      delete GP;
-      delete Beam;
-      delete RfP;
-      delete Slice;
+      delete Context::GP;
+      delete Context::Beam;
+      delete Context::RfP;
+      delete Context::Slice;
       // delete long_tracker;
    }
 
@@ -221,7 +214,7 @@ TEST_F(testPL2, radial_difference1)
    auto params = std::string("../unit-tests/references/")
                  + "PL/radial_difference/test1/";
 
-   Slice->track();
+	Context::Slice->track();
    f_vector_t drho;
 
    for (uint i = 0; i < N_t; ++i) {
@@ -257,6 +250,7 @@ TEST_F(testPL2, radial_difference1)
 
 TEST_F(testPL2, radial_steering_from_freq1)
 {
+	auto RfP = Context::RfP;
    longitudinal_bigaussian(100e-9, 1e6, 1, false);
    auto long_tracker = RingAndRfSection();
 
@@ -266,7 +260,7 @@ TEST_F(testPL2, radial_steering_from_freq1)
    auto params = std::string("../unit-tests/references/")
                  + "PL/radial_steering_from_freq/test1/";
 
-   Slice->track();
+	Context::Slice->track();
 
    N_t = 100;
 
@@ -342,7 +336,7 @@ TEST_F(testPL, lhc_a)
    util::read_vector_from_file(v, params + "lhc_a");
    // Only check 1 out of 10 elements
    // otherwise refernece file too big
-   ASSERT_EQ(v.size(), GP->n_turns / 10 + 1);
+   ASSERT_EQ(v.size(), Context::GP->n_turns / 10 + 1);
    for (unsigned int i = 0; i < v.size(); ++i) {
       //printf("ok here \n");
 
@@ -361,7 +355,7 @@ TEST_F(testPL, lhc_t)
    util::read_vector_from_file(v, params + "lhc_t");
    // Only check 1 out of 10 elements
    // otherwise refernece file too big
-   ASSERT_EQ(v.size(), GP->n_turns / 10 + 1);
+   ASSERT_EQ(v.size(), Context::GP->n_turns / 10 + 1);
    for (unsigned int i = 0; i < v.size(); ++i) {
       //printf("%d\n", i);
       ftype ref = v[i];
@@ -372,7 +366,7 @@ TEST_F(testPL, lhc_t)
 
 TEST_F(testPL, phi_beam)
 {
-   Slice->track();
+	Context::Slice->track();
    PL->beam_phase();
 
    std::vector<ftype> v;
@@ -384,7 +378,7 @@ TEST_F(testPL, phi_beam)
 
 TEST_F(testPL, dphi)
 {
-   Slice->track();
+	Context::Slice->track();
    PL->beam_phase();
    PL->phase_difference();
 
@@ -397,7 +391,7 @@ TEST_F(testPL, dphi)
 
 TEST_F(testPL, domega_RF)
 {
-   Slice->track();
+	Context::Slice->track();
    PL->beam_phase();
    PL->phase_difference();
    long_tracker->track();
@@ -410,7 +404,7 @@ TEST_F(testPL, domega_RF)
 
 TEST_F(testPL, lhc_y)
 {
-   Slice->track();
+	Context::Slice->track();
    PL->beam_phase();
    PL->phase_difference();
    long_tracker->track();
@@ -423,7 +417,9 @@ TEST_F(testPL, lhc_y)
 
 TEST_F(testPL, omega_RF)
 {
-   Slice->track();
+	auto RfP = Context::RfP;
+	Context::Slice->track();
+
    PL->beam_phase();
    PL->phase_difference();
    long_tracker->track();
@@ -439,7 +435,7 @@ TEST_F(testPL, omega_RF)
 
 TEST_F(testPL, dphi_RF)
 {
-   Slice->track();
+	Context::Slice->track();
    PL->beam_phase();
    PL->phase_difference();
    long_tracker->track();
@@ -448,13 +444,15 @@ TEST_F(testPL, dphi_RF)
    std::vector<ftype> v;
    util::read_vector_from_file(v, params + "dphi_RF");
    ftype ref = v[0];
-   ftype real = RfP->dphi_RF[0];
+   ftype real = Context::RfP->dphi_RF[0];
    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
 TEST_F(testPL, phi_RF)
 {
-   Slice->track();
+	auto RfP = Context::RfP;
+
+	Context::Slice->track();
    PL->beam_phase();
    PL->phase_difference();
    long_tracker->track();

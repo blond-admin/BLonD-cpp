@@ -6,6 +6,8 @@
  */
 
 #include <blond/input_parameters/RfParameters.h>
+#include <blond/constants.h>
+#include <blond/math_functions.h>
 
 
 /*

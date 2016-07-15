@@ -13,7 +13,6 @@ class Beams;
 #include <blond/globals.h>
 #include <blond/utilities.h>
 #include <blond/configuration.h>
-#include <blond/constants.h>
 
 class API Beams {
 public:

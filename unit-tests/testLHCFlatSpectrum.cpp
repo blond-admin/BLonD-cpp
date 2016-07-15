@@ -27,13 +27,9 @@ const int n_sections = 1;
 unsigned N_t = 1000;          // Number of turns to track
 unsigned N_p = 10001;         // Macro-particles
 
-int n_threads = 1;
 unsigned N_slices = 1 << 8;   // = (2^8)
 
-GeneralParameters *GP;
-Beams *Beam;
-Slices *Slice;
-RfParameters *RfP;
+
 
 
 class testLHCFlatSpectrum : public ::testing::Test {
@@ -56,12 +52,12 @@ protected:
 
       f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 
-      GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
+	   Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
                                  momentumVec, proton);
 
-      Beam = new Beams(N_p, N_b);
+	   Context::Beam = new Beams(N_p, N_b);
 
-      RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+	   Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
 
    }
 
@@ -70,9 +66,9 @@ protected:
    {
       // Code here will be called immediately after each test
       // (right before the destructor).
-      delete GP;
-      delete Beam;
-      delete RfP;
+      delete Context::GP;
+      delete Context::Beam;
+      delete Context::RfP;
    }
 
 

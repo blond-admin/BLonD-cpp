@@ -7,6 +7,7 @@
 
 #include <blond/beams/Beams.h>
 #include <blond/math_functions.h>
+#include <blond/constants.h>
 
 
 Beams::Beams(const uint _n_macroparticles,

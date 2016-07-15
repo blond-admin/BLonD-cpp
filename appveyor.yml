@@ -1,5 +1,6 @@
 environment:
   matrix:
+    - VSVER: Visual Studio 14 2015
     - VSVER: Visual Studio 14 2015 Win64
 
 cache: 
@@ -14,8 +15,6 @@ install:
   - choco install cmake
   - choco upgrade cmake
   - git submodule update --init --recursive
-  - DIR external\gsl
-  - DIR external\gsl\contrib
 
 before_build:
   - mkdir build
@@ -24,7 +23,7 @@ before_build:
   - DIR
 
 build_script::
-  - cmake --build .. -- /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+  - cmake --build . --target ALL_BUILD --config $(configuration) -- /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 
 test_script:
   - ctest -VV

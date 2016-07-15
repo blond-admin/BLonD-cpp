@@ -9,6 +9,7 @@ include(CTest)
 # Code editors usabilety feature
 set_property(GLOBAL PROPERTY USE_FOLDERS On)
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "We have optemized configuration for Debug and Release configurations")
+set(CMAKE_BUILD_TYPE "Release" CACHE STRING "We have optemized configuration for Debug and Release configurations")
 # Variables default values list
 set(CMAKE_BUILD_TYPE Release  CACHE STRING "default build type for Make-like generators")
 set(SHARED_LIBRARY_ENABLED "True")
@@ -177,12 +178,20 @@ execute_process(
         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/external/build
 )
 
+message(STATUS "building external projects begins")
 execute_process(
-        COMMAND cmake --build .
+        COMMAND cmake --build .  --config Release
         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/external/build
 )
-message(STATUS "Building required librasries complete")
+if(WIN32 AND NOT MINGW)
+    execute_process(
+        COMMAND cmake --build .  --config Debug
+        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/external/build
+    )
+endif()
+message(STATUS "building external projects ended")
 
+message(STATUS "Building required librasries complete")
 # path to external libraries and headers
 include_directories(${EXTERNAL_INSTALL_DIR}/include)
 link_directories(${EXTERNAL_INSTALL_DIR}/lib)
@@ -289,6 +298,7 @@ if (TEST_ENABLED)
                     )
         endif()
         get_filename_component(GTEST_MAIN_LIB ${GTEST_MAIN_LIB} NAME)
+        get_filename_component(GTEST_LIB ${GTEST_LIB} NAME)
     endif()
 
 

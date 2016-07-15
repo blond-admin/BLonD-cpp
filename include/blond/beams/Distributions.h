@@ -9,9 +9,9 @@
 #define BEAMS_DISTRIBUTIONS_H_
 
 #include <cmath>
-#include "globals.h"
-#include "configuration.h"
-#include "constants.h"
+#include <blond/globals.h>
+#include <blond/configuration.h>
+#include <blond/constants.h>
 #include <stdlib.h>
 #include <random>
 
@@ -20,6 +20,9 @@ inline void longitudinal_bigaussian(ftype sigma_dt,
                                     int seed = 0,
                                     bool reinsertion = false)
 {
+	auto GP = Context::GP;
+	auto RfP = Context::RfP;
+	auto Beam = Context::Beam;
    if (GP->n_sections > 1) {
       dprintf(
          "WARNING: longitudinal_bigaussian is not yet properly computed for several sections!");

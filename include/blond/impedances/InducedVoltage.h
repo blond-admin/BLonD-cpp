@@ -9,10 +9,10 @@
 #define IMPEDANCES_INDUCEDVOLTAGE_H_
 
 
-#include "configuration.h"
+#include <blond/configuration.h>
 #include <vector>
-#include "Intensity.h"
-#include "fft.h"
+#include <blond/impedances/Intensity.h>
+#include <blond/fft.h>
 
 
 enum time_or_freq {
@@ -24,15 +24,15 @@ typedef enum freq_res_option_t {
 } freq_res_option_t;
 
 
-class InducedVoltage {
+class API InducedVoltage {
 public:
    std::vector<ftype> fInducedVoltage;
 
    InducedVoltage() {};
-   inline void linear_interp_kick(const ftype *__restrict__ beam_dt,
-                                  ftype *__restrict__ beam_dE,
-                                  const ftype *__restrict__ voltage_array,
-                                  const ftype *__restrict__ bin_centers,
+   inline void linear_interp_kick(const ftype *__restrict beam_dt,
+                                  ftype *__restrict beam_dE,
+                                  const ftype *__restrict voltage_array,
+                                  const ftype *__restrict bin_centers,
                                   const int n_slices,
                                   const int n_macroparticles,
                                   const ftype acc_kick = 0.0);
@@ -44,7 +44,7 @@ public:
 
 
 
-class InducedVoltageTime: public InducedVoltage {
+class API InducedVoltageTime: public InducedVoltage {
 public:
 
 
@@ -67,7 +67,7 @@ public:
 };
 
 
-class InducedVoltageFreq: public InducedVoltage {
+class API InducedVoltageFreq: public InducedVoltage {
 public:
 
    // Impedance sources inputed as a list (eg: list of BBResonators objects)*
@@ -120,7 +120,7 @@ public:
 };
 
 
-class TotalInducedVoltage : public InducedVoltage {
+class API TotalInducedVoltage : public InducedVoltage {
 public:
    std::vector<InducedVoltage *> fInducedVoltageList;
    std::vector<ftype> fTimeArray;

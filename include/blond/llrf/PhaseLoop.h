@@ -9,15 +9,15 @@
 #define PHASELOOP_H_
 
 
-#include "globals.h"
-#include "utilities.h"
-#include "configuration.h"
-#include "constants.h"
-#include "PhaseNoise.h"
-#include "LHCNoiseFB.h"
+#include <blond/globals.h>
+#include <blond/utilities.h>
+#include <blond/configuration.h>
+#include <blond/constants.h>
+#include <blond/llrf/PhaseNoise.h>
+#include <blond/llrf/LHCNoiseFB.h>
 
 
-class PhaseLoop {
+class API PhaseLoop {
 public:
    virtual void track() {};
    void default_track();
@@ -46,7 +46,7 @@ public:
    virtual ~PhaseLoop() {};
 };
 
-class LHC: public PhaseLoop {
+class API LHC: public PhaseLoop {
 private:
 public:
    ftype gain2;
@@ -65,7 +65,7 @@ public:
        uint _delay = 0);
 };
 
-class PSB: public PhaseLoop {
+class API PSB: public PhaseLoop {
 private:
 public:
    f_vector_t gain2;
@@ -95,7 +95,7 @@ public:
 };
 
 
-class LHC_F: public PhaseLoop {
+class API LHC_F: public PhaseLoop {
 private:
 public:
    ftype gain2;
@@ -111,7 +111,7 @@ public:
    void track();
 };
 
-class SPS_RL: public PhaseLoop {
+class API SPS_RL: public PhaseLoop {
 private:
 public:
    ftype gain2;

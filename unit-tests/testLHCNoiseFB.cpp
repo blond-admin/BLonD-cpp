@@ -1,11 +1,11 @@
-#include "globals.h"
-#include "utilities.h"
-#include "math_functions.h"
+#include <blond/globals.h>
+#include <blond/utilities.h>
+#include <blond/math_functions.h>
 #include <stdio.h>
 #include <../beams/Distributions.h>
-#include "../llrf/LHCNoiseFB.h"
+#include <blond/llrf/LHCNoiseFB.h>
 #include <gtest/gtest.h>
-#include "../trackers/Tracker.h"
+#include <blond/trackers/Tracker.h>
 
 // Simulation parameters --------------------------------------------------------
 

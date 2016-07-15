@@ -8,14 +8,15 @@
 #ifndef IMPEDANCES_INTENSITY_H_
 #define IMPEDANCES_INTENSIY_H_
 
-//class Intensity;
+//class API Intensity;
 
-#include "configuration.h"
+#include <blond/configuration.h>
+#include <blond/utilities.h>
 #include <complex>
 #include <vector>
 
 
-class Intensity {
+class API Intensity {
 public:
    //  *Time array of the wake in [s]*
    f_vector_t fTimeArray;
@@ -32,7 +33,7 @@ public:
    virtual ~Intensity() {};
 };
 
-class Resonators: public Intensity {
+class API Resonators: public Intensity {
 public:
    // *Shunt impepdance in* [:math:`\Omega`]
    f_vector_t fRS;
@@ -53,7 +54,7 @@ public:
 };
 
 
-class InputTable: public Intensity {
+class API InputTable: public Intensity {
 public:
    f_vector_t fFrequencyArrayLoaded;
    f_vector_t fReZArrayLoaded;

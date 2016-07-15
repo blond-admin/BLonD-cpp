@@ -5,7 +5,7 @@
  *      Author: kiliakis
  */
 
-#include "RfParameters.h"
+#include <blond/input_parameters/RfParameters.h>
 
 
 /*
@@ -26,7 +26,7 @@ RfParameters::RfParameters(uint _n_rf,
                            uint _section_index,
                            accelerating_systems_t accelerating_systems)
 {
-
+	auto GP = Context::GP;
    this->counter = 0;
    this->idx = _section_index - 1;
 
@@ -87,6 +87,8 @@ RfParameters::~RfParameters() {}
 ftype RfParameters::eta_tracking(const Beams *beam, const uint counter,
                                  const ftype dE)
 {
+	auto GP = Context::GP;
+
    ftype eta = 0;
    if (GP->alpha_order == 1)
       eta = eta_0(counter);
@@ -107,39 +109,39 @@ ftype RfParameters::eta_tracking(const Beams *beam, const uint counter,
 
 ftype RfParameters::eta_0(const uint i)
 {
-   return GP->eta_0[idx][i];
+   return Context::GP->eta_0[idx][i];
 }
 
 ftype RfParameters::eta_1(const uint i)
 {
-   return GP->eta_1[idx][i];
+   return Context::GP->eta_1[idx][i];
 }
 
 ftype RfParameters::eta_2(const uint i)
 {
-   return GP->eta_2[idx][i];
+   return Context::GP->eta_2[idx][i];
 }
 
 ftype RfParameters::beta(const uint i)
 {
-   return GP->beta[idx][i];
+   return Context::GP->beta[idx][i];
 }
 
 ftype RfParameters::gamma(const uint i)
 {
-   return GP->gamma[idx][i];
+   return Context::GP->gamma[idx][i];
 
 }
 
 ftype RfParameters::energy(const uint i)
 {
-   return GP->energy[idx][i];
+   return Context::GP->energy[idx][i];
 
 }
 
 ftype RfParameters::momentum(const uint i)
 {
-   return GP->momentum[idx][i];
+   return Context::GP->momentum[idx][i];
 
 }
 
@@ -166,6 +168,8 @@ void calc_phi_s(ftype *out,
     | *The synchronous phase is calculated at a certain moment.*
     | *Uses beta, energy averaged over the turn.*
     */
+	auto GP = Context::GP;
+
    auto n_turns = GP->n_turns;
    auto n_rf = rfp->n_rf;
    //ftype eta0 = rf_params->eta0;

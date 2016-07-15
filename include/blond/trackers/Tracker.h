@@ -8,21 +8,21 @@
 #ifndef TRACKERS_TRACKER_H_
 #define TRACKERS_TRACKER_H_
 
-#include "utilities.h"
-#include "../input_parameters/GeneralParameters.h"
-#include "../input_parameters/RfParameters.h"
-#include "../beams/Beams.h"
-#include "../llrf/PhaseLoop.h"
-#include "../llrf/LHCNoiseFB.h"
-#include "../beams/Slices.h"
-#include "../impedances/InducedVoltage.h"
+#include <blond/utilities.h>
+#include <blond/input_parameters/GeneralParameters.h>
+#include <blond/input_parameters/RfParameters.h>
+#include <blond/beams/Beams.h>
+#include <blond/llrf/PhaseLoop.h>
+#include <blond/llrf/LHCNoiseFB.h>
+#include <blond/beams/Slices.h>
+#include <blond/impedances/InducedVoltage.h>
 
 enum solver_type {
    simple, full
 };
 
 
-class RingAndRfSection {
+class API RingAndRfSection {
 
 private:
 public:
@@ -49,31 +49,31 @@ public:
    // Periodicity kick
    void kick(const int_vector_t &filter,
              const uint index);
-   inline void kick(const ftype *__restrict__ beam_dt,
-                    ftype *__restrict__ beam_dE,
+   inline void kick(const ftype *__restrict beam_dt,
+                    ftype *__restrict beam_dE,
                     const int n_rf,
-                    const ftype *__restrict__ voltage,
-                    const ftype *__restrict__ omega_RF,
-                    const ftype *__restrict__ phi_RF,
+                    const ftype *__restrict voltage,
+                    const ftype *__restrict omega_RF,
+                    const ftype *__restrict phi_RF,
                     const int n_macroparticles,
                     const ftype acc_kick,
                     const int_vector_t &filter);
    // Regular kick
    inline void kick(const uint index);
-   inline void kick(const ftype *__restrict__ beam_dt,
-                    ftype *__restrict__ beam_dE,
+   inline void kick(const ftype *__restrict beam_dt,
+                    ftype *__restrict beam_dE,
                     const int n_rf,
-                    const ftype *__restrict__ voltage,
-                    const ftype *__restrict__ omega_RF,
-                    const ftype *__restrict__ phi_RF,
+                    const ftype *__restrict voltage,
+                    const ftype *__restrict omega_RF,
+                    const ftype *__restrict phi_RF,
                     const int n_macroparticles,
                     const ftype acc_kick);
 
    // Periodicity drift
    void drift(const int_vector_t &filter,
               const uint index);
-   inline void drift(ftype *__restrict__ beam_dt,
-                     const ftype *__restrict__ beam_dE,
+   inline void drift(ftype *__restrict beam_dt,
+                     const ftype *__restrict beam_dE,
                      const solver_type solver,
                      const ftype T0,
                      const ftype length_ratio,
@@ -87,8 +87,8 @@ public:
                      const int_vector_t &filter);
    // Regular drift
    inline void drift(const uint index);
-   inline void drift(ftype *__restrict__ beam_dt,
-                     const ftype *__restrict__ beam_dE,
+   inline void drift(ftype *__restrict beam_dt,
+                     const ftype *__restrict beam_dE,
                      const solver_type solver,
                      const ftype T0,
                      const ftype length_ratio,

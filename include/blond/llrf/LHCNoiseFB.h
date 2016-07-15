@@ -20,12 +20,13 @@
 #define LLRF_LHCNOISEFB_H_
 
 
-#include <configuration.h>
+#include <blond/configuration.h>
+#include <blond/utilities.h>
 #include <functional>
 
-class LHCNoiseFB {
+class API LHCNoiseFB {
 private:
-   constexpr static ftype cfwhm = std::sqrt(2.0 / std::log(2.0));
+	constexpr static ftype cfwhm = 2.57756788267; // std::sqrt(2.0 / std::log(2.0));
 public:
 
    // Phase noise scaling factor. Initially 0

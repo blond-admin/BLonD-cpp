@@ -9,12 +9,12 @@
 #define INCLUDES_MATH_FUNCTIONS_H_
 
 #include <cmath>
-#include "sin.h"
+#include <blond/sin.h>
 #include <omp.h>
 #include  <cassert>
-#include "utilities.h"
-#include "configuration.h"
-#include "fft.h"
+#include <blond/utilities.h>
+#include <blond/configuration.h>
+#include <blond/fft.h>
 #include <algorithm>
 #include <fftw3.h>
 
@@ -34,16 +34,16 @@ namespace mymath {
 
 
 // linear convolution function
-   static inline void convolution(const ftype *__restrict__ signal,
+   static inline void convolution(const ftype *__restrict signal,
                                   const uint SignalLen,
-                                  const ftype *__restrict__ kernel,
+                                  const ftype *__restrict kernel,
                                   const uint KernelLen,
-                                  ftype *__restrict__ res)
+                                  ftype *__restrict res)
    {
       const uint size = KernelLen + SignalLen - 1;
 
       #pragma omp parallel for
-      for (uint n = 0; n < size; ++n) {
+      for (auto n = 0; n < size; ++n) {
          res[n] = 0;
          const uint kmin = (n >= KernelLen - 1) ? n - (KernelLen - 1) : 0;
          const uint kmax = (n < SignalLen - 1) ? n : SignalLen - 1;
@@ -149,7 +149,7 @@ namespace mymath {
       const auto begin = xp.begin();
 
       uint k = 0;
-      while (x[k] < min and k < N) {
+      while (x[k] < min && k < N) {
          y[k] = left;
          ++k;
       }
@@ -233,7 +233,7 @@ namespace mymath {
 
       // increment the partial sum
       #pragma omp parallel for reduction(+ : psum)
-      for (uint index = 1; index < nsub - 1; ++index) {
+      for (auto index = 1; index < nsub - 1; ++index) {
          psum += 2 * f[index];
       }
 
@@ -318,7 +318,7 @@ namespace mymath {
    {
       ftype m = 0.0;
       #pragma omp parallel for reduction(+ : m)
-      for (uint i = 0; i < n; ++i) {
+      for (auto i = 0; i < n; ++i) {
          m += data[i];
       }
       return m / n;

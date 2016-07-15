@@ -5,7 +5,7 @@
  *      Author: kiliakis
  */
 
-#include "PhaseLoop.h"
+#include <blond/llrf/PhaseLoop.h>
 
 PhaseLoop::PhaseLoop(f_vector_t PL_gain,
                      ftype window_coefficient,
@@ -28,6 +28,9 @@ void PhaseLoop::beam_phase()
 
    // Main RF frequency at the present turn
    //omega_RF = self.rf_params.omega_RF[0,self.rf_params.counter[0]]
+	auto RfP = Context::RfP;
+	auto Slice = Context::Slice;
+
    ftype omega_RF = RfP->omega_RF[RfP->idx][RfP->counter];
    ftype phi_RF = RfP->phi_RF[RfP->idx][RfP->counter];
    // Convolve with window function
@@ -72,7 +75,7 @@ void PhaseLoop::phase_difference()
     Phase difference between beam and RF phase of the main RF system.
     Optional: add RF phase noise through dphi directly.*
     */
-
+	auto RfP = Context::RfP;
    // Correct for design stable phase
    uint counter = RfP->counter;
    dphi = phi_beam - RfP->phi_s[counter];
@@ -91,7 +94,8 @@ void PhaseLoop::radial_steering_from_freq()
 {
    // Frequency and phase change for the current turn due to the
    // radial steering program.
-
+	auto RfP = Context::RfP;
+	auto GP = Context::GP;
    const uint counter = RfP->counter;
 
    const auto radial_steering_domega_RF =
@@ -123,6 +127,11 @@ void PhaseLoop::radial_steering_from_freq()
 
 void PhaseLoop::radial_difference()
 {
+	auto GP = Context::GP;
+	auto RfP = Context::RfP;
+	auto Slice = Context::Slice;
+	auto Beam = Context::Beam;
+
    // Radial difference between beam and design orbit.*
    uint counter = RfP->counter;
    uint n = 0;
@@ -130,7 +139,7 @@ void PhaseLoop::radial_difference()
    //ftype array[GP->n_turns];
    for (uint i = 0; i < GP->n_turns; ++i) {
       if (Beam->dt[i] > Slice->bin_centers.front()
-            and Beam->dt[i] < Slice->bin_centers.back()) {
+            && Beam->dt[i] < Slice->bin_centers.back()) {
          sum += Beam->dE[i];
          n++;
       }
@@ -151,6 +160,7 @@ void PhaseLoop::default_track()
     Calculate PL correction on main RF frequency depending on machine.
     Update the RF phase and frequency of the next turn for all systems.
     */
+	auto RfP = Context::RfP;
 
    uint counter = RfP->counter + 1;
    //uint turns = GP->n_turns;
@@ -185,6 +195,8 @@ LHC::LHC(f_vector_t PL_gain,
          LHCNoiseFB *LHCNoiseFB,
          uint _delay)
 {
+	auto GP = Context::GP;
+	auto RfP = Context::RfP;
 
    // General Initializations
    this->delay = _delay;
@@ -247,6 +259,9 @@ void LHC::track()
     .. math::
     \\tau(f_s) \\equiv 2 \\pi Q_s \\sqrt{ \\frac{a}{1 + \\frac{g_{PL}}{g_{SL}} \\sqrt{\\frac{1 + 1/a}{1 + a}} }}
     */
+	auto RfP = Context::RfP;
+
+
    uint counter = RfP->counter;
    ftype dphi_RF = RfP->dphi_RF[0];
 
@@ -345,6 +360,8 @@ void PSB::track()
 
     Input g through gain and [a_0, a_1, a_2, b_0, b_1, b_2] through coefficients.
     */
+	auto GP = Context::GP;
+	auto RfP = Context::RfP;
 
    // Average phase error while frequency is updated
    uint counter = RfP->counter;
@@ -402,7 +419,9 @@ void PSB::precalculate_time()
     For machines like the PSB, where the PL acts only in certain time
     intervals, pre-calculate on which turns to act.
     */
-   uint n = delay + 1;
+	auto GP = Context::GP;
+	
+	uint n = delay + 1;
 
    while (n < GP->t_rev.size()) {
       auto summa = 0.0;
@@ -443,6 +462,8 @@ LHC_F::~LHC_F() {}
 
 void LHC_F::track()
 {
+	auto RfP = Context::RfP;
+
    uint counter = RfP->counter;
 
    beam_phase();
@@ -483,6 +504,9 @@ SPS_RL::~SPS_RL() {}
 // TODO Test this function
 void SPS_RL::track()
 {
+	auto GP = Context::GP;
+	auto RfP = Context::RfP;
+
    uint counter = RfP->counter;
 
    if (reference != 0)

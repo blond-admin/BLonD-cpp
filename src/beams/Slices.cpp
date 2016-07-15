@@ -5,11 +5,11 @@
  *      Author: kiliakis
  */
 
-#include "Slices.h"
+#include <blond/beams/Slices.h>
+#include <blond/math_functions.h>
 #include <algorithm>
-#include <math_functions.h>
-#include <iterator>
 #include <omp.h>
+#include <blond/globals.h>
 
 //#include <gsl/gsl_multifit_nlin.h>
 //#include <gsl/gsl_vector.h>
@@ -50,6 +50,7 @@ Slices::~Slices()
 
 void Slices::set_cuts()
 {
+	auto Beam = Context::Beam;
    /*
     *Method to set the self.cut_left and self.cut_right properties. This is
     done as a pre-processing if the mode is set to 'const_space', for
@@ -98,12 +99,13 @@ void Slices::set_cuts()
 }
 
 // TODO not implemented the best way
-// If dt, dE and id were in the same struct it would be better
+// If dt, dE and id were in the same struct API it would be better
 void Slices::sort_particles()
 {
    /*
     *Sort the particles with respect to their position.*
     */
+	auto Beam = Context::Beam;
 
    std::sort(Beam->dE.begin(), Beam->dE.end(),
              util::MyComparator(Beam->dt.data()));
@@ -117,6 +119,7 @@ void Slices::sort_particles()
 inline ftype Slices::convert_coordinates(const ftype cut,
       const cuts_unit_type type)
 {
+	auto RfP = Context::RfP;
    /*
     *Method to convert a value from one input_unit_type to 's'.*
     */
@@ -151,6 +154,7 @@ inline void Slices::slice_constant_space_histogram()
     *This method is faster than the classic slice_constant_space method
     for high number of particles (~1e6).*
     */
+	auto Beam = Context::Beam;
 
    histogram(Beam->dt.data(), n_macroparticles.data(), cut_left, cut_right, n_slices,
              Beam->n_macroparticles);
@@ -158,8 +162,8 @@ inline void Slices::slice_constant_space_histogram()
 }
 
 
-inline void Slices::histogram(const ftype *__restrict__ input,
-                              int *__restrict__ output,
+inline void Slices::histogram(const ftype *__restrict input,
+                              int *__restrict output,
                               const ftype cut_left,
                               const ftype cut_right,
                               const uint n_slices,
@@ -223,6 +227,8 @@ void Slices::track_cuts()
     Requires Beam statistics!
     Method to be refined!*
     */
+	auto Beam = Context::Beam;
+
    ftype delta = Beam->mean_dt - 0.5 * (cut_left + cut_right);
    cut_left += delta;
    cut_right += delta;
@@ -235,8 +241,8 @@ void Slices::track_cuts()
 
 }
 
-inline void Slices::smooth_histogram(const ftype *__restrict__ input,
-                                     int *__restrict__ output,
+inline void Slices::smooth_histogram(const ftype *__restrict input,
+                                     int *__restrict output,
                                      const ftype cut_left,
                                      const ftype cut_right,
                                      const uint n_slices,
@@ -284,6 +290,8 @@ void Slices::slice_constant_space_histogram_smooth()
    /*
     At the moment 4x slower than slice_constant_space_histogram but smoother.
     */
+	auto Beam = Context::Beam;
+
    smooth_histogram(Beam->dt.data(), this->n_macroparticles.data(), cut_left, cut_right,
                     n_slices, Beam->n_macroparticles);
 
@@ -296,6 +304,8 @@ void Slices::rms()
     * Computation of the RMS bunch length and position from the line density
     (bunch length = 4sigma).*
     */
+	auto Beam = Context::Beam;
+
    f_vector_t lineDenNormalized(n_slices);// = new ftype[n_slices];
    f_vector_t array(n_slices);// = new ftype[n_slices];
 
@@ -389,6 +399,8 @@ ftype Slices::fast_fwhm()
     index = np.where(self.n_macroparticles > height/2.)[0]
     return cfwhm*(Slices.bin_centers[index[-1]] - Slices.bin_centers[index[0]])
     */
+	auto Beam = Context::Beam;
+
    uint max_i = mymath::max(n_macroparticles.data(), Beam->n_macroparticles, 1);
    ftype half_max = 0.5 * n_macroparticles[max_i];
 
@@ -423,7 +435,7 @@ void Slices::beam_spectrum_generation(uint n, bool onlyRFFT)
       //(n_macroparticles, n_macroparticles + n_slices);
       //std:: cout << "n is " << n << "\n";
       //std:: cout << "n_slices is " << n_slices << "\n";
-      fft::rfft(v, fBeamSpectrum, n, n_threads);
+      fft::rfft(v, fBeamSpectrum, n, Context::n_threads);
       //std:: cout << "size of fBeamSpectrum is " << fBeamSpectrum.size() << "\n";
 
    }
@@ -452,14 +464,14 @@ void Slices::gaussian_fit()
 
 /*
 
- struct data {
+ struct API data {
  size_t n;
  double * y;
  };
 
  int gauss(const gsl_vector * x, void *data, gsl_vector * f) {
- size_t n = ((struct data *) data)->n;
- double *y = ((struct data *) data)->y;
+ size_t n = ((struct API data *) data)->n;
+ double *y = ((struct API data *) data)->y;
 
  double A = gsl_vector_get(x, 2);
  double x0 = gsl_vector_get(x, 0);
@@ -503,7 +515,7 @@ void Slices::gaussian_fit()
  //gsl_matrix *J = gsl_matrix_alloc(n, p);
  //gsl_matrix *covar = gsl_matrix_alloc(p, p);
  ftype y[n], weights[n];
- struct data d = { n, y };
+ struct API data d = { n, y };
  gsl_multifit_function f;
  ftype x_init[3] = { x0, sx, A };
  gsl_vector_view x = gsl_vector_view_array(x_init, p);

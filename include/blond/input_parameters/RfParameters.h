@@ -10,15 +10,15 @@
 
 class RfParameters;
 
-#include "GeneralParameters.h"
-#include "../beams/Beams.h"
-#include "math_functions.h"
+#include <blond/input_parameters/GeneralParameters.h>
+#include <blond/beams/Beams.h>
+#include <blond/math_functions.h>
 //#include <algorithm>
 //#include <iterator>
-#include "globals.h"
+#include <blond/globals.h>
 
 
-class RfParameters {
+class API RfParameters {
 public:
    enum accelerating_systems_t {
       as_single,

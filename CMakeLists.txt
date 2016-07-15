@@ -188,9 +188,15 @@ include_directories(${EXTERNAL_INSTALL_DIR}/include)
 link_directories(${EXTERNAL_INSTALL_DIR}/lib)
 
 if(WIN32 AND NOT MINGW)
-    link_directories(${EXTERNAL_INSTALL_DIR}/lib/fftw/$<CONFIG>/)
-    link_directories(${EXTERNAL_INSTALL_DIR}/lib/gtest/$<CONFIG>/)
-    link_directories(${EXTERNAL_INSTALL_DIR}/lib/benchmark/$<CONFIG>/)
+    link_directories(${EXTERNAL_INSTALL_DIR}/lib/fftw/$(Configuration)/)
+    link_directories(${EXTERNAL_INSTALL_DIR}/lib/gtest/$(Configuration)/)
+    link_directories(${EXTERNAL_INSTALL_DIR}/lib/benchmark/$(Configuration)/)
+    find_library(FFTW_LIB
+            NAMES fftw libfftw3 libfftw-3.3
+            PATHS "${EXTERNAL_INSTALL_DIR}/lib/fftw/Debug"
+            )
+    get_filename_component(FFTW_LIB ${FFTW_LIB} NAME)
+
 endif()
 
 # Code editors usabilety function (structure code as it is placed in folders)
@@ -211,7 +217,7 @@ endfunction(assign_source_group)
 # main library
 include_directories(include)
 SET(LIBRARIES
-        fftw
+        ${FFTW_LIB}
         )
 
 file(GLOB_RECURSE SOURCES

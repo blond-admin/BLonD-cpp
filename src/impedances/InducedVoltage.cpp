@@ -1,18 +1,18 @@
 
-#include "InducedVoltage.h"
-#include "utilities.h"
-#include "constants.h"
-#include "math_functions.h"
-#include "Ham.h"
-#include "globals.h"
+#include <blond/impedances/InducedVoltage.h>
+#include <blond/utilities.h>
+#include <blond/constants.h>
+#include <blond/math_functions.h>
+#include <blond/impedances/Ham.h>
+#include <blond/globals.h>
 #include <omp.h>
 
 
 inline void InducedVoltage::linear_interp_kick(
-   const ftype *__restrict__ beam_dt,
-   ftype *__restrict__ beam_dE,
-   const ftype *__restrict__ voltage_array,
-   const ftype *__restrict__ bin_centers,
+   const ftype *__restrict beam_dt,
+   ftype *__restrict beam_dE,
+   const ftype *__restrict voltage_array,
+   const ftype *__restrict bin_centers,
    const int n_slices,
    const int n_macroparticles,
    const ftype acc_kick)
@@ -43,6 +43,7 @@ InducedVoltageTime::InducedVoltageTime(std::vector<Intensity *> &WakeSourceList,
 {
    // Induced voltage derived from the sum of
    // several wake fields (time domain).*
+	auto Slice = Context::Slice;
 
    // *Wake sources inputed as a list (eg: list of BBResonators objects)*
    fWakeSourceList = WakeSourceList;
@@ -79,6 +80,11 @@ InducedVoltageTime::~InducedVoltageTime()
 
 inline void InducedVoltageTime::track()
 {
+	auto GP = Context::GP;
+	auto Beam = Context::Beam;
+	auto Slice = Context::Slice;
+
+
    // Tracking Method
    f_vector_t v = this->induced_voltage_generation();
 
@@ -122,6 +128,8 @@ void InducedVoltageTime::reprocess()
    // *Reprocess the wake contributions with respect to the new_slicing.*
    // WARNING As Slice is a global variable,
    // users will have to change this variable and call reprocess()
+
+	auto Slice = Context::Slice;
    fTimeArray.resize(Slice->n_slices);
    for (uint i = 0; i < fTimeArray.size(); ++i) {
       fTimeArray[i] = Slice->bin_centers[i] - Slice->bin_centers[0];
@@ -138,7 +146,9 @@ f_vector_t InducedVoltageTime::induced_voltage_generation(uint length)
 {
 
    // Method to calculate the induced voltage from wakes with convolution.*
-
+	auto GP = Context::GP;
+	auto Beam = Context::Beam;
+	auto Slice = Context::Slice;
    f_vector_t inducedVoltage;
 
    const ftype factor = - GP->charge * constant::e *
@@ -218,6 +228,8 @@ InducedVoltageFreq::InducedVoltageFreq(
    bool recalculationImpedance,
    bool saveIndividualVoltages)
 {
+	auto Slice = Context::Slice;
+
    fNTurnsMem = NTurnsMem;
 
    fImpedanceSourceList = impedanceSourceList;
@@ -323,6 +335,10 @@ InducedVoltageFreq::~InducedVoltageFreq()
 void InducedVoltageFreq::track()
 {
    // Tracking Method
+	auto GP = Context::GP;
+	auto Beam = Context::Beam;
+	auto Slice = Context::Slice;
+
    induced_voltage_generation();
    auto v = fInducedVoltage;
    std::transform(v.begin(),
@@ -360,6 +376,7 @@ void InducedVoltageFreq::sum_impedances(f_vector_t &freq_array)
 
 void InducedVoltageFreq::reprocess()
 {
+	auto Slice = Context::Slice;
    auto timeResolution = (Slice->bin_centers[1] - Slice->bin_centers[0]);
    if (fFreqResolutionInput == 0) {
       fNFFTSampling = Slice->n_slices;
@@ -409,6 +426,10 @@ f_vector_t InducedVoltageFreq::induced_voltage_generation(uint length)
 {
    //    Method to calculate the induced voltage from the inverse FFT of the
    //    impedance times the spectrum (fourier convolution).
+	auto GP = Context::GP;
+	auto Beam = Context::Beam;
+	auto Slice = Context::Slice;
+
    if (fRecalculationImpedance)
       sum_impedances(fFreqArray);
 
@@ -430,7 +451,7 @@ f_vector_t InducedVoltageFreq::induced_voltage_generation(uint length)
                     * Slice->fBeamSpectrum[j];
          }
 
-         fft::irfft(in, res, 0, n_threads);
+         fft::irfft(in, res, 0, Context::n_threads);
 
          assert(res.size() >= Slice->n_slices);
 
@@ -467,7 +488,7 @@ f_vector_t InducedVoltageFreq::induced_voltage_generation(uint length)
          in[j] = fTotalImpedance[j] * Slice->fBeamSpectrum[j];
       }
 
-      fft::irfft(in, res, 0, n_threads);
+      fft::irfft(in, res, 0, Context::n_threads);
       //std::cout << "res size : " << res.size() << std::endl;
       //std::cout << "n_slices : " << Slice->n_slices << std::endl;
       assert(res.size() >= Slice->n_slices);
@@ -503,7 +524,7 @@ TotalInducedVoltage::TotalInducedVoltage(
    fInducedVoltageList = InducedVoltageList;
    fNTurnsMemory = NTurnsMemory;
    fInducedVoltage = f_vector_t();
-   fTimeArray = Slice->bin_centers;
+   fTimeArray = Context::Slice->bin_centers;
 }
 
 
@@ -515,6 +536,10 @@ TotalInducedVoltage::~TotalInducedVoltage()
 
 void TotalInducedVoltage::track()
 {
+	auto GP = Context::GP;
+	auto Beam = Context::Beam;
+	auto Slice = Context::Slice;
+
    this->induced_voltage_sum();
    auto v = this->fInducedVoltage;
 

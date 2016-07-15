@@ -10,12 +10,12 @@
 * :Authors: **Helga Timko**
 */
 
-#include "LHCNoiseFB.h"
+#include <blond/llrf/LHCNoiseFB.h>
 #include <algorithm>
-#include <math_functions.h>
-#include <globals.h>
-#include <utilities.h>
-#include <constants.h>
+#include <blond/math_functions.h>
+#include <blond/globals.h>
+#include <blond/utilities.h>
+#include <blond/constants.h>
 
 
 
@@ -33,6 +33,8 @@ LHCNoiseFB::LHCNoiseFB(ftype bl_target,
    fNUpdate = update_frequency;
    fVariableGain = variable_gain;
    fBunchPattern = bunch_pattern;
+   auto GP = Context::GP;
+   auto RfP = Context::RfP;
 
    if (fVariableGain) {
       fG.resize(GP->n_turns + 1);
@@ -58,6 +60,7 @@ LHCNoiseFB::~LHCNoiseFB() {}
 // TODO test this function
 void LHCNoiseFB::track()
 {
+	auto RfP = Context::RfP;
    // Calculate PhaseNoise Feedback scaling factor as a function of measured
    // FWHM bunch length.*
 
@@ -82,6 +85,7 @@ void LHCNoiseFB::track()
 ftype LHCNoiseFB::fwhm_interpolation(uint_vector_t index,
                                      ftype half_height)
 {
+	auto Slice = Context::Slice;
    const auto time_resolution = Slice->bin_centers[1] - Slice->bin_centers[0];
 
    const auto first = index[0];
@@ -123,6 +127,8 @@ ftype LHCNoiseFB::fwhm_interpolation(uint_vector_t index,
 // TODO test this function
 void LHCNoiseFB::fwhm_single_bunch()
 {
+	auto Slice = Context::Slice;
+
    // Single-bunch FWHM bunch length calculation with interpolation.
    auto i = mymath::max(Slice->n_macroparticles.data(), Slice->n_slices);
    ftype half_height = Slice->n_macroparticles[i] / 2;
@@ -144,6 +150,8 @@ void LHCNoiseFB::fwhm_multi_bunch()
    // Multi-bunch FWHM bunch length calculation with interpolation.*
 
    // Find correct RF buckets
+	auto Slice = Context::Slice;
+	auto RfP = Context::RfP;
 
    f_vector_t phi_RF(RfP->phi_RF[0].begin(), RfP->phi_RF[0].end());
    f_vector_t omega_RF(RfP->omega_RF[0].begin(), RfP->omega_RF[0].end());

@@ -12,17 +12,42 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <assert.h>
-#include <stdint.h>
-#include <stdio.h>
+#include <cassert>
+#include <cstdint>
+#include <cstdio>
 #include <vector>
-#include <stdlib.h>
-#include <math.h>
-#include <mm_malloc.h>
-#include <sys/time.h>
-#include "configuration.h"
+#include <cstdlib>
+#include <cmath>
+#include <chrono>
 #include <memory>
-#include <optionparser.h>
+
+#include <blond/configuration.h>
+
+#ifndef WIN32
+#include <mm_malloc.h>
+#endif
+
+ // DLL export
+#if defined(_GCC)
+#  define EXPORT_DECL __attribute__((visibility("default")))
+#  define IMPORT_DECL __attribute__((visibility("hidden")))
+#elif defined(_WIN32) || defined(__WIN32__) || defined(WIN32) || defined(MSC_VER)
+#  define EXPORT_DECL __declspec(dllexport)
+#  define IMPORT_DECL __declspec(dllimport)
+#else
+#  define EXPORT_DECL
+#  define IMPORT_DECL
+#endif
+
+#ifdef SHARED
+# define API EXPORT_DECL
+#elif STATIC
+# define API
+#else
+# define API IMPORT_DECL
+#endif
+
+#include <blond/optionparser.h>
 
 #define dprintf(...)    fprintf(stdout, __VA_ARGS__)     // Debug printf
 
@@ -58,7 +83,7 @@ namespace util {
    }
 
 // sort an array with regards to another array
-   struct MyComparator {
+   struct API MyComparator {
       ftype *a;
       MyComparator(ftype *_a) :
          a(_a)
@@ -161,12 +186,12 @@ namespace util {
 
    static inline void get_time(timespec &ts)
    {
-
 #ifdef TIMING
-      struct timeval tv;
-      gettimeofday(&tv, NULL);
-      ts.tv_sec = tv.tv_sec;
-      ts.tv_nsec = tv.tv_usec * 1000;
+	   auto time = std::chrono::system_clock::now();
+	   ts.tv_sec = std::chrono::duration_cast<std::chrono::seconds>(
+		   time.time_since_epoch()).count();
+	   ts.tv_nsec = std::chrono::duration_cast<std::chrono::microseconds>(
+		   time.time_since_epoch()).count();
 #endif
    }
 
@@ -218,7 +243,11 @@ namespace util {
 
    static inline std::string exec(const char *cmd)
    {
-      std::shared_ptr<FILE> pipe(popen(cmd, "r"), pclose);
+#ifdef WIN32
+	   std::shared_ptr<FILE> pipe(_popen(cmd, "r"), _pclose);
+#else
+	   std::shared_ptr<FILE> pipe(popen(cmd, "r"), pclose);
+#endif
       if (!pipe) return "ERROR";
       char buffer[128];
       std::string result = "";
@@ -237,7 +266,7 @@ namespace util {
       return res.str();
    }
 
-   struct Arg: public option::Arg {
+   struct API Arg: public option::Arg {
       static void printError(const char *msg1, const option::Option &opt, const char *msg2)
       {
          fprintf(stderr, "%s", msg1);

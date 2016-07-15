@@ -10,14 +10,8 @@
 
 class Slices;
 
-#include "../input_parameters/GeneralParameters.h"
-#include "../input_parameters/RfParameters.h"
-#include "fft.h"
-#include "Beams.h"
-#include "utilities.h"
-#include "configuration.h"
-#include "constants.h"
-#include "globals.h"
+#include <blond/utilities.h>
+#include <blond/configuration.h>
 
 const ftype cfwhm = 2 * sqrt(2 * log(2));
 
@@ -29,7 +23,7 @@ enum fit_type {
    normal_fit, gaussian_fit
 };
 
-class Slices {
+class API Slices {
 public:
 
    ftype bl_fwhm, bp_fwhm;
@@ -71,14 +65,14 @@ private:
    inline ftype convert_coordinates(ftype cut,
                                     cuts_unit_type type);
 
-   inline void histogram(const ftype *__restrict__ input,
-                         int *__restrict__ output,
+   inline void histogram(const ftype *__restrict input,
+                         int *__restrict output,
                          const ftype cut_left,
                          const ftype cut_right,
                          const uint n_slices,
                          const uint n_macroparticles);
-   inline void smooth_histogram(const ftype *__restrict__ input,
-                                int *__restrict__ output,
+   inline void smooth_histogram(const ftype *__restrict input,
+                                int *__restrict output,
                                 const ftype cut_left,
                                 const ftype cut_right,
                                 const uint n_slices,

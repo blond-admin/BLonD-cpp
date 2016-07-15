@@ -2,14 +2,12 @@
 #include <string>
 #include <list>
 
-#include <unistd.h>
-
 #include <gtest/gtest.h>
-#include "math_functions.h"
-#include "utilities.h"
-#include "constants.h"
-#include "configuration.h"
-#include "globals.h"
+#include <blond/math_functions.h>
+#include <blond/utilities.h>
+#include <blond/constants.h>
+#include <blond/configuration.h>
+#include <blond/globals.h>
 
 GeneralParameters *GP;
 Beams *Beam;

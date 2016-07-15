@@ -1,6 +1,6 @@
 #include <vector>
 
-class Ham {
+class API Ham {
   private:
     std::vector<unsigned int> _H, _hp, _hv, _x;
 

@@ -271,14 +271,13 @@
 
 #ifndef OPTIONPARSER_H_
 #define OPTIONPARSER_H_
-
 /** @brief The namespace of The Lean Mean C++ Option Parser. */
 namespace option {
 
 #ifdef _MSC_VER
 #include <intrin.h>
 #pragma intrinsic(_BitScanReverse)
-    struct MSC_Builtin_CLZ {
+    struct API MSC_Builtin_CLZ {
         static int builtin_clz(unsigned x) {
             unsigned long index;
             _BitScanReverse(&index, x);
@@ -371,7 +370,7 @@ namespace option {
      * };
      * @endcode
      */
-    struct Descriptor {
+    struct API Descriptor {
         /**
          * @brief Index of this option's linked list in the array filled in by
          * the parser.
@@ -535,7 +534,7 @@ namespace option {
      *     @code for (Option* opt = options[FILE]; opt; opt = opt->next())
      *   fname = opt->arg; ... @endcode
      */
-    class Option {
+    class API Option {
         Option* next_;
         Option* prev_;
 
@@ -955,7 +954,7 @@ namespace option {
      * can serve as starting place for writing your own more complex CheckArg
      * functions:
      * @code
-     * struct Arg: public option::Arg
+     * struct API Arg: public option::Arg
      * {
      *   static void printError(const char* msg1, const option::Option& opt,
      * const char* msg2)
@@ -1008,7 +1007,7 @@ namespace option {
      * };
      * @endcode
      */
-    struct Arg {
+    struct API Arg {
         //! @brief For options that don't take an argument: Returns ARG_NONE.
         static ArgStatus None(const Option&, bool) { return ARG_NONE; }
 
@@ -1036,7 +1035,7 @@ namespace option {
      * then the real
      * options and afterwards the counts will reflect the union.
      */
-    struct Stats {
+    struct API Stats {
         /**
          * @brief Number of elements needed for a @c buffer[] array to be used
          * for
@@ -1164,7 +1163,7 @@ namespace option {
         }
 
       private:
-        class CountOptionsAction;
+        class API CountOptionsAction;
     };
 
     /**
@@ -1187,7 +1186,7 @@ namespace option {
      *   ...
      * @endcode
      */
-    class Parser {
+    class API Parser {
         int op_count;            //!< @internal @brief see optionsCount()
         int nonop_count;         //!< @internal @brief see nonOptionsCount()
         const char** nonop_args; //!< @internal @brief see nonOptions()
@@ -1445,11 +1444,11 @@ namespace option {
         bool error() { return err; }
 
       private:
-        friend struct Stats;
+        friend struct API Stats;
 
-        class StoreOptionAction;
+        class API StoreOptionAction;
 
-        struct Action;
+        struct API Action;
 
         /**
          * @internal
@@ -1553,7 +1552,7 @@ namespace option {
      * Option it
      * parses.
      */
-    struct Parser::Action {
+    struct API Parser::Action {
         /**
          * @brief Called by Parser::workhorse() for each Option that has been
          * successfully
@@ -1589,7 +1588,7 @@ namespace option {
      * counter for
      * each parsed Option.
      */
-    class Stats::CountOptionsAction : public Parser::Action {
+    class API Stats::CountOptionsAction : public Parser::Action {
         unsigned* buffer_max;
 
       public:
@@ -1615,7 +1614,7 @@ namespace option {
      * parsed Option in
      * appropriate arrays (see Parser::parse()).
      */
-    class Parser::StoreOptionAction : public Parser::Action {
+    class API Parser::StoreOptionAction : public Parser::Action {
         Parser& parser;
         Option* options;
         Option* buffer;
@@ -1905,13 +1904,13 @@ namespace option {
      * @internal
      * @brief The implementation of option::printUsage().
      */
-    struct PrintUsageImplementation {
+    struct API PrintUsageImplementation {
         /**
          * @internal
          * @brief Interface for Functors that write (part of) a string
          * somewhere.
          */
-        struct IStringWriter {
+        struct API IStringWriter {
             /**
              * @brief Writes the given number of chars beginning at the given
              * pointer somewhere.
@@ -2128,7 +2127,7 @@ namespace option {
          * the same number of columns will be returned for each row.
          *
          */
-        class LinePartIterator {
+        class API LinePartIterator {
             const Descriptor*
                 tablestart; //!< The 1st descriptor of the current table.
             const Descriptor*
@@ -2415,7 +2414,7 @@ namespace option {
          * output the string must be output piecemeal, interleaved with
          * the data from the other columns.
          */
-        class LineWrapper {
+        class API LineWrapper {
             static const int bufmask = 15; //!< Must be a power of 2 minus 1.
             /**
              * @brief Ring buffer for length component of pair (data, length).
@@ -2979,13 +2978,13 @@ namespace option {
      *   fwrite(str, size, 1, stdout);
      * }
      *
-     * struct MyWriter {
+     * struct API MyWriter {
      *   void write(const char* buf, size_t size) const {
      *      fwrite(str, size, 1, stdout);
      *   }
      * };
      *
-     * struct MyWriteFunctor {
+     * struct API MyWriteFunctor {
      *   void operator()(const char* buf, size_t size) {
      *      fwrite(str, size, 1, stdout);
      *   }
@@ -2994,7 +2993,7 @@ namespace option {
      * printUsage(my_write, usage);    // custom write function
      * printUsage(MyWriter(), usage);  // temporary of a custom class
      * MyWriter writer;
-     * printUsage(writer, usage);      // custom class object
+     * printUsage(writer, usage);      // custom class API object
      * MyWriteFunctor wfunctor;
      * printUsage(&wfunctor, usage);   // custom functor
      * printUsage(write, 1, usage);    // write() to file descriptor 1
@@ -3006,7 +3005,7 @@ namespace option {
      * @endcode
      *
      * @par Notes:
-     * @li the @c write() method of a class that is to be passed as a temporary
+     * @li the @c write() method of a class API that is to be passed as a temporary
      *     as @c MyWriter() is in the example, must be a @c const method,
      * because
      *     temporary objects are passed as const reference. This only applies to

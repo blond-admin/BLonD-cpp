@@ -5,8 +5,8 @@
  *      Author: kiliakis
  */
 
-#include "Beams.h"
-#include <math_functions.h>
+#include <blond/beams/Beams.h>
+#include <blond/math_functions.h>
 
 
 Beams::Beams(const uint _n_macroparticles,
@@ -65,10 +65,10 @@ void Beams::statistics()
 }
 
 
-void Beams::losses_longitudinal_cut(const ftype *__restrict__ dt,
+void Beams::losses_longitudinal_cut(const ftype *__restrict dt,
                                     const ftype dt_min,
                                     const ftype dt_max,
-                                    int *__restrict__ id)
+                                    int *__restrict id)
 {
 
    #pragma omp parallel for
@@ -78,10 +78,10 @@ void Beams::losses_longitudinal_cut(const ftype *__restrict__ dt,
 }
 
 
-void Beams::losses_energy_cut(const ftype *__restrict__ dE,
+void Beams::losses_energy_cut(const ftype *__restrict dE,
                               const ftype dE_min,
                               const ftype dE_max,
-                              int *__restrict__ id)
+                              int *__restrict id)
 {
    #pragma omp parallel for
    for (int i = 0; i < (int) n_macroparticles; ++i) {

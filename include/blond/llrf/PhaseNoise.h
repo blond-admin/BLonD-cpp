@@ -8,10 +8,10 @@
 #ifndef LLRF_PHASENOISE_H_
 #define LLRF_PHASENOISE_H_
 
-#include <utilities.h>
-#include <configuration.h>
+#include <blond/utilities.h>
+#include <blond/configuration.h>
 
-class PhaseNoise {
+class API PhaseNoise {
 private:
 
 public:

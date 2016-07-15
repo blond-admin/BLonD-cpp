@@ -10,12 +10,12 @@
 
 class Beams;
 
-#include "globals.h"
-#include "utilities.h"
-#include "configuration.h"
-#include "constants.h"
+#include <blond/globals.h>
+#include <blond/utilities.h>
+#include <blond/configuration.h>
+#include <blond/constants.h>
 
-class Beams {
+class API Beams {
 public:
    f_vector_t dt;
    f_vector_t dE;
@@ -33,14 +33,14 @@ public:
    Beams(const uint _n_macroparticles, const long _intensity);
    ~Beams();
    uint n_macroparticles_alive();
-   void losses_longitudinal_cut(const ftype *__restrict__ dt,
+   void losses_longitudinal_cut(const ftype *__restrict dt,
                                 const ftype dt_min,
                                 const ftype dt_max,
-                                int *__restrict__ id);
-   void losses_energy_cut(const ftype *__restrict__ dE,
+                                int *__restrict id);
+   void losses_energy_cut(const ftype *__restrict dE,
                           const ftype dE_min,
                           const ftype dE_max,
-                          int *__restrict__ id);
+                          int *__restrict id);
 
    void statistics();
 };

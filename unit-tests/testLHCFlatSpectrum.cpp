@@ -1,8 +1,8 @@
-#include "globals.h"
-#include "utilities.h"
-#include "math_functions.h"
+#include <blond/globals.h>
+#include <blond/utilities.h>
+#include <blond/math_functions.h>
 #include <stdio.h>
-#include "../llrf/LHCFlatSpectrum.h"
+#include <blond/llrf/LHCFlatSpectrum.h>
 #include <gtest/gtest.h>
 
 

@@ -10,12 +10,12 @@
 * :Authors: **Helga Timko**
 */
 
-#include "LHCFlatSpectrum.h"
+#include <blond/llrf/LHCFlatSpectrum.h>
 #include <algorithm>
-#include <constants.h>
-#include <globals.h>
-#include <math_functions.h>
-#include "PhaseNoise.h"
+#include <blond/constants.h>
+#include <blond/globals.h>
+#include <blond/math_functions.h>
+#include <blond/llrf/PhaseNoise.h>
 
 
 LHCFlatSpectrum::LHCFlatSpectrum(uint time_points,
@@ -25,6 +25,8 @@ LHCFlatSpectrum::LHCFlatSpectrum(uint time_points,
                                  int seed1, int seed2,
                                  predistortion_t predistortion)
 {
+	auto GP = Context::GP;
+	auto RfP = Context::RfP;
 
    fNt = time_points;
    fCorr = corr_time;
@@ -74,6 +76,7 @@ LHCFlatSpectrum::~LHCFlatSpectrum() {}
 
 void LHCFlatSpectrum::generate()
 {
+	auto GP = Context::GP;
    for (uint i = 0; i < fNTurns / fCorr; ++i) {
 
       // Scale amplitude to keep area (phase noise amplitude) constant
@@ -84,7 +87,7 @@ void LHCFlatSpectrum::generate()
       uint nf = fNt / 2 + 1;      // #points in frequency domain
       auto df = GP->f_rev[k] / fNt;
 
-      // Construct spectrum
+      // Construct API spectrum
       auto nmin = std::floor(fFMin * fFs[k] / df);
       auto nmax = std::ceil(fFMax * fFs[k] / df);
 

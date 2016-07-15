@@ -5,10 +5,10 @@
 * @Last Modified time: 2016-05-04 15:25:33
 */
 
-#include "Intensity.h"
-#include "utilities.h"
-#include "constants.h"
-#include "math_functions.h"
+#include <blond/impedances/Intensity.h>
+#include <blond/utilities.h>
+#include <blond/constants.h>
+#include <blond/math_functions.h>
 
 Resonators::Resonators(f_vector_t &RS,
                        f_vector_t &FrequencyR,

@@ -11,10 +11,11 @@
 #include <algorithm>
 #include <cmath>
 #include <cassert>
-#include "utilities.h"
-#include "configuration.h"
+#include <blond/utilities.h>
+#include <blond/configuration.h>
 #include <algorithm>
 #include <fftw3.h>
+#include <functional>
 
 
 namespace fft {
@@ -45,7 +46,7 @@ namespace fft {
       FFT, IFFT, RFFT, IRFFT
    };
 
-   struct fft_plan_t {
+   struct API fft_plan_t {
       fftw_plan p;   // fftw_plan
       uint n;        // size of the fft
       fft_type_t type;
@@ -196,7 +197,7 @@ namespace fft {
                              v.end(),
                              [n, type]
       (const fft_plan_t &s) {
-         return ((s.n == n) and (s.type == type));
+         return ((s.n == n) && (s.type == type));
       });
 
       /*
@@ -387,7 +388,7 @@ namespace fft {
       f_vector_t v(n / 2 + 1);
       const ftype factor = 1.0 / (d * n);
       #pragma omp parallel for
-      for (uint i = 0; i < v.size(); ++i) {
+      for (auto i = 0; i < v.size(); ++i) {
          v[i] = i * factor;
       }
       return std::move(v);

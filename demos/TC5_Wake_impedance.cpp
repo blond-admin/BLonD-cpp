@@ -4,24 +4,24 @@
  *  Created on: May 9, 2016
  *      Author: kiliakis
  */
-#include "globals.h"
-#include "utilities.h"
-#include "math_functions.h"
+#include <blond/globals.h>
+#include <blond/utilities.h>
+#include <blond/math_functions.h>
 #include <omp.h>
 #include <stdio.h>
-#include "../input_parameters/GeneralParameters.h"
-#include "../input_parameters/RfParameters.h"
-#include "../beams/Beams.h"
-#include "../beams/Slices.h"
-#include "../beams/Distributions.h"
-#include "../trackers/Tracker.h"
-//#include "../impedances/Intensity.h"
-#include "../impedances/InducedVoltage.h"
+#include <blond/input_parameters/GeneralParameters.h>
+#include <blond/input_parameters/RfParameters.h>
+#include <blond/beams/Beams.h>
+#include <blond/beams/Slices.h>
+#include <blond/beams/Distributions.h>
+#include <blond/trackers/Tracker.h>
+//#include <blond/impedances/Intensity.h>
+#include <blond/impedances/InducedVoltage.h>
 #include <complex>
 
 
 const std::string datafiles =
-   "../tests/input_files/TC5_Wake_impedance/";
+   "../demos/input_files/TC5_Wake_impedance/";
 
 // Simulation parameters --------------------------------------------------------
 // Bunch parameters

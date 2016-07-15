@@ -1,9 +1,9 @@
-#include "globals.h"
-#include "utilities.h"
-#include "math_functions.h"
-#include "fft.h"
+#include <blond/globals.h>
+#include <blond/utilities.h>
+#include <blond/math_functions.h>
+#include <blond/fft.h>
 #include <stdio.h>
-#include "../llrf/PhaseNoise.h"
+#include <blond/llrf/PhaseNoise.h>
 #include <gtest/gtest.h>
 
 

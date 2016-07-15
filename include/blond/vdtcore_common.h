@@ -5,7 +5,7 @@
  *      Author: kiliakis
  */
 
-#include <blond/inttypes.h>
+#include <cstdint>
 #include <cmath>
 
 #ifndef TRACKERS_VDTCORE_COMMON_H_
@@ -13,7 +13,9 @@
 
 #define M_PI 3.14159265358979323846
 #define M_PI_2 1.57079632679489661923
-//#define M_PI_4 0.785398163397448309616
+#if defined(_WIN32) || defined(__WIN32__) || defined(WIN32) || defined(MSC_VER)
+#define M_PI_4 0.785398163397448309616
+#endif
 
 namespace vdt {
 

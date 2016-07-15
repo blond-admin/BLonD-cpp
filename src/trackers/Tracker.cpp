@@ -5,18 +5,18 @@
  *      Author: kiliakis
  */
 
-#include "Tracker.h"
+#include <blond/trackers/Tracker.h>
 
 // Two versions of kick, drift one with periodicity and another without periodiciy
 // First go the versions without periodicity
 
 // Kick without periodicity
-inline void RingAndRfSection::kick(const ftype *__restrict__ beam_dt,
-                                   ftype *__restrict__ beam_dE,
+inline void RingAndRfSection::kick(const ftype *__restrict beam_dt,
+                                   ftype *__restrict beam_dE,
                                    const int n_rf,
-                                   const ftype *__restrict__ voltage,
-                                   const ftype *__restrict__ omega_RF,
-                                   const ftype *__restrict__ phi_RF,
+                                   const ftype *__restrict voltage,
+                                   const ftype *__restrict omega_RF,
+                                   const ftype *__restrict phi_RF,
                                    const int n_macroparticles,
                                    const ftype acc_kick)
 {
@@ -42,12 +42,12 @@ inline void RingAndRfSection::kick(const ftype *__restrict__ beam_dt,
 
 // kick with periodicity
 
-inline void RingAndRfSection::kick(const ftype *__restrict__ beam_dt,
-                                   ftype *__restrict__ beam_dE,
+inline void RingAndRfSection::kick(const ftype *__restrict beam_dt,
+                                   ftype *__restrict beam_dE,
                                    const int n_rf,
-                                   const ftype *__restrict__ voltage,
-                                   const ftype *__restrict__ omega_RF,
-                                   const ftype *__restrict__ phi_RF,
+                                   const ftype *__restrict voltage,
+                                   const ftype *__restrict omega_RF,
+                                   const ftype *__restrict phi_RF,
                                    const int n_macroparticles,
                                    const ftype acc_kick,
                                    const int_vector_t &filter)
@@ -68,8 +68,8 @@ inline void RingAndRfSection::kick(const ftype *__restrict__ beam_dt,
 }
 
 //drift without periodicity
-inline void RingAndRfSection::drift(ftype *__restrict__ beam_dt,
-                                    const ftype *__restrict__ beam_dE,
+inline void RingAndRfSection::drift(ftype *__restrict beam_dt,
+                                    const ftype *__restrict beam_dE,
                                     const solver_type solver,
                                     const ftype T0,
                                     const ftype length_ratio,
@@ -120,8 +120,8 @@ inline void RingAndRfSection::drift(ftype *__restrict__ beam_dt,
 
 // drift with periodicity
 
-inline void RingAndRfSection::drift(ftype *__restrict__ beam_dt,
-                                    const ftype *__restrict__ beam_dE,
+inline void RingAndRfSection::drift(ftype *__restrict beam_dt,
+                                    const ftype *__restrict beam_dE,
                                     const solver_type solver,
                                     const ftype T0,
                                     const ftype length_ratio,
@@ -173,6 +173,9 @@ inline void RingAndRfSection::drift(ftype *__restrict__ beam_dt,
 
 void RingAndRfSection::track()
 {
+	auto GP = Context::GP;
+	auto RfP = Context::RfP;
+	auto Beam = Context::Beam;
 
 
    // Determine phase loop correction on RF phase and frequency
@@ -247,6 +250,7 @@ void RingAndRfSection::track()
 
 inline void RingAndRfSection::horizontal_cut()
 {
+	auto Beam = Context::Beam;
 
    for (uint i = 0; i < Beam->n_macroparticles; ++i) {
       if (Beam->dE[i] > - dE_max) {
@@ -268,7 +272,11 @@ RingAndRfSection::RingAndRfSection(solver_type _solver,
                                    Slices *_Slices,
                                    TotalInducedVoltage *_TotalInducedVoltage)
 {
-   this->elapsed_time = 0;
+	auto GP = Context::GP;
+	auto RfP = Context::RfP;
+	auto Beam = Context::Beam;
+
+	this->elapsed_time = 0;
    this->solver = _solver;
    this->PL = _PhaseLoop;
    this->noiseFB = _NoiseFB;
@@ -322,6 +330,10 @@ RingAndRfSection::~RingAndRfSection()
 
 void RingAndRfSection::set_periodicity()
 {
+	auto GP = Context::GP;
+	auto RfP = Context::RfP;
+	auto Beam = Context::Beam;
+
    indices_right_outside.clear();
    indices_inside_frame.clear();
    // TODO I am not duplicating the insiders dE, dt
@@ -337,6 +349,9 @@ void RingAndRfSection::set_periodicity()
 
 inline void RingAndRfSection::kick(const uint index)
 {
+	auto RfP = Context::RfP;
+	auto Beam = Context::Beam;
+
    auto vol = new ftype[RfP->n_rf];
    auto omeg = new ftype[RfP->n_rf];
    auto phi = new ftype[RfP->n_rf];
@@ -363,6 +378,9 @@ inline void RingAndRfSection::kick(const uint index)
 
 void RingAndRfSection::kick(const int_vector_t &filter, const uint index)
 {
+	auto RfP = Context::RfP;
+	auto Beam = Context::Beam;
+
    auto vol = new ftype[RfP->n_rf];
    auto omeg = new ftype[RfP->n_rf];
    auto phi = new ftype[RfP->n_rf];
@@ -390,6 +408,10 @@ void RingAndRfSection::kick(const int_vector_t &filter, const uint index)
 
 void RingAndRfSection::drift(const int_vector_t &filter, const uint index)
 {
+	auto GP = Context::GP;
+	auto RfP = Context::RfP;
+	auto Beam = Context::Beam;
+
    drift(Beam->dt.data(),
          Beam->dE.data(),
          solver,
@@ -407,6 +429,10 @@ void RingAndRfSection::drift(const int_vector_t &filter, const uint index)
 
 inline void RingAndRfSection::drift(const uint index)
 {
+	auto GP = Context::GP;
+	auto RfP = Context::RfP;
+	auto Beam = Context::Beam;
+
    drift(Beam->dt.data(),
          Beam->dE.data(), solver,
          GP->t_rev[index],

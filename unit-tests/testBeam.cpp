@@ -1,16 +1,15 @@
-
+\
 #include <iostream>
 #include <string>
 #include <list>
 
-#include <unistd.h>
 
 #include <gtest/gtest.h>
-#include "math_functions.h"
-#include "utilities.h"
-#include "../beams/Distributions.h"
-#include "../input_parameters/GeneralParameters.h"
-#include "constants.h"
+#include <blond/math_functions.h>
+#include <blond/utilities.h>
+#include <blond/beams/Distributions.h>
+#include <blond/input_parameters/GeneralParameters.h>
+#include <blond/constants.h>
 
 
 const ftype epsilon = 1e-8;
@@ -24,7 +23,7 @@ RfParameters *RfP;
 Slices *Slice;
 int n_threads = 1;
 
-class testBeam : public ::testing::Test {
+class API testBeam : public ::testing::Test {
 
 protected:
    const long N_b = 1e9;           // Intensity

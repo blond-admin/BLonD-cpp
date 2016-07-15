@@ -5,7 +5,7 @@
  *      Author: kiliakis
  */
 
-#include "GeneralParameters.h"
+#include <blond/input_parameters/GeneralParameters.h>
 
 GeneralParameters::GeneralParameters(const uint _n_turns,
                                      f_vector_t &_ring_length,

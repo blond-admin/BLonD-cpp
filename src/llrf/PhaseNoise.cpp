@@ -10,12 +10,12 @@
 * :Authors: **Helga Timko**
 */
 
-#include "PhaseNoise.h"
+#include <blond/llrf/PhaseNoise.h>
 #include <random>
 #include <algorithm>
-#include <constants.h>
-#include <fft.h>
-#include <math_functions.h>
+#include <blond/constants.h>
+#include <blond/fft.h>
+#include <blond/math_functions.h>
 
 
 PhaseNoise::PhaseNoise(f_vector_t freqArray,
@@ -45,7 +45,7 @@ void PhaseNoise::spectrum_to_phase_noise(PhaseNoise::transform_t transform)
 
    // Resolution in time domain
 
-   if (transform == transform_t::None or transform == transform_t::r) {
+   if (transform == transform_t::None || transform == transform_t::r) {
       fNt = 2 * (fResLen - 1);
       fDt = 1 / (2 * fFreqArrayMax);
    } else if (transform == transform_t::c) {
@@ -80,7 +80,7 @@ void PhaseNoise::spectrum_to_phase_noise(PhaseNoise::transform_t transform)
    // std::cout << "mean r1 : " << mymath::mean(r1.data(), r1.size()) << "\n";
    // std::cout << "mean r2 : " << mymath::mean(r2.data(), r2.size()) << "\n";
 
-   if (transform == transform_t::None or transform == transform_t::r) {
+   if (transform == transform_t::None || transform == transform_t::r) {
       f_vector_t Gt(fNt);
 
       auto factor = 2 * constant::pi;

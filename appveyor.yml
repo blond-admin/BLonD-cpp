@@ -12,8 +12,6 @@ configuration:
   - Release
 
 install:
-  - choco install cmake
-  - choco upgrade cmake
   - git submodule update --init --recursive
 
 before_build:

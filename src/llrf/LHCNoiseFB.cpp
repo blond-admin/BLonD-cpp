@@ -16,6 +16,8 @@
 #include <blond/llrf/LHCNoiseFB.h>
 #include <blond/math_functions.h>
 
+const ftype LHCNoiseFB::cfwhm = std::sqrt(2.0 / std::log(2.0));
+
 LHCNoiseFB::LHCNoiseFB(ftype bl_target, ftype gain, ftype factor,
                        ftype update_frequency, bool variable_gain,
                        f_vector_t bunch_pattern) {

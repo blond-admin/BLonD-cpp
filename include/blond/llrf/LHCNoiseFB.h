@@ -25,8 +25,7 @@
 
 class API LHCNoiseFB {
   private:
-    constexpr static ftype cfwhm =
-        2.57756788267; // std::sqrt(2.0 / std::log(2.0));
+     static const ftype cfwhm;
   public:
     // Phase noise scaling factor. Initially 0
     ftype fX;

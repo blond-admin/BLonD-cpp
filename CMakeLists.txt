@@ -22,27 +22,35 @@ set(ARCHITECTURE "x64" CACHE STRING "Set architecture 'x86' or 'x32'")
 set(EXTERNAL_INSTALL_DIR ${PROJECT_SOURCE_DIR}/external/install CACHE STRING "External libraries installation folder (with subfolders lib and include)")
 
 # Abilety to build external libraries from source or install them from releases
-#set(WITH_GSL "False" CACHE STRING "Should Build GNU Scientific Library from source") #todo: default to false, always default true on windows
-#set(GSL_ROOT ${PROJECT_SOURCE_DIR}/external/gsl CACHE STRING "GSL - GNU Scientific Library source root")
+if(NOT DEFINED WITH_FFTW)
+    if(MSVC)
+        set(WITH_FFTW "True" CACHE STRING "Should Build FFTW library from source")
+    else()
+        set(WITH_FFTW "False" CACHE STRING "Should Build FFTW library from source")
+    endif()
+endif()
 
-set(WITH_FFTW "False" CACHE STRING "Should Build FFTW library from source") #todo: default to false, always default true on windows
-set(FFTW_ROOT ${PROJECT_SOURCE_DIR}/external/fftw CACHE STRING "GSL - FFTW Library source root")
+if(NOT DEFINED WITH_GOOGLETEST)
+    if(MSVC)
+        set(WITH_GOOGLETEST "True" CACHE STRING "Should Build GoogleTest library from source")
+    else()
+        set(WITH_GOOGLETEST "False" CACHE STRING "Should Build GoogleTest library from source")
+    endif()
+endif()
 
-set(WITH_GOOGLETEST "False" CACHE STRING "Should Build GoogleTest library from source")
 set(GOOGLETEST_ROOT ${PROJECT_SOURCE_DIR}/external/googletest/ CACHE STRING "Google Test source root")
 
-set(WITH_BENCHMARK "False" CACHE STRING "Should Build GoogleBenchmark library from source")
+if(NOT DEFINED WITH_BENCHMARK)
+    if(MSVC)
+        set(WITH_BENCHMARK "True" CACHE STRING "Should Build GoogleBenchmark library from source")
+    else()
+        set(WITH_BENCHMARK "False" CACHE STRING "Should Build GoogleBenchmark library from source")
+    endif()
+endif()
+
 set(BENCHMARK_ROOT ${PROJECT_SOURCE_DIR}/external/benchmark CACHE STRING "Google Benchmark Library root")
 
 set(WITH_FORMAT "False" CACHE STRING "Clang-Format all project files on build (requires clang-format)")
-
-if (MSVC)
-    #set(WITH_GSL "True")
-    #set(WITH_BOOST "True")
-    set(WITH_FFTW "True")
-    set(WITH_GOOGLETEST "True")
-    set(WITH_BENCHMARK "True")
-endif ()
 
 # Package settings
 set(USE_FFTW_OMP "False" CACHE STRING "Should use OpenMP flavour of FFTW library (linux only)")
@@ -156,7 +164,6 @@ message(STATUS "Building required started...")
 execute_process(
         COMMAND ${CMAKE_COMMAND}
         #options
-        #-DWITH_GSL=${WITH_GSL}
         -DWITH_FFTW=${WITH_FFTW}
         -DWITH_BENCHMARK=${WITH_BENCHMARK}
         -DWITH_GOOGLETEST=${WITH_GOOGLETEST}
@@ -166,7 +173,6 @@ execute_process(
         -DGOOGLETEST_ROOT=${GOOGLETEST_ROOT}
         -DBENCHMARK_ROOT=${BENCHMARK_ROOT}
         -DGOOGLETEST_ROOT=${GOOGLETEST_ROOT}
-        -DGSL_ROOT=${GSL_ROOT}
         #forward all collected compilation arguments
         -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} # relevant only for Make-like build files
         -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}

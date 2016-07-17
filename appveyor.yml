@@ -22,7 +22,8 @@ before_build:
   - cmake ..
   - DIR
 
-build_script::
+#build: of
+build_script:
   - cmake --build . --target ALL_BUILD --config $(configuration) -- /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 
 test_script:

@@ -1,3 +1,5 @@
+#usage: cmake -DWITH_FFTW=True -DWITH_GOOGLETEST=True -DWITH_BENCHMARK=True
+
 # Requirements list
 cmake_minimum_required(VERSION 2.8)
 project(BLonD-minimal-cpp CXX)
@@ -208,12 +210,12 @@ if(WITH_FFTW)
     if(WIN32 AND NOT MINGW)
         link_directories(${EXTERNAL_INSTALL_DIR}/lib/fftw/$(Configuration)/)
         find_library(FFTW_LIB
-                NAMES fftw libfftw3 libfftw-3.3
+                NAMES fftw fftw3 libfftw3 libfftw-3.3
                 PATHS "${EXTERNAL_INSTALL_DIR}/lib/fftw/Debug"
                 )
     else()
         find_library(FFTW_LIB
-                NAMES fftw libfftw3 libfftw-3.3
+                NAMES fftw fftw3 libfftw3 libfftw-3.3
                 PATHS "${EXTERNAL_INSTALL_DIR}/lib/"
                 )
     endif()

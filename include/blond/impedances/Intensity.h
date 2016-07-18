@@ -6,7 +6,7 @@
 */
 
 #ifndef IMPEDANCES_INTENSITY_H_
-#define IMPEDANCES_INTENSIY_H_
+#define IMPEDANCES_INTENSITY_H_
 
 // class API Intensity;
 

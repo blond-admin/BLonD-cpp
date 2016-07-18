@@ -1,25 +1,15 @@
 #include <iostream>
-#include <string>
-#include <list>
 
-#include <unistd.h>
 #include <omp.h>
 #include <gtest/gtest.h>
-#include "math_functions.h"
-#include "utilities.h"
-#include "../beams/Distributions.h"
-#include "../input_parameters/GeneralParameters.h"
-#include "../trackers/Tracker.h"
-#include "constants.h"
+#include <blond/math_functions.h>
+#include <blond/utilities.h>
+#include <blond/beams/Distributions.h>
+#include <blond/input_parameters/GeneralParameters.h>
+#include <blond/trackers/Tracker.h>
 
 const ftype epsilon = 1e-8;
 const std::string params = "../unit-tests/references/TC1_final/TC1_final_params/";
-
-GeneralParameters *GP;
-Beams *Beam;
-RfParameters *RfP;
-Slices *Slice;
-int n_threads = 1;
 
 
 class testTC1 : public ::testing::Test {
@@ -49,16 +39,16 @@ protected:
       f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 
 
-      GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order, momentumVec,
+	   Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order, momentumVec,
                                  proton);
 
-      Beam = new Beams(N_p, N_b);
+	   Context::Beam = new Beams(N_p, N_b);
 
-      RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+	   Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
 
       longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
 
-      Slice = new Slices(N_slices);
+	   Context::Slice = new Slices(N_slices);
 
    }
 
@@ -67,10 +57,10 @@ protected:
    {
       // Code here will be called immediately after each test
       // (right before the destructor).
-      delete GP;
-      delete Beam;
-      delete RfP;
-      delete Slice;
+      delete Context::GP;
+      delete Context::Beam;
+      delete Context::RfP;
+      delete Context::Slice;
    }
 
 
@@ -96,12 +86,12 @@ private:
 
 TEST_F(testTC1, phaseSpace)
 {
-
-   omp_set_num_threads(n_threads);
+	auto Beam = Context::Beam;
+   omp_set_num_threads(Context::n_threads);
    RingAndRfSection *long_tracker = new RingAndRfSection();
    for (int i = 0; i < N_t; ++i) {
       long_tracker->track();
-      Slice->track();
+	   Context::Slice->track();
       //RfP->counter++;
       //beam->losses_longitudinal_cut(beam->dt, 0, 2.5e-9, beam->id);
    }

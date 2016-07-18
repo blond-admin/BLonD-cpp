@@ -1,28 +1,23 @@
-#include "globals.h"
-#include "utilities.h"
-#include "math_functions.h"
+#include <blond/globals.h>
+#include <blond/utilities.h>
+#include <blond/math_functions.h>
 #include <omp.h>
 #include <stdio.h>
-#include "../input_parameters/GeneralParameters.h"
-#include "../input_parameters/RfParameters.h"
-#include "../beams/Beams.h"
-#include "../beams/Slices.h"
-#include "../beams/Distributions.h"
-#include "../trackers/Tracker.h"
-#include "../impedances/InducedVoltage.h"
+#include <blond/input_parameters/GeneralParameters.h>
+#include <blond/input_parameters/RfParameters.h>
+#include <blond/beams/Beams.h>
+#include <blond/beams/Slices.h>
+#include <blond/beams/Distributions.h>
+#include <blond/trackers/Tracker.h>
+#include <blond/impedances/InducedVoltage.h>
 #include <gtest/gtest.h>
 #include <complex>
 
 const std::string datafiles =
-   "../tests/input_files/TC5_Wake_impedance/";
+   "../demos/input_files/TC5_Wake_impedance/";
 
-GeneralParameters *GP;
-Beams *Beam;
-Slices *Slice;
-RfParameters *RfP;
+
 Resonators *resonator;
-int n_threads = 1;
-
 
 class testInducedVoltageFreq : public ::testing::Test {
 
@@ -47,7 +42,7 @@ protected:
    virtual void SetUp()
    {
 
-      omp_set_num_threads(n_threads);
+      omp_set_num_threads(Context::n_threads);
 
       f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1, p_i));
 
@@ -61,18 +56,18 @@ protected:
 
       f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 
-      GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
+	   Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
                                  momentumVec, proton);
 
-      Beam = new Beams(N_p, N_b);
+	   Context::Beam = new Beams(N_p, N_b);
 
-      RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+	   Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
 
 
 
       longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
 
-      Slice = new Slices(N_slices, 0, 0, 2 * constant::pi, rad);
+	   Context::Slice = new Slices(N_slices, 0, 0, 2 * constant::pi, rad);
 
       std::vector<ftype> v;
       util::read_vector_from_file(v, datafiles +
@@ -100,10 +95,10 @@ protected:
    {
       // Code here will be called immediately after each test
       // (right before the destructor).
-      delete GP;
-      delete Beam;
-      delete RfP;
-      delete Slice;
+      delete Context::GP;
+      delete Context::Beam;
+      delete Context::RfP;
+      delete Context::Slice;
       delete resonator;
    }
 
@@ -274,7 +269,7 @@ TEST_F(testInducedVoltageFreq, sum_impedances1)
 
    auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
 
-   auto freq_array = fft::rfftfreq(Slice->n_slices);
+   auto freq_array = fft::rfftfreq(Context::Slice->n_slices);
 
    indVoltFreq->sum_impedances(freq_array);
 
@@ -304,6 +299,8 @@ TEST_F(testInducedVoltageFreq, sum_impedances1)
 
 TEST_F(testInducedVoltageFreq, sum_impedances2)
 {
+	auto Slice = Context::Slice;
+
    std::vector<Intensity *> ImpSourceList({resonator});
 
    auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
@@ -337,6 +334,8 @@ TEST_F(testInducedVoltageFreq, sum_impedances2)
 
 TEST_F(testInducedVoltageFreq, reprocess1)
 {
+	auto Slice = Context::Slice;
+
    std::vector<Intensity *> ImpSourceList({resonator});
 
    auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
@@ -397,7 +396,7 @@ TEST_F(testInducedVoltageFreq, induced_voltage_generation1)
    std::vector<Intensity *> ImpSourceList({resonator});
 
    auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
-   Slice->track();
+	Context::Slice->track();
 
    indVoltFreq->induced_voltage_generation();
    auto params = std::string("../unit-tests/references/Impedances/")
@@ -426,7 +425,7 @@ TEST_F(testInducedVoltageFreq, track1)
    std::vector<Intensity *> ImpSourceList({resonator});
 
    auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
-   Slice->track();
+	Context::Slice->track();
 
    indVoltFreq->track();
    auto params = std::string("../unit-tests/references/Impedances/")
@@ -442,7 +441,7 @@ TEST_F(testInducedVoltageFreq, track1)
    auto epsilon = 1e-8;
    for (unsigned int i = 0; i < v.size(); ++i) {
       auto ref = v[i];
-      ftype real = Beam->dE[i];
+      ftype real = Context::Beam->dE[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
             << "Testing of Beam->dE failed on i "
             << i << std::endl;
@@ -454,10 +453,11 @@ TEST_F(testInducedVoltageFreq, track1)
 
 TEST_F(testInducedVoltageFreq, track2)
 {
+
    std::vector<Intensity *> ImpSourceList({resonator});
 
    auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
-   Slice->track();
+	Context::Slice->track();
 
    for (auto i = 0; i < 10; i++)
       indVoltFreq->track();
@@ -475,7 +475,7 @@ TEST_F(testInducedVoltageFreq, track2)
    auto epsilon = 1e-8;
    for (unsigned int i = 0; i < v.size(); ++i) {
       auto ref = v[i];
-      ftype real = Beam->dE[i];
+      ftype real = Context::Beam->dE[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
             << "Testing of Beam->dE failed on i "
             << i << std::endl;

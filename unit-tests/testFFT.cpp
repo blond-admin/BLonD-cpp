@@ -1,21 +1,10 @@
 #include <iostream>
-#include <string>
-#include <list>
 
-#include <unistd.h>
 #include <gtest/gtest.h>
-#include "fft.h"
-#include "utilities.h"
-#include "constants.h"
-#include "configuration.h"
-#include "globals.h"
-
-GeneralParameters *GP;
-Beams *Beam;
-RfParameters *RfP;
-Slices *Slice;
-int n_threads = 1;
-
+#include <blond/fft.h>
+#include <blond/utilities.h>
+#include <blond/configuration.h>
+#include <blond/math_functions.h>
 
 
 TEST(testIRFFT, rfft_even)

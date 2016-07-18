@@ -1,11 +1,11 @@
-#include "globals.h"
-#include "utilities.h"
-#include "math_functions.h"
+#include <blond/globals.h>
+#include <blond/utilities.h>
+#include <blond/math_functions.h>
 #include <stdio.h>
-#include <../beams/Distributions.h>
-#include "../llrf/LHCNoiseFB.h"
+#include <blond/beams/Distributions.h>
+#include <blond/llrf/LHCNoiseFB.h>
 #include <gtest/gtest.h>
-#include "../trackers/Tracker.h"
+#include <blond/trackers/Tracker.h>
 
 // Simulation parameters --------------------------------------------------------
 
@@ -28,13 +28,9 @@ const int n_sections = 1;
 unsigned N_t = 1000;          // Number of turns to track
 unsigned N_p = 10001;         // Macro-particles
 
-int n_threads = 1;
 unsigned N_slices = 100;   // = (2^8)
 
-GeneralParameters *GP;
-Beams *Beam;
-Slices *Slice;
-RfParameters *RfP;
+
 
 class testLHCNoiseFB : public ::testing::Test {
 
@@ -56,17 +52,17 @@ protected:
 
       f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 
-      GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
+	   Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
                                  momentumVec, proton);
 
-      Beam = new Beams(N_p, N_b);
+	   Context::Beam = new Beams(N_p, N_b);
 
-      RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+	   Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
 
       //RingAndRfSection *long_tracker = new RingAndRfSection();
 
       longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
-      Slice = new Slices(N_slices);
+	   Context::Slice = new Slices(N_slices);
 
    }
 
@@ -75,10 +71,10 @@ protected:
    {
       // Code here will be called immediately after each test
       // (right before the destructor).
-      delete GP;
-      delete Beam;
-      delete RfP;
-      delete Slice;
+      delete Context::GP;
+      delete Context::Beam;
+      delete Context::RfP;
+      delete Context::Slice;
    }
 
 };
@@ -160,7 +156,7 @@ TEST_F(testLHCNoiseFB, constructor3)
 
 TEST_F(testLHCNoiseFB, fwhm_interpolation1)
 {
-
+	auto Slice = Context::Slice;
    auto lhcnfb = new LHCNoiseFB(1.0);
    for (uint i = 0; i < Slice->n_slices; i++) {
       Slice->n_macroparticles[i] = 50 * (i % 4);
@@ -186,6 +182,7 @@ TEST_F(testLHCNoiseFB, fwhm_interpolation1)
 
 TEST_F(testLHCNoiseFB, fwhm_interpolation2)
 {
+	auto Slice = Context::Slice;
 
    auto lhcnfb = new LHCNoiseFB(1.0);
    for (uint i = 0; i < Slice->n_slices; i++) {
@@ -212,6 +209,7 @@ TEST_F(testLHCNoiseFB, fwhm_interpolation2)
 
 TEST_F(testLHCNoiseFB, fwhm_single_bunch1)
 {
+	auto Slice = Context::Slice;
 
    auto lhcnfb = new LHCNoiseFB(1.0);
    for (uint i = 0; i < Slice->n_slices; i++) {
@@ -238,6 +236,7 @@ TEST_F(testLHCNoiseFB, fwhm_single_bunch1)
 
 TEST_F(testLHCNoiseFB, DISABLED_fwhm_multi_bunch1)
 {
+	auto Slice = Context::Slice;
 
    f_vector_t a = {1, 2, 3, 4, 5};
    auto lhcnfb = new LHCNoiseFB(1.0, 0.1, 0.9, 100, false, a);
@@ -274,7 +273,7 @@ TEST_F(testLHCNoiseFB, track1)
    f_vector_t res;
    for (uint i = 0; i < 100; ++i) {
       long_tracker->track();
-      Slice->track();
+	   Context::Slice->track();
       lhcnfb->track();
       res.push_back(lhcnfb->fX);
    }

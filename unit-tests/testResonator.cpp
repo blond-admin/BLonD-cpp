@@ -1,21 +1,21 @@
-#include "globals.h"
-#include "utilities.h"
-#include "math_functions.h"
+#include <blond/globals.h>
+#include <blond/utilities.h>
+#include <blond/math_functions.h>
 #include <omp.h>
 #include <stdio.h>
-#include "../input_parameters/GeneralParameters.h"
-#include "../input_parameters/RfParameters.h"
-#include "../beams/Beams.h"
-#include "../beams/Slices.h"
-#include "../beams/Distributions.h"
-#include "../trackers/Tracker.h"
-//#include "../impedances/Intensity.h"
+#include <blond/input_parameters/GeneralParameters.h>
+#include <blond/input_parameters/RfParameters.h>
+#include <blond/beams/Beams.h>
+#include <blond/beams/Slices.h>
+#include <blond/beams/Distributions.h>
+#include <blond/trackers/Tracker.h>
+//#include <blond/impedances/Intensity.h>
 #include <gtest/gtest.h>
 #include <complex>
 
 
 const std::string datafiles =
-   "../tests/input_files/TC5_Wake_impedance/";
+   "../demos/input_files/TC5_Wake_impedance/";
 
 // Simulation parameters --------------------------------------------------------
 // Bunch parameters
@@ -38,13 +38,9 @@ const int n_sections = 1;
 int N_t = 2;    // Number of turns to track
 int N_p = 5000000;         // Macro-particles
 
-int n_threads = 1;
 int N_slices = 1 << 8; // = (2^8)
 
-GeneralParameters *GP;
-Beams *Beam;
-Slices *Slice;
-RfParameters *RfP;
+
 //RingAndRfSection *long_tracker;
 Resonators *resonator;
 
@@ -55,7 +51,7 @@ protected:
    virtual void SetUp()
    {
 
-      omp_set_num_threads(n_threads);
+      omp_set_num_threads(Context::n_threads);
 
       f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1, p_i));
 
@@ -69,18 +65,18 @@ protected:
 
       f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 
-      GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
+	   Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
                                  momentumVec, proton);
 
-      Beam = new Beams(N_p, N_b);
+	   Context::Beam = new Beams(N_p, N_b);
 
-      RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+	   Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
 
       //RingAndRfSection *long_tracker = new RingAndRfSection();
 
       longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
 
-      Slice = new Slices(N_slices, 0, 0, 2 * constant::pi, rad);
+	   Context::Slice = new Slices(N_slices, 0, 0, 2 * constant::pi, rad);
       //util::dump(Slice->bin_centers, 10, "bin_centers\n");
 
       std::vector<ftype> v;
@@ -109,10 +105,10 @@ protected:
    {
       // Code here will be called immediately after each test
       // (right before the destructor).
-      delete GP;
-      delete Beam;
-      delete RfP;
-      delete Slice;
+      delete Context::GP;
+      delete Context::Beam;
+      delete Context::RfP;
+      delete Context::Slice;
       delete resonator;
       //delete long_tracker;
    }
@@ -185,6 +181,7 @@ TEST_F(testResonator, initializations)
 
 TEST_F(testResonator, wake_calc)
 {
+	auto Slice = Context::Slice;
    std::string params = "../unit-tests/references/Impedances/Intensity/";
 
    std::vector<ftype> v;
@@ -218,6 +215,8 @@ TEST_F(testResonator, wake_calc)
 
 TEST_F(testResonator, imped_calc)
 {
+	auto Slice = Context::Slice;
+
    std::string params = "../unit-tests/references/Impedances/Intensity/";
 
    std::vector<ftype> v;

@@ -11,6 +11,7 @@ env:
     - BUILD_TYPE=Debug
     - BUILD_TYPE=Release
   global:
+    - secure: inwXVLS3LG1+J8XHpN92Si87FLs8tT/SEWcg71us65o2AYDVCqqbXhFRpTqRY+K6ciT6IHd41LnmOaK1lID86YMcGUsQxvMJHbwMBCDPs+Qjup/g8xSjOZo11gnt9b2Jp5O/vEXOKdVoyBBXtR+J0JQ4ogS6VxvQyP2WDYH7FFFxsYZ83i93qCDUs7XnOwtN/f/wJMkMRQP+49Lp7EKWJEWXK87YM83fshQcLl2uOZfzdS9esN0QPXAW5W+jvB2EkvtjTy2EyDpdF1FMLLH50Uj4wP4A7FutnqfG4pRbhtdkDXqL429R9COyzXLdEiyTEoX7rbGLYqwfDpPC8huqUsp3NxdiSlx+ZdeBGySRkzcUmwKGzwapEgWEHu6Sujto1vLtU3tv0/Ywlf1nHsQ4jngnswtlVWi+pWPBVO5yyG3feKsj3fdvNdceszhU2Dj2e4zW6o9Ys7mJ41fbj1QsTSepVjcR/r9PU11948R+dyA37wF3lLdCApTbdI2PrVFUrQuHPr59s43ZGb52R24fdCi8Ao6Fd4oyJw9zLnhJDCehWDWYM5UcrC/mllzo8K1v4BqrEVlCeIBPx7SIsWUXjQ/gNv/JFp5+jYU1ibqz7VeS6ZhHd6tj6mUKkQ5Cqb9bkDkFBA48X0tet2qFQzuCoXUHqds/08odhMgVf0741Jc=
 
 addons:
   apt:
@@ -23,10 +24,6 @@ addons:
       - cmake-data
       - gcc-4.8
       - g++-4.8
-      #- libgsl0ldbl
-      - libgtest-dev
-      #- libgsl0-dev
-      - libfftw3-dev
       - valgrind
       - gcov-4.8
       - lcov
@@ -47,13 +44,10 @@ before_install:
 before_script:
   - mkdir build
   - cd build
-  - cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
-    #-DCMAKE_CXX_FLAGS_RELEASE="-Ofast -DNDEBUG -march=native"
-    #-DCMAKE_EXE_LINKER_FLAGS_RELEASE="-flto"
-    #..
+  - cmake -DWITH_FFTW=True -DWITH_GOOGLETEST=True -DWITH_BENCHMARK=True -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
 
 script:
-  - make -j4 VERBOSE=1
+  - cmake --build . -- -j2 VERBOSE=1
   - ctest -VV
 
 after_success:
@@ -65,11 +59,11 @@ after_success:
      doxygen Doxyfile ;
      export BUILD_PATH=`pwd` ;
      cd "$TRAVIS_BUILD_DIR" ;
-     git clone --branch=gh-pages --recursive https://github.com/kiliakis/BLonD-minimal-cpp.git web ;
+     git clone --branch=gh-pages --recursive https://github.com/OlegJakushkin/BLonD-minimal-cpp.git web ;
      cd web ;
      cp -rf $BUILD_PATH/documentation/html/* ./ ;
      git add -A ;
      git -c user.name='travis' -c user.email='travis' commit -am "documentation update" ;
-     git push -f -q https://kiliakis:$GITHUB_API_KEY@github.com/kiliakis/BLonD-minimal-cpp.git gh-pages ;
+     git push -f -q https://OlegJakushkin:$GITHUB_API_KEY@github.com/OlegJakushkin/BLonD-minimal-cpp.git gh-pages ;
    fi
 

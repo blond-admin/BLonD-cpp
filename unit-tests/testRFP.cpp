@@ -1,23 +1,15 @@
 #include <iostream>
-#include <string>
-#include <list>
 
-#include <unistd.h>
 
 #include <gtest/gtest.h>
-#include "math_functions.h"
-#include "utilities.h"
-#include "../input_parameters/GeneralParameters.h"
-#include "constants.h"
+#include <blond/math_functions.h>
+#include <blond/utilities.h>
+#include <blond/input_parameters/GeneralParameters.h>
+#include <blond/globals.h>
 
 const ftype epsilon = 1e-8;
 const std::string params = "../unit-tests/references/RFP/RFP_params/";
 
-GeneralParameters *GP;
-Beams *Beam;
-RfParameters *RfP;
-Slices *Slice;
-int n_threads = 1;
 
 class testRFP : public ::testing::Test {
 
@@ -40,12 +32,12 @@ protected:
       f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 
 
-      GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order, momentumVec,
+	   Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order, momentumVec,
                                  proton);
 
-      Beam = new Beams(N_p, N_b);
+	   Context::Beam = new Beams(N_p, N_b);
 
-      RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+	   Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
    }
 
 
@@ -53,9 +45,9 @@ protected:
    {
       // Code here will be called immediately after each test
       // (right before the destructor).
-      delete GP;
-      delete Beam;
-      delete RfP;
+      delete Context::GP;
+      delete Context::Beam;
+      delete Context::RfP;
    }
 
 
@@ -90,7 +82,7 @@ TEST_F(testRFP, test_length_ratio)
    util::read_vector_from_file(v, params + "length_ratio");
    //std::cout << v[0];
    ftype ref = v[0];
-   ftype real = RfP->length_ratio;
+   ftype real = Context::RfP->length_ratio;
    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
@@ -101,7 +93,7 @@ TEST_F(testRFP, test_E_increment)
    //std::cout << v.size() << std::endl;
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = RfP->E_increment[i];
+      ftype real = Context::RfP->E_increment[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
 }
@@ -113,7 +105,7 @@ TEST_F(testRFP, test_phi_s)
    //std::cout << v.size() << std::endl;
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = RfP->phi_s[i];
+      ftype real = Context::RfP->phi_s[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
 }
@@ -125,7 +117,7 @@ TEST_F(testRFP, test_Qs)
    //std::cout << v.size() << std::endl;
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = RfP->Qs[i];
+      ftype real = Context::RfP->Qs[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
 }
@@ -137,7 +129,7 @@ TEST_F(testRFP, test_omega_s0)
    //std::cout << v.size() << std::endl;
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = RfP->omega_s0[i];
+      ftype real = Context::RfP->omega_s0[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
 }
@@ -149,7 +141,7 @@ TEST_F(testRFP, test_omega_RF_d)
    //std::cout << v.size() << std::endl;
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = RfP->omega_RF_d[0][i];
+      ftype real = Context::RfP->omega_RF_d[0][i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
 }
@@ -161,7 +153,7 @@ TEST_F(testRFP, test_omega_RF)
    //std::cout << v.size() << std::endl;
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = RfP->omega_RF[0][i];
+      ftype real = Context::RfP->omega_RF[0][i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
 }
@@ -173,7 +165,7 @@ TEST_F(testRFP, test_t_RF)
    //std::cout << v.size() << std::endl;
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = RfP->t_RF[i];
+      ftype real = Context::RfP->t_RF[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
 }

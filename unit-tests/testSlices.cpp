@@ -1,27 +1,17 @@
 #include <iostream>
-#include <string>
-#include <list>
 
-#include <unistd.h>
 
 #include <gtest/gtest.h>
-#include "math_functions.h"
-#include "utilities.h"
-#include "../beams/Distributions.h"
-#include "../input_parameters/GeneralParameters.h"
-#include "../trackers/Tracker.h"
-#include "constants.h"
+#include <blond/math_functions.h>
+#include <blond/utilities.h>
+#include <blond/beams/Distributions.h>
+#include <blond/input_parameters/GeneralParameters.h>
 
 const ftype epsilon = 1e-8;
 const std::string track_params = "../unit-tests/references/Slices/Slices_track_params/";
 const std::string set_cuts_params = "../unit-tests/references/Slices/Slices_set_cuts_params/";
 const std::string sort_particles_params = "../unit-tests/references/Slices/Slices_sort_particles_params/";
 
-GeneralParameters *GP;
-Beams *Beam;
-RfParameters *RfP;
-Slices *Slice;
-int n_threads = 1;
 
 
 class testSlices : public ::testing::Test {
@@ -47,17 +37,17 @@ protected:
       f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 
 
-      GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order, momentumVec,
+	   Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order, momentumVec,
                                  proton);
 
-      Beam = new Beams(N_p, N_b);
+	   Context::Beam = new Beams(N_p, N_b);
 
-      RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+	   Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
 
 
       longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
 
-      Slice = new Slices(N_slices);
+	   Context::Slice = new Slices(N_slices);
 
    }
 
@@ -66,10 +56,10 @@ protected:
    {
       // Code here will be called immediately after each test
       // (right before the destructor).
-      delete GP;
-      delete Beam;
-      delete RfP;
-      delete Slice;
+      delete Context::GP;
+      delete Context::Beam;
+      delete Context::RfP;
+      delete Context::Slice;
    }
 
 
@@ -105,7 +95,7 @@ TEST_F(testSlices, set_cuts_left)
 
    util::read_vector_from_file(v, set_cuts_params + "cut_left");
    ftype ref = v[0];
-   ftype real = Slice->cut_left;
+   ftype real = Context::Slice->cut_left;
    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
@@ -117,7 +107,7 @@ TEST_F(testSlices, set_cuts_right)
 
    util::read_vector_from_file(v, set_cuts_params + "cut_right");
    ftype ref = v[0];
-   ftype real = Slice->cut_right;
+   ftype real = Context::Slice->cut_right;
    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
@@ -130,7 +120,7 @@ TEST_F(testSlices, set_cuts_bin_centers)
    util::read_vector_from_file(v, set_cuts_params + "bin_centers");
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = Slice->bin_centers[i];
+      ftype real = Context::Slice->bin_centers[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
 }
@@ -145,7 +135,7 @@ TEST_F(testSlices, sort_particles_dE)
    util::read_vector_from_file(v, sort_particles_params + "dE");
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = Beam->dE[i];
+      ftype real = Context::Beam->dE[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
 }
@@ -157,7 +147,7 @@ TEST_F(testSlices, sort_particles_dt)
    util::read_vector_from_file(v, sort_particles_params + "dt");
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = Beam->dt[i];
+      ftype real = Context::Beam->dt[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
 }
@@ -169,14 +159,14 @@ TEST_F(testSlices, sort_particles_id)
    util::read_vector_from_file(v, sort_particles_params + "id");
    for (unsigned int i = 0; i < v.size(); ++i) {
       ftype ref = v[i];
-      ftype real = Beam->id[i];
+      ftype real = Context::Beam->id[i];
       ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
    }
 }
 
 TEST_F(testSlices, n_macroparticles)
 {
-
+	auto Slice = Context::Slice;
    //RingAndRfSection *long_tracker = new RingAndRfSection();
    //long_tracker->track(0, Beam->n_macroparticles);
    Slice->track();

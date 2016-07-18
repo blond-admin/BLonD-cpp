@@ -14,7 +14,7 @@ set_property(GLOBAL PROPERTY USE_FOLDERS On)
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "We have optemized configuration for Debug and Release configurations")
 set(CMAKE_BUILD_TYPE "Release" CACHE STRING "We have optemized configuration for Debug and Release configurations")
 # Variables default values list
-set(CMAKE_BUILD_TYPE Release  CACHE STRING "default build type for Make-like generators")
+set(CMAKE_BUILD_TYPE Release CACHE STRING "default build type for Make-like generators")
 set(SHARED_LIBRARY_ENABLED "True")
 set(EXTERNAL_INSTALL_DIR ${PROJECT_SOURCE_DIR}/external/install)
 set(TEST_ENABLED "True" CACHE STRING "Cerate unit-test projects")
@@ -25,31 +25,31 @@ set(ARCHITECTURE "x64" CACHE STRING "Set architecture 'x86' or 'x32'")
 set(EXTERNAL_INSTALL_DIR ${PROJECT_SOURCE_DIR}/external/install CACHE STRING "External libraries installation folder (with subfolders lib and include)")
 
 # Abilety to build external libraries from source or install them from releases
-if(NOT DEFINED WITH_FFTW)
-    if(MSVC)
+if (NOT DEFINED WITH_FFTW)
+    if (MSVC)
         set(WITH_FFTW "True" CACHE STRING "Should Build FFTW library from source")
-    else()
+    else ()
         set(WITH_FFTW "False" CACHE STRING "Should Build FFTW library from source")
-    endif()
-endif()
+    endif ()
+endif ()
 
-if(NOT DEFINED WITH_GOOGLETEST)
-    if(MSVC)
+if (NOT DEFINED WITH_GOOGLETEST)
+    if (MSVC)
         set(WITH_GOOGLETEST "True" CACHE STRING "Should Build GoogleTest library from source")
-    else()
+    else ()
         set(WITH_GOOGLETEST "False" CACHE STRING "Should Build GoogleTest library from source")
-    endif()
-endif()
+    endif ()
+endif ()
 
 set(GOOGLETEST_ROOT ${PROJECT_SOURCE_DIR}/external/googletest/ CACHE STRING "Google Test source root")
 
-if(NOT DEFINED WITH_BENCHMARK)
-    if(MSVC)
+if (NOT DEFINED WITH_BENCHMARK)
+    if (MSVC)
         set(WITH_BENCHMARK "True" CACHE STRING "Should Build GoogleBenchmark library from source")
-    else()
+    else ()
         set(WITH_BENCHMARK "False" CACHE STRING "Should Build GoogleBenchmark library from source")
-    endif()
-endif()
+    endif ()
+endif ()
 
 set(BENCHMARK_ROOT ${PROJECT_SOURCE_DIR}/external/benchmark CACHE STRING "Google Benchmark Library root")
 
@@ -65,22 +65,22 @@ if (NOT N EQUAL 0)
 endif ()
 
 # Project architecture
-set(ARCHITECTURE "Default"  CACHE STRING "Two architectures avaliable 'Dafault' and 'x64', it is impartant for external libraries")
-if((${CMAKE_GENERATOR} MATCHES ".*(64).*") OR (${CMAKE_SIZEOF_VOID_P} MATCHES ".*(64).*"))
+set(ARCHITECTURE "Default" CACHE STRING "Two architectures avaliable 'Dafault' and 'x64', it is impartant for external libraries")
+if ((${CMAKE_GENERATOR} MATCHES ".*(64).*") OR (${CMAKE_SIZEOF_VOID_P} MATCHES ".*(64).*"))
     set(ARCHITECTURE "x64")
     message(STATUS "architecture: ${ARCHITECTURE} detected from (${CMAKE_GENERATOR} and ${CMAKE_SIZEOF_VOID_P}) ")
-endif()
+endif ()
 
 #Compiler, Linker options
 #Compiler settings
 #MSVC vs Other
 if (MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj -Zm500  /MP${N} /openmp /fp:precise")
-    set(CMAKE_CXX_FLAGS_RELEASE  "${CMAKE_CXX_FLAGS_RELEASE}  /GR-")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}  /GR-")
 else ()
     check_cxx_compiler_flag(-std=c++11 COMPILER_HAS_CXX11)
 
-    if (!COMPILER_HAS_CXX11)
+    if (NOT COMPILER_HAS_CXX11)
         message(FATAL_ERROR "ERROR: Compiler is lacking support for c++11")
     endif ()
 
@@ -124,28 +124,32 @@ endif ()
 # required packages
 find_package(OpenMP REQUIRED)
 
-if (!WITH_GSL)
-    #find_package(GSL REQUIRED)
-endif ()
-
-if (!WITH_FFTW)
+if (NOT WITH_FFTW)
     find_path(FFTW_INCLUDES fftw3.h)
-    find_library(FFTW_LIB NAMES fftw3 REQUIRED)
+    find_library(FFTW_LIB NAMES fftw fftw3 libfftw3 libfftw-3.3 REQUIRED)
 endif ()
+message(STATUS "---------------- WITH_FFTW ${WITH_FFTW} ${FFTW_LIB}")
 
 #not required
-if (!WITH_GOOGLETEST AND TEST_ENABLED)
+if ((NOT WITH_GOOGLETEST) AND TEST_ENABLED)
     find_package(GTEST REQUIRED)
+    find_library(GTEST_LIB
+            NAMES gtest libgtest
+            )
+    find_library(GTEST_MAIN_LIB
+            NAMES gtest_main libgtest_main
+            )
+
 endif ()
 
-if (!WITH_BENCHMARK AND BENCHMARK_ENABLED)
-    find_path(BENCHMARK_INCLUDES benchmark/benchmark.h.h)
+if ((NOT WITH_BENCHMARK) AND BENCHMARK_ENABLED)
+    find_path(BENCHMARK_INCLUDES benchmark/benchmark.h)
     find_library(BENCHMARK_LIB NAME benchmark REQUIRED)
 endif ()
 
 if (NOT (EXISTS ${PROJECT_SOURCE_DIR}/external/build))
     execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/external/build)
-else()
+else ()
     execute_process(COMMAND ${CMAKE_COMMAND} -E remove_directory ${PROJECT_SOURCE_DIR}/external/build/)
     execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/external/build)
 endif ()
@@ -179,15 +183,15 @@ execute_process(
 
 message(STATUS "building external projects begins")
 execute_process(
-        COMMAND cmake --build .  --config Release
+        COMMAND cmake --build . --config Release
         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/external/build
 )
-if(WIN32 AND NOT MINGW)
+if (WIN32 AND NOT MINGW)
     execute_process(
-        COMMAND cmake --build .  --config Debug
-        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/external/build
+            COMMAND cmake --build . --config Debug
+            WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/external/build
     )
-endif()
+endif ()
 message(STATUS "building external projects ended")
 
 message(STATUS "Building required librasries complete")
@@ -195,25 +199,27 @@ message(STATUS "Building required librasries complete")
 include_directories(${EXTERNAL_INSTALL_DIR}/include)
 link_directories(${EXTERNAL_INSTALL_DIR}/lib)
 
-if(WITH_FFTW)
-    if(WIN32 AND NOT MINGW)
+if (WITH_FFTW)
+    if (WIN32 AND NOT MINGW)
         link_directories(${EXTERNAL_INSTALL_DIR}/lib/fftw/$(Configuration)/)
         find_library(FFTW_LIB
                 NAMES fftw fftw3 libfftw3 libfftw-3.3
                 PATHS "${EXTERNAL_INSTALL_DIR}/lib/fftw/Debug"
+                NO_DEFAULT_PATH
                 )
-    else()
+        get_filename_component(FFTW_LIB ${FFTW_LIB} NAME)
+    else ()
         find_library(FFTW_LIB
                 NAMES fftw fftw3 libfftw3 libfftw-3.3
                 PATHS "${EXTERNAL_INSTALL_DIR}/lib/"
+                NO_DEFAULT_PATH
                 )
-    endif()
-    get_filename_component(FFTW_LIB ${FFTW_LIB} NAME)
+    endif ()
 
     add_custom_command(TARGET ALL PRE_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy_directory
             "${EXTERNAL_INSTALL_DIR}/bin/" $<TARGET_FILE_DIR>)
-endif()
+endif ()
 
 
 # Code editors usabilety function (structure code as it is placed in folders)
@@ -261,7 +267,7 @@ LIST(APPEND LIBRARIES blond)
 
 file(GLOB EXECUTABLE_SOURCES "demos/*.cpp")
 set(EXECUTABLE_FILES ${EXECUTABLE_SOURCES})
-# demo dependencies 
+# demo dependencies
 
 foreach (src ${EXECUTABLE_FILES})
     file(RELATIVE_PATH testfile ${CMAKE_CURRENT_SOURCE_DIR} ${src})
@@ -274,36 +280,40 @@ endforeach ()
 
 # testing
 if (TEST_ENABLED)
-    if(WITH_GOOGLETEST)
-        if(WIN32 AND NOT MINGW)
+    if (WITH_GOOGLETEST)
+        if (WIN32 AND NOT MINGW)
             link_directories(${EXTERNAL_INSTALL_DIR}/lib/gtest/$(Configuration)/)
             find_library(GTEST_LIB
                     NAMES gtest libgtest
                     PATHS "${EXTERNAL_INSTALL_DIR}/lib/gtest/Debug"
+                    NO_DEFAULT_PATH
                     )
 
             find_library(GTEST_MAIN_LIB
                     NAMES gtest_main libgtest_main
                     PATHS "${EXTERNAL_INSTALL_DIR}/lib/gtest/Debug"
+                    NO_DEFAULT_PATH
                     )
-        else()
+            get_filename_component(GTEST_MAIN_LIB ${GTEST_MAIN_LIB} NAME)
+            get_filename_component(GTEST_LIB ${GTEST_LIB} NAME)
+        else ()
             find_library(GTEST_LIB
                     NAMES gtest libgtest
                     PATHS "${EXTERNAL_INSTALL_DIR}/lib/"
+                    NO_DEFAULT_PATH
                     )
             find_library(GTEST_MAIN_LIB
                     NAMES gtest_main libgtest_main
                     PATHS "${EXTERNAL_INSTALL_DIR}/lib/"
+                    NO_DEFAULT_PATH
                     )
-        endif()
-        get_filename_component(GTEST_MAIN_LIB ${GTEST_MAIN_LIB} NAME)
-        get_filename_component(GTEST_LIB ${GTEST_LIB} NAME)
-    endif()
+        endif ()
+    endif ()
 
 
     message(STATUS "generating test executables")
-    LIST(APPEND LIBRARIES ${GTEST_LIB} )
-    LIST(APPEND LIBRARIES ${GTEST_MAIN_LIB} )
+    LIST(APPEND LIBRARIES ${GTEST_LIB})
+    LIST(APPEND LIBRARIES ${GTEST_MAIN_LIB})
 
     if (UNIX)
         set(CTEST_MEMORYCHECK_COMMAND, "usr/bin/valgrind")
@@ -328,21 +338,23 @@ endif ()
 
 # benchmarks
 if (BENCHMARK_ENABLED)
-    if(WITH_BENCHMARK)
-        if(WIN32 AND NOT MINGW)
+    if (WITH_BENCHMARK)
+        if (WIN32 AND NOT MINGW)
             link_directories(${EXTERNAL_INSTALL_DIR}/lib/fftw/$(Configuration)/)
             find_library(BENCHMARK_LIB
                     NAMES benchmark libbenchmark
                     PATHS "${EXTERNAL_INSTALL_DIR}/lib/benchmark/Debug"
+                    NO_DEFAULT_PATH
                     )
-        else()
+            get_filename_component(BENCHMARK_LIB ${BENCHMARK_LIB} NAME)
+        else ()
             find_library(BENCHMARK_LIB
                     NAMES benchmark libbenchmark
                     PATHS "${EXTERNAL_INSTALL_DIR}/lib/"
+                    NO_DEFAULT_PATH
                     )
-        endif()
-        get_filename_component(BENCHMARK_LIB ${BENCHMARK_LIB} NAME)
-    endif()
+        endif ()
+    endif ()
 
     message(STATUS "generating benchmark executables")
     LIST(APPEND LIBRARIES ${BENCHMARK_LIB})

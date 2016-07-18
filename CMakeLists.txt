@@ -1,4 +1,5 @@
 #usage: cmake -DWITH_FFTW=True -DWITH_GOOGLETEST=True -DWITH_BENCHMARK=True
+# cmake -DWITH_FFTW=True -DWITH_GOOGLETEST=True -DWITH_BENCHMARK=True -DCMAKE_BUILD_TYPE=Debug to use asan
 
 # Requirements list
 cmake_minimum_required(VERSION 2.8)
@@ -74,11 +75,8 @@ endif()
 #Compiler settings
 #MSVC vs Other
 if (MSVC)
-    if (USE_FFTW_OMP)
-        message(WARNINIG "ERROR: No OMP in FFTW on Windows MSVC")
-        set(USE_FFTW_OMP "False")
-    endif ()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj -Zm500  /MP${N} /openmp /fp:fast")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj -Zm500  /MP${N} /openmp /fp:precise")
+    set(CMAKE_CXX_FLAGS_RELEASE  "${CMAKE_CXX_FLAGS_RELEASE}  /GR-")
 else ()
     check_cxx_compiler_flag(-std=c++11 COMPILER_HAS_CXX11)
 
@@ -86,8 +84,8 @@ else ()
         message(FATAL_ERROR "ERROR: Compiler is lacking support for c++11")
     endif ()
 
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -std=c++11 -fopenmp -Wall -pedantic -Wno-rtti -Wunused")
-    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g3")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -std=c++11 -fopenmp -Wall -pedantic -fno-rtti -Wunused -ffast-math")
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g3 -fsanitize=address -fno-omit-frame-pointer ")
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -march=native")
 
     if (TEST_ENABLED STREQUAL "True")
@@ -96,12 +94,6 @@ else ()
     else ()
         message(STATUS "code test coveredge is enabeled only in Debug mode")
     endif ()
-
-    check_cxx_compiler_flag(-ffast-math COMPILER_HAS_FAST_MATH)
-    if (COMPILER_HAS_FAST_MATH)
-        add_compile_options(-ffast-math)
-    endif ()
-
 
     if (USE_FFTW_OMP)
         set(LIBRARIES ${LIBRARIES} fftw3_omp)
@@ -116,7 +108,7 @@ if (CMAKE_CXX_COMPILER_ID MATCHES GNU)
     if ((CMAKE_C_COMPILER_ID == "GNU") AND (CMAKE_CXX_COMPILER_VERSION VERSION_LESS "4.8.0"))
         message(FATAL_ERROR "ERROR: Insufficient compiler version, need at lest 4.8 to continue")
     endif ()
-
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_GLIBCXX_DEBUG")
     set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -flto")
 elseif (CMAKE_C_COMPILER_ID MATCHES "Clang")
     if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 3.8)
@@ -124,9 +116,6 @@ elseif (CMAKE_C_COMPILER_ID MATCHES "Clang")
     else ()
         set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Ofast")
     endif ()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -std=c++11 -fopenmp -Wall -pedantic -Wno-rtti -Wunused")
-    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g3")
-    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -march=native")
 
     set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE}-flto")
 endif ()

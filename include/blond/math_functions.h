@@ -25,11 +25,11 @@ namespace mymath {
 
     // linear convolution function
     static inline void convolution(const ftype* __restrict signal,
-                                   const uint SignalLen,
+                                   const int SignalLen,
                                    const ftype* __restrict kernel,
-                                   const uint KernelLen,
+                                   const int KernelLen,
                                    ftype* __restrict res) {
-        const uint size = KernelLen + SignalLen - 1;
+        const int size = KernelLen + SignalLen - 1;
 
 #pragma omp parallel for
         for (auto n = 0; n < size; ++n) {

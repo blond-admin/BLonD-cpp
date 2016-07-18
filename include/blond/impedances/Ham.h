@@ -14,7 +14,7 @@ class API Ham {
     unsigned int operator*() const { return _x.back(); }
 
     Ham(const std::vector<unsigned int>& pfs)
-        : _H(pfs), _hp(pfs.size(), 0), _hv({pfs}), _x({1}) {}
+        : _H(pfs), _hp(pfs.size(), 0), _hv(pfs), _x(1,1) {}
 
     const Ham& operator++() {
         for (unsigned int i = 0; i < _H.size(); i++)

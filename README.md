@@ -55,7 +55,7 @@ The following definitions, found in file include/blond/configuration.h, can be c
 ```c
 #define TIMING
 #define PRINT_RESULTS
-``
+```
 *Note that a re-compile is needed every time a change is made.* 
 
 ## Usage

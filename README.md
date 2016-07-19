@@ -8,61 +8,49 @@ NOT Stable - Under heavy development
 [![Coverage Status](https://coveralls.io/repos/github/kiliakis/BLonD-minimal-cpp/badge.svg?branch=master)](https://coveralls.io/github/kiliakis/BLonD-minimal-cpp?branch=master)
 
 ## Requirements
-* cmake version >= 3.0.2 [install](https://cmake.org/install/)
-* gcc version >= 4.8.0 [install](https://gcc.gnu.org/wiki/InstallingGCC)  
-* FFTW3 Library [install](http://www.fftw.org/download.html)
+* cmake version >= 2.8 [install](https://cmake.org/install/)
 
+####Linux
+* gcc version >= 4.8.0 [install](https://gcc.gnu.org/wiki/InstallingGCC)
 
-## Installation
+####Windows
+* Visual Studio version >= 2015 with C++ compiler [install](https://www.visualstudio.com/)
 
-#### BLonD++ installation
-
-1. clone the code into a directory (lets call it BLonD++/)  
+## Installation (Windows and Linux)
+1. clone the code into a directory (lets call it BLonD-minimal-cpp/):
     ```bash  
-    git clone --branch=master --recursive https://github.com/kiliakis/BLonD-minimal-cpp.git BLonD++    
+    git clone --branch=master https://github.com/kiliakis/BLonD-minimal-cpp
     ```
-
-2. run the commands 
+2. To compile all dependencies and build blond library run the commands:
     ```bash
-    cd BLonD++
+    cd BLonD-minimal-cpp
     mkdir build  
     cd build 
-    cmake --help .. # to see avaliable options
-    cmake .. # use opptions like cmake -DUSE_FFTW_OMP=True .. for the multithreaded version on Linux
-    cmake --build ..
+    cmake -DWITH_FFTW=True -DWITH_GOOGLETEST=True -DWITH_BENCHMARK=True .. # Configuration
+    cmake --build . # Compilation
+    ctest -VV # Testing
     ```
-
+    What was happening here:
+   1. we opened folder with downloaded Blond source files
+   2. created a folder to hold solution and project files
+   3. On configuration step:
+     1. Downloaded build and installed external libraries (FFTW, GoogleTest, GoogleBenchmark) into `BLonD-minimal-cpp\external\install`
+     2. Generated solution and project files
+   4. Compiled and linked default build configuration
+   5. Executed unit tests
 3. The executables should be ready!
-
 4. Developer's Notes:
-  * By default, the Release version of the code is compiled. You can build a debug version with `cmake -DCMAKE_BUILD_TYPE=Debug ..`     
+  * On Linux, by default, the Release version of the code is compiled. You can build a debug version by adding `-DCMAKE_BUILD_TYPE=Debug` argument to configuration command, before `..`
+  * On Windows by default, the Debug version of the code is compiled. You can build a debug version by adding `--target ALL_BUILD --config Release` argument to Compilation command after `.`
+  * On Windows one shall copy contents of `external/install/bin/fftw/$(configuration)` into corresponding to given build configuration folder to be able to test and run executables.
+  * To commit properly formatted code, reformatted by clang-format on each build please add `-DWITH_FORMAT=True` argument to configuration command, before `..`, note clang-format shall be [installed](http://llvm.org/releases/download.html)
 
 
-#### Libraries Installation
-
-* FFTW3 Library  
-  If you are using a Linux distribution, you can install FFTW3 simply by running the install-linux.sh script as:
-    ```bash
-    cd BLonD++
-    sh install-linux.sh
-    ```
-   
-   If this doesn't work, then you should try the following set of commands: 
-    ```bash
-    wget http://www.fftw.org/fftw-3.3.4.tar.gz
-    tar -xzvf fftw-3.3.4.tar.gz
-    cd fftw-3.3.4
-    ./configure  
-    make 
-    make install #you may need sudo access for this step, if you don't have it then try ./configure --prefix=/path/to/install
-    ```
-  *Note that if you want to use the multi-threaded version of this library you must configure as `./configure --enable-openmp`.*
-
+## Using system Libraries (advanced)
+If FFTW, GoogleTest or GoogleBenchmark are already installed in your system you can set `-DWITH_*` to `False` or skip this arguments when calling configuration commands
 
 ## Configuration
-
-The following definitions, found in file include/configuration.h, can be commented / uncommented to alter simulation's configuration:
-
+The following definitions, found in file include/blond/configuration.h, can be commented / uncommented to alter simulation's configuration:
 ```c
 #define TIMING
 #define PRINT_RESULTS
@@ -70,7 +58,6 @@ The following definitions, found in file include/configuration.h, can be comment
 *Note that a re-compile is needed every time a change is made.* 
 
 ## Usage
-
 The following optional command line arguments can be specified in order to specify some basic simulation parameters:
 
 * -m <num>, --threads=\<num\> : Number of OpenMP threads that will be used in the simulation (default: 1)
@@ -81,16 +68,25 @@ The following optional command line arguments can be specified in order to speci
 Example: `./testcase -t 1000 -p2000`  
 Or type: `./testcase -h` for more
 
-## Running the Unit-Tests (googletest)
+## Running the Unit-Tests
 Once you have successfully compiled the code you can run the tests:
 ```bash
-cd BLonD++/build
+cd BLonD-minimal-cpp/build
 ctest -VV
 ```
 Then you can generate unit-test documentation:
-## Building Unit-Test Documentation
+
+## Building Documentation
+To generate html documentation with search and graphical class hierarchy's please [install Doxygen](http://www.stack.nl/~dimitri/doxygen/download.html) and [Graphviz](http://www.graphviz.org/Download..php) and run:
 ```bash
-cd BLonD++/build
+cd BLonD-minimal-cpp/build
+doxygen Doxyfile
+```
+
+#### Building Unit-Test Documentation (Linux only)
+To generate html documentation on unit tests coverage please install [genhtml](http://linux.die.net/man/1/genhtml) and [lcov](http://ltp.sourceforge.net/coverage/lcov.php)
+```bash
+cd BLonD-minimal-cpp/build
 lcov --capture --directory .. --output-file coverage.info
 genhtml coverage.info --output-directory html
 ```
@@ -114,4 +110,3 @@ genhtml coverage.info --output-directory html
 Dear all contributors, you are kindly requested to format your code using astyle format options found [here] (https://root.cern.ch/coding-conventions#Astyle).
 
 [1]: http://blond.web.cern.ch
-

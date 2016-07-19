@@ -144,59 +144,68 @@ inline void Slices::slice_constant_space_histogram()
               n_slices, Beam->n_macroparticles);
 }
 
-inline void Slices::histogram(const ftype *__restrict input,
-                              int *__restrict output, const ftype cut_left,
-                              const ftype cut_right, const uint n_slices,
+inline void Slices::histogram(const ftype *__restrict__ input,
+                              int *__restrict__ output,
+                              const ftype cut_left,
+                              const ftype cut_right,
+                              const uint n_slices,
                               const uint n_macroparticles)
 {
 
     const ftype inv_bin_width = n_slices / (cut_right - cut_left);
-
+    // const ftype range = cut_right - cut_left;
     // histogram is faster with ints
     typedef int hist_t;
-
     hist_t *h;
     #pragma omp parallel
     {
-        const uint threads = omp_get_num_threads();
-
-        const uint id = omp_get_thread_num();
-        auto tile =
-            static_cast<uint>((n_macroparticles + threads - 1) / threads);
+        const auto threads = omp_get_num_threads();
+        const auto id = omp_get_thread_num();
+        auto tile = static_cast<int>((n_macroparticles + threads - 1) / threads);
         auto start = id * tile;
-
-        uint end = std::min(start + tile, n_macroparticles);
+        auto end = std::min(start + tile, (int)n_macroparticles);
         const auto row = id * n_slices;
 
         #pragma omp single
-        h = (hist_t *)calloc(threads * n_slices, sizeof(hist_t));
+        h = (hist_t *) calloc(threads * n_slices, sizeof(hist_t));
 
-        for (uint i = start; i < end; ++i) {
-            ftype a = input[i];
-            if ((a < cut_left) || (a > cut_right))
+        const auto h_row = &h[row];
+
+        for (int i = start; i < end; ++i) {
+            const ftype a = input[i];
+            //const ftype a = (input[i] - cut_left);
+            if (a < cut_left or a > cut_right)
                 continue;
-            uint ffbin = static_cast<uint>((a - cut_left) * inv_bin_width);
-            // h[row + ffbin] = h[row + ffbin] + 1.0;
-            h[row + ffbin] = h[row + ffbin] + 1;
+            const uint ffbin = static_cast<uint>((a - cut_left) * inv_bin_width);
+
+            // if (a < 0)
+            //    continue;
+
+            // const uint ffbin = static_cast<uint>(a * inv_bin_width);
+
+            // if (ffbin >= n_slices)
+            //    continue;
+
+            h_row[ffbin]++;
         }
         #pragma omp barrier
 
         tile = (n_slices + threads - 1) / threads;
         start = id * tile;
-        end = std::min(start + tile, n_slices);
+        end = std::min(start + tile, (int)n_slices);
 
-        for (uint i = start; i < end; i++)
+        for (int i = start; i < end; i++)
             output[i] = 0;
-        // memset(&output[start], 0, (end-start) * sizeof(ftype));
+        //memset(&output[start], 0, (end-start) * sizeof(ftype));
 
-        for (uint i = 0; i < threads; ++i) {
-            const uint r = i * n_slices;
-            for (uint j = start; j < end; ++j) {
+        for (int i = 0; i < threads; ++i) {
+            const int r = i * n_slices;
+            for (int j = start; j < end; ++j) {
                 output[j] += h[r + j];
             }
         }
     }
-    free(h);
+    if (h) free(h);
 }
 
 void Slices::track_cuts()

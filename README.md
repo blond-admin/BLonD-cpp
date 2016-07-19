@@ -9,8 +9,10 @@ NOT Stable - Under heavy development
 
 ## Requirements
 * cmake version >= 2.8 [install](https://cmake.org/install/)
+
 ####Linux
 * gcc version >= 4.8.0 [install](https://gcc.gnu.org/wiki/InstallingGCC)
+
 ####Windows
 * Visual Studio version >= 2015 with C++ compiler [install](https://www.visualstudio.com/)
 
@@ -89,7 +91,6 @@ lcov --capture --directory .. --output-file coverage.info
 genhtml coverage.info --output-directory html
 ```
 
-
 ## Original BLonD Links
 
 * Repository: https://gitlab.cern.ch/dquartul/BLonD
@@ -109,4 +110,3 @@ genhtml coverage.info --output-directory html
 Dear all contributors, you are kindly requested to format your code using astyle format options found [here] (https://root.cern.ch/coding-conventions#Astyle).
 
 [1]: http://blond.web.cern.ch
-

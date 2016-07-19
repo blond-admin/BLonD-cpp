@@ -81,7 +81,7 @@ protected:
       PL = new LHC(PL_gainVec, SL_gain);
 
       // Injecting noise in the cavity, PL on
-      long_tracker = new RingAndRfSection(simple, PL);
+      long_tracker = new RingAndRfSection(Context::RfP, simple, PL);
 
    }
 

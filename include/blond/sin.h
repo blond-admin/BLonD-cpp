@@ -1,48 +1,52 @@
 /*
- * sin.h
- *
- *  Created on: Mar 10, 2016
- *      Author: kiliakis
+ * cos.h
+ * The basic idea is to exploit Pade polynomials.
+ * A lot of ideas were inspired by the cephes math library (by Stephen L. Moshier
+ * moshier@na-net.ornl.gov) as well as actual code. 
+ * The Cephes library can be found here:  http://www.netlib.org/cephes/
+ * 
+ *  Created on: Jun 23, 2012
+ *      Author: Danilo Piparo, Thomas Hauth, Vincenzo Innocente
  */
 
-#include <blond/sincos.h>
+/* 
+ * VDT is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-#ifndef TRACKERS_SIN_H_
-#define TRACKERS_SIN_H_
+#ifndef SIN_H_
+#define SIN_H_
 
-namespace vdt {
+#include "sincos.h"
 
-    // Sin double precision
-    // --------------------------------------------------------
+namespace vdt{
 
-    /// Double precision sine: just call sincos.
-    inline double fast_sin(double x) {
-        double s, c;
-        fast_sincos(x, s, c);
-        return s;
-    }
+// Sin double precision --------------------------------------------------------
 
-    //------------------------------------------------------------------------------
+/// Double precision sine: just call sincos.
+inline double fast_sin(double x){double s,c;fast_sincos(x,s,c);return s;}
 
-    inline float fast_sinf(float x) {
-        float s, c;
-        fast_sincosf(x, s, c);
-        return s;
-    }
+//------------------------------------------------------------------------------
 
-    //------------------------------------------------------------------------------
-    void sinv(const uint32_t size, double const* __restrict iarray,
-              double* __restrict oarray);
+inline float fast_sinf(float x){float s,c;fast_sincosf(x,s,c);return s;}
 
-    void fast_sinv(const uint32_t size, double const* __restrict iarray,
-                   double* __restrict oarray);
+//------------------------------------------------------------------------------
+void sinv(const uint32_t size, double const * __restrict__ iarray, double* __restrict__ oarray);
+void fast_sinv(const uint32_t size, double const * __restrict__ iarray, double* __restrict__ oarray);
+void sinfv(const uint32_t size, float const * __restrict__ iarray, float* __restrict__ oarray);
+void fast_sinfv(const uint32_t size, float const * __restrict__ iarray, float* __restrict__ oarray);
 
-    void sinfv(const uint32_t size, float const* __restrict iarray,
-               float* __restrict oarray);
 
-    void fast_sinfv(const uint32_t size, float const* __restrict iarray,
-                    float* __restrict oarray);
+} //vdt namespace
 
-} // vdt namespace
-
-#endif /* TRACKERS_SIN_H_ */
+#endif /* SIN_H_ */

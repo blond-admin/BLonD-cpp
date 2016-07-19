@@ -2,9 +2,8 @@
 #include <blond/utilities.h>
 #include <blond/math_functions.h>
 #include <stdio.h>
-#include <blond/llrf/LHCFlatSpectrum.h>
+#include <blond/llrf/PhaseNoise.h>
 #include <gtest/gtest.h>
-
 
 // Simulation parameters --------------------------------------------------------
 
@@ -29,9 +28,6 @@ unsigned N_p = 10001;         // Macro-particles
 
 unsigned N_slices = 1 << 8;   // = (2^8)
 
-
-
-
 class testLHCFlatSpectrum : public ::testing::Test {
 
 protected:
@@ -42,7 +38,7 @@ protected:
       for (auto &v : momentumVec)
          mymath::linspace(v.data(), p_i, 1.01 * p_i, N_t + 1);
 
-      f_vector_2d_t alphaVec(n_sections , f_vector_t(alpha_order+1, alpha));
+      f_vector_2d_t alphaVec(n_sections , f_vector_t(alpha_order + 1, alpha));
 
       f_vector_t CVec(n_sections, C);
 
@@ -52,12 +48,12 @@ protected:
 
       f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
 
-	   Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
+      Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
                                  momentumVec, proton);
 
-	   Context::Beam = new Beams(N_p, N_b);
+      Context::Beam = new Beams(N_p, N_b);
 
-	   Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+      Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
 
    }
 
@@ -235,8 +231,7 @@ TEST_F(testLHCFlatSpectrum, generate_none1)
 {
 
    auto lhcfs = new LHCFlatSpectrum(1000, 10, 0.1,
-                                    1, 0.1, 1, 2,
-                                    LHCFlatSpectrum::predistortion_t::None);
+                                    1, 0.1, 1, 2);
    lhcfs->generate();
 
    auto params = std::string("../unit-tests/references/")

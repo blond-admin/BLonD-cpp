@@ -56,7 +56,7 @@ GeneralParameters::GeneralParameters(
     this->alpha = _alpha;
     this->ring_length = _ring_length;
     this->ring_circumference =
-        std::accumulate(&ring_length[0], &ring_length[n_sections], 0.0);
+        std::accumulate(ring_length.begin(), ring_length.end(), 0.0);
     this->ring_radius = ring_circumference / (2 * constant::pi);
 
     if (n_sections > 1) {

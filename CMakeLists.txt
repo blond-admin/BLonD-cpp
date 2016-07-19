@@ -128,7 +128,7 @@ if (NOT WITH_FFTW)
     find_path(FFTW_INCLUDES fftw3.h)
     find_library(FFTW_LIB NAMES fftw fftw3 libfftw3 libfftw-3.3 REQUIRED)
 endif ()
-message(STATUS "---------------- WITH_FFTW ${WITH_FFTW} ${FFTW_LIB}")
+# message(STATUS "---------------- WITH_FFTW ${WITH_FFTW} ${FFTW_LIB}")
 
 #not required
 if ((NOT WITH_GOOGLETEST) AND TEST_ENABLED)

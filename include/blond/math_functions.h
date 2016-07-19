@@ -12,16 +12,60 @@
 #include <blond/configuration.h>
 #include <blond/fft.h>
 #include <blond/sin.h>
+#include <blond/exp.h>
 #include <blond/utilities.h>
 #include <cmath>
 #include <omp.h>
 
 namespace mymath {
 
-    // Wrapper function for vdt::fast_sin
+
+    class API Ham {
+    private:
+        std::vector<uint> _H, _hp, _hv, _x;
+
+    public:
+        bool operator!=(const Ham &other) const { return true; }
+
+        Ham begin() const { return *this; }
+
+        Ham end() const { return *this; }
+
+        uint operator*() const { return _x.back(); }
+
+        Ham(const std::vector<uint> &pfs)
+            : _H(pfs), _hp(pfs.size(), 0), _hv(pfs), _x(1, 1) {}
+
+        const Ham &operator++()
+        {
+            for (uint i = 0; i < _H.size(); i++)
+                for (; _hv[i] <= _x.back(); _hv[i] = _x[++_hp[i]] * _H[i])
+                    ;
+            _x.push_back(_hv[0]);
+            for (uint i = 1; i < _H.size(); i++)
+                if (_hv[i] < _x.back())
+                    _x.back() = _hv[i];
+            return *this;
+        }
+    };
+
+    static inline uint next_regular(uint target)
+    {
+
+        for (auto i : Ham({2, 3, 5})) {
+            if (i > target)
+                return i;
+        }
+        return 0;
+    }
+
+    // Wrapper function for vdt::fucntions
     static inline ftype fast_sin(ftype x) { return vdt::fast_sin(x); }
 
     static inline ftype fast_cos(ftype x) { return vdt::fast_sin(x + M_PI_2); }
+
+    static inline ftype fast_exp(ftype x) { return vdt::fast_exp(x); }
+
 
     // linear convolution function
     static inline void convolution(const ftype *__restrict signal,

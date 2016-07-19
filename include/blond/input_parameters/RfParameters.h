@@ -8,14 +8,12 @@
 #ifndef INPUT_PARAMETERS_RFPARAMETERS_H_
 #define INPUT_PARAMETERS_RFPARAMETERS_H_
 
-class RfParameters;
-
 #include <blond/beams/Beams.h>
 #include <blond/input_parameters/GeneralParameters.h>
 //#include <algorithm>
 //#include <iterator>
 
-class API RfParameters {
+class API  RfParameters {
   public:
     enum accelerating_systems_t { as_single, all, first };
 

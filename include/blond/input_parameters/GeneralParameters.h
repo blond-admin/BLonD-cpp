@@ -8,15 +8,13 @@
 #ifndef INPUT_PARAMETERS_GENERALPARAMETERS_H_
 #define INPUT_PARAMETERS_GENERALPARAMETERS_H_
 
-class GeneralParameters;
-
 #include <blond/configuration.h>
 #include <blond/utilities.h>
 #include <vector>
 
 enum particle_type { proton, electron, user_input, none };
 
-class API GeneralParameters {
+class API  GeneralParameters {
 
   private:
     void eta_generation();

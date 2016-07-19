@@ -8,6 +8,7 @@
 #include <blond/constants.h>
 #include <blond/input_parameters/RfParameters.h>
 #include <blond/math_functions.h>
+#include <blond/globals.h>
 
 /*
  :How to use RF programs:

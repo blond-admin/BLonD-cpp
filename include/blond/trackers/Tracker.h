@@ -16,7 +16,7 @@
 
 enum solver_type { simple, full };
 
-class API RingAndRfSection {
+class API  RingAndRfSection {
 
 private:
 public:
@@ -92,7 +92,7 @@ public:
 };
 
 
-class API FullRingAndRf {
+class API  FullRingAndRf {
 private:
 public:
 

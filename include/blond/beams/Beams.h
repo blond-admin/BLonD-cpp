@@ -8,13 +8,10 @@
 #ifndef BEAMS_BEAMS_H_
 #define BEAMS_BEAMS_H_
 
-class Beams;
-
 #include <blond/configuration.h>
-#include <blond/globals.h>
 #include <blond/utilities.h>
 
-class API Beams {
+class API  Beams {
   public:
     f_vector_t dt;
     f_vector_t dE;

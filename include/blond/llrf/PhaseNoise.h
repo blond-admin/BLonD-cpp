@@ -12,7 +12,7 @@
 #include <blond/configuration.h>
 #include <blond/globals.h>
 
-class PhaseNoise {
+class API PhaseNoise {
 private:
 
 public:
@@ -55,7 +55,7 @@ public:
 };
 
 
-class LHCFlatSpectrum : public PhaseNoise {
+class API LHCFlatSpectrum : public PhaseNoise {
 private:
 
 public:
@@ -74,7 +74,7 @@ public:
 };
 
 
-class PSBPhaseNoiseInjection : public PhaseNoise {
+class API PSBPhaseNoiseInjection : public PhaseNoise {
 private:
 
 public:

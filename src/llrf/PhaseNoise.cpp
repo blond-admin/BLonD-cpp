@@ -31,7 +31,7 @@ void PhaseNoise::spectrum_to_phase_noise(f_vector_t &t,
     uint dt = 0;
 
     if (transform == transform_t::transform_none
-            or transform == transform_t::r) {
+            || transform == transform_t::r) {
         nt = 2 * (ReSLen - 1);
         dt = 1 / (2 * f_max);
     } else if (transform == transform_t::c) {
@@ -67,7 +67,7 @@ void PhaseNoise::spectrum_to_phase_noise(f_vector_t &t,
     // std::cout << "mean r2 : " << mymath::mean(r2.data(), r2.size()) << "\n";
 
     if (transform == transform_t::transform_none
-            or transform == transform_t::r) {
+            || transform == transform_t::r) {
         f_vector_t Gt(nt);
 
         auto factor = 2 * constant::pi;
@@ -312,7 +312,7 @@ void PSBPhaseNoiseInjection::generate()
         n_points_pos_f_incl_zero = nt / 2 + 1;
         auto new_delta_f = f_max / (n_points_pos_f_incl_zero - 1);
 
-        // Construct spectrum
+        // Construct API spectrum
         auto nmin = std::floor(fFMin * f_s0 / new_delta_f);
         auto nmax = std::ceil(fFMax * f_s0 / new_delta_f);
 
@@ -456,7 +456,7 @@ void LHCFlatSpectrum::generate()
         uint nf = fNt / 2 + 1;      // #points in frequency domain
         auto df = GP->f_rev[k] / fNt;
 
-        // Construct spectrum
+        // Construct API spectrum
         auto nmin = std::floor(fFMin * fFs[k] / df);
         auto nmax = std::ceil(fFMax * fFs[k] / df);
 

@@ -29,7 +29,7 @@
 #ifndef VDTCOMMON_H_
 #define VDTCOMMON_H_
 
-#include "inttypes.h"
+// #include "inttypes.h"
 #include <cmath>
 
 namespace vdt{

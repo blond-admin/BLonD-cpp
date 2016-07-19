@@ -574,10 +574,19 @@ void LHCFlatSpectrum::generate()
         const uint kmax = i < fNTurns / fCorr - 1 ?
                           (i + 1) * fCorr : fNTurns + 1;
 
-        std::copy(noise_dphi.begin(),
-                  noise_dphi.begin() + kmax - k,
-                  fDphi.begin() + k);
+        // std::cout << "kmax" << kmax << "\n";
+        // std::cout << "k" << k << "\n";
+        // std::cout << "dphi_size" << noise_dphi.size() << "\n";
+        // std::cout << "fdphi size" << fDphi.size() << "\n";
 
+
+        // std::copy(noise_dphi.begin(),
+        //           noise_dphi.begin() + kmax - k,
+        //           fDphi.begin() + k);
+
+        for (int i = 0; i < kmax - k; ++i)
+            fDphi[i + k] = noise_dphi[i];
+         
         auto rms_noise = mymath::standard_deviation(noise_dphi.data(),
                          noise_dphi.size());
 

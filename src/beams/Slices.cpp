@@ -320,7 +320,7 @@ void Slices::fwhm(const ftype shift)
     // First aproximation for the half maximum values
 
     int i = 0;
-    while (n_macroparticles[i] < half_max and i < n_slices)
+    while (n_macroparticles[i] < half_max and i < (int) n_slices)
         i++;
     int taux1 = i;
     i = n_slices - 1;
@@ -341,7 +341,7 @@ void Slices::fwhm(const ftype shift)
     // (in that case it takes the last element of the array)
     // Cpp does not throw an exception on eiter occassion
     // The right condition is the following in comments
-    if (taux1 > 0 && taux2 < n_slices - 1) {
+    if (taux1 > 0 && taux2 < (int) n_slices - 1) {
         // if (taux2 < n_slices - 1) {
         try {
             t1 = bin_centers[taux1] -
@@ -384,7 +384,7 @@ ftype Slices::fast_fwhm()
     ftype half_max = 0.5 * n_macroparticles[max_i];
 
     int i = 0;
-    while (n_macroparticles[i] < half_max and i < n_slices)
+    while (n_macroparticles[i] < half_max and i < (int) n_slices)
         i++;
     int taux1 = i;
     i = n_slices - 1;
@@ -403,15 +403,8 @@ void Slices::beam_spectrum_generation(uint n, bool onlyRFFT)
     fBeamSpectrumFreq = fft::rfftfreq(n, bin_centers[1] - bin_centers[0]);
 
     if (onlyRFFT == false) {
-        // f_vector_t v(n_macroparticles.size()); // = n_macroparticles;
-        // std::copy(n_macroparticles.begin(), n_macroparticles.end(), v.begin());
-        auto v = n_macroparticles;
-        //(n_macroparticles, n_macroparticles + n_slices);
-        // std:: cout << "n is " << n << "\n";
-        // std:: cout << "n_slices is " << n_slices << "\n";
+        f_vector_t v(n_macroparticles.begin(), n_macroparticles.end());
         fft::rfft(v, fBeamSpectrum, n, Context::n_threads);
-        // std:: cout << "size of fBeamSpectrum is " << fBeamSpectrum.size() <<
-        // "\n";
     }
 }
 

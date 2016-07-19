@@ -19,19 +19,19 @@ NOT Stable - Under heavy development
 
 ## Installation (Windows and Linux)
 1. clone the code into a directory (lets call it BLonD-minimal-cpp/):
-    ```bash  
-    git clone --branch=master https://github.com/kiliakis/BLonD-minimal-cpp
-    ```
+```bash  
+git clone --branch=master https://github.com/kiliakis/BLonD-minimal-cpp
+```
 2. To compile all dependencies and build blond library run the commands:
-    ```bash
-    cd BLonD-minimal-cpp
-    mkdir build  
-    cd build 
-    cmake -DWITH_FFTW=True -DWITH_GOOGLETEST=True -DWITH_BENCHMARK=True .. # Configuration
-    cmake --build . # Compilation
-    ctest -VV # Testing
-    ```
-    What was happening here:
+```bash
+cd BLonD-minimal-cpp
+mkdir build  
+cd build 
+cmake -DWITH_FFTW=True -DWITH_GOOGLETEST=True -DWITH_BENCHMARK=True .. # Configuration
+cmake --build . # Compilation
+ctest -VV # Testing
+```
+What was happening here:
    1. we opened folder with downloaded Blond source files
    2. created a folder to hold solution and project files
    3. On configuration step:

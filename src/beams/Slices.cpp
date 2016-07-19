@@ -87,7 +87,7 @@ void Slices::set_cuts()
 }
 
 // TODO not implemented the best way
-// If dt, dE and id were in the same struct API it would be better
+// If dt, dE and id were in the same struct API  it would be better
 void Slices::sort_particles()
 {
     /*
@@ -320,11 +320,11 @@ void Slices::fwhm(const ftype shift)
     // First aproximation for the half maximum values
 
     int i = 0;
-    while (n_macroparticles[i] < half_max and i < (int) n_slices)
+    while (n_macroparticles[i] < half_max && i < (int) n_slices)
         i++;
     int taux1 = i;
     i = n_slices - 1;
-    while (i >= 0 and n_macroparticles[i] < half_max)
+    while (i >= 0 && n_macroparticles[i] < half_max)
         i--;
     int taux2 = i;
 
@@ -384,11 +384,11 @@ ftype Slices::fast_fwhm()
     ftype half_max = 0.5 * n_macroparticles[max_i];
 
     int i = 0;
-    while (n_macroparticles[i] < half_max and i < (int) n_slices)
+    while (n_macroparticles[i] < half_max && i < (int) n_slices)
         i++;
     int taux1 = i;
     i = n_slices - 1;
-    while (i >= 0 and n_macroparticles[i] < half_max)
+    while (i >= 0 && n_macroparticles[i] < half_max)
         i--;
     int taux2 = i;
     // update bp
@@ -422,14 +422,14 @@ void Slices::gaussian_fit() {}
 
 /*
 
- struct API data {
+ struct API  data {
  size_t n;
  double * y;
  };
 
  int gauss(const gsl_vector * x, void *data, gsl_vector * f) {
- size_t n = ((struct API data *) data)->n;
- double *y = ((struct API data *) data)->y;
+ size_t n = ((struct API  data *) data)->n;
+ double *y = ((struct API  data *) data)->y;
 
  double A = gsl_vector_get(x, 2);
  double x0 = gsl_vector_get(x, 0);
@@ -473,7 +473,7 @@ void Slices::gaussian_fit() {}
  //gsl_matrix *J = gsl_matrix_alloc(n, p);
  //gsl_matrix *covar = gsl_matrix_alloc(p, p);
  ftype y[n], weights[n];
- struct API data d = { n, y };
+ struct API  data d = { n, y };
  gsl_multifit_function f;
  ftype x_init[3] = { x0, sx, A };
  gsl_vector_view x = gsl_vector_view_array(x_init, p);

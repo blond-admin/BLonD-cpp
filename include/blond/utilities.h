@@ -79,7 +79,7 @@ namespace util {
     }
 
     // sort an array with regards to another array
-    struct API MyComparator {
+    struct API  MyComparator {
         ftype* a;
         MyComparator(ftype* _a) : a(_a) {}
 
@@ -229,7 +229,7 @@ namespace util {
         return res.str();
     }
 
-    struct API Arg : public option::Arg {
+    struct API  Arg : public option::Arg {
         static void printError(const char* msg1, const option::Option& opt,
                                const char* msg2) {
             fprintf(stderr, "%s", msg1);

@@ -1,8 +1,4 @@
 #include <iostream>
-#include <string>
-#include <list>
-
-#include <unistd.h>
 
 #include <gtest/gtest.h>
 #include <blond/math_functions.h>

@@ -20,7 +20,7 @@
 namespace mymath {
 
 
-    class API Ham {
+    class API  Ham {
     private:
         std::vector<uint> _H, _hp, _hv, _x;
 
@@ -134,7 +134,7 @@ namespace mymath {
         const auto begin = xp.begin();
 
         int k = 0;
-        while (x[k] < min and k < N) {
+        while (x[k] < min && k < N) {
             y[k] = left;
             ++k;
         }

@@ -28,14 +28,12 @@
 
 #ifndef VDTCOMMON_H_
 #define VDTCOMMON_H_
-
 // #include "inttypes.h"
 #include <cmath>
 
 namespace vdt{
 
 namespace details{
-
 // Constants
 const double TWOPI = 2.*M_PI;
 const double PI = M_PI;

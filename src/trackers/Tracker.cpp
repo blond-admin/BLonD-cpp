@@ -8,6 +8,7 @@
 #include <blond/math_functions.h>
 #include <blond/trackers/Tracker.h>
 #include <blond/constants.h>
+#include <iterator>
 
 // Two versions of kick, drift one with periodicity and another without
 // periodiciy

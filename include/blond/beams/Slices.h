@@ -8,8 +8,6 @@
 #ifndef BEAMS_SLICES_H_
 #define BEAMS_SLICES_H_
 
-class Slices;
-
 #include <blond/configuration.h>
 #include <blond/utilities.h>
 
@@ -19,7 +17,7 @@ enum cuts_unit_type { s, rad };
 
 enum fit_type { normal_fit, gaussian_fit };
 
-class API Slices {
+class API  Slices {
   public:
     ftype bl_fwhm, bp_fwhm;
     ftype bp_rms, bl_rms;

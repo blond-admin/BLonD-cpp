@@ -14,7 +14,7 @@
 #include <blond/llrf/PhaseNoise.h>
 #include <blond/utilities.h>
 
-class API PhaseLoop {
+class API  PhaseLoop {
   public:
     virtual void track(){};
     void default_track();
@@ -40,7 +40,7 @@ class API PhaseLoop {
     virtual ~PhaseLoop(){};
 };
 
-class API LHC : public PhaseLoop {
+class API  LHC : public PhaseLoop {
   private:
   public:
     ftype gain2;
@@ -56,7 +56,7 @@ class API LHC : public PhaseLoop {
         uint _delay = 0);
 };
 
-class API PSB : public PhaseLoop {
+class API  PSB : public PhaseLoop {
   private:
   public:
     f_vector_t gain2;
@@ -81,7 +81,7 @@ class API PSB : public PhaseLoop {
     void precalculate_time();
 };
 
-class API LHC_F : public PhaseLoop {
+class API  LHC_F : public PhaseLoop {
   private:
   public:
     ftype gain2;
@@ -94,7 +94,7 @@ class API LHC_F : public PhaseLoop {
     void track();
 };
 
-class API SPS_RL : public PhaseLoop {
+class API  SPS_RL : public PhaseLoop {
   private:
   public:
     ftype gain2;

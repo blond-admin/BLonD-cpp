@@ -13,7 +13,7 @@
 #include <blond/input_parameters/GeneralParameters.h>
 #include <blond/input_parameters/RfParameters.h>
 
-struct API  Context {
+struct API Context {
     static Slices* Slice;
     static GeneralParameters* GP;
     static Beams* Beam;

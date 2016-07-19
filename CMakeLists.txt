@@ -75,7 +75,8 @@ endif ()
 #Compiler settings
 #MSVC vs Other
 if (MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj -Zm500  /MP${N} /openmp /fp:precise")
+    add_definitions(-D_USE_MATH_DEFINES) #needed for VDT
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj -Zm500  /MP${N} /openmp /fp:precise ")
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}  /GR-")
 else ()
     check_cxx_compiler_flag(-std=c++11 COMPILER_HAS_CXX11)
@@ -109,7 +110,9 @@ if (CMAKE_CXX_COMPILER_ID MATCHES GNU)
         message(FATAL_ERROR "ERROR: Insufficient compiler version, need at lest 4.8 to continue")
     endif ()
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_GLIBCXX_DEBUG")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Ofast")
     set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -flto")
+
 elseif (CMAKE_C_COMPILER_ID MATCHES "Clang")
     if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 3.8)
         set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")

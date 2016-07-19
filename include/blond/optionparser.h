@@ -277,7 +277,7 @@ namespace option {
 #ifdef _MSC_VER
 #include <intrin.h>
 #pragma intrinsic(_BitScanReverse)
-    struct API MSC_Builtin_CLZ {
+    struct API  MSC_Builtin_CLZ {
         static int builtin_clz(unsigned x) {
             unsigned long index;
             _BitScanReverse(&index, x);
@@ -288,7 +288,7 @@ namespace option {
 #define __builtin_clz(x) MSC_Builtin_CLZ::builtin_clz(x)
 #endif
 
-    class Option;
+    class API Option;
 
     /**
      * @brief Possible results when checking if an argument is valid for a
@@ -370,7 +370,7 @@ namespace option {
      * };
      * @endcode
      */
-    struct API Descriptor {
+    struct API  Descriptor {
         /**
          * @brief Index of this option's linked list in the array filled in by
          * the parser.
@@ -534,7 +534,7 @@ namespace option {
      *     @code for (Option* opt = options[FILE]; opt; opt = opt->next())
      *   fname = opt->arg; ... @endcode
      */
-    class API Option {
+    class API  Option {
         Option* next_;
         Option* prev_;
 
@@ -954,7 +954,7 @@ namespace option {
      * can serve as starting place for writing your own more complex CheckArg
      * functions:
      * @code
-     * struct API Arg: public option::Arg
+     * struct API  Arg: public option::Arg
      * {
      *   static void printError(const char* msg1, const option::Option& opt,
      * const char* msg2)
@@ -1007,7 +1007,7 @@ namespace option {
      * };
      * @endcode
      */
-    struct API Arg {
+    struct API  Arg {
         //! @brief For options that don't take an argument: Returns ARG_NONE.
         static ArgStatus None(const Option&, bool) { return ARG_NONE; }
 
@@ -1035,7 +1035,7 @@ namespace option {
      * then the real
      * options and afterwards the counts will reflect the union.
      */
-    struct API Stats {
+    struct API  Stats {
         /**
          * @brief Number of elements needed for a @c buffer[] array to be used
          * for
@@ -1164,7 +1164,7 @@ namespace option {
         }
 
       private:
-        class API CountOptionsAction;
+        class API  CountOptionsAction;
     };
 
     /**
@@ -1187,7 +1187,7 @@ namespace option {
      *   ...
      * @endcode
      */
-    class API Parser {
+    class API  Parser {
         int op_count;            //!< @internal @brief see optionsCount()
         int nonop_count;         //!< @internal @brief see nonOptionsCount()
         const char** nonop_args; //!< @internal @brief see nonOptions()
@@ -1445,11 +1445,11 @@ namespace option {
         bool error() { return err; }
 
       private:
-        friend struct API Stats;
+        friend struct API  Stats;
 
-        class API StoreOptionAction;
+        class API  StoreOptionAction;
 
-        struct API Action;
+        struct API  Action;
 
         /**
          * @internal
@@ -1553,7 +1553,7 @@ namespace option {
      * Option it
      * parses.
      */
-    struct API Parser::Action {
+    struct API  Parser::Action {
         /**
          * @brief Called by Parser::workhorse() for each Option that has been
          * successfully
@@ -1589,7 +1589,7 @@ namespace option {
      * counter for
      * each parsed Option.
      */
-    class API Stats::CountOptionsAction : public Parser::Action {
+    class API  Stats::CountOptionsAction : public Parser::Action {
         unsigned* buffer_max;
 
       public:
@@ -1615,7 +1615,7 @@ namespace option {
      * parsed Option in
      * appropriate arrays (see Parser::parse()).
      */
-    class API Parser::StoreOptionAction : public Parser::Action {
+    class API  Parser::StoreOptionAction : public Parser::Action {
         Parser& parser;
         Option* options;
         Option* buffer;
@@ -1905,13 +1905,13 @@ namespace option {
      * @internal
      * @brief The implementation of option::printUsage().
      */
-    struct API PrintUsageImplementation {
+    struct API  PrintUsageImplementation {
         /**
          * @internal
          * @brief Interface for Functors that write (part of) a string
          * somewhere.
          */
-        struct API IStringWriter {
+        struct API  IStringWriter {
             /**
              * @brief Writes the given number of chars beginning at the given
              * pointer somewhere.
@@ -2128,7 +2128,7 @@ namespace option {
          * the same number of columns will be returned for each row.
          *
          */
-        class API LinePartIterator {
+        class API  LinePartIterator {
             const Descriptor*
                 tablestart; //!< The 1st descriptor of the current table.
             const Descriptor*
@@ -2415,7 +2415,7 @@ namespace option {
          * output the string must be output piecemeal, interleaved with
          * the data from the other columns.
          */
-        class API LineWrapper {
+        class API  LineWrapper {
             static const int bufmask = 15; //!< Must be a power of 2 minus 1.
             /**
              * @brief Ring buffer for length component of pair (data, length).
@@ -2979,13 +2979,13 @@ namespace option {
      *   fwrite(str, size, 1, stdout);
      * }
      *
-     * struct API MyWriter {
+     * struct API  MyWriter {
      *   void write(const char* buf, size_t size) const {
      *      fwrite(str, size, 1, stdout);
      *   }
      * };
      *
-     * struct API MyWriteFunctor {
+     * struct API  MyWriteFunctor {
      *   void operator()(const char* buf, size_t size) {
      *      fwrite(str, size, 1, stdout);
      *   }
@@ -2994,7 +2994,7 @@ namespace option {
      * printUsage(my_write, usage);    // custom write function
      * printUsage(MyWriter(), usage);  // temporary of a custom class
      * MyWriter writer;
-     * printUsage(writer, usage);      // custom class API object
+     * printUsage(writer, usage);      // custom class API  object
      * MyWriteFunctor wfunctor;
      * printUsage(&wfunctor, usage);   // custom functor
      * printUsage(write, 1, usage);    // write() to file descriptor 1
@@ -3006,7 +3006,7 @@ namespace option {
      * @endcode
      *
      * @par Notes:
-     * @li the @c write() method of a class API that is to be passed as a
+     * @li the @c write() method of a class API  that is to be passed as a
      * temporary
      *     as @c MyWriter() is in the example, must be a @c const method,
      * because

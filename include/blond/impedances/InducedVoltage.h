@@ -20,7 +20,7 @@ typedef enum freq_res_option_t {
     floor_option
 } freq_res_option_t;
 
-class API InducedVoltage {
+class API  InducedVoltage {
   public:
     std::vector<ftype> fInducedVoltage;
 
@@ -38,7 +38,7 @@ class API InducedVoltage {
     virtual ~InducedVoltage(){};
 };
 
-class API InducedVoltageTime : public InducedVoltage {
+class API  InducedVoltageTime : public InducedVoltage {
   public:
     std::vector<Intensity*> fWakeSourceList;
     std::vector<ftype> fTimeArray;
@@ -57,7 +57,7 @@ class API InducedVoltageTime : public InducedVoltage {
     ~InducedVoltageTime();
 };
 
-class API InducedVoltageFreq : public InducedVoltage {
+class API  InducedVoltageFreq : public InducedVoltage {
   public:
     // Impedance sources inputed as a list (eg: list of BBResonators objects)*
     std::vector<Intensity*> fImpedanceSourceList;
@@ -110,7 +110,7 @@ class API InducedVoltageFreq : public InducedVoltage {
     ~InducedVoltageFreq();
 };
 
-class API TotalInducedVoltage : public InducedVoltage {
+class API  TotalInducedVoltage : public InducedVoltage {
   public:
     std::vector<InducedVoltage*> fInducedVoltageList;
     std::vector<ftype> fTimeArray;

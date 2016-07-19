@@ -5,6 +5,7 @@ C++ Version of [CERN's BLonD code][1]
 NOT Stable - Under heavy development
 
 [![Build Status](https://travis-ci.org/kiliakis/BLonD-minimal-cpp.svg?branch=master)](https://travis-ci.org/kiliakis/BLonD-minimal-cpp)
+[![Build status](https://ci.appveyor.com/api/projects/status/onoxb8504u8kwfkk?svg=true)](https://ci.appveyor.com/project/kiliakis/blond-minimal-cpp)
 [![Coverage Status](https://coveralls.io/repos/github/kiliakis/BLonD-minimal-cpp/badge.svg?branch=master)](https://coveralls.io/github/kiliakis/BLonD-minimal-cpp?branch=master)
 
 ## Requirements
@@ -18,19 +19,19 @@ NOT Stable - Under heavy development
 
 ## Installation (Windows and Linux)
 1. clone the code into a directory (lets call it BLonD-minimal-cpp/):
-    ```bash  
-    git clone --branch=master https://github.com/kiliakis/BLonD-minimal-cpp
-    ```
+```bash  
+git clone --branch=master https://github.com/kiliakis/BLonD-minimal-cpp
+```
 2. To compile all dependencies and build blond library run the commands:
-    ```bash
-    cd BLonD-minimal-cpp
-    mkdir build  
-    cd build 
-    cmake -DWITH_FFTW=True -DWITH_GOOGLETEST=True -DWITH_BENCHMARK=True .. # Configuration
-    cmake --build . # Compilation
-    ctest -VV # Testing
-    ```
-    What was happening here:
+```bash
+cd BLonD-minimal-cpp
+mkdir build  
+cd build 
+cmake -DWITH_FFTW=True -DWITH_GOOGLETEST=True -DWITH_BENCHMARK=True .. # Configuration
+cmake --build . # Compilation
+ctest -VV # Testing
+```
+What was happening here:
    1. we opened folder with downloaded Blond source files
    2. created a folder to hold solution and project files
    3. On configuration step:

@@ -152,7 +152,7 @@ int main(int argc, char **argv)
    printf("\tSL t_i = %.4f t_f = %.4f\n", PL->lhc_t[0], PL->lhc_t[N_t]);
 
    // Injecting noise in the cavity, PL on
-   RingAndRfSection *long_tracker = new RingAndRfSection(simple, PL);
+   RingAndRfSection *long_tracker = new RingAndRfSection(Context::RfP, simple, PL);
    printf("PL, SL, and tracker set...\n");
 
    double slice_time = 0, track_time = 0;

@@ -193,7 +193,7 @@ TEST_F(testTrackerPeriodicity, kick)
 {
 	auto Beam = Context::Beam;
    auto params = std::string("../unit-tests/references/Tracker/periodicity/kick/");
-   RingAndRfSection *long_tracker = new RingAndRfSection(simple, NULL, NULL, true, 0.0);
+   RingAndRfSection *long_tracker = new RingAndRfSection(Context::RfP, simple, NULL, NULL, true, 0.0);
 
    int_vector_t indices = {1, 2, 4, 8, 16, 32, 64};
 
@@ -228,7 +228,7 @@ TEST_F(testTrackerPeriodicity, drift)
 	auto Beam = Context::Beam;
 
    auto params = std::string("../unit-tests/references/Tracker/periodicity/drift/");
-   RingAndRfSection *long_tracker = new RingAndRfSection(simple, NULL, NULL, true, 0.0);
+   RingAndRfSection *long_tracker = new RingAndRfSection(Context::RfP, simple, NULL, NULL, true, 0.0);
 
    int_vector_t indices = {0, 1, 2, 3, 4, 98, 99};
 
@@ -262,7 +262,7 @@ TEST_F(testTrackerPeriodicity, set_periodicity)
 	auto Beam = Context::Beam;
 
    auto params = std::string("../unit-tests/references/Tracker/periodicity/set_periodicity/");
-   RingAndRfSection *long_tracker = new RingAndRfSection(simple, NULL, NULL, true, 0.0);
+   RingAndRfSection *long_tracker = new RingAndRfSection(Context::RfP, simple, NULL, NULL, true, 0.0);
 
    ftype mean = mymath::mean<ftype>(Beam->dt.data(), Beam->dt.size());
 
@@ -315,7 +315,7 @@ TEST_F(testTrackerPeriodicity, track1)
 	auto Beam = Context::Beam;
 
    auto params = std::string("../unit-tests/references/Tracker/periodicity/track1/");
-   RingAndRfSection *long_tracker = new RingAndRfSection(simple, NULL, NULL, true, 0.0);
+   RingAndRfSection *long_tracker = new RingAndRfSection(Context::RfP, simple, NULL, NULL, true, 0.0);
 
    ftype mean = mymath::mean<ftype>(Beam->dt.data(), Beam->dt.size());
 
@@ -375,7 +375,7 @@ TEST_F(testTrackerPeriodicity, track2)
 	auto Beam = Context::Beam;
 
    auto params = std::string("../unit-tests/references/Tracker/periodicity/track2/");
-   RingAndRfSection *long_tracker = new RingAndRfSection(simple, NULL, NULL, true, 0.0);
+   RingAndRfSection *long_tracker = new RingAndRfSection(Context::RfP, simple, NULL, NULL, true, 0.0);
 
    ftype mean = mymath::mean<ftype>(Beam->dt.data(), Beam->dt.size());
 

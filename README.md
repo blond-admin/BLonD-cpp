@@ -5,6 +5,7 @@ C++ Version of [CERN's BLonD code][1]
 NOT Stable - Under heavy development
 
 [![Build Status](https://travis-ci.org/kiliakis/BLonD-minimal-cpp.svg?branch=master)](https://travis-ci.org/kiliakis/BLonD-minimal-cpp)
+[![Build status](https://ci.appveyor.com/api/projects/status/onoxb8504u8kwfkk?svg=true)](https://ci.appveyor.com/project/kiliakis/blond-minimal-cpp)
 [![Coverage Status](https://coveralls.io/repos/github/kiliakis/BLonD-minimal-cpp/badge.svg?branch=master)](https://coveralls.io/github/kiliakis/BLonD-minimal-cpp?branch=master)
 
 ## Requirements

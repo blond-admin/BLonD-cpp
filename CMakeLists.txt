@@ -399,3 +399,9 @@ install(TARGETS blond
         )
 
 include(clang-format.cmake)
+
+message(STATUS "options set in the main cmake configuration file:")
+get_cmake_property(_variableNames VARIABLES)
+foreach (_variableName ${_variableNames})
+    message(STATUS "${_variableName}=${${_variableName}}")
+endforeach()

@@ -9,7 +9,7 @@
 #include <blond/constants.h>
 #include <blond/math_functions.h>
 
-Beams::Beams(const uint _n_macroparticles, const long _intensity) {
+Beams::Beams(const uint _n_macroparticles, const long long _intensity) {
 
     this->n_macroparticles = _n_macroparticles;
     this->intensity = _intensity;

@@ -3,7 +3,7 @@
 
 if(${WITH_FORMAT})
 
-file(GLOB_RECURSE ALL_SOURCE_FILES src/*.cpp include/*.h)
+file(GLOB_RECURSE ALL_SOURCE_FILES src/*.cpp include/*.h demos/*.cpp unit-tests/*.cpp)
 
 find_program (CLANG_FMT_CMD
         NAMES "clang-format"

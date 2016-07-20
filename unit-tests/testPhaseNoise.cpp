@@ -1,56 +1,44 @@
-#include <blond/globals.h>
-#include <blond/utilities.h>
-#include <blond/math_functions.h>
 #include <blond/fft.h>
-#include <stdio.h>
+#include <blond/globals.h>
 #include <blond/llrf/PhaseNoise.h>
+#include <blond/math_functions.h>
+#include <blond/utilities.h>
 #include <gtest/gtest.h>
+#include <stdio.h>
 
-
-
-// Simulation parameters --------------------------------------------------------
+// Simulation parameters
+// --------------------------------------------------------
 
 // Bunch parameters
-const long int N_b = (long int) 1e9;            // Intensity
-const ftype tau_0 = 0.4e-9;                     // Initial bunch length, 4 sigma [s]
+const long long int N_b = (long int)1e9; // Intensity
+const ftype tau_0 = 0.4e-9;         // Initial bunch length, 4 sigma [s]
 
 // Machine and RF parameters
-const ftype C = 25558.883;                      // Machine circumference [m]
-const ftype p_i = 450e9;                        // Synchronous momentum [eV/c]
-const long h = 35640;                           // Harmonic number
-const ftype V = 6e6;                            // RF voltage [V]
-const ftype dphi = 0;                           // Phase modulation/offset
-const ftype gamma_t = 55.759505;                // Transition gamma
-const ftype alpha = 1.0 / gamma_t / gamma_t;    // First order mom. comp. factor
+const ftype C = 25558.883;                   // Machine circumference [m]
+const ftype p_i = 450e9;                     // Synchronous momentum [eV/c]
+const long long h = 35640;                        // Harmonic number
+const ftype V = 6e6;                         // RF voltage [V]
+const ftype dphi = 0;                        // Phase modulation/offset
+const ftype gamma_t = 55.759505;             // Transition gamma
+const ftype alpha = 1.0 / gamma_t / gamma_t; // First order mom. comp. factor
 const int alpha_order = 1;
 const int n_sections = 1;
 // Tracking details
 
-unsigned N_t = 1000;          // Number of turns to track
-unsigned N_p = 10001;         // Macro-particles
+unsigned N_t = 1000;  // Number of turns to track
+unsigned N_p = 10001; // Macro-particles
 
-unsigned N_slices = 1 << 8;   // = (2^8)
-
-
+unsigned N_slices = 1 << 8; // = (2^8)
 
 class testPhaseNoise : public ::testing::Test {
 
-protected:
+  protected:
+    virtual void SetUp() {}
 
-   virtual void SetUp()
-   {
-
-   }
-
-
-   virtual void TearDown()
-   {
-      // Code here will be called immediately after each test
-      // (right before the destructor).
-
-   }
-
-
+    virtual void TearDown() {
+        // Code here will be called immediately after each test
+        // (right before the destructor).
+    }
 };
 
 /*
@@ -219,8 +207,7 @@ TEST_F(testPhaseNoise, spectrum_to_phase_noise_complex1)
 
 */
 
-int main(int ac, char *av[])
-{
-   ::testing::InitGoogleTest(&ac, av);
-   return RUN_ALL_TESTS();
+int main(int ac, char* av[]) {
+    ::testing::InitGoogleTest(&ac, av);
+    return RUN_ALL_TESTS();
 }

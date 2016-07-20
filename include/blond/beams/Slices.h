@@ -17,7 +17,7 @@ enum cuts_unit_type { s, rad };
 
 enum fit_type { normal_fit, gaussian_fit };
 
-class API Slices {
+class API  Slices {
   public:
     ftype bl_fwhm, bp_fwhm;
     ftype bp_rms, bl_rms;

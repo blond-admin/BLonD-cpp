@@ -54,7 +54,7 @@ class testGP : public ::testing::Test {
 };
 
 TEST_F(testGP, test_charge) {
-    std::string GP_params = "../unit-tests/references/GP/GP_params/";
+    std::string GP_params = TEST_FILES"/GP/GP_params/";
     std::vector<ftype> v;
     util::read_vector_from_file(v, GP_params + "charge");
     // std::cout << v[0];
@@ -64,7 +64,7 @@ TEST_F(testGP, test_charge) {
 }
 
 TEST_F(testGP, test_mass) {
-    std::string GP_params = "../unit-tests/references/GP/GP_params/";
+    std::string GP_params = TEST_FILES"/GP/GP_params/";
     std::vector<ftype> v;
     util::read_vector_from_file(v, GP_params + "mass");
     // std::cout << v[0];
@@ -74,7 +74,7 @@ TEST_F(testGP, test_mass) {
 }
 
 TEST_F(testGP, test_ring_radius) {
-    std::string GP_params = "../unit-tests/references/GP/GP_params/";
+    std::string GP_params = TEST_FILES"/GP/GP_params/";
     std::vector<ftype> v;
     util::read_vector_from_file(v, GP_params + "ring_radius");
     // std::cout << v[0];
@@ -84,7 +84,7 @@ TEST_F(testGP, test_ring_radius) {
 }
 
 TEST_F(testGP, test_t_rev) {
-    std::string GP_params = "../unit-tests/references/GP/GP_params/";
+    std::string GP_params = TEST_FILES"/GP/GP_params/";
     std::vector<ftype> v;
     util::read_vector_from_file(v, GP_params + "t_rev");
     // std::cout << v.size() << std::endl;
@@ -97,7 +97,7 @@ TEST_F(testGP, test_t_rev) {
 }
 
 TEST_F(testGP, test_cycle_time) {
-    std::string GP_params = "../unit-tests/references/GP/GP_params/";
+    std::string GP_params = TEST_FILES"/GP/GP_params/";
     std::vector<ftype> v;
     util::read_vector_from_file(v, GP_params + "cycle_time");
     // ASSERT_EQ(v.size(), GP->n_turns+1);
@@ -109,7 +109,7 @@ TEST_F(testGP, test_cycle_time) {
 }
 
 TEST_F(testGP, test_omega_rev) {
-    std::string GP_params = "../unit-tests/references/GP/GP_params/";
+    std::string GP_params = TEST_FILES"/GP/GP_params/";
     std::vector<ftype> v;
     util::read_vector_from_file(v, GP_params + "omega_rev");
     // std::cout << v.size() << std::endl;
@@ -122,7 +122,7 @@ TEST_F(testGP, test_omega_rev) {
 }
 
 TEST_F(testGP, test_eta_0) {
-    std::string GP_params = "../unit-tests/references/GP/GP_params/";
+    std::string GP_params = TEST_FILES"/GP/GP_params/";
     std::vector<ftype> v;
     util::read_vector_from_file(v, GP_params + "eta_0[0]");
     // std::cout << v.size() << std::endl;

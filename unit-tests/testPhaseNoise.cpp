@@ -55,7 +55,7 @@ TEST_F(testPhaseNoise, spectrum_to_phase_noise_real1)
 
 
 
-   auto params = std::string("../unit-tests/references/")
+   auto params = std::string(TEST_FILES"/")
                  + "PhaseNoise/spectrum_to_phase_noise/test1/";
    f_vector_t v;
 
@@ -137,7 +137,7 @@ TEST_F(testPhaseNoise, spectrum_to_phase_noise_complex1)
 
 
 
-   auto params = std::string("../unit-tests/references/")
+   auto params = std::string(TEST_FILES"/")
                  + "PhaseNoise/spectrum_to_phase_noise/test2/";
    f_vector_t v;
 

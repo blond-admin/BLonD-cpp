@@ -11,11 +11,11 @@
 
 const ftype epsilon = 1e-8;
 const std::string statistics_params =
-    "../unit-tests/references/Beam/Beam_statistics_params/";
+    TEST_FILES"/Beam/Beam_statistics_params/";
 const std::string long_cut_params =
-    "../unit-tests/references/Beam/Beam_long_cut_params/";
+    TEST_FILES"/Beam/Beam_long_cut_params/";
 const std::string energy_cut_params =
-    "../unit-tests/references/Beam/Beam_energy_cut_params/";
+    TEST_FILES"/Beam/Beam_energy_cut_params/";
 
 class testBeam : public ::testing::Test {
 

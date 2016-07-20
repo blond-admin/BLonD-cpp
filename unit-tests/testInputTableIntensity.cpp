@@ -13,7 +13,7 @@
 #include <complex>
 #include <gtest/gtest.h>
 
-const std::string datafiles = "../demos/input_files/TC5_Wake_impedance/";
+const std::string datafiles = DEMO_FILES"/TC5_Wake_impedance/";
 
 // Simulation parameters
 // --------------------------------------------------------
@@ -126,7 +126,7 @@ TEST_F(testInputTableIntensity, wake_calc) {
     inputTable->wake_calc(timeArray);
 
     std::string params =
-        "../unit-tests/references/Impedances/Intensity/InputTable/";
+        TEST_FILES"/Impedances/Intensity/InputTable/";
 
     std::vector<ftype> v;
     util::read_vector_from_file(v, params + "Wake.txt");
@@ -174,7 +174,7 @@ TEST_F(testInputTableIntensity, imped_calc) {
     inputTable->imped_calc(timeArray);
 
     std::string params =
-        "../unit-tests/references/Impedances/Intensity/InputTable/";
+        TEST_FILES"/Impedances/Intensity/InputTable/";
 
     std::vector<ftype> v;
     util::read_vector_from_file(v, params + "Impedance.txt");

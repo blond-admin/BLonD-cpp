@@ -79,7 +79,7 @@ TEST_F(testPLSPS_RL, track1) {
     auto sps = new SPS_RL(25e-6, 0, 5e-6);
 
     auto params =
-        std::string("../unit-tests/references/") + "PL/SPS_RL/track1/";
+        std::string(TEST_FILES"/") + "PL/SPS_RL/track1/";
 
     Context::Slice->track();
     f_vector_t domega_RF;
@@ -121,7 +121,7 @@ TEST_F(testPLSPS_RL, track2) {
     sps->reference = 1e-6;
 
     auto params =
-        std::string("../unit-tests/references/") + "PL/SPS_RL/track2/";
+        std::string(TEST_FILES"/") + "PL/SPS_RL/track2/";
 
     Context::Slice->track();
     f_vector_t domega_RF;

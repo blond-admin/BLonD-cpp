@@ -19,7 +19,7 @@
 #include <blond/impedances/InducedVoltage.h>
 #include <complex>
 
-const std::string datafiles = "../demos/input_files/TC5_Wake_impedance/";
+const std::string datafiles = DEMO_FILES"/TC5_Wake_impedance/";
 
 // Simulation parameters
 // --------------------------------------------------------

@@ -39,6 +39,7 @@ What was happening here:
      2. Generated solution and project files
    4. Compiled and linked default build configuration
    5. Executed unit tests
+
 3. The executables should be ready!
 4. Developer's Notes:
   * On Linux, by default, the Release version of the code is compiled. You can build a debug version by adding `-DCMAKE_BUILD_TYPE=Debug` argument to configuration command, before `..`

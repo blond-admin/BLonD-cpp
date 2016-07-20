@@ -73,7 +73,7 @@ TEST_F(testFullRing, constructor1) {
     auto RfP = Context::RfP;
 
     auto params =
-        std::string("../unit-tests/references/FullRing/constructor1/");
+        std::string(TEST_FILES"/FullRing/constructor1/");
     longitudinal_bigaussian(200e-9, 1e6, 1, false);
 
     auto long_tracker = new RingAndRfSection(RfP, simple);
@@ -100,7 +100,7 @@ TEST_F(testFullRing, track1) {
     auto RfP = Context::RfP;
     auto Beam = Context::Beam;
 
-    auto params = std::string("../unit-tests/references/FullRing/track1/");
+    auto params = std::string(TEST_FILES"/FullRing/track1/");
 
     longitudinal_bigaussian(200e-9, 1e6, -1, false);
 
@@ -145,7 +145,7 @@ TEST_F(testFullRing, track2) {
     auto RfP = Context::RfP;
     auto Beam = Context::Beam;
 
-    auto params = std::string("../unit-tests/references/FullRing/track2/");
+    auto params = std::string(TEST_FILES"/FullRing/track2/");
 
     longitudinal_bigaussian(200e-9, 1e6, 1, false);
 

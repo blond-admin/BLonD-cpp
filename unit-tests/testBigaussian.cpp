@@ -11,7 +11,7 @@
 
 const ftype epsilon = 1e-8;
 const std::string fixed_params =
-    "../unit-tests/references/Bigaussian/Bigaussian_fixed_params/";
+    TEST_FILES"/Bigaussian/Bigaussian_fixed_params/";
 
 class testBigaussian : public ::testing::Test {
 
@@ -180,7 +180,7 @@ TEST_F(testBigaussianRandom, test_dE) {
     auto Beam = Context::Beam;
 
     auto params =
-        std::string("../unit-tests/references/") + "Bigaussian/random/";
+        std::string(TEST_FILES"/") + "Bigaussian/random/";
 
     longitudinal_bigaussian(100e-9, 0.05e6, 1, false);
 
@@ -206,7 +206,7 @@ TEST_F(testBigaussianRandom, test_dt) {
     auto Beam = Context::Beam;
 
     auto params =
-        std::string("../unit-tests/references/") + "Bigaussian/random/";
+        std::string(TEST_FILES"/") + "Bigaussian/random/";
 
     longitudinal_bigaussian(100e-9, 0.05e6, 1, false);
 

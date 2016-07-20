@@ -8,11 +8,11 @@
 
 const ftype epsilon = 1e-8;
 const std::string track_params =
-    "../unit-tests/references/Slices/Slices_track_params/";
+    TEST_FILES"/Slices/Slices_track_params/";
 const std::string set_cuts_params =
-    "../unit-tests/references/Slices/Slices_set_cuts_params/";
+    TEST_FILES"/Slices/Slices_set_cuts_params/";
 const std::string sort_particles_params =
-    "../unit-tests/references/Slices/Slices_sort_particles_params/";
+    TEST_FILES"/Slices/Slices_sort_particles_params/";
 
 class testSlices : public ::testing::Test {
 

@@ -7,7 +7,7 @@
 #include <gtest/gtest.h>
 
 const ftype epsilon = 1e-8;
-const std::string params = "../unit-tests/references/RFP/RFP_params/";
+const std::string params = TEST_FILES"/RFP/RFP_params/";
 
 class testRFP : public ::testing::Test {
 

@@ -9,7 +9,7 @@
 
 const ftype epsilon = 1e-8;
 const std::string track_params =
-    "../unit-tests/references/Tracker/Tracker_track_params/";
+    TEST_FILES"/Tracker/Tracker_track_params/";
 
 class testTracker : public ::testing::Test {
 
@@ -169,7 +169,7 @@ TEST_F(testTracker, track_dt) {
 TEST_F(testTrackerPeriodicity, kick) {
     auto Beam = Context::Beam;
     auto params =
-        std::string("../unit-tests/references/Tracker/periodicity/kick/");
+        std::string(TEST_FILES"/Tracker/periodicity/kick/");
     RingAndRfSection* long_tracker =
         new RingAndRfSection(Context::RfP, simple, NULL, NULL, true, 0.0);
 
@@ -203,7 +203,7 @@ TEST_F(testTrackerPeriodicity, drift) {
     auto Beam = Context::Beam;
 
     auto params =
-        std::string("../unit-tests/references/Tracker/periodicity/drift/");
+        std::string(TEST_FILES"/Tracker/periodicity/drift/");
     RingAndRfSection* long_tracker =
         new RingAndRfSection(Context::RfP, simple, NULL, NULL, true, 0.0);
 
@@ -237,7 +237,7 @@ TEST_F(testTrackerPeriodicity, set_periodicity) {
     auto Beam = Context::Beam;
 
     auto params = std::string(
-        "../unit-tests/references/Tracker/periodicity/set_periodicity/");
+        TEST_FILES"/Tracker/periodicity/set_periodicity/");
     RingAndRfSection* long_tracker =
         new RingAndRfSection(Context::RfP, simple, NULL, NULL, true, 0.0);
 
@@ -287,7 +287,7 @@ TEST_F(testTrackerPeriodicity, track1) {
     auto Beam = Context::Beam;
 
     auto params =
-        std::string("../unit-tests/references/Tracker/periodicity/track1/");
+        std::string(TEST_FILES"/Tracker/periodicity/track1/");
     RingAndRfSection* long_tracker =
         new RingAndRfSection(Context::RfP, simple, NULL, NULL, true, 0.0);
 
@@ -345,7 +345,7 @@ TEST_F(testTrackerPeriodicity, track2) {
     auto Beam = Context::Beam;
 
     auto params =
-        std::string("../unit-tests/references/Tracker/periodicity/track2/");
+        std::string(TEST_FILES"/Tracker/periodicity/track2/");
     RingAndRfSection* long_tracker =
         new RingAndRfSection(Context::RfP, simple, NULL, NULL, true, 0.0);
 

@@ -10,7 +10,7 @@
 
 const ftype epsilon = 1e-8;
 const std::string params =
-    "../unit-tests/references/TC1_final/TC1_final_params/";
+    TEST_FILES"/TC1_final/TC1_final_params/";
 
 class testTC1 : public ::testing::Test {
 

@@ -13,7 +13,7 @@
 #include <omp.h>
 #include <stdio.h>
 
-const std::string datafiles = "../demos/input_files/TC5_Wake_impedance/";
+const std::string datafiles = DEMO_FILES"/TC5_Wake_impedance/";
 
 // Simulation parameters
 // --------------------------------------------------------
@@ -124,7 +124,7 @@ TEST_F(testTC5, timeTrack) {
         Slice->track();
     }
 
-    auto params = std::string("../unit-tests/references/") + "TC5_final/time/";
+    auto params = std::string(TEST_FILES"/") + "TC5_final/time/";
 
     std::vector<ftype> v;
     util::read_vector_from_file(v, params + "dE.txt");
@@ -199,7 +199,7 @@ TEST_F(testTC5, freqTrack) {
         Slice->track();
     }
 
-    auto params = std::string("../unit-tests/references/") + "TC5_final/freq/";
+    auto params = std::string(TEST_FILES"/") + "TC5_final/freq/";
 
     std::vector<ftype> v;
     util::read_vector_from_file(v, params + "dE.txt");

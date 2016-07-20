@@ -13,7 +13,7 @@
 #include <complex>
 #include <gtest/gtest.h>
 
-const std::string datafiles = "../demos/input_files/TC5_Wake_impedance/";
+const std::string datafiles = DEMO_FILES"/TC5_Wake_impedance/";
 
 // Simulation parameters
 // --------------------------------------------------------
@@ -107,7 +107,7 @@ class testResonator : public ::testing::Test {
 };
 
 TEST_F(testResonator, initializations) {
-    std::string params = "../unit-tests/references/Impedances/Intensity/";
+    std::string params = TEST_FILES"/Impedances/Intensity/";
 
     std::vector<ftype> v;
     util::read_vector_from_file(v, params + "R_shunt.txt");
@@ -163,7 +163,7 @@ TEST_F(testResonator, initializations) {
 
 TEST_F(testResonator, wake_calc) {
     auto Slice = Context::Slice;
-    std::string params = "../unit-tests/references/Impedances/Intensity/";
+    std::string params = TEST_FILES"/Impedances/Intensity/";
 
     std::vector<ftype> v;
     util::read_vector_from_file(v, params + "Wake.txt");
@@ -192,7 +192,7 @@ TEST_F(testResonator, wake_calc) {
 TEST_F(testResonator, imped_calc) {
     auto Slice = Context::Slice;
 
-    std::string params = "../unit-tests/references/Impedances/Intensity/";
+    std::string params = TEST_FILES"/Impedances/Intensity/";
 
     std::vector<ftype> v;
     util::read_vector_from_file(v, params + "Impedance.txt");

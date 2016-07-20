@@ -68,7 +68,7 @@ TEST_F(testPSBPhaseNoiseInjection, constructor1) {
 
     auto psbNoise = new PSBPhaseNoiseInjection();
 
-    auto params = std::string("../unit-tests/references/PhaseNoise/") +
+    auto params = std::string(TEST_FILES"/PhaseNoise/") +
                   "PSBPhaseNoiseInjection/constructor1/";
     f_vector_t v;
 
@@ -94,7 +94,7 @@ TEST_F(testPSBPhaseNoiseInjection, spectrum_to_phase_noise1)
 
    auto psbNoise = new PSBPhaseNoiseInjection();
 
-   auto params = std::string("../unit-tests/references/PhaseNoise/")
+   auto params = std::string(TEST_FILES"/PhaseNoise/")
                  + "PSBPhaseNoiseInjection/spectrum_to_phase_noise1/";
    f_vector_t v;
 
@@ -129,7 +129,7 @@ TEST_F(testPSBPhaseNoiseInjection, generate_lin1) {
         2, 10, 0.8, 1.2, 2e-6, 12, 75, PhaseNoise::predistortion_t::linear);
     psbNoise->generate();
 
-    auto params = std::string("../unit-tests/references/PhaseNoise/") +
+    auto params = std::string(TEST_FILES"/PhaseNoise/") +
                   "PSBPhaseNoiseInjection/generate/linear1/";
     f_vector_t v;
 
@@ -170,7 +170,7 @@ TEST_F(testPSBPhaseNoiseInjection, generate_none1) {
     auto psbNoise = new PSBPhaseNoiseInjection(2, 10, 0.8, 1.2, 2e-6, 12, 75);
     psbNoise->generate();
 
-    auto params = std::string("../unit-tests/references/PhaseNoise/") +
+    auto params = std::string(TEST_FILES"/PhaseNoise/") +
                   "PSBPhaseNoiseInjection/generate/none1/";
     f_vector_t v;
 

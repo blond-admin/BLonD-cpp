@@ -306,6 +306,52 @@ TEST_F(testLHCNoiseFBMultiBunch, fwhm_multi_bunch1)
     delete lhcnfb;
 }
 
+
+TEST_F(testLHCNoiseFBMultiBunch, fwhm_multi_bunch2)
+{
+    auto Slice = Context::Slice;
+
+    auto long_tracker = new RingAndRfSection();
+
+    for (uint i = 0; i < Slice->n_slices; i++) {
+        Slice->n_macroparticles[i] = (Slice->n_slices - i);
+        Slice->bin_centers[i] = 1e6 * (i + 1) / Slice->n_slices;
+    }
+    // lhcnfb->fwhm_multi_bunch();
+
+    f_vector_t a = {0, 10, 20, 30, 40};
+    auto lhcnfb = new LHCNoiseFB(1e-9, 1e8,
+                                 0.5, 10, false, a);
+
+    f_vector_t realV;
+    for (uint i = 0; i < N_t; ++i) {
+        long_tracker->track();
+        Slice->track();
+        lhcnfb->track();
+        realV.push_back(lhcnfb->fX);
+        // std::cout << "x: " << lhcnfb->fX << '\n';
+    }
+
+    auto params = std::string("../unit-tests/references/") +
+                  "LHCNoiseFB/fwhm_multi_bunch/test2/";
+    f_vector_t v;
+
+    util::read_vector_from_file(v, params + "x.txt");
+    // util::dump(lhcnfb->fG, "fG\n");
+    ASSERT_EQ(v.size(), realV.size());
+
+    auto epsilon = 1e-8;
+    for (uint i = 0; i < v.size(); ++i) {
+        auto ref = v[i];
+        auto real = realV[i];
+
+        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+                << "Testing of fX failed on i " << i << std::endl;
+    }
+
+    delete lhcnfb;
+}
+
 TEST_F(testLHCNoiseFB, track1)
 {
 

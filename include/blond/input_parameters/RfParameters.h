@@ -36,7 +36,7 @@ class API  RfParameters {
     f_vector_2d_t harmonic;
     f_vector_2d_t voltage;
     f_vector_2d_t phi_offset;
-    f_vector_t phi_noise;
+    f_vector_2d_t phi_noise;
     uint idx;
     ftype length_ratio;
     ftype section_length;
@@ -53,7 +53,7 @@ class API  RfParameters {
 
     RfParameters(uint _n_rf, f_vector_2d_t _harmonic, f_vector_2d_t _voltage,
                  f_vector_2d_t _phi_offset,
-                 f_vector_t _phi_noise = f_vector_t(),
+                 f_vector_2d_t _phi_noise = f_vector_2d_t(),
                  f_vector_2d_t _omega_rf = f_vector_2d_t(),
                  uint _section_index = 1,
                  accelerating_systems_t accelerating_systems = as_single);

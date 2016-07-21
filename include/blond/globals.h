@@ -14,10 +14,10 @@
 #include <blond/input_parameters/RfParameters.h>
 
 struct API  Context {
-    static Slices* Slice;
-    static GeneralParameters* GP;
-    static Beams* Beam;
-    static RfParameters* RfP;
+    static Slices *Slice;
+    static GeneralParameters *GP;
+    static Beams *Beam;
+    static RfParameters *RfP;
 
     // TODO num of threads is global
     // should it?

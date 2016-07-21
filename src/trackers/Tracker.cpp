@@ -28,9 +28,9 @@ inline void RingAndRfSection::kick(const ftype* __restrict beam_dt,
 #pragma omp parallel for
         for (int i = 0; i < n_macroparticles; ++i) {
             // const ftype a = omega_RF[j] * beam_dt[i] + phi_RF[j];
-            beam_dE[i] +=
-                voltage[j] *
-                mymath::fast_sin(omega_RF[j] * beam_dt[i] + phi_RF[j]);
+            beam_dE[i] += voltage[j] *
+                          mymath::fast_sin(omega_RF[j] * beam_dt[i]
+                                           + phi_RF[j]);
         }
     }
 
@@ -149,6 +149,18 @@ void RingAndRfSection::track() {
     auto GP = Context::GP;
     auto RfP = fRfP;
     auto Beam = Context::Beam;
+
+    if (!RfP->phi_noise.empty()) {
+        if (noiseFB != NULL) {
+            for (uint i = 0; i < RfP->phi_RF.size(); ++i)
+                RfP->phi_RF[i][RfP->counter] +=
+                    noiseFB->fX * RfP->phi_noise[i][RfP->counter];
+        } else {
+            for (uint i = 0; i < RfP->phi_RF.size(); ++i)
+                RfP->phi_RF[i][RfP->counter] +=
+                    RfP->phi_noise[i][RfP->counter];
+        }
+    }
 
     // Determine phase loop correction on RF phase and frequency
     if (PL != NULL && RfP->counter >= PL->delay)

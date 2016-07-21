@@ -18,11 +18,11 @@ NOT Stable - Under heavy development
 * Visual Studio version >= 2015 with C++ compiler [install](https://www.visualstudio.com/)
 
 ## Installation (Windows and Linux)
-1. clone the code into a directory (lets call it BLonD-minimal-cpp/):
+* clone the code into a directory (lets call it BLonD-minimal-cpp/):
 ```bash  
 git clone --branch=master https://github.com/kiliakis/BLonD-minimal-cpp
 ```
-2. To compile all dependencies and build blond library run the commands:
+* To compile all dependencies and build blond library run the commands:
 ```bash
 cd BLonD-minimal-cpp
 mkdir build  
@@ -31,6 +31,7 @@ cmake -DWITH_FFTW=True -DWITH_GOOGLETEST=True -DWITH_BENCHMARK=True .. # Configu
 cmake --build . # Compilation
 ctest -VV # Testing
 ```
+
 What was happening here:
    1. we opened folder with downloaded Blond source files
    2. created a folder to hold solution and project files
@@ -40,12 +41,15 @@ What was happening here:
    4. Compiled and linked default build configuration
    5. Executed unit tests
 
-3. The executables should be ready!
-4. Developer's Notes:
+* The executables should be ready!
+* Developer's Notes:
   * On Linux, by default, the Release version of the code is compiled. You can build a debug version by adding `-DCMAKE_BUILD_TYPE=Debug` argument to configuration command, before `..`
   * On Windows by default, the Debug version of the code is compiled. You can build a debug version by adding `--target ALL_BUILD --config Release` argument to Compilation command after `.`
   * On Windows one shall copy contents of `external/install/bin/fftw/$(configuration)` into corresponding to given build configuration folder to be able to test and run executables.
   * To commit properly formatted code, reformatted by clang-format on each build please add `-DWITH_FORMAT=True` argument to configuration command, before `..`, note clang-format shall be [installed](http://llvm.org/releases/download.html)
+  * To set data refrence files path's one can set `-DDATAFILES_DIR_DEMOS` and `-DDATAFILES_DIR_TESTS`.
+  * To use CLion IDE please add `-DABSOLUTE_DATA_PATHS=True` to embed absolute test data path's instead of default relative to build forder
+
 
 
 ## Using system Libraries (advanced)

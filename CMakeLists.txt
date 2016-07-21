@@ -22,8 +22,13 @@ set(EXTERNAL_INSTALL_DIR ${PROJECT_SOURCE_DIR}/external/install)
 set(TEST_ENABLED "True" CACHE STRING "Cerate unit-test projects")
 set(BENCHMARK_ENABLED "True" CACHE STRING "Cerate benchmark projects")
 set(ARCHITECTURE "x64" CACHE STRING "Set architecture 'x86' or 'x32'") # todo: find usages and  fix comment
-set(DATAFILES_DIR_DEMOS "../demos/input_files" CACHE STRING "Set demos input files path") 
-set(DATAFILES_DIR_TESTS "../unit-tests/references" CACHE STRING "Set unit-tests input files path") 
+if(NOT ABSOLUTE_DATA_PATHS)
+   set(DATAFILES_DIR_DEMOS "../demos/input_files" CACHE STRING "Set demos input files path")
+   set(DATAFILES_DIR_TESTS "../unit-tests/references" CACHE STRING "Set unit-tests input files path")
+else ()
+   set(DATAFILES_DIR_DEMOS "${CMAKE_CURRENT_LIST_DIR}/demos/input_files" CACHE STRING "Set demos input files path")
+   set(DATAFILES_DIR_TESTS "${CMAKE_CURRENT_LIST_DIR}/unit-tests/references" CACHE STRING "Set unit-tests input files path")
+endif()
 
 # Packages
 set(EXTERNAL_INSTALL_DIR ${PROJECT_SOURCE_DIR}/external/install CACHE STRING "External libraries installation folder (with subfolders lib and include)")
@@ -406,9 +411,3 @@ install(TARGETS blond
         )
 
 include(clang-format.cmake)
-
-message(STATUS "options set in the main cmake configuration file:")
-get_cmake_property(_variableNames VARIABLES)
-foreach (_variableName ${_variableNames})
-    message(STATUS "${_variableName}=${${_variableName}}")
-endforeach()

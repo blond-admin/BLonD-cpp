@@ -63,7 +63,6 @@ public:
 };
 
 class API LHCFlatSpectrum : public PhaseNoise {
-<<<<<<< HEAD
 private:
 
 public:
@@ -78,21 +77,6 @@ public:
                         predistortion_t::predistortion_none);
     ~LHCFlatSpectrum();
     void generate();
-
-private:
-
-public:
-
-   uint fNt;
-
-   LHCFlatSpectrum(uint time_points, uint corr_time = 10000,
-                   ftype fmin = 0.8571, ftype fmax = 1.1,
-                   ftype initial_amplitude = 1e-6,
-                   int seed1 = 1234, int seed2 = 7564,
-                   predistortion_t predistortion =
-                      predistortion_t::predistortion_none);
-   ~LHCFlatSpectrum();
-   void generate();
 
 };
 

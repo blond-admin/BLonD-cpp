@@ -184,7 +184,9 @@ void LHCNoiseFB::fwhm_multi_bunch()
                 index.push_back(bind[k]);
             k++;
         }
-
-        fBlMeasBBB[i] = fwhm_interpolation(index, hheight);
+        if(index.size() > 0)
+            fBlMeasBBB[i] = fwhm_interpolation(index, hheight);
+        else 
+            std::cerr << "[LHCNoiseFB] ERROR! index vector shoould have at least one element\n";
     }
 }

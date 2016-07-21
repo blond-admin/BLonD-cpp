@@ -67,8 +67,16 @@ void LHCNoiseFB::track()
 
         // Limit to range [0,1]
         fX = std::max(fX, 0.0);
-        // TODO we can avoid one branch here
         fX = std::min(fX, 1.0);
+
+        // std::cout.precision(6);
+        // std::cout << std::scientific << std::showpos;
+        // std::cout << "fA " << fA << "\n";
+        // std::cout << "fX " << fX << "\n";
+        // std::cout << "fG[counter] " << fG[RfP->counter] << "\n";
+        // std::cout << "fBlTarg " << fBlTarg << "\n";
+        // std::cout << "fBlMeas " << fBlMeas << "\n";
+
     }
 }
 
@@ -134,7 +142,13 @@ void LHCNoiseFB::fwhm_single_bunch()
         if (Slice->n_macroparticles[i] > half_height)
             index.push_back(i);
 
+    if (index.size() == 0) {
+        // std::cerr << "[LHCNoiseFB] ERROR! index vector should have at least one element\n";
+        return;
+    }
+
     fBlMeas = fwhm_interpolation(index, half_height);
+
 }
 
 // TODO test this function
@@ -149,7 +163,8 @@ void LHCNoiseFB::fwhm_multi_bunch()
     // Find correct RF buckets
     auto phi_RF = RfP->phi_RF[0][RfP->counter];
     auto omega_RF = RfP->omega_RF[0][RfP->counter];
-
+    // std::cout << phi_RF << "\n";
+    // std::cout << omega_RF << "\n";
     f_vector_t bucket_min(fBunchPattern.size());
     for (uint i = 0; i < bucket_min.size(); ++i)
         bucket_min[i] = (phi_RF + 2 * constant::pi
@@ -175,7 +190,7 @@ void LHCNoiseFB::fwhm_multi_bunch()
             if (Slice->n_macroparticles[j] > hheight)
                 hheight = Slice->n_macroparticles[j];
         }
-
+        // std::cout << "height: " << hheight << "\n";
         uint_vector_t index;
 
         uint k = 0;
@@ -184,9 +199,14 @@ void LHCNoiseFB::fwhm_multi_bunch()
                 index.push_back(bind[k]);
             k++;
         }
-        if(index.size() > 0)
-            fBlMeasBBB[i] = fwhm_interpolation(index, hheight);
-        else 
-            std::cerr << "[LHCNoiseFB] ERROR! index vector shoould have at least one element\n";
+        // std::cout << "index size = " << index.size() << "\n";
+        if (index.empty()) {
+            // std::cerr << "[LHCNoiseFB] ERROR! index vector should have at least one element\n";
+            continue;
+        }
+        fBlMeasBBB[i] = fwhm_interpolation(index, hheight);
+
     }
+
+    fBlMeas = mymath::mean(fBlMeasBBB.data(), fBlMeasBBB.size());
 }

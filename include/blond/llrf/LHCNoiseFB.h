@@ -25,7 +25,8 @@
 
 class API  LHCNoiseFB {
   private:
-     static const ftype cfwhm;
+    static const ftype cfwhm;
+
   public:
     // Phase noise scaling factor. Initially 0
     ftype fX;

@@ -8,9 +8,9 @@
 #ifndef LLRF_PHASENOISE_H_
 #define LLRF_PHASENOISE_H_
 
-#include <blond/utilities.h>
 #include <blond/configuration.h>
 #include <blond/globals.h>
+#include <blond/utilities.h>
 
 class API PhaseNoise {
 private:
@@ -62,8 +62,8 @@ public:
 
 };
 
-
 class API LHCFlatSpectrum : public PhaseNoise {
+<<<<<<< HEAD
 private:
 
 public:
@@ -79,8 +79,22 @@ public:
     ~LHCFlatSpectrum();
     void generate();
 
-};
+private:
 
+public:
+
+   uint fNt;
+
+   LHCFlatSpectrum(uint time_points, uint corr_time = 10000,
+                   ftype fmin = 0.8571, ftype fmax = 1.1,
+                   ftype initial_amplitude = 1e-6,
+                   int seed1 = 1234, int seed2 = 7564,
+                   predistortion_t predistortion =
+                      predistortion_t::predistortion_none);
+   ~LHCFlatSpectrum();
+   void generate();
+
+};
 
 class API PSBPhaseNoiseInjection : public PhaseNoise {
 private:

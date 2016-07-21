@@ -329,7 +329,7 @@ void Slices::fwhm(const ftype shift)
     // First aproximation for the half maximum values
 
     int i = 0;
-    while (n_macroparticles[i] < half_max && i < (int) n_slices)
+    while (n_macroparticles[i] < half_max && i < (int)n_slices)
         i++;
     int taux1 = i;
     i = n_slices - 1;
@@ -350,7 +350,7 @@ void Slices::fwhm(const ftype shift)
     // (in that case it takes the last element of the array)
     // Cpp does not throw an exception on eiter occassion
     // The right condition is the following in comments
-    if (taux1 > 0 && taux2 < (int) n_slices - 1) {
+    if (taux1 > 0 && taux2 < (int)n_slices - 1) {
         // if (taux2 < n_slices - 1) {
         try {
             t1 = bin_centers[taux1] -
@@ -393,7 +393,7 @@ ftype Slices::fast_fwhm()
     ftype half_max = 0.5 * n_macroparticles[max_i];
 
     int i = 0;
-    while (n_macroparticles[i] < half_max && i < (int) n_slices)
+    while (n_macroparticles[i] < half_max && i < (int)n_slices)
         i++;
     int taux1 = i;
     i = n_slices - 1;

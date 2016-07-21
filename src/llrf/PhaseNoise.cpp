@@ -10,15 +10,13 @@
 * :Authors: **Helga Timko**
 */
 
-#include <random>
 #include <algorithm>
-#include <blond/llrf/PhaseNoise.h>
 #include <blond/constants.h>
+#include <blond/llrf/PhaseNoise.h>
 #include <blond/math_functions.h>
+#include <random>
 
-
-void PhaseNoise::spectrum_to_phase_noise(f_vector_t &t,
-        f_vector_t &dphi,
+void PhaseNoise::spectrum_to_phase_noise(f_vector_t &t, f_vector_t &dphi,
         const f_vector_t &freq_array,
         const f_vector_t &ReS,
         PhaseNoise::transform_t transform)
@@ -30,8 +28,8 @@ void PhaseNoise::spectrum_to_phase_noise(f_vector_t &t,
     uint nt = 0;
     uint dt = 0;
 
-    if (transform == transform_t::transform_none
-            || transform == transform_t::r) {
+    if (transform == transform_t::transform_none ||
+            transform == transform_t::r) {
         nt = 2 * (ReSLen - 1);
         dt = 1 / (2 * f_max);
     } else if (transform == transform_t::c) {
@@ -43,7 +41,6 @@ void PhaseNoise::spectrum_to_phase_noise(f_vector_t &t,
                   << "Use 'r' or 'c'.\n";
         exit(-1);
     }
-
 
     // Generate white noise in time domain
     std::default_random_engine gen(fSeed1);
@@ -64,23 +61,13 @@ void PhaseNoise::spectrum_to_phase_noise(f_vector_t &t,
         f_vector_t Gt(nt);
 
         auto factor = 2 * constant::pi;
-        auto f1 = [factor](ftype x) {return std::cos(factor * x);};
-        std::transform(r1.begin(),
-                       r1.end(),
-                       r1.begin(),
-                       f1);
+        auto f1 = [factor](ftype x) { return std::cos(factor * x); };
+        std::transform(r1.begin(), r1.end(), r1.begin(), f1);
 
-        auto f2 = [](ftype x) {return std::sqrt(-2 * std::log(x));};
-        std::transform(r2.begin(),
-                       r2.end(),
-                       r2.begin(),
-                       f2);
+        auto f2 = [](ftype x) { return std::sqrt(-2 * std::log(x)); };
+        std::transform(r2.begin(), r2.end(), r2.begin(), f2);
 
-
-        std::transform(r1.begin(),
-                       r1.end(),
-                       r2.begin(),
-                       Gt.begin(),
+        std::transform(r1.begin(), r1.end(), r2.begin(), Gt.begin(),
                        std::multiplies<ftype>());
 
         // FFT to frequency domain
@@ -89,13 +76,10 @@ void PhaseNoise::spectrum_to_phase_noise(f_vector_t &t,
 
         // Multiply by desired noise probability density
         factor = 2 * f_max;
-        auto f3 = [factor](ftype x) {return std::sqrt(factor * x);};
+        auto f3 = [factor](ftype x) { return std::sqrt(factor * x); };
 
         r1.resize(ReS.size());
-        std::transform(ReS.begin(),
-                       ReS.end(),
-                       r1.begin(),
-                       f3);
+        std::transform(ReS.begin(), ReS.end(), r1.begin(), f3);
 
 
         auto f4 = [](ftype r, complex_t z) {return r * z;};
@@ -114,38 +98,25 @@ void PhaseNoise::spectrum_to_phase_noise(f_vector_t &t,
         t.resize(nt);
         mymath::linspace(t.data(), 0, nt * dt, nt);
 
-        auto f6 = [](complex_t z) {return z.real();};
+        auto f6 = [](complex_t z) { return z.real(); };
 
         dphi.resize(Gt.size());
 
-        std::transform(Gt.begin(),
-                       Gt.end(),
-                       dphi.begin(),
-                       f6);
+        std::transform(Gt.begin(), Gt.end(), dphi.begin(), f6);
 
     } else if (transform == transform_t::c) {
 
         complex_vector_t Gt(nt);
 
         const complex_t factor = 2 * constant::pi * complex_t(0, 1);
-        auto f1 = [factor](ftype x) {return std::exp(factor * x);};
-        std::transform(r1.begin(),
-                       r1.end(),
-                       Gt.begin(),
-                       f1);
+        auto f1 = [factor](ftype x) { return std::exp(factor * x); };
+        std::transform(r1.begin(), r1.end(), Gt.begin(), f1);
 
-        auto f2 = [](ftype x) {return std::sqrt(-2 * std::log(x));};
-        std::transform(r2.begin(),
-                       r2.end(),
-                       r2.begin(),
-                       f2);
+        auto f2 = [](ftype x) { return std::sqrt(-2 * std::log(x)); };
+        std::transform(r2.begin(), r2.end(), r2.begin(), f2);
 
-        auto f3 = [](complex_t a, ftype b) {return a * b;};
-        std::transform(Gt.begin(),
-                       Gt.end(),
-                       r2.begin(),
-                       Gt.begin(),
-                       f3);
+        auto f3 = [](complex_t a, ftype b) { return a * b; };
+        std::transform(Gt.begin(), Gt.end(), r2.begin(), Gt.begin(), f3);
 
         // FFT to frequency domain
         complex_vector_t Gf;
@@ -163,12 +134,12 @@ void PhaseNoise::spectrum_to_phase_noise(f_vector_t &t,
                        f4);
 
         auto f5 = [](ftype r, complex_t z) {return r * z;};
+
         std::transform(r1.begin(),
                        r1.end(),
                        Gf.begin(),
                        Gf.begin(),
                        f5);
-
         // fft back to time domain to get final phase shift
         Gt.clear();
         fft::ifft(Gf, Gt);
@@ -176,7 +147,7 @@ void PhaseNoise::spectrum_to_phase_noise(f_vector_t &t,
         t.resize(nt);
         mymath::linspace(t.data(), 0, nt * dt, nt);
 
-        auto f6 = [](complex_t z) {return z.real();};
+        auto f6 = [](complex_t z) { return z.real(); };
 
         dphi.resize(Gt.size());
 
@@ -295,6 +266,10 @@ f_vector_t PhaseNoise::spectrum_generation(
 
     return spectrum;
 
+    //std::cout << "mean dphi : " << mymath::mean(fDphi.data(), fDphi.size()) << "\n";
+
+    // std::cout << "mean dphi : " << mymath::mean(fDphi.data(), fDphi.size())
+    // << "\n";
 }
 
 
@@ -324,26 +299,15 @@ PSBPhaseNoiseInjection::PSBPhaseNoiseInjection(ftype delta_f,
     fRescaleAmpl = rescale_amplitude;
 
     fFs.resize(RfP->omega_s0.size());
-    std::transform(RfP->omega_s0.begin(),
-                   RfP->omega_s0.end(),
-                   fFs.begin(),
-                   std::bind2nd(std::divides<ftype>(),
-                                2 * constant::pi));
-
-
+    std::transform(RfP->omega_s0.begin(), RfP->omega_s0.end(), fFs.begin(),
+                   std::bind2nd(std::divides<ftype>(), 2 * constant::pi));
 }
 
-
-PSBPhaseNoiseInjection::~PSBPhaseNoiseInjection()
-{
-    fft::destroy_plans();
-}
-
+PSBPhaseNoiseInjection::~PSBPhaseNoiseInjection() { fft::destroy_plans(); }
 
 void PSBPhaseNoiseInjection::generate()
 {
     auto GP = Context::GP;
-
 
     for (uint i = 0; i < fNTurns / fCorr; ++i) {
 
@@ -377,45 +341,34 @@ void PSBPhaseNoiseInjection::generate()
                                             freq, fPredistortion);
 
         f_vector_t noise_t, noise_dphi;
-        spectrum_to_phase_noise(noise_t,
-                                noise_dphi,
-                                freq,
-                                spectrum);
+        spectrum_to_phase_noise(noise_t, noise_dphi, freq, spectrum);
 
         fSeed1 += 239;
         fSeed2 += 158;
 
         // Fill phase noise array
 
-        const uint kmax = i < fNTurns / fCorr - 1 ?
-                          (i + 1) * fCorr : fNTurns + 1;
+        const uint kmax =
+            i < fNTurns / fCorr - 1 ? (i + 1) * fCorr : fNTurns + 1;
 
-        std::copy(noise_dphi.begin(),
-                  noise_dphi.begin() + kmax - k,
+        std::copy(noise_dphi.begin(), noise_dphi.begin() + kmax - k,
                   fDphi.begin() + k);
 
-        auto rms_noise = mymath::standard_deviation(noise_dphi.data(),
-                         noise_dphi.size());
+        auto rms_noise =
+            mymath::standard_deviation(noise_dphi.data(), noise_dphi.size());
         // std::cout << "RF noise for time step " << noise_t[1]
         //           << " s (iter " << i << ") has r.m.s phase "
         //           << rms_noise << " rad (" << rms_noise * 180 / constant::pi
         //           << " deg)\n";
-
     }
-
-
 }
 
-LHCFlatSpectrum::LHCFlatSpectrum(uint time_points,
-                                 uint corr_time,
-                                 ftype fmin, ftype fmax,
-                                 ftype initial_amplitude,
-                                 int seed1, int seed2,
-                                 predistortion_t predistortion)
+LHCFlatSpectrum::LHCFlatSpectrum(uint time_points, uint corr_time, ftype fmin,
+                                 ftype fmax, ftype initial_amplitude, int seed1,
+                                 int seed2, predistortion_t predistortion)
 {
     auto RfP = Context::RfP;
     auto GP = Context::GP;
-
 
     fNt = time_points;
     fCorr = corr_time;
@@ -441,30 +394,21 @@ LHCFlatSpectrum::LHCFlatSpectrum(uint time_points,
 
     // Synchrotron frequency array
     f_vector_t phis(fNTurns + 1);
-    calc_phi_s(
-        phis.data(),
-        RfP,
-        RfParameters::accelerating_systems_t::as_single);
-
+    calc_phi_s(phis.data(), RfP,
+               RfParameters::accelerating_systems_t::as_single);
 
     fFs.resize(phis.size());
 
     for (uint i = 0; i < fFs.size(); ++i) {
-        fFs[i] = constant::c
-                 / GP->ring_circumference
-                 * std::sqrt(RfP->harmonic[RfP->idx][i] * RfP->voltage[RfP->idx][i]
-                             * std::fabs(RfP->eta_0(i) * std::cos(phis[i]))
-                             / (2 * constant::pi * RfP->energy(i)));
+        fFs[i] =
+            constant::c / GP->ring_circumference *
+            std::sqrt(RfP->harmonic[RfP->idx][i] * RfP->voltage[RfP->idx][i] *
+                      std::fabs(RfP->eta_0(i) * std::cos(phis[i])) /
+                      (2 * constant::pi * RfP->energy(i)));
     }
-
 }
 
-
-LHCFlatSpectrum::~LHCFlatSpectrum()
-{
-    fft::destroy_plans();
-}
-
+LHCFlatSpectrum::~LHCFlatSpectrum() { fft::destroy_plans(); }
 
 void LHCFlatSpectrum::generate()
 {
@@ -498,8 +442,8 @@ void LHCFlatSpectrum::generate()
 
         // Fill phase noise array
 
-        const uint kmax = i < fNTurns / fCorr - 1 ?
-                          (i + 1) * fCorr : fNTurns + 1;
+        const uint kmax =
+            i < fNTurns / fCorr - 1 ? (i + 1) * fCorr : fNTurns + 1;
 
         for (uint i = 0; i < kmax - k; ++i)
             fDphi[i + k] = noise_dphi[i];
@@ -511,9 +455,5 @@ void LHCFlatSpectrum::generate()
         //           << " s (iter " << i << ") has r.m.s phase "
         //           << rms_noise << " rad (" << rms_noise * 180 / constant::pi
         //           << " deg)\n";
-
-
     }
-
-
 }

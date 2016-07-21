@@ -4,12 +4,12 @@
  *  Created on: Apr 12, 2016
  *      Author: kiliakis
  */
-#include <blond/globals.h>
-#include <blond/utilities.h>
-#include <blond/math_functions.h>
 #include <blond/beams/Distributions.h>
+#include <blond/globals.h>
 #include <blond/llrf/PhaseLoop.h>
+#include <blond/math_functions.h>
 #include <blond/trackers/Tracker.h>
+#include <blond/utilities.h>
 
 #include <stdio.h>
 // #include "../input_parameters/GeneralParameters.h"
@@ -26,17 +26,18 @@
 #include <blond/impedances/InducedVoltage.h>
 // #include "optionparser.h"
 
-// Simulation parameters --------------------------------------------------------
+// Simulation parameters
+// --------------------------------------------------------
 
-const int N_b = 1.2e9;          // Intensity
-int N_p = 600000;         // Macro-particles
+const int N_b = 1.2e9; // Intensity
+int N_p = 600000;      // Macro-particles
 
 // Machine and RF parameters
-const float C = 26658.883;        // Machine circumference [m]
-const int h = 35640;            // Harmonic number
-const float dphi = 0.;            // Phase modulation/offset
-const float gamma_t = 55.759505;  // Transition gamma
-const float alpha = 1. / gamma_t / gamma_t;     // First order mom. comp. factor
+const float C = 26658.883;                  // Machine circumference [m]
+const int h = 35640;                        // Harmonic number
+const float dphi = 0.;                      // Phase modulation/offset
+const float gamma_t = 55.759505;            // Transition gamma
+const float alpha = 1. / gamma_t / gamma_t; // First order mom. comp. factor
 
 int alpha_order = 1;
 int n_sections = 1;
@@ -49,15 +50,15 @@ int N_slices = 2200;
 
 int dt_save = 5000;
 
-const std::string datafiles =
-    "/afs/cern.ch/user/h/htimko/public/LHC/input/";
+const std::string datafiles = "/afs/cern.ch/user/h/htimko/public/LHC/input/";
 
-//const int size = 14e6;
+// const int size = 14e6;
 // const int from_line = 0;
 
 void parse_args(int argc, char **argv);
 
-// Simulation setup -------------------------------------------------------------
+// Simulation setup
+// -------------------------------------------------------------
 int main(int argc, char **argv)
 {
 
@@ -70,12 +71,13 @@ int main(int argc, char **argv)
     printf("Number of Slices: %d\n", N_slices);
     printf("Number of openmp threads: %d\n", Context::n_threads);
 
-    //printf("Setting up the simulation..\n");
+    // printf("Setting up the simulation..\n");
     timespec begin, end;
     util::get_time(begin);
 
     f_vector_2d_t momentumVec(1, f_vector_t());
-    util::read_vector_from_file(momentumVec[0], datafiles + "LHC_momentum_programme.dat");
+    util::read_vector_from_file(momentumVec[0],
+                                datafiles + "LHC_momentum_programme.dat");
     momentumVec[0].resize(N_t + 1, momentumVec[0].back());
 
     f_vector_t V;
@@ -86,7 +88,6 @@ int main(int argc, char **argv)
     printf("Flat top momentum %.4e eV\n", momentumVec[0][N_t]);
     printf("Flat top voltage %.4e eV\n", voltageVec[0][N_t]);
     printf("Momentum and voltage loaded...\n");
-
 
     // Define general parameters
 
@@ -99,9 +100,9 @@ int main(int argc, char **argv)
 
     printf("General parameters set...\n");
     // Define rf_params
-    f_vector_2d_t dphiVec(n_sections , f_vector_t(N_t + 1, dphi));
+    f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 
-    f_vector_2d_t hVec(n_sections , f_vector_t(N_t + 1, h));
+    f_vector_2d_t hVec(n_sections, f_vector_t(N_t + 1, h));
 
     Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
     printf("RF parameters set...\n");
@@ -109,10 +110,12 @@ int main(int argc, char **argv)
     // Define beam and distribution: Load matched, filamented distribution
     Context::Beam = new Beams(N_p, N_b);
     f_vector_t v2;
-    util::read_vector_from_file(v2, "/afs/cern.ch/work/k/kiliakis/testcases/htimko/LHC/re_3b_extremes_batch/out/initial_coords.dat");
+    util::read_vector_from_file(v2, "/afs/cern.ch/work/k/kiliakis/testcases/"
+                                "htimko/LHC/re_3b_extremes_batch/out/"
+                                "initial_coords.dat");
     int k = 0;
     for (unsigned int i = 0; i < v2.size(); i += 3) {
-        Context::Beam->dt[k] = v2[i]; // [s]
+        Context::Beam->dt[k] = v2[i];     // [s]
         Context::Beam->dE[k] = v2[i + 1]; // [eV]
         Context::Beam->id[k] = v2[i + 2];
         k++;
@@ -121,19 +124,20 @@ int main(int argc, char **argv)
     Context::Slice = new Slices(N_slices, 0, -1.0e-9, 54.0e-9);
     printf("Beam generated, slices set...\n");
 
-    // auto phaseNoise = new LHCFlatSpectrum(f_vector_t(10, 0), f_vector_t(10, 0));
+    // auto phaseNoise = new LHCFlatSpectrum(f_vector_t(10, 0), f_vector_t(10,
+    // 0));
 
-    auto phaseNoise = new LHCFlatSpectrum(1000000, 10000, 0.8571,
-                                          1.1, 1.0e-5, 1234, 7564,
-                                          LHCFlatSpectrum::predistortion_t::weightfunction);
+    auto phaseNoise =
+        new LHCFlatSpectrum(1000000, 10000, 0.8571, 1.1, 1.0e-5, 1234, 7564,
+                            LHCFlatSpectrum::predistortion_t::weightfunction);
 
     phaseNoise->fDphi.clear();
-    util::read_vector_from_file(phaseNoise->fDphi,
-                                datafiles
-                                + "LHCNoise_fmin0.8571_fmax1.001_ampl1e-5_weightfct.dat");
+    util::read_vector_from_file(
+        phaseNoise->fDphi,
+        datafiles + "LHCNoise_fmin0.8571_fmax1.001_ampl1e-5_weightfct.dat");
 
-    auto noiseFB = new LHCNoiseFB(bl_target, 0.1e9, 0.93,
-                                  22500, true, f_vector_t{0, 10, 20});
+    auto noiseFB = new LHCNoiseFB(bl_target, 0.1e9, 0.93, 22500, true,
+                                  f_vector_t{0, 10, 20});
     printf("Phase noise feedback set...\n");
 
     // Define phase loop and frequency loop gain
@@ -157,8 +161,9 @@ int main(int argc, char **argv)
     printf("PL, SL, and tracker set...\n");
 
     f_vector_t ZTot;
-    util::read_vector_from_file(ZTot, datafiles
-                                + "Zlong_Allthemachine_450GeV_B1_LHC_inj_450GeV_B1.dat");
+    util::read_vector_from_file(
+        ZTot,
+        datafiles + "Zlong_Allthemachine_450GeV_B1_LHC_inj_450GeV_B1.dat");
     assert(ZTot.size() % 3 == 0);
 
     f_vector_t freq, ReZ, ImZ;
@@ -186,7 +191,7 @@ int main(int argc, char **argv)
     printf("Initial mean bunch position %.4e s\n", Context::Beam->mean_dt);
     printf("Initial four-times r.m.s. bunch length %.4e s\n",
            4. * Context::Beam->sigma_dt);
-    //print("Initial Gaussian bunch length %.4e ns" %slices.bl_gauss
+    // print("Initial Gaussian bunch length %.4e ns" %slices.bl_gauss
 
     printf("Ready for tracking!\n");
     for (uint i = 0; i < N_t; ++i) {
@@ -215,22 +220,31 @@ int main(int argc, char **argv)
             // printf("   Beam gamma %4.3f\n", beam.gamma);
             // printf("   Beam beta %.8f\n", beam.beta);
             // printf("   Beam energy %.6e eV\n", beam.energy);
-            printf("   Design RF revolution frequency %.10e Hz\n", Context::RfP->omega_RF_d[0][i]);
-            printf("   RF revolution frequency %.10e Hz\n", Context::RfP->omega_RF[0][i]);
+            printf("   Design RF revolution frequency %.10e Hz\n",
+                   Context::RfP->omega_RF_d[0][i]);
+            printf("   RF revolution frequency %.10e Hz\n",
+                   Context::RfP->omega_RF[0][i]);
             printf("   RF phase %.4f rad\n", Context::RfP->phi_RF[0][i]);
             printf("   Beam phase %.4f rad\n", PL->phi_beam);
-            printf("   Phase noise %.4f rad\n", noiseFB->fX * phaseNoise->fDphi[i]);
+            printf("   Phase noise %.4f rad\n",
+                   noiseFB->fX * phaseNoise->fDphi[i]);
             printf("   PL phase error %.4f rad\n", PL->RFnoise->fDphi[i]);
             printf("   Synchronous phase %.4f rad\n", Context::RfP->phi_s[i]);
             printf("   PL phase correction %.4f rad\n", PL->dphi);
             printf("   SL recursion variable %.4e\n", PL->lhc_y);
             printf("   Mean bunch position %.4e s\n", Context::Beam->mean_dt);
-            printf("   Four-times r.m.s. bunch length %.4e s\n", 4.0 * Context::Beam->sigma_dt);
-// #        printf("   Gaussian bunch length %.4e s\n",slices.bl_gauss);
-            // printf("   Slices min %.4e ns max %.4e s\n", slices.cut_left, slices.cut_right);
-            printf("   Bunch 1 FWHM bunch length %.4e s\n", noiseFB->fBlMeasBBB[0]);
-            printf("   Bunch 2 FWHM bunch length %.4e s\n", noiseFB->fBlMeasBBB[1]);
-            printf("   Bunch 3 FWHM bunch length %.4e s\n", noiseFB->fBlMeasBBB[2]);
+            printf("   Four-times r.m.s. bunch length %.4e s\n",
+                   4.0 * Context::Beam->sigma_dt);
+            // #        printf("   Gaussian bunch length %.4e
+            // s\n",slices.bl_gauss);
+            // printf("   Slices min %.4e ns max %.4e s\n", slices.cut_left,
+            // slices.cut_right);
+            printf("   Bunch 1 FWHM bunch length %.4e s\n",
+                   noiseFB->fBlMeasBBB[0]);
+            printf("   Bunch 2 FWHM bunch length %.4e s\n",
+                   noiseFB->fBlMeasBBB[1]);
+            printf("   Bunch 3 FWHM bunch length %.4e s\n",
+                   noiseFB->fBlMeasBBB[2]);
             printf("\n");
 
             std::ofstream out;
@@ -238,15 +252,13 @@ int main(int argc, char **argv)
             std::cout.precision(5);
             std::cout << std::scientific << std::showpos;
             for (int j = 0; j < N_p; ++j) {
-                out << Context::Beam->dt[j] << "\t" << Context::Beam->dE[j] << "\n";
+                out << Context::Beam->dt[j] << "\t" << Context::Beam->dE[j]
+                    << "\n";
             }
-
         }
 
         turn_time += util::time_elapsed(begin_t);
-
     }
-
 
     util::get_time(end);
     util::print_time("Simulation Time", begin, end);
@@ -268,7 +280,6 @@ int main(int argc, char **argv)
     delete Context::Beam;
 
     printf("Done!\n");
-
 }
 
 void parse_args(int argc, char **argv)
@@ -276,22 +287,45 @@ void parse_args(int argc, char **argv)
     using namespace std;
     using namespace option;
 
-    enum optionIndex {UNKNOWN, HELP, N_THREADS, N_TURNS,
-                      N_PARTICLES, N_SLICES, OPTIONS_NUM
-                     };
+    enum optionIndex {
+        UNKNOWN,
+        HELP,
+        N_THREADS,
+        N_TURNS,
+        N_PARTICLES,
+        N_SLICES,
+        OPTIONS_NUM
+    };
 
     const option::Descriptor usage[] = {
         {
-            UNKNOWN, 0, "", "", Arg::None,                  "USAGE: ./_LHC_acc [options]\n\n"
+            UNKNOWN, 0, "", "", Arg::None, "USAGE: ./_LHC_acc [options]\n\n"
             "Options:"
         },
-        {  HELP, 0, "h", "help", Arg::None,                "  --help,              -h        Print usage and exit." },
-        {N_TURNS, 0, "t", "turns", util::Arg::Numeric,        "  --turns=<num>,       -t <num>  Number of turns (default: 1M)" },
-        {N_PARTICLES, 0, "p", "particles", util::Arg::Numeric,   "  --particles=<num>,   -p <num>  Number of particles (default: 100k)" },
-        {N_SLICES, 0, "s", "slices", util::Arg::Numeric,      "  --slices=<num>,      -s <num>  Number of slices (default: 151)" },
-        {N_THREADS, 0, "m", "threads", util::Arg::Numeric,       "  --threads=<num>,     -m <num>  Number of threads (default: 1)" },
         {
-            UNKNOWN, 0, "", "", Arg::None,                  "\nExamples:\n"
+            HELP, 0, "h", "help", Arg::None,
+            "  --help,              -h        Print usage and exit."
+        },
+        {
+            N_TURNS, 0, "t", "turns", util::Arg::Numeric,
+            "  --turns=<num>,       -t <num>  Number of turns (default: 1M)"
+        },
+        {
+            N_PARTICLES, 0, "p", "particles", util::Arg::Numeric,
+            "  --particles=<num>,   -p <num>  Number of particles (default: "
+            "100k)"
+        },
+        {
+            N_SLICES, 0, "s", "slices", util::Arg::Numeric,
+            "  --slices=<num>,      -s <num>  Number of slices (default: 151)"
+        },
+        {
+            N_THREADS, 0, "m", "threads", util::Arg::Numeric,
+            "  --threads=<num>,     -m <num>  Number of threads (default: 1)"
+        },
+        {
+            UNKNOWN, 0, "", "", Arg::None,
+            "\nExamples:\n"
             "\t./_LHC_acc\n"
             "\t./_LHC_acc -t 1000000 -p 100000 -m 4\n"
         },
@@ -312,25 +346,25 @@ void parse_args(int argc, char **argv)
 
     for (int i = 0; i < parse.optionsCount(); ++i) {
         Option &opt = buffer[i];
-        //fprintf(stdout, "Argument #%d is ", i);
+        // fprintf(stdout, "Argument #%d is ", i);
         switch (opt.index()) {
             case HELP:
             // not possible, because handled further above and exits the program
             case N_TURNS:
                 N_t = atoi(opt.arg);
-                //fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
+                // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
                 break;
             case N_THREADS:
                 Context::n_threads = atoi(opt.arg);
-                //fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
+                // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
                 break;
             case N_SLICES:
                 N_slices = atoi(opt.arg);
-                //fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
+                // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
                 break;
             case N_PARTICLES:
                 N_p = atoi(opt.arg);
-                //fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
+                // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
                 break;
             case UNKNOWN:
                 // not possible because Arg::Unknown returns ARG_ILLEGAL
@@ -338,7 +372,4 @@ void parse_args(int argc, char **argv)
                 break;
         }
     }
-
-
 }
-

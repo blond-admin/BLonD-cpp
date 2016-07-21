@@ -25,8 +25,8 @@ class API  Beams {
     ftype epsn_rms_l;
     uint n_macroparticles_lost;
     uint n_macroparticles;
-    long intensity;
-    Beams(const uint _n_macroparticles, const long _intensity);
+    long long intensity;
+    Beams(const uint _n_macroparticles, const long long _intensity);
     ~Beams();
     uint n_macroparticles_alive();
     void losses_longitudinal_cut(const ftype* __restrict dt, const ftype dt_min,

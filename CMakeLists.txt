@@ -259,6 +259,10 @@ file(GLOB_RECURSE SOURCES
 set(SOURCE_FILES ${SOURCES})
 assign_source_group(${SOURCE_FILES})
 
+# foreach(source ${SOURCE_FILES})
+#   set_source_files_properties(${source} PROPERTIES COMPILE_FLAGS "-fopt-info-vec=report.txt")
+# endforeach()
+
 if (SHARED_LIBRARY_ENABLED)
     add_library(blond SHARED ${SOURCE_FILES})
     target_compile_definitions(blond PRIVATE SHARED=1)

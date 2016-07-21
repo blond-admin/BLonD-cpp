@@ -165,5 +165,5 @@ TEST_F(testBeam, test_losses_energy_cut) {
 
 int main(int ac, char* av[]) {
     ::testing::InitGoogleTest(&ac, av);
-    RUN_ALL_TESTS();
+    return RUN_ALL_TESTS();
 }

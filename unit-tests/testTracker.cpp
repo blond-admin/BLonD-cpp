@@ -8,13 +8,12 @@
 #include <gtest/gtest.h>
 
 const ftype epsilon = 1e-8;
-const std::string track_params =
-    TEST_FILES"/Tracker/Tracker_track_params/";
+const std::string track_params = TEST_FILES "/Tracker/Tracker_track_params/";
 
 class testTracker : public ::testing::Test {
 
   protected:
-    const long long N_b = 1e9;       // Intensity
+    const long long N_b = 1e9;  // Intensity
     const ftype tau_0 = 0.4e-9; // Initial bunch length, 4 sigma [s]
 
     virtual void SetUp() {
@@ -56,9 +55,9 @@ class testTracker : public ::testing::Test {
   private:
     // Machine and RF parameters
     const ftype C = 26658.883;       // Machine circumference [m]
-    const long long p_i = 450e9;          // Synchronous momentum [eV/c]
+    const long long p_i = 450e9;     // Synchronous momentum [eV/c]
     const ftype p_f = 460.005e9;     // Synchronous momentum, final
-    const long long h = 35640;            // Harmonic number
+    const long long h = 35640;       // Harmonic number
     const ftype V = 6e6;             // RF voltage [V]
     const ftype dphi = 0;            // Phase modulation/offset
     const ftype gamma_t = 55.759505; // Transition gamma
@@ -76,7 +75,7 @@ class testTracker : public ::testing::Test {
 class testTrackerPeriodicity : public ::testing::Test {
 
   protected:
-    const long long N_b = 1e9;       // Intensity
+    const long long N_b = 1e9;  // Intensity
     const ftype tau_0 = 0.4e-9; // Initial bunch length, 4 sigma [s]
 
     virtual void SetUp() {
@@ -118,9 +117,9 @@ class testTrackerPeriodicity : public ::testing::Test {
   private:
     // Machine and RF parameters
     const ftype C = 26658.883;       // Machine circumference [m]
-    const long long p_i = 450e9;          // Synchronous momentum [eV/c]
+    const long long p_i = 450e9;     // Synchronous momentum [eV/c]
     const ftype p_f = 460.005e9;     // Synchronous momentum, final
-    const long long h = 35640;            // Harmonic number
+    const long long h = 35640;       // Harmonic number
     const ftype V = 6e6;             // RF voltage [V]
     const ftype dphi = 0;            // Phase modulation/offset
     const ftype gamma_t = 55.759505; // Transition gamma
@@ -168,8 +167,7 @@ TEST_F(testTracker, track_dt) {
 
 TEST_F(testTrackerPeriodicity, kick) {
     auto Beam = Context::Beam;
-    auto params =
-        std::string(TEST_FILES"/Tracker/periodicity/kick/");
+    auto params = std::string(TEST_FILES "/Tracker/periodicity/kick/");
     RingAndRfSection* long_tracker =
         new RingAndRfSection(Context::RfP, simple, NULL, NULL, true, 0.0);
 
@@ -202,8 +200,7 @@ TEST_F(testTrackerPeriodicity, kick) {
 TEST_F(testTrackerPeriodicity, drift) {
     auto Beam = Context::Beam;
 
-    auto params =
-        std::string(TEST_FILES"/Tracker/periodicity/drift/");
+    auto params = std::string(TEST_FILES "/Tracker/periodicity/drift/");
     RingAndRfSection* long_tracker =
         new RingAndRfSection(Context::RfP, simple, NULL, NULL, true, 0.0);
 
@@ -236,8 +233,8 @@ TEST_F(testTrackerPeriodicity, drift) {
 TEST_F(testTrackerPeriodicity, set_periodicity) {
     auto Beam = Context::Beam;
 
-    auto params = std::string(
-        TEST_FILES"/Tracker/periodicity/set_periodicity/");
+    auto params =
+        std::string(TEST_FILES "/Tracker/periodicity/set_periodicity/");
     RingAndRfSection* long_tracker =
         new RingAndRfSection(Context::RfP, simple, NULL, NULL, true, 0.0);
 
@@ -286,8 +283,7 @@ TEST_F(testTrackerPeriodicity, set_periodicity) {
 TEST_F(testTrackerPeriodicity, track1) {
     auto Beam = Context::Beam;
 
-    auto params =
-        std::string(TEST_FILES"/Tracker/periodicity/track1/");
+    auto params = std::string(TEST_FILES "/Tracker/periodicity/track1/");
     RingAndRfSection* long_tracker =
         new RingAndRfSection(Context::RfP, simple, NULL, NULL, true, 0.0);
 
@@ -344,8 +340,7 @@ TEST_F(testTrackerPeriodicity, track1) {
 TEST_F(testTrackerPeriodicity, track2) {
     auto Beam = Context::Beam;
 
-    auto params =
-        std::string(TEST_FILES"/Tracker/periodicity/track2/");
+    auto params = std::string(TEST_FILES "/Tracker/periodicity/track2/");
     RingAndRfSection* long_tracker =
         new RingAndRfSection(Context::RfP, simple, NULL, NULL, true, 0.0);
 

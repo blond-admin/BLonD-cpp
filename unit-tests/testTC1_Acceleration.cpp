@@ -9,13 +9,12 @@
 #include <omp.h>
 
 const ftype epsilon = 1e-8;
-const std::string params =
-    TEST_FILES"/TC1_final/TC1_final_params/";
+const std::string params = TEST_FILES "/TC1_final/TC1_final_params/";
 
 class testTC1 : public ::testing::Test {
 
   protected:
-    const long long N_b = 1e9;       // Intensity
+    const long long N_b = 1e9;  // Intensity
     const ftype tau_0 = 0.4e-9; // Initial bunch length, 4 sigma [s]
 
     const int N_t = 2000; // Number of turns to track
@@ -61,9 +60,9 @@ class testTC1 : public ::testing::Test {
   private:
     // Machine and RF parameters
     const ftype C = 26658.883;       // Machine circumference [m]
-    const long long p_i = 450e9;          // Synchronous momentum [eV/c]
+    const long long p_i = 450e9;     // Synchronous momentum [eV/c]
     const ftype p_f = 460.005e9;     // Synchronous momentum, final
-    const long long h = 35640;            // Harmonic number
+    const long long h = 35640;       // Harmonic number
     const ftype V = 6e6;             // RF voltage [V]
     const ftype dphi = 0;            // Phase modulation/offset
     const ftype gamma_t = 55.759505; // Transition gamma

@@ -13,7 +13,7 @@
 #include <omp.h>
 
 // const ftype epsilon = 1e-3;
-const std::string params = TEST_FILES"/PL/LHC_restart_params/";
+const std::string params = TEST_FILES "/PL/LHC_restart_params/";
 
 LHC* PL;
 RingAndRfSection* long_tracker;
@@ -118,7 +118,7 @@ class testLHC_Restart : public ::testing::Test {
     const int n_sections = 1;
     const int bl_target = 1.25e-9; // 4 sigma r.m.s. target bunch length in [s]
 
-    const std::string datafiles = DEMO_FILES"/LHC_restart/";
+    const std::string datafiles = DEMO_FILES "/LHC_restart/";
 
     const int from_line = 0;
 };

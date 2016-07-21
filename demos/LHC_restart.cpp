@@ -36,7 +36,7 @@ uint N_t = 1000000;      // Number of turns to track; full ramp: 8700001
 int bl_target = 1.25e-9; // 4 sigma r.m.s. target bunch length in [s]
 
 int N_slices = 151;
-const std::string datafiles = DEMO_FILES"/LHC_restart/";
+const std::string datafiles = DEMO_FILES "/LHC_restart/";
 
 // Global variables
 

@@ -9,13 +9,13 @@
 
 // Simulation parameters
 // --------------------------------------------------------
-const ftype N_b = 1e9; // Intensity
-const ftype tau_0 = 0.4e-9;         // Initial bunch length, 4 sigma [s]
+const ftype N_b = 1e9;      // Intensity
+const ftype tau_0 = 0.4e-9; // Initial bunch length, 4 sigma [s]
 
 // Machine and RF parameters
 const ftype C = 26658.883;                   // Machine circumference [m]
 const ftype p_i = 450e9;                     // Synchronous momentum [eV/c]
-const long long h = 35640;                        // Harmonic number
+const long long h = 35640;                   // Harmonic number
 const ftype V = 6e6;                         // RF voltage [V]
 const ftype dphi = 0;                        // Phase modulation/offset
 const ftype gamma_t = 55.759505;             // Transition gamma
@@ -23,18 +23,15 @@ const ftype alpha = 1.0 / gamma_t / gamma_t; // First order mom. comp. factor
 const int alpha_order = 1;
 const int n_sections = 1;
 
-
 class testLHCNoiseFB : public ::testing::Test {
-protected:
-
-    unsigned N_t = 1000;  // Number of turns to track
-    unsigned N_p = 10001; // Macro-particles
+  protected:
+    unsigned N_t = 1000;     // Number of turns to track
+    unsigned N_p = 10001;    // Macro-particles
     unsigned N_slices = 100; // = (2^8)
 
-    virtual void SetUp()
-    {
+    virtual void SetUp() {
         f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1));
-        for (auto &v : momentumVec)
+        for (auto& v : momentumVec)
             mymath::linspace(v.data(), p_i, 1.01 * p_i, N_t + 1);
 
         f_vector_2d_t alphaVec(n_sections, f_vector_t(alpha_order + 1, alpha));
@@ -60,8 +57,7 @@ protected:
         Context::Slice = new Slices(N_slices);
     }
 
-    virtual void TearDown()
-    {
+    virtual void TearDown() {
         // Code here will be called immediately after each test
         // (right before the destructor).
         delete Context::GP;
@@ -71,18 +67,15 @@ protected:
     }
 };
 
-
 class testLHCNoiseFBMultiBunch : public ::testing::Test {
-protected:
-
-    unsigned N_t = 1000;  // Number of turns to track
-    unsigned N_p = 10001; // Macro-particles
+  protected:
+    unsigned N_t = 1000;        // Number of turns to track
+    unsigned N_p = 10001;       // Macro-particles
     unsigned N_slices = 1 << 8; // = (2^8)
 
-    virtual void SetUp()
-    {
+    virtual void SetUp() {
         f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1));
-        for (auto &v : momentumVec)
+        for (auto& v : momentumVec)
             mymath::linspace(v.data(), p_i, 1.01 * p_i, N_t + 1);
 
         f_vector_2d_t alphaVec(n_sections, f_vector_t(alpha_order + 1, alpha));
@@ -108,8 +101,7 @@ protected:
         Context::Slice = new Slices(N_slices);
     }
 
-    virtual void TearDown()
-    {
+    virtual void TearDown() {
         // Code here will be called immediately after each test
         // (right before the destructor).
         delete Context::GP;
@@ -119,9 +111,7 @@ protected:
     }
 };
 
-
-TEST_F(testLHCNoiseFB, constructor1)
-{
+TEST_F(testLHCNoiseFB, constructor1) {
 
     auto lhcnfb = new LHCNoiseFB(1.0);
 
@@ -139,14 +129,13 @@ TEST_F(testLHCNoiseFB, constructor1)
         auto real = lhcnfb->fG[i];
 
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-                << "Testing of fG failed on i " << i << std::endl;
+            << "Testing of fG failed on i " << i << std::endl;
     }
 
     delete lhcnfb;
 }
 
-TEST_F(testLHCNoiseFB, constructor2)
-{
+TEST_F(testLHCNoiseFB, constructor2) {
 
     auto lhcnfb = new LHCNoiseFB(1.0, 0.1, 0.9, 100, false);
 
@@ -164,14 +153,13 @@ TEST_F(testLHCNoiseFB, constructor2)
         auto real = lhcnfb->fG[i];
 
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-                << "Testing of fG failed on i " << i << std::endl;
+            << "Testing of fG failed on i " << i << std::endl;
     }
 
     delete lhcnfb;
 }
 
-TEST_F(testLHCNoiseFB, constructor3)
-{
+TEST_F(testLHCNoiseFB, constructor3) {
 
     f_vector_t a = {1, 2, 3};
     auto lhcnfb = new LHCNoiseFB(1.0, 0.1, 0.9, 100, false, a);
@@ -187,8 +175,7 @@ TEST_F(testLHCNoiseFB, constructor3)
     delete lhcnfb;
 }
 
-TEST_F(testLHCNoiseFB, fwhm_interpolation1)
-{
+TEST_F(testLHCNoiseFB, fwhm_interpolation1) {
     auto Slice = Context::Slice;
     auto lhcnfb = new LHCNoiseFB(1.0);
     for (uint i = 0; i < Slice->n_slices; i++) {
@@ -211,8 +198,7 @@ TEST_F(testLHCNoiseFB, fwhm_interpolation1)
     delete lhcnfb;
 }
 
-TEST_F(testLHCNoiseFB, fwhm_interpolation2)
-{
+TEST_F(testLHCNoiseFB, fwhm_interpolation2) {
     auto Slice = Context::Slice;
 
     auto lhcnfb = new LHCNoiseFB(1.0);
@@ -236,8 +222,7 @@ TEST_F(testLHCNoiseFB, fwhm_interpolation2)
     delete lhcnfb;
 }
 
-TEST_F(testLHCNoiseFB, fwhm_single_bunch1)
-{
+TEST_F(testLHCNoiseFB, fwhm_single_bunch1) {
     auto Slice = Context::Slice;
 
     auto lhcnfb = new LHCNoiseFB(1.0);
@@ -261,8 +246,7 @@ TEST_F(testLHCNoiseFB, fwhm_single_bunch1)
     delete lhcnfb;
 }
 
-TEST_F(testLHCNoiseFBMultiBunch, fwhm_multi_bunch1)
-{
+TEST_F(testLHCNoiseFBMultiBunch, fwhm_multi_bunch1) {
     auto Slice = Context::Slice;
 
     auto long_tracker = new RingAndRfSection();
@@ -274,8 +258,7 @@ TEST_F(testLHCNoiseFBMultiBunch, fwhm_multi_bunch1)
     // lhcnfb->fwhm_multi_bunch();
 
     f_vector_t a = {0, 10, 20};
-    auto lhcnfb = new LHCNoiseFB(0.9e-9, 0.1e9,
-                                 0.9, 1, true, a);
+    auto lhcnfb = new LHCNoiseFB(0.9e-9, 0.1e9, 0.9, 1, true, a);
 
     f_vector_t realV;
     for (uint i = 0; i < N_t; ++i) {
@@ -300,15 +283,13 @@ TEST_F(testLHCNoiseFBMultiBunch, fwhm_multi_bunch1)
         auto real = realV[i];
 
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-                << "Testing of fX failed on i " << i << std::endl;
+            << "Testing of fX failed on i " << i << std::endl;
     }
 
     delete lhcnfb;
 }
 
-
-TEST_F(testLHCNoiseFBMultiBunch, fwhm_multi_bunch2)
-{
+TEST_F(testLHCNoiseFBMultiBunch, fwhm_multi_bunch2) {
     auto Slice = Context::Slice;
 
     auto long_tracker = new RingAndRfSection();
@@ -320,8 +301,7 @@ TEST_F(testLHCNoiseFBMultiBunch, fwhm_multi_bunch2)
     // lhcnfb->fwhm_multi_bunch();
 
     f_vector_t a = {0, 10, 20, 30, 40};
-    auto lhcnfb = new LHCNoiseFB(1e-9, 1e8,
-                                 0.5, 10, false, a);
+    auto lhcnfb = new LHCNoiseFB(1e-9, 1e8, 0.5, 10, false, a);
 
     f_vector_t realV;
     for (uint i = 0; i < N_t; ++i) {
@@ -346,14 +326,13 @@ TEST_F(testLHCNoiseFBMultiBunch, fwhm_multi_bunch2)
         auto real = realV[i];
 
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-                << "Testing of fX failed on i " << i << std::endl;
+            << "Testing of fX failed on i " << i << std::endl;
     }
 
     delete lhcnfb;
 }
 
-TEST_F(testLHCNoiseFB, track1)
-{
+TEST_F(testLHCNoiseFB, track1) {
 
     auto long_tracker = new RingAndRfSection();
 
@@ -382,15 +361,14 @@ TEST_F(testLHCNoiseFB, track1)
         auto real = res[i];
 
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-                << "Testing of fX failed on i " << i << std::endl;
+            << "Testing of fX failed on i " << i << std::endl;
     }
 
     delete lhcnfb;
     delete long_tracker;
 }
 
-int main(int ac, char *av[])
-{
+int main(int ac, char* av[]) {
     ::testing::InitGoogleTest(&ac, av);
     return RUN_ALL_TESTS();
 }

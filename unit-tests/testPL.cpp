@@ -9,7 +9,7 @@
 #include <gtest/gtest.h>
 
 const ftype epsilon = 1e-7;
-const std::string params = TEST_FILES"/PL/PL_params/";
+const std::string params = TEST_FILES "/PL/PL_params/";
 
 LHC* PL;
 RingAndRfSection* long_tracker;
@@ -99,8 +99,8 @@ class testPL : public ::testing::Test {
     const float alpha = 1. / gamma_t / gamma_t; // First order mom. comp. factor
 
     // Tracking details
-    const int N_p = 100000; // Macro-particles
-    const long long N_b = 1e9;   // Intensity
+    const int N_p = 100000;    // Macro-particles
+    const long long N_b = 1e9; // Intensity
     const int alpha_order = 1;
     const int n_sections = 1;
     const uint N_t = 1000000; // Number of turns to track; full ramp: 8700001
@@ -109,7 +109,7 @@ class testPL : public ::testing::Test {
 
     const int N_slices = 151;
 
-    const std::string datafiles = DEMO_FILES"/LHC_restart/";
+    const std::string datafiles = DEMO_FILES "/LHC_restart/";
 
     const int from_line = 0;
 };
@@ -182,8 +182,7 @@ TEST_F(testPL2, radial_difference1) {
 
     auto sps = new SPS_RL(1.0 / 25e-6, 0, 1e-6);
 
-    auto params = std::string(TEST_FILES"/") +
-                  "PL/radial_difference/test1/";
+    auto params = std::string(TEST_FILES "/") + "PL/radial_difference/test1/";
 
     Context::Slice->track();
     f_vector_t drho;
@@ -223,8 +222,8 @@ TEST_F(testPL2, radial_steering_from_freq1) {
 
     auto sps = new SPS_RL(1.0 / 25e-6, 0, 0);
 
-    auto params = std::string(TEST_FILES"/") +
-                  "PL/radial_steering_from_freq/test1/";
+    auto params =
+        std::string(TEST_FILES "/") + "PL/radial_steering_from_freq/test1/";
 
     Context::Slice->track();
 

@@ -7,17 +7,16 @@
 #include <gtest/gtest.h>
 
 const ftype epsilon = 1e-8;
-const std::string track_params =
-    TEST_FILES"/Slices/Slices_track_params/";
+const std::string track_params = TEST_FILES "/Slices/Slices_track_params/";
 const std::string set_cuts_params =
-    TEST_FILES"/Slices/Slices_set_cuts_params/";
+    TEST_FILES "/Slices/Slices_set_cuts_params/";
 const std::string sort_particles_params =
-    TEST_FILES"/Slices/Slices_sort_particles_params/";
+    TEST_FILES "/Slices/Slices_sort_particles_params/";
 
 class testSlices : public ::testing::Test {
 
   protected:
-    const long long N_b = 1e9;       // Intensity
+    const long long N_b = 1e9;  // Intensity
     const ftype tau_0 = 0.4e-9; // Initial bunch length, 4 sigma [s]
 
     virtual void SetUp() {
@@ -59,9 +58,9 @@ class testSlices : public ::testing::Test {
   private:
     // Machine and RF parameters
     const ftype C = 26658.883;       // Machine circumference [m]
-    const long long p_i = 450e9;          // Synchronous momentum [eV/c]
+    const long long p_i = 450e9;     // Synchronous momentum [eV/c]
     const ftype p_f = 460.005e9;     // Synchronous momentum, final
-    const long long h = 35640;            // Harmonic number
+    const long long h = 35640;       // Harmonic number
     const ftype V = 6e6;             // RF voltage [V]
     const ftype dphi = 0;            // Phase modulation/offset
     const ftype gamma_t = 55.759505; // Transition gamma

@@ -13,7 +13,7 @@
 #include <complex>
 #include <gtest/gtest.h>
 
-const std::string datafiles = DEMO_FILES"/TC5_Wake_impedance/";
+const std::string datafiles = DEMO_FILES "/TC5_Wake_impedance/";
 
 // Simulation parameters
 // --------------------------------------------------------
@@ -25,7 +25,7 @@ const ftype tau_0 = 2e-9;  // Initial bunch length, 4 sigma [s]
 const ftype C = 6911.56;   // Machine circumference [m]
 const ftype p_i = 25.92e9; // Synchronous momentum [eV/c]
 // const ftype p_f = 460.005e9;                  // Synchronous momentum, final
-const long long h = 4620;                          // Harmonic number
+const long long h = 4620;                     // Harmonic number
 const ftype V = 0.9e6;                        // RF voltage [V]
 const ftype dphi = 0;                         // Phase modulation/offset
 const ftype gamma_t = 1 / std::sqrt(0.00192); // Transition gamma
@@ -125,8 +125,7 @@ TEST_F(testInputTableIntensity, wake_calc) {
     }
     inputTable->wake_calc(timeArray);
 
-    std::string params =
-        TEST_FILES"/Impedances/Intensity/InputTable/";
+    std::string params = TEST_FILES "/Impedances/Intensity/InputTable/";
 
     std::vector<ftype> v;
     util::read_vector_from_file(v, params + "Wake.txt");
@@ -173,8 +172,7 @@ TEST_F(testInputTableIntensity, imped_calc) {
 
     inputTable->imped_calc(timeArray);
 
-    std::string params =
-        TEST_FILES"/Impedances/Intensity/InputTable/";
+    std::string params = TEST_FILES "/Impedances/Intensity/InputTable/";
 
     std::vector<ftype> v;
     util::read_vector_from_file(v, params + "Impedance.txt");

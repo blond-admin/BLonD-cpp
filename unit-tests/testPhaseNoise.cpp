@@ -11,12 +11,12 @@
 
 // Bunch parameters
 const long long int N_b = (long int)1e9; // Intensity
-const ftype tau_0 = 0.4e-9;         // Initial bunch length, 4 sigma [s]
+const ftype tau_0 = 0.4e-9;              // Initial bunch length, 4 sigma [s]
 
 // Machine and RF parameters
 const ftype C = 25558.883;                   // Machine circumference [m]
 const ftype p_i = 450e9;                     // Synchronous momentum [eV/c]
-const long long h = 35640;                        // Harmonic number
+const long long h = 35640;                   // Harmonic number
 const ftype V = 6e6;                         // RF voltage [V]
 const ftype dphi = 0;                        // Phase modulation/offset
 const ftype gamma_t = 55.759505;             // Transition gamma

@@ -94,7 +94,7 @@ TEST(testIRFFT, rfft_odd) {
 }
 
 TEST(testIRFFT, irfft_big) {
-    std::string params = TEST_FILES"/MyMath/fft/irfft/";
+    std::string params = TEST_FILES "/MyMath/fft/irfft/";
 
     complex_vector_t in2;
     f_vector_t out;
@@ -131,7 +131,7 @@ TEST(testIRFFT, irfft_big) {
 
 TEST(testIRFFT, irfft_big2) {
 
-    std::string params = TEST_FILES"/MyMath/fft/irfft/";
+    std::string params = TEST_FILES "/MyMath/fft/irfft/";
 
     complex_vector_t in(101);
     f_vector_t out;
@@ -168,7 +168,7 @@ TEST(testIRFFT, irfft_big2) {
 
 TEST(testIRFFT, irfft_test) {
 
-    std::string params = TEST_FILES"/MyMath/fft/irfft/";
+    std::string params = TEST_FILES "/MyMath/fft/irfft/";
 
     complex_vector_t in(101);
     f_vector_t out;
@@ -204,7 +204,7 @@ TEST(testIRFFT, irfft_test) {
 }
 
 TEST(testRFFT, rfft1) {
-    std::string params = TEST_FILES"/MyMath/fft/";
+    std::string params = TEST_FILES "/MyMath/fft/";
     ftype epsilon = 1e-8;
 
     std::vector<ftype> v, in;
@@ -244,7 +244,7 @@ TEST(testRFFT, rfft1) {
 }
 
 TEST(testRFFT, rfft2) {
-    std::string params = TEST_FILES"/MyMath/fft/";
+    std::string params = TEST_FILES "/MyMath/fft/";
     ftype epsilon = 1e-8;
 
     std::vector<ftype> v, in;
@@ -286,7 +286,7 @@ TEST(testRFFT, rfft2) {
 }
 
 TEST(testRFFT, irfft) {
-    std::string params = TEST_FILES"/MyMath/fft/";
+    std::string params = TEST_FILES "/MyMath/fft/";
     ftype epsilon = 1e-8;
 
     std::vector<ftype> v, a, b;

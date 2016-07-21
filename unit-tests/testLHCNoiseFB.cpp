@@ -116,7 +116,7 @@ TEST_F(testLHCNoiseFB, constructor1) {
     auto lhcnfb = new LHCNoiseFB(1.0);
 
     auto params = std::string(TEST_FILES) +
-                  "LHCNoiseFB/constructor/test1/";
+                  "/LHCNoiseFB/constructor/test1/";
     f_vector_t v;
 
     util::read_vector_from_file(v, params + "g.txt");
@@ -140,7 +140,7 @@ TEST_F(testLHCNoiseFB, constructor2) {
     auto lhcnfb = new LHCNoiseFB(1.0, 0.1, 0.9, 100, false);
 
     auto params = std::string(TEST_FILES) +
-                  "LHCNoiseFB/constructor/test2/";
+                  "/LHCNoiseFB/constructor/test2/";
     f_vector_t v;
 
     util::read_vector_from_file(v, params + "g.txt");
@@ -165,7 +165,7 @@ TEST_F(testLHCNoiseFB, constructor3) {
     auto lhcnfb = new LHCNoiseFB(1.0, 0.1, 0.9, 100, false, a);
 
     auto params = std::string(TEST_FILES) +
-                  "LHCNoiseFB/constructor/test3/";
+                  "/LHCNoiseFB/constructor/test3/";
     f_vector_t v;
 
     util::read_vector_from_file(v, params + "bl_meas_bbb.txt");
@@ -184,7 +184,7 @@ TEST_F(testLHCNoiseFB, fwhm_interpolation1) {
     }
 
     auto params = std::string(TEST_FILES) +
-                  "LHCNoiseFB/fwhm_interpolation/test1/";
+                  "/LHCNoiseFB/fwhm_interpolation/test1/";
     f_vector_t v;
 
     util::read_vector_from_file(v, params + "return.txt");
@@ -208,7 +208,7 @@ TEST_F(testLHCNoiseFB, fwhm_interpolation2) {
     }
 
     auto params = std::string(TEST_FILES) +
-                  "LHCNoiseFB/fwhm_interpolation/test2/";
+                  "/LHCNoiseFB/fwhm_interpolation/test2/";
     f_vector_t v;
 
     util::read_vector_from_file(v, params + "return.txt");
@@ -233,7 +233,7 @@ TEST_F(testLHCNoiseFB, fwhm_single_bunch1) {
     lhcnfb->fwhm_single_bunch();
 
     auto params = std::string(TEST_FILES) +
-                  "LHCNoiseFB/fwhm_single_bunch/test1/";
+                  "/LHCNoiseFB/fwhm_single_bunch/test1/";
     f_vector_t v;
 
     util::read_vector_from_file(v, params + "bl_meas.txt");
@@ -270,7 +270,7 @@ TEST_F(testLHCNoiseFBMultiBunch, fwhm_multi_bunch1) {
     }
 
     auto params = std::string(TEST_FILES) +
-                  "LHCNoiseFB/fwhm_multi_bunch/test1/";
+                  "/LHCNoiseFB/fwhm_multi_bunch/test1/";
     f_vector_t v;
 
     util::read_vector_from_file(v, params + "x.txt");
@@ -313,7 +313,7 @@ TEST_F(testLHCNoiseFBMultiBunch, fwhm_multi_bunch2) {
     }
 
     auto params = std::string(TEST_FILES) +
-                  "LHCNoiseFB/fwhm_multi_bunch/test2/";
+                  "/LHCNoiseFB/fwhm_multi_bunch/test2/";
     f_vector_t v;
 
     util::read_vector_from_file(v, params + "x.txt");
@@ -347,7 +347,7 @@ TEST_F(testLHCNoiseFB, track1) {
     }
 
     auto params =
-        std::string(TEST_FILES) + "LHCNoiseFB/track/test1/";
+        std::string(TEST_FILES) + "/LHCNoiseFB/track/test1/";
     f_vector_t v;
 
     util::read_vector_from_file(v, params + "x.txt");

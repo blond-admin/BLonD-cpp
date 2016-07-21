@@ -43,7 +43,7 @@ int n_sections = 1;
 
 // Tracking details
 uint N_t = 9000001;        // Number of turns to track; full ramp: 8700001
-int bl_target = 0.9e-9;  // 4 sigma r.m.s. target bunch length in [s]
+ftype bl_target = 0.9e-9;  // 4 sigma r.m.s. target bunch length in [s]
 
 int N_slices = 2200;
 
@@ -195,17 +195,22 @@ int main(int argc, char **argv)
         util::get_time(begin_t);
 
         totVoltage->track();
+        // std::cout << "after totVoltage->track\n";
         Context::Beam->statistics();
+        // std::cout << "after Statistics\n";
         Context::Slice->track();
+        // std::cout << "after Slice->track\n";
         long_tracker->track();
+        // std::cout << "after long_tracker->track\n";
         noiseFB->track();
+        // std::cout << "after noiseFB->track\n";
 
         // printf("   RF phase %.6e rad\n", RfP->dphi_RF[0]);
         // printf("   PL phase correction %.6e rad\n", PL->dphi);
 
         if (i % dt_save == 0) {
-            printf("Outputting at time step %d, tracking time %.4e s...\n", i, turn_time);
-            printf("RF tracker counter is %d\n", Context::RfP->counter);
+            printf("   Outputting at time step %d, tracking time %.4e s...\n", i, turn_time);
+            printf("   RF tracker counter is %d\n", Context::RfP->counter);
             printf("   Beam momentum %0.6e eV\n", Context::GP->momentum[0][i]);
             // printf("   Beam gamma %4.3f\n", beam.gamma);
             // printf("   Beam beta %.8f\n", beam.beta);
@@ -230,7 +235,7 @@ int main(int argc, char **argv)
 
             std::ofstream out;
             out.open("out/coords_" + std::to_string(i) + ".dat");
-            std::cout.precision(10);
+            std::cout.precision(5);
             std::cout << std::scientific << std::showpos;
             for (int j = 0; j < N_p; ++j) {
                 out << Context::Beam->dt[j] << "\t" << Context::Beam->dE[j] << "\n";

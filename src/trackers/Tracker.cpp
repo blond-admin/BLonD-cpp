@@ -155,6 +155,18 @@ void RingAndRfSection::track()
     auto RfP = fRfP;
     auto Beam = Context::Beam;
 
+    if (!RfP->phi_noise.empty()) {
+        if (noiseFB != NULL) {
+            for (uint i = 0; i < RfP->phi_RF.size(); ++i)
+                RfP->phi_RF[i][RfP->counter] +=
+                    noiseFB->fX * RfP->phi_noise[i][RfP->counter];
+        } else {
+            for (uint i = 0; i < RfP->phi_RF.size(); ++i)
+                RfP->phi_RF[i][RfP->counter] +=
+                    RfP->phi_noise[i][RfP->counter];
+        }
+    }
+
     // Determine phase loop correction on RF phase and frequency
     if (PL != NULL && RfP->counter >= PL->delay)
         PL->track();

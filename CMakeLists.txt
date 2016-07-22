@@ -207,7 +207,7 @@ if (WIN32 AND NOT MINGW)
 endif ()
 message(STATUS "building external projects ended")
 
-message(STATUS "Building required librasries complete")
+message(STATUS "Building required libraries complete")
 # path to external libraries and headers
 include_directories(${EXTERNAL_INSTALL_DIR}/include)
 link_directories(${EXTERNAL_INSTALL_DIR}/lib)

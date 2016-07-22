@@ -48,7 +48,7 @@ ftype bl_target = 0.9e-9; // 4 sigma r.m.s. target bunch length in [s]
 
 int N_slices = 2200;
 
-int dt_save = 50000;
+int dt_save = 5000;
 
 const std::string datafiles = "/afs/cern.ch/user/h/htimko/public/LHC/input/";
 
@@ -194,22 +194,36 @@ int main(int argc, char** argv) {
 
     printf("Ready for tracking!\n");
 
+    auto totVoltageTime = 0.0;
+    auto statsTime = 0.0;
+    auto sliceTime = 0.0;
+    auto trackerTime = 0.0;
+    auto noiseTime = 0.0;
+    timespec start;
 
     for (uint i = 0; i < N_t; ++i) {
 
-        // printf("\nTurn %d\n", i);
         util::get_time(begin_t);
-
+        
+        util::get_time(start);
         totVoltage->track();
-        // std::cout << "after totVoltage->track\n";
+        totVoltageTime += util::time_elapsed(start);
+        
+        util::get_time(start);
         Context::Beam->statistics();
-        // std::cout << "after Statistics\n";
+        statsTime += util::time_elapsed(start);
+
+        util::get_time(start);
         Context::Slice->track();
-        // std::cout << "after Slice->track\n";
+        sliceTime += util::time_elapsed(start);
+
+        util::get_time(start);
         long_tracker->track();
-        // std::cout << "after long_tracker->track\n";
+        trackerTime += util::time_elapsed(start);
+
+        util::get_time(start);
         noiseFB->track();
-        // std::cout << "after noiseFB->track\n";
+        noiseTime += util::time_elapsed(start);
 
         // printf("   RF phase %.6e rad\n", RfP->dphi_RF[0]);
         // printf("   PL phase correction %.6e rad\n", PL->dphi);
@@ -217,8 +231,15 @@ int main(int argc, char** argv) {
         if (i % dt_save == 0) {
             printf("   Outputting at time step %d, tracking time %.4e s...\n",
                    i, turn_time);
+            
+            printf("   Mean totVoltage track time %.4e\n", totVoltageTime/(i+1));
+            printf("   Mean Slices track time %.4e\n", sliceTime/(i+1));
+            printf("   Mean Tracker track time %.4e\n", trackerTime/(i+1));
+            printf("   Mean noiseFB track time %.4e\n", noiseTime/(i+1));
+            printf("   Mean Stats track time %.4e\n", statsTime/(i+1));
+            
             printf("   RF tracker counter is %d\n", Context::RfP->counter);
-            printf("   Beam momentum %0.6e eV\n", Context::GP->momentum[0][i]);
+            // printf("   Beam momentum %0.6e eV\n", Context::GP->momentum[0][i]);
             // printf("   Beam gamma %4.3f\n", beam.gamma);
             // printf("   Beam beta %.8f\n", beam.beta);
             // printf("   Beam energy %.6e eV\n", beam.energy);
@@ -248,14 +269,14 @@ int main(int argc, char** argv) {
             printf("\n");
             printf("Mean turn time:\t\t %.4lf s\n", turn_time / (i + 1));
 
-            std::ofstream out;
+            /*std::ofstream out;
             out.open("out/coords_" + std::to_string(i) + ".dat");
             std::cout.precision(5);
             std::cout << std::scientific << std::showpos;
             for (int j = 0; j < N_p; ++j) {
                 out << Context::Beam->dt[j] << "\t" << Context::Beam->dE[j]
                     << "\n";
-            }
+            }*/
         }
 
         turn_time += util::time_elapsed(begin_t);

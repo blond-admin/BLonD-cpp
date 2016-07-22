@@ -137,7 +137,7 @@ void LHCNoiseFB::fwhm_single_bunch() {
         if (Slice->n_macroparticles[i] > half_height)
             index.push_back(i);
 
-    if (index.size() == 0) {
+    if (index.empty()) {
         // std::cerr << "[LHCNoiseFB] ERROR! index vector should have at least
         // one element\n";
         return;
@@ -194,7 +194,8 @@ void LHCNoiseFB::fwhm_multi_bunch() {
         }
         // std::cout << "index size = " << index.size() << "\n";
         if (index.empty()) {
-            std::cerr << "[LHCNoiseFB] ERROR! index vector should have at least one element\n";
+            // std::cerr << "[LHCNoiseFB] ERROR! index vector should have at least one element\n";
+            continue;
         }
         fBlMeasBBB[i] = fwhm_interpolation(index, hheight);
     }

@@ -20,8 +20,7 @@ const ftype LHCNoiseFB::cfwhm = std::sqrt(2.0 / std::log(2.0));
 
 LHCNoiseFB::LHCNoiseFB(ftype bl_target, ftype gain, ftype factor,
                        ftype update_frequency, bool variable_gain,
-                       f_vector_t bunch_pattern)
-{
+                       f_vector_t bunch_pattern) {
     fX = 0.0;
     fBlTarg = bl_target;
     fBlMeas = bl_target;
@@ -51,8 +50,7 @@ LHCNoiseFB::LHCNoiseFB(ftype bl_target, ftype gain, ftype factor,
 LHCNoiseFB::~LHCNoiseFB() {}
 
 // TODO test this function
-void LHCNoiseFB::track()
-{
+void LHCNoiseFB::track() {
     auto RfP = Context::RfP;
     // Calculate PhaseNoise Feedback scaling factor as a function of measured
     // FWHM bunch length.*
@@ -76,12 +74,10 @@ void LHCNoiseFB::track()
         // std::cout << "fG[counter] " << fG[RfP->counter] << "\n";
         // std::cout << "fBlTarg " << fBlTarg << "\n";
         // std::cout << "fBlMeas " << fBlMeas << "\n";
-
     }
 }
 
-ftype LHCNoiseFB::fwhm_interpolation(uint_vector_t index, ftype half_height)
-{
+ftype LHCNoiseFB::fwhm_interpolation(uint_vector_t index, ftype half_height) {
     auto Slice = Context::Slice;
     const auto time_resolution = Slice->bin_centers[1] - Slice->bin_centers[0];
 
@@ -90,17 +86,17 @@ ftype LHCNoiseFB::fwhm_interpolation(uint_vector_t index, ftype half_height)
     const auto left =
         Slice->bin_centers[first] -
         (Slice->n_macroparticles[first] - half_height) /
-        (Slice->n_macroparticles[first] - Slice->n_macroparticles[prev]) *
-        time_resolution;
+            (Slice->n_macroparticles[first] - Slice->n_macroparticles[prev]) *
+            time_resolution;
 
     const auto last = index.back();
     auto right = 0.0;
     if (last < Slice->n_slices - 1) {
         right = Slice->bin_centers[last] +
                 (Slice->n_macroparticles[last] - half_height) /
-                (Slice->n_macroparticles[last] -
-                 Slice->n_macroparticles[last + 1]) *
-                time_resolution;
+                    (Slice->n_macroparticles[last] -
+                     Slice->n_macroparticles[last + 1]) *
+                    time_resolution;
     }
 
     // std::cout << "time_resolution " << time_resolution << '\n';
@@ -128,8 +124,7 @@ ftype LHCNoiseFB::fwhm_interpolation(uint_vector_t index, ftype half_height)
 }
 
 // TODO test this function
-void LHCNoiseFB::fwhm_single_bunch()
-{
+void LHCNoiseFB::fwhm_single_bunch() {
     auto Slice = Context::Slice;
 
     // Single-bunch FWHM bunch length calculation with interpolation.
@@ -143,17 +138,16 @@ void LHCNoiseFB::fwhm_single_bunch()
             index.push_back(i);
 
     if (index.size() == 0) {
-        // std::cerr << "[LHCNoiseFB] ERROR! index vector should have at least one element\n";
+        // std::cerr << "[LHCNoiseFB] ERROR! index vector should have at least
+        // one element\n";
         return;
     }
 
     fBlMeas = fwhm_interpolation(index, half_height);
-
 }
 
 // TODO test this function
-void LHCNoiseFB::fwhm_multi_bunch()
-{
+void LHCNoiseFB::fwhm_multi_bunch() {
 
     // Multi-bunch FWHM bunch length calculation with interpolation.*
 
@@ -167,8 +161,8 @@ void LHCNoiseFB::fwhm_multi_bunch()
     // std::cout << omega_RF << "\n";
     f_vector_t bucket_min(fBunchPattern.size());
     for (uint i = 0; i < bucket_min.size(); ++i)
-        bucket_min[i] = (phi_RF + 2 * constant::pi
-                         * fBunchPattern[i]) / omega_RF;
+        bucket_min[i] =
+            (phi_RF + 2 * constant::pi * fBunchPattern[i]) / omega_RF;
 
     f_vector_t bucket_max(bucket_min.size());
     for (uint i = 0; i < bucket_min.size(); ++i)
@@ -184,7 +178,7 @@ void LHCNoiseFB::fwhm_multi_bunch()
         }
 
         ftype hheight = 0;
-        for (const auto &j : bind) {
+        for (const auto& j : bind) {
             if (Slice->n_macroparticles[j] > hheight)
                 hheight = Slice->n_macroparticles[j];
         }
@@ -201,10 +195,8 @@ void LHCNoiseFB::fwhm_multi_bunch()
         // std::cout << "index size = " << index.size() << "\n";
         if (index.empty()) {
             std::cerr << "[LHCNoiseFB] ERROR! index vector should have at least one element\n";
-            continue;
         }
         fBlMeasBBB[i] = fwhm_interpolation(index, hheight);
-
     }
 
     fBlMeas = mymath::mean(fBlMeasBBB.data(), fBlMeasBBB.size());

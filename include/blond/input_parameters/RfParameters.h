@@ -13,7 +13,7 @@
 //#include <algorithm>
 //#include <iterator>
 
-class API  RfParameters {
+class API RfParameters {
   public:
     enum accelerating_systems_t { as_single, all, first };
 

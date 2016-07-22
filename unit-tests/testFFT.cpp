@@ -7,7 +7,7 @@
 #include <gtest/gtest.h>
 
 TEST(testIRFFT, rfft_even) {
-    // std::string params = "../unit-tests/references/MyMath/fft/";
+    // std::string params = TEST_FILES"/MyMath/fft/";
 
     f_vector_t in, out4;
     complex_vector_t in2;
@@ -49,7 +49,7 @@ TEST(testIRFFT, rfft_even) {
 }
 
 TEST(testIRFFT, rfft_odd) {
-    // std::string params = "../unit-tests/references/MyMath/fft/";
+    // std::string params = TEST_FILES"/MyMath/fft/";
 
     f_vector_t in, out4;
     complex_vector_t in2;
@@ -94,7 +94,7 @@ TEST(testIRFFT, rfft_odd) {
 }
 
 TEST(testIRFFT, irfft_big) {
-    std::string params = "../unit-tests/references/MyMath/fft/irfft/";
+    std::string params = TEST_FILES "/MyMath/fft/irfft/";
 
     complex_vector_t in2;
     f_vector_t out;
@@ -131,7 +131,7 @@ TEST(testIRFFT, irfft_big) {
 
 TEST(testIRFFT, irfft_big2) {
 
-    std::string params = "../unit-tests/references/MyMath/fft/irfft/";
+    std::string params = TEST_FILES "/MyMath/fft/irfft/";
 
     complex_vector_t in(101);
     f_vector_t out;
@@ -168,7 +168,7 @@ TEST(testIRFFT, irfft_big2) {
 
 TEST(testIRFFT, irfft_test) {
 
-    std::string params = "../unit-tests/references/MyMath/fft/irfft/";
+    std::string params = TEST_FILES "/MyMath/fft/irfft/";
 
     complex_vector_t in(101);
     f_vector_t out;
@@ -204,7 +204,7 @@ TEST(testIRFFT, irfft_test) {
 }
 
 TEST(testRFFT, rfft1) {
-    std::string params = "../unit-tests/references/MyMath/fft/";
+    std::string params = TEST_FILES "/MyMath/fft/";
     ftype epsilon = 1e-8;
 
     std::vector<ftype> v, in;
@@ -244,7 +244,7 @@ TEST(testRFFT, rfft1) {
 }
 
 TEST(testRFFT, rfft2) {
-    std::string params = "../unit-tests/references/MyMath/fft/";
+    std::string params = TEST_FILES "/MyMath/fft/";
     ftype epsilon = 1e-8;
 
     std::vector<ftype> v, in;
@@ -286,7 +286,7 @@ TEST(testRFFT, rfft2) {
 }
 
 TEST(testRFFT, irfft) {
-    std::string params = "../unit-tests/references/MyMath/fft/";
+    std::string params = TEST_FILES "/MyMath/fft/";
     ftype epsilon = 1e-8;
 
     std::vector<ftype> v, a, b;

@@ -10,12 +10,12 @@
 
 // Bunch parameters
 const long long int N_b = (long int)1e9; // Intensity
-const ftype tau_0 = 0.4e-9;         // Initial bunch length, 4 sigma [s]
+const ftype tau_0 = 0.4e-9;              // Initial bunch length, 4 sigma [s]
 
 // Machine and RF parameters
 const ftype C = 26658.883;                   // Machine circumference [m]
 const ftype p_i = 450e9;                     // Synchronous momentum [eV/c]
-const long long h = 35640;                        // Harmonic number
+const long long h = 35640;                   // Harmonic number
 const ftype V = 6e6;                         // RF voltage [V]
 const ftype dphi = 0;                        // Phase modulation/offset
 const ftype gamma_t = 55.759505;             // Transition gamma
@@ -68,8 +68,8 @@ TEST_F(testLHCFlatSpectrum, constructor1) {
 
     auto lhcfs = new LHCFlatSpectrum(100, 1);
 
-    auto params = std::string("../unit-tests/references/") +
-                  "LHCFlatSpectrum/constructor/test1/";
+    auto params =
+        std::string(TEST_FILES "/") + "LHCFlatSpectrum/constructor/test1/";
     f_vector_t v;
 
     util::read_vector_from_file(v, params + "fs.txt");
@@ -95,8 +95,8 @@ TEST_F(testLHCFlatSpectrum, generate_exp1) {
                             LHCFlatSpectrum::predistortion_t::exponential);
     lhcfs->generate();
 
-    auto params = std::string("../unit-tests/references/") +
-                  "LHCFlatSpectrum/generate/exponential/";
+    auto params =
+        std::string(TEST_FILES "/") + "LHCFlatSpectrum/generate/exponential/";
     f_vector_t v;
 
     util::read_vector_from_file(v, params + "dphi.txt");
@@ -124,8 +124,8 @@ TEST_F(testLHCFlatSpectrum, generate_lin1) {
                                      LHCFlatSpectrum::predistortion_t::linear);
     lhcfs->generate();
 
-    auto params = std::string("../unit-tests/references/") +
-                  "LHCFlatSpectrum/generate/linear/";
+    auto params =
+        std::string(TEST_FILES "/") + "LHCFlatSpectrum/generate/linear/";
     f_vector_t v;
 
     util::read_vector_from_file(v, params + "dphi.txt");
@@ -154,7 +154,7 @@ TEST_F(testLHCFlatSpectrum, generate_weight1) {
                             LHCFlatSpectrum::predistortion_t::weightfunction);
     lhcfs->generate();
 
-    auto params = std::string("../unit-tests/references/") +
+    auto params = std::string(TEST_FILES "/") +
                   "LHCFlatSpectrum/generate/weightfunction/";
     f_vector_t v;
 
@@ -184,8 +184,8 @@ TEST_F(testLHCFlatSpectrum, generate_hyper1) {
                             LHCFlatSpectrum::predistortion_t::hyperbolic);
     lhcfs->generate();
 
-    auto params = std::string("../unit-tests/references/") +
-                  "LHCFlatSpectrum/generate/hyperbolic/";
+    auto params =
+        std::string(TEST_FILES "/") + "LHCFlatSpectrum/generate/hyperbolic/";
     f_vector_t v;
 
     util::read_vector_from_file(v, params + "dphi.txt");
@@ -212,8 +212,8 @@ TEST_F(testLHCFlatSpectrum, generate_none1) {
     auto lhcfs = new LHCFlatSpectrum(1000, 10, 0.1, 1, 0.1, 1, 2);
     lhcfs->generate();
 
-    auto params = std::string("../unit-tests/references/") +
-                  "LHCFlatSpectrum/generate/none/";
+    auto params =
+        std::string(TEST_FILES "/") + "LHCFlatSpectrum/generate/none/";
     f_vector_t v;
 
     util::read_vector_from_file(v, params + "dphi.txt");

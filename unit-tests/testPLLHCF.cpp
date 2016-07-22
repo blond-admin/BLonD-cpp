@@ -77,7 +77,7 @@ TEST_F(testPLLHCF, track1) {
 
     auto lhcf = new LHC_F(1.0 / 25e-6, 0, 0);
 
-    auto params = std::string("../unit-tests/references/") + "PL/LHCF/track1/";
+    auto params = std::string(TEST_FILES "/") + "PL/LHCF/track1/";
 
     Context::Slice->track();
     f_vector_t domega_RF;

@@ -38,7 +38,7 @@ namespace fft {
 
     enum fft_type_t { FFT, IFFT, RFFT, IRFFT };
 
-    struct API  fft_plan_t {
+    struct API fft_plan_t {
         fftw_plan p; // fftw_plan
         uint n;      // size of the fft
         fft_type_t type;

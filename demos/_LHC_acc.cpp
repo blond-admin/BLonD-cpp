@@ -43,8 +43,8 @@ int alpha_order = 1;
 int n_sections = 1;
 
 // Tracking details
-uint N_t = 9000001;        // Number of turns to track; full ramp: 8700001
-ftype bl_target = 0.9e-9;  // 4 sigma r.m.s. target bunch length in [s]
+uint N_t = 9000001;       // Number of turns to track; full ramp: 8700001
+ftype bl_target = 0.9e-9; // 4 sigma r.m.s. target bunch length in [s]
 
 int N_slices = 2200;
 
@@ -55,12 +55,11 @@ const std::string datafiles = "/afs/cern.ch/user/h/htimko/public/LHC/input/";
 // const int size = 14e6;
 // const int from_line = 0;
 
-void parse_args(int argc, char **argv);
+void parse_args(int argc, char** argv);
 
 // Simulation setup
 // -------------------------------------------------------------
-int main(int argc, char **argv)
-{
+int main(int argc, char** argv) {
 
     parse_args(argc, argv);
     omp_set_num_threads(Context::n_threads);
@@ -111,8 +110,8 @@ int main(int argc, char **argv)
     Context::Beam = new Beams(N_p, N_b);
     f_vector_t v2;
     util::read_vector_from_file(v2, "/afs/cern.ch/work/k/kiliakis/testcases/"
-                                "htimko/LHC/re_3b_extremes_batch/out/"
-                                "initial_coords.dat");
+                                    "htimko/LHC/re_3b_extremes_batch/out/"
+                                    "initial_coords.dat");
     int k = 0;
     for (unsigned int i = 0; i < v2.size(); i += 3) {
         Context::Beam->dt[k] = v2[i];     // [s]
@@ -175,10 +174,10 @@ int main(int argc, char **argv)
     }
 
     auto ZTable = new InputTable(freq, ReZ, ImZ);
-    std::vector<Intensity *> ZTableV{ZTable};
+    std::vector<Intensity*> ZTableV{ZTable};
 
     auto indVoltage = new InducedVoltageFreq(ZTableV, 1.0e7);
-    std::vector<InducedVoltage *> indVoltageV{indVoltage};
+    std::vector<InducedVoltage*> indVoltageV{indVoltage};
 
     auto totVoltage = new TotalInducedVoltage(indVoltageV);
 
@@ -216,7 +215,8 @@ int main(int argc, char **argv)
         // printf("   PL phase correction %.6e rad\n", PL->dphi);
 
         if (i % dt_save == 0) {
-            printf("   Outputting at time step %d, tracking time %.4e s...\n", i, turn_time);
+            printf("   Outputting at time step %d, tracking time %.4e s...\n",
+                   i, turn_time);
             printf("   RF tracker counter is %d\n", Context::RfP->counter);
             printf("   Beam momentum %0.6e eV\n", Context::GP->momentum[0][i]);
             // printf("   Beam gamma %4.3f\n", beam.gamma);
@@ -283,8 +283,7 @@ int main(int argc, char **argv)
     printf("Done!\n");
 }
 
-void parse_args(int argc, char **argv)
-{
+void parse_args(int argc, char** argv) {
     using namespace std;
     using namespace option;
 
@@ -299,39 +298,24 @@ void parse_args(int argc, char **argv)
     };
 
     const option::Descriptor usage[] = {
-        {
-            UNKNOWN, 0, "", "", Arg::None, "USAGE: ./_LHC_acc [options]\n\n"
-            "Options:"
-        },
-        {
-            HELP, 0, "h", "help", Arg::None,
-            "  --help,              -h        Print usage and exit."
-        },
-        {
-            N_TURNS, 0, "t", "turns", util::Arg::Numeric,
-            "  --turns=<num>,       -t <num>  Number of turns (default: 1M)"
-        },
-        {
-            N_PARTICLES, 0, "p", "particles", util::Arg::Numeric,
-            "  --particles=<num>,   -p <num>  Number of particles (default: "
-            "100k)"
-        },
-        {
-            N_SLICES, 0, "s", "slices", util::Arg::Numeric,
-            "  --slices=<num>,      -s <num>  Number of slices (default: 151)"
-        },
-        {
-            N_THREADS, 0, "m", "threads", util::Arg::Numeric,
-            "  --threads=<num>,     -m <num>  Number of threads (default: 1)"
-        },
-        {
-            UNKNOWN, 0, "", "", Arg::None,
-            "\nExamples:\n"
-            "\t./_LHC_acc\n"
-            "\t./_LHC_acc -t 1000000 -p 100000 -m 4\n"
-        },
-        {0, 0, 0, 0, 0, 0}
-    };
+        {UNKNOWN, 0, "", "", Arg::None, "USAGE: ./_LHC_acc [options]\n\n"
+                                        "Options:"},
+        {HELP, 0, "h", "help", Arg::None,
+         "  --help,              -h        Print usage and exit."},
+        {N_TURNS, 0, "t", "turns", util::Arg::Numeric,
+         "  --turns=<num>,       -t <num>  Number of turns (default: 1M)"},
+        {N_PARTICLES, 0, "p", "particles", util::Arg::Numeric,
+         "  --particles=<num>,   -p <num>  Number of particles (default: "
+         "100k)"},
+        {N_SLICES, 0, "s", "slices", util::Arg::Numeric,
+         "  --slices=<num>,      -s <num>  Number of slices (default: 151)"},
+        {N_THREADS, 0, "m", "threads", util::Arg::Numeric,
+         "  --threads=<num>,     -m <num>  Number of threads (default: 1)"},
+        {UNKNOWN, 0, "", "", Arg::None,
+         "\nExamples:\n"
+         "\t./_LHC_acc\n"
+         "\t./_LHC_acc -t 1000000 -p 100000 -m 4\n"},
+        {0, 0, 0, 0, 0, 0}};
 
     argc -= (argc > 0);
     argv += (argc > 0); // skip program name argv[0] if present
@@ -346,31 +330,31 @@ void parse_args(int argc, char **argv)
     }
 
     for (int i = 0; i < parse.optionsCount(); ++i) {
-        Option &opt = buffer[i];
+        Option& opt = buffer[i];
         // fprintf(stdout, "Argument #%d is ", i);
         switch (opt.index()) {
-            case HELP:
-            // not possible, because handled further above and exits the program
-            case N_TURNS:
-                N_t = atoi(opt.arg);
-                // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
-                break;
-            case N_THREADS:
-                Context::n_threads = atoi(opt.arg);
-                // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
-                break;
-            case N_SLICES:
-                N_slices = atoi(opt.arg);
-                // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
-                break;
-            case N_PARTICLES:
-                N_p = atoi(opt.arg);
-                // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
-                break;
-            case UNKNOWN:
-                // not possible because Arg::Unknown returns ARG_ILLEGAL
-                // which aborts the parse with an error
-                break;
+        case HELP:
+        // not possible, because handled further above and exits the program
+        case N_TURNS:
+            N_t = atoi(opt.arg);
+            // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
+            break;
+        case N_THREADS:
+            Context::n_threads = atoi(opt.arg);
+            // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
+            break;
+        case N_SLICES:
+            N_slices = atoi(opt.arg);
+            // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
+            break;
+        case N_PARTICLES:
+            N_p = atoi(opt.arg);
+            // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
+            break;
+        case UNKNOWN:
+            // not possible because Arg::Unknown returns ARG_ILLEGAL
+            // which aborts the parse with an error
+            break;
         }
     }
 }

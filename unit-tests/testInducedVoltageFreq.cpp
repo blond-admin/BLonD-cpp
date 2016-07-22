@@ -13,7 +13,7 @@
 #include <omp.h>
 #include <stdio.h>
 
-const std::string datafiles = "../demos/input_files/TC5_Wake_impedance/";
+const std::string datafiles = DEMO_FILES "/TC5_Wake_impedance/";
 
 Resonators* resonator;
 
@@ -21,12 +21,12 @@ class testInducedVoltageFreq : public ::testing::Test {
 
   protected:
     const long long int N_b = (long int)1e10; // Intensity
-    const ftype tau_0 = 2e-9;            // Initial bunch length, 4 sigma [s]
-    const ftype C = 6911.56;             // Machine circumference [m]
-    const ftype p_i = 25.92e9;           // Synchronous momentum [eV/c]
-    const long long h = 4620;                 // Harmonic number
-    const ftype V = 0.9e6;               // RF voltage [V]
-    const ftype dphi = 0;                // Phase modulation/offset
+    const ftype tau_0 = 2e-9;  // Initial bunch length, 4 sigma [s]
+    const ftype C = 6911.56;   // Machine circumference [m]
+    const ftype p_i = 25.92e9; // Synchronous momentum [eV/c]
+    const long long h = 4620;  // Harmonic number
+    const ftype V = 0.9e6;     // RF voltage [V]
+    const ftype dphi = 0;      // Phase modulation/offset
     const ftype gamma_t = 1 / std::sqrt(0.00192); // Transition gamma
     const ftype alpha =
         1.0 / gamma_t / gamma_t; // First order mom. comp. factor
@@ -100,7 +100,7 @@ TEST_F(testInducedVoltageFreq, constructor1) {
 
     auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
 
-    auto params = std::string("../unit-tests/references/Impedances/") +
+    auto params = std::string(TEST_FILES "/Impedances/") +
                   "InducedVoltage/InducedVoltageFreq/constructor1/";
 
     std::vector<ftype> v;
@@ -151,7 +151,7 @@ TEST_F(testInducedVoltageFreq, constructor2) {
     auto indVoltFreq =
         new InducedVoltageFreq(ImpSourceList, 1e5, round_option, 100);
 
-    auto params = std::string("../unit-tests/references/Impedances/") +
+    auto params = std::string(TEST_FILES "/Impedances/") +
                   "InducedVoltage/InducedVoltageFreq/constructor2/";
 
     std::vector<ftype> v;
@@ -254,7 +254,7 @@ TEST_F(testInducedVoltageFreq, sum_impedances1) {
 
     indVoltFreq->sum_impedances(freq_array);
 
-    auto params = std::string("../unit-tests/references/Impedances/") +
+    auto params = std::string(TEST_FILES "/Impedances/") +
                   "InducedVoltage/InducedVoltageFreq/sum_impedances/";
 
     std::vector<ftype> v;
@@ -287,7 +287,7 @@ TEST_F(testInducedVoltageFreq, sum_impedances2) {
 
     indVoltFreq->sum_impedances(freq_array);
 
-    auto params = std::string("../unit-tests/references/Impedances/") +
+    auto params = std::string(TEST_FILES "/Impedances/") +
                   "InducedVoltage/InducedVoltageFreq/sum_impedances2/";
 
     std::vector<ftype> v;
@@ -320,7 +320,7 @@ TEST_F(testInducedVoltageFreq, reprocess1) {
 
     indVoltFreq->reprocess();
 
-    auto params = std::string("../unit-tests/references/Impedances/") +
+    auto params = std::string(TEST_FILES "/Impedances/") +
                   "InducedVoltage/InducedVoltageFreq/reprocess1/";
 
     std::vector<ftype> v;
@@ -371,7 +371,7 @@ TEST_F(testInducedVoltageFreq, induced_voltage_generation1) {
 
     indVoltFreq->induced_voltage_generation();
     auto params =
-        std::string("../unit-tests/references/Impedances/") +
+        std::string(TEST_FILES "/Impedances/") +
         "InducedVoltage/InducedVoltageFreq/induced_voltage_generation1/";
 
     std::vector<ftype> v;
@@ -399,7 +399,7 @@ TEST_F(testInducedVoltageFreq, track1) {
     Context::Slice->track();
 
     indVoltFreq->track();
-    auto params = std::string("../unit-tests/references/Impedances/") +
+    auto params = std::string(TEST_FILES "/Impedances/") +
                   "InducedVoltage/InducedVoltageFreq/track1/";
 
     std::vector<ftype> v;
@@ -430,7 +430,7 @@ TEST_F(testInducedVoltageFreq, track2) {
     for (auto i = 0; i < 10; i++)
         indVoltFreq->track();
 
-    auto params = std::string("../unit-tests/references/Impedances/") +
+    auto params = std::string(TEST_FILES "/Impedances/") +
                   "InducedVoltage/InducedVoltageFreq/track2/";
 
     std::vector<ftype> v;

@@ -11,7 +11,7 @@
 #include <blond/configuration.h>
 #include <blond/utilities.h>
 
-class API  Beams {
+class API Beams {
   public:
     f_vector_t dt;
     f_vector_t dE;

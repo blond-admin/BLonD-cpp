@@ -79,8 +79,7 @@ TEST_F(testPLPSB, constructor1) {
     auto psb =
         new PSB(f_vector_t(N_t, 1.0 / 25e-6), f_vector_t{0, 0}, 10e-6, 7);
 
-    auto params =
-        std::string("../unit-tests/references/") + "PL/PSB/constructor/test1/";
+    auto params = std::string(TEST_FILES "/") + "PL/PSB/constructor/test1/";
     f_vector_t v;
 
     util::read_vector_from_file(v, params + "gain2.txt");
@@ -143,8 +142,7 @@ TEST_F(testPLPSB, track1) {
         Context::RfP->counter++;
     }
 
-    auto params =
-        std::string("../unit-tests/references/") + "PL/PSB/track/test1/";
+    auto params = std::string(TEST_FILES "/") + "PL/PSB/track/test1/";
     f_vector_t v;
 
     util::read_vector_from_file(v, params + "dphi_av_mean.txt");

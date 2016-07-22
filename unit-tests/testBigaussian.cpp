@@ -11,12 +11,12 @@
 
 const ftype epsilon = 1e-8;
 const std::string fixed_params =
-    "../unit-tests/references/Bigaussian/Bigaussian_fixed_params/";
+    TEST_FILES "/Bigaussian/Bigaussian_fixed_params/";
 
 class testBigaussian : public ::testing::Test {
 
   protected:
-    const long long N_b = 1e9;       // Intensity
+    const long long N_b = 1e9;  // Intensity
     const ftype tau_0 = 0.4e-9; // Initial bunch length, 4 sigma [s]
 
     virtual void SetUp() {
@@ -53,9 +53,9 @@ class testBigaussian : public ::testing::Test {
   private:
     // Machine and RF parameters
     const ftype C = 26658.883;       // Machine circumference [m]
-    const long long p_i = 450e9;          // Synchronous momentum [eV/c]
+    const long long p_i = 450e9;     // Synchronous momentum [eV/c]
     const ftype p_f = 460.005e9;     // Synchronous momentum, final
-    const long long h = 35640;            // Harmonic number
+    const long long h = 35640;       // Harmonic number
     const ftype V = 6e6;             // RF voltage [V]
     const ftype dphi = 0;            // Phase modulation/offset
     const ftype gamma_t = 55.759505; // Transition gamma
@@ -179,8 +179,7 @@ TEST_F(testBigaussian, test_dt) {
 TEST_F(testBigaussianRandom, test_dE) {
     auto Beam = Context::Beam;
 
-    auto params =
-        std::string("../unit-tests/references/") + "Bigaussian/random/";
+    auto params = std::string(TEST_FILES "/") + "Bigaussian/random/";
 
     longitudinal_bigaussian(100e-9, 0.05e6, 1, false);
 
@@ -205,8 +204,7 @@ TEST_F(testBigaussianRandom, test_dE) {
 TEST_F(testBigaussianRandom, test_dt) {
     auto Beam = Context::Beam;
 
-    auto params =
-        std::string("../unit-tests/references/") + "Bigaussian/random/";
+    auto params = std::string(TEST_FILES "/") + "Bigaussian/random/";
 
     longitudinal_bigaussian(100e-9, 0.05e6, 1, false);
 

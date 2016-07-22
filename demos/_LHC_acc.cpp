@@ -48,7 +48,7 @@ ftype bl_target = 0.9e-9;  // 4 sigma r.m.s. target bunch length in [s]
 
 int N_slices = 2200;
 
-int dt_save = 5000;
+int dt_save = 50000;
 
 const std::string datafiles = "/afs/cern.ch/user/h/htimko/public/LHC/input/";
 
@@ -194,6 +194,8 @@ int main(int argc, char **argv)
     // print("Initial Gaussian bunch length %.4e ns" %slices.bl_gauss
 
     printf("Ready for tracking!\n");
+
+
     for (uint i = 0; i < N_t; ++i) {
 
         // printf("\nTurn %d\n", i);
@@ -235,10 +237,8 @@ int main(int argc, char **argv)
             printf("   Mean bunch position %.4e s\n", Context::Beam->mean_dt);
             printf("   Four-times r.m.s. bunch length %.4e s\n",
                    4.0 * Context::Beam->sigma_dt);
-            // #        printf("   Gaussian bunch length %.4e
-            // s\n",slices.bl_gauss);
-            // printf("   Slices min %.4e ns max %.4e s\n", slices.cut_left,
-            // slices.cut_right);
+            printf("   Slices min %.4e ns max %.4e s\n", Context::Slice->cut_left,
+            Context::Slice->cut_right);
             printf("   Bunch 1 FWHM bunch length %.4e s\n",
                    noiseFB->fBlMeasBBB[0]);
             printf("   Bunch 2 FWHM bunch length %.4e s\n",
@@ -246,6 +246,7 @@ int main(int argc, char **argv)
             printf("   Bunch 3 FWHM bunch length %.4e s\n",
                    noiseFB->fBlMeasBBB[2]);
             printf("\n");
+            printf("Mean turn time:\t\t %.4lf s\n", turn_time / (i + 1));
 
             std::ofstream out;
             out.open("out/coords_" + std::to_string(i) + ".dat");

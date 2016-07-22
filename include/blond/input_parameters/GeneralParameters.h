@@ -14,7 +14,7 @@
 
 enum particle_type { proton, electron, user_input, none };
 
-class API  GeneralParameters {
+class API GeneralParameters {
 
   private:
     void eta_generation();

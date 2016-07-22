@@ -23,7 +23,7 @@
 #include <blond/utilities.h>
 #include <functional>
 
-class API  LHCNoiseFB {
+class API LHCNoiseFB {
   private:
     static const ftype cfwhm;
 

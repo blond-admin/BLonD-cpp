@@ -1,5 +1,7 @@
-#usage: cmake -DWITH_FFTW=True -DWITH_GOOGLETEST=True -DWITH_BENCHMARK=True
+# usage: cmake -DWITH_FFTW=True -DWITH_GOOGLETEST=True -DWITH_BENCHMARK=True
 # cmake -DWITH_FFTW=True -DWITH_GOOGLETEST=True -DWITH_BENCHMARK=True -DCMAKE_BUILD_TYPE=Debug to use asan
+# for clion like editors that build in remote folders:
+# -DDATAFILES_DIR_DEMOS="path/to/demos/input_files" -DDATAFILES_DIR_TESTS="unit-tests/references"; Default "../demos/input_files" and "../unit-tests/references" 
 
 # Requirements list
 cmake_minimum_required(VERSION 2.8)
@@ -19,7 +21,14 @@ set(SHARED_LIBRARY_ENABLED "True")
 set(EXTERNAL_INSTALL_DIR ${PROJECT_SOURCE_DIR}/external/install)
 set(TEST_ENABLED "True" CACHE STRING "Cerate unit-test projects")
 set(BENCHMARK_ENABLED "True" CACHE STRING "Cerate benchmark projects")
-set(ARCHITECTURE "x64" CACHE STRING "Set architecture 'x86' or 'x32'")
+set(ARCHITECTURE "x64" CACHE STRING "Set architecture 'x86' or 'x32'") # todo: find usages and  fix comment
+if(NOT ABSOLUTE_DATA_PATHS)
+   set(DATAFILES_DIR_DEMOS "../demos/input_files" CACHE STRING "Set demos input files path")
+   set(DATAFILES_DIR_TESTS "../unit-tests/references" CACHE STRING "Set unit-tests input files path")
+else ()
+   set(DATAFILES_DIR_DEMOS "${CMAKE_CURRENT_LIST_DIR}/demos/input_files" CACHE STRING "Set demos input files path")
+   set(DATAFILES_DIR_TESTS "${CMAKE_CURRENT_LIST_DIR}/unit-tests/references" CACHE STRING "Set unit-tests input files path")
+endif()
 
 # Packages
 set(EXTERNAL_INSTALL_DIR ${PROJECT_SOURCE_DIR}/external/install CACHE STRING "External libraries installation folder (with subfolders lib and include)")
@@ -56,7 +65,8 @@ set(BENCHMARK_ROOT ${PROJECT_SOURCE_DIR}/external/benchmark CACHE STRING "Google
 set(WITH_FORMAT "False" CACHE STRING "Clang-Format all project files on build (requires clang-format)")
 
 # Package settings
-set(USE_FFTW_OMP "False" CACHE STRING "Should use OpenMP flavour of FFTW library (linux only)")
+set(USE_FFTW_OMP "False" CACHE STRING "Should use OpenMP flavour of FFTW library (linux only)") #todo: test and configure
+add_definitions(-DDEMO_FILES="${DATAFILES_DIR_DEMOS}") #demos datafiles
 
 # CPU for build count
 ProcessorCount(N)
@@ -290,6 +300,8 @@ endforeach ()
 
 # testing
 if (TEST_ENABLED)
+    add_definitions(-DTEST_FILES="${DATAFILES_DIR_TESTS}") #demos datafiles
+
     if (WITH_GOOGLETEST)
         if (WIN32 AND NOT MINGW)
             link_directories(${EXTERNAL_INSTALL_DIR}/lib/gtest/$(Configuration)/)

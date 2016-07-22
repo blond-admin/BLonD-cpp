@@ -117,7 +117,7 @@ TEST(testTrapezoid, test2) {
 }
 
 TEST(testCumTrap, test1) {
-    std::string params = "../unit-tests/references/MyMath/CumTrap/";
+    std::string params = TEST_FILES "/MyMath/CumTrap/";
     ftype epsilon = 1e-8;
 
     ftype a[10] = {-0.61, -0.51, 0.39, -0.54, 0.67, 1.4, 1.1, 1.4, 0.16, 0.9};
@@ -144,7 +144,7 @@ TEST(testConvolution, test1) {
     c.resize(a.size() + b.size() - 1);
     mymath::convolution(a.data(), a.size(), b.data(), b.size(), c.data());
 
-    std::string params = "../unit-tests/references/MyMath/convolution/";
+    std::string params = TEST_FILES "/MyMath/convolution/";
     ftype epsilon = 1e-8;
 
     util::read_vector_from_file(v, params + "convolution1.txt");
@@ -170,7 +170,7 @@ TEST(testConvolution, test2) {
     c.resize(a.size() + b.size() - 1);
     mymath::convolution(a.data(), a.size(), b.data(), b.size(), c.data());
 
-    std::string params = "../unit-tests/references/MyMath/convolution/";
+    std::string params = TEST_FILES "/MyMath/convolution/";
     ftype epsilon = 1e-8;
 
     util::read_vector_from_file(v, params + "convolution2.txt");
@@ -195,7 +195,7 @@ TEST(testConvolution, test3) {
     c.resize(a.size() + b.size() - 1);
     mymath::convolution(a.data(), a.size(), b.data(), b.size(), c.data());
 
-    std::string params = "../unit-tests/references/MyMath/convolution/";
+    std::string params = TEST_FILES "/MyMath/convolution/";
     ftype epsilon = 1e-8;
 
     util::read_vector_from_file(v, params + "convolution3.txt");
@@ -214,7 +214,7 @@ TEST(testConvolution, test3) {
 }
 
 TEST(arange, test1) {
-    std::string params = "../unit-tests/references/MyMath/arange/";
+    std::string params = TEST_FILES "/MyMath/arange/";
     f_vector_t v;
 
     auto a = mymath::arange<ftype>(0, 100);
@@ -234,7 +234,7 @@ TEST(arange, test1) {
 }
 
 TEST(arange, test2) {
-    std::string params = "../unit-tests/references/MyMath/arange/";
+    std::string params = TEST_FILES "/MyMath/arange/";
     f_vector_t v;
     auto a = mymath::arange<ftype>(0, 100, 2.5);
 
@@ -253,7 +253,7 @@ TEST(arange, test2) {
 }
 
 TEST(arange, test3) {
-    std::string params = "../unit-tests/references/MyMath/arange/";
+    std::string params = TEST_FILES "/MyMath/arange/";
     f_vector_t v;
 
     auto a = mymath::arange<int>(10, 80, 2);

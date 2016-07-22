@@ -1,9 +1,9 @@
 /*
- * Slices.cpp
- *
- *  Created on: Mar 22, 2016
- *      Author: kiliakis
- */
+* Slices.cpp
+*
+*  Created on: Mar 22, 2016
+*      Author: kiliakis
+*/
 
 #include <algorithm>
 #include <blond/beams/Slices.h>
@@ -16,8 +16,7 @@
 
 Slices::Slices(uint _n_slices, int _n_sigma, ftype _cut_left, ftype _cut_right,
                cuts_unit_type _cuts_unit, fit_type _fit_option,
-               bool direct_slicing)
-{
+               bool direct_slicing) {
 
     this->n_slices = _n_slices;
     this->cut_left = _cut_left;
@@ -38,19 +37,17 @@ Slices::Slices(uint _n_slices, int _n_sigma, ftype _cut_left, ftype _cut_right,
 
 Slices::~Slices() { fft::destroy_plans(); }
 
-void Slices::set_cuts()
-{
+void Slices::set_cuts() {
     auto Beam = Context::Beam;
     /*
-     *Method to set the self.cut_left and self.cut_right properties. This is
-     done as a pre-processing if the mode is set to 'const_space', for
-     'const_charge' this is calculated each turn.*
-
-     *The frame is defined by :math:`n\sigma_{RMS}` or manually by the user.
-     If not, a default frame consisting of taking the whole bunch +5% of the
-     maximum distance between two particles in the bunch will be taken
-     in each side of the frame.*
-     */
+    *Method to set the self.cut_left and self.cut_right properties. This is
+    done as a pre-processing if the mode is set to 'const_space', for
+    'const_charge' this is calculated each turn.*
+    *The frame is defined by :math:`n\sigma_{RMS}` or manually by the user.
+    If not, a default frame consisting of taking the whole bunch +5% of the
+    maximum distance between two particles in the bunch will be taken
+    in each side of the frame.*
+    */
 
     if (cut_left == 0 && cut_right == 0) {
         if (n_sigma == 0) {
@@ -67,7 +64,7 @@ void Slices::set_cuts()
             ftype mean_coords = mymath::mean(Beam->dt.data(), Beam->dt.size());
             // dprintf("mean coors = %e\n", mean_coords);
             ftype sigma_coords = mymath::standard_deviation(
-                                     Beam->dt.data(), Beam->dt.size(), mean_coords);
+                Beam->dt.data(), Beam->dt.size(), mean_coords);
             // dprintf("mean coors = %e\n", mean_coords);
 
             cut_left = mean_coords - n_sigma * sigma_coords / 2;
@@ -88,11 +85,10 @@ void Slices::set_cuts()
 
 // TODO not implemented the best way
 // If dt, dE and id were in the same struct API  it would be better
-void Slices::sort_particles()
-{
+void Slices::sort_particles() {
     /*
-     *Sort the particles with respect to their position.*
-     */
+    *Sort the particles with respect to their position.*
+    */
     auto Beam = Context::Beam;
 
     std::sort(Beam->dE.begin(), Beam->dE.end(),
@@ -104,12 +100,11 @@ void Slices::sort_particles()
 }
 
 inline ftype Slices::convert_coordinates(const ftype cut,
-        const cuts_unit_type type)
-{
+                                         const cuts_unit_type type) {
     auto RfP = Context::RfP;
     /*
-     *Method to convert a value from one input_unit_type to 's'.*
-     */
+    *Method to convert a value from one input_unit_type to 's'.*
+    */
     if (type == s) {
         return cut;
     } else if (type == rad) {
@@ -120,63 +115,59 @@ inline ftype Slices::convert_coordinates(const ftype cut,
     return 0.0;
 }
 
-void Slices::track()
-{
+void Slices::track() {
     slice_constant_space_histogram();
     if (fit_option == fit_type::gaussian_fit)
         gaussian_fit();
 }
 
-inline void Slices::slice_constant_space_histogram()
-{
+inline void Slices::slice_constant_space_histogram() {
     /*
-     *Constant space slicing with the built-in numpy histogram function,
-     with a constant frame. This gives the same profile as the
-     slice_constant_space method, but no compute statistics possibilities
-     (the index of the particles is needed).*
-
-     *This method is faster than the classic slice_constant_space method
-     for high number of particles (~1e6).*
-     */
+    *Constant space slicing with the built-in numpy histogram function,
+    with a constant frame. This gives the same profile as the
+    slice_constant_space method, but no compute statistics possibilities
+    (the index of the particles is needed).*
+    *This method is faster than the classic slice_constant_space method
+    for high number of particles (~1e6).*
+    */
     auto Beam = Context::Beam;
 
     histogram(Beam->dt.data(), n_macroparticles.data(), cut_left, cut_right,
               n_slices, Beam->n_macroparticles);
 }
 
-inline void Slices::histogram(const ftype *__restrict__ input,
-                              int *__restrict__ output,
-                              const ftype cut_left,
-                              const ftype cut_right,
-                              const uint n_slices,
-                              const uint n_macroparticles)
-{
+inline void Slices::histogram(const ftype* __restrict input,
+                              int* __restrict output, const ftype cut_left,
+                              const ftype cut_right, const uint n_slices,
+                              const uint n_macroparticles) {
 
     const ftype inv_bin_width = n_slices / (cut_right - cut_left);
     // const ftype range = cut_right - cut_left;
     // histogram is faster with ints
     typedef int hist_t;
-    hist_t *h;
-    #pragma omp parallel
+    hist_t* h;
+#pragma omp parallel
     {
         const auto threads = omp_get_num_threads();
         const auto id = omp_get_thread_num();
-        auto tile = static_cast<int>((n_macroparticles + threads - 1) / threads);
+        auto tile =
+            static_cast<int>((n_macroparticles + threads - 1) / threads);
         auto start = id * tile;
         auto end = std::min(start + tile, (int)n_macroparticles);
         const auto row = id * n_slices;
 
-        #pragma omp single
-        h = (hist_t *) calloc(threads * n_slices, sizeof(hist_t));
+#pragma omp single
+        h = (hist_t*)calloc(threads * n_slices, sizeof(hist_t));
 
         const auto h_row = &h[row];
 
         for (int i = start; i < end; ++i) {
             const ftype a = input[i];
-            //const ftype a = (input[i] - cut_left);
-            if (a < cut_left or a > cut_right)
+            // const ftype a = (input[i] - cut_left);
+            if (a < cut_left || a > cut_right)
                 continue;
-            const uint ffbin = static_cast<uint>((a - cut_left) * inv_bin_width);
+            const uint ffbin =
+                static_cast<uint>((a - cut_left) * inv_bin_width);
 
             // if (a < 0)
             //    continue;
@@ -188,7 +179,7 @@ inline void Slices::histogram(const ftype *__restrict__ input,
 
             h_row[ffbin]++;
         }
-        #pragma omp barrier
+#pragma omp barrier
 
         tile = (n_slices + threads - 1) / threads;
         start = id * tile;
@@ -196,7 +187,7 @@ inline void Slices::histogram(const ftype *__restrict__ input,
 
         for (int i = start; i < end; i++)
             output[i] = 0;
-        //memset(&output[start], 0, (end-start) * sizeof(ftype));
+        // memset(&output[start], 0, (end-start) * sizeof(ftype));
 
         for (int i = 0; i < threads; ++i) {
             const int r = i * n_slices;
@@ -205,17 +196,17 @@ inline void Slices::histogram(const ftype *__restrict__ input,
             }
         }
     }
-    if (h) free(h);
+    if (h)
+        free(h);
 }
 
-void Slices::track_cuts()
-{
+void Slices::track_cuts() {
     /*
-     *Track the slice frame (limits and slice position) as the mean of the
-     bunch moves.
-     Requires Beam statistics!
-     Method to be refined!*
-     */
+    *Track the slice frame (limits and slice position) as the mean of the
+    bunch moves.
+    Requires Beam statistics!
+    Method to be refined!*
+    */
     auto Beam = Context::Beam;
 
     ftype delta = Beam->mean_dt - 0.5 * (cut_left + cut_right);
@@ -229,12 +220,11 @@ void Slices::track_cuts()
     }
 }
 
-inline void Slices::smooth_histogram(const ftype *__restrict input,
-                                     int *__restrict output,
+inline void Slices::smooth_histogram(const ftype* __restrict input,
+                                     int* __restrict output,
                                      const ftype cut_left,
                                      const ftype cut_right, const uint n_slices,
-                                     const uint n_macroparticles)
-{
+                                     const uint n_macroparticles) {
 
     uint i;
     ftype a;
@@ -254,7 +244,7 @@ inline void Slices::smooth_histogram(const ftype *__restrict input,
     for (i = 0; i < n_macroparticles; i++) {
         a = input[i];
         if ((a < (cut_left + bin_width * 0.5)) ||
-                (a > (cut_right - bin_width * 0.5)))
+            (a > (cut_right - bin_width * 0.5)))
             continue;
         fbin = (a - cut_left) * inv_bin_width;
         ffbin = (uint)(fbin);
@@ -272,24 +262,22 @@ inline void Slices::smooth_histogram(const ftype *__restrict input,
     }
 }
 
-void Slices::slice_constant_space_histogram_smooth()
-{
+void Slices::slice_constant_space_histogram_smooth() {
     /*
-     At the moment 4x slower than slice_constant_space_histogram but smoother.
-     */
+    At the moment 4x slower than slice_constant_space_histogram but smoother.
+    */
     auto Beam = Context::Beam;
 
     smooth_histogram(Beam->dt.data(), this->n_macroparticles.data(), cut_left,
                      cut_right, n_slices, Beam->n_macroparticles);
 }
 
-void Slices::rms()
-{
+void Slices::rms() {
 
     /*
-     * Computation of the RMS bunch length and position from the line density
-     (bunch length = 4sigma).*
-     */
+    * Computation of the RMS bunch length and position from the line density
+    (bunch length = 4sigma).*
+    */
     auto Beam = Context::Beam;
 
     f_vector_t lineDenNormalized(n_slices); // = new ftype[n_slices];
@@ -315,13 +303,12 @@ void Slices::rms()
     bl_rms = 4 * std::sqrt(temp);
 }
 
-void Slices::fwhm(const ftype shift)
-{
+void Slices::fwhm(const ftype shift) {
 
     /*
-     * Computation of the bunch length and position from the FWHM
-     assuming Gaussian line density.*
-     */
+    * Computation of the bunch length and position from the FWHM
+    assuming Gaussian line density.*
+    */
     uint max_i = mymath::max(n_macroparticles.data(), n_slices, 1);
     ftype half_max = shift + 0.5 * (n_macroparticles[max_i] - shift);
     ftype timeResolution = bin_centers[1] - bin_centers[0];
@@ -355,13 +342,13 @@ void Slices::fwhm(const ftype shift)
         try {
             t1 = bin_centers[taux1] -
                  (n_macroparticles[taux1] - half_max) /
-                 (n_macroparticles[taux1] - n_macroparticles[taux1 - 1]) *
-                 timeResolution;
+                     (n_macroparticles[taux1] - n_macroparticles[taux1 - 1]) *
+                     timeResolution;
 
             t2 = bin_centers[taux2] +
                  (n_macroparticles[taux2] - half_max) /
-                 (n_macroparticles[taux2] - n_macroparticles[taux2 + 1]) *
-                 timeResolution;
+                     (n_macroparticles[taux2] - n_macroparticles[taux2 + 1]) *
+                     timeResolution;
             bl_fwhm = 4 * (t2 - t1) / cfwhm;
             bp_fwhm = (t1 + t2) / 2;
         } catch (...) {
@@ -375,17 +362,15 @@ void Slices::fwhm(const ftype shift)
     }
 }
 
-ftype Slices::fast_fwhm()
-{
+ftype Slices::fast_fwhm() {
 
     /*
-     * Computation of the bunch length and position from the FWHM
-     assuming Gaussian line density.*
-
-     height = np.max(self.n_macroparticles)
-     index = np.where(self.n_macroparticles > height/2.)[0]
-     return cfwhm*(Slices.bin_centers[index[-1]] - Slices.bin_centers[index[0]])
-     */
+    * Computation of the bunch length and position from the FWHM
+    assuming Gaussian line density.*
+    height = np.max(self.n_macroparticles)
+    index = np.where(self.n_macroparticles > height/2.)[0]
+    return cfwhm*(Slices.bin_centers[index[-1]] - Slices.bin_centers[index[0]])
+    */
     auto Beam = Context::Beam;
 
     uint max_i =
@@ -406,8 +391,7 @@ ftype Slices::fast_fwhm()
 
 void Slices::fwhm_multibunch() {}
 
-void Slices::beam_spectrum_generation(uint n, bool onlyRFFT)
-{
+void Slices::beam_spectrum_generation(uint n, bool onlyRFFT) {
 
     fBeamSpectrumFreq = fft::rfftfreq(n, bin_centers[1] - bin_centers[0]);
 
@@ -422,82 +406,66 @@ void Slices::beam_profile_derivative() {}
 void Slices::beam_profile_filter_chebyshev() {}
 
 ftype Slices::gauss(const ftype x, const ftype x0, const ftype sx,
-                    const ftype A)
-{
+                    const ftype A) {
     return A * exp(-(x - x0) * (x - x0) / 2.0 / (sx * sx));
 }
 
 void Slices::gaussian_fit() {}
 
 /*
-
- struct API  data {
- size_t n;
- double * y;
- };
-
- int gauss(const gsl_vector * x, void *data, gsl_vector * f) {
- size_t n = ((struct API  data *) data)->n;
- double *y = ((struct API  data *) data)->y;
-
- double A = gsl_vector_get(x, 2);
- double x0 = gsl_vector_get(x, 0);
- double sx = gsl_vector_get(x, 1);
-
- size_t i;
-
- for (i = 0; i < n; i++) {
- // Model Yi = A * exp(-lambda * i) + b
- double t = i;
- double Yi = A * exp(-(y[i] - x0) * (y[i] - x0) / 2.0 / (sx * sx));
- gsl_vector_set(f, i, Yi - y[i]);
- }
-
- return GSL_SUCCESS;
- }
-
- void Slices::gaussian_fit() {
-
- // *Gaussian fit of the profile, in order to get the bunch length and
- // position. Returns fit values in units of s.*
-
- ftype x0, sx, A;
- int max_i = mymath::max(n_macroparticles, n_slices, 1);
- A = n_macroparticles[max_i];
- if (bl_gauss == 0 && bp_gauss == 0) {
- x0 = mymath::mean(beam->dt, beam->n_macroparticles);
- sx = mymath::standard_deviation(beam->dt, beam->n_macroparticles, x0);
- } else {
- x0 = bp_gauss;
- sx = bl_gauss / 4;
- }
- const gsl_multifit_fsolver_type *T; //= gsl_multifit_fdfsolver_lmsder;
- gsl_multifit_fsolver *s;
- int status, info;
- size_t i;
- const size_t n = beam->n_macroparticles;
- const size_t p = 3;
-
- s = gsl_multifit_fsolver_alloc(T, n, p);
- //gsl_matrix *J = gsl_matrix_alloc(n, p);
- //gsl_matrix *covar = gsl_matrix_alloc(p, p);
- ftype y[n], weights[n];
- struct API  data d = { n, y };
- gsl_multifit_function f;
- ftype x_init[3] = { x0, sx, A };
- gsl_vector_view x = gsl_vector_view_array(x_init, p);
- gsl_multifit_fsolver_set(s, &f, &x.vector);
- //  TODO experimental values
-
- status = gsl_multifit_fsolver_driver(s, 20, 100, 1);
-
- #define FIT(i) gsl_vector_get(s->x, i)
- ftype x0_new = FIT(0);
- ftype sx_new = FIT(1);
- ftype A_new = FIT(2);
- // TODO use gsl to calculate the gaussian fit
-
-
- }
-
- */
+struct API  data {
+size_t n;
+double * y;
+};
+int gauss(const gsl_vector * x, void *data, gsl_vector * f) {
+size_t n = ((struct API  data *) data)->n;
+double *y = ((struct API  data *) data)->y;
+double A = gsl_vector_get(x, 2);
+double x0 = gsl_vector_get(x, 0);
+double sx = gsl_vector_get(x, 1);
+size_t i;
+for (i = 0; i < n; i++) {
+// Model Yi = A * exp(-lambda * i) + b
+double t = i;
+double Yi = A * exp(-(y[i] - x0) * (y[i] - x0) / 2.0 / (sx * sx));
+gsl_vector_set(f, i, Yi - y[i]);
+}
+return GSL_SUCCESS;
+}
+void Slices::gaussian_fit() {
+// *Gaussian fit of the profile, in order to get the bunch length and
+// position. Returns fit values in units of s.*
+ftype x0, sx, A;
+int max_i = mymath::max(n_macroparticles, n_slices, 1);
+A = n_macroparticles[max_i];
+if (bl_gauss == 0 && bp_gauss == 0) {
+x0 = mymath::mean(beam->dt, beam->n_macroparticles);
+sx = mymath::standard_deviation(beam->dt, beam->n_macroparticles, x0);
+} else {
+x0 = bp_gauss;
+sx = bl_gauss / 4;
+}
+const gsl_multifit_fsolver_type *T; //= gsl_multifit_fdfsolver_lmsder;
+gsl_multifit_fsolver *s;
+int status, info;
+size_t i;
+const size_t n = beam->n_macroparticles;
+const size_t p = 3;
+s = gsl_multifit_fsolver_alloc(T, n, p);
+//gsl_matrix *J = gsl_matrix_alloc(n, p);
+//gsl_matrix *covar = gsl_matrix_alloc(p, p);
+ftype y[n], weights[n];
+struct API  data d = { n, y };
+gsl_multifit_function f;
+ftype x_init[3] = { x0, sx, A };
+gsl_vector_view x = gsl_vector_view_array(x_init, p);
+gsl_multifit_fsolver_set(s, &f, &x.vector);
+//  TODO experimental values
+status = gsl_multifit_fsolver_driver(s, 20, 100, 1);
+#define FIT(i) gsl_vector_get(s->x, i)
+ftype x0_new = FIT(0);
+ftype sx_new = FIT(1);
+ftype A_new = FIT(2);
+// TODO use gsl to calculate the gaussian fit
+}
+*/

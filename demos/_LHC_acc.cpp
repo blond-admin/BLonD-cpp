@@ -10,27 +10,15 @@
 #include <blond/math_functions.h>
 #include <blond/trackers/Tracker.h>
 #include <blond/utilities.h>
-
-#include <stdio.h>
-// #include "../input_parameters/GeneralParameters.h"
-// #include "../input_parameters/RfParameters.h"
-// #include "../beams/Beams.h"
-// #include "../beams/Slices.h"
-// #include "../beams/Distributions.h"
-// #include "../trackers/Tracker.h"
-// #include "../llrf/PhaseLoop.h"
-// #include "../llrf/LHCFlatSpectrum.h"
 #include <blond/llrf/LHCNoiseFB.h>
 #include <blond/llrf/PhaseNoise.h>
-// #include "../impedances/Intensity.h"
 #include <blond/impedances/InducedVoltage.h>
-// #include "optionparser.h"
 
 // Simulation parameters
 // --------------------------------------------------------
 
-const int N_b = 1.2e9; // Intensity
-int N_p = 600000;      // Macro-particles
+const int N_b = (int) 1.2e9;                // Intensity
+int N_p = 600000;                           // Macro-particles
 
 // Machine and RF parameters
 const float C = 26658.883;                  // Machine circumference [m]
@@ -52,8 +40,6 @@ int dt_save = 5000;
 
 const std::string datafiles = "/afs/cern.ch/user/h/htimko/public/LHC/input/";
 
-// const int size = 14e6;
-// const int from_line = 0;
 
 void parse_args(int argc, char** argv);
 

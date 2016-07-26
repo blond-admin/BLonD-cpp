@@ -240,7 +240,7 @@ void calc_phi_s(ftype* out, RfParameters* rfp,
 
             // dprintf("dx %.12lf\n", phase_array[1] - phase_array[0]);
 
-            ftype* trap =
+            auto trap =
                 mymath::cum_trapezoid(f, phase_array[1] - phase_array[0], 1000);
 
             for (uint k = 0; k < 1000; ++k) {

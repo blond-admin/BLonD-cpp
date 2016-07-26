@@ -249,11 +249,24 @@ function(assign_source_group)
     endforeach ()
 endfunction(assign_source_group)
 
+include_directories(include
+   $ENV{HOME}/opt/include
+   $ENV{HOME}/Downloads/Python-2.7.12/Include
+   $ENV{HOME}/Downloads/Python-2.7.12
+   )
+
+link_directories(/usr/lib
+   $ENV{HOME}/opt/lib/python2.7/config
+   )
 
 # main library
 include_directories(include)
+
 SET(LIBRARIES
         ${FFTW_LIB}
+        python2.7
+        util
+        dl
         )
 
 file(GLOB_RECURSE SOURCES

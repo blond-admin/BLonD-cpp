@@ -15,17 +15,18 @@
 // First go the versions without periodicity
 
 // Kick without periodicity
-inline void RingAndRfSection::kick(const ftype* __restrict beam_dt,
-                                   ftype* __restrict beam_dE, const int n_rf,
-                                   const ftype* __restrict voltage,
-                                   const ftype* __restrict omega_RF,
-                                   const ftype* __restrict phi_RF,
+inline void RingAndRfSection::kick(const ftype *__restrict beam_dt,
+                                   ftype *__restrict beam_dE, const int n_rf,
+                                   const ftype *__restrict voltage,
+                                   const ftype *__restrict omega_RF,
+                                   const ftype *__restrict phi_RF,
                                    const int n_macroparticles,
-                                   const ftype acc_kick) {
+                                   const ftype acc_kick)
+{
     // KICK
     //#pragma omp parallel for collapse(2)
     for (int j = 0; j < n_rf; ++j) {
-#pragma omp parallel for
+        #pragma omp parallel for
         for (int i = 0; i < n_macroparticles; ++i) {
             // const ftype a = omega_RF[j] * beam_dt[i] + phi_RF[j];
             beam_dE[i] +=
@@ -35,7 +36,7 @@ inline void RingAndRfSection::kick(const ftype* __restrict beam_dt,
     }
 
 // SYNCHRONOUS ENERGY CHANGE
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int i = 0; i < n_macroparticles; ++i)
         beam_dE[i] += acc_kick;
 }
@@ -43,37 +44,39 @@ inline void RingAndRfSection::kick(const ftype* __restrict beam_dt,
 // kick with periodicity
 
 inline void RingAndRfSection::kick(
-    const ftype* __restrict beam_dt, ftype* __restrict beam_dE, const int n_rf,
-    const ftype* __restrict voltage, const ftype* __restrict omega_RF,
-    const ftype* __restrict phi_RF, const int n_macroparticles,
-    const ftype acc_kick, const int_vector_t& filter) {
+    const ftype *__restrict beam_dt, ftype *__restrict beam_dE, const int n_rf,
+    const ftype *__restrict voltage, const ftype *__restrict omega_RF,
+    const ftype *__restrict phi_RF, const int n_macroparticles,
+    const ftype acc_kick, const int_vector_t &filter)
+{
     // KICK
     //#pragma omp parallel for collapse(2)
     for (int j = 0; j < n_rf; j++) {
-        for (const auto& i : filter) {
+        for (const auto &i : filter) {
             const ftype a = omega_RF[j] * beam_dt[i] + phi_RF[j];
             beam_dE[i] += voltage[j] * mymath::fast_sin(a);
         }
     }
 
     // SYNCHRONOUS ENERGY CHANGE
-    for (const auto& i : filter)
+    for (const auto &i : filter)
         beam_dE[i] += acc_kick;
 }
 
 // drift without periodicity
 inline void RingAndRfSection::drift(
-    ftype* __restrict beam_dt, const ftype* __restrict beam_dE,
+    ftype *__restrict beam_dt, const ftype *__restrict beam_dE,
     const solver_type solver, const ftype T0, const ftype length_ratio,
     const uint alpha_order, const ftype eta_zero, const ftype eta_one,
     const ftype eta_two, const ftype beta, const ftype energy,
-    const int n_macroparticles) {
+    const int n_macroparticles)
+{
 
     const ftype T = T0 * length_ratio;
 
     if (solver == simple) {
         const ftype T_x_coeff = T * eta_zero / (beta * beta * energy);
-#pragma omp parallel for
+        #pragma omp parallel for
         for (int i = 0; i < n_macroparticles; i++)
             beam_dt[i] += T_x_coeff * beam_dE[i];
     } else {
@@ -83,17 +86,17 @@ inline void RingAndRfSection::drift(
         const ftype eta2 = eta_two * coeff * coeff * coeff;
 
         if (alpha_order == 1)
-#pragma omp parallel for
+            #pragma omp parallel for
             for (int i = 0; i < n_macroparticles; i++)
                 beam_dt[i] += T * (1. / (1. - eta0 * beam_dE[i]) - 1.);
         else if (alpha_order == 2)
-#pragma omp parallel for
+            #pragma omp parallel for
             for (int i = 0; i < n_macroparticles; i++)
                 beam_dt[i] += T * (1. / (1. - eta0 * beam_dE[i] -
                                          eta1 * beam_dE[i] * beam_dE[i]) -
                                    1.);
         else
-#pragma omp parallel for
+            #pragma omp parallel for
             for (int i = 0; i < n_macroparticles; i++)
                 beam_dt[i] +=
                     T * (1. / (1. - eta0 * beam_dE[i] -
@@ -106,18 +109,19 @@ inline void RingAndRfSection::drift(
 // drift with periodicity
 
 inline void RingAndRfSection::drift(
-    ftype* __restrict beam_dt, const ftype* __restrict beam_dE,
+    ftype *__restrict beam_dt, const ftype *__restrict beam_dE,
     const solver_type solver, const ftype T0, const ftype length_ratio,
     const uint alpha_order, const ftype eta_zero, const ftype eta_one,
     const ftype eta_two, const ftype beta, const ftype energy,
-    const int n_macroparticles, const int_vector_t& filter) {
+    const int n_macroparticles, const int_vector_t &filter)
+{
 
     ftype T = T0 * length_ratio;
 
     if (solver == simple) {
         ftype coeff = eta_zero / (beta * beta * energy);
 
-        for (const auto& i : filter)
+        for (const auto &i : filter)
             beam_dt[i] += T * coeff * beam_dE[i];
     }
 
@@ -128,15 +132,15 @@ inline void RingAndRfSection::drift(
         const ftype eta2 = eta_two * coeff * coeff * coeff;
 
         if (alpha_order == 1)
-            for (const auto& i : filter)
+            for (const auto &i : filter)
                 beam_dt[i] += T * (1. / (1. - eta0 * beam_dE[i]) - 1.);
         else if (alpha_order == 2)
-            for (const auto& i : filter)
+            for (const auto &i : filter)
                 beam_dt[i] += T * (1. / (1. - eta0 * beam_dE[i] -
                                          eta1 * beam_dE[i] * beam_dE[i]) -
                                    1.);
         else
-            for (const auto& i : filter)
+            for (const auto &i : filter)
                 beam_dt[i] +=
                     T * (1. / (1. - eta0 * beam_dE[i] -
                                eta1 * beam_dE[i] * beam_dE[i] -
@@ -145,7 +149,8 @@ inline void RingAndRfSection::drift(
     }
 }
 
-void RingAndRfSection::track() {
+void RingAndRfSection::track()
+{
     auto GP = Context::GP;
     auto RfP = fRfP;
     auto Beam = Context::Beam;
@@ -173,7 +178,7 @@ void RingAndRfSection::track() {
             // std::cout << "Found "
             //          << indices_right_outside.size()
             //          << " right outside particles\n";
-            for (const auto& i : indices_right_outside)
+            for (const auto &i : indices_right_outside)
                 Beam->dt[i] -= GP->t_rev[RfP->counter + 1];
         }
 
@@ -203,7 +208,7 @@ void RingAndRfSection::track() {
             // This will update only the indices_left_outside values
             //  need to test this
 
-            for (const auto& i : indices_left_outside)
+            for (const auto &i : indices_left_outside)
                 Beam->dt[i] += GP->t_rev[RfP->counter + 1];
 
             kick(indices_left_outside, RfP->counter);
@@ -228,7 +233,8 @@ void RingAndRfSection::track() {
     // std::cout << "left : " << indices_left_outside.size() << "\n";
 }
 
-inline void RingAndRfSection::horizontal_cut() {
+inline void RingAndRfSection::horizontal_cut()
+{
     auto Beam = Context::Beam;
 
     for (uint i = 0; i < Beam->n_macroparticles; ++i) {
@@ -241,11 +247,12 @@ inline void RingAndRfSection::horizontal_cut() {
     Beam->n_macroparticles = Beam->dE.size();
 }
 
-RingAndRfSection::RingAndRfSection(RfParameters* rfp, solver_type _solver,
-                                   PhaseLoop* _PhaseLoop, LHCNoiseFB* _NoiseFB,
+RingAndRfSection::RingAndRfSection(RfParameters *rfp, solver_type _solver,
+                                   PhaseLoop *_PhaseLoop, LHCNoiseFB *_NoiseFB,
                                    bool _periodicity, ftype _dE_max,
-                                   bool _rf_kick_interp, Slices* _Slices,
-                                   TotalInducedVoltage* _TotalInducedVoltage) {
+                                   bool _rf_kick_interp, Slices *_Slices,
+                                   TotalInducedVoltage *_TotalInducedVoltage)
+{
     auto GP = Context::GP;
     auto Beam = Context::Beam;
 
@@ -294,13 +301,15 @@ RingAndRfSection::RingAndRfSection(RfParameters* rfp, solver_type _solver,
     // phi = new ftype[RfP->n_rf];
 }
 
-RingAndRfSection::~RingAndRfSection() {
+RingAndRfSection::~RingAndRfSection()
+{
     // delete[] vol;
     // delete[] omeg;
     // delete[] phi;
 }
 
-void RingAndRfSection::set_periodicity() {
+void RingAndRfSection::set_periodicity()
+{
     auto GP = Context::GP;
     auto RfP = fRfP;
     auto Beam = Context::Beam;
@@ -318,7 +327,8 @@ void RingAndRfSection::set_periodicity() {
     }
 }
 
-inline void RingAndRfSection::kick(const uint index) {
+inline void RingAndRfSection::kick(const uint index)
+{
     auto RfP = fRfP;
     auto Beam = Context::Beam;
 
@@ -340,7 +350,8 @@ inline void RingAndRfSection::kick(const uint index) {
     delete[] phi;
 }
 
-void RingAndRfSection::kick(const int_vector_t& filter, const uint index) {
+void RingAndRfSection::kick(const int_vector_t &filter, const uint index)
+{
     auto RfP = fRfP;
     auto Beam = Context::Beam;
 
@@ -362,7 +373,8 @@ void RingAndRfSection::kick(const int_vector_t& filter, const uint index) {
     delete[] phi;
 }
 
-void RingAndRfSection::drift(const int_vector_t& filter, const uint index) {
+void RingAndRfSection::drift(const int_vector_t &filter, const uint index)
+{
     auto GP = Context::GP;
     auto RfP = fRfP;
     auto Beam = Context::Beam;
@@ -373,7 +385,8 @@ void RingAndRfSection::drift(const int_vector_t& filter, const uint index) {
           RfP->energy(index), Beam->n_macroparticles, filter);
 }
 
-inline void RingAndRfSection::drift(const uint index) {
+inline void RingAndRfSection::drift(const uint index)
+{
     auto GP = Context::GP;
     auto RfP = fRfP;
     auto Beam = Context::Beam;
@@ -384,11 +397,12 @@ inline void RingAndRfSection::drift(const uint index) {
           RfP->energy(index), Beam->n_macroparticles);
 }
 
-FullRingAndRf::FullRingAndRf(std::vector<RingAndRfSection*>& RingList) {
+FullRingAndRf::FullRingAndRf(std::vector<RingAndRfSection *> &RingList)
+{
     fRingList = RingList;
 
     fRingCircumference = 0;
-    for (auto& ring : fRingList)
+    for (auto &ring : fRingList)
         fRingCircumference += ring->fRfP->section_length;
 
     fRingRadius = fRingCircumference / (2 * constant::pi);
@@ -396,23 +410,24 @@ FullRingAndRf::FullRingAndRf(std::vector<RingAndRfSection*>& RingList) {
 
 FullRingAndRf::~FullRingAndRf() {}
 
-void FullRingAndRf::track() {
+void FullRingAndRf::track()
+{
     // Loops over all the RingAndRFSection.track methods.
-    for (auto& ring : fRingList)
+    for (auto &ring : fRingList)
         ring->track();
 }
 
-//  TODO test this function
 void FullRingAndRf::potential_well_generation(const uint turn,
-                                              const uint n_points,
-                                              const ftype option,
-                                              const ftype dt_margin_percent) {
+        const uint n_points,
+        const ftype option,
+        const ftype dt_margin_percent)
+{
     auto GP = Context::GP;
     f_vector_t voltages;
     f_vector_t omega_rf;
     f_vector_t phi_offsets;
 
-    for (const auto& ring : fRingList) {
+    for (const auto &ring : fRingList) {
         for (uint i = 0; i < ring->fRfP->n_rf; ++i) {
             voltages.push_back(ring->fRfP->voltage[i][turn]);
             omega_rf.push_back(ring->fRfP->omega_RF[i][turn]);
@@ -427,27 +442,26 @@ void FullRingAndRf::potential_well_generation(const uint turn,
     } else if (option == 1) {
         auto k = mymath::max(voltages.data(), voltages.size());
         auto maxV = voltages[k];
-        f_vector_t temp;
-        std::copy_if(voltages.begin(), voltages.end(), back_inserter(temp),
-                     [maxV](const ftype x) { return x == maxV; });
 
-        // for (uint i = 0; i < voltages[0].size(); ++i)
-        //    if (voltages[0][i] == maxV)
-        //       temp.push_back(omega_rf[0][i]);
+        f_vector_t temp;
+
+        for (uint i = 0; i < voltages.size(); ++i)
+            if (voltages[i] == maxV)
+                temp.push_back(omega_rf[i]);
+
         k = mymath::min(temp.data(), temp.size());
         main_omega_rf = temp[k];
     } else {
         f_vector_t temp;
         std::copy_if(omega_rf.begin(), omega_rf.end(), back_inserter(temp),
-                     [option](const ftype x) { return x == option; });
+        [option](const ftype x) { return x == option; });
         if (temp.empty()) {
             std::cerr << "[ERROR] The desired harmonic to compute"
                       << "the potential well does not"
                       << "match the RF parameters...\n";
             exit(-1);
         }
-        auto k = mymath::min(temp.data(), temp.size());
-        main_omega_rf = temp[k];
+        main_omega_rf = option;//temp[k];
     }
 
     auto time_array_margin =
@@ -483,19 +497,19 @@ void FullRingAndRf::potential_well_generation(const uint turn,
              (-fRingList[0]->acceleration_kick[turn]) / std::abs(GP->charge));
 
     auto tempArr = mymath::cum_trapezoid(
-        tempVec.data(), time_array[1] - time_array[0], tempVec.size());
+                       tempVec.data(), time_array[1] - time_array[0], n_points);
 
-    std::transform(&tempArr[0], &tempArr[tempVec.size()], &tempArr[0],
-                   [](ftype x) { return -x; });
+    std::transform(tempArr.begin(), tempArr.end(), tempArr.begin(),
+    [](ftype x) { return -x; });
 
-    fPotentialWell.clear();
-    fPotentialWell.push_back(0);
-    std::copy(&tempArr[0], &tempArr[tempVec.size()],
-              back_inserter(fPotentialWell));
+    auto min_i = mymath::min(tempArr.data(), tempArr.size());
+    auto min = tempArr[min_i] > 0 ? 0 : tempArr[min_i];
+
+    fPotentialWell.resize(tempArr.size() + 1);
+    fPotentialWell[0] = - min;
+
+    for (uint i = 0; i < tempArr.size(); ++i)
+        fPotentialWell[i + 1] = tempArr[i] - min;
 
     fPotentialWellCoordinates = time_array;
-
-    if (tempArr)
-        delete[] tempArr;
-    // fPotentialWell = potential_well;
 }

@@ -250,17 +250,26 @@ function(assign_source_group)
 endfunction(assign_source_group)
 
 include_directories(include
-   $ENV{HOME}/opt/include
-   $ENV{HOME}/Downloads/Python-2.7.12/Include
-   $ENV{HOME}/Downloads/Python-2.7.12
+   # $ENV{HOME}/opt/include
+   $ENV{HOME}/work/anaconda2/include/python2.7
+   $ENV{HOME}/work/anaconda2/include
+   $ENV{HOME}/work/anaconda2/lib/python2.7/site-packages
+   # $ENV{HOME}/work/anaconda2/lib/python2.7
    )
 
 link_directories(/usr/lib
-   $ENV{HOME}/opt/lib/python2.7/config
+   # $ENV{HOME}/opt/lib/python2.7/config
+   $ENV{HOME}/work/anaconda2/lib/python2.7/config
    )
 
 # main library
 include_directories(include)
+
+# find_library(PYTHON_LIB
+#                 NAMES python2.7 libpython2.7
+#                 PATHS "$ENV{HOME}/work/anaconda2/lib/python2.7/config"
+#                 NO_DEFAULT_PATH
+#             )
 
 SET(LIBRARIES
         ${FFTW_LIB}

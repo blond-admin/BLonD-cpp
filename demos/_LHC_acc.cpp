@@ -187,7 +187,7 @@ int main(int argc, char** argv) {
     auto noiseTime = 0.0;
     timespec start;
 
-    for (uint i = 0; i < N_t; ++i) {
+    for (uint i = 0; i < 1000001; ++i) {
 
         util::get_time(begin_t);
         
@@ -210,6 +210,9 @@ int main(int argc, char** argv) {
         util::get_time(start);
         noiseFB->track();
         noiseTime += util::time_elapsed(start);
+        
+
+        turn_time += util::time_elapsed(begin_t);
 
         // printf("   RF phase %.6e rad\n", RfP->dphi_RF[0]);
         // printf("   PL phase correction %.6e rad\n", PL->dphi);
@@ -255,17 +258,16 @@ int main(int argc, char** argv) {
             printf("\n");
             printf("Mean turn time:\t\t %.4lf s\n", turn_time / (i + 1));
 
-            /*std::ofstream out;
+            std::ofstream out;
             out.open("out/coords_" + std::to_string(i) + ".dat");
-            std::cout.precision(5);
+            std::cout.precision(10);
             std::cout << std::scientific << std::showpos;
             for (int j = 0; j < N_p; ++j) {
                 out << Context::Beam->dt[j] << "\t" << Context::Beam->dE[j]
                     << "\n";
-            }*/
+            }
         }
 
-        turn_time += util::time_elapsed(begin_t);
     }
 
     util::get_time(end);

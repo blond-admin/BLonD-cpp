@@ -250,16 +250,18 @@ function(assign_source_group)
 endfunction(assign_source_group)
 
 include_directories(include
-   # $ENV{HOME}/opt/include
-   $ENV{HOME}/work/anaconda2/include/python2.7
-   $ENV{HOME}/work/anaconda2/include
-   $ENV{HOME}/work/anaconda2/lib/python2.7/site-packages
-   # $ENV{HOME}/work/anaconda2/lib/python2.7
+   # $ENV{HOME}/work/anaconda2/include/python2.7
+   # $ENV{HOME}/work/anaconda2/include
+   # $ENV{HOME}/work/anaconda2/lib/python2.7/site-packages
+   $ENV{HOME}/opt/python2.7
+   $ENV{HOME}/opt/include/python2.7
+   $ENV{HOME}/opt/include/
+   $ENV{HOME}/opt/lib/python2.7/site-packages
    )
 
 link_directories(/usr/lib
-   # $ENV{HOME}/opt/lib/python2.7/config
-   $ENV{HOME}/work/anaconda2/lib/python2.7/config
+    $ENV{HOME}/opt/lib/python2.7/config
+   # $ENV{HOME}/work/anaconda2/lib/python2.7/config
    )
 
 # main library

@@ -197,7 +197,8 @@ void matched_from_line_density(FullRingAndRf *full_ring,
 
 
 void _matched_from_distribution_density(ftype beta, ftype energy, ftype charge,
-                                        int n_macroparticles, f_vector_t &dt, f_vector_t &dE,
+                                        int n_macroparticles,
+                                        f_vector_t &dt, f_vector_t &dE,
                                         ftype eta_0, ftype t_rev_0,
                                         f_vector_t &potential_well_array,
                                         f_vector_t &time_coord_array,
@@ -208,20 +209,20 @@ void _matched_from_distribution_density(ftype beta, ftype energy, ftype charge,
                                         int seed
                                        )
 {
+
     python::initialize();
-
+    
     auto pFunc = python::import("distributions", "matched_from_distribution_density");
-
     auto pBeta = python::convert_double(beta);
+    auto pNMacroparticles = python::convert_int(n_macroparticles);
+    auto pDT = python::convert_double_array(dt.data(), dt.size());
     auto pEnergy = python::convert_double(energy);
     auto pCharge = python::convert_double(charge);
-    auto pNMacroparticles = python::convert_int(n_macroparticles);
     auto pEta0 = python::convert_double(eta_0);
     auto pTRev0 = python::convert_double(t_rev_0);
     auto pMainHarmonic = python::convert_string(main_harmonic);
     auto pNIterationsInput = python::convert_int(n_iterations_input);
     auto pSeed = python::convert_int(seed);
-    auto pDT = python::convert_double_array(dt.data(), dt.size());
     auto pDE = python::convert_double_array(dE.data(), dE.size());
 
     auto pPotentialWell = python::convert_double_array(potential_well_array.data(),
@@ -243,8 +244,9 @@ void _matched_from_distribution_density(ftype beta, ftype energy, ftype charge,
                                             pSeed, NULL);
     assert(ret);
 
-
     python::finalize();
+
+
 }
 
 

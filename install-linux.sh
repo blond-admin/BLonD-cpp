@@ -19,7 +19,7 @@ INSTALL_PYTHON=true
 # fftw installation
 # -----------------
 
-if [ -e ${INSTALL}/include/fftw3.h ] && [ -e ${INSTALL}/lib/libfftw3.a ]; then
+if [ -e ${INSTALL}/include/fftw3.h ] && [ -e ${INSTALL}/lib/libfftw3.la ]; then
    echo -e "---- Looks like fftw3 is already installed,"
    echo -e "----  are you sure you want to reinstall it?"
    select yn in "Yes" "No"; do
@@ -35,7 +35,7 @@ if [ "${INSTALL_FFTW}" = "true" ] ; then
    echo -e "\n\n---- Installing fftw3\n\n"
    wget www.fftw.org/fftw-3.3.4.tar.gz -Otmp/fftw3.tar.gz 2>> $log
    tar -xzvf external/tmp/fftw3.tar.gz -Cexternal 2>> $log
-   cd external/fftw-3.3.4 2>> &log
+   cd external/fftw-3.3.4
    ./configure --enable-openmp --prefix="${BLOND_HOME}/external/install" 2>> $log
    make 2>> $log
    make install 2>> $log
@@ -78,11 +78,11 @@ if [ "${INSTALL_GTEST}" = "true" ] ; then
    echo -e "\n\n---- Installing googletest\n\n"
 
    git clone https://github.com/google/googletest.git external/googletest 2>> $log
-   cd external/googletest/googletest 2>> $log
-   cp -r include/* "${INSTALL}/include/" 2>> $log
+   cd external/googletest/googletest
+   cp -r include/* "${INSTALL}/include/"
    mkdir -p build 2>> $log
    cd build && cmake .. && make 2>> $log
-   cp *.a "${INSTALL}/lib" 2>> $log
+   cp *.a "${INSTALL}/lib"
 
    cd ${BLOND_HOME}
 
@@ -120,9 +120,9 @@ fi
 
 if [ "${INSTALL_PYTHON}" = "true" ] ; then
    echo -e "\n\n---- Installing python\n\n"
-   wget https://www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz -O"${BLOND_HOME}/externall/tmp" 2>> $log
+   wget https://www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz -O${BLOND_HOME}/external/tmp/Python-2.7.12.tgz   
    tar -xzvf external/tmp/Python-2.7.12.tgz -C"${BLOND_HOME}/external" 2>> $log
-   cd external/Python-2.7.12 2>> $log
+   cd external/Python-2.7.12
    ./configure --enable-unicode=ucs4 --prefix="${BLOND_HOME}/external/install" 2>> $log
    make 2>> $log
    make install 2>> $log
@@ -160,7 +160,7 @@ if [ -z "$PIP_INSTALLED" ]; then
 else
    for module in "${PYTHON_MODULES[@]}"; do
       echo -e "\n\n---- Installing ${module}\n\n"
-      pip install --upgrade --target="${BLOND_HOME}/external/lib/python2.7/site-packages" ${module} 2>> $log
+      pip install --upgrade --target="${BLOND_HOME}/external/install/lib/python2.7/site-packages" ${module} 2>> $log
    done
 fi
 

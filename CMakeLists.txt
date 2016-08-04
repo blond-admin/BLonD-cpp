@@ -195,44 +195,44 @@ else ()
     execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/external/build)
 endif ()
 
-message(STATUS "Building required started...")
+# message(STATUS "Building required started...")
 
-execute_process(
-        COMMAND ${CMAKE_COMMAND}
-        #options
-        -DWITH_FFTW=${WITH_FFTW}
-        -DWITH_BENCHMARK=${WITH_BENCHMARK}
-        -DWITH_GOOGLETEST=${WITH_GOOGLETEST}
-        #destinations
-        -DINSTALL_DIR=${EXTERNAL_INSTALL_DIR}
-        -DCOMPILE_FLAGS=${COMPILE_FLAGS}
-        -DGOOGLETEST_ROOT=${GOOGLETEST_ROOT}
-        -DBENCHMARK_ROOT=${BENCHMARK_ROOT}
-        -DGOOGLETEST_ROOT=${GOOGLETEST_ROOT}
-        #forward all collected compilation arguments
-        -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} # relevant only for Make-like build files
-        -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}
-        -DCMAKE_CXX_FLAGS_DEBUG=${CMAKE_CXX_FLAGS_DEBUG}
-        -DCMAKE_CXX_FLAGS_RELEASE=${CMAKE_CXX_FLAGS_RELEASE}
-        -DCMAKE_EXE_LINKER_FLAGS_RELEASE=${CMAKE_EXE_LINKER_FLAGS_RELEASE}
-        -DCMAKE_EXE_LINKER_FLAGS_DEBUG=${CMAKE_EXE_LINKER_FLAGS_DEBUG}
-        -v
-        -G "${CMAKE_GENERATOR}"
-        ${PROJECT_SOURCE_DIR}/external/
-        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/external/build
-)
+# execute_process(
+#         COMMAND ${CMAKE_COMMAND}
+#         #options
+#         -DWITH_FFTW=${WITH_FFTW}
+#         -DWITH_BENCHMARK=${WITH_BENCHMARK}
+#         -DWITH_GOOGLETEST=${WITH_GOOGLETEST}
+#         #destinations
+#         -DINSTALL_DIR=${EXTERNAL_INSTALL_DIR}
+#         -DCOMPILE_FLAGS=${COMPILE_FLAGS}
+#         -DGOOGLETEST_ROOT=${GOOGLETEST_ROOT}
+#         -DBENCHMARK_ROOT=${BENCHMARK_ROOT}
+#         -DGOOGLETEST_ROOT=${GOOGLETEST_ROOT}
+#         #forward all collected compilation arguments
+#         -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} # relevant only for Make-like build files
+#         -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}
+#         -DCMAKE_CXX_FLAGS_DEBUG=${CMAKE_CXX_FLAGS_DEBUG}
+#         -DCMAKE_CXX_FLAGS_RELEASE=${CMAKE_CXX_FLAGS_RELEASE}
+#         -DCMAKE_EXE_LINKER_FLAGS_RELEASE=${CMAKE_EXE_LINKER_FLAGS_RELEASE}
+#         -DCMAKE_EXE_LINKER_FLAGS_DEBUG=${CMAKE_EXE_LINKER_FLAGS_DEBUG}
+#         -v
+#         -G "${CMAKE_GENERATOR}"
+#         ${PROJECT_SOURCE_DIR}/external/
+#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/external/build
+# )
 
-message(STATUS "building external projects begins")
-execute_process(
-        COMMAND cmake --build . --config Release
-        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/external/build
-)
-if (WIN32 AND NOT MINGW)
-    execute_process(
-            COMMAND cmake --build . --config Debug
-            WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/external/build
-    )
-endif ()
+# message(STATUS "building external projects begins")
+# execute_process(
+#         COMMAND cmake --build . --config Release
+#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/external/build
+# )
+# if (WIN32 AND NOT MINGW)
+#     execute_process(
+#             COMMAND cmake --build . --config Debug
+#             WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/external/build
+#     )
+# endif ()
 message(STATUS "building external projects ended")
 
 message(STATUS "Building required libraries complete")

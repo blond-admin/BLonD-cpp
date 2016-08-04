@@ -137,21 +137,49 @@ endif ()
 # required packages
 find_package(OpenMP REQUIRED)
 
+
 if (NOT WITH_FFTW)
-    find_path(FFTW_INCLUDES fftw3.h)
-    find_library(FFTW_LIB NAMES fftw fftw3 libfftw3 libfftw-3.3 REQUIRED)
+    find_path(FFTW_INCLUDES fftw3.h
+        PATHS ${EXTERNAL_INSTALL_DIR}/include
+        NO_DEFAULT_PATH)
+    
+    if(FFTW_INCLUDES STREQUAL "FFTW_INCLUDES-NOTFOUND")
+        message(FATAL_ERROR "ERROR: fftw3.h not found")
+    endif()
+
+    find_library(FFTW_LIB NAMES fftw fftw3 libfftw3 libfftw-3.3
+        PATHS ${EXTERNAL_INSTALL_DIR}/lib
+        NO_DEFAULT_PATH
+        REQUIRED)
 endif ()
 # message(STATUS "---------------- WITH_FFTW ${WITH_FFTW} ${FFTW_LIB}")
 
 #not required
 if ((NOT WITH_GOOGLETEST) AND TEST_ENABLED)
-    find_package(GTEST REQUIRED)
-    find_library(GTEST_LIB
-            NAMES gtest libgtest
-            )
-    find_library(GTEST_MAIN_LIB
-            NAMES gtest_main libgtest_main
-            )
+    # find_package(GTEST REQUIRED)
+    find_path(GTEST_INCLUDES gtest.h
+        PATHS "${EXTERNAL_INSTALL_DIR}/include/gtest"
+        NO_DEFAULT_PATH)
+    
+    if(GTEST_INCLUDES STREQUAL "GTEST_INCLUDES-NOTFOUND")
+        message(FATAL_ERROR "ERROR: fftw3.h not found")
+    endif()
+    
+    find_library(GTEST_LIB NAMES gtest libgtest
+        PATHS "${EXTERNAL_INSTALL_DIR}/lib"
+        NO_DEFAULT_PATH
+        REQUIRED)
+    find_library(GTEST_MAIN_LIB NAMES gtest_main libgtest_main
+        PATHS "${EXTERNAL_INSTALL_DIR}/lib"
+        NO_DEFAULT_PATH
+        REQUIRED)
+
+    # find_library(GTEST_LIB
+    #         NAMES gtest libgtest
+    #         )
+    # find_library(GTEST_MAIN_LIB
+    #         NAMES gtest_main libgtest_main
+    #         )
 
 endif ()
 
@@ -253,14 +281,21 @@ include_directories(include
    # $ENV{HOME}/work/anaconda2/include/python2.7
    # $ENV{HOME}/work/anaconda2/include
    # $ENV{HOME}/work/anaconda2/lib/python2.7/site-packages
-   $ENV{HOME}/opt/python2.7
-   $ENV{HOME}/opt/include/python2.7
-   $ENV{HOME}/opt/include/
-   $ENV{HOME}/opt/lib/python2.7/site-packages
+   # $ENV{HOME}/opt/python2.7
+   # $ENV{HOME}/opt/include/python2.7
+   # $ENV{HOME}/opt/include/
+   # $ENV{HOME}/opt/lib/python2.7/site-packages
+
+   # external/opt/python2.7
+   ${EXTERNAL_INSTALL_DIR}/include/python2.7
+   ${EXTERNAL_INSTALL_DIR}/include/
+   ${EXTERNAL_INSTALL_DIR}/lib/python2.7/site-packages
    )
 
-link_directories(/usr/lib
-    $ENV{HOME}/opt/lib/python2.7/config
+link_directories(
+    #/usr/lib
+    # $ENV{HOME}/opt/lib/python2.7/config
+    ${EXTERNAL_INSTALL_DIR}/lib/python2.7/config
    # $ENV{HOME}/work/anaconda2/lib/python2.7/config
    )
 

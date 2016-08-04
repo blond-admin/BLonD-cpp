@@ -39,7 +39,18 @@ if [ "${INSTALL_FFTW}" = "true" ] ; then
    wget www.fftw.org/fftw-3.3.4.tar.gz -O${EXTERNAL}/tmp/fftw3.tar.gz
    tar -xzvf ${EXTERNAL}/tmp/fftw3.tar.gz -C${EXTERNAL} &>> $log
    cd ${EXTERNAL}/fftw-3.3.4
-   ./configure --enable-openmp --prefix="${INSTALL}" &>> $log
+   ./configure --disable-alloca \
+               --disable-fortran \
+               --disable-static \
+               --enable-shared \
+               --enable-threads \
+               --with-combined-threads \
+               --enable-sse2 \
+               --enable-avx \
+               --with-our-malloc \
+               --with-incoming-stack-boundary=2 \
+               --prefix="${INSTALL}" &>> $log
+   # ./configure --enable-openmp --prefix="${INSTALL}" &>> $log
    make &>> $log
    make install &>> $log
 
@@ -152,6 +163,7 @@ fi
 
 PYTHON=${INSTALL}/bin/python2.7
 
+
 # --------------------------
 # end of Python installation
 # --------------------------
@@ -166,7 +178,7 @@ echo -e "\n\n---- Installing setuptools.."
 $PYTHON -c "import setuptools" &> /dev/null
 SETUPTOOLS_INSTALLED=`echo $?`
 if [ "$SETUPTOOLS_INSTALLED" == "1" ]; then
-    wget https://bootstrap.pypa.io/ez_setup.py -O${EXTERNAL}/tmp
+    wget https://bootstrap.pypa.io/ez_setup.py -O${EXTERNAL}/tmp/ez_setup.py
     $PYTHON ${EXTERNAL}/tmp/ez_setup.py &> $log
 fi
 
@@ -183,9 +195,10 @@ echo -e "---- Installation of setuptools is completed\n\n"
 
 echo -e "\n\n---- Installing pip.."
 
-PIP_INSTALLED=`which pip`
-
-if [ -z "$PIP_INSTALLED" ]; then
+# PIP_INSTALLED=`which pip`
+$PYTHON -c "import pip" &> /dev/null
+PIP_INSTALLED=`echo $?`
+if [ "$PIP_INSTALLED" == "1" ]; then
    wget https://pypi.python.org/packages/e7/a8/7556133689add8d1a54c0b14aeff0acb03c64707ce100ecd53934da1aa13/pip-8.1.2.tar.gz -O${EXTERNAL}/tmp/pip-8.1.2.tar.gz
    tar -xzvf ${EXTERNAL}/tmp/pip-8.1.2.tar.gz -C${EXTERNAL} &>> $log
    cd ${EXTERNAL}/pip-8.1.2

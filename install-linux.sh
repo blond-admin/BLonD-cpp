@@ -2,14 +2,17 @@
 
 echo -e "Installing necessary libraries...\n"
 
-BLOND_HOME=$(pwd)
 
-mkdir -p external/tmp
-mkdir -p external/install/lib
-mkdir -p external/install/include
-INSTALL="${BLOND_HOME}/external/install"
-log="${BLOND_HOME}/external/log.out"
-touch ${log}
+
+BLOND_HOME=$(pwd)
+EXTERNAL="${BLOND_HOME}/external"
+INSTALL="${EXTERNAL}/install"
+log="${EXTERNAL}/log.out"
+
+mkdir -p ${EXTERNAL}/tmp
+mkdir -p ${INSTALL}/lib
+mkdir -p ${INSTALL}/include
+echo > ${log}
 
 INSTALL_FFTW=true
 INSTALL_GTEST=true
@@ -20,8 +23,8 @@ INSTALL_PYTHON=true
 # -----------------
 
 if [ -e ${INSTALL}/include/fftw3.h ] && [ -e ${INSTALL}/lib/libfftw3.la ]; then
-   echo -e "---- Looks like fftw3 is already installed,"
-   echo -e "----  are you sure you want to reinstall it?"
+   echo -e "\n\n---- Looks like fftw3 is already installed,"
+   echo -e "---- are you sure you want to reinstall it?\n\n"
    select yn in "Yes" "No"; do
       case $yn in
          Yes ) INSTALL_FFTW=true; break;;
@@ -32,22 +35,23 @@ fi
 
 
 if [ "${INSTALL_FFTW}" = "true" ] ; then
-   echo -e "\n\n---- Installing fftw3\n\n"
-   wget www.fftw.org/fftw-3.3.4.tar.gz -Otmp/fftw3.tar.gz 2>> $log
-   tar -xzvf external/tmp/fftw3.tar.gz -Cexternal 2>> $log
-   cd external/fftw-3.3.4
-   ./configure --enable-openmp --prefix="${BLOND_HOME}/external/install" 2>> $log
-   make 2>> $log
-   make install 2>> $log
+   echo -e "\n\n---- Installing fftw3"
+   wget www.fftw.org/fftw-3.3.4.tar.gz -O${EXTERNAL}/tmp/fftw3.tar.gz
+   tar -xzvf ${EXTERNAL}/tmp/fftw3.tar.gz -C${EXTERNAL} &>> $log
+   cd ${EXTERNAL}/fftw-3.3.4
+   ./configure --enable-openmp --prefix="${INSTALL}" &>> $log
+   make &>> $log
+   make install &>> $log
 
    if [ -e ${INSTALL}/include/fftw3.h ] && [ -e ${INSTALL}/lib/libfftw3.a ]; then
-      echo -e "\n\n---- fftw3 is successfully installed\n\n"
+      echo -e "---- fftw3 has been installed successfully\n\n"
    else
-      echo -e "\n\n---- fftw3 has failed to install successfully"
+      echo -e "---- fftw3 has failed to install successfully"
       echo -e "---- You will have to manually install this library"
       echo -e "---- into directory ${BLOND_HOME}/external/install\n\n"
 
    fi
+   echo -e "---- Installation of fftw3 is completed\n\n"
 fi
 
 # -----------------------
@@ -63,8 +67,8 @@ cd ${BLOND_HOME}
 
 if [ -e ${INSTALL}/include/gtest/gtest.h ] && [ -e ${INSTALL}/lib/libgtest.a ] \
    && [ -e ${INSTALL}/lib/libgtest_main.a ]; then
-   echo -e "---- Looks like googletest is already installed,"
-   echo -e "---- are you sure you want to reinstall it?"
+   echo -e "\n\n---- Looks like googletest is already installed,"
+   echo -e "---- are you sure you want to reinstall it?\n\n"
    select yn in "Yes" "No"; do
       case $yn in
          Yes ) INSTALL_GTEST=true; break;;
@@ -75,26 +79,27 @@ fi
 
 if [ "${INSTALL_GTEST}" = "true" ] ; then
 
-   echo -e "\n\n---- Installing googletest\n\n"
+   echo -e "\n\n---- Installing googletest"
 
-   git clone https://github.com/google/googletest.git external/googletest 2>> $log
-   cd external/googletest/googletest
+   git clone https://github.com/google/googletest.git ${EXTERNAL}/googletest
+   cd ${EXTERNAL}/googletest/googletest
    cp -r include/* "${INSTALL}/include/"
-   mkdir -p build 2>> $log
-   cd build && cmake .. && make 2>> $log
+   mkdir -p build &>> $log
+   cd build && cmake .. && make &>> $log
    cp *.a "${INSTALL}/lib"
 
    cd ${BLOND_HOME}
 
    if [ -e ${INSTALL}/include/gtest/gtest.h ] && [ -e ${INSTALL}/lib/libgtest.a ] \
       && [ -e ${INSTALL}/lib/libgtest_main.a ]; then
-      echo -e "\n\n---- Googletest is successfully installed\n\n"
+      echo -e "---- Googletest has been installed successfully\n\n"
    else
-      echo -e "\n\n---- Googletest has failed to install successfully"
+      echo -e "---- Googletest has failed to install successfully"
       echo -e "---- You will have to manually install this library"
       echo -e "---- into directory ${BLOND_HOME}/external/install\n\n"
 
    fi
+   echo -e "---- Installation of googletest is completed\n\n"
 fi
 
 # ------------------------------
@@ -108,7 +113,7 @@ cd ${BLOND_HOME}
 # -------------------
 
 if [ -e ${INSTALL}/include/python2.7/Python.h ] && [ -e ${INSTALL}/lib/python2.7/config/libpython2.7.a ]; then
-   echo -e "---- Looks like python is already installed,"
+   echo -e "\n\n---- Looks like Python2.7 is already installed,"
    echo -e "---- are you sure you want to reinstall it?"
    select yn in "Yes" "No"; do
       case $yn in
@@ -118,37 +123,88 @@ if [ -e ${INSTALL}/include/python2.7/Python.h ] && [ -e ${INSTALL}/lib/python2.7
    done
 fi
 
+
+
+
+
+
 if [ "${INSTALL_PYTHON}" = "true" ] ; then
-   echo -e "\n\n---- Installing python\n\n"
-   wget https://www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz -O${BLOND_HOME}/external/tmp/Python-2.7.12.tgz   
-   tar -xzvf external/tmp/Python-2.7.12.tgz -C"${BLOND_HOME}/external" 2>> $log
-   cd external/Python-2.7.12
-   ./configure --enable-unicode=ucs4 --prefix="${BLOND_HOME}/external/install" 2>> $log
-   make 2>> $log
-   make install 2>> $log
+   echo -e "\n\n---- Installing Python2.7\n\n"
+   wget https://www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz -O${EXTERNAL}/tmp/Python-2.7.12.tgz
+   tar -xzvf ${EXTERNAL}/tmp/Python-2.7.12.tgz -C"${EXTERNAL}" &>> $log
+   cd ${EXTERNAL}/Python-2.7.12
+   ./configure --enable-unicode=ucs4 --prefix="${INSTALL}" &>> $log
+   make &>> $log
+   make install &>> $log
 
    cd ${BLOND_HOME}
 
    if [ -e ${INSTALL}/include/python2.7/Python.h ] && [ -e ${INSTALL}/lib/python2.7/config/libpython2.7.a ]; then
-      echo -e "\n\n---- Python is successfully installed\n\n"
+      echo -e "---- Python has been installed successfully\n\n"
    else
       echo -e "\n\n---- Python has failed to install successfully"
       echo -e "---- You will have to manually install this library"
       echo -e "---- into directory ${BLOND_HOME}/external/install\n\n"
    fi
+
+   #echo -e "---- Installing of Python2.7 is completed\n\n"
 fi
+
+PYTHON=${INSTALL}/bin/python2.7
 
 # --------------------------
 # end of Python installation
 # --------------------------
 
 
-# ---------------------------
-# Python Modules installation
-# ---------------------------
-PYTHON_MODULES=( "numpy" "scipy" "matplotlib")
 
-cd ${BLOND_HOME}
+# ------------------------------
+# Python setuptools installation
+# ------------------------------
+echo -e "\n\n---- Installing setuptools.."
+
+$PYTHON -c "import setuptools" &> /dev/null
+SETUPTOOLS_INSTALLED=`echo $?`
+if [ "$SETUPTOOLS_INSTALLED" == "1" ]; then
+    wget https://bootstrap.pypa.io/ez_setup.py -O${EXTERNAL}/tmp
+    $PYTHON ${EXTERNAL}/tmp/ez_setup.py &> $log
+fi
+
+echo -e "---- Installation of setuptools is completed\n\n"
+
+# ------------------------------
+# End of setuptools installation
+# ------------------------------
+
+
+# -----------------------
+# Python pip installation
+# -----------------------
+
+echo -e "\n\n---- Installing pip.."
+
+PIP_INSTALLED=`which pip`
+
+if [ -z "$PIP_INSTALLED" ]; then
+   wget https://pypi.python.org/packages/e7/a8/7556133689add8d1a54c0b14aeff0acb03c64707ce100ecd53934da1aa13/pip-8.1.2.tar.gz -O${EXTERNAL}/tmp/pip-8.1.2.tar.gz
+   tar -xzvf ${EXTERNAL}/tmp/pip-8.1.2.tar.gz -C${EXTERNAL} &>> $log
+   cd ${EXTERNAL}/pip-8.1.2
+   $PYTHON setup.py install --prefix=${INSTALL}/lib/python2.7/site-packages
+fi
+
+echo -e "---- Installation of pip is completed\n\n"
+
+# -----------------------
+# End of pip installation
+# -----------------------
+
+
+# -----------------------
+# Python external modules installation
+# -----------------------
+
+#PYTHON_MODULES=( "numpy" )
+PYTHON_MODULES=( "numpy" "scipy" "matplotlib" )
 PIP_INSTALLED=`which pip`
 
 if [ -z "$PIP_INSTALLED" ]; then
@@ -159,10 +215,16 @@ if [ -z "$PIP_INSTALLED" ]; then
    echo -e "---- For more information, please visit this site: https://packaging.python.org/install_requirements_linux/ \n\n"
 else
    for module in "${PYTHON_MODULES[@]}"; do
-      echo -e "\n\n---- Installing ${module}\n\n"
-      pip install --upgrade --target="${BLOND_HOME}/external/install/lib/python2.7/site-packages" ${module} 2>> $log
+      echo -e "\n\n---- Installing ${module}"
+      $PYTHON -c "import $module" &> /dev/null
+      IS_INSTALLED=`echo $?`
+      if [ "$IS_INSTALLED" == "1" ]; then
+          $PYTHON -m pip install --target="${INSTALL}/lib/python2.7/site-packages" ${module}
+      fi
+      echo -e "---- Installation of ${module} is completed\n\n"
    done
 fi
+
 
 # ----------------------------------
 # end of Python Modules installation

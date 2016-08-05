@@ -125,7 +125,7 @@ cd ${BLOND_HOME}
 
 if [ -e ${INSTALL}/include/python2.7/Python.h ] && [ -e ${INSTALL}/lib/python2.7/config/libpython2.7.a ]; then
    echo -e "\n\n---- Looks like Python2.7 is already installed,"
-   echo -e "---- are you sure you want to reinstall it?"
+   echo -e "---- are you sure you want to reinstall it?\n\n"
    select yn in "Yes" "No"; do
       case $yn in
          Yes ) INSTALL_PYTHON=true; break;;
@@ -145,10 +145,9 @@ if [ "${INSTALL_PYTHON}" = "true" ] ; then
    tar -xzvf ${EXTERNAL}/tmp/Python-2.7.12.tgz -C"${EXTERNAL}" &>> $log
    cd ${EXTERNAL}/Python-2.7.12
    ./configure --enable-unicode=ucs4 \
-               --prefix="${INSTALL}" \
                --with-threads \
-               # --with-cxx-main="g++" \
-               --enable-shared &>> $log
+               --enable-shared \
+               --prefix="${INSTALL}" &>> $log
    make &>> $log
    make install &>> $log
 
@@ -167,8 +166,8 @@ fi
 
 PYTHON=${INSTALL}/bin/python2.7
 export PATH="${INSTALL}/bin:$PATH"
-export PYTHONPATH="${BLOND_HOME}/python"
-
+# export PYTHONPATH="${BLOND_HOME}/python"
+export LD_LIBRARY_PATH="${INSTALL}/lib:$LD_LIBRARY_PATH"
 # --------------------------
 # end of Python installation
 # --------------------------
@@ -183,8 +182,8 @@ echo -e "\n\n---- Installing setuptools.."
 $PYTHON -c "import setuptools" &> /dev/null
 SETUPTOOLS_INSTALLED=`echo $?`
 if [ "$SETUPTOOLS_INSTALLED" == "1" ]; then
-    wget https://bootstrap.pypa.io/ez_setup.py -O${EXTERNAL}/tmp/ez_setup.py
-    $PYTHON ${EXTERNAL}/tmp/ez_setup.py &> $log
+    wget --no-check-certificate https://bootstrap.pypa.io/ez_setup.py -O${EXTERNAL}/tmp/ez_setup.py
+    $PYTHON ${EXTERNAL}/tmp/ez_setup.py --insecure &>> $log
 fi
 
 echo -e "---- Installation of setuptools is completed\n\n"
@@ -207,7 +206,7 @@ if [ "$PIP_INSTALLED" == "1" ]; then
    wget https://pypi.python.org/packages/e7/a8/7556133689add8d1a54c0b14aeff0acb03c64707ce100ecd53934da1aa13/pip-8.1.2.tar.gz -O${EXTERNAL}/tmp/pip-8.1.2.tar.gz
    tar -xzvf ${EXTERNAL}/tmp/pip-8.1.2.tar.gz -C${EXTERNAL} &>> $log
    cd ${EXTERNAL}/pip-8.1.2
-   $PYTHON setup.py install --prefix=${INSTALL}
+   $PYTHON setup.py install --prefix="${INSTALL}" &>> ${log}
 fi
 
 echo -e "---- Installation of pip is completed\n\n"
@@ -238,7 +237,13 @@ else
       $PYTHON -c "import $module" &> /dev/null
       IS_INSTALLED=`echo $?`
       if [ "$IS_INSTALLED" == "1" ]; then
-          $PYTHON -m pip install --target="${INSTALL}/lib/python2.7/site-packages" ${module}
+          $PYTHON -m pip install \
+          --target="${INSTALL}/lib/python2.7/site-packages" \
+          --global-option=build_ext \
+          --global-option="-L/usr/lib" \
+          --global-option="-L/usr/lib64" \
+          --global-option="-L${INSTALL}/lib" \
+          ${module}
       fi
       echo -e "---- Installation of ${module} is completed\n\n"
    done
@@ -255,3 +260,4 @@ echo -e "---- Now try to build the project"
 echo -e "---- You can consult the ${log} file for any errors\n\n"
 
 rm -rf ${EXTERNAL}/tmp &> /dev/null
+rm -rf ${BLOND_HOME}/setuptools-*.zip &> /dev/null

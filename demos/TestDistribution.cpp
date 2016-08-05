@@ -109,8 +109,8 @@ int main(int argc, char **argv)
 
 
 
-    util::dump(Beam->dt, "Beam->dt\n");
-    util::dump(Beam->dE, "Beam->dE\n");
+    // util::dump(Beam->dt, "Beam->dt\n");
+    // util::dump(Beam->dE, "Beam->dE\n");
 
     // for (auto& v : Context::Beam->dE)
     //     v += 90.0e3;

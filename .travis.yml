@@ -24,7 +24,7 @@ addons:
       - cmake-data
       - gcc-4.8
       - g++-4.8
-      - valgrind
+      # - valgrind
       - gcov-4.8
       - lcov
       - doxygen
@@ -42,9 +42,11 @@ before_install:
   - export CXX=/usr/bin/g++-4.8
 
 before_script:
+  - bash install-linux.sh
   - mkdir build
   - cd build
-  - cmake -DWITH_FFTW=True -DWITH_GOOGLETEST=True -DWITH_BENCHMARK=True -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
+  # - cmake -DWITH_FFTW=True -DWITH_GOOGLETEST=True -DWITH_BENCHMARK=True -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
+  - cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
 
 script:
   - cmake --build . -- -j2 VERBOSE=1

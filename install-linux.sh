@@ -144,7 +144,11 @@ if [ "${INSTALL_PYTHON}" = "true" ] ; then
    wget https://www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz -O${EXTERNAL}/tmp/Python-2.7.12.tgz
    tar -xzvf ${EXTERNAL}/tmp/Python-2.7.12.tgz -C"${EXTERNAL}" &>> $log
    cd ${EXTERNAL}/Python-2.7.12
-   ./configure --enable-unicode=ucs4 --prefix="${INSTALL}" &>> $log
+   ./configure --enable-unicode=ucs4 \
+               --prefix="${INSTALL}" \
+               --with-threads \
+               # --with-cxx-main="g++" \
+               --enable-shared &>> $log
    make &>> $log
    make install &>> $log
 
@@ -162,7 +166,8 @@ if [ "${INSTALL_PYTHON}" = "true" ] ; then
 fi
 
 PYTHON=${INSTALL}/bin/python2.7
-
+export PATH="${INSTALL}/bin:$PATH"
+export PYTHONPATH="${BLOND_HOME}/python"
 
 # --------------------------
 # end of Python installation
@@ -202,7 +207,7 @@ if [ "$PIP_INSTALLED" == "1" ]; then
    wget https://pypi.python.org/packages/e7/a8/7556133689add8d1a54c0b14aeff0acb03c64707ce100ecd53934da1aa13/pip-8.1.2.tar.gz -O${EXTERNAL}/tmp/pip-8.1.2.tar.gz
    tar -xzvf ${EXTERNAL}/tmp/pip-8.1.2.tar.gz -C${EXTERNAL} &>> $log
    cd ${EXTERNAL}/pip-8.1.2
-   $PYTHON setup.py install --prefix=${INSTALL}/lib/python2.7/site-packages
+   $PYTHON setup.py install --prefix=${INSTALL}
 fi
 
 echo -e "---- Installation of pip is completed\n\n"
@@ -218,9 +223,10 @@ echo -e "---- Installation of pip is completed\n\n"
 
 #PYTHON_MODULES=( "numpy" )
 PYTHON_MODULES=( "numpy" "scipy" "matplotlib" )
-PIP_INSTALLED=`which pip`
+$PYTHON -c "import pip" &> /dev/null
+PIP_INSTALLED=`echo $?`
 
-if [ -z "$PIP_INSTALLED" ]; then
+if [ "$PIP_INSTALLED" == "1" ]; then
    echo -e "\n\n---- PIP is needed in order to install required python modules"
    echo -e "---- If you are on Fedora/CentOS/RHEL try: yum install python-pip"
    echo -e "---- If you are on Debian/Ubuntu try: apt-get install python-pip"
@@ -248,4 +254,4 @@ echo -e "\n\n---- Exteranl depedencies installation procedure completed"
 echo -e "---- Now try to build the project"
 echo -e "---- You can consult the ${log} file for any errors\n\n"
 
-rm -rf external/tmp &> /dev/null
+rm -rf ${EXTERNAL}/tmp &> /dev/null

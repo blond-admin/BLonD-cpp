@@ -3,8 +3,8 @@
 #include <blond/python.h>
 
 
-void plot_voltage_programme(const f_vector_t &time, const f_vector_t &voltage,
-                            int sampling, std::string dirname, int figno);
+void plot_voltage_programme(f_vector_t &time, f_vector_t &voltage,
+                            int sampling, std::string dirname, int figno)
 {
     // python::initialize();
     python::import();

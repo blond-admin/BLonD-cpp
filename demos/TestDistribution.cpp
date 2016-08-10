@@ -11,6 +11,7 @@
 #include <blond/trackers/Tracker.h>
 #include <blond/utilities.h>
 #include <blond/plots/plot_beams.h>
+#include <blond/plots/plot_parameters.h>
 #include <blond/python.h>
 // Simulation parameters
 // --------------------------------------------------------
@@ -56,6 +57,10 @@ int main(int argc, char **argv)
     printf("Number of openmp threads: %d\n", Context::n_threads);
 
     f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1, p_i));
+
+    // f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1));
+    // for (auto& v : momentumVec)
+    //     mymath::linspace(v.data(), p_i, p_i*1.001, N_t + 1);
 
     f_vector_2d_t alphaVec(n_sections, f_vector_t(alpha_order + 1, alpha));
 

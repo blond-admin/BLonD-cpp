@@ -24,23 +24,21 @@ from utilities import separatrix
 def plot_long_phase_space(rfp_counter, rfp_omega_RF_0, rfp_phi_RF_0,
                           beam_id, beam_dt, beam_dE, xmin, xmax, ymin,
                           ymax, xunit, sampling, separatrix_plot,
-                          histograms_plot, dirname, alpha, 
                           gp_n_sections, gp_charge, gp_t_rev,
+                          rfp_voltage, rfp_omega_rf, rfp_phi_RF,
+                          rfp_eta_0, rfp_beta, rfp_energy, rfp_n_rf,
+                          rfp_harmonic_0, rfp_phi_S, rfp_E_increment,
+                          histograms_plot, dirname, alpha,
                           ):
-
-    # def plot_long_phase_space(GeneralParameters, RFSectionParameters, Beam, xmin,
-    #                           xmax, ymin, ymax, xunit = 's', sampling = 1,
-    #                           separatrix_plot = False, histograms_plot = True,
-    #                           dirname = 'fig', alpha = 1):
     """
     Plot of longitudinal phase space. Optional use of histograms and separatrix.
     Choice of units: xunit = s, rad.
     For large amount of data, use "sampling" to plot a fraction of the data.
     """
-    print beam_dE[:10]
-    print beam_dt[:10]
-    print beam_id[:10]
-
+    # print beam_dE[:10]
+    # print beam_dt[:10]
+    # print beam_id[:10]
+    # print "ok till here"
     # Conversion from particle arrival time to RF phase
     if xunit == 'rad':
         omega_RF = rfp_omega_RF_0
@@ -63,7 +61,6 @@ def plot_long_phase_space(rfp_counter, rfp_omega_RF_0, rfp_phi_RF_0,
     axScatter = plt.axes(rect_scatter)
     axHistx = plt.axes(rect_histx)
     axHisty = plt.axes(rect_histy)
-
 
     # Main plot: longitudinal distribution
     indlost = np.where(beam_id[::sampling] == 0)[0]  # particles lost
@@ -94,15 +91,23 @@ def plot_long_phase_space(rfp_counter, rfp_omega_RF_0, rfp_phi_RF_0,
 
     # Separatrix
 
-    # if separatrix_plot:
-    #     x_sep = np.linspace(xmin, xmax, 1000)
-    #     if xunit == 's':
-    #         y_sep = separatrix(GeneralParameters, RFSectionParameters, x_sep)
-    #     elif xunit == 'rad':
-    #         y_sep = separatrix(
-    #             GeneralParameters, RFSectionParameters, (x_sep - phi_RF)/omega_RF)
-    #     axScatter.plot(x_sep, y_sep, 'r')
-    #     axScatter.plot(x_sep, - y_sep, 'r')
+    if separatrix_plot:
+        x_sep = np.linspace(xmin, xmax, 1000)
+        if xunit == 's':
+            y_sep = separatrix(gp_n_sections, gp_charge, gp_t_rev,
+                               rfp_counter, rfp_voltage, rfp_omega_rf,
+                               rfp_phi_RF, rfp_eta_0, rfp_beta,
+                               rfp_energy, rfp_n_rf, rfp_harmonic_0,
+                               rfp_phi_S, rfp_E_increment, x_sep)
+        elif xunit == 'rad':
+            y_sep = separatrix(gp_n_sections, gp_charge, gp_t_rev,
+                               rfp_counter, rfp_voltage, rfp_omega_rf,
+                               rfp_phi_RF, rfp_eta_0, rfp_beta,
+                               rfp_energy, rfp_n_rf, rfp_harmonic_0,
+                               rfp_phi_S, rfp_E_increment,
+                               (x_sep - phi_RF)/omega_RF)
+        axScatter.plot(x_sep, y_sep, 'r')
+        axScatter.plot(x_sep, - y_sep, 'r')
 
     # Phase and momentum histograms
     if histograms_plot:
@@ -117,11 +122,11 @@ def plot_long_phase_space(rfp_counter, rfp_omega_RF_0, rfp_phi_RF_0,
             axHistx.hist(
                 omega_RF*beam_dt[::sampling] + phi_RF, bins=xh, histtype='step')
         # print 'ok2'
-        
+
         axHisty.hist(beam_dE[::sampling], bins=yh, histtype='step',
                      orientation='horizontal')
         # print 'ok3'
-        
+
         axHistx.ticklabel_format(style='sci', axis='y', scilimits=(0, 0))
         axHisty.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
         axHistx.axes.get_xaxis().set_visible(False)

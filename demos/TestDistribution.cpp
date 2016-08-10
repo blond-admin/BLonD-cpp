@@ -32,7 +32,7 @@ const uint n_sections = 1;
 // Tracking details
 
 uint N_t = 500;    // Number of turns to track
-uint N_p = 1000; // Macro-particles
+uint N_p = 100000; // Macro-particles
 
 uint N_slices = 200; // = (2^8)
 
@@ -103,7 +103,7 @@ int main(int argc, char **argv)
     // util::dump(Beam->dE, "Beam->dE\n");
     // util::dump(Beam->id, "Beam->id\n");
 
-    plot_long_phase_space(GP, RfP, Beam, 0, 1e-6, -1e6, 1e6);
+    plot_long_phase_space(GP, RfP, Beam, 5e-7, 1.2e-6, -3e5, 3e5, "s", 1, true);
 
     // std::map<std::string, std::string> distribution_opt;
     // distribution_opt["type"] = "binomial";

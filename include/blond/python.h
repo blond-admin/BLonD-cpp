@@ -11,7 +11,7 @@
 
 namespace python {
 
-    // static bool 
+    // static bool
 
     static inline int initialize()
     {
@@ -41,6 +41,11 @@ namespace python {
         assert(pFunc);
 
         return pFunc;
+    }
+
+    static inline PyObject *get_none()
+    {
+        return Py_None;
     }
 
     static inline PyObject *convert_double(double value)

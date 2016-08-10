@@ -109,8 +109,8 @@ void _matched_from_line_density(ftype beta, ftype energy, ftype charge,
                                 int seed
                                )
 {
-    python::initialize();
-
+    // python::initialize();
+    python::import();
     auto pFunc = python::import("distributions", "matched_from_line_density");
 
     auto pBeta = python::convert_double(beta);
@@ -147,7 +147,7 @@ void _matched_from_line_density(ftype beta, ftype energy, ftype charge,
     assert(ret);
 
 
-    python::finalize();
+    // python::finalize();
 }
 
 
@@ -210,7 +210,8 @@ void _matched_from_distribution_density(ftype beta, ftype energy, ftype charge,
                                        )
 {
 
-    python::initialize();
+    // python::initialize();
+    python::import();
     
     auto pFunc = python::import("distributions", "matched_from_distribution_density");
     auto pBeta = python::convert_double(beta);
@@ -244,7 +245,7 @@ void _matched_from_distribution_density(ftype beta, ftype energy, ftype charge,
                                             pSeed, NULL);
     assert(ret);
 
-    python::finalize();
+    // python::finalize();
 
 
 }

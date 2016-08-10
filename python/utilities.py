@@ -21,7 +21,7 @@ import numpy as np
 import copy
 from scipy.constants import c
 from scipy.integrate import cumtrapz
-# import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 
 
 def synchrotron_frequency_distribution(Beam, FullRingAndRF, main_harmonic_option = 'lowest_freq', 

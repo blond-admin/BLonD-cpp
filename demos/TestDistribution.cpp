@@ -10,7 +10,8 @@
 #include <blond/math_functions.h>
 #include <blond/trackers/Tracker.h>
 #include <blond/utilities.h>
-
+#include <blond/plots/plot_beams.h>
+#include <blond/python.h>
 // Simulation parameters
 // --------------------------------------------------------
 
@@ -31,7 +32,7 @@ const uint n_sections = 1;
 // Tracking details
 
 uint N_t = 500;    // Number of turns to track
-uint N_p = 10; // Macro-particles
+uint N_p = 1000; // Macro-particles
 
 uint N_slices = 200; // = (2^8)
 
@@ -43,7 +44,7 @@ int main(int argc, char **argv)
 {
 
     parse_args(argc, argv);
-
+    python::initialize();
     omp_set_num_threads(Context::n_threads);
 
     /// initializations
@@ -67,7 +68,7 @@ int main(int argc, char **argv)
     f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 
     auto GP = Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
-                                        momentumVec, proton);
+            momentumVec, proton);
 
     auto Beam = Context::Beam = new Beams(N_p, N_b);
 
@@ -94,10 +95,15 @@ int main(int argc, char **argv)
     line_density_opt["type"] = "gaussian";
     line_density_opt["bunch_length"] = "200e-9";
     line_density_opt["density_variable"] = "density_from_J";
+    
+    // longitudinal_bigaussian(200e-9, 1e6, 1, false);
 
-    matched_from_line_density(full_ring, line_density_opt, "lowest_freq", "show");
-    util::dump(Beam->dt, "Beam->dt\n");
-    util::dump(Beam->dE, "Beam->dE\n");
+    matched_from_line_density(full_ring, line_density_opt, "lowest_freq", "savefig");
+    // util::dump(Beam->dt, "Beam->dt\n");
+    // util::dump(Beam->dE, "Beam->dE\n");
+    // util::dump(Beam->id, "Beam->id\n");
+
+    plot_long_phase_space(GP, RfP, Beam, 0, 1e-6, -1e6, 1e6);
 
     // std::map<std::string, std::string> distribution_opt;
     // distribution_opt["type"] = "binomial";
@@ -154,6 +160,7 @@ int main(int argc, char **argv)
     // delete Context::RfP;
     delete GP;
     delete Beam;
+    python::finalize();
     // delete psb;
 
     printf("Done!\n");

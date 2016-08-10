@@ -17,7 +17,10 @@
 from __future__ import division
 import numpy as np
 import warnings
+import signal
 import copy
+# import matplotlib as mpl
+# mpl.use('Agg')
 import matplotlib.pyplot as plt
 from scipy.integrate import cumtrapz
 from utilities import potential_well_cut, minmax_location
@@ -42,7 +45,8 @@ def matched_from_line_density(beam_beta, beam_energy, beam_charge,
     if not line_density_options.has_key('exponent'):
         line_density_options['exponent'] = None
     else:
-        line_density_options['exponent'] = float(line_density_options['exponent'])
+        line_density_options['exponent'] = float(
+            line_density_options['exponent'])
 
     # Initialize variables depending on the accelerator parameters
     slippage_factor = eta_0
@@ -72,7 +76,7 @@ def matched_from_line_density(beam_beta, beam_energy, beam_charge,
 
         value = line_density_options['bunch_length']
         line_density_options['bunch_length'] = float(value)
-        
+
         # End
 
         n_points_line_den = int(1e4)
@@ -109,6 +113,8 @@ def matched_from_line_density(beam_beta, beam_energy, beam_charge,
 
     induced_potential_final = 0
     n_iterations = 1
+
+    # print "okay here"
 
     # if TotalInducedVoltage is not None:
     #     # Calculating the induced voltage
@@ -349,6 +355,7 @@ def matched_from_line_density(beam_beta, beam_energy, beam_charge,
         elif plot == 'savefig':
             fign = figdir + '/generated_bunch.png'
             plt.savefig(fign)
+            plt.clf()
 
     # Populating the bunch
     indexes = np.random.choice(
@@ -430,8 +437,8 @@ def matched_from_distribution_density(beam_beta, beam_energy, beam_charge,
     if not distribution_options.has_key('exponent'):
         distribution_options['exponent'] = None
     else:
-        distribution_options['exponent'] = float(distribution_options['exponent'])
-
+        distribution_options['exponent'] = float(
+            distribution_options['exponent'])
 
     # Loading the distribution function if provided by the user
     if distribution_options['type'] == 'user_input':

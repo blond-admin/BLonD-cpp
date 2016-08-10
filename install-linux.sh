@@ -2,8 +2,6 @@
 
 echo -e "Installing necessary libraries...\n"
 
-
-
 BLOND_HOME=$(pwd)
 EXTERNAL="${BLOND_HOME}/external"
 INSTALL="${EXTERNAL}/install"
@@ -221,7 +219,7 @@ echo -e "---- Installation of pip is completed\n\n"
 # -----------------------
 
 #PYTHON_MODULES=( "numpy" )
-PYTHON_MODULES=( "numpy" "scipy" "matplotlib" )
+PYTHON_MODULES=( "numpy" "scipy" "matplotlib" "h5py" )
 $PYTHON -c "import pip" &> /dev/null
 PIP_INSTALLED=`echo $?`
 

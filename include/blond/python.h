@@ -11,10 +11,18 @@
 
 namespace python {
 
+    // static bool 
 
     static inline int initialize()
     {
         Py_Initialize();
+        // import_array1(0);
+        return 0;
+    }
+
+    static inline int import()
+    {
+        // Py_Initialize();
         import_array1(0);
         return 0;
     }
@@ -50,9 +58,16 @@ namespace python {
         return pVar;
     }
 
-    static inline PyObject *convert_string(std::string value)
+    static inline PyObject *convert_string(std::string &value)
     {
         auto pVar = PyString_FromString(value.c_str());
+        assert(pVar);
+        return pVar;
+    }
+
+    static inline PyObject *convert_bool(bool value)
+    {
+        auto pVar = PyBool_FromLong((long) value);
         assert(pVar);
         return pVar;
     }

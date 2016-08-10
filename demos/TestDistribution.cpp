@@ -75,6 +75,10 @@ int main(int argc, char **argv)
 
     auto RfP = Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
 
+    f_vector_t time(N_t + 1);
+    for (int i = 0; i < time.size(); i++)
+        time[i] = 1.0 * (i + 1);
+    plot_voltage_programme(time, voltageVec[0]);
 
 
     // Context::Slice = new Slices(N_slices, 0, -constant::pi, constant::pi,
@@ -95,7 +99,7 @@ int main(int argc, char **argv)
     line_density_opt["type"] = "gaussian";
     line_density_opt["bunch_length"] = "200e-9";
     line_density_opt["density_variable"] = "density_from_J";
-    
+
     // longitudinal_bigaussian(200e-9, 1e6, 1, false);
 
     matched_from_line_density(full_ring, line_density_opt, "lowest_freq", "savefig");

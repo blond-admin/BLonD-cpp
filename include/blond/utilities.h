@@ -61,7 +61,7 @@ namespace util {
     template <typename T>
     static inline void read_vector_from_file(std::vector<T>& v,
                                              std::string file) {
-
+        v.clear();
         std::ifstream source(file);
         if (!source.good()) {
             std::cout << "Error: file " << file << " does not exist\n";

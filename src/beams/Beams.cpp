@@ -9,7 +9,8 @@
 #include <blond/constants.h>
 #include <blond/math_functions.h>
 
-Beams::Beams(const uint _n_macroparticles, const long long _intensity) {
+Beams::Beams(const uint _n_macroparticles, const long long _intensity)
+{
 
     this->n_macroparticles = _n_macroparticles;
     this->intensity = _intensity;
@@ -25,12 +26,14 @@ Beams::Beams(const uint _n_macroparticles, const long long _intensity) {
 
 Beams::~Beams() {}
 
-inline uint Beams::n_macroparticles_alive() {
+inline uint Beams::n_macroparticles_alive()
+{
 
     return n_macroparticles - n_macroparticles_lost;
 }
 
-void Beams::statistics() {
+void Beams::statistics()
+{
     ftype m_dE, m_dt, s_dE, s_dt;
     m_dt = m_dE = s_dE = s_dt = 0;
     uint n = 0;
@@ -58,6 +61,22 @@ void Beams::statistics() {
     n_macroparticles_lost = n_macroparticles - n;
 }
 
+
+void Beams::losses_longitudinal_cut(const ftype dt_min, const ftype dt_max)
+{
+    #pragma omp parallel for
+    for (int i = 0; i < (int)n_macroparticles; i++)
+        id[i] = (dt[i] - dt_min) * (dt_max - dt[i]) < 0 ? 0 : id[i];
+}
+
+void Beams::losses_energy_cut(const ftype dE_min, const ftype dE_max)
+{
+    #pragma omp parallel for
+    for (int i = 0; i < (int)n_macroparticles; ++i)
+        id[i] = (dE[i] - dE_min) * (dE_max - dE[i]) < 0 ? 0 : id[i];
+}
+
+/*
 void Beams::losses_longitudinal_cut(const ftype* __restrict dt,
                                     const ftype dt_min, const ftype dt_max,
                                     int* __restrict id) {
@@ -75,3 +94,4 @@ void Beams::losses_energy_cut(const ftype* __restrict dE, const ftype dE_min,
         id[i] = (dE[i] - dE_min) * (dE_max - dE[i]) < 0 ? 0 : id[i];
     }
 }
+*/

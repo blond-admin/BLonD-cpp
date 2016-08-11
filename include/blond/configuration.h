@@ -25,7 +25,6 @@ typedef std::vector<uint_vector_t> uint_vector__2d_t;
 typedef std::vector<complex_vector_t> complex_vector_2d_t;
 
 const unsigned PRECISION = 8;
-
 // Compile time switches
 // Needs re-compile every time a change is made
 

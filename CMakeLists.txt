@@ -14,7 +14,7 @@ include(CTest)
 # Code editors usabilety feature
 set_property(GLOBAL PROPERTY USE_FOLDERS On)
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "We have optemized configuration for Debug and Release configurations")
-set(CMAKE_BUILD_TYPE "Release" CACHE STRING "We have optemized configuration for Debug and Release configurations")
+set(CMAKE_BUILD_TYPE "Release" CACHE STRING "We have optimized configuration for Debug and Release configurations")
 # Variables default values list
 set(CMAKE_BUILD_TYPE Release CACHE STRING "default build type for Make-like generators")
 set(SHARED_LIBRARY_ENABLED "True")
@@ -22,15 +22,15 @@ set(EXTERNAL_INSTALL_DIR ${PROJECT_SOURCE_DIR}/external/install)
 set(TEST_ENABLED "True" CACHE STRING "Cerate unit-test projects")
 set(BENCHMARK_ENABLED "True" CACHE STRING "Cerate benchmark projects")
 set(ARCHITECTURE "x64" CACHE STRING "Set architecture 'x86' or 'x32'") # todo: find usages and  fix comment
-if(NOT ABSOLUTE_DATA_PATHS)
-   set(DATAFILES_DIR_DEMOS "../demos/input_files" CACHE STRING "Set demos input files path")
-   set(DATAFILES_DIR_TESTS "../unit-tests/references" CACHE STRING "Set unit-tests input files path")
-else ()
-   set(DATAFILES_DIR_DEMOS "${CMAKE_CURRENT_LIST_DIR}/demos/input_files" CACHE STRING "Set demos input files path")
-   set(DATAFILES_DIR_TESTS "${CMAKE_CURRENT_LIST_DIR}/unit-tests/references" CACHE STRING "Set unit-tests input files path")
-endif()
+# if(NOT ABSOLUTE_DATA_PATHS)
+#    set(DATAFILES_DIR_DEMOS "../demos/input_files" CACHE STRING "Set demos input files path")
+#    set(DATAFILES_DIR_TESTS "../unit-tests/references" CACHE STRING "Set unit-tests input files path")
+# else ()
+set(DATAFILES_DIR_DEMOS "${CMAKE_CURRENT_LIST_DIR}/demos/input_files" CACHE STRING "Set demos input files path")
+set(DATAFILES_DIR_TESTS "${CMAKE_CURRENT_LIST_DIR}/unit-tests/references" CACHE STRING "Set unit-tests input files path")
+# endif()
 
-set(ENV{PYTHONPATH} "${EXTERNAL_INSTALL_DIR}/bin/")
+# set(ENV{PYTHONPATH} "${EXTERNAL_INSTALL_DIR}/bin/")
 
 # Packages
 set(EXTERNAL_INSTALL_DIR ${PROJECT_SOURCE_DIR}/external/install CACHE STRING "External libraries installation folder (with subfolders lib and include)")
@@ -68,7 +68,8 @@ set(WITH_FORMAT "False" CACHE STRING "Clang-Format all project files on build (r
 
 # Package settings
 set(USE_FFTW_OMP "False" CACHE STRING "Should use OpenMP flavour of FFTW library (linux only)") #todo: test and configure
-add_definitions(-DDEMO_FILES="${DATAFILES_DIR_DEMOS}") #demos datafiles
+add_definitions(-DDEMO_FILES="${DATAFILES_DIR_DEMOS}" 
+                -DTEST_FILES="${DATAFILES_DIR_TESTS}") #demos datafiles
 
 # CPU for build count
 ProcessorCount(N)
@@ -361,7 +362,7 @@ endforeach ()
 
 # testing
 if (TEST_ENABLED)
-    add_definitions(-DTEST_FILES="${DATAFILES_DIR_TESTS}") #demos datafiles
+    # add_definitions(-DTEST_FILES="${DATAFILES_DIR_TESTS}") #demos datafiles
 
     if (WITH_GOOGLETEST)
         if (WIN32 AND NOT MINGW)

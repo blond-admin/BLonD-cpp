@@ -10,6 +10,7 @@
 
 #include <blond/configuration.h>
 #include <blond/constants.h>
+#include <blond/utilities.h>
 #include <blond/globals.h>
 #include <blond/python.h>
 #include <blond/trackers/Tracker.h>
@@ -41,12 +42,11 @@ inline void longitudinal_bigaussian(ftype sigma_dt, ftype sigma_dE = 0,
     ftype omega_RF = RfP->omega_RF[0][counter];
     ftype phi_s = RfP->phi_s[counter];
     ftype phi_RF = RfP->phi_RF[0][counter];
+    ftype eta0 = RfP->eta_0(counter);
 
-    ftype voltage, eta0 = 0.0, phi_b;
     if (sigma_dE == 0) {
-        voltage = GP->charge * RfP->voltage[0][counter];
-        eta0 = RfP->eta_0(counter);
-        phi_b = omega_RF * sigma_dt + phi_s;
+        auto voltage = GP->charge * RfP->voltage[0][counter];
+        auto phi_b = omega_RF * sigma_dt + phi_s;
         sigma_dE =
             sqrt(voltage * energy * beta * beta *
                  (cos(phi_b) - cos(phi_s) + (phi_b - phi_s) * sin(phi_s)) /
@@ -55,16 +55,23 @@ inline void longitudinal_bigaussian(ftype sigma_dt, ftype sigma_dE = 0,
 
     Beam->sigma_dE = sigma_dE;
     Beam->sigma_dt = sigma_dt;
+    // std::cout << "eta0: " << eta0 << "\n";
     // std::cout << sigma_dE << "\n";
     // std::cout << sigma_dt << "\n";
     // std::cout << (phi_s - phi_RF) / omega_RF << "\n";
     if (seed < 0) {
+        f_vector_t random;
+        // std::string home = util::GETENV("TEST_FILES");
+        util::read_vector_from_file(random, TEST_FILES "/normal_distribution.dat");
         for (uint i = 0; i < Beam->n_macroparticles; ++i) {
-            ftype r = 1.0 * (i + 1) / Beam->n_macroparticles;
+            ftype r = random[i % random.size()];
             // ftype r = distribution(generator);
-            Beam->dt[i] = sigma_dt * r + (phi_s - phi_RF) / omega_RF;
-            // r = 1.0 * rand() / RAND_MAX;
-            // r = distribution(generator);
+            if (eta0 > 0)
+                Beam->dt[i] = sigma_dt * r
+                              + (phi_s - phi_RF) / omega_RF;
+            else
+                Beam->dt[i] = sigma_dt * r
+                              + (phi_s - phi_RF - constant::pi) / omega_RF;
             Beam->dE[i] = sigma_dE * r;
             // dprintf("beam_dE: %.8lf \n", Beam->dE[i]);
         }
@@ -212,7 +219,7 @@ void _matched_from_distribution_density(ftype beta, ftype energy, ftype charge,
 
     // python::initialize();
     python::import();
-    
+
     auto pFunc = python::import("distributions", "matched_from_distribution_density");
     auto pBeta = python::convert_double(beta);
     auto pNMacroparticles = python::convert_int(n_macroparticles);

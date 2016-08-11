@@ -14,10 +14,11 @@
 #include <blond/math_functions.h>
 #include <random>
 
-void PhaseNoise::spectrum_to_phase_noise(f_vector_t& t, f_vector_t& dphi,
-                                         const f_vector_t& freq_array,
-                                         const f_vector_t& ReS,
-                                         PhaseNoise::transform_t transform) {
+void PhaseNoise::spectrum_to_phase_noise(f_vector_t &t, f_vector_t &dphi,
+        const f_vector_t &freq_array,
+        const f_vector_t &ReS,
+        PhaseNoise::transform_t transform)
+{
 
     // Resolution in time domain
     const auto ReSLen = ReS.size();
@@ -26,7 +27,7 @@ void PhaseNoise::spectrum_to_phase_noise(f_vector_t& t, f_vector_t& dphi,
     uint dt = 0;
 
     if (transform == transform_t::transform_none ||
-        transform == transform_t::r) {
+            transform == transform_t::r) {
         nt = 2 * (ReSLen - 1);
         dt = 1 / (2 * f_max);
     } else if (transform == transform_t::c) {
@@ -40,21 +41,27 @@ void PhaseNoise::spectrum_to_phase_noise(f_vector_t& t, f_vector_t& dphi,
     }
 
     // Generate white noise in time domain
-    std::default_random_engine gen(fSeed1);
-    std::uniform_real_distribution<> dist(0, 1);
-
     f_vector_t r1(nt);
-    for (auto& v : r1)
-        v = dist(gen);
-
-    gen.seed(fSeed2);
-
     f_vector_t r2(nt);
-    for (auto& v : r2)
-        v = dist(gen);
+
+    if (fSeed1 < 0 || fSeed2 < 0) {
+        f_vector_t random;
+        // std::string home = util::GETENV("TEST_FILES");
+        util::read_vector_from_file(random, TEST_FILES "/normal_distribution.dat");
+        for (uint i = 0; i < r1.size(); i++) {
+            r1[i] = random[(2 * i) % random.size()];
+            r2[i] = random[(2 * i + 1) % random.size()];
+        }
+    } else {
+        std::default_random_engine gen(fSeed1);
+        std::uniform_real_distribution<> dist(0, 1);
+        for (auto &v : r1) v = dist(gen);
+        gen.seed(fSeed2);
+        for (auto &v : r2) v = dist(gen);
+    }
 
     if (transform == transform_t::transform_none ||
-        transform == transform_t::r) {
+            transform == transform_t::r) {
         f_vector_t Gt(nt);
 
         auto factor = 2 * constant::pi;
@@ -140,8 +147,9 @@ void PhaseNoise::spectrum_to_phase_noise(f_vector_t& t, f_vector_t& dphi,
 }
 
 f_vector_t PhaseNoise::spectrum_generation(int k, int nt, ftype df, ftype ampl,
-                                           f_vector_t freq,
-                                           predistortion_t predistortion) {
+        f_vector_t freq,
+        predistortion_t predistortion)
+{
     int nmin = std::floor(fFMin * fFs[k] / df);
     int nmax = std::ceil(fFMax * fFs[k] / df);
     int nf = nt / 2 + 1;
@@ -203,12 +211,12 @@ f_vector_t PhaseNoise::spectrum_generation(int k, int nt, ftype df, ftype ampl,
         auto f2 = [sigma, gamma, pi](ftype x) {
             auto sigma2 = sigma * sigma;
             return std::pow(4 * pi * x / sigma2, 2) *
-                       std::exp(-16 * (1 - x) / sigma2) +
+                   std::exp(-16 * (1 - x) / sigma2) +
                    0.25 * pow(1 +
-                                  8 * x / sigma2 *
-                                      std::exp(-8 * (1 - x) / sigma2) *
-                                      (gamma + std::log(8 * (1 - x) / sigma2) +
-                                       8 * (1 - x) / sigma2),
+                              8 * x / sigma2 *
+                              std::exp(-8 * (1 - x) / sigma2) *
+                              (gamma + std::log(8 * (1 - x) / sigma2) +
+                               8 * (1 - x) / sigma2),
                               2);
         };
 
@@ -240,7 +248,8 @@ f_vector_t PhaseNoise::spectrum_generation(int k, int nt, ftype df, ftype ampl,
 PSBPhaseNoiseInjection::PSBPhaseNoiseInjection(
     ftype delta_f, uint corr_time, ftype fmin, ftype fmax,
     ftype initial_amplitude, int seed1, int seed2,
-    predistortion_t predistortion, rescale_ampl_t rescale_amplitude) {
+    predistortion_t predistortion, rescale_ampl_t rescale_amplitude)
+{
     auto RfP = Context::RfP;
     auto GP = Context::GP;
 
@@ -263,7 +272,8 @@ PSBPhaseNoiseInjection::PSBPhaseNoiseInjection(
 
 PSBPhaseNoiseInjection::~PSBPhaseNoiseInjection() { fft::destroy_plans(); }
 
-void PSBPhaseNoiseInjection::generate() {
+void PSBPhaseNoiseInjection::generate()
+{
     auto GP = Context::GP;
 
     for (uint i = 0; i < fNTurns / fCorr; ++i) {
@@ -321,7 +331,8 @@ void PSBPhaseNoiseInjection::generate() {
 
 LHCFlatSpectrum::LHCFlatSpectrum(uint time_points, uint corr_time, ftype fmin,
                                  ftype fmax, ftype initial_amplitude, int seed1,
-                                 int seed2, predistortion_t predistortion) {
+                                 int seed2, predistortion_t predistortion)
+{
     auto RfP = Context::RfP;
     auto GP = Context::GP;
 
@@ -365,7 +376,8 @@ LHCFlatSpectrum::LHCFlatSpectrum(uint time_points, uint corr_time, ftype fmin,
 
 LHCFlatSpectrum::~LHCFlatSpectrum() { fft::destroy_plans(); }
 
-void LHCFlatSpectrum::generate() {
+void LHCFlatSpectrum::generate()
+{
 
     auto GP = Context::GP;
 

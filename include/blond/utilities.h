@@ -59,8 +59,9 @@
 namespace util {
 
     template <typename T>
-    static inline void read_vector_from_file(std::vector<T>& v,
-                                             std::string file) {
+    static inline void read_vector_from_file(std::vector<T> &v,
+            std::string file)
+    {
         v.clear();
         std::ifstream source(file);
         if (!source.good()) {
@@ -80,7 +81,8 @@ namespace util {
     }
 
     template <typename T>
-    static inline void dump_to_file(std::vector<T>& v, std::string file) {
+    static inline void dump_to_file(std::vector<T> &v, std::string file)
+    {
 
         std::ofstream output_file(file);
 
@@ -91,24 +93,24 @@ namespace util {
     }
 
     /*
-     template<typename T>
-     static inline void dump_to_file(std::vector<std::vector<T>> &v,
-                                     std::string file)
-     {
+    template<typename T>
+    static inline void dump_to_file(std::vector<std::vector<T>> &v,
+                                 std::string file)
+    {
 
-         std::ofstream output_file(file);
+     std::ofstream output_file(file);
 
-         std::ostream_iterator<std::string> output_iterator(output_file, "\n");
-         for (const auto &v_line : v) {
+     std::ostream_iterator<std::string> output_iterator(output_file, "\n");
+     for (const auto &v_line : v) {
 
-             for ()
-             output_iterator << line;
-         }
-         // std::copy(v.begin(), v.end(), output_iterator);
-
-         output_file.close();
+         for ()
+         output_iterator << line;
      }
-    */
+     // std::copy(v.begin(), v.end(), output_iterator);
+
+     output_file.close();
+    }
+
     // sort an array with regards to another array
     struct API MyComparator {
         ftype* a;
@@ -116,30 +118,35 @@ namespace util {
 
         bool operator()(ftype i1, ftype i2) { return i1 < i2; }
     };
+    */
 
-    static inline char const* GETENV(char const* envstr) {
-        char const* env = getenv(envstr);
+    static inline char const *GETENV(char const *envstr)
+    {
+        char const *env = getenv(envstr);
         if (!env)
             return "0";
         else
             return env;
     }
 
-    static inline void* aligned_malloc(size_t n) { return _mm_malloc(n, 64); }
+    static inline void *aligned_malloc(size_t n) { return _mm_malloc(n, 64); }
 
-    template <typename T> static inline void delete_array(T* p) {
+    template <typename T> static inline void delete_array(T *p)
+    {
         if (p != NULL)
             delete[] p;
     }
 
-    template <typename T> static inline void zero(T* p, int n) {
+    template <typename T> static inline void zero(T *p, int n)
+    {
         for (int i = 0; i < n; ++i) {
             p[i] = 0;
         }
     }
 
     template <typename T>
-    static inline void dump(const T* a, const unsigned n, const char* s) {
+    static inline void dump(const T *a, const unsigned n, const char *s)
+    {
 #ifdef PRINT_RESULTS
         std::cout.precision(PRECISION);
         std::cout << s;
@@ -151,8 +158,9 @@ namespace util {
     }
 
     template <typename T>
-    static inline void dump(const std::vector<T>& a, const char* s,
-                            uint n = 0) {
+    static inline void dump(const std::vector<T> &a, const char *s,
+                            uint n = 0)
+    {
 #ifdef PRINT_RESULTS
         n = (n == 0) ? a.size() : n;
         std::cout.precision(PRECISION);
@@ -164,7 +172,8 @@ namespace util {
 #endif
     }
 
-    template <typename T> static inline void dump(const T a, const char* s) {
+    template <typename T> static inline void dump(const T a, const char *s)
+    {
 #ifdef PRINT_RESULTS
         std::cout.precision(PRECISION);
         std::cout << s;
@@ -173,7 +182,8 @@ namespace util {
 #endif
     }
 
-    static inline double time_diff(timespec const& end, timespec const& begin) {
+    static inline double time_diff(timespec const &end, timespec const &begin)
+    {
 #ifdef TIMING
         double result;
 
@@ -186,19 +196,21 @@ namespace util {
 #endif
     }
 
-    static inline void get_time(timespec& ts) {
+    static inline void get_time(timespec &ts)
+    {
 #ifdef TIMING
         auto time = std::chrono::system_clock::now();
         ts.tv_sec = std::chrono::duration_cast<std::chrono::seconds>(
                         time.time_since_epoch())
-                        .count();
+                    .count();
         ts.tv_nsec = std::chrono::duration_cast<std::chrono::microseconds>(
                          time.time_since_epoch())
-                         .count();
+                     .count();
 #endif
     }
 
-    static inline timespec get_time() {
+    static inline timespec get_time()
+    {
         timespec t;
 #ifdef TIMING
         get_time(t);
@@ -206,7 +218,8 @@ namespace util {
         return t;
     }
 
-    static inline double time_elapsed(timespec const& begin) {
+    static inline double time_elapsed(timespec const &begin)
+    {
 #ifdef TIMING
         timespec now;
         get_time(now);
@@ -216,27 +229,31 @@ namespace util {
 #endif
     }
 
-    static inline void print_time(char const* prompt, timespec const& begin,
-                                  timespec const& end) {
+    static inline void print_time(char const *prompt, timespec const &begin,
+                                  timespec const &end)
+    {
 #ifdef TIMING
         dprintf("%s : %.3f\n", prompt, time_diff(end, begin));
 #endif
     }
 
-    static inline void print_time(char const* prompt, double diff) {
+    static inline void print_time(char const *prompt, double diff)
+    {
 #ifdef TIMING
         dprintf("%s : %.3f\n", prompt, diff);
 #endif
     }
 
-    static inline void print_time_elapsed(char const* prompt,
-                                          timespec const& begin) {
+    static inline void print_time_elapsed(char const *prompt,
+                                          timespec const &begin)
+    {
 #ifdef TIMING
         dprintf("%s : %.3f\n", prompt, time_elapsed(begin));
 #endif
     }
 
-    static inline std::string exec(const char* cmd) {
+    static inline std::string exec(const char *cmd)
+    {
 #ifdef WIN32
         std::shared_ptr<FILE> pipe(_popen(cmd, "r"), _pclose);
 #else
@@ -253,7 +270,8 @@ namespace util {
         return result;
     }
 
-    static inline std::string read_from_file(std::string filename) {
+    static inline std::string read_from_file(std::string filename)
+    {
         std::ifstream t(filename);
         std::stringstream res;
         res << t.rdbuf();
@@ -261,22 +279,25 @@ namespace util {
     }
 
     struct API Arg : public option::Arg {
-        static void printError(const char* msg1, const option::Option& opt,
-                               const char* msg2) {
+        static void printError(const char *msg1, const option::Option &opt,
+                               const char *msg2)
+        {
             fprintf(stderr, "%s", msg1);
             fwrite(opt.name, opt.namelen, 1, stderr);
             fprintf(stderr, "%s", msg2);
         }
 
-        static option::ArgStatus Unknown(const option::Option& option,
-                                         bool msg) {
+        static option::ArgStatus Unknown(const option::Option &option,
+                                         bool msg)
+        {
             if (msg)
                 printError("Unknown option '", option, "'\n");
             return option::ARG_ILLEGAL;
         }
 
-        static option::ArgStatus Required(const option::Option& option,
-                                          bool msg) {
+        static option::ArgStatus Required(const option::Option &option,
+                                          bool msg)
+        {
             if (option.arg != 0)
                 return option::ARG_OK;
 
@@ -285,8 +306,9 @@ namespace util {
             return option::ARG_ILLEGAL;
         }
 
-        static option::ArgStatus NonEmpty(const option::Option& option,
-                                          bool msg) {
+        static option::ArgStatus NonEmpty(const option::Option &option,
+                                          bool msg)
+        {
             if (option.arg != 0 && option.arg[0] != 0)
                 return option::ARG_OK;
 
@@ -296,10 +318,11 @@ namespace util {
             return option::ARG_ILLEGAL;
         }
 
-        static option::ArgStatus Numeric(const option::Option& option,
-                                         bool msg) {
+        static option::ArgStatus Numeric(const option::Option &option,
+                                         bool msg)
+        {
             // printf("Inside here\n");
-            char* endptr = 0;
+            char *endptr = 0;
             if (option.arg != 0 && strtol(option.arg, &endptr, 10)) {
             };
             if (endptr != option.arg && *endptr == 0)

@@ -14,30 +14,29 @@
 //#include <gsl/gsl_multifit_nlin.h>
 //#include <gsl/gsl_vector.h>
 
-Slices::Slices(uint _n_slices, int _n_sigma, ftype _cut_left, ftype _cut_right,
-               cuts_unit_type _cuts_unit, fit_type _fit_option,
-               bool direct_slicing) {
-
-    this->n_slices = _n_slices;
-    this->cut_left = _cut_left;
-    this->cut_right = _cut_right;
-    this->cuts_unit = _cuts_unit;
-    this->fit_option = _fit_option;
-    this->n_sigma = _n_sigma;
-
+Slices::Slices(uint n_slices, int n_sigma, ftype cut_left, ftype cut_right,
+               cuts_unit_type cuts_unit, fit_type fit_option,
+               bool direct_slicing)
+{
+    this->n_slices = n_slices;
+    this->cut_left = cut_left;
+    this->cut_right = cut_right;
+    this->cuts_unit = cuts_unit;
+    this->fit_option = fit_option;
+    this->n_sigma = n_sigma;
     this->n_macroparticles.resize(n_slices, 0);
     this->edges.resize(n_slices + 1, 0.0);
     this->bin_centers.resize(n_slices, 0.0);
 
     set_cuts();
 
-    if (direct_slicing)
-        track();
+    if (direct_slicing) track();
 }
 
 Slices::~Slices() { fft::destroy_plans(); }
 
-void Slices::set_cuts() {
+void Slices::set_cuts()
+{
     auto Beam = Context::Beam;
     /*
     *Method to set the self.cut_left and self.cut_right properties. This is
@@ -64,7 +63,7 @@ void Slices::set_cuts() {
             ftype mean_coords = mymath::mean(Beam->dt.data(), Beam->dt.size());
             // dprintf("mean coors = %e\n", mean_coords);
             ftype sigma_coords = mymath::standard_deviation(
-                Beam->dt.data(), Beam->dt.size(), mean_coords);
+                                     Beam->dt.data(), Beam->dt.size(), mean_coords);
             // dprintf("mean coors = %e\n", mean_coords);
 
             cut_left = mean_coords - n_sigma * sigma_coords / 2;
@@ -85,22 +84,39 @@ void Slices::set_cuts() {
 
 // TODO not implemented the best way
 // If dt, dE and id were in the same struct API  it would be better
-void Slices::sort_particles() {
+void Slices::sort_particles()
+{
     /*
     *Sort the particles with respect to their position.*
     */
+    
     auto Beam = Context::Beam;
+    struct API particle {
+        ftype dE;
+        ftype dt;
+        int id;
+        bool operator<(const particle &other) const
+        {
+            return dt < other.dt;
+        }
+    };
 
-    std::sort(Beam->dE.begin(), Beam->dE.end(),
-              util::MyComparator(Beam->dt.data()));
-    std::sort(Beam->id.begin(), Beam->id.end(),
-              util::MyComparator(Beam->dt.data()));
-    std::sort(Beam->dt.begin(), Beam->dt.end(),
-              util::MyComparator(Beam->dt.data()));
+    std::vector<particle> particles(Beam->dE.size());
+    for (uint i = 0; i < particles.size(); i++)
+        particles[i] = {Beam->dE[i], Beam->dt[i], Beam->id[i]};
+
+    std::sort(particles.begin(), particles.end());
+
+    for (uint i = 0; i < particles.size(); i++) {
+        Beam->dE[i] = particles[i].dE;
+        Beam->dt[i] = particles[i].dt;
+        Beam->id[i] = particles[i].id;
+    }
 }
 
 inline ftype Slices::convert_coordinates(const ftype cut,
-                                         const cuts_unit_type type) {
+        const cuts_unit_type type)
+{
     auto RfP = Context::RfP;
     /*
     *Method to convert a value from one input_unit_type to 's'.*
@@ -115,13 +131,15 @@ inline ftype Slices::convert_coordinates(const ftype cut,
     return 0.0;
 }
 
-void Slices::track() {
+void Slices::track()
+{
     slice_constant_space_histogram();
     if (fit_option == fit_type::gaussian_fit)
         gaussian_fit();
 }
 
-inline void Slices::slice_constant_space_histogram() {
+inline void Slices::slice_constant_space_histogram()
+{
     /*
     *Constant space slicing with the built-in numpy histogram function,
     with a constant frame. This gives the same profile as the
@@ -136,17 +154,18 @@ inline void Slices::slice_constant_space_histogram() {
               n_slices, Beam->n_macroparticles);
 }
 
-inline void Slices::histogram(const ftype* __restrict input,
-                              int* __restrict output, const ftype cut_left,
+inline void Slices::histogram(const ftype *__restrict input,
+                              int *__restrict output, const ftype cut_left,
                               const ftype cut_right, const uint n_slices,
-                              const uint n_macroparticles) {
+                              const uint n_macroparticles)
+{
 
     const ftype inv_bin_width = n_slices / (cut_right - cut_left);
     // const ftype range = cut_right - cut_left;
     // histogram is faster with ints
     typedef int hist_t;
-    hist_t* h;
-#pragma omp parallel
+    hist_t *h;
+    #pragma omp parallel
     {
         const auto threads = omp_get_num_threads();
         const auto id = omp_get_thread_num();
@@ -156,8 +175,8 @@ inline void Slices::histogram(const ftype* __restrict input,
         auto end = std::min(start + tile, (int)n_macroparticles);
         const auto row = id * n_slices;
 
-#pragma omp single
-        h = (hist_t*)calloc(threads * n_slices, sizeof(hist_t));
+        #pragma omp single
+        h = (hist_t *)calloc(threads * n_slices, sizeof(hist_t));
 
         const auto h_row = &h[row];
 
@@ -179,7 +198,7 @@ inline void Slices::histogram(const ftype* __restrict input,
 
             h_row[ffbin]++;
         }
-#pragma omp barrier
+        #pragma omp barrier
 
         tile = (n_slices + threads - 1) / threads;
         start = id * tile;
@@ -200,7 +219,8 @@ inline void Slices::histogram(const ftype* __restrict input,
         free(h);
 }
 
-void Slices::track_cuts() {
+void Slices::track_cuts()
+{
     /*
     *Track the slice frame (limits and slice position) as the mean of the
     bunch moves.
@@ -220,11 +240,12 @@ void Slices::track_cuts() {
     }
 }
 
-inline void Slices::smooth_histogram(const ftype* __restrict input,
-                                     int* __restrict output,
+inline void Slices::smooth_histogram(const ftype *__restrict input,
+                                     int *__restrict output,
                                      const ftype cut_left,
                                      const ftype cut_right, const uint n_slices,
-                                     const uint n_macroparticles) {
+                                     const uint n_macroparticles)
+{
 
     uint i;
     ftype a;
@@ -244,7 +265,7 @@ inline void Slices::smooth_histogram(const ftype* __restrict input,
     for (i = 0; i < n_macroparticles; i++) {
         a = input[i];
         if ((a < (cut_left + bin_width * 0.5)) ||
-            (a > (cut_right - bin_width * 0.5)))
+                (a > (cut_right - bin_width * 0.5)))
             continue;
         fbin = (a - cut_left) * inv_bin_width;
         ffbin = (uint)(fbin);
@@ -262,7 +283,8 @@ inline void Slices::smooth_histogram(const ftype* __restrict input,
     }
 }
 
-void Slices::slice_constant_space_histogram_smooth() {
+void Slices::slice_constant_space_histogram_smooth()
+{
     /*
     At the moment 4x slower than slice_constant_space_histogram but smoother.
     */
@@ -272,7 +294,8 @@ void Slices::slice_constant_space_histogram_smooth() {
                      cut_right, n_slices, Beam->n_macroparticles);
 }
 
-void Slices::rms() {
+void Slices::rms()
+{
 
     /*
     * Computation of the RMS bunch length and position from the line density
@@ -303,7 +326,8 @@ void Slices::rms() {
     bl_rms = 4 * std::sqrt(temp);
 }
 
-void Slices::fwhm(const ftype shift) {
+void Slices::fwhm(const ftype shift)
+{
 
     /*
     * Computation of the bunch length and position from the FWHM
@@ -342,13 +366,13 @@ void Slices::fwhm(const ftype shift) {
         try {
             t1 = bin_centers[taux1] -
                  (n_macroparticles[taux1] - half_max) /
-                     (n_macroparticles[taux1] - n_macroparticles[taux1 - 1]) *
-                     timeResolution;
+                 (n_macroparticles[taux1] - n_macroparticles[taux1 - 1]) *
+                 timeResolution;
 
             t2 = bin_centers[taux2] +
                  (n_macroparticles[taux2] - half_max) /
-                     (n_macroparticles[taux2] - n_macroparticles[taux2 + 1]) *
-                     timeResolution;
+                 (n_macroparticles[taux2] - n_macroparticles[taux2 + 1]) *
+                 timeResolution;
             bl_fwhm = 4 * (t2 - t1) / cfwhm;
             bp_fwhm = (t1 + t2) / 2;
         } catch (...) {
@@ -362,7 +386,8 @@ void Slices::fwhm(const ftype shift) {
     }
 }
 
-ftype Slices::fast_fwhm() {
+ftype Slices::fast_fwhm()
+{
 
     /*
     * Computation of the bunch length and position from the FWHM
@@ -391,7 +416,8 @@ ftype Slices::fast_fwhm() {
 
 void Slices::fwhm_multibunch() {}
 
-void Slices::beam_spectrum_generation(uint n, bool onlyRFFT) {
+void Slices::beam_spectrum_generation(uint n, bool onlyRFFT)
+{
 
     fBeamSpectrumFreq = fft::rfftfreq(n, bin_centers[1] - bin_centers[0]);
 
@@ -406,7 +432,8 @@ void Slices::beam_profile_derivative() {}
 void Slices::beam_profile_filter_chebyshev() {}
 
 ftype Slices::gauss(const ftype x, const ftype x0, const ftype sx,
-                    const ftype A) {
+                    const ftype A)
+{
     return A * exp(-(x - x0) * (x - x0) / 2.0 / (sx * sx));
 }
 

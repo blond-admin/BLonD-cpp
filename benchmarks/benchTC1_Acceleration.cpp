@@ -7,7 +7,7 @@
 #include <blond/trackers/Tracker.h>
 #include <gtest/gtest.h>
 
-const int max_t = 1000000;
+const int max_t = 100000;
 const int min_t = 100000;
 
 const int max_p = 100000;
@@ -27,6 +27,7 @@ protected:
 	int N_slices;
 public:
 	TestData(int N_t=2000, int N_p=100, int N_slices=10) :  N_t(N_t), N_p(N_p), N_slices(N_slices) {
+		Context::n_threads = omp_get_max_threads();
 		f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1));
 		for (auto& v : momentumVec)
 			mymath::linspace(v.data(), p_i, p_f, N_t + 1);
@@ -113,12 +114,36 @@ static void BM_TC1Acceleration(benchmark::State& state) {
 			epsilon * std::max(fabs(ref_dt), fabs(real_dt)));
 	}
 	*/
-}BENCHMARK(BM_TC1Acceleration)->Ranges({ { min_p, max_p },{ min_t, max_t } });
+}BENCHMARK(BM_TC1Acceleration)
+->Args({ 1000, 2000 })
+->Args({ 1000, 3000 })
+->Args({ 1000, 4000 })
+->Args({ 1000, 5000 })
+->Args({ 1000, 6000 })
+->Args({ 1000, 7000 })
+->Args({ 1000, 8000 })
+->Args({ 1000, 9000 })
+->Args({ 1000, 10000 })
+->Args({ 1000, 20000 })
+->Args({ 1000, 30000 })
+->Args({ 1000, 40000 })
+->Args({ 1000, 50000 })
+->Args({ 10000, 10000 })
+->Args({ 10000, 20000 })
+->Args({ 10000, 30000 })
+->Args({ 10000, 40000 })
+->Args({ 10000, 50000 })
+->Args({ 20000, 50000 })
+->Args({ 30000, 30000 })
+->Args({ 30000, 40000 })
+->Args({ 30000, 50000 })
+->Args({ 40000, 50000 })
+->Args({ 50000, 50000 });
+
 
 
 int main(int argc, char** argv) {
 	::benchmark::Initialize(&argc, argv);
 	::benchmark::RunSpecifiedBenchmarks();
-	std::cin.get();
 	return 0;
 }

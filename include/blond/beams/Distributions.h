@@ -15,6 +15,47 @@
 #include <random>
 #include <stdlib.h>
 
+// This class is a simple adaptor for MSVC vs GCC implementation of normal_distribution
+// Generation algorithm described in Knuth, vol. 2, p. 122, alg. P
+// Problem is simple: the order of returned generated random variables on MSVC is inversed to GCC (in form of pairs of random values)
+// Problem details described here http://stackoverflow.com/a/38533067/1973207
+// Inlined stub on Linux, active in MSVC. 
+// Created for unit-tests results consistancy across platforms.
+template<class T = double>
+class normal_distribution_wrapper {
+#ifdef _MSC_VER
+	T keep;
+	bool update;
+
+	template<class Engine>
+	inline T getValue(Engine & generator) {
+		update = !update;
+		if(!update) {
+			keep = distribution(generator);
+			return distribution(generator);
+		} else {
+			return keep;
+		}
+	}
+#endif
+public:
+	template<class Engine>
+	inline T operator()(Engine& engine) {
+#ifdef _MSC_VER
+		return getValue(engine);
+#else
+		return distribution(engine);
+#endif
+	}
+
+	std::normal_distribution<T> distribution;
+	explicit normal_distribution_wrapper(T Mean = 0.0, T Sigma = 1.0) : distribution(Mean, Sigma)
+#ifdef _MSC_VER
+    ,update(true), keep(0)
+#endif
+    {}
+};
+
 inline void longitudinal_bigaussian(ftype sigma_dt, ftype sigma_dE = 0,
                                     int seed = 0, bool reinsertion = false) {
     auto GP = Context::GP;
@@ -38,7 +79,7 @@ inline void longitudinal_bigaussian(ftype sigma_dt, ftype sigma_dE = 0,
     ftype phi_s = RfP->phi_s[counter];
     ftype phi_RF = RfP->phi_RF[0][counter];
 
-    ftype voltage, eta0 = 0.0, phi_b;
+    ftype voltage=0, eta0 = 0.0, phi_b=0;
     if (sigma_dE == 0) {
         voltage = GP->charge * RfP->voltage[0][counter];
         eta0 = RfP->eta_0(counter);
@@ -65,8 +106,11 @@ inline void longitudinal_bigaussian(ftype sigma_dt, ftype sigma_dE = 0,
             // dprintf("beam_dE: %.8lf \n", Beam->dE[i]);
         }
     } else {
-        std::default_random_engine generator(seed);
-        std::normal_distribution<ftype> distribution(0.0, 1.0);
+		/**
+		* The classic Minimum Standard rand0 of Lewis, Goodman, and Miller.
+		*/
+		std::minstd_rand0 generator(1);
+		normal_distribution_wrapper<ftype> distribution(0.0, 1.0);
         for (uint i = 0; i < Beam->n_macroparticles; ++i) {
             ftype r = distribution(generator);
             if (eta0 > 0)

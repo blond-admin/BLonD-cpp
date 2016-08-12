@@ -246,13 +246,13 @@ if (WITH_COMPUTE)
     else ()
         if (ARCHITECTURE STREQUAL "x64")
             find_library(OPENCL_LIB
-                    NAMES OpenCL OpenCL.lib libOpenCL libOpenCL.so
+                    NAMES cl CL OpenCL OpenCL.lib libOpenCL libOpenCL.so
                     PATHS "${OPENCL_SDK_PATH}" "${OPENCL_SDK_PATH}/lib/x64" "${OPENCL_SDK_PATH}/lib/x86_64"
                     NO_DEFAULT_PATH
                     )
         else ()
             find_library(OPENCL_LIB
-                    NAMES OpenCL OpenCL.lib libOpenCL libOpenCL.so
+                    NAMES cl CL OpenCL OpenCL.lib libOpenCL libOpenCL.so
                     PATHS "${OPENCL_SDK_PATH}" "${OPENCL_SDK_PATH}/lib/Win32" "${OPENCL_SDK_PATH}/lib/x86" "${OPENCL_SDK_PATH}/lib/"
                     NO_DEFAULT_PATH
                     )
@@ -343,7 +343,7 @@ if (WITH_FFTW)
     if (MSVC)
         add_custom_command(TARGET blond PRE_BUILD
                 COMMAND ${CMAKE_COMMAND} -E copy_directory
-                "${EXTERNAL_INSTALL_DIR}/bin/$(Configuration)" $<TARGET_FILE_DIR:blond>)
+                "${EXTERNAL_INSTALL_DIR}/bin/fftw/$(Configuration)" $<TARGET_FILE_DIR:blond>)
     else ()
         add_custom_command(TARGET blond PRE_BUILD
                 COMMAND ${CMAKE_COMMAND} -E copy_directory

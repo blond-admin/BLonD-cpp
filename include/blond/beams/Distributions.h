@@ -109,7 +109,7 @@ inline void longitudinal_bigaussian(ftype sigma_dt, ftype sigma_dE = 0,
 		/**
 		* The classic Minimum Standard rand0 of Lewis, Goodman, and Miller.
 		*/
-		std::minstd_rand0 generator(1);
+		std::minstd_rand0 generator(seed);
 		normal_distribution_wrapper<ftype> distribution(0.0, 1.0);
         for (uint i = 0; i < Beam->n_macroparticles; ++i) {
             ftype r = distribution(generator);

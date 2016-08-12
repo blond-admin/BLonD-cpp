@@ -92,11 +92,11 @@ int main(int argc, char** argv) {
     printf("Flat top momentum %.4e eV\n", momentumVec[0][N_t]);
 
     // ftype *V_array = new ftype[N_t + 1];
-    f_vector_2d_t voltageVec(1, f_vector_t(N_t + 1));
-    mymath::linspace(voltageVec[0].data(), 6e6, 10e6, 13563374, 13e6);
-    std::fill_n(&voltageVec[0][563374], 436627, 10e6);
+    f_vector_2d_t voltageVec(N_t + 1, f_vector_t(1));
+    mymath::linspace(voltageVec, 0, 6e6, 10e6, 13563374, 13e6);
+	mymath::fill_n(voltageVec, 563374, 0, 436627, 10e6);
     printf("Length of V is %d\n", N_t + 1);
-    printf("Flat top voltage %.4e eV\n", voltageVec[0][N_t]);
+    printf("Flat top voltage %.4e eV\n", voltageVec[N_t][0]);
     printf("Momentum and voltage loaded\n");
 
     // Define general parameters

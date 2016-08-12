@@ -35,10 +35,10 @@ protected:
 		}
 		assert(momentumVec[0].size() == N_t + 1);
 		// ftype *V_array = new ftype[N_t + 1];
-		f_vector_2d_t voltageVec(1, f_vector_t(N_t + 1));
-		mymath::linspace(voltageVec[0].data(), 6e6, 10e6, 13563374, 13e6);
-		std::fill_n(&voltageVec[0][563374], 436627, 10e6);
 
+		f_vector_2d_t voltageVec(N_t + 1, f_vector_t(1));
+		mymath::linspace(voltageVec, 0, 6e6, 10e6, 13563374, 13e6);
+		mymath::fill_n(voltageVec, 563374, 0, 436627, 10e6);
 		// Define general parameters
 		f_vector_2d_t alphaVec(alpha_order + 1, f_vector_t(n_sections, alpha));
 
@@ -125,7 +125,7 @@ class testPL2 : public ::testing::Test {
 
 		f_vector_2d_t hVec(n_sections, f_vector_t(N_t + 1, h));
 
-		f_vector_2d_t voltageVec(n_sections, f_vector_t(N_t + 1, V));
+		f_vector_2d_t voltageVec(N_t + 1, f_vector_t(n_sections, V));
 
 		f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 

@@ -360,7 +360,7 @@ LHCFlatSpectrum::LHCFlatSpectrum(uint time_points, uint corr_time, ftype fmin,
     for (uint i = 0; i < fFs.size(); ++i) {
         fFs[i] =
             constant::c / GP->ring_circumference *
-            std::sqrt(RfP->harmonic[RfP->idx][i] * RfP->voltage[RfP->idx][i] *
+            std::sqrt(RfP->harmonic[RfP->idx][i] * RfP->voltage[i][RfP->idx] *
                       std::fabs(RfP->eta_0(i) * std::cos(phis[i])) /
                       (2 * constant::pi * RfP->energy(i)));
     }

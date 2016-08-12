@@ -52,7 +52,7 @@ RfParameters::RfParameters(uint _n_rf, f_vector_2d_t _harmonic,
 
     this->Qs.resize(GP->n_turns + 1);
     for (uint i = 0; i < GP->n_turns + 1; ++i)
-        Qs[i] = std::sqrt(harmonic[idx][i] * GP->charge * voltage[idx][i] *
+        Qs[i] = std::sqrt(harmonic[idx][i] * GP->charge * voltage[i][idx] *
                           std::fabs(eta_0(i) * cos(phi_s[i])) /
                           (2 * constant::pi * GP->beta[idx][i] *
                            GP->beta[idx][i] * GP->energy[idx][i]));
@@ -158,7 +158,7 @@ void calc_phi_s(ftype* out, RfParameters* rfp,
         ftype* acceleration_ratio = new ftype[n_turns + 1];
         for (uint i = 0; i < n_turns + 1; ++i)
             acceleration_ratio[i] =
-                denergy[i] / (GP->charge * rfp->voltage[rfp->idx][i]);
+                denergy[i] / (GP->charge * rfp->voltage[i][rfp->idx]);
 
         for (uint i = 0; i < n_turns + 1; ++i)
             if (acceleration_ratio[i] > 1 || acceleration_ratio[i] < -1)
@@ -220,7 +220,7 @@ void calc_phi_s(ftype* out, RfParameters* rfp,
                 // 1)];
                 for (uint k = 0; k < 1000; ++k) {
                     totalRF[k] +=
-                        rfp->voltage[j][i + 1] *
+                        rfp->voltage[i+1][j] *
                         std::sin((rfp->harmonic[j][i + 1] / min) *
                                      (phase_array[k] +
                                       transition_phase_offset[i + 1]) +

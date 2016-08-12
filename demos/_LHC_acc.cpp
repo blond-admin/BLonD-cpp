@@ -84,8 +84,9 @@ int main(int argc, char** argv) {
     V.resize(N_t + 1, V.back());
 
     f_vector_2d_t voltageVec(1, V);
+	voltageVec = mymath::transpose(voltageVec);
     printf("Flat top momentum %.4e eV\n", momentumVec[0][N_t]);
-    printf("Flat top voltage %.4e eV\n", voltageVec[0][N_t]);
+    printf("Flat top voltage %.4e eV\n", voltageVec[N_t][0]);
     printf("Momentum and voltage loaded...\n");
 
     // Define general parameters

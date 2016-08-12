@@ -95,7 +95,8 @@ TEST_F(testFullRing, constructor1) {
     delete fullRing;
 }
 
-TEST_F(testFullRing, track1) {
+TEST_F(testFullRing, track1)
+{
     auto RfP = Context::RfP;
     auto Beam = Context::Beam;
 
@@ -140,7 +141,8 @@ TEST_F(testFullRing, track1) {
     delete fullRing;
 }
 
-TEST_F(testFullRing, track2) {
+TEST_F(testFullRing, track2)
+{
     auto RfP = Context::RfP;
     auto Beam = Context::Beam;
 
@@ -202,7 +204,90 @@ TEST_F(testFullRing, track2) {
     delete fullRing;
 }
 
-int main(int ac, char* av[]) {
+
+
+TEST_F(testFullRing, potential_well_generation1)
+{
+    auto RfP = Context::RfP;
+    // auto Beam = Context::Beam;
+    // auto RfP = Context::RfP;
+
+    auto params = std::string(TEST_FILES "/FullRing/potential_well_generation1/");
+
+    longitudinal_bigaussian(200e-9, 1e6, -1, false);
+
+    auto long_tracker = new RingAndRfSection(RfP, simple);
+    std::vector<RingAndRfSection *> trackerList{long_tracker};
+    auto fullRing = new FullRingAndRf(trackerList);
+
+    fullRing->potential_well_generation(0, 1000);
+
+    f_vector_t v;
+    auto epsilon = 1e-8;
+    util::read_vector_from_file(v, params + "potential_well.txt");
+    // std::cout << "v size " << v.size() << "\n";
+    // std::cout << "fPotentialWell size " << fullRing->fPotentialWell.size() << "\n";
+    assert(v.size() == fullRing->fPotentialWell.size());
+    for (uint i = 0; i < v.size(); ++i) {
+        auto ref = v[i];
+        auto real = fullRing->fPotentialWell[i];
+        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+                << "Testing of fPotentialWell failed on i " << i << std::endl;
+    }
+
+    v.clear();
+    util::read_vector_from_file(v, params + "potential_well_coordinates.txt");
+    assert(v.size() == fullRing->fPotentialWellCoordinates.size());
+    for (uint i = 0; i < v.size(); ++i) {
+        auto ref = v[i];
+        auto real = fullRing->fPotentialWellCoordinates[i];
+        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+                << "Testing of fPotentialWellCoordinates failed on i " << i << std::endl;
+    }
+
+
+
+    delete long_tracker;
+    delete fullRing;
+}
+
+
+
+TEST_F(testFullRing, potential_well_generation2)
+{
+    auto RfP = Context::RfP;
+
+    auto params = std::string(TEST_FILES "/FullRing/potential_well_generation2/");
+
+    longitudinal_bigaussian(1e-9, 5e6, -1, false);
+
+    auto long_tracker = new RingAndRfSection(RfP, simple);
+    std::vector<RingAndRfSection *> trackerList{long_tracker, long_tracker};
+    auto fullRing = new FullRingAndRf(trackerList);
+
+    fullRing->potential_well_generation(10, 1000, 1);
+
+    f_vector_t v;
+    auto epsilon = 1e-8;
+    util::read_vector_from_file(v, params + "potential_well.txt");
+    // std::cout << "v size " << v.size() << "\n";
+    // std::cout << "fPotentialWell size " << fullRing->fPotentialWell.size() << "\n";
+    assert(v.size() == fullRing->fPotentialWell.size());
+    for (uint i = 0; i < v.size(); ++i) {
+        auto ref = v[i];
+        auto real = fullRing->fPotentialWell[i];
+        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+                << "Testing of fPotentialWell failed on i " << i << std::endl;
+    }
+
+    delete long_tracker;
+    delete fullRing;
+}
+
+
+
+int main(int ac, char *av[])
+{
     ::testing::InitGoogleTest(&ac, av);
     return RUN_ALL_TESTS();
 }

@@ -13,7 +13,7 @@ const std::string params = TEST_FILES "/TC1_final/TC1_final_params/";
 
 class testTC1 : public ::testing::Test {
 
-  protected:
+protected:
     const long long N_b = 1e9;  // Intensity
     const ftype tau_0 = 0.4e-9; // Initial bunch length, 4 sigma [s]
 
@@ -57,7 +57,7 @@ class testTC1 : public ::testing::Test {
         delete Context::Slice;
     }
 
-  private:
+private:
     // Machine and RF parameters
     const ftype C = 26658.883;       // Machine circumference [m]
     const long long p_i = 450e9;     // Synchronous momentum [eV/c]
@@ -67,7 +67,7 @@ class testTC1 : public ::testing::Test {
     const ftype dphi = 0;            // Phase modulation/offset
     const ftype gamma_t = 55.759505; // Transition gamma
     const ftype alpha =
-        1.0 / gamma_t / gamma_t; // First order mom. comp. factor
+            1.0 / gamma_t / gamma_t; // First order mom. comp. factor
     const int alpha_order = 1;
     const int n_sections = 1;
     // Tracking details

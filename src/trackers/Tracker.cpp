@@ -427,13 +427,13 @@ void FullRingAndRf::potential_well_generation(const uint turn,
     } else if (option == 1) {
         auto k = mymath::max(voltages.data(), voltages.size());
         auto maxV = voltages[k];
-        f_vector_t temp;
-        std::copy_if(voltages.begin(), voltages.end(), back_inserter(temp),
-                     [maxV](const ftype x) { return x == maxV; });
 
-        // for (uint i = 0; i < voltages[0].size(); ++i)
-        //    if (voltages[0][i] == maxV)
-        //       temp.push_back(omega_rf[0][i]);
+        f_vector_t temp;
+
+        for (uint i = 0; i < voltages.size(); ++i)
+            if (voltages[i] == maxV)
+                temp.push_back(omega_rf[i]);
+
         k = mymath::min(temp.data(), temp.size());
         main_omega_rf = temp[k];
     } else {
@@ -446,8 +446,7 @@ void FullRingAndRf::potential_well_generation(const uint turn,
                       << "match the RF parameters...\n";
             exit(-1);
         }
-        auto k = mymath::min(temp.data(), temp.size());
-        main_omega_rf = temp[k];
+        main_omega_rf = option;//temp[k];
     }
 
     auto time_array_margin =
@@ -483,19 +482,19 @@ void FullRingAndRf::potential_well_generation(const uint turn,
              (-fRingList[0]->acceleration_kick[turn]) / std::abs(GP->charge));
 
     auto tempArr = mymath::cum_trapezoid(
-        tempVec.data(), time_array[1] - time_array[0], tempVec.size());
+                       tempVec.data(), time_array[1] - time_array[0], n_points);
 
-    std::transform(&tempArr[0], &tempArr[tempVec.size()], &tempArr[0],
+    std::transform(tempArr.begin(), tempArr.end(), tempArr.begin(),
                    [](ftype x) { return -x; });
 
-    fPotentialWell.clear();
-    fPotentialWell.push_back(0);
-    std::copy(&tempArr[0], &tempArr[tempVec.size()],
-              back_inserter(fPotentialWell));
+    auto min_i = mymath::min(tempArr.data(), tempArr.size());
+    auto min = tempArr[min_i] > 0 ? 0 : tempArr[min_i];
+
+    fPotentialWell.resize(tempArr.size() + 1);
+    fPotentialWell[0] = - min;
+
+    for (uint i = 0; i < tempArr.size(); ++i)
+        fPotentialWell[i + 1] = tempArr[i] - min;
 
     fPotentialWellCoordinates = time_array;
-
-    if (tempArr)
-        delete[] tempArr;
-    // fPotentialWell = potential_well;
 }

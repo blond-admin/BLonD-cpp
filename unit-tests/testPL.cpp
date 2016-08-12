@@ -47,7 +47,7 @@ protected:
 		Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
 			momentumVec, proton);
 		auto GP = Context::GP;
-		f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
+		f_vector_2d_t dphiVec(N_t + 1, f_vector_t(n_sections, dphi));
 
 		f_vector_2d_t hVec(n_sections, f_vector_t(N_t + 1, h));
 
@@ -127,7 +127,7 @@ class testPL2 : public ::testing::Test {
 
 		f_vector_2d_t voltageVec(N_t + 1, f_vector_t(n_sections, V));
 
-		f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
+		f_vector_2d_t dphiVec(N_t + 1, f_vector_t(n_sections, dphi));
 
 		Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
 			momentumVec, proton);
@@ -277,7 +277,7 @@ TEST_F(testPL2, radial_steering_from_freq1) {
 	epsilon = 1e-8;
 	for (unsigned int i = 0; i < v.size(); ++i) {
 		auto ref = v[i];
-		auto real = RfP->phi_RF[0][i];
+		auto real = RfP->phi_RF[i][0];
 		// std::cout << real << "\n";
 
 		ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
@@ -414,7 +414,7 @@ TEST_F(testPL, phi_RF) {
 	std::vector<ftype> v;
 	util::read_vector_from_file(v, params + "phi_RF");
 	ftype ref = v[0];
-	ftype real = RfP->phi_RF[0][counter];
+	ftype real = RfP->phi_RF[counter][0];
 	ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 

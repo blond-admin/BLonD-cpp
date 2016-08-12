@@ -77,7 +77,7 @@ inline void longitudinal_bigaussian(ftype sigma_dt, ftype sigma_dE = 0,
     ftype beta = GP->beta[0][counter];
     ftype omega_RF = RfP->omega_RF[counter][0];
     ftype phi_s = RfP->phi_s[counter];
-    ftype phi_RF = RfP->phi_RF[0][counter];
+	ftype phi_RF = RfP->phi_RF[counter][0];
 
     ftype voltage=0, eta0 = 0.0, phi_b=0;
     if (sigma_dE == 0) {

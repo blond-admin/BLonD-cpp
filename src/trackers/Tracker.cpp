@@ -152,12 +152,12 @@ void RingAndRfSection::track() {
 
     if (!RfP->phi_noise.empty()) {
         if (noiseFB != NULL) {
-            for (uint i = 0; i < RfP->phi_RF.size(); ++i)
-                RfP->phi_RF[i][RfP->counter] +=
+            for (uint i = 0; i < RfP->phi_RF.begin()->size(); ++i)
+                RfP->phi_RF[RfP->counter][i] +=
                     noiseFB->fX * RfP->phi_noise[i][RfP->counter];
         } else {
-            for (uint i = 0; i < RfP->phi_RF.size(); ++i)
-                RfP->phi_RF[i][RfP->counter] += RfP->phi_noise[i][RfP->counter];
+            for (uint i = 0; i < RfP->phi_RF.begin()->size(); ++i)
+                RfP->phi_RF[RfP->counter][i] += RfP->phi_noise[i][RfP->counter];
         }
     }
 
@@ -329,7 +329,7 @@ inline void RingAndRfSection::kick(const uint index) {
     for (uint i = 0; i < RfP->n_rf; ++i) {
         vol[i] = RfP->voltage[index][i];
         omeg[i] = RfP->omega_RF[index][i];
-        phi[i] = RfP->phi_RF[i][index];
+        phi[i] = RfP->phi_RF[index][i];
     }
 
     kick(Beam->dt.data(), Beam->dE.data(), RfP->n_rf, vol, omeg, phi,
@@ -351,7 +351,7 @@ void RingAndRfSection::kick(const int_vector_t& filter, const uint index) {
     for (uint i = 0; i < RfP->n_rf; ++i) {
         vol[i] = RfP->voltage[index][i];
         omeg[i] = RfP->omega_RF[index][i];
-        phi[i] = RfP->phi_RF[i][index];
+        phi[i] = RfP->phi_RF[index][i];
     }
 
     kick(Beam->dt.data(), Beam->dE.data(), RfP->n_rf, vol, omeg, phi,
@@ -416,7 +416,7 @@ void FullRingAndRf::potential_well_generation(const uint turn,
         for (uint i = 0; i < ring->fRfP->n_rf; ++i) {
             voltages.push_back(ring->fRfP->voltage[turn][i]);
             omega_rf.push_back(ring->fRfP->omega_RF[turn][i]);
-            phi_offsets.push_back(ring->fRfP->phi_RF[i][turn]);
+            phi_offsets.push_back(ring->fRfP->phi_RF[turn][i]);
         }
     }
 

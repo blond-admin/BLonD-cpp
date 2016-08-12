@@ -224,7 +224,7 @@ void calc_phi_s(ftype* out, RfParameters* rfp,
                         std::sin((rfp->harmonic[j][i + 1] / min) *
                                      (phase_array[k] +
                                       transition_phase_offset[i + 1]) +
-                                 rfp->phi_offset[j][i + 1]);
+                                 rfp->phi_offset[i + 1][j]);
                 }
             }
             uint transition_factor = transition_phase_offset[i] == 0 ? +1 : -1;

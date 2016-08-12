@@ -27,7 +27,7 @@ void PhaseLoop::beam_phase() {
     auto Slice = Context::Slice;
 
     ftype omega_RF = RfP->omega_RF[RfP->counter][RfP->idx];
-    ftype phi_RF = RfP->phi_RF[RfP->idx][RfP->counter];
+    ftype phi_RF = RfP->phi_RF[RfP->counter][RfP->idx];
     // Convolve with window function
     //
     ftype* base = new ftype[Slice->n_slices];
@@ -109,7 +109,7 @@ void PhaseLoop::radial_steering_from_freq() {
 
     // Total phase offset
     for (uint i = 0; i < RfP->n_rf; ++i) {
-        RfP->phi_RF[i][counter] += RfP->dphi_RF_steering[i];
+        RfP->phi_RF[counter][i] += RfP->dphi_RF_steering[i];
     }
 }
 
@@ -165,7 +165,7 @@ void PhaseLoop::default_track() {
 
     // Total phase offset
     for (uint i = 0; i < RfP->n_rf; ++i) {
-        RfP->phi_RF[i][counter] += RfP->dphi_RF[i];
+        RfP->phi_RF[counter][i] += RfP->dphi_RF[i];
     }
 }
 

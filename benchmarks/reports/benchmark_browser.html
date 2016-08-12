@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html>
+<!-- Simple 2d and 3d benchmarks renderer using plotly-->
+<!-- add item to sidebar menu in order to add your benchmark -->
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <script type="text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.js"></script>
+    <title>Google Benchmark Renderer</title>
+</head>
+
+<body>
+
+    <div class="ui bottom attached segment pushable">
+        <div class="ui visible inverted left vertical sidebar menu">
+            <a class="item" url="./benchSin.json">
+              Sinus
+           </a>
+            <a class="item" url="./benchTC1.json">
+              TC1_Accelleration
+           </a>
+        </div>
+        <div class="pusher">
+            <div id="render" style="margin: 10px; padding: 10px; height: 90vh; ">
+            </div>
+        </div>
+	</div>
+        <script type='text/javascript'>
+            //<![CDATA[
+            function parser(bm) {
+                surfaces = [];
+                for (i = 0; i < bm.benchmarks.length; i++) {
+                    var data = bm.benchmarks[i].name.split("/", 3);
+
+                    if (data[1].includes("M")) {
+                        data[1] = parseFloat(data[1]) * 1000000.0;
+                    } else if (data[1].includes("k")) {
+                        data[1] = parseFloat(data[1]) * 1000.0;
+                    }
+                    point = [];
+
+                    point.push(parseFloat(data[1])); // x
+                    if (data.length > 2) {
+                        if (data[2].includes("M")) {
+                            data[2] = parseFloat(data[2]) * 1000000.0;
+                        } else if (data[2].includes("k")) {
+                            data[2] = parseFloat(data[2]) * 1000.0;
+                        }
+
+                        point.push(data[2]); // z
+                    } else {
+                        point.push(0); // z
+                    }
+                    point.push(bm.benchmarks[i].real_time); // y
+
+                    if (!(data[0] in surfaces)) {
+                        surfaces[data[0]] = [];
+                    }
+
+                    surfaces[data[0]].push(point);
+                }
+
+                return surfaces;
+            }
+
+            function render2d(surfaces) {
+                plot = [];
+                layout = {};
+                for (surface in surfaces) {
+                    xx = [];
+                    yy = [];
+
+                    for (i = 0; i < surfaces[surface].length; i++) {
+                        xx.push(surfaces[surface][i][0]);
+                        yy.push(surfaces[surface][i][2]);
+                    }
+
+                    var item = {
+                        x: xx,
+                        y: yy,
+                        fill: 'tonexty',
+                        name: surface,
+                        type: 'scatter'
+                    };
+                    console.log(item)
+                    plot.push(item)
+                }
+
+                layout = {
+                    showlegend: true,
+                    xaxis: {
+                        title: 'data size',
+                    },
+                    yaxis: {
+                        title: 'real time (ns)',
+                    }
+                };
+
+                return {
+                    "items": plot,
+                    "layout": layout
+                };
+            }
+
+            function render3d(surfaces) {
+                plot = [];
+                layout = {};
+
+                for (surface in surfaces) {
+                    x = [];
+                    y = [];
+                    z = [];
+                    for (i = 0; i < surfaces[surface].length; i++) {
+                        x.push(surfaces[surface][i][0]);
+                        y.push(surfaces[surface][i][1]);
+                        z.push(surfaces[surface][i][2]);
+                    }
+
+                    var item = {
+                        y: y,
+                        x: x,
+                        z: z,
+                        opacity: 0.5,
+                        showscale: false,
+                        name: surface,
+                        type: 'scatter3d'
+                    };
+                    plot.push(item)
+                }
+                layout = {
+                    showlegend: true,
+                    scene: {
+                        xaxis: {
+                            title: 'data size X'
+                        },
+                        yaxis: {
+                            title: 'data size Y'
+                        },
+                        zaxis: {
+                            title: 'real time (ns)'
+                        }
+                    }
+                };
+                return {
+                    "items": plot,
+                    "layout": layout
+                };
+
+            }
+
+            function render(bm) {
+                surfaces = parser(bm);
+                testType = bm.benchmarks[0].name.split("/", 3)
+                plot = {}
+                if (testType.length > 2) {
+                    plot = render3d(surfaces);
+                } else {
+                    plot = render2d(surfaces);
+                }
+                plot.layout.title = 'benchmark from ' + bm.context.date;
+
+                Plotly.newPlot('render', plot.items, plot.layout);
+            }
+
+            window.onload = function() {
+                    //jQuery = $;
+                    // showing multiple
+                    $('.context.example .ui.sidebar')
+                        .sidebar({
+                            context: $('.context.example .bottom.segment')
+                        })
+                        .sidebar('attach events', '.context.example .menu .item');
+                    $('.item').click(function() {
+                        $.getJSON($(this).attr("url"), function(bm) {
+                            render(bm);
+                        })
+
+                        .fail(function(error) {
+                            $("#render").text("error: json file is missing or you opened document locally! Please use FireFox to be able to open documents locally ").css({
+                                'font-weight': 'bold'
+                            });
+                        });
+                    });
+                    $('.item').click();
+                } //]]>
+        </script>
+</body>
+
+</html>

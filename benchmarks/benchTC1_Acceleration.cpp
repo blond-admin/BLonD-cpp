@@ -7,11 +7,11 @@
 #include <blond/trackers/Tracker.h>
 #include <gtest/gtest.h>
 
-const int max_t = 200000;
-const int min_t = 10000;
+const int max_t = 1000000;
+const int min_t = 100000;
 
-const int max_p = 10000;
-const int min_p = 100;
+const int max_p = 100000;
+const int min_p = 1000;
 
 const ftype epsilon = 1e-8;
 const std::string params = TEST_FILES "/TC1_final/TC1_final_params/";

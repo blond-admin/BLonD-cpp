@@ -1,0 +1,95 @@
+{
+  "context": {
+    "date": "08/12/16 13:41:40",
+    "num_cpus": 8,
+    "mhz_per_cpu": 3600,
+    "cpu_scaling_enabled": false,
+    "library_build_type": "release"
+  },
+  "benchmarks": [
+    {
+      "name": "NEW_TC1Acceleration/100/9.76563k",
+      "iterations": 19,
+      "real_time": 38915898,
+      "cpu_time": 41118421,
+      "time_unit": "ns"
+    },
+    {
+      "name": "NEW_TC1Acceleration/512/9.76563k",
+      "iterations": 4,
+      "real_time": 171273530,
+      "cpu_time": 167968750,
+      "time_unit": "ns"
+    },
+    {
+      "name": "NEW_TC1Acceleration/4k/9.76563k",
+      "iterations": 1,
+      "real_time": 1245010853,
+      "cpu_time": 1234375000,
+      "time_unit": "ns"
+    },
+    {
+      "name": "NEW_TC1Acceleration/9.76563k/9.76563k",
+      "iterations": 1,
+      "real_time": 2961152792,
+      "cpu_time": 2953125000,
+      "time_unit": "ns"
+    },
+    {
+      "name": "NEW_TC1Acceleration/100/32k",
+      "iterations": 6,
+      "real_time": 120937109,
+      "cpu_time": 119791667,
+      "time_unit": "ns"
+    },
+    {
+      "name": "NEW_TC1Acceleration/512/32k",
+      "iterations": 1,
+      "real_time": 513092518,
+      "cpu_time": 515625000,
+      "time_unit": "ns"
+    },
+    {
+      "name": "NEW_TC1Acceleration/4k/32k",
+      "iterations": 1,
+      "real_time": 4091784239,
+      "cpu_time": 4093750000,
+      "time_unit": "ns"
+    },
+    {
+      "name": "NEW_TC1Acceleration/9.76563k/32k",
+      "iterations": 1,
+      "real_time": 9936482191,
+      "cpu_time": 9875000000,
+      "time_unit": "ns"
+    },
+    {
+      "name": "NEW_TC1Acceleration/100/195.313k",
+      "iterations": 1,
+      "real_time": 739802361,
+      "cpu_time": 734375000,
+      "time_unit": "ns"
+    },
+    {
+      "name": "NEW_TC1Acceleration/512/195.313k",
+      "iterations": 1,
+      "real_time": 3115102291,
+      "cpu_time": 3109375000,
+      "time_unit": "ns"
+    },
+    {
+      "name": "NEW_TC1Acceleration/4k/195.313k",
+      "iterations": 1,
+      "real_time": 23816050053,
+      "cpu_time": 23796875000,
+      "time_unit": "ns"
+    },
+    {
+      "name": "NEW_TC1Acceleration/9.76563k/195.313k",
+      "iterations": 1,
+      "real_time": 59384483337,
+      "cpu_time": 59390625000,
+      "time_unit": "ns"
+    }
+  ]
+}

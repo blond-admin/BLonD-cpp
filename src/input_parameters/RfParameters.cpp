@@ -26,7 +26,7 @@
 
 RfParameters::RfParameters(uint _n_rf, f_vector_2d_t _harmonic,
                            f_vector_2d_t _voltage, f_vector_2d_t _phi_offset,
-                           f_vector_2d_t _phi_noise, f_vector_2d_t _omega_rf,
+                           f_vector_2d_t _phi_noise, f_vector_2d_t _omega_rf, // _omega_rf never used!
                            uint _section_index,
                            accelerating_systems_t accelerating_systems) {
     auto GP = Context::GP;
@@ -61,11 +61,11 @@ RfParameters::RfParameters(uint _n_rf, f_vector_2d_t _harmonic,
     for (uint i = 0; i < (GP->n_turns + 1); ++i)
         this->omega_s0[i] = Qs[i] * GP->omega_rev[i];
 
-    this->omega_RF_d.resize(n_rf, f_vector_t(GP->n_turns + 1));
+    this->omega_RF_d.resize(GP->n_turns + 1, f_vector_t(n_rf));
 
     for (uint i = 0; i < n_rf; ++i)
         for (uint j = 0; j < GP->n_turns + 1; ++j)
-            omega_RF_d[i][j] = 2 * constant::pi * GP->beta[i][j] * constant::c *
+            omega_RF_d[j][i] = 2 * constant::pi * GP->beta[i][j] * constant::c *
                                harmonic[i][j] / GP->ring_circumference;
 
     if (_omega_rf.empty()) {
@@ -79,7 +79,7 @@ RfParameters::RfParameters(uint _n_rf, f_vector_2d_t _harmonic,
     this->dphi_RF_steering.resize(n_rf, 0);
     t_RF.resize(GP->n_turns + 1);
     for (uint i = 0; i < GP->n_turns + 1; ++i)
-        t_RF[i] = 2 * constant::pi / omega_RF[idx][i];
+        t_RF[i] = 2 * constant::pi / omega_RF[i][idx];
 }
 
 RfParameters::~RfParameters() {}

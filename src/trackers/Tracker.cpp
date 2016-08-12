@@ -328,7 +328,7 @@ inline void RingAndRfSection::kick(const uint index) {
 
     for (uint i = 0; i < RfP->n_rf; ++i) {
         vol[i] = RfP->voltage[i][index];
-        omeg[i] = RfP->omega_RF[i][index];
+        omeg[i] = RfP->omega_RF[index][i];
         phi[i] = RfP->phi_RF[i][index];
     }
 
@@ -350,7 +350,7 @@ void RingAndRfSection::kick(const int_vector_t& filter, const uint index) {
 
     for (uint i = 0; i < RfP->n_rf; ++i) {
         vol[i] = RfP->voltage[i][index];
-        omeg[i] = RfP->omega_RF[i][index];
+        omeg[i] = RfP->omega_RF[index][i];
         phi[i] = RfP->phi_RF[i][index];
     }
 
@@ -415,7 +415,7 @@ void FullRingAndRf::potential_well_generation(const uint turn,
     for (const auto& ring : fRingList) {
         for (uint i = 0; i < ring->fRfP->n_rf; ++i) {
             voltages.push_back(ring->fRfP->voltage[i][turn]);
-            omega_rf.push_back(ring->fRfP->omega_RF[i][turn]);
+            omega_rf.push_back(ring->fRfP->omega_RF[turn][i]);
             phi_offsets.push_back(ring->fRfP->phi_RF[i][turn]);
         }
     }

@@ -246,7 +246,7 @@ int main(int argc, char** argv) {
             printf("   Design RF revolution frequency %.10e Hz\n",
                    Context::RfP->omega_RF_d[0][i]);
             printf("   RF revolution frequency %.10e Hz\n",
-                   Context::RfP->omega_RF[0][i]);
+                   Context::RfP->omega_RF[i][0]);
             printf("   RF phase %.4f rad\n", Context::RfP->phi_RF[0][i]);
             printf("   Beam phase %.4f rad\n", PL->phi_beam);
             printf("   Phase noise %.4f rad\n",

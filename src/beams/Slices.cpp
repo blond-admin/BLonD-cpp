@@ -108,7 +108,7 @@ inline ftype Slices::convert_coordinates(const ftype cut,
     if (type == s) {
         return cut;
     } else if (type == rad) {
-        return cut / RfP->omega_RF[RfP->idx][RfP->counter];
+        return cut / RfP->omega_RF[RfP->counter][RfP->idx];
     } else {
         dprintf("WARNING: We were supposed to have either s or rad\n");
     }
@@ -142,23 +142,22 @@ inline void Slices::histogram(const ftype* __restrict input,
                               const uint n_macroparticles) {
 
     const ftype inv_bin_width = n_slices / (cut_right - cut_left);
-    // const ftype range = cut_right - cut_left;
-    // histogram is faster with ints
-    typedef int hist_t;
-    hist_t* h;
+	const auto threads = omp_get_num_threads();
+
+	typedef int hist_t;
+
+	static std::vector<hist_t> hist(threads * n_slices);
+		// const ftype range = cut_right - cut_left;
+		// histogram is faster with ints
+		hist_t* h = &hist[0];
+		auto tile =(static_cast<int>(n_macroparticles) + threads - 1) / threads;
 #pragma omp parallel
     {
-        const auto threads = omp_get_num_threads();
         const auto id = omp_get_thread_num();
-        auto tile =
-            static_cast<int>((n_macroparticles + threads - 1) / threads);
+
         auto start = id * tile;
         auto end = std::min(start + tile, (int)n_macroparticles);
         const auto row = id * n_slices;
-
-#pragma omp single
-        h = (hist_t*)calloc(threads * n_slices, sizeof(hist_t));
-
         const auto h_row = &h[row];
 
         for (int i = start; i < end; ++i) {
@@ -196,8 +195,6 @@ inline void Slices::histogram(const ftype* __restrict input,
             }
         }
     }
-    if (h)
-        free(h);
 }
 
 void Slices::track_cuts() {

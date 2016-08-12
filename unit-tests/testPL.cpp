@@ -245,7 +245,7 @@ TEST_F(testPL2, radial_steering_from_freq1) {
 	auto epsilon = 1e-8;
 	for (unsigned int i = 0; i < v.size(); ++i) {
 		auto ref = v[i];
-		auto real = RfP->omega_RF[0][i];
+		auto real = RfP->omega_RF[i][0];
 		// std::cout << real << "\n";
 		ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
 			<< "Testing of RfP->omega_RF failed on i " << i << std::endl;
@@ -382,7 +382,7 @@ TEST_F(testPL, omega_RF) {
 	std::vector<ftype> v;
 	util::read_vector_from_file(v, params + "omega_RF");
 	ftype ref = v[0];
-	ftype real = RfP->omega_RF[0][counter];
+	ftype real = RfP->omega_RF[counter][0];
 	ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 

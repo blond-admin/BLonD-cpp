@@ -1,0 +1,95 @@
+{
+  "context": {
+    "date": "2016-08-12 11:47:14",
+    "num_cpus": 48,
+    "mhz_per_cpu": 2401,
+    "cpu_scaling_enabled": false,
+    "library_build_type": "debug"
+  },
+  "benchmarks": [
+    {
+      "name": "BM_TC1Acceleration/100/9.76562k",
+      "iterations": 5,
+      "real_time": 148851442,
+      "cpu_time": 148977400,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_TC1Acceleration/512/9.76562k",
+      "iterations": 1,
+      "real_time": 662343025,
+      "cpu_time": 662900000,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_TC1Acceleration/4k/9.76562k",
+      "iterations": 1,
+      "real_time": 5075137615,
+      "cpu_time": 5078227000,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_TC1Acceleration/9.76562k/9.76562k",
+      "iterations": 1,
+      "real_time": 12135593176,
+      "cpu_time": 12142154000,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_TC1Acceleration/100/32k",
+      "iterations": 2,
+      "real_time": 479624629,
+      "cpu_time": 479927500,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_TC1Acceleration/512/32k",
+      "iterations": 1,
+      "real_time": 2142056465,
+      "cpu_time": 2142674000,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_TC1Acceleration/4k/32k",
+      "iterations": 1,
+      "real_time": 16383914471,
+      "cpu_time": 16394508000,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_TC1Acceleration/9.76562k/32k",
+      "iterations": 1,
+      "real_time": 39721484423,
+      "cpu_time": 39745958000,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_TC1Acceleration/100/195.312k",
+      "iterations": 1,
+      "real_time": 2930976391,
+      "cpu_time": 2932555000,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_TC1Acceleration/512/195.312k",
+      "iterations": 1,
+      "real_time": 13159254551,
+      "cpu_time": 13166999000,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_TC1Acceleration/4k/195.312k",
+      "iterations": 1,
+      "real_time": 99577702284,
+      "cpu_time": 99638853000,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_TC1Acceleration/9.76562k/195.312k",
+      "iterations": 1,
+      "real_time": 233349754572,
+      "cpu_time": 233491504000,
+      "time_unit": "ns"
+    }
+  ]
+}

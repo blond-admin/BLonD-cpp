@@ -24,7 +24,6 @@ set(TEST_ENABLED "True" CACHE STRING "Cerate unit-test projects")
 set(BENCHMARK_ENABLED "True" CACHE STRING "Cerate benchmark projects")
 set(ARCHITECTURE "Default" CACHE STRING "Set architecture 'x86' or 'x32'") # todo: find usages and  fix comment
 
-set(OPENCL_SDK_PATH "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v7.5")
 set(WITH_COMPUTE "True" CACHE STRING "Should Build Boost.Compute library from source")
 set(BOOST_ROOT ${PROJECT_SOURCE_DIR}/external/build/boost CACHE STRING "Boost Library root")
 

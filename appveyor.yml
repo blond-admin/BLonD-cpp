@@ -1,4 +1,6 @@
+#note: OpenCL instructions taken from  https://github.com/ddemidov/vexcl/blob/master/.appveyor.yml
 environment:
+    INTELOCLSDKROOT: C:\Program Files (x86)\Intel\OpenCL SDK\5.3 
   matrix:
     - VSVER: Visual Studio 14 2015
     - VSVER: Visual Studio 14 2015 Win64
@@ -13,11 +15,12 @@ configuration:
 
 install:
   - git submodule update --init --recursive
+  - choco install -y doxygen.portable swig > null
 
 before_build:
   - mkdir build
   - cd build
-  - cmake ..
+  - cmake -DOPENCL_SDK_PATH=%INTELOCLSDKROOT% -DBUILD_EXTERNALS=True ..
   - DIR
 
 #build: of

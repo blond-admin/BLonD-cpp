@@ -1,4 +1,5 @@
-sudo: false
+#note: OpenCL instructions taken from https://github.com/peastman/openmm/blob/a7ce5784bc1d728ef7088c10308fa61b9c87e1a9/.travis.yml
+sudo: true
 language: cpp
 
 os:
@@ -7,6 +8,16 @@ os:
 compiler:
   - gcc
 env:
+  CUDA=true
+  CUDA_VERSION="7.5-18"
+  CMAKE_FLAGS="
+             -DOPENCL_SDK_PATH=/usr/local/cuda-7.5/
+             -DOPENCL_LIBRARY=/usr/local/cuda-7.5/lib64/libOpenCL.so
+             -DCUDA_CUDART_LIBRARY=/usr/local/cuda-7.5/lib64/libcudart.so
+             -DCUDA_NVCC_EXECUTABLE=/usr/local/cuda-7.5/bin/nvcc
+             -DCUDA_SDK_ROOT_DIR=/usr/local/cuda-7.5/
+             -DCUDA_TOOLKIT_INCLUDE=/usr/local/cuda-7.5/include
+             -DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-7.5/"
   matrix:
     - BUILD_TYPE=Debug
     - BUILD_TYPE=Release
@@ -24,6 +35,7 @@ addons:
       - cmake-data
       - gcc-4.8
       - g++-4.8
+      - opencl-headers
       - valgrind
       - gcov-4.8
       - lcov
@@ -40,11 +52,23 @@ cache:
 before_install:
   - export CC=/usr/bin/gcc-4.8
   - export CXX=/usr/bin/g++-4.8
+  - if [[ "$CUDA" == "true" ]]; then
+      wget "http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-repo-ubuntu1404_${CUDA_VERSION}_amd64.deb";
+      sudo dpkg -i cuda-repo-ubuntu1404_${CUDA_VERSION}_amd64.deb;
+      sudo apt-get update -qq;
+      export CUDA_APT=${CUDA_VERSION%-*};
+      export CUDA_APT=${CUDA_APT/./-};
+      sudo apt-get install -y cuda-drivers cuda-core-${CUDA_APT} cuda-cudart-dev-${CUDA_APT} cuda-cufft-dev-${CUDA_APT};
+      sudo apt-get clean;
+      export CUDA_HOME=/usr/local/cuda-${CUDA_VERSION%%-*};
+      export LD_LIBRARY_PATH=${CUDA_HOME}/lib64:${LD_LIBRARY_PATH};
+      export PATH=${CUDA_HOME}/bin:${PATH};
+    fi
 
 before_script:
   - mkdir build
   - cd build
-  - cmake -DWITH_FFTW=True -DWITH_GOOGLETEST=True -DWITH_BENCHMARK=True -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
+  - cmake -DWITH_FFTW=True -DWITH_GOOGLETEST=True -DWITH_BENCHMARK=True  -DBUILD_EXTERNALS=True -DOPENCL_SDK_PATH=/usr/local/cuda-7.5/ -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
 
 script:
   - cmake --build . -- -j2 VERBOSE=1

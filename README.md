@@ -27,7 +27,7 @@ git clone --branch=master https://github.com/kiliakis/BLonD-minimal-cpp
 cd BLonD-minimal-cpp
 mkdir build  
 cd build 
-cmake -DWITH_FFTW=True -DWITH_GOOGLETEST=True -DWITH_BENCHMARK=True .. # Configuration
+cmake -DWITH_FFTW=True -DWITH_GOOGLETEST=True -DWITH_BENCHMARK=True -DBUILD_EXTERNALS=True .. # Configuration
 cmake --build . # Compilation
 ctest -VV # Testing
 ```

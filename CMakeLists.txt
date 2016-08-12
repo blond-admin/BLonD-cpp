@@ -11,6 +11,7 @@ include(ExternalProject)
 include(ProcessorCount)
 include(CTest)
 
+
 # Code editors usabilety feature
 set_property(GLOBAL PROPERTY USE_FOLDERS On)
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "We have optemized configuration for Debug and Release configurations")
@@ -21,14 +22,19 @@ set(SHARED_LIBRARY_ENABLED "True")
 set(EXTERNAL_INSTALL_DIR ${PROJECT_SOURCE_DIR}/external/install)
 set(TEST_ENABLED "True" CACHE STRING "Cerate unit-test projects")
 set(BENCHMARK_ENABLED "True" CACHE STRING "Cerate benchmark projects")
-set(ARCHITECTURE "x64" CACHE STRING "Set architecture 'x86' or 'x32'") # todo: find usages and  fix comment
-if(NOT ABSOLUTE_DATA_PATHS)
-   set(DATAFILES_DIR_DEMOS "../demos/input_files" CACHE STRING "Set demos input files path")
-   set(DATAFILES_DIR_TESTS "../unit-tests/references" CACHE STRING "Set unit-tests input files path")
+set(ARCHITECTURE "Default" CACHE STRING "Set architecture 'x86' or 'x32'") # todo: find usages and  fix comment
+
+set(OPENCL_SDK_PATH "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v7.5")
+set(WITH_COMPUTE "True" CACHE STRING "Should Build Boost.Compute library from source")
+set(BOOST_ROOT ${PROJECT_SOURCE_DIR}/external/build/boost CACHE STRING "Boost Library root")
+
+if (NOT ABSOLUTE_DATA_PATHS)
+    set(DATAFILES_DIR_DEMOS "../demos/input_files" CACHE STRING "Set demos input files path")
+    set(DATAFILES_DIR_TESTS "../unit-tests/references" CACHE STRING "Set unit-tests input files path")
 else ()
-   set(DATAFILES_DIR_DEMOS "${CMAKE_CURRENT_LIST_DIR}/demos/input_files" CACHE STRING "Set demos input files path")
-   set(DATAFILES_DIR_TESTS "${CMAKE_CURRENT_LIST_DIR}/unit-tests/references" CACHE STRING "Set unit-tests input files path")
-endif()
+    set(DATAFILES_DIR_DEMOS "${CMAKE_CURRENT_LIST_DIR}/demos/input_files" CACHE STRING "Set demos input files path")
+    set(DATAFILES_DIR_TESTS "${CMAKE_CURRENT_LIST_DIR}/unit-tests/references" CACHE STRING "Set unit-tests input files path")
+endif ()
 
 # Packages
 set(EXTERNAL_INSTALL_DIR ${PROJECT_SOURCE_DIR}/external/install CACHE STRING "External libraries installation folder (with subfolders lib and include)")
@@ -50,7 +56,6 @@ if (NOT DEFINED WITH_GOOGLETEST)
     endif ()
 endif ()
 
-set(GOOGLETEST_ROOT ${PROJECT_SOURCE_DIR}/external/googletest/ CACHE STRING "Google Test source root")
 
 if (NOT DEFINED WITH_BENCHMARK)
     if (MSVC)
@@ -60,7 +65,9 @@ if (NOT DEFINED WITH_BENCHMARK)
     endif ()
 endif ()
 
-set(BENCHMARK_ROOT ${PROJECT_SOURCE_DIR}/external/benchmark CACHE STRING "Google Benchmark Library root")
+set(GOOGLETEST_ROOT ${PROJECT_SOURCE_DIR}/external/build/googletest/ CACHE STRING "Google Test source root")
+set(BENCHMARK_ROOT ${PROJECT_SOURCE_DIR}/external/build/benchmark CACHE STRING "Google Benchmark Library root")
+
 
 set(WITH_FORMAT "False" CACHE STRING "Clang-Format all project files on build (requires clang-format)")
 
@@ -84,8 +91,9 @@ endif ()
 #Compiler, Linker options
 #Compiler settings
 #MSVC vs Other
+
+add_definitions(-D_USE_MATH_DEFINES) #needed for VDT
 if (MSVC)
-    add_definitions(-D_USE_MATH_DEFINES) #needed for VDT
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj -Zm500  /MP${N} /openmp /fp:precise ")
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}  /GR-")
 else ()
@@ -96,10 +104,11 @@ else ()
     endif ()
 
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -std=c++11 -fopenmp -Wall -pedantic -fno-rtti -Wunused -ffast-math")
-    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O3 -g3") #-fsanitize=address -fno-omit-frame-pointer ")
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g3 -O0 -fno-omit-frame-pointer -fprofile-arcs -ftest-coverage") # -fsanitize=address
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -march=native")
 
     if (TEST_ENABLED STREQUAL "True")
+        LIST(APPEND LIBRARIES gcov)
         set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fprofile-arcs -ftest-coverage")
         set(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} --coverage")
     else ()
@@ -107,7 +116,7 @@ else ()
     endif ()
 
     if (USE_FFTW_OMP)
-        set(LIBRARIES ${LIBRARIES} fftw3_omp)
+        LIST(APPEND LIBRARIES fftw3_omp)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DUSE_FFTW_OMP")
     endif ()
 endif ()
@@ -160,57 +169,113 @@ if ((NOT WITH_BENCHMARK) AND BENCHMARK_ENABLED)
     find_library(BENCHMARK_LIB NAME benchmark REQUIRED)
 endif ()
 
-if (NOT (EXISTS ${PROJECT_SOURCE_DIR}/external/build))
-    execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/external/build)
-else ()
-    execute_process(COMMAND ${CMAKE_COMMAND} -E remove_directory ${PROJECT_SOURCE_DIR}/external/build/)
-    execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/external/build)
-endif ()
+if (BUILD_EXTERNALS)
+    if (NOT (EXISTS ${PROJECT_SOURCE_DIR}/external/build))
+        execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/external/build)
+    else ()
+        execute_process(COMMAND ${CMAKE_COMMAND} -E remove_directory ${PROJECT_SOURCE_DIR}/external/build/)
+        execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/external/build)
+    endif ()
 
-message(STATUS "Building required started...")
+    message(STATUS "Building required started...")
 
-execute_process(
-        COMMAND ${CMAKE_COMMAND}
-        #options
-        -DWITH_FFTW=${WITH_FFTW}
-        -DWITH_BENCHMARK=${WITH_BENCHMARK}
-        -DWITH_GOOGLETEST=${WITH_GOOGLETEST}
-        #destinations
-        -DINSTALL_DIR=${EXTERNAL_INSTALL_DIR}
-        -DCOMPILE_FLAGS=${COMPILE_FLAGS}
-        -DGOOGLETEST_ROOT=${GOOGLETEST_ROOT}
-        -DBENCHMARK_ROOT=${BENCHMARK_ROOT}
-        -DGOOGLETEST_ROOT=${GOOGLETEST_ROOT}
-        #forward all collected compilation arguments
-        -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} # relevant only for Make-like build files
-        -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}
-        -DCMAKE_CXX_FLAGS_DEBUG=${CMAKE_CXX_FLAGS_DEBUG}
-        -DCMAKE_CXX_FLAGS_RELEASE=${CMAKE_CXX_FLAGS_RELEASE}
-        -DCMAKE_EXE_LINKER_FLAGS_RELEASE=${CMAKE_EXE_LINKER_FLAGS_RELEASE}
-        -DCMAKE_EXE_LINKER_FLAGS_DEBUG=${CMAKE_EXE_LINKER_FLAGS_DEBUG}
-        -v
-        -G "${CMAKE_GENERATOR}"
-        ${PROJECT_SOURCE_DIR}/external/
-        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/external/build
-)
-
-message(STATUS "building external projects begins")
-execute_process(
-        COMMAND cmake --build . --config Release
-        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/external/build
-)
-if (WIN32 AND NOT MINGW)
     execute_process(
-            COMMAND cmake --build . --config Debug
+            COMMAND ${CMAKE_COMMAND}
+            #options
+            -DWITH_FFTW=${WITH_FFTW}
+            -DWITH_BENCHMARK=${WITH_BENCHMARK}
+            -DWITH_GOOGLETEST=${WITH_GOOGLETEST}
+            -DWITH_COMPUTE=${WITH_COMPUTE}
+            #destinations
+            -DINSTALL_DIR=${EXTERNAL_INSTALL_DIR}
+            -DCOMPILE_FLAGS=${COMPILE_FLAGS}
+            -DGOOGLETEST_ROOT=${GOOGLETEST_ROOT}
+            -DBENCHMARK_ROOT=${BENCHMARK_ROOT}
+            -DGOOGLETEST_ROOT=${GOOGLETEST_ROOT}
+            -DBOOST_ROOT=${BOOST_ROOT}
+            #forward all collected compilation arguments
+            -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} # relevant only for Make-like build files
+            -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}
+            -DCMAKE_CXX_FLAGS_DEBUG=${CMAKE_CXX_FLAGS_DEBUG}
+            -DCMAKE_CXX_FLAGS_RELEASE=${CMAKE_CXX_FLAGS_RELEASE}
+            -DCMAKE_EXE_LINKER_FLAGS_RELEASE=${CMAKE_EXE_LINKER_FLAGS_RELEASE}
+            -DCMAKE_EXE_LINKER_FLAGS_DEBUG=${CMAKE_EXE_LINKER_FLAGS_DEBUG}
+            -v
+            -G "${CMAKE_GENERATOR}"
+            ${PROJECT_SOURCE_DIR}/external/
             WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/external/build
     )
+
+    message(STATUS "building external projects begins")
+    execute_process(
+            COMMAND cmake --build . --config Release
+            WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/external/build
+    )
+
+    if (WIN32 AND NOT MINGW)
+        execute_process(
+                COMMAND cmake --build . --config Debug
+                WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/external/build
+        )
+    endif ()
+    message(STATUS "building external projects ended")
+
 endif ()
-message(STATUS "building external projects ended")
 
 message(STATUS "Building required librasries complete")
 # path to external libraries and headers
 include_directories(${EXTERNAL_INSTALL_DIR}/include)
 link_directories(${EXTERNAL_INSTALL_DIR}/lib)
+
+#OpenCL
+if (WITH_COMPUTE)
+    if (WIN32 AND NOT MINGW)
+        if (${ARCHITECTURE} STREQUAL "x64")
+            message(status "ARCHITECTURE ${ARCHITECTURE}")
+            link_directories("${OPENCL_SDK_PATH}/lib/x64")
+            link_directories("${OPENCL_SDK_PATH}/lib/x86_64")
+        else ()
+            link_directories("${OPENCL_SDK_PATH}/lib/Win32")
+            link_directories("${OPENCL_SDK_PATH}/lib/x86")
+            link_directories("${OPENCL_SDK_PATH}/lib/")
+        endif ()
+        set(OPENCL_LIB "OpenCL.lib")
+    elseif (MINGW)
+        LIST(APPEND LIBRARIES
+                "C:/Windows/System32/OpenCL.dll"
+                )
+    else ()
+        if (ARCHITECTURE STREQUAL "x64")
+            find_library(OPENCL_LIB
+                    NAMES OpenCL OpenCL.lib libOpenCL
+                    PATHS "${OPENCL_SDK_PATH}/lib/x64" "${OPENCL_SDK_PATH}/lib/x86_64"
+                    NO_DEFAULT_PATH
+                    )
+        else ()
+            find_library(OPENCL_LIB
+                    NAMES OpenCL OpenCL.lib libOpenCL
+                    PATHS "${OPENCL_SDK_PATH}/lib/Win32" "${OPENCL_SDK_PATH}/lib/x86" "${OPENCL_SDK_PATH}/lib/"
+                    NO_DEFAULT_PATH
+                    )
+        endif ()
+    endif ()
+    message("Note: OPENCL_LIB ${OPENCL_LIB}")
+    include_directories("${OPENCL_SDK_PATH}/include")
+
+    get_filename_component(OPENCL_DIR ${OPENCL_LIB} DIRECTORY)
+    link_directories(${OPENCL_DIR})
+    LIST(APPEND LIBRARIES
+            ${OPENCL_LIB}
+            )
+else ()
+    #OpenCL is required for GPU computations
+    find_package(OpenCL REQUIRED)
+    include_directories(${OpenCL_INCLUDE_DIRS})
+    link_directories(${OpenCL_LIBRARY})
+    LIST(APPEND LIBRARIES
+            ${OpenCL_LIBRARY}
+            )
+endif ()
 
 if (WITH_FFTW)
     if (WIN32 AND NOT MINGW)
@@ -228,10 +293,6 @@ if (WITH_FFTW)
                 NO_DEFAULT_PATH
                 )
     endif ()
-
-    add_custom_command(TARGET ALL PRE_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy_directory
-            "${EXTERNAL_INSTALL_DIR}/bin/" $<TARGET_FILE_DIR>)
 endif ()
 
 
@@ -252,7 +313,7 @@ endfunction(assign_source_group)
 
 # main library
 include_directories(include)
-SET(LIBRARIES
+LIST(APPEND LIBRARIES
         ${FFTW_LIB}
         )
 
@@ -277,6 +338,18 @@ else ()
 endif ()
 target_link_libraries(blond ${LIBRARIES})
 
+if (WITH_FFTW)
+    if (MSVC)
+        add_custom_command(TARGET blond PRE_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy_directory
+                "${EXTERNAL_INSTALL_DIR}/bin/$(Configuration)" $<TARGET_FILE_DIR:blond>)
+    else ()
+        add_custom_command(TARGET blond PRE_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy_directory
+                "${EXTERNAL_INSTALL_DIR}/bin/" $<TARGET_FILE_DIR:blond>)
+    endif ()
+endif ()
+
 #SET_TARGET_PROPERTIES(blond PROPERTIES LINKER_LANGUAGE CXX)
 
 # demo executables
@@ -284,7 +357,6 @@ LIST(APPEND LIBRARIES blond)
 
 file(GLOB EXECUTABLE_SOURCES "demos/*.cpp")
 set(EXECUTABLE_FILES ${EXECUTABLE_SOURCES})
-
 
 
 # demo dependencies
@@ -362,7 +434,7 @@ endif ()
 if (BENCHMARK_ENABLED)
     if (WITH_BENCHMARK)
         if (WIN32 AND NOT MINGW)
-            link_directories(${EXTERNAL_INSTALL_DIR}/lib/fftw/$(Configuration)/)
+            link_directories(${EXTERNAL_INSTALL_DIR}/lib/benchmark/$(Configuration)/)
             find_library(BENCHMARK_LIB
                     NAMES benchmark libbenchmark
                     PATHS "${EXTERNAL_INSTALL_DIR}/lib/benchmark/Debug"
@@ -381,8 +453,8 @@ if (BENCHMARK_ENABLED)
     message(STATUS "generating benchmark executables")
     LIST(APPEND LIBRARIES ${BENCHMARK_LIB})
 
-    if (MSVC)
-        LIST(APPEND LIBRARIES Shlwapi)
+    if (MSVC OR MINGW)
+        LIST(APPEND LIBRARIES shlwapi)
     else ()
         LIST(APPEND LIBRARIES pthread)
     endif ()

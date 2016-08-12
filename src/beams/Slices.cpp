@@ -82,8 +82,6 @@ void Slices::set_cuts()
         bin_centers[i] = (edges[i + 1] + edges[i]) / 2;
 }
 
-// TODO not implemented the best way
-// If dt, dE and id were in the same struct API  it would be better
 void Slices::sort_particles()
 {
     /*

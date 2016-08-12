@@ -246,19 +246,21 @@ if (WITH_COMPUTE)
     else ()
         if (ARCHITECTURE STREQUAL "x64")
             find_library(OPENCL_LIB
-                    NAMES OpenCL OpenCL.lib libOpenCL
-                    PATHS "${OPENCL_SDK_PATH}/lib/x64" "${OPENCL_SDK_PATH}/lib/x86_64"
+                    NAMES OpenCL OpenCL.lib libOpenCL libOpenCL.so
+                    PATHS "${OPENCL_SDK_PATH}" "${OPENCL_SDK_PATH}/lib/x64" "${OPENCL_SDK_PATH}/lib/x86_64"
                     NO_DEFAULT_PATH
                     )
         else ()
             find_library(OPENCL_LIB
-                    NAMES OpenCL OpenCL.lib libOpenCL
-                    PATHS "${OPENCL_SDK_PATH}/lib/Win32" "${OPENCL_SDK_PATH}/lib/x86" "${OPENCL_SDK_PATH}/lib/"
+                    NAMES OpenCL OpenCL.lib libOpenCL libOpenCL.so
+                    PATHS "${OPENCL_SDK_PATH}" "${OPENCL_SDK_PATH}/lib/Win32" "${OPENCL_SDK_PATH}/lib/x86" "${OPENCL_SDK_PATH}/lib/"
                     NO_DEFAULT_PATH
                     )
         endif ()
     endif ()
     message("Note: OPENCL_LIB ${OPENCL_LIB}")
+    message("Note: OPENCL_SDK_PATH ${OPENCL_SDK_PATH}")
+
     include_directories("${OPENCL_SDK_PATH}/include")
 
     get_filename_component(OPENCL_DIR ${OPENCL_LIB} DIRECTORY)
@@ -467,7 +469,6 @@ if (BENCHMARK_ENABLED)
         string(REPLACE "benchmarks/" "" testname ${testname})
         add_executable(${testname} ${src})
         target_link_libraries(${testname} ${LIBRARIES})
-        add_test(${testname} ${testname})
     endforeach ()
 
     enable_testing()

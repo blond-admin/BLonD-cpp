@@ -1,29 +1,17 @@
 ﻿<!DOCTYPE html>
 <html>
-<!-- Simple 2d and 3d benchmarks renderer using plotly-->
-<!-- add item to sidebar menu in order to add your benchmark -->
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css">    
     <script type="text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.js"></script>
+    <script type="text/javascript" src="./benchmarks_list.js"></script>
     <title>Google Benchmark Renderer</title>
 </head>
-
 <body>
-
     <div class="ui bottom attached segment pushable">
-        <div class="ui visible inverted left vertical sidebar menu">
-           <a class="item" url="./sin.json">
-              Sinus (sinus holder is created on each iteration)
-           </a>
-           <a class="item" url="./sin_old.json">
-              Sinus (sinus holder is created before iteration loop)
-           </a>
-            <a class="item" url="./TC1.json">
-              TC1_Accelleration
-           </a>
+        <div class="ui visible inverted left vertical sidebar menu" id="menu">
         </div>
         <div class="pusher">
             <div id="render" style="margin: 10px; padding: 10px; width: 80%; height: 90vh;">
@@ -87,7 +75,6 @@
                         name: surface,
                         type: 'scatter'
                     };
-                    console.log(item)
                     plot.push(item)
                 }
 
@@ -168,25 +155,29 @@
             }
 
             window.onload = function() {
-                    //jQuery = $;
-                    // showing multiple
-                    $('.context.example .ui.sidebar')
-                        .sidebar({
-                            context: $('.context.example .bottom.segment')
-                        })
-                        .sidebar('attach events', '.context.example .menu .item');
-                    $('.item').click(function() {
-                        $.getJSON($(this).attr("url"), function(bm) {
-                            render(bm);
-                        })
+				for(i =0; i < benchmarks.length; i++) {
+					$( '<a class="item" url="'+benchmarks[i].ref+'">'+benchmarks[i].name+'</a>' ).appendTo( "#menu" );
+				}
+        
+                //jQuery = $;
+                // showing multiple
+                $('.context.example .ui.sidebar')
+                    .sidebar({
+                        context: $('.context.example .bottom.segment')
+                    })
+                    .sidebar('attach events', '.context.example .menu .item');
+                $('.item').click(function() {
+                    $.getJSON($(this).attr("url"), function(bm) {
+                        render(bm);
+                    })
 
-                        .fail(function(error) {
-                            $("#render").text("error: json file is missing or you opened document locally! Please use FireFox to be able to open documents locally ").css({
-                                'font-weight': 'bold'
-                            });
+                    .fail(function(error) {
+                        $("#render").text("error: json file is missing or you opened document locally! Please use FireFox to be able to open documents locally ").css({
+                            'font-weight': 'bold'
                         });
                     });
-                    $('.item').click();
+                });
+                $('.item').first().click();
                 } //]]>
         </script>
 </body>

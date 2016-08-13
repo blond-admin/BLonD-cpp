@@ -25,12 +25,15 @@ inline void RingAndRfSection::kick(const ftype* __restrict beam_dt,
     // KICK
     //#pragma omp parallel for collapse(2)
     for (int j = 0; j < n_rf; ++j) {
+		const auto & current_omega_RF(omega_RF[j]);
+		const auto & current_phi_RF(phi_RF[j]);
+		const auto & current_voltage(voltage[j]);
 #pragma omp parallel for
         for (int i = 0; i < n_macroparticles; ++i) {
             // const ftype a = omega_RF[j] * beam_dt[i] + phi_RF[j];
             beam_dE[i] +=
-                voltage[j] *
-                mymath::fast_sin(omega_RF[j] * beam_dt[i] + phi_RF[j]);
+				current_voltage *
+                mymath::fast_sin(current_omega_RF * beam_dt[i] + current_phi_RF);
         }
     }
 
@@ -50,9 +53,12 @@ inline void RingAndRfSection::kick(
     // KICK
     //#pragma omp parallel for collapse(2)
     for (int j = 0; j < n_rf; j++) {
+		const auto & current_omega_RF( omega_RF[j]);
+		const auto & current_phi_RF( phi_RF[j]);
+		const auto & current_voltage( voltage[j]);
         for (const auto& i : filter) {
-            const ftype a = omega_RF[j] * beam_dt[i] + phi_RF[j];
-            beam_dE[i] += voltage[j] * mymath::fast_sin(a);
+            const auto a = current_omega_RF * beam_dt[i] + current_phi_RF;
+            beam_dE[i] += current_voltage * mymath::fast_sin(a);
         }
     }
 
@@ -151,12 +157,14 @@ void RingAndRfSection::track() {
     auto Beam = Context::Beam;
 
     if (!RfP->phi_noise.empty()) {
+		auto size = RfP->phi_RF.begin()->size();
+
         if (noiseFB != NULL) {
-            for (uint i = 0; i < RfP->phi_RF.begin()->size(); ++i)
+            for (uint i = 0; i < size; ++i)
                 RfP->phi_RF[RfP->counter][i] +=
                     noiseFB->fX * RfP->phi_noise[i][RfP->counter];
         } else {
-            for (uint i = 0; i < RfP->phi_RF.begin()->size(); ++i)
+            for (uint i = 0; i < size; ++i)
                 RfP->phi_RF[RfP->counter][i] += RfP->phi_noise[i][RfP->counter];
         }
     }
@@ -322,44 +330,25 @@ inline void RingAndRfSection::kick(const uint index) {
     auto RfP = fRfP;
     auto Beam = Context::Beam;
 
-    auto vol = new ftype[RfP->n_rf];
-    auto omeg = new ftype[RfP->n_rf];
-    auto phi = new ftype[RfP->n_rf];
-
-    for (uint i = 0; i < RfP->n_rf; ++i) {
-        vol[i] = RfP->voltage[index][i];
-        omeg[i] = RfP->omega_RF[index][i];
-        phi[i] = RfP->phi_RF[index][i];
-    }
-
-    kick(Beam->dt.data(), Beam->dE.data(), RfP->n_rf, vol, omeg, phi,
-         Beam->n_macroparticles, acceleration_kick[index]);
-
-    delete[] vol;
-    delete[] omeg;
-    delete[] phi;
+    kick(Beam->dt.data(), 
+		Beam->dE.data(), 
+		RfP->n_rf, 
+		RfP->voltage[index].data(), 
+		RfP->omega_RF[index].data(), 
+		RfP->phi_RF[index].data(),
+         Beam->n_macroparticles, 
+		acceleration_kick[index]);
 }
 
 void RingAndRfSection::kick(const int_vector_t& filter, const uint index) {
     auto RfP = fRfP;
     auto Beam = Context::Beam;
 
-    auto vol = new ftype[RfP->n_rf];
-    auto omeg = new ftype[RfP->n_rf];
-    auto phi = new ftype[RfP->n_rf];
-
-    for (uint i = 0; i < RfP->n_rf; ++i) {
-        vol[i] = RfP->voltage[index][i];
-        omeg[i] = RfP->omega_RF[index][i];
-        phi[i] = RfP->phi_RF[index][i];
-    }
-
-    kick(Beam->dt.data(), Beam->dE.data(), RfP->n_rf, vol, omeg, phi,
+    kick(Beam->dt.data(), Beam->dE.data(), RfP->n_rf, 
+		RfP->voltage[index].data(),
+		RfP->omega_RF[index].data(),
+		RfP->phi_RF[index].data(),
          Beam->n_macroparticles, acceleration_kick[index], filter);
-
-    delete[] vol;
-    delete[] omeg;
-    delete[] phi;
 }
 
 void RingAndRfSection::drift(const int_vector_t& filter, const uint index) {

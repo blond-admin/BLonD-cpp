@@ -22,6 +22,23 @@
             //<![CDATA[
             function parser(bm) {
                 surfaces = [];
+                
+                // Filter only mean results
+                bm_filter_mean =[];
+                for (i = 0; i < bm.benchmarks.length; i++) {
+                	arr = bm.benchmarks[i].name.split("_");
+                	if(arr.length > 1 && (arr[arr.length - 1]=="mean")) {
+                		arr.pop();
+                		bm.benchmarks[i].name = arr.join("");
+                		bm_filter_mean.push(bm.benchmarks[i]);
+                	}
+                }
+                if(bm_filter_mean.length > 0) {
+                	bm.benchmarks = [];
+                	bm.benchmarks = bm_filter_mean;
+                }
+                
+                // Parse data points                
                 for (i = 0; i < bm.benchmarks.length; i++) {
                     var data = bm.benchmarks[i].name.split("/", 3);
 
@@ -59,6 +76,8 @@
             function render2d(surfaces) {
                 plot = [];
                 layout = {};
+                
+                //Fit data points to 2d scatter plot
                 for (surface in surfaces) {
                     xx = [];
                     yy = [];
@@ -75,7 +94,7 @@
                         name: surface,
                         type: 'scatter'
                     };
-                    plot.push(item)
+                    plot.push(item);
                 }
 
                 layout = {
@@ -98,6 +117,7 @@
                 plot = [];
                 layout = {};
 
+				//Fit data points to 3d scatter plot
                 for (surface in surfaces) {
                     x = [];
                     y = [];
@@ -159,8 +179,6 @@
 					$( '<a class="item" url="'+benchmarks[i].ref+'">'+benchmarks[i].name+'</a>' ).appendTo( "#menu" );
 				}
         
-                //jQuery = $;
-                // showing multiple
                 $('.context.example .ui.sidebar')
                     .sidebar({
                         context: $('.context.example .bottom.segment')

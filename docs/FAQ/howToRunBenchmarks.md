@@ -22,6 +22,7 @@ Now you can run your benchmark calling your application with `--benchmark_out=<f
 ```
 ./benchTC1_Acceleration --benchmark_out=TC1_hybri.json
 ```
+You can also run with `--benchmark_repetitions=3` argument to get Standard Deviation and Mean.
 
 ##Display results
 Navigate to `BLonD-minimal-cpp/benchmarks/reports`. Put your JSON file into that folder.
@@ -34,7 +35,7 @@ benchmarks = [
 ];
 ```
 Now open `benchmark_browser.html` in [FireFox](https://www.mozilla.org/en-US/firefox/) browser if you are doing it locally, or share folder with it on your web
-site.
+site. Note in case of mean results presence renderer filter's all other results out.
 
 ##Start benchmark on SLURM cluster
 Create a simple scritpt called `blond.sh` like this featuring your favourite benchmark:

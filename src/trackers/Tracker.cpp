@@ -16,31 +16,32 @@
 
 // Kick without periodicity
 inline void RingAndRfSection::kick(const ftype* __restrict beam_dt,
-                                   ftype* __restrict beam_dE, const int n_rf,
-                                   const ftype* __restrict voltage,
-                                   const ftype* __restrict omega_RF,
-                                   const ftype* __restrict phi_RF,
-                                   const int n_macroparticles,
-                                   const ftype acc_kick) {
-    // KICK
-    //#pragma omp parallel for collapse(2)
-    for (int j = 0; j < n_rf; ++j) {
+	ftype* __restrict beam_dE, const int n_rf,
+	const ftype* __restrict voltage,
+	const ftype* __restrict omega_RF,
+	const ftype* __restrict phi_RF,
+	const int n_macroparticles,
+	const ftype acc_kick) {
+	// KICK
+	//#pragma omp parallel for collapse(2)
+	for (int j = 0; j < n_rf; ++j) {
 		const auto & current_omega_RF(omega_RF[j]);
 		const auto & current_phi_RF(phi_RF[j]);
 		const auto & current_voltage(voltage[j]);
 #pragma omp parallel for
-        for (int i = 0; i < n_macroparticles; ++i) {
-            // const ftype a = omega_RF[j] * beam_dt[i] + phi_RF[j];
-            beam_dE[i] +=
+		for (int i = 0; i < n_macroparticles; ++i) {
+			// const ftype a = omega_RF[j] * beam_dt[i] + phi_RF[j];
+			beam_dE[i] +=
 				current_voltage *
-                mymath::fast_sin(current_omega_RF * beam_dt[i] + current_phi_RF);
-        }
-    }
+				mymath::fast_sin(current_omega_RF * beam_dt[i] + current_phi_RF);
+		}
+	}
 
-// SYNCHRONOUS ENERGY CHANGE
-#pragma omp parallel for
-    for (int i = 0; i < n_macroparticles; ++i)
-        beam_dE[i] += acc_kick;
+	// SYNCHRONOUS ENERGY CHANGE
+#pragma omp parallel for 
+	for (int i = 0; i < n_macroparticles; ++i) {
+		beam_dE[i] += acc_kick;
+	}
 }
 
 // kick with periodicity

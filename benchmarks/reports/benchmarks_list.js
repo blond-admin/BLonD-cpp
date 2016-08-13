@@ -4,4 +4,5 @@ benchmarks = [
 	{name: "TC1_Accelleration", ref: "./TC1.json"},
 	{name: "TC1_Accelleration_new_OJ", ref: "./TC1_new.json"},
 	{name: "TC1_Accelleration_new_OJ std:sin", ref: "./TC1_new2.json"},
+	{name: "TC1_Accelleration_new_OJ std:sin", ref: "./TC1_atomicMp32.json"},	
 ];

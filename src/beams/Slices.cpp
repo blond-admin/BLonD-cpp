@@ -10,6 +10,7 @@
 #include <blond/globals.h>
 #include <blond/math_functions.h>
 #include <atomic>
+#include <unordered_map>
 #include <omp.h>
 
 //#include <gsl/gsl_multifit_nlin.h>
@@ -141,7 +142,7 @@ inline void Slices::slice_constant_space_histogram() {
 		n_slices, Beam->n_macroparticles);
 }
 
-inline void Slices::histogram(const ftype* __restrict input,
+inline void Slices::histogram(const ftype* __restrict input, 
 	int* __restrict output, const ftype cut_left,
 	const ftype cut_right, const uint n_slices,
 	const uint n_macroparticles) {
@@ -160,14 +161,26 @@ inline void Slices::histogram(const ftype* __restrict input,
 	hist_t* h = &hist[0];
 	auto tile = (static_cast<int>(n_macroparticles) + threads - 1) / threads;
 
+
+	auto catch_size =258;
+	std::vector<std::unordered_map<int, int> >catch_map(omp_get_max_threads(),
+		std::unordered_map<int, int>(catch_size/2));
+
 #pragma omp parallel for
-	for (int i = 0; i < n_macroparticles; ++i) {
-		const ftype & a(input[i]);
-		// const ftype a = (input[i] - cut_left);
-		if (a > cut_left && a < cut_right) {
-			const uint ffbin =
-				static_cast<uint>((a - cut_left) * inv_bin_width);
-			h[ffbin] += 1;
+	for (int i = 0; i < n_macroparticles; i += catch_size) {
+		std::unordered_map<int, int> & map(catch_map[omp_get_thread_num()]);
+		map.clear();
+		auto max = (i + catch_size >= n_macroparticles) ? n_macroparticles - i : catch_size;
+
+		for (int j = 0; j < max; ++j) {
+			auto key = input[i + j];
+			if (key > cut_left && key < cut_right) {
+				map[(int)((key - cut_left) * inv_bin_width)]++;
+			}
+		}
+		
+		for (std::unordered_map<int, int>::const_iterator it = map.cbegin(); it != map.cend(); ++it) {
+			h[it->first] += it->second;
 		}
 	}
 

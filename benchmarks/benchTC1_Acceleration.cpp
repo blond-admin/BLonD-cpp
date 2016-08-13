@@ -138,5 +138,9 @@ static void BM_TC1Acceleration(benchmark::State& state) {
 int main(int argc, char** argv) {
 	::benchmark::Initialize(&argc, argv);
 	::benchmark::RunSpecifiedBenchmarks();
+#ifndef NDEBUG
+	std::cin.get();
+#endif
+
 	return 0;
 }

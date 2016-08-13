@@ -20,7 +20,7 @@ benchmark [--benchmark_list_tests={true|false}]
 ```
 Now you can run your benchmark calling your application with `--benchmark_out=<filename>` to save results:
 ```
-./benchTC1_Acceleration --benchmark_out=TC1_hybri.json
+./benchTC1_Acceleration --benchmark_out=TC1_hybri.json --benchmark_repetitions=3
 ```
 You can also run with `--benchmark_repetitions=3` argument to get Standard Deviation and Mean.
 

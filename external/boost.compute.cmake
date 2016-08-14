@@ -41,7 +41,8 @@ if (BUILD_COMPUTE)
             --with-thread
             --prefix=${INSTALL_DIR} -d0
             address-model=32_64 --threading=multi --link=shared,static --variant=debug,release install -j8
-            INSTALL_DIR ${INSTALL_DIR}
+            INSTALL_COMMAND
+                COMMAND ${CMAKE_COMMAND} -E echo "Buist compiled and build OK"
             )
 
 

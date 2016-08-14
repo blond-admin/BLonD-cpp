@@ -42,8 +42,11 @@ Create a simple scritpt called `blond.sh` like this featuring your favourite ben
 ```bash
 #!/bin/sh
 #SBATCH -p phi
+#SBATCH -c 48
+export OMP_NUM_THREADS=48
 srun ./benchTC1_Acceleration --help
-srun ./benchTC1_Acceleration --benchmark_out=TC1_hybri.json
+srun ./benchTC1_Acceleration --benchmark_out=TC1_hybri_AfterCpu.json --benchmark_repetitions=3
+srun ./benchTC1_Acceleration --benchmark_out=TC1_hybri_AfterCpu_extra.json --benchmark_repetitions=3
 ```
 This script would create `TC1_hybri.json` file as a result.
 Start it:
@@ -60,3 +63,8 @@ JOBID   PARTITION   NAME        USER    ST  TIME        NODES   NODELIST(REASON)
 20950   gpuK80      blond.sh    you     R   19:19:42    1       blade10
 ```
 When `squeue` call will stop showing your job in it you can use result file.
+
+To force application to stop use:
+```bash
+scancel $YOUR_JOBID
+```

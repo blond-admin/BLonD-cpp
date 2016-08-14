@@ -40,9 +40,7 @@ if (BUILD_COMPUTE)
             COMMAND ${Boost_b2_Command}
             --with-thread
             --prefix=${INSTALL_DIR} -d0
-            address-model=${BOOST_ARCHITECTURE} --threading=multi --link=shared,static --variant=debug,release install -j8
-            INSTALL_COMMAND
-            COMMAND ${CMAKE_COMMAND} -E rename ${INSTALL_INC_DIR}/boost-${Boost_Version_s}/boost ${INSTALL_INC_DIR}/boost
+            address-model=32_64 --threading=multi --link=shared,static --variant=debug,release install -j8
             INSTALL_DIR ${INSTALL_DIR}
             )
 
@@ -51,6 +49,7 @@ if (BUILD_COMPUTE)
         set(Boost_LIBRARY_DIR ${INSTALL_DIR}/lib/boost/)
         set(Boost_INCLUDE_DIR ${INSTALL_DIR}/include/)
     else ()
+        execute_process(COMMAND ${CMAKE_COMMAND} -E rename ${INSTALL_INC_DIR}/boost-${Boost_Version_s}/boost ${INSTALL_INC_DIR}/boost )
         set(Boost_LIBRARY_DIR ${INSTALL_DIR}/lib/)
         set(Boost_INCLUDE_DIR ${INSTALL_DIR}/include/boost-${Boost_Version}/)
     endif ()

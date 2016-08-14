@@ -1,5 +1,6 @@
 #note: OpenCL instructions taken from https://github.com/peastman/openmm/blob/a7ce5784bc1d728ef7088c10308fa61b9c87e1a9/.travis.yml
-sudo: true
+sudo: required
+dist: trusty
 language: cpp
 
 os:
@@ -56,7 +57,7 @@ before_install:
       sudo apt-get update -qq;
       export CUDA_APT=${CUDA_VERSION%-*};
       export CUDA_APT=${CUDA_APT/./-};
-      sudo apt-get install -y cuda-drivers cuda-core-${CUDA_APT} cuda-cudart-dev-${CUDA_APT} cuda-cufft-dev-${CUDA_APT};
+      sudo apt-get install -y nvidia-settings cuda-drivers cuda-core-${CUDA_APT} cuda-cudart-dev-${CUDA_APT} cuda-cufft-dev-${CUDA_APT};
       sudo apt-get clean;
       export CUDA_HOME=/usr/local/cuda-${CUDA_VERSION%%-*};
       export LD_LIBRARY_PATH=${CUDA_HOME}/lib64:${LD_LIBRARY_PATH};

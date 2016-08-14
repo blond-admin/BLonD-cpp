@@ -7,15 +7,6 @@
 #include <blond/trackers/Tracker.h>
 #include <gtest/gtest.h>
 
-const int max_t = 100000;
-const int min_t = 100000;
-
-const int max_p = 100000;
-const int min_p = 1000;
-
-const ftype epsilon = 1e-8;
-const std::string params = TEST_FILES "/TC1_final/TC1_final_params/";
-
 class TestData {
 
 protected:
@@ -92,28 +83,8 @@ static void BM_TC1Acceleration(benchmark::State& state) {
 		for (int i = 0; i < N_t; ++i) {
 			long_tracker->track();
 			Context::Slice->track();
-			// RfP->counter++;
-			// beam->losses_longitudinal_cut(beam->dt, 0, 2.5e-9, beam->id);
 		}
 	}
-	/*
-	std::vector<ftype> v;
-	util::read_vector_from_file(v, params + "dE");
-	for (unsigned int i = 0; i < v.size(); ++i) {
-		ftype ref_dE = v[i];
-		ftype real_dE = Beam->dE[i];
-		ASSERT_NEAR(ref_dE, real_dE,
-			epsilon * std::max(fabs(ref_dE), fabs(real_dE)));
-	}
-	v.clear();
-	util::read_vector_from_file(v, params + "dt");
-	for (unsigned int i = 0; i < v.size(); ++i) {
-		ftype ref_dt = v[i];
-		ftype real_dt = Beam->dt[i];
-		ASSERT_NEAR(ref_dt, real_dt,
-			epsilon * std::max(fabs(ref_dt), fabs(real_dt)));
-	}
-	*/
 }BENCHMARK(BM_TC1Acceleration)
 ->Args({ 1000, 2000 })
 ->Args({ 1000, 10000 })

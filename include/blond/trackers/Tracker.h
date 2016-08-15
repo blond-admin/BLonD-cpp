@@ -18,9 +18,8 @@ enum solver_type { simple, full };
 
 class API RingAndRfSection {
 
-  private:
-  public:
-    RfParameters* fRfP;
+public:
+    RfParameters *fRfP;
 
     ftype elapsed_time;
     int_vector_t indices_right_outside;
@@ -33,43 +32,42 @@ class API RingAndRfSection {
     bool rf_kick_interp;
     bool periodicity;
 
-    LHCNoiseFB* noiseFB;
-    PhaseLoop* PL;
-    Slices* slices;
-    TotalInducedVoltage* totalInducedVoltage;
-
-    // helping arrays for kick
-    // ftype *vol, *omeg, *phi;
+    LHCNoiseFB *noiseFB;
+    PhaseLoop *PL;
+    Slices *slices;
+    TotalInducedVoltage *totalInducedVoltage;
 
     void set_periodicity();
     // Periodicity kick
-    void kick(const int_vector_t& filter, const uint index);
-    inline void kick(const ftype* __restrict beam_dt, ftype* __restrict beam_dE,
-                     const int n_rf, const ftype* __restrict voltage,
-                     const ftype* __restrict omega_RF,
-                     const ftype* __restrict phi_RF, const int n_macroparticles,
-                     const ftype acc_kick, const int_vector_t& filter);
+    // void kick(const int_vector_t& filter, const uint index);
+    void kick(f_vector_t &beam_dt, f_vector_t &beam_dE, const uint index);
+    // inline void kick(const ftype *__restrict beam_dt, ftype *__restrict beam_dE,
+    //                  const int n_rf, const ftype *__restrict voltage,
+    //                  const ftype *__restrict omega_RF,
+    //                  const ftype *__restrict phi_RF, const int n_macroparticles,
+    //                  const ftype acc_kick, const int_vector_t &filter);
     // Regular kick
-    inline void kick(const uint index);
-    inline void kick(const ftype* __restrict beam_dt, ftype* __restrict beam_dE,
-                     const int n_rf, const ftype* __restrict voltage,
-                     const ftype* __restrict omega_RF,
-                     const ftype* __restrict phi_RF, const int n_macroparticles,
+    // inline void kick(const uint index);
+    inline void kick(const ftype *__restrict beam_dt, ftype *__restrict beam_dE,
+                     const int n_rf, const ftype *__restrict voltage,
+                     const ftype *__restrict omega_RF,
+                     const ftype *__restrict phi_RF, const int n_macroparticles,
                      const ftype acc_kick);
 
     // Periodicity drift
-    void drift(const int_vector_t& filter, const uint index);
-    inline void drift(ftype* __restrict beam_dt,
-                      const ftype* __restrict beam_dE, const solver_type solver,
-                      const ftype T0, const ftype length_ratio,
-                      const uint alpha_order, const ftype eta_zero,
-                      const ftype eta_one, const ftype eta_two,
-                      const ftype beta, const ftype energy,
-                      const int n_macroparticles, const int_vector_t& filter);
-    // Regular drift
-    inline void drift(const uint index);
-    inline void drift(ftype* __restrict beam_dt,
-                      const ftype* __restrict beam_dE, const solver_type solver,
+    void drift(f_vector_t &beam_dt, f_vector_t &beam_dE, const uint index);
+    // void drift(const int_vector_t &filter, const uint index);
+    // inline void drift(ftype *__restrict beam_dt,
+    //                   const ftype *__restrict beam_dE, const solver_type solver,
+    //                   const ftype T0, const ftype length_ratio,
+    //                   const uint alpha_order, const ftype eta_zero,
+    //                   const ftype eta_one, const ftype eta_two,
+    //                   const ftype beta, const ftype energy,
+    //                   const int n_macroparticles, const int_vector_t &filter);
+    // // Regular drift
+    // inline void drift(const uint index);
+    inline void drift(ftype *__restrict beam_dt,
+                      const ftype *__restrict beam_dE, const solver_type solver,
                       const ftype T0, const ftype length_ratio,
                       const uint alpha_order, const ftype eta_zero,
                       const ftype eta_one, const ftype eta_two,
@@ -79,18 +77,18 @@ class API RingAndRfSection {
     void track();
 
     inline void horizontal_cut();
-    RingAndRfSection(RfParameters* rfp = Context::RfP,
-                     solver_type solver = simple, PhaseLoop* PL = NULL,
-                     LHCNoiseFB* NoiseFB = NULL, bool periodicity = false,
+    RingAndRfSection(RfParameters *rfp = Context::RfP,
+                     solver_type solver = simple, PhaseLoop *PL = NULL,
+                     LHCNoiseFB *NoiseFB = NULL, bool periodicity = false,
                      ftype dE_max = 0, bool rf_kick_interp = false,
-                     Slices* Slices = NULL,
-                     TotalInducedVoltage* TotalInducedVoltage = NULL);
+                     Slices *Slices = NULL,
+                     TotalInducedVoltage *TotalInducedVoltage = NULL);
     ~RingAndRfSection();
 };
 
 class API FullRingAndRf {
-  private:
-  public:
+private:
+public:
     enum main_harmonic_t { lowest_freq = 0, highest_voltage = 1 };
 
     f_vector_t fPotentialWell;
@@ -98,7 +96,7 @@ class API FullRingAndRf {
     f_vector_t fTotalVoltage;
     ftype fRingCircumference;
     ftype fRingRadius;
-    std::vector<RingAndRfSection*> fRingList;
+    std::vector<RingAndRfSection *> fRingList;
 
     void track();
     void potential_well_generation(const uint turn = 0,
@@ -106,7 +104,7 @@ class API FullRingAndRf {
                                    const ftype option = lowest_freq,
                                    const ftype dt_margin_percent = 0.0);
 
-    FullRingAndRf(std::vector<RingAndRfSection*>& RingList);
+    FullRingAndRf(std::vector<RingAndRfSection *> &RingList);
     ~FullRingAndRf();
 };
 

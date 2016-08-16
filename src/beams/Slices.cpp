@@ -12,6 +12,7 @@
 #include <atomic>
 #include <unordered_map>
 #include <omp.h>
+#include <valarray>
 
 //#include <gsl/gsl_multifit_nlin.h>
 //#include <gsl/gsl_vector.h>
@@ -147,48 +148,55 @@ inline void Slices::histogram(const ftype* __restrict input,
 	const ftype cut_right, const uint n_slices,
 	const uint n_macroparticles) {
 
-	const ftype inv_bin_width = n_slices / (cut_right - cut_left);
+	const int inv_bin_width = n_slices / (cut_right - cut_left);
+	const int icut_left = cut_left;
+	const int icut_right = cut_right;
 	const auto threads = omp_get_num_threads();
 
-	typedef std::atomic<int> hist_t;
-	static std::vector<hist_t> hist(n_slices);
-#pragma omp parallel for
-	for (int i = 0; i < n_slices; ++i) {
-		hist[i].store(0);
-	}
-
-
-	hist_t* h = &hist[0];
+	typedef int hist_t;
 	auto tile = (static_cast<int>(n_macroparticles) + threads - 1) / threads;
 
 
-	auto catch_size =258;
-	std::vector<std::unordered_map<int, int> >catch_map(omp_get_max_threads(),
-		std::unordered_map<int, int>(catch_size/2));
+
+	auto catch_size =256;
+	static std::vector<  std::valarray<int> >catch_map(omp_get_max_threads(),
+		std::valarray<int>(n_slices));
+	if(catch_map[0].size() != n_slices) {
+		catch_map = std::vector<  std::valarray<int> >(omp_get_max_threads(),
+			std::valarray<int>(n_slices));
+	}
+
+
+	const int l = n_macroparticles % catch_size;
+	const int m = n_macroparticles - catch_size;
 
 #pragma omp parallel for
 	for (int i = 0; i < n_macroparticles; i += catch_size) {
-		std::unordered_map<int, int> & map(catch_map[omp_get_thread_num()]);
-		map.clear();
-		auto max = (i + catch_size >= n_macroparticles) ? n_macroparticles - i : catch_size;
+		std::valarray<int> & map(catch_map[omp_get_thread_num()]);
+		auto max = (i > m) ? l : catch_size;
+		auto arr = &input[i];
 
 		for (int j = 0; j < max; ++j) {
-			auto key = input[i + j];
-			if (key > cut_left && key < cut_right) {
-				map[(int)((key - cut_left) * inv_bin_width)]++;
+			int key = arr[j];
+			if (key < icut_left || key > icut_right) {
+				continue;
 			}
+
+			map[(key - icut_left) * inv_bin_width]++;
 		}
 		
-		for (std::unordered_map<int, int>::const_iterator it = map.cbegin(); it != map.cend(); ++it) {
-			h[it->first] += it->second;
-		}
 	}
+
 
 #pragma omp parallel for
 	for (int i = 0; i < n_slices; ++i) {
-		output[i] = h[i];
-	}
+		auto buff = 0;
 
+		for (int j = 0; j < catch_map.size(); ++j) {
+			buff += catch_map[j][i];
+		}
+		output[i] = buff;
+	}
 }
 
 void Slices::track_cuts() {

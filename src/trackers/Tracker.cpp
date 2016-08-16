@@ -24,6 +24,11 @@ inline void RingAndRfSection::kick(const ftype* __restrict beam_dt,
 	const ftype acc_kick) {
 	// KICK
 	//#pragma omp parallel for collapse(2)
+
+	// SYNCHRONOUS ENERGY CHANGE
+	auto ass_kick = acc_kick / (ftype)n_rf;
+
+
 	for (int j = 0; j < n_rf; ++j) {
 		const auto & current_omega_RF(omega_RF[j]);
 		const auto & current_phi_RF(phi_RF[j]);
@@ -33,15 +38,11 @@ inline void RingAndRfSection::kick(const ftype* __restrict beam_dt,
 			// const ftype a = omega_RF[j] * beam_dt[i] + phi_RF[j];
 			beam_dE[i] +=
 				current_voltage *
-				mymath::fast_sin(current_omega_RF * beam_dt[i] + current_phi_RF);
+				mymath::fast_sin(current_omega_RF * beam_dt[i] + current_phi_RF) + ass_kick;
 		}
 	}
 
-	// SYNCHRONOUS ENERGY CHANGE
-#pragma omp parallel for 
-	for (int i = 0; i < n_macroparticles; ++i) {
-		beam_dE[i] += acc_kick;
-	}
+
 }
 
 // kick with periodicity

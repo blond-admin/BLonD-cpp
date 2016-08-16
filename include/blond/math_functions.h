@@ -61,10 +61,10 @@ namespace mymath {
     // Wrapper function for vdt::fucntions
 	static inline ftype fast_sin(ftype x) {
 		return
-#ifdef VDT_SIN
-			vdt::fast_sin(x);
+#ifdef WIN32
+			std::sin(x); 
 #else
-			std::sin(x);
+			vdt::fast_sin(x);
 #endif
 	}
 

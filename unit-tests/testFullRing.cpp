@@ -8,6 +8,7 @@
 #include <blond/utilities.h>
 #include <gtest/gtest.h>
 
+
 class testFullRing : public ::testing::Test {
 
 protected:
@@ -29,9 +30,13 @@ protected:
     // Tracking details
 
     uint N_t = 1000;  // Number of turns to track
-    uint N_p = 10000; // Macro-particles
+    uint N_p = 1000; // Macro-particles
 
     uint N_slices = 100; // = (2^8)
+    
+    RfParameters * RfP1, *RfP2;
+    RingAndRfSection * long_tracker1, *long_tracker2;
+
 
     virtual void SetUp()
     {
@@ -53,11 +58,14 @@ protected:
         Context::Beam = new Beams(N_p, N_b);
 
         Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
-
+        RfP1 = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+        RfP2 = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+        long_tracker1 = new RingAndRfSection(RfP1);
+        long_tracker2 = new RingAndRfSection(RfP2);
         // long_tracker = new RingAndRfSection(RfP);
 
-        Context::Slice = new Slices(N_slices, 0, -constant::pi, constant::pi,
-                                    cuts_unit_type::rad);
+        // Context::Slice = new Slices(N_slices, 0, -constant::pi, constant::pi,
+        //                             cuts_unit_type::rad);
     }
 
     virtual void TearDown()
@@ -67,16 +75,20 @@ protected:
         delete Context::GP;
         delete Context::Beam;
         delete Context::RfP;
-        delete Context::Slice;
+        delete RfP1;
+        delete RfP2;
+        delete long_tracker1;
+        delete long_tracker2;
     }
 };
 
 TEST_F(testFullRing, constructor1)
 {
     auto RfP = Context::RfP;
-
+    auto epsilon = 1e-8;
     auto params = std::string(TEST_FILES "/FullRing/constructor1/");
-    longitudinal_bigaussian(200e-9, 1e6, 1, false);
+    
+    longitudinal_bigaussian(200e-9, 1e6, -1, false);
 
     auto long_tracker = new RingAndRfSection(RfP, simple);
     std::vector<RingAndRfSection *> trackerList{long_tracker, long_tracker};
@@ -85,12 +97,11 @@ TEST_F(testFullRing, constructor1)
     f_vector_t v;
     util::read_vector_from_file(v, params + "ring_radius.txt");
 
-    auto epsilon = 1e-8;
-    assert(v.size() == 1);
+    ASSERT_EQ(v.size(), 1);
     for (uint i = 0; i < v.size(); ++i) {
         auto ref = v[i];
         auto real = fullRing->fRingRadius;
-        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
                 << "Testing of ring_radius failed on i " << i << std::endl;
     }
 
@@ -102,6 +113,7 @@ TEST_F(testFullRing, track1)
 {
     auto RfP = Context::RfP;
     auto Beam = Context::Beam;
+    auto epsilon = 1e-8;
 
     auto params = std::string(TEST_FILES "/FullRing/track1/");
 
@@ -111,32 +123,24 @@ TEST_F(testFullRing, track1)
     std::vector<RingAndRfSection *> trackerList{long_tracker, long_tracker};
     auto fullRing = new FullRingAndRf(trackerList);
 
-    for (int i = 0; i < 100; ++i)
-        fullRing->track();
+    for (uint i = 0; i < 100; ++i) fullRing->track();
 
-    auto epsilon = 1e-8;
     f_vector_t v;
-    // WARNING checking only the first 1k particles
-    Beam->dE.resize(1000);
     util::read_vector_from_file(v, params + "dE.txt");
-    assert(v.size() == Beam->dE.size());
+    ASSERT_EQ(v.size(), Beam->dE.size());
     for (uint i = 0; i < v.size(); ++i) {
         auto ref = v[i];
         auto real = Beam->dE[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
                 << "Testing of dE failed on i " << i << std::endl;
     }
 
-    v.clear();
-    // WARNING checking only the first 1k particles
-    Beam->dt.resize(1000);
-    // std::cout << Beam->dt.size() << "\n";
     util::read_vector_from_file(v, params + "dt.txt");
-    assert(v.size() == Beam->dt.size());
+    ASSERT_EQ(v.size(), Beam->dt.size());
     for (uint i = 0; i < v.size(); ++i) {
         auto ref = v[i];
         auto real = Beam->dt[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
                 << "Testing of dt failed on i " << i << std::endl;
     }
 
@@ -146,64 +150,37 @@ TEST_F(testFullRing, track1)
 
 TEST_F(testFullRing, track2)
 {
-    auto RfP = Context::RfP;
     auto Beam = Context::Beam;
-
+    auto epsilon = 1e-8;
     auto params = std::string(TEST_FILES "/FullRing/track2/");
 
-    longitudinal_bigaussian(200e-9, 1e6, 1, false);
+    longitudinal_bigaussian(200e-9, 1e6, -1, false);
 
-    auto long_tracker = new RingAndRfSection(RfP, simple);
-    std::vector<RingAndRfSection *> trackerList{long_tracker, long_tracker};
+    std::vector<RingAndRfSection *> trackerList{long_tracker1, long_tracker2};
+
     auto fullRing = new FullRingAndRf(trackerList);
 
-    for (int i = 0; i < 100; ++i)
-        fullRing->track();
+    for (uint i = 0; i < N_t; ++i) fullRing->track();
 
-    auto epsilon = 1e-6;
     f_vector_t v;
-    util::read_vector_from_file(v, params + "dEMean.txt");
-    assert(v.size() == 1);
-    auto ref = v[0];
-    auto real = mymath::mean(Beam->dE.data(), Beam->dE.size()); // - dEMeanPrev;
-    auto max =
-    *max_element(Beam->dE.begin(), Beam->dE.end(), [](ftype i, ftype j) {
-        return std::abs(i) < std::abs(j);
-    });
+    util::read_vector_from_file(v, params + "dE.txt");
+    ASSERT_EQ(v.size(), Beam->dE.size());
+    for (uint i = 0; i < v.size(); ++i) {
+        auto ref = v[i];
+        auto real = Beam->dE[i];
+        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+                << "Testing of dE failed on i " << i << std::endl;
+    }
 
-    ASSERT_NEAR(ref, real, epsilon * max * std::max(fabs(ref), fabs(real)))
-            << "Testing of deMean failed" << std::endl;
-    v.clear();
+    util::read_vector_from_file(v, params + "dt.txt");
+    ASSERT_EQ(v.size(), Beam->dt.size());
+    for (uint i = 0; i < v.size(); ++i) {
+        auto ref = v[i];
+        auto real = Beam->dt[i];
+        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+                << "Testing of dt failed on i " << i << std::endl;
+    }
 
-    util::read_vector_from_file(v, params + "dEStd.txt");
-    assert(v.size() == 1);
-    ref = v[0];
-    real = mymath::standard_deviation(Beam->dE.data(), Beam->dE.size());
-
-    ASSERT_NEAR(ref, real, epsilon * max * std::max(fabs(ref), fabs(real)))
-            << "Testing of dEStd failed" << std::endl;
-    v.clear();
-
-    epsilon = 1e-1;
-    util::read_vector_from_file(v, params + "dtMean.txt");
-    assert(v.size() == 1);
-    ref = v[0];
-    real = mymath::mean(Beam->dt.data(), Beam->dt.size());
-
-    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of dtMean failed" << std::endl;
-    v.clear();
-
-    epsilon = 1e-2;
-    util::read_vector_from_file(v, params + "dtStd.txt");
-    assert(v.size() == 1);
-    ref = v[0];
-    real = mymath::standard_deviation(Beam->dt.data(), Beam->dt.size());
-
-    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of dtStd failed" << std::endl;
-
-    delete long_tracker;
     delete fullRing;
 }
 
@@ -212,12 +189,8 @@ TEST_F(testFullRing, track2)
 TEST_F(testFullRing, potential_well_generation1)
 {
     auto RfP = Context::RfP;
-    // auto Beam = Context::Beam;
-    // auto RfP = Context::RfP;
-
     auto params = std::string(TEST_FILES "/FullRing/potential_well_generation1/");
-
-    longitudinal_bigaussian(200e-9, 1e6, -1, false);
+    auto epsilon = 1e-8;
 
     auto long_tracker = new RingAndRfSection(RfP, simple);
     std::vector<RingAndRfSection *> trackerList{long_tracker};
@@ -226,29 +199,23 @@ TEST_F(testFullRing, potential_well_generation1)
     fullRing->potential_well_generation(0, 1000);
 
     f_vector_t v;
-    auto epsilon = 1e-8;
     util::read_vector_from_file(v, params + "potential_well.txt");
-    // std::cout << "v size " << v.size() << "\n";
-    // std::cout << "fPotentialWell size " << fullRing->fPotentialWell.size() << "\n";
-    assert(v.size() == fullRing->fPotentialWell.size());
+    ASSERT_EQ(v.size(), fullRing->fPotentialWell.size());
     for (uint i = 0; i < v.size(); ++i) {
         auto ref = v[i];
         auto real = fullRing->fPotentialWell[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
                 << "Testing of fPotentialWell failed on i " << i << std::endl;
     }
 
-    v.clear();
     util::read_vector_from_file(v, params + "potential_well_coordinates.txt");
-    assert(v.size() == fullRing->fPotentialWellCoordinates.size());
+    ASSERT_EQ(v.size(), fullRing->fPotentialWellCoordinates.size());
     for (uint i = 0; i < v.size(); ++i) {
         auto ref = v[i];
         auto real = fullRing->fPotentialWellCoordinates[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
                 << "Testing of fPotentialWellCoordinates failed on i " << i << std::endl;
     }
-
-
 
     delete long_tracker;
     delete fullRing;
@@ -259,10 +226,8 @@ TEST_F(testFullRing, potential_well_generation1)
 TEST_F(testFullRing, potential_well_generation2)
 {
     auto RfP = Context::RfP;
-
     auto params = std::string(TEST_FILES "/FullRing/potential_well_generation2/");
-
-    longitudinal_bigaussian(1e-9, 5e6, -1, false);
+    auto epsilon = 1e-8;
 
     auto long_tracker = new RingAndRfSection(RfP, simple);
     std::vector<RingAndRfSection *> trackerList{long_tracker, long_tracker};
@@ -271,15 +236,12 @@ TEST_F(testFullRing, potential_well_generation2)
     fullRing->potential_well_generation(10, 1000, 1);
 
     f_vector_t v;
-    auto epsilon = 1e-8;
     util::read_vector_from_file(v, params + "potential_well.txt");
-    // std::cout << "v size " << v.size() << "\n";
-    // std::cout << "fPotentialWell size " << fullRing->fPotentialWell.size() << "\n";
-    assert(v.size() == fullRing->fPotentialWell.size());
+    ASSERT_EQ(v.size(), fullRing->fPotentialWell.size());
     for (uint i = 0; i < v.size(); ++i) {
         auto ref = v[i];
         auto real = fullRing->fPotentialWell[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
                 << "Testing of fPotentialWell failed on i " << i << std::endl;
     }
 

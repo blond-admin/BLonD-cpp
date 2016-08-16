@@ -261,7 +261,7 @@ protected:
 TEST_F(testTrackerPeriodicity, set_periodicity1)
 {
     auto Beam = Context::Beam;
-    auto epsilon = 1e-8;
+    // auto epsilon = 1e-8;
     auto params = std::string(TEST_FILES "/Tracker/periodicity/set_periodicity1/");
 
     auto long_tracker = new RingAndRfSection(Context::RfP, simple,
@@ -277,9 +277,9 @@ TEST_F(testTrackerPeriodicity, set_periodicity1)
     auto res = long_tracker->indices_right_outside;
     ASSERT_EQ(v.size(), res.size());
     for (uint i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = res[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+        int ref = v[i];
+        int real = res[i];
+        ASSERT_EQ(ref, real)
                 << "Testing of Beam->indices_right_outside failed on i " << i
                 << std::endl;
     }
@@ -288,9 +288,9 @@ TEST_F(testTrackerPeriodicity, set_periodicity1)
     res = long_tracker->indices_inside_frame;
     ASSERT_EQ(v.size(), res.size());
     for (uint i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = res[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+        int ref = v[i];
+        int real = res[i];
+        ASSERT_EQ(ref, real)
                 << "Testing of Beam->indices_inside_frame failed on i " << i
                 << std::endl;
     }

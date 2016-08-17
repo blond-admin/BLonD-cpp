@@ -46,8 +46,6 @@ class API Slices {
     void beam_spectrum_generation(uint n, bool onlyRFFT = false);
     void beam_profile_derivative();
     void beam_profile_filter_chebyshev();
-
-  private:
     void set_cuts();
     void sort_particles();
     inline ftype convert_coordinates(ftype cut, cuts_unit_type type);

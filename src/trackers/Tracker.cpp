@@ -19,7 +19,6 @@ RingAndRfSection::RingAndRfSection(RfParameters *rfp, solver_type solver,
                                    TotalInducedVoltage *TotalInducedVoltage)
 {
     auto GP = Context::GP;
-    // auto Beam = Context::Beam;
     auto RfP = rfp;
     this->fRfP = RfP;
 
@@ -80,33 +79,6 @@ inline void RingAndRfSection::kick(const ftype *__restrict beam_dt,
         beam_dE[i] += acc_kick;
 }
 
-// kick with periodicity
-
-// inline void RingAndRfSection::kick(const ftype *__restrict beam_dt,
-//                                    ftype *__restrict beam_dE,
-//                                    const int n_rf,
-//                                    const ftype *__restrict voltage,
-//                                    const ftype *__restrict omega_RF,
-//                                    const ftype *__restrict phi_RF,
-//                                    const int n_macroparticles,
-//                                    const ftype acc_kick,
-//                                    const int_vector_t &filter)
-// {
-//     // KICK
-//     //#pragma omp parallel for collapse(2)
-//     for (int j = 0; j < n_rf; j++) {
-//         for (const auto &i : filter) {
-//             std::cout << i << "\n";
-//             const ftype a = omega_RF[j] * beam_dt[i] + phi_RF[j];
-//             beam_dE[i] += voltage[j] * mymath::fast_sin(a);
-//         }
-//     }
-
-//     // SYNCHRONOUS ENERGY CHANGE
-//     for (const auto &i : filter)
-//         beam_dE[i] += acc_kick;
-// }
-
 
 inline void RingAndRfSection::drift(ftype *__restrict beam_dt,
                                     const ftype *__restrict beam_dE,
@@ -156,55 +128,7 @@ inline void RingAndRfSection::drift(ftype *__restrict beam_dt,
     }
 }
 
-// drift with periodicity
 
-// inline void RingAndRfSection::drift(ftype *__restrict beam_dt,
-//                                     const ftype *__restrict beam_dE,
-//                                     const solver_type solver,
-//                                     const ftype T0,
-//                                     const ftype length_ratio,
-//                                     const uint alpha_order,
-//                                     const ftype eta_zero,
-//                                     const ftype eta_one,
-//                                     const ftype eta_two,
-//                                     const ftype beta,
-//                                     const ftype energy,
-//                                     const int n_macroparticles,
-//                                     const int_vector_t &filter)
-// {
-
-//     ftype T = T0 * length_ratio;
-
-//     if (solver == simple) {
-//         ftype coeff = eta_zero / (beta * beta * energy);
-
-//         for (const auto &i : filter)
-//             beam_dt[i] += T * coeff * beam_dE[i];
-//     }
-
-//     else {
-//         const ftype coeff = 1. / (beta * beta * energy);
-//         const ftype eta0 = eta_zero * coeff;
-//         const ftype eta1 = eta_one * coeff * coeff;
-//         const ftype eta2 = eta_two * coeff * coeff * coeff;
-
-//         if (alpha_order == 1)
-//             for (const auto &i : filter)
-//                 beam_dt[i] += T * (1. / (1. - eta0 * beam_dE[i]) - 1.);
-//         else if (alpha_order == 2)
-//             for (const auto &i : filter)
-//                 beam_dt[i] += T * (1. / (1. - eta0 * beam_dE[i] -
-//                                          eta1 * beam_dE[i] * beam_dE[i]) -
-//                                    1.);
-//         else
-//             for (const auto &i : filter)
-//                 beam_dt[i] +=
-//                     T * (1. / (1. - eta0 * beam_dE[i] -
-//                                eta1 * beam_dE[i] * beam_dE[i] -
-//                                eta2 * beam_dE[i] * beam_dE[i] * beam_dE[i]) -
-//                          1.);
-//     }
-// }
 
 void RingAndRfSection::track()
 {
@@ -294,7 +218,24 @@ void RingAndRfSection::track()
 
     } else {
         if (rf_kick_interp) {
-            // TODO complete & test this part
+            // TODO test this part
+            rf_voltage_calculation(RfP->counter, slices);
+            fTotalVoltage = fRfVoltage;
+            
+            if (totalInducedVoltage != NULL) {
+                assert(fRfVoltage.size() ==
+                       totalInducedVoltage->fInducedVoltage.size());
+                for (uint i = 0; i < fRfVoltage.size(); i++)
+                    fTotalVoltage[i] += totalInducedVoltage->fInducedVoltage[i];
+            }
+
+            std::transform(fRfVoltage.begin(), fRfVoltage.end(),
+                           fRfVoltage.begin(),
+                           std::bind1st(std::multiplies<ftype>(), GP->charge));
+
+            linear_interp_kick(Beam->dt.data(), Beam->dE.data(),
+                               fRfVoltage.data(), slices->bin_centers.data(),
+                               slices->n_slices, Beam->n_macroparticles);
         } else {
             kick(Beam->dt, Beam->dE, RfP->counter);
         }
@@ -325,7 +266,38 @@ inline void RingAndRfSection::horizontal_cut()
     Beam->n_macroparticles = Beam->dE.size();
 }
 
+void RingAndRfSection::rf_voltage_calculation(uint turn, Slices *slices)
+{
+    // Calculating the RF voltage seen by the beam at a given turn,
+    // needs a Slices object.
+    auto RfP = fRfP;
 
+    auto vol = new ftype[RfP->n_rf];
+    auto omeg = new ftype[RfP->n_rf];
+    auto phi = new ftype[RfP->n_rf];
+
+    for (uint i = 0; i < RfP->n_rf; ++i) {
+        vol[i] = RfP->voltage[i][turn];
+        omeg[i] = RfP->omega_RF[i][turn];
+        phi[i] = RfP->phi_RF[i][turn];
+    }
+
+    fRfVoltage.resize(slices->bin_centers.size());
+
+    for (uint j = 0; j < slices->bin_centers.size(); j++) {
+        ftype sum = 0.0;
+        for (uint i = 0; i < RfP->n_rf; i++) {
+            sum += vol[i] * std::sin(omeg[i] * slices->bin_centers[j] + phi[i]);
+        }
+        fRfVoltage[j] = sum;
+    }
+
+
+    delete[] vol;
+    delete[] omeg;
+    delete[] phi;
+
+}
 
 RingAndRfSection::~RingAndRfSection() {}
 
@@ -372,40 +344,6 @@ void RingAndRfSection::kick(f_vector_t &beam_dt, f_vector_t &beam_dE, const uint
     delete[] phi;
 }
 
-// void RingAndRfSection::kick(const int_vector_t &filter, const uint index)
-// {
-//     auto RfP = fRfP;
-//     auto Beam = Context::Beam;
-
-//     auto vol = new ftype[RfP->n_rf];
-//     auto omeg = new ftype[RfP->n_rf];
-//     auto phi = new ftype[RfP->n_rf];
-
-//     for (uint i = 0; i < RfP->n_rf; ++i) {
-//         vol[i] = RfP->voltage[i][index];
-//         omeg[i] = RfP->omega_RF[i][index];
-//         phi[i] = RfP->phi_RF[i][index];
-//     }
-
-//     kick(Beam->dt.data(), Beam->dE.data(), RfP->n_rf, vol, omeg, phi,
-//          Beam->n_macroparticles, acceleration_kick[index], filter);
-
-//     delete[] vol;
-//     delete[] omeg;
-//     delete[] phi;
-// }
-
-// void RingAndRfSection::drift(const int_vector_t &filter, const uint index)
-// {
-//     auto GP = Context::GP;
-//     auto RfP = fRfP;
-//     auto Beam = Context::Beam;
-
-//     drift(Beam->dt.data(), Beam->dE.data(), solver, GP->t_rev[index],
-//           RfP->length_ratio, GP->alpha_order, RfP->eta_0(index),
-//           RfP->eta_1(index), RfP->eta_2(index), RfP->beta(index),
-//           RfP->energy(index), Beam->n_macroparticles, filter);
-// }
 
 void RingAndRfSection::drift(f_vector_t &beam_dt, f_vector_t &beam_dE, const uint index)
 {

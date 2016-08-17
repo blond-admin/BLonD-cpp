@@ -15,9 +15,7 @@
 #include <blond/python.h>
 #include <blond/trackers/Tracker.h>
 #include <map>
-#include <cmath>
 #include <random>
-#include <stdlib.h>
 
 inline void longitudinal_bigaussian(ftype sigma_dt, ftype sigma_dE = 0,
                                     int seed = 0, bool reinsertion = false)
@@ -26,13 +24,12 @@ inline void longitudinal_bigaussian(ftype sigma_dt, ftype sigma_dE = 0,
     auto RfP = Context::RfP;
     auto Beam = Context::Beam;
     if (GP->n_sections > 1) {
-        dprintf(
-            "WARNING: longitudinal_bigaussian is not yet properly computed for "
-            "several sections!");
+        std::cerr << "WARNING: longitudinal_bigaussian is not yet properly\n"
+                  << "computed for several sections!\n";
     }
     if (RfP->n_rf > 1) {
-        dprintf("WARNING: longitudinal_bigaussian for multiple RF is not yet "
-                "implemented");
+        std::cerr << "WARNING: longitudinal_bigaussian for multiple RF\n"
+                  << "is not yet implemented\n";
     }
 
     uint counter = RfP->counter;

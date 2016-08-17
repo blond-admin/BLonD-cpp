@@ -5,7 +5,8 @@
 #include <blond/math_functions.h>
 #include <blond/utilities.h>
 
-inline void InducedVoltage::linear_interp_kick(
+
+void linear_interp_kick(
     const ftype *__restrict beam_dt,
     ftype *__restrict beam_dE,
     const ftype *__restrict voltage_array,

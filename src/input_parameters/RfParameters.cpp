@@ -24,27 +24,29 @@
  arrays of n_turns values
  */
 
-RfParameters::RfParameters(uint _n_rf, f_vector_2d_t _harmonic,
-                           f_vector_2d_t _voltage, f_vector_2d_t _phi_offset,
-                           f_vector_2d_t _phi_noise, f_vector_2d_t _omega_rf,
-                           uint _section_index,
-                           accelerating_systems_t accelerating_systems) {
+RfParameters::RfParameters(uint n_rf, f_vector_2d_t harmonic,
+                           f_vector_2d_t voltage, f_vector_2d_t phi_offset,
+                           f_vector_2d_t phi_noise, f_vector_2d_t omega_rf,
+                           uint section_index,
+                           accelerating_systems_t accelerating_systems)
+{
     auto GP = Context::GP;
     this->counter = 0;
-    this->idx = _section_index - 1;
+    this->idx = section_index - 1;
 
-    this->n_rf = _n_rf;
-    this->harmonic = _harmonic;
-    this->voltage = _voltage;
-    this->phi_offset = _phi_offset;
+    this->n_rf = n_rf;
+    this->harmonic = harmonic;
+    this->voltage = voltage;
+    this->phi_offset = phi_offset;
     this->section_length = GP->ring_length[idx];
     this->length_ratio = section_length / GP->ring_circumference;
-    this->phi_noise = _phi_noise;
+    this->phi_noise = phi_noise;
 
-    // wiped out all the imports
+
+    // TODO: check with multi Rf
     E_increment.resize(GP->n_turns);
     for (uint j = 0; j < GP->n_turns; ++j) {
-        E_increment[j] = GP->energy[idx][j + 1] - GP->energy[idx][j];
+        E_increment[j] = energy(j + 1) - energy(j);
     }
 
     phi_s.resize(GP->n_turns + 1);
@@ -54,8 +56,8 @@ RfParameters::RfParameters(uint _n_rf, f_vector_2d_t _harmonic,
     for (uint i = 0; i < GP->n_turns + 1; ++i)
         Qs[i] = std::sqrt(harmonic[idx][i] * GP->charge * voltage[idx][i] *
                           std::fabs(eta_0(i) * cos(phi_s[i])) /
-                          (2 * constant::pi * GP->beta[idx][i] *
-                           GP->beta[idx][i] * GP->energy[idx][i]));
+                          (2 * constant::pi * beta(i) *
+                           beta(i) * energy(i)));
 
     this->omega_s0.resize(GP->n_turns + 1);
     for (uint i = 0; i < (GP->n_turns + 1); ++i)
@@ -65,13 +67,13 @@ RfParameters::RfParameters(uint _n_rf, f_vector_2d_t _harmonic,
 
     for (uint i = 0; i < n_rf; ++i)
         for (uint j = 0; j < GP->n_turns + 1; ++j)
-            omega_RF_d[i][j] = 2 * constant::pi * GP->beta[i][j] * constant::c *
+            omega_RF_d[i][j] = 2 * constant::pi * beta(j) * constant::c *
                                harmonic[i][j] / GP->ring_circumference;
 
-    if (_omega_rf.empty()) {
+    if (omega_rf.empty()) {
         omega_RF = omega_RF_d;
     } else {
-        this->omega_RF = _omega_rf;
+        this->omega_RF = omega_rf;
     }
 
     phi_RF = phi_offset;
@@ -84,8 +86,9 @@ RfParameters::RfParameters(uint _n_rf, f_vector_2d_t _harmonic,
 
 RfParameters::~RfParameters() {}
 
-ftype RfParameters::eta_tracking(const Beams* beam, const uint counter,
-                                 const ftype dE) {
+ftype RfParameters::eta_tracking(const Beams *beam, const uint counter,
+                                 const ftype dE)
+{
     auto GP = Context::GP;
 
     ftype eta = 0;
@@ -119,11 +122,10 @@ ftype RfParameters::gamma(const uint i) { return Context::GP->gamma[idx][i]; }
 
 ftype RfParameters::energy(const uint i) { return Context::GP->energy[idx][i]; }
 
-ftype RfParameters::momentum(const uint i) {
-    return Context::GP->momentum[idx][i];
-}
+ftype RfParameters::momentum(const uint i) {return Context::GP->momentum[idx][i];}
 
-int RfParameters::sign_eta_0(const uint i) {
+int RfParameters::sign_eta_0(const uint i)
+{
     if (eta_0(i) > 0)
         return 1;
     else if (eta_0(i) == 0)
@@ -132,8 +134,9 @@ int RfParameters::sign_eta_0(const uint i) {
         return -1;
 }
 
-void calc_phi_s(ftype* out, RfParameters* rfp,
-                RfParameters::accelerating_systems_t acc_sys) {
+void calc_phi_s(ftype *out, RfParameters *rfp,
+                RfParameters::accelerating_systems_t acc_sys)
+{
     /*
      | *The synchronous phase calculated from the rate of momentum change.*
      | *Below transition, for decelerating bucket: phi_s is in (-Pi/2,0)*
@@ -150,12 +153,12 @@ void calc_phi_s(ftype* out, RfParameters* rfp,
     // ftype eta0 = rf_params->eta0;
     if (acc_sys == RfParameters::accelerating_systems_t::as_single) {
 
-        ftype* denergy = new ftype[n_turns + 1];
+        ftype *denergy = new ftype[n_turns + 1];
         for (uint j = 0; j < n_turns; ++j)
             denergy[j] = rfp->E_increment[j];
         denergy[n_turns] = rfp->E_increment[n_turns - 1];
 
-        ftype* acceleration_ratio = new ftype[n_turns + 1];
+        ftype *acceleration_ratio = new ftype[n_turns + 1];
         for (uint i = 0; i < n_turns + 1; ++i)
             acceleration_ratio[i] =
                 denergy[i] / (GP->charge * rfp->voltage[rfp->idx][i]);
@@ -222,8 +225,8 @@ void calc_phi_s(ftype* out, RfParameters* rfp,
                     totalRF[k] +=
                         rfp->voltage[j][i + 1] *
                         std::sin((rfp->harmonic[j][i + 1] / min) *
-                                     (phase_array[k] +
-                                      transition_phase_offset[i + 1]) +
+                                 (phase_array[k] +
+                                  transition_phase_offset[i + 1]) +
                                  rfp->phi_offset[j][i + 1]);
                 }
             }
@@ -231,7 +234,7 @@ void calc_phi_s(ftype* out, RfParameters* rfp,
             // dump(totalRF, 10, "totalRF\n");
 
             ftype potential_well[1000] = {0};
-            ftype* f = new ftype[1000];
+            ftype *f = new ftype[1000];
             for (uint k = 0; k < 1000; ++k) {
                 f[k] = totalRF[k] - rfp->E_increment[i] / GP->charge;
             }

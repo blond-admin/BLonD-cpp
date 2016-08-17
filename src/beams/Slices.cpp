@@ -55,17 +55,10 @@ void Slices::set_cuts()
                 Beam->dt.front() - 0.05 * (Beam->dt.back() - Beam->dt.front());
             cut_right =
                 Beam->dt.back() + 0.05 * (Beam->dt.back() - Beam->dt.front());
-
-            // dprintf("cut_left = %e\n", cut_left);
-            // dprintf("cut_right = %e\n", cut_right);
-
         } else {
             ftype mean_coords = mymath::mean(Beam->dt.data(), Beam->dt.size());
-            // dprintf("mean coors = %e\n", mean_coords);
             ftype sigma_coords = mymath::standard_deviation(
                                      Beam->dt.data(), Beam->dt.size(), mean_coords);
-            // dprintf("mean coors = %e\n", mean_coords);
-
             cut_left = mean_coords - n_sigma * sigma_coords / 2;
             cut_right = mean_coords + n_sigma * sigma_coords / 2;
         }
@@ -73,11 +66,8 @@ void Slices::set_cuts()
         cut_left = convert_coordinates(cut_left, cuts_unit);
         cut_right = convert_coordinates(cut_right, cuts_unit);
     }
-    // dprintf("cut_left = %e\n", cut_left);
-    // dprintf("cut_right = %e\n", cut_right);
 
     mymath::linspace(edges.data(), cut_left, cut_right, n_slices + 1);
-    // dump(edges, n_slices + 1, "edges\n");
     for (uint i = 0; i < bin_centers.size(); ++i)
         bin_centers[i] = (edges[i + 1] + edges[i]) / 2;
 }
@@ -87,7 +77,7 @@ void Slices::sort_particles()
     /*
     *Sort the particles with respect to their position.*
     */
-    
+
     auto Beam = Context::Beam;
     struct API particle {
         ftype dE;

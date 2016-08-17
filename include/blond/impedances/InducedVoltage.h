@@ -20,17 +20,20 @@ typedef enum freq_res_option_t {
     floor_option
 } freq_res_option_t;
 
+void linear_interp_kick(const ftype *__restrict beam_dt,
+                        ftype *__restrict beam_dE,
+                        const ftype *__restrict voltage_array,
+                        const ftype *__restrict bin_centers,
+                        const int n_slices,
+                        const int n_macroparticles);
+
+
 class API InducedVoltage {
 public:
     std::vector<ftype> fInducedVoltage;
 
     InducedVoltage() {};
-    inline void linear_interp_kick(const ftype *__restrict beam_dt,
-                                   ftype *__restrict beam_dE,
-                                   const ftype *__restrict voltage_array,
-                                   const ftype *__restrict bin_centers,
-                                   const int n_slices,
-                                   const int n_macroparticles);
+
     virtual void track() = 0;
     virtual void reprocess() = 0;
     virtual std::vector<ftype> induced_voltage_generation(uint length = 0) = 0;

@@ -27,6 +27,7 @@ public:
     int_vector_t indices_left_outside;
 
     f_vector_t acceleration_kick;
+    f_vector_t fRfVoltage;
     solver_type solver;
     ftype dE_max;
     bool rf_kick_interp;
@@ -36,36 +37,16 @@ public:
     PhaseLoop *PL;
     Slices *slices;
     TotalInducedVoltage *totalInducedVoltage;
+    f_vector_t fTotalVoltage;
 
     void set_periodicity();
-    // Periodicity kick
-    // void kick(const int_vector_t& filter, const uint index);
     void kick(f_vector_t &beam_dt, f_vector_t &beam_dE, const uint index);
-    // inline void kick(const ftype *__restrict beam_dt, ftype *__restrict beam_dE,
-    //                  const int n_rf, const ftype *__restrict voltage,
-    //                  const ftype *__restrict omega_RF,
-    //                  const ftype *__restrict phi_RF, const int n_macroparticles,
-    //                  const ftype acc_kick, const int_vector_t &filter);
-    // Regular kick
-    // inline void kick(const uint index);
     inline void kick(const ftype *__restrict beam_dt, ftype *__restrict beam_dE,
                      const int n_rf, const ftype *__restrict voltage,
                      const ftype *__restrict omega_RF,
                      const ftype *__restrict phi_RF, const int n_macroparticles,
                      const ftype acc_kick);
-
-    // Periodicity drift
     void drift(f_vector_t &beam_dt, f_vector_t &beam_dE, const uint index);
-    // void drift(const int_vector_t &filter, const uint index);
-    // inline void drift(ftype *__restrict beam_dt,
-    //                   const ftype *__restrict beam_dE, const solver_type solver,
-    //                   const ftype T0, const ftype length_ratio,
-    //                   const uint alpha_order, const ftype eta_zero,
-    //                   const ftype eta_one, const ftype eta_two,
-    //                   const ftype beta, const ftype energy,
-    //                   const int n_macroparticles, const int_vector_t &filter);
-    // // Regular drift
-    // inline void drift(const uint index);
     inline void drift(ftype *__restrict beam_dt,
                       const ftype *__restrict beam_dE, const solver_type solver,
                       const ftype T0, const ftype length_ratio,
@@ -75,6 +56,7 @@ public:
                       const int n_macroparticles);
 
     void track();
+    void rf_voltage_calculation(uint turn, Slices *slices);
 
     inline void horizontal_cut();
     RingAndRfSection(RfParameters *rfp = Context::RfP,

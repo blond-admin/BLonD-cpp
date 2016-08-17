@@ -14,7 +14,7 @@ void plot_long_phase_space(GeneralParameters *GP, RfParameters *RfP,
 
     auto pFunc = python::import("plot_beams", "plot_long_phase_space");
 
-    int turn = RfP->counter;
+    uint turn = RfP->counter;
     auto pRfPCounter = python::convert_int(turn);
     auto pRfPOmegaRf0 = python::convert_double(RfP->omega_RF[0][turn]);
     auto pRfPPhiRf0 = python::convert_double(RfP->phi_RF[0][turn]);

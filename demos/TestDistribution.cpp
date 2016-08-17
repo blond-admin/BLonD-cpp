@@ -12,6 +12,7 @@
 #include <blond/utilities.h>
 #include <blond/plots/plot_beams.h>
 #include <blond/plots/plot_parameters.h>
+#include <blond/plots/plot_slices.h>
 #include <blond/python.h>
 // Simulation parameters
 // --------------------------------------------------------
@@ -80,40 +81,42 @@ int main(int argc, char **argv)
 
     auto RfP = Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
 
-    f_vector_t time(N_t + 1);
-    for (int i = 0; i < time.size(); i++)
-        time[i] = 1.0 * (i + 1);
-    plot_voltage_programme(time, voltageVec[0]);
+    // f_vector_t time(N_t + 1);
+    // for (int i = 0; i < time.size(); i++)
+    //     time[i] = 1.0 * (i + 1);
+    // plot_voltage_programme(time, voltageVec[0]);
 
 
-    // Context::Slice = new Slices(N_slices, 0, -constant::pi, constant::pi,
-    //                             cuts_unit_type::rad);
+    Context::Slice = new Slices(N_slices, 0, -constant::pi, constant::pi,
+                                cuts_unit_type::rad);
 
-    // longitudinal_bigaussian(200e-9, 1e6, 1, false);
+    longitudinal_bigaussian(200e-9, 1e6, 1, false);
 
     // auto psb =
     //     new PSB(f_vector_t(N_t, 1.0 / 25e-6), f_vector_t{0, 0}, 10e-6, 7);
 
-    auto long_tracker =
-        new RingAndRfSection(RfP, simple);
+    // auto long_tracker = new RingAndRfSection(RfP, simple);
 
-    std::vector<RingAndRfSection *> trackerVector{long_tracker};
-    auto full_ring = new FullRingAndRf(trackerVector);
+    // std::vector<RingAndRfSection *> trackerVector{long_tracker};
+    // auto full_ring = new FullRingAndRf(trackerVector);
 
-    std::map<std::string, std::string> line_density_opt;
-    line_density_opt["type"] = "gaussian";
-    line_density_opt["bunch_length"] = "200e-9";
-    line_density_opt["density_variable"] = "density_from_J";
+    // std::map<std::string, std::string> line_density_opt;
+    // line_density_opt["type"] = "gaussian";
+    // line_density_opt["bunch_length"] = "200e-9";
+    // line_density_opt["density_variable"] = "density_from_J";
 
-    // longitudinal_bigaussian(200e-9, 1e6, 1, false);
+    // // longitudinal_bigaussian(200e-9, 1e6, 1, false);
 
-    matched_from_line_density(full_ring, line_density_opt, "lowest_freq", "savefig");
+    // matched_from_line_density(full_ring, line_density_opt, "lowest_freq", "savefig");
     // util::dump(Beam->dt, "Beam->dt\n");
     // util::dump(Beam->dE, "Beam->dE\n");
     // util::dump(Beam->id, "Beam->id\n");
 
-    plot_long_phase_space(GP, RfP, Beam, 5e-7, 1.2e-6, -3e5, 3e5, "s", 1, true);
-
+    // plot_long_phase_space(GP, RfP, Beam, 5e-7, 1.2e-6, -3e5, 3e5, "s", 1, true);
+    Context::Slice->track();
+    Context::Slice->beam_spectrum_generation(100, false);
+    // plot_beam_profile(Context::Slice, 0);
+    plot_beam_spectrum(Context::Slice, 0);
     // std::map<std::string, std::string> distribution_opt;
     // distribution_opt["type"] = "binomial";
     // distribution_opt["exponent"] = "1.5";

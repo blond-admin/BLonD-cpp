@@ -3,11 +3,15 @@
 #define INCLUDE_BLOND_PYTHON_H_
 
 #define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
+#ifdef __GNUC__
+// Avoid tons of warnings with root code
+#pragma GCC system_header
+#endif
 #include <Python.h>
 #include <numpy/core/include/numpy/arrayobject.h>
 #include <iostream>
 #include <map>
-
+#include <complex>
 
 namespace python {
 
@@ -82,7 +86,7 @@ namespace python {
     {
         int dims[1] = {size};
         auto pVar = (PyArrayObject *) PyArray_FromDimsAndData(1, dims, NPY_INT,
-                    reinterpret_cast<char *>(array));
+                    (char *)array);
 
         assert(pVar);
         return pVar;
@@ -92,10 +96,24 @@ namespace python {
     {
         int dims[1] = {size};
         auto pVar = (PyArrayObject *) PyArray_FromDimsAndData(1, dims, NPY_DOUBLE,
-                    reinterpret_cast<char *>(array));
+                    (char *)array);
 
         assert(pVar);
         return pVar;
+    }
+
+    static inline PyObject *convert_complex_array(std::complex<double> *array,
+            int size)
+    {
+        auto pList = PyList_New(size);
+        assert(pList);
+        for (int i = 0; i < size; i++) {
+            auto z = array[i];
+            auto pZ = PyComplex_FromDoubles(z.real(), z.imag());
+            assert(pZ);
+            assert(PyList_SetItem(pList, i, pZ) == 0);
+        }
+        return pList;
     }
 
     static inline PyObject *convert_dictionary(std::map<std::string, std::string> map)

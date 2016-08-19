@@ -42,19 +42,16 @@ def plot_beam_profile(bin_centers, n_macroparticles, counter, style, dirname):
     plt.clf()
 
 
-def plot_beam_profile_derivative(x, derivative, counter, style='-',
-                                 dirname='fig', numbers=[3]):
+def plot_beam_profile_derivative(x, derivative, counter, style,
+                                 dirname, modes):
     """
     Plot of the derivative of the longitudinal beam profile.
     """
-
-    if 1 in numbers:
-        plt.plot(x[0], derivative[0], style)
-    if 2 in numbers:
-        plt.plot(x[1], derivative[1], style)
-    if 3 in numbers:
-        plt.plot(x[2], derivative[2], style)
+    modes = modes.split(' ')
+    for a, b, m in zip(x, derivative, modes):
+        plt.plot(a, b, style, label=m)
     fign = dirname + '/beam_profile_derivative_' "%d" % counter + '.png'
+    plt.legend()
     plt.savefig(fign)
     plt.clf()
 

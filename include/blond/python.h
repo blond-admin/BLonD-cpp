@@ -9,9 +9,11 @@
 #endif
 #include <Python.h>
 #include <numpy/core/include/numpy/arrayobject.h>
-#include <iostream>
+// #include <iostream>
 #include <map>
-#include <complex>
+// #include <complex>
+#include <blond/configuration.h>
+#include <algorithm>
 
 namespace python {
 
@@ -98,6 +100,34 @@ namespace python {
         auto pVar = (PyArrayObject *) PyArray_FromDimsAndData(1, dims, NPY_DOUBLE,
                     (char *)array);
 
+        assert(pVar);
+        return pVar;
+    }
+
+    static inline PyObject *convert_string_array(std::string *array, int size)
+    {
+        std::string result = array[0];
+        for (int i = 1; i < size; i++)
+            result += " " + array[i];
+        auto pVar = PyString_FromString(result.c_str());
+        assert(pVar);
+        return pVar;
+    }
+
+
+
+    static inline PyArrayObject *convert_double_2d_array(f_vector_2d_t &v)
+    {
+        int dims[2] = {v.size(), v.front().size()};
+        auto array = new ftype[dims[0] * dims[1]];
+        int count = 0;
+        for (const auto &row : v) {
+            assert(row.size() == dims[1]);
+            std::copy(row.begin(), row.end(), &array[count]);
+            count += dims[1];
+        }
+        auto pVar = (PyArrayObject *) PyArray_FromDimsAndData(2, dims, NPY_DOUBLE,
+                    (char *)array);
         assert(pVar);
         return pVar;
     }

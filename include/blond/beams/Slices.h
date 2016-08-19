@@ -18,7 +18,11 @@ enum cuts_unit_type { s, rad };
 enum fit_type { normal_fit, gaussian_fit };
 
 class API Slices {
-  public:
+private:
+    f_vector_t gaussian_filter1d(f_vector_t &x, int sigma,
+                                 int order, std::string mode);
+    f_vector_t gradient(f_vector_t &x, ftype dist);
+public:
     ftype bl_fwhm, bp_fwhm;
     ftype bp_rms, bl_rms;
     uint n_slices;
@@ -44,17 +48,19 @@ class API Slices {
     ftype fast_fwhm();
     void fwhm(const ftype shift = 0);
     void beam_spectrum_generation(uint n, bool onlyRFFT = false);
-    void beam_profile_derivative();
+    void beam_profile_derivative(f_vector_t &x,
+                                 f_vector_t &derivative,
+                                 std::string mode = "gradient");
     void beam_profile_filter_chebyshev();
     void set_cuts();
     void sort_particles();
     inline ftype convert_coordinates(ftype cut, cuts_unit_type type);
 
-    inline void histogram(const ftype* __restrict input, int* __restrict output,
+    inline void histogram(const ftype *__restrict input, int *__restrict output,
                           const ftype cut_left, const ftype cut_right,
                           const uint n_slices, const uint n_macroparticles);
-    inline void smooth_histogram(const ftype* __restrict input,
-                                 int* __restrict output, const ftype cut_left,
+    inline void smooth_histogram(const ftype *__restrict input,
+                                 int *__restrict output, const ftype cut_left,
                                  const ftype cut_right, const uint n_slices,
                                  const uint n_macroparticles);
     inline void slice_constant_space_histogram();

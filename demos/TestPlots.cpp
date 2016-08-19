@@ -18,25 +18,26 @@
 // --------------------------------------------------------
 
 // Bunch parameters
-const uint N_b = 0; // Intensity
+const long long N_b = 1e9;  // Intensity
+const ftype tau_0 = 0.4e-9; // Initial bunch length, 4 sigma [s]
 
 // Machine and RF parameters
-const ftype radius = 25;
-const ftype C = 2 * constant::pi * radius;   // Machine circumference [m]
-const ftype p_i = 310891054.809;             // Synchronous momentum [eV/c]
-const uint h = 1;                            // Harmonic number
-const ftype V = 8000;                        // RF voltage [V]
-const ftype dphi = -constant::pi;            // Phase modulation/offset
-const ftype gamma_t = 4.076750841;           // Transition gamma
+const ftype C = 26658.883;                   // Machine circumference [m]
+const long long p_i = 450e9;                 // Synchronous momentum [eV/c]
+const ftype p_f = 460.005e9;                 // Synchronous momentum, final
+const long long h = 35640;                   // Harmonic number
+const ftype V = 6e6;                         // RF voltage [V]
+const ftype dphi = 0;                        // Phase modulation/offset
+const ftype gamma_t = 55.759505;             // Transition gamma
 const ftype alpha = 1.0 / gamma_t / gamma_t; // First order mom. comp. factor
-const uint alpha_order = 1;
-const uint n_sections = 1;
+const int alpha_order = 1;
+const int n_sections = 1;
 // Tracking details
 
-uint N_t = 500;    // Number of turns to track
-uint N_p = 100000; // Macro-particles
+int N_t = 10000; // Number of turns to track
+int N_p = 10000; // Macro-particles
 
-uint N_slices = 200; // = (2^8)
+int N_slices = 100;
 
 void parse_args(int argc, char **argv);
 
@@ -57,11 +58,9 @@ int main(int argc, char **argv)
     printf("Number of Slices: %d\n", N_slices);
     printf("Number of openmp threads: %d\n", Context::n_threads);
 
-    f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1, p_i));
-
-    // f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1));
-    // for (auto& v : momentumVec)
-    //     mymath::linspace(v.data(), p_i, p_i*1.001, N_t + 1);
+    f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1));
+    for (auto &v : momentumVec)
+        mymath::linspace(v.data(), p_i, p_f, N_t + 1);
 
     f_vector_2d_t alphaVec(n_sections, f_vector_t(alpha_order + 1, alpha));
 
@@ -78,46 +77,20 @@ int main(int argc, char **argv)
 
     auto Beam = Context::Beam = new Beams(N_p, N_b);
 
-
     auto RfP = Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
 
-    // f_vector_t time(N_t + 1);
-    // for (int i = 0; i < time.size(); i++)
-    //     time[i] = 1.0 * (i + 1);
-    // plot_voltage_programme(time, voltageVec[0]);
+    // auto long_tracker = new RingAndRfSection();
 
+    longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
 
-    Context::Slice = new Slices(N_slices, 0, -constant::pi, constant::pi,
-                                cuts_unit_type::rad);
-
-    longitudinal_bigaussian(200e-9, 1e6, 1, false);
-
-    // auto psb =
-    //     new PSB(f_vector_t(N_t, 1.0 / 25e-6), f_vector_t{0, 0}, 10e-6, 7);
-
-    // auto long_tracker = new RingAndRfSection(RfP, simple);
-
-    // std::vector<RingAndRfSection *> trackerVector{long_tracker};
-    // auto full_ring = new FullRingAndRf(trackerVector);
-
-    // std::map<std::string, std::string> line_density_opt;
-    // line_density_opt["type"] = "gaussian";
-    // line_density_opt["bunch_length"] = "200e-9";
-    // line_density_opt["density_variable"] = "density_from_J";
-
-    // // longitudinal_bigaussian(200e-9, 1e6, 1, false);
-
-    // matched_from_line_density(full_ring, line_density_opt, "lowest_freq", "savefig");
-    // util::dump(Beam->dt, "Beam->dt\n");
-    // util::dump(Beam->dE, "Beam->dE\n");
-    // util::dump(Beam->id, "Beam->id\n");
+    auto Slice = Context::Slice = new Slices(N_slices);
 
     // plot_long_phase_space(GP, RfP, Beam, 5e-7, 1.2e-6, -3e5, 3e5, "s", 1, true);
-    Context::Slice->track();
-    Context::Slice->beam_spectrum_generation(100, false);
-    plot_beam_profile(Context::Slice, 0);
-    plot_beam_spectrum(Context::Slice, 0);
-    plot_beam_profile_derivative(Context::Slice, 100, "-",
+    Slice->track();
+    Slice->beam_spectrum_generation(100, false);
+    plot_beam_profile(Slice, 0);
+    plot_beam_spectrum(Slice, 0);
+    plot_beam_profile_derivative(Context::Slice, 0, "-",
                                  "fig", {"gradient", "diff", "filter1d"});
     // std::map<std::string, std::string> distribution_opt;
     // distribution_opt["type"] = "binomial";
@@ -128,54 +101,11 @@ int main(int argc, char **argv)
     // matched_from_distribution_density(full_ring, distribution_opt);
 
 
-
-    // util::dump(Beam->dt, "Beam->dt\n");
-    // util::dump(Beam->dE, "Beam->dE\n");
-
-    // for (auto& v : Context::Beam->dE)
-    //     v += 90.0e3;
-
-    // Context::Slice->track();
-
-    // timespec begin;
-    // double track_time = 0.0;
-    // double slice_time = 0.0;
-    // double pl_time = 0.0;
-
-    // for (uint i = 0; i < N_t; ++i) {
-
-    //     util::get_time(begin);
-    //     psb->track();
-    //     pl_time += util::time_elapsed(begin);
-
-    //     util::get_time(begin);
-    //     long_tracker->track();
-    //     track_time += util::time_elapsed(begin);
-
-    //     util::get_time(begin);
-    //     Context::Slice->track();
-    //     slice_time += util::time_elapsed(begin);
-    // }
-
-    // std::cout << std::scientific;
-    // std::cout << "Average Turn Time : "
-    //           << (track_time + slice_time + pl_time) / N_t << std::endl;
-    // std::cout << "Average Tracker Track Time : " << track_time / N_t
-    //           << std::endl;
-    // std::cout << "Average PhaseLoop Time : " << pl_time / N_t << std::endl;
-    // std::cout << "Average Slice Track Time : " << slice_time / N_t << std::endl;
-
-    // // util::dump(Beam->dE, "dE\n", 10);
-    // util::dump(Beam->dt, "dt\n", 10);
-    // util::dump(Slice->n_macroparticles, "n_macroparticles\n", 10);
-
-    // delete Context::Slice;
-    // delete long_tracker;
-    // delete Context::RfP;
     delete GP;
     delete Beam;
+    delete Slice;
+    delete RfP;
     python::finalize();
-    // delete psb;
 
     printf("Done!\n");
 }

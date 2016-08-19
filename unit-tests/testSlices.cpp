@@ -62,7 +62,7 @@ protected:
         delete Context::GP;
         delete Context::Beam;
         delete Context::RfP;
-        delete Context::Slice;
+        // delete Context::Slice;
     }
 
 };
@@ -95,6 +95,7 @@ TEST_F(testSlices, set_cuts1)
         ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
                 << "Testing of bin_centers failed on i " << i << '\n';
     }
+    delete Slice;
 }
 
 
@@ -125,6 +126,8 @@ TEST_F(testSlices, set_cuts2)
         ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
                 << "Testing of bin_centers failed on i " << i << '\n';
     }
+    delete Slice;
+
 }
 
 
@@ -155,12 +158,14 @@ TEST_F(testSlices, set_cuts3)
         ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
                 << "Testing of bin_centers failed on i " << i << '\n';
     }
+    delete Slice;
+
 }
 
 
 TEST_F(testSlices, sort_particles1)
 {
-    Context::Slice = new Slices(N_slices);
+    auto Slice = new Slices(N_slices);
 
     auto Beam = Context::Beam;
     std::string params = TEST_FILES "/Slices/sort_particles1/";
@@ -197,6 +202,8 @@ TEST_F(testSlices, sort_particles1)
                 << "Testing of id failed on i " << i << '\n';
     }
     */
+    delete Slice;
+
 }
 
 TEST_F(testSlices, track1)
@@ -216,10 +223,121 @@ TEST_F(testSlices, track1)
         ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
                 << "Testing of n_macroparticles failed on i " << i << '\n';
     }
+    delete Slice;
+
 }
+
+
+TEST_F(testSlices, beam_profile_derivative1)
+{
+    auto Slice = new Slices(N_slices);
+    std::string params = TEST_FILES "/Slices/beam_profile_derivative1/";
+    auto epsilon = 1e-8;
+    f_vector_t v;
+
+    Slice->track();
+    f_vector_t x, derivative;
+    Slice->beam_profile_derivative(x, derivative, "gradient");
+
+    util::read_vector_from_file(v, params + "x.txt");
+    ASSERT_EQ(x.size(), v.size());
+    for (unsigned int i = 0; i < v.size(); ++i) {
+        auto ref = v[i];
+        auto real = x[i];
+        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+                << "Testing of x failed on i " << i << '\n';
+    }
+
+    util::read_vector_from_file(v, params + "derivative.txt");
+    ASSERT_EQ(derivative.size(), v.size());
+    for (unsigned int i = 0; i < v.size(); ++i) {
+        auto ref = v[i];
+        auto real = derivative[i];
+        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+                << "Testing of derivative failed on i " << i << '\n';
+    }
+    delete Slice;
+
+}
+
+
+TEST_F(testSlices, beam_profile_derivative2)
+{
+    auto Slice = new Slices(N_slices);
+    std::string params = TEST_FILES "/Slices/beam_profile_derivative2/";
+    auto epsilon = 1e-8;
+    f_vector_t v;
+
+    Slice->track();
+    f_vector_t x, derivative;
+    Slice->beam_profile_derivative(x, derivative, "filter1d");
+
+    util::read_vector_from_file(v, params + "x.txt");
+    ASSERT_EQ(x.size(), v.size());
+    for (unsigned int i = 0; i < v.size(); ++i) {
+        auto ref = v[i];
+        auto real = x[i];
+        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+                << "Testing of x failed on i " << i << '\n';
+    }
+
+    util::read_vector_from_file(v, params + "derivative.txt");
+
+    ASSERT_EQ(derivative.size(), v.size());
+    for (unsigned int i = 0; i < v.size(); ++i) {
+        auto ref = v[i];
+        auto real = derivative[i];
+        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+                << "Testing of derivative failed on i " << i << '\n';
+    }
+    delete Slice;
+
+}
+
+
+TEST_F(testSlices, beam_profile_derivative3)
+{
+    auto Slice = new Slices(N_slices);
+    std::string params = TEST_FILES "/Slices/beam_profile_derivative3/";
+    auto epsilon = 1e-8;
+    f_vector_t v;
+
+    Slice->track();
+    f_vector_t x, derivative;
+    Slice->beam_profile_derivative(x, derivative, "diff");
+    util::read_vector_from_file(v, params + "x.txt");
+    ASSERT_EQ(x.size(), v.size());
+    for (unsigned int i = 0; i < v.size(); ++i) {
+        auto ref = v[i];
+        auto real = x[i];
+        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+                << "Testing of x failed on i " << i << '\n';
+    }
+
+    util::read_vector_from_file(v, params + "derivative.txt");
+    ftype max = *max_element(v.begin(), v.end(), [](ftype i, ftype j) {
+        return fabs(i) < fabs(j);
+    });
+    max = std::abs(max);
+    ASSERT_EQ(derivative.size(), v.size());
+    for (unsigned int i = 0; i < v.size(); ++i) {
+        auto ref = v[i];
+        auto real = derivative[i];
+        ASSERT_NEAR(ref, real, epsilon * max)
+                << "Testing of derivative failed on i " << i << '\n';
+    }
+    delete Slice;
+
+}
+
+
 
 int main(int ac, char *av[])
 {
+    python::initialize();
     ::testing::InitGoogleTest(&ac, av);
-    return RUN_ALL_TESTS();
+    auto ret = RUN_ALL_TESTS();
+    python::finalize();
+
+    return ret;
 }

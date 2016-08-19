@@ -30,7 +30,7 @@ set(DATAFILES_DIR_DEMOS "${CMAKE_CURRENT_LIST_DIR}/demos/input_files" CACHE STRI
 set(DATAFILES_DIR_TESTS "${CMAKE_CURRENT_LIST_DIR}/unit-tests/references" CACHE STRING "Set unit-tests input files path")
 # endif()
 
-# set(ENV{PYTHONPATH} "${EXTERNAL_INSTALL_DIR}/bin/")
+# set(ENV{PYTHONPATH} "${PROJECT_SOURCE_DIR}/python/:$ENV{PYTHONPATH}")
 
 # Packages
 set(EXTERNAL_INSTALL_DIR ${PROJECT_SOURCE_DIR}/external/install CACHE STRING "External libraries installation folder (with subfolders lib and include)")

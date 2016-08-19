@@ -17,7 +17,7 @@ void plot_beam_profile_derivative(Slices *Slices,
                                   int counter,
                                   std::string style = "-",
                                   std::string dirname = "fig",
-                                  int_vector_t numbers = int_vector_t({3}));
+                                  string_vector_t modes = {"diff"});
 
 void plot_beam_spectrum(Slices *Slices, int counter,
                         std::string style = "-",

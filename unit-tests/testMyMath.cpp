@@ -140,7 +140,7 @@ TEST(testCumTrap, test1)
     for (unsigned int i = 0; i < v.size(); ++i) {
         ftype ref = v[i];
         ftype real = trap[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
+        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)));
     }
 
     // delete[] trap;
@@ -163,7 +163,7 @@ TEST(testCumTrap, test2)
     for (unsigned int i = 0; i < v.size(); ++i) {
         ftype ref = v[i];
         ftype real = trap[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
+        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)));
     }
 
     // delete[] trap;
@@ -191,7 +191,7 @@ TEST(testConvolution, test1)
     for (unsigned int i = 0; i < v.size(); ++i) {
         ftype ref = v[i];
         ftype real = c[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
                 << "Testing of convolution1 failed on i " << i << std::endl;
     }
 
@@ -218,7 +218,7 @@ TEST(testConvolution, test2)
     for (unsigned int i = 0; i < v.size(); ++i) {
         ftype ref = v[i];
         ftype real = c[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
                 << "Testing of convolution2 failed on i " << i << std::endl;
     }
 
@@ -244,7 +244,7 @@ TEST(testConvolution, test3)
     for (unsigned int i = 0; i < v.size(); ++i) {
         ftype ref = v[i];
         ftype real = c[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
                 << "Testing of convolution3 failed on i " << i << std::endl;
     }
 
@@ -267,7 +267,7 @@ TEST(arange, test1)
     for (unsigned int i = 0; i < v.size(); ++i) {
         ftype ref = v[i];
         ftype real = a[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
                 << "Testing of a failed on i " << i << std::endl;
     }
 }
@@ -287,7 +287,7 @@ TEST(arange, test2)
     for (unsigned int i = 0; i < v.size(); ++i) {
         ftype ref = v[i];
         ftype real = a[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
                 << "Testing of a failed on i " << i << std::endl;
     }
 }
@@ -309,6 +309,83 @@ TEST(arange, test3)
         ASSERT_EQ(ref, real) << "Testing of a failed on i " << i << std::endl;
     }
 }
+
+
+TEST(lin_interp, test1)
+{
+    auto epsilon = 1e-8;
+    f_vector_t x{1.0, 4.0, 5.0, 7.0, 10.0};
+    f_vector_t xp{0.0, 4.5, 9.0, 12.0};
+    f_vector_t fp{10.0, 19.0, 28.0, 34.0};
+    f_vector_t y;
+    mymath::lin_interp(x, xp, fp, y, fp.front(), fp.back());
+
+    f_vector_t v{12.0, 18.0, 20., 24., 30.};
+    ASSERT_EQ(v.size(), y.size());
+    for (uint i = 0; i < v.size(); ++i) {
+        auto ref = v[i];
+        auto real = y[i];
+        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+                << "Testing of y failed on i " << i << std::endl;
+    }
+}
+
+
+TEST(lin_interp, test2)
+{
+    std::string params = TEST_FILES "/MyMath/lin_interp/test2/";
+
+    auto epsilon = 1e-8;
+    auto x = mymath::arange(0.0, 100.0, 0.3);
+    f_vector_t xp{ 0, 20, 50, 80, 100};
+    f_vector_t fp{ -1, 12, 0, -42, 42};
+    f_vector_t y;
+    mymath::lin_interp(x, xp, fp, y, fp.front(), fp.back());
+
+    ftype max = *max_element(y.begin(), y.end(), [](ftype i, ftype j) {
+        return std::abs(i) < std::abs(j);
+    });
+    max = std::abs(max);
+
+    f_vector_t v;
+    util::read_vector_from_file(v, params + "interp.txt");
+    ASSERT_EQ(v.size(), y.size());
+    for (uint i = 0; i < v.size(); ++i) {
+        auto ref = v[i];
+        auto real = y[i];
+        ASSERT_NEAR(ref, real, epsilon * max)
+                << "Testing of y failed on i " << i << std::endl;
+    }
+}
+
+
+TEST(lin_interp, test3)
+{
+    std::string params = TEST_FILES "/MyMath/lin_interp/test3/";
+
+    auto epsilon = 1e-8;
+    auto x = mymath::arange(1.0, 99.0, 0.5);
+    f_vector_t xp{10, 25, 55, 56, 70, 90};
+    f_vector_t fp{ -3, 4, 27, 41, -12, 13};
+    f_vector_t y;
+    mymath::lin_interp(x, xp, fp, y, fp.front(), fp.back());
+
+    ftype max = *max_element(y.begin(), y.end(), [](ftype i, ftype j) {
+        return std::abs(i) < std::abs(j);
+    });
+    max = std::abs(max);
+
+    f_vector_t v;
+    util::read_vector_from_file(v, params + "interp.txt");
+    ASSERT_EQ(v.size(), y.size());
+    for (uint i = 0; i < v.size(); ++i) {
+        auto ref = v[i];
+        auto real = y[i];
+        EXPECT_NEAR(ref, real, epsilon * max)
+                << "Testing of y failed on i " << i << std::endl;
+    }
+}
+
 
 int main(int ac, char *av[])
 {

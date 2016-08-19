@@ -114,12 +114,14 @@ namespace mymath {
     static inline void lin_interp(const std::vector<ftype> &x,
                                   const std::vector<ftype> &xp,
                                   const std::vector<ftype> &yp,
-                                  std::vector<ftype> &y, const ftype left = 0.0,
-                                  const ftype right = 0.0)
+                                  std::vector<ftype> &y,
+                                  const ftype left,
+                                  const ftype right)
     {
         // assert(y.empty());
         assert(xp.size() == yp.size());
-
+        // const ftype left = yp.front();
+        // const ftype right = yp.back();
         y.resize(x.size());
 
         const int N = x.size();
@@ -135,7 +137,7 @@ namespace mymath {
             ++k;
         }
 
-        auto j = begin + k;
+        auto j = begin;
 
         for (int i = k; i < N; ++i) {
             if (x[i] > max) {

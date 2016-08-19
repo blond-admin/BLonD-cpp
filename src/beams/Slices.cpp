@@ -10,6 +10,8 @@
 #include <blond/globals.h>
 #include <blond/math_functions.h>
 #include <omp.h>
+#include <blond/python.h>
+
 
 //#include <gsl/gsl_multifit_nlin.h>
 //#include <gsl/gsl_vector.h>
@@ -415,7 +417,83 @@ void Slices::beam_spectrum_generation(uint n, bool onlyRFFT)
     }
 }
 
-void Slices::beam_profile_derivative() {}
+void Slices::beam_profile_derivative(f_vector_t &x,
+                                     f_vector_t &derivative,
+                                     std::string mode)
+{
+    /*
+    The input is one of the two available methods for differentiating
+    a function. The two outputs are the coordinate step and the discrete
+    derivative of the Beam profile respectively.
+    */
+
+    x = bin_centers;
+    const auto dist_centers = x[1] - x[0];
+    if (mode == "filter1d") {
+
+        f_vector_t temp(n_macroparticles.begin(), n_macroparticles.end());
+        derivative = gaussian_filter1d(temp, 1, 1, "wrap");
+        for (auto &d : derivative) d /= dist_centers;
+
+    } else if (mode == "gradient") {
+
+        f_vector_t temp(n_macroparticles.begin(), n_macroparticles.end());
+        derivative = gradient(temp, dist_centers);
+
+    } else if (mode == "diff") {
+
+        derivative.resize(n_macroparticles.size() - 1);
+        for (uint i = 1; i < n_macroparticles.size(); i++)
+            derivative[i - 1] = (n_macroparticles[i] - n_macroparticles[i - 1])
+                                / dist_centers;
+        f_vector_t diffCenters(x.begin(), x.end() - 1);
+        for (auto &d : diffCenters) d += dist_centers / 2;
+        f_vector_t res;
+        mymath::lin_interp(x, diffCenters, derivative,
+                           res, derivative.front(), derivative.back());
+        derivative = res;
+    } else {
+        std::cerr << "Optioin for derivative is not recognized.\n";
+    }
+
+}
+
+
+f_vector_t Slices::gaussian_filter1d(f_vector_t &x, int sigma,
+                                     int order, std::string mode)
+{
+    python::import();
+    auto pFunc = python::import("utilities", "gaussian_filter1d");
+    auto pX = python::convert_double_array(x.data(), x.size());
+    auto pSigma = python::convert_int(sigma);
+    auto pOrder = python::convert_int(order);
+    auto pMode = python::convert_string(mode);
+    auto ret = PyObject_CallFunctionObjArgs(pFunc, pX, pSigma, pOrder, pMode,
+                                            NULL);
+    assert(ret);
+    auto npArray = (PyArrayObject *)(ret);
+    int len = PyArray_SHAPE(npArray)[0];
+    ftype *res = (ftype *) PyArray_DATA(npArray);
+
+    return f_vector_t(&res[0], &res[len]);
+}
+
+
+f_vector_t Slices::gradient(f_vector_t &x, ftype dist)
+{
+    python::import();
+    auto pFunc = python::import("utilities", "gradient");
+    auto pX = python::convert_double_array(x.data(), x.size());
+    auto pDist = python::convert_double(dist);
+    auto ret = PyObject_CallFunctionObjArgs(pFunc, pX, pDist, NULL);
+    assert(ret);
+
+    auto npArray = (PyArrayObject *)(ret);
+    int len = PyArray_SHAPE(npArray)[0];
+    ftype *res = (ftype *) PyArray_DATA(npArray);
+    return f_vector_t(&res[0], &res[len]);
+}
+
 
 void Slices::beam_profile_filter_chebyshev() {}
 
@@ -426,61 +504,3 @@ ftype Slices::gauss(const ftype x, const ftype x0, const ftype sx,
 }
 
 void Slices::gaussian_fit() {}
-
-/*
-struct API  data {
-size_t n;
-double * y;
-};
-int gauss(const gsl_vector * x, void *data, gsl_vector * f) {
-size_t n = ((struct API  data *) data)->n;
-double *y = ((struct API  data *) data)->y;
-double A = gsl_vector_get(x, 2);
-double x0 = gsl_vector_get(x, 0);
-double sx = gsl_vector_get(x, 1);
-size_t i;
-for (i = 0; i < n; i++) {
-// Model Yi = A * exp(-lambda * i) + b
-double t = i;
-double Yi = A * exp(-(y[i] - x0) * (y[i] - x0) / 2.0 / (sx * sx));
-gsl_vector_set(f, i, Yi - y[i]);
-}
-return GSL_SUCCESS;
-}
-void Slices::gaussian_fit() {
-// *Gaussian fit of the profile, in order to get the bunch length and
-// position. Returns fit values in units of s.*
-ftype x0, sx, A;
-int max_i = mymath::max(n_macroparticles, n_slices, 1);
-A = n_macroparticles[max_i];
-if (bl_gauss == 0 && bp_gauss == 0) {
-x0 = mymath::mean(beam->dt, beam->n_macroparticles);
-sx = mymath::standard_deviation(beam->dt, beam->n_macroparticles, x0);
-} else {
-x0 = bp_gauss;
-sx = bl_gauss / 4;
-}
-const gsl_multifit_fsolver_type *T; //= gsl_multifit_fdfsolver_lmsder;
-gsl_multifit_fsolver *s;
-int status, info;
-size_t i;
-const size_t n = beam->n_macroparticles;
-const size_t p = 3;
-s = gsl_multifit_fsolver_alloc(T, n, p);
-//gsl_matrix *J = gsl_matrix_alloc(n, p);
-//gsl_matrix *covar = gsl_matrix_alloc(p, p);
-ftype y[n], weights[n];
-struct API  data d = { n, y };
-gsl_multifit_function f;
-ftype x_init[3] = { x0, sx, A };
-gsl_vector_view x = gsl_vector_view_array(x_init, p);
-gsl_multifit_fsolver_set(s, &f, &x.vector);
-//  TODO experimental values
-status = gsl_multifit_fsolver_driver(s, 20, 100, 1);
-#define FIT(i) gsl_vector_get(s->x, i)
-ftype x0_new = FIT(0);
-ftype sx_new = FIT(1);
-ftype A_new = FIT(2);
-// TODO use gsl to calculate the gaussian fit
-}
-*/

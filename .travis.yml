@@ -29,7 +29,8 @@ addons:
       - lcov
       - doxygen
       - graphviz
-      - libatlas-dev
+      - libopenblas-dev
+      - liblapack-dev
 
 install:
   - pip install --user cpp-coveralls

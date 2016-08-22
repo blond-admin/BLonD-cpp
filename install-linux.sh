@@ -94,7 +94,9 @@ if [ "${INSTALL_GTEST}" = "true" ] ; then
    cd ${EXTERNAL}/googletest/googletest
    cp -r include/* "${INSTALL}/include/"
    mkdir -p build &>> $log
-   cd build && cmake .. && make &>> $log
+   cd build
+   cmake .. &>> $log
+   make &>> $log
    cp *.a "${INSTALL}/lib"
 
    cd ${BLOND_HOME}

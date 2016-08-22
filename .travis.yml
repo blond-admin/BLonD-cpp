@@ -14,7 +14,7 @@ env:
     - secure: inwXVLS3LG1+J8XHpN92Si87FLs8tT/SEWcg71us65o2AYDVCqqbXhFRpTqRY+K6ciT6IHd41LnmOaK1lID86YMcGUsQxvMJHbwMBCDPs+Qjup/g8xSjOZo11gnt9b2Jp5O/vEXOKdVoyBBXtR+J0JQ4ogS6VxvQyP2WDYH7FFFxsYZ83i93qCDUs7XnOwtN/f/wJMkMRQP+49Lp7EKWJEWXK87YM83fshQcLl2uOZfzdS9esN0QPXAW5W+jvB2EkvtjTy2EyDpdF1FMLLH50Uj4wP4A7FutnqfG4pRbhtdkDXqL429R9COyzXLdEiyTEoX7rbGLYqwfDpPC8huqUsp3NxdiSlx+ZdeBGySRkzcUmwKGzwapEgWEHu6Sujto1vLtU3tv0/Ywlf1nHsQ4jngnswtlVWi+pWPBVO5yyG3feKsj3fdvNdceszhU2Dj2e4zW6o9Ys7mJ41fbj1QsTSepVjcR/r9PU11948R+dyA37wF3lLdCApTbdI2PrVFUrQuHPr59s43ZGb52R24fdCi8Ao6Fd4oyJw9zLnhJDCehWDWYM5UcrC/mllzo8K1v4BqrEVlCeIBPx7SIsWUXjQ/gNv/JFp5+jYU1ibqz7VeS6ZhHd6tj6mUKkQ5Cqb9bkDkFBA48X0tet2qFQzuCoXUHqds/08odhMgVf0741Jc=
 
 addons:
-  apt:r
+  apt:
     sources:
       - ubuntu-toolchain-r-test
       - george-edison55-precise-backports

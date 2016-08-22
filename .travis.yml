@@ -53,6 +53,7 @@ before_install:
   - export CC=/usr/bin/gcc-4.8
   - export CXX=/usr/bin/g++-4.8
   - export PYTHONPATH="$(pwd)/python/:$PYTHONPATH"
+  - ls -l /usr/lib /usr/local/lib /usr/lib/x86_64-linux-gnu | grep lib
   # - echo $PYTHONPATH
 
 before_script:

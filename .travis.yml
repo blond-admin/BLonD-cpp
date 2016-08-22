@@ -35,9 +35,9 @@ addons:
       - liblapack-dev
       - libblas-dev
       - libblas3gf
-      - liblapack3
+      # - liblapack3
       - liblapack3gf
-      - liblapacke-dev
+      # - liblapacke-dev
 
 install:
   - pip install --user cpp-coveralls

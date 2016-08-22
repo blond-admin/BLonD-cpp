@@ -31,12 +31,13 @@ addons:
       - graphviz
       # - python-liblas
       # - liblas-c3
+      - python-scipy
       # - libopenblas-dev
-      - liblapack-dev
-      - libblas-dev
-      - libblas3gf
-      # - liblapack3
-      - liblapack3gf
+      # - liblapack-dev
+      # - libblas-dev
+      # - libblas3gf
+      # # - liblapack3
+      # - liblapack3gf
       # - liblapacke-dev
 
 install:
@@ -49,7 +50,8 @@ cache:
 before_install:
   - export CC=/usr/bin/gcc-4.8
   - export CXX=/usr/bin/g++-4.8
-  - export PYTHONPATH="`pwd`/python/:$PYTHONPATH"
+  - export PYTHONPATH="$(pwd)/python/:$PYTHONPATH"
+  - echo $PYTHONPATH
 
 before_script:
   - bash install-linux.sh

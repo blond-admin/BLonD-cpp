@@ -31,9 +31,10 @@ addons:
       - graphviz
       # - python-liblas
       # - liblas-c3
-      - python-scipy
-      # - libopenblas-dev
-      # - liblapack-dev
+      # - python-scipy
+      - python-dev
+      - libopenblas-dev
+      - liblapack-dev
       # - libblas-dev
       # - libblas3gf
       # # - liblapack3

@@ -241,8 +241,8 @@ else
           --target="${INSTALL}/lib/python2.7/site-packages" \
           --global-option=build_ext \
           --global-option="-L/usr/lib" \
-          --global-option="-L/usr/local/lib" \
-          --global-option="-L/usr/local/lib64" \
+          # --global-option="-L/usr/local/lib" \
+          # --global-option="-L/usr/local/lib64" \
           --global-option="-L/usr/lib64" \
           --global-option="-L${INSTALL}/lib" \
           ${module}

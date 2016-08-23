@@ -316,6 +316,7 @@ SET(LIBRARIES
         python2.7
         util
         dl
+        hdf5_cpp
         )
 
 file(GLOB_RECURSE SOURCES

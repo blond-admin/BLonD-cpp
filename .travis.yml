@@ -29,12 +29,7 @@ addons:
       - lcov
       - doxygen
       - graphviz
-      # - python-liblas
-      # - liblas-c3
-      # - python-scipy
       # - python-dev
-      - ipython
-      - ipython-notebook
       - python-pandas
       - python-sympy
       - python-nose
@@ -42,10 +37,6 @@ addons:
       - liblapack-dev
       - libatlas-dev
       # - libblas-dev
-      # - libblas3gf
-      # # - liblapack3
-      # - liblapack3gf
-      # - liblapacke-dev
 
 install:
   - pip install --user cpp-coveralls
@@ -58,8 +49,6 @@ before_install:
   - export CC=/usr/bin/gcc-4.8
   - export CXX=/usr/bin/g++-4.8
   - export PYTHONPATH="$(pwd)/python/:$PYTHONPATH"
-  # - ls -l /usr/lib /usr/local/lib /usr/lib/x86_64-linux-gnu | grep lib
-  # - echo $PYTHONPATH
 
 before_script:
   - bash install-linux.sh

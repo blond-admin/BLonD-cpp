@@ -26,7 +26,7 @@ Beams::Beams(const uint _n_macroparticles, const long long _intensity)
 
 Beams::~Beams() {}
 
-inline uint Beams::n_macroparticles_alive()
+uint Beams::n_macroparticles_alive()
 {
 
     return n_macroparticles - n_macroparticles_lost;

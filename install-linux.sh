@@ -15,6 +15,7 @@ echo > ${log}
 INSTALL_FFTW=true
 INSTALL_GTEST=true
 INSTALL_PYTHON=true
+INSTALL_HDF5=true
 
 # -----------------
 # fftw installation
@@ -22,7 +23,7 @@ INSTALL_PYTHON=true
 
 if [ -e ${INSTALL}/include/fftw3.h ] && [ -e ${INSTALL}/lib/libfftw3.la ]; then
    echo -e "\n\n---- Looks like fftw3 is already installed,"
-   echo -e "---- are you sure you want to reinstall it?\n\n"
+   echo -e "---- are you sure you want to reinstall it?"
    select yn in "Yes" "No"; do
       case $yn in
          Yes ) INSTALL_FFTW=true; break;;
@@ -35,8 +36,8 @@ fi
 if [ "${INSTALL_FFTW}" = "true" ] ; then
    echo -e "\n\n---- Installing fftw3"
    wget www.fftw.org/fftw-3.3.4.tar.gz -O${EXTERNAL}/tmp/fftw3.tar.gz
-   tar -xzvf ${EXTERNAL}/tmp/fftw3.tar.gz -C${EXTERNAL} &>> $log
-   cd ${EXTERNAL}/fftw-3.3.4
+   tar -xzvf ${EXTERNAL}/tmp/fftw3.tar.gz -C${EXTERNAL}/tmp &>> $log
+   cd ${EXTERNAL}/tmp/fftw-3.3.4
    ./configure --disable-alloca \
                --disable-fortran \
                --disable-static \
@@ -70,6 +71,55 @@ fi
 
 cd ${BLOND_HOME}
 
+
+# -----------------
+# HDF5 installation
+# -----------------
+
+if [ -e ${INSTALL}/include/hdf5.h ] && [ -e ${INSTALL}/lib/libhdf5.so ]; then
+   echo -e "\n\n---- Looks like HDF5 is already installed,"
+   echo -e "---- are you sure you want to reinstall it?"
+   select yn in "Yes" "No"; do
+      case $yn in
+         Yes ) INSTALL_HDF5=true; break;;
+         No ) INSTALL_HDF5=false; break;;
+      esac
+   done
+fi
+
+
+if [ "${INSTALL_HDF5}" = "true" ] ; then
+   echo -e "\n\n---- Installing HDF5"
+   wget http://www.hdfgroup.org/ftp/HDF5/current/src/hdf5-1.8.17.tar.gz -O${EXTERNAL}/tmp/hdf5.tar.gz
+   tar -xzvf ${EXTERNAL}/tmp/hdf5.tar.gz -C${EXTERNAL}/tmp &>> $log
+   cd ${EXTERNAL}/tmp/hdf5-1.8.17
+   ./configure --enable-cxx \
+               --enable-hl \
+               --enable-static  \
+               --enable-shared \
+               --enable-fast-install \
+               --prefix="${INSTALL}" &>> $log
+   make &>> $log
+   make install &>> $log
+
+if [ -e ${INSTALL}/include/hdf5.h ] && [ -e ${INSTALL}/lib/libhdf5.so ]; then
+      echo -e "---- HDF5 has been installed successfully\n\n"
+   else
+      echo -e "---- HDF5 has failed to install successfully"
+      echo -e "---- You will have to manually install this library"
+      echo -e "---- into directory ${BLOND_HOME}/external/install\n\n"
+
+   fi
+   echo -e "---- Installation of HDF5 is completed\n\n"
+fi
+
+# -----------------------
+# end of HDF5 intallation
+# -----------------------
+
+
+cd ${BLOND_HOME}
+
 # -----------------------
 # googletest installation
 # -----------------------
@@ -77,7 +127,7 @@ cd ${BLOND_HOME}
 if [ -e ${INSTALL}/include/gtest/gtest.h ] && [ -e ${INSTALL}/lib/libgtest.a ] \
    && [ -e ${INSTALL}/lib/libgtest_main.a ]; then
    echo -e "\n\n---- Looks like googletest is already installed,"
-   echo -e "---- are you sure you want to reinstall it?\n\n"
+   echo -e "---- are you sure you want to reinstall it?"
    select yn in "Yes" "No"; do
       case $yn in
          Yes ) INSTALL_GTEST=true; break;;
@@ -90,8 +140,8 @@ if [ "${INSTALL_GTEST}" = "true" ] ; then
 
    echo -e "\n\n---- Installing googletest"
 
-   git clone https://github.com/google/googletest.git ${EXTERNAL}/googletest
-   cd ${EXTERNAL}/googletest/googletest
+   git clone https://github.com/google/googletest.git ${EXTERNAL}/tmp/googletest
+   cd ${EXTERNAL}/tmp/googletest/googletest
    cp -r include/* "${INSTALL}/include/"
    mkdir -p build &>> $log
    cd build
@@ -125,7 +175,7 @@ cd ${BLOND_HOME}
 
 if [ -e ${INSTALL}/include/python2.7/Python.h ] && [ -e ${INSTALL}/lib/python2.7/config/libpython2.7.a ]; then
    echo -e "\n\n---- Looks like Python2.7 is already installed,"
-   echo -e "---- are you sure you want to reinstall it?\n\n"
+   echo -e "---- are you sure you want to reinstall it?"
    select yn in "Yes" "No"; do
       case $yn in
          Yes ) INSTALL_PYTHON=true; break;;
@@ -135,15 +185,11 @@ if [ -e ${INSTALL}/include/python2.7/Python.h ] && [ -e ${INSTALL}/lib/python2.7
 fi
 
 
-
-
-
-
 if [ "${INSTALL_PYTHON}" = "true" ] ; then
    echo -e "\n\n---- Installing Python2.7\n\n"
    wget https://www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz -O${EXTERNAL}/tmp/Python-2.7.12.tgz
-   tar -xzvf ${EXTERNAL}/tmp/Python-2.7.12.tgz -C"${EXTERNAL}" &>> $log
-   cd ${EXTERNAL}/Python-2.7.12
+   tar -xzvf ${EXTERNAL}/tmp/Python-2.7.12.tgz -C${EXTERNAL}/tmp &>> $log
+   cd ${EXTERNAL}/tmp/Python-2.7.12
    ./configure --enable-unicode=ucs4 \
                --with-threads \
                --enable-shared \
@@ -204,8 +250,8 @@ $PYTHON -c "import pip" &> /dev/null
 PIP_INSTALLED=`echo $?`
 if [ "$PIP_INSTALLED" == "1" ]; then
    wget https://pypi.python.org/packages/e7/a8/7556133689add8d1a54c0b14aeff0acb03c64707ce100ecd53934da1aa13/pip-8.1.2.tar.gz -O${EXTERNAL}/tmp/pip-8.1.2.tar.gz
-   tar -xzvf ${EXTERNAL}/tmp/pip-8.1.2.tar.gz -C${EXTERNAL} &>> $log
-   cd ${EXTERNAL}/pip-8.1.2
+   tar -xzvf ${EXTERNAL}/tmp/pip-8.1.2.tar.gz -C${EXTERNAL}/tmp &>> $log
+   cd ${EXTERNAL}/tmp/pip-8.1.2
    $PYTHON setup.py install --prefix="${INSTALL}" &>> ${log}
 fi
 
@@ -255,7 +301,7 @@ fi
 
 
 echo -e "\n\n---- Exteranl depedencies installation procedure completed"
-echo -e "---- Now try to build the project"
+echo -e "---- You may now try to build the project :)"
 echo -e "---- You can consult the ${log} file for any errors\n\n"
 
 rm -rf ${EXTERNAL}/tmp &> /dev/null

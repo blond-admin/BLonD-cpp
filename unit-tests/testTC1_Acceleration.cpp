@@ -13,7 +13,7 @@ const std::string params = TEST_FILES "/TC1_final/TC1_final_params/";
 
 class testTC1 : public ::testing::Test {
 
-protected:
+  protected:
     const long long N_b = 1e9;  // Intensity
     const ftype tau_0 = 0.4e-9; // Initial bunch length, 4 sigma [s]
 
@@ -32,9 +32,9 @@ protected:
 
         f_vector_2d_t hVec(n_sections, f_vector_t(N_t + 1, h));
 
-        f_vector_2d_t voltageVec(N_t + 1, f_vector_t(n_sections, V));
+        f_vector_2d_t voltageVec(n_sections, f_vector_t(N_t + 1, V));
 
-        f_vector_2d_t dphiVec(N_t + 1, f_vector_t(n_sections, dphi));
+        f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 
         Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
                                             momentumVec, proton);
@@ -57,7 +57,7 @@ protected:
         delete Context::Slice;
     }
 
-private:
+  private:
     // Machine and RF parameters
     const ftype C = 26658.883;       // Machine circumference [m]
     const long long p_i = 450e9;     // Synchronous momentum [eV/c]
@@ -67,7 +67,7 @@ private:
     const ftype dphi = 0;            // Phase modulation/offset
     const ftype gamma_t = 55.759505; // Transition gamma
     const ftype alpha =
-            1.0 / gamma_t / gamma_t; // First order mom. comp. factor
+        1.0 / gamma_t / gamma_t; // First order mom. comp. factor
     const int alpha_order = 1;
     const int n_sections = 1;
     // Tracking details
@@ -106,7 +106,5 @@ TEST_F(testTC1, phaseSpace) {
 
 int main(int ac, char* av[]) {
     ::testing::InitGoogleTest(&ac, av);
-    RUN_ALL_TESTS();
-	std::cin.get();
-	return 0;
+    return RUN_ALL_TESTS();
 }

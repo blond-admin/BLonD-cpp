@@ -155,8 +155,8 @@ void LHCNoiseFB::fwhm_multi_bunch() {
     auto RfP = Context::RfP;
 
     // Find correct RF buckets
-    auto phi_RF = RfP->phi_RF[RfP->counter][0];
-    auto omega_RF = RfP->omega_RF[RfP->counter][0];
+    auto phi_RF = RfP->phi_RF[0][RfP->counter];
+    auto omega_RF = RfP->omega_RF[0][RfP->counter];
     // std::cout << phi_RF << "\n";
     // std::cout << omega_RF << "\n";
     f_vector_t bucket_min(fBunchPattern.size());

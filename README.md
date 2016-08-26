@@ -97,6 +97,9 @@ lcov --capture --directory .. --output-file coverage.info
 genhtml coverage.info --output-directory html
 ```
 
+## Extended documentation for developers
+Developers FAQ and TLDR are located [here](./docs/DocumentationTOC.md)
+
 ## Original BLonD Links
 
 * Repository: https://gitlab.cern.ch/dquartul/BLonD

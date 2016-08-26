@@ -75,13 +75,13 @@ inline void longitudinal_bigaussian(ftype sigma_dt, ftype sigma_dE = 0,
     ftype harmonic = RfP->harmonic[0][counter];
     ftype energy = GP->energy[0][counter];
     ftype beta = GP->beta[0][counter];
-    ftype omega_RF = RfP->omega_RF[counter][0];
+    ftype omega_RF = RfP->omega_RF[0][counter];
     ftype phi_s = RfP->phi_s[counter];
-	ftype phi_RF = RfP->phi_RF[counter][0];
+    ftype phi_RF = RfP->phi_RF[0][counter];
 
-    ftype voltage=0, eta0 = 0.0, phi_b=0;
+    ftype voltage, eta0 = 0.0, phi_b;
     if (sigma_dE == 0) {
-        voltage = GP->charge * RfP->voltage[counter][0];
+        voltage = GP->charge * RfP->voltage[0][counter];
         eta0 = RfP->eta_0(counter);
         phi_b = omega_RF * sigma_dt + phi_s;
         sigma_dE =

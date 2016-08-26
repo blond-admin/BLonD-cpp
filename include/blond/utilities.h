@@ -63,19 +63,13 @@ namespace util {
                                              std::string file) {
 
         std::ifstream source(file);
-
         if (!source.good()) {
             std::cout << "Error: file " << file << " does not exist\n";
             source.close();
             exit(-1);
         }
 
-		std::stringstream buffer;
-		buffer << source.rdbuf();
-		source.close();
-		std::string line;
-
-		while (getline(buffer, line)) {
+        for (std::string line; std::getline(source, line);) {
             std::istringstream in(line);
 			T type;
             while (in >> type)

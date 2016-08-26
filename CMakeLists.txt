@@ -230,6 +230,7 @@ link_directories(${EXTERNAL_INSTALL_DIR}/lib)
 
 #OpenCL
 if (WITH_COMPUTE)
+    add_definitions(-DWITH_OPENCL=1)
     if (WIN32 AND NOT MINGW)
         if (${ARCHITECTURE} STREQUAL "x64")
             message(status "ARCHITECTURE ${ARCHITECTURE}")
@@ -464,8 +465,8 @@ if (BENCHMARK_ENABLED)
     endif ()
 
     file(GLOB BENCHMARK_SOURCES "./benchmarks/*.cpp")
-    file(GLOB_RECURSE BENCHMARK_PROTOTYPES "./benchmarks/prototypes/*.cpp")
-
+    file(GLOB_RECURSE BENCHMARK_PROTOTYPES "./benchmarks/prototypes/*.h")
+    include_directories(benchmarks/prototypes/)
     set(BENCHMARK_FILES ${BENCHMARK_SOURCES})
 
     file(GLOB BENCHMARK_CONFIGURATIONS "./benchmarks/*.cmake")

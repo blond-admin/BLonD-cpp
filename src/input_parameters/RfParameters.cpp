@@ -52,7 +52,7 @@ RfParameters::RfParameters(uint _n_rf, f_vector_2d_t _harmonic,
 
     this->Qs.resize(GP->n_turns + 1);
     for (uint i = 0; i < GP->n_turns + 1; ++i)
-        Qs[i] = std::sqrt(harmonic[idx][i] * GP->charge * voltage[i][idx] *
+        Qs[i] = std::sqrt(harmonic[idx][i] * GP->charge * voltage[idx][i] *
                           std::fabs(eta_0(i) * cos(phi_s[i])) /
                           (2 * constant::pi * GP->beta[idx][i] *
                            GP->beta[idx][i] * GP->energy[idx][i]));
@@ -61,11 +61,11 @@ RfParameters::RfParameters(uint _n_rf, f_vector_2d_t _harmonic,
     for (uint i = 0; i < (GP->n_turns + 1); ++i)
         this->omega_s0[i] = Qs[i] * GP->omega_rev[i];
 
-    this->omega_RF_d.resize(GP->n_turns + 1, f_vector_t(n_rf));
+    this->omega_RF_d.resize(n_rf, f_vector_t(GP->n_turns + 1));
 
     for (uint i = 0; i < n_rf; ++i)
         for (uint j = 0; j < GP->n_turns + 1; ++j)
-            omega_RF_d[j][i] = 2 * constant::pi * GP->beta[i][j] * constant::c *
+            omega_RF_d[i][j] = 2 * constant::pi * GP->beta[i][j] * constant::c *
                                harmonic[i][j] / GP->ring_circumference;
 
     if (_omega_rf.empty()) {
@@ -79,7 +79,7 @@ RfParameters::RfParameters(uint _n_rf, f_vector_2d_t _harmonic,
     this->dphi_RF_steering.resize(n_rf, 0);
     t_RF.resize(GP->n_turns + 1);
     for (uint i = 0; i < GP->n_turns + 1; ++i)
-        t_RF[i] = 2 * constant::pi / omega_RF[i][idx];
+        t_RF[i] = 2 * constant::pi / omega_RF[idx][i];
 }
 
 RfParameters::~RfParameters() {}
@@ -158,7 +158,7 @@ void calc_phi_s(ftype* out, RfParameters* rfp,
         ftype* acceleration_ratio = new ftype[n_turns + 1];
         for (uint i = 0; i < n_turns + 1; ++i)
             acceleration_ratio[i] =
-                denergy[i] / (GP->charge * rfp->voltage[i][rfp->idx]);
+                denergy[i] / (GP->charge * rfp->voltage[rfp->idx][i]);
 
         for (uint i = 0; i < n_turns + 1; ++i)
             if (acceleration_ratio[i] > 1 || acceleration_ratio[i] < -1)
@@ -220,11 +220,11 @@ void calc_phi_s(ftype* out, RfParameters* rfp,
                 // 1)];
                 for (uint k = 0; k < 1000; ++k) {
                     totalRF[k] +=
-                        rfp->voltage[i+1][j] *
+                        rfp->voltage[j][i + 1] *
                         std::sin((rfp->harmonic[j][i + 1] / min) *
                                      (phase_array[k] +
                                       transition_phase_offset[i + 1]) +
-                                 rfp->phi_offset[i + 1][j]);
+                                 rfp->phi_offset[j][i + 1]);
                 }
             }
             uint transition_factor = transition_phase_offset[i] == 0 ? +1 : -1;

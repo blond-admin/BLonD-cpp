@@ -84,9 +84,8 @@ int main(int argc, char** argv) {
     V.resize(N_t + 1, V.back());
 
     f_vector_2d_t voltageVec(1, V);
-	voltageVec = mymath::transpose(voltageVec);
     printf("Flat top momentum %.4e eV\n", momentumVec[0][N_t]);
-    printf("Flat top voltage %.4e eV\n", voltageVec[N_t][0]);
+    printf("Flat top voltage %.4e eV\n", voltageVec[0][N_t]);
     printf("Momentum and voltage loaded...\n");
 
     // Define general parameters
@@ -100,7 +99,7 @@ int main(int argc, char** argv) {
 
     printf("General parameters set...\n");
     // Define rf_params
-    f_vector_2d_t dphiVec(N_t + 1, f_vector_t(n_sections, dphi));
+    f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 
     f_vector_2d_t hVec(n_sections, f_vector_t(N_t + 1, h));
 
@@ -247,8 +246,8 @@ int main(int argc, char** argv) {
             printf("   Design RF revolution frequency %.10e Hz\n",
                    Context::RfP->omega_RF_d[0][i]);
             printf("   RF revolution frequency %.10e Hz\n",
-                   Context::RfP->omega_RF[i][0]);
-            printf("   RF phase %.4f rad\n", Context::RfP->phi_RF[i][0]);
+                   Context::RfP->omega_RF[0][i]);
+            printf("   RF phase %.4f rad\n", Context::RfP->phi_RF[0][i]);
             printf("   Beam phase %.4f rad\n", PL->phi_beam);
             printf("   Phase noise %.4f rad\n",
                    noiseFB->fX * phaseNoise->fDphi[i]);

@@ -274,41 +274,6 @@ namespace mymath {
         return p;
     }
 
-	static inline f_vector_2d_t transpose(const f_vector_2d_t & data) {
-		int width = data.size();
-		int height = data.begin()->size();
-
-		f_vector_2d_t result(height, f_vector_t(width));
-		for(int i = 0; i < width; ++i) {
-			for (int j = 0; j < height; ++j) {
-				result[j][i] = data[i][j];
-			}
-		}
-		return result;
-    }
-
-	template< class Size, class T >
-	static inline void fill_n(f_vector_2d_t &voltageVec, int firstElementId, int rowId, Size count, const T& value)
-	{
-		for (Size i = 0; i < count; i++) {
-			voltageVec[firstElementId++][rowId] = value;
-		}
-	}
-
-	static inline void linspace(f_vector_2d_t &voltageVec, int elementId, const ftype start, const ftype end,
-		const uint n, const uint keep_from = 0)
-	{
-		const ftype step = (end - start) / (n - 1);
-		// ftype value = start;
-		//#pragma omp parallel for
-		for (uint i = 0; i < n; ++i) {
-			if (i >= keep_from)
-				voltageVec[i - keep_from][elementId] = start + i * step;
-			// value += step;
-		}
-	}
-
-
     static inline void linspace(ftype *a, const ftype start, const ftype end,
                                 const uint n, const uint keep_from = 0)
     {

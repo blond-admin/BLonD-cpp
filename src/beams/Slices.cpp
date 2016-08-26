@@ -112,11 +112,9 @@ inline ftype Slices::convert_coordinates(const ftype cut,
 	*/
 	if (type == s) {
 		return cut;
-	}
-	else if (type == rad) {
-		return cut / RfP->omega_RF[RfP->counter][RfP->idx];
-	}
-	else {
+    } else if (type == rad) {
+        return cut / RfP->omega_RF[RfP->idx][RfP->counter];
+    } else {
 		dprintf("WARNING: We were supposed to have either s or rad\n");
 	}
 	return 0.0;
@@ -148,56 +146,63 @@ inline void Slices::histogram(const ftype* __restrict input,
 	int* __restrict output, const ftype cut_left,
 	const ftype cut_right, const uint n_slices,
 	const uint n_macroparticles) {
-
-	const int inv_bin_width = n_slices / (cut_right - cut_left);
-	const int icut_left = cut_left;
-	const int icut_right = cut_right;
-	const auto threads = omp_get_num_threads();
-
+	const ftype inv_bin_width = n_slices / (cut_right - cut_left);
+	// const ftype range = cut_right - cut_left;
+	// histogram is faster with ints
 	typedef int hist_t;
-	auto tile = (static_cast<int>(n_macroparticles) + threads - 1) / threads;
+	hist_t* h;
+#pragma omp parallel
+	{
+		const auto threads = omp_get_num_threads();
+		const auto id = omp_get_thread_num();
+		auto tile =
+			static_cast<int>((n_macroparticles + threads - 1) / threads);
+		auto start = id * tile;
+		auto end = std::min(start + tile, (int)n_macroparticles);
+		const auto row = id * n_slices;
 
+#pragma omp single
+		h = (hist_t*)calloc(threads * n_slices, sizeof(hist_t));
 
+		const auto h_row = &h[row];
 
-	auto catch_size =256;
-	static std::vector<  std::valarray<int> >catch_map(omp_get_max_threads(),
-		std::valarray<int>(n_slices));
-	if(catch_map[0].size() != n_slices) {
-		catch_map = std::vector<  std::valarray<int> >(omp_get_max_threads(),
-			std::valarray<int>(n_slices));
-	}
-
-
-	const int l = n_macroparticles % catch_size;
-	const int m = n_macroparticles - catch_size;
-
-#pragma omp parallel for
-	for (int i = 0; i < n_macroparticles; i += catch_size) {
-		std::valarray<int> & map(catch_map[omp_get_thread_num()]);
-		auto max = (i > m) ? l : catch_size;
-		auto arr = &input[i];
-
-		for (int j = 0; j < max; ++j) {
-			int key = arr[j];
-			if (key < icut_left || key > icut_right) {
+		for (int i = start; i < end; ++i) {
+			const ftype a = input[i];
+			// const ftype a = (input[i] - cut_left);
+			if (a < cut_left || a > cut_right)
 				continue;
+			const uint ffbin =
+				static_cast<uint>((a - cut_left) * inv_bin_width);
+
+			// if (a < 0)
+			//    continue;
+
+			// const uint ffbin = static_cast<uint>(a * inv_bin_width);
+
+			// if (ffbin >= n_slices)
+			//    continue;
+
+			h_row[ffbin]++;
+		}
+#pragma omp barrier
+
+		tile = (n_slices + threads - 1) / threads;
+		start = id * tile;
+		end = std::min(start + tile, (int)n_slices);
+
+		for (int i = start; i < end; i++)
+			output[i] = 0;
+		// memset(&output[start], 0, (end-start) * sizeof(ftype));
+
+		for (int i = 0; i < threads; ++i) {
+			const int r = i * n_slices;
+			for (int j = start; j < end; ++j) {
+				output[j] += h[r + j];
 			}
-
-			map[(key - icut_left) * inv_bin_width]++;
 		}
-		
 	}
-
-
-#pragma omp parallel for
-	for (int i = 0; i < n_slices; ++i) {
-		auto buff = 0;
-
-		for (int j = 0; j < catch_map.size(); ++j) {
-			buff += catch_map[j][i];
-		}
-		output[i] = buff;
-	}
+	if (h)
+		free(h);
 }
 
 void Slices::track_cuts() {

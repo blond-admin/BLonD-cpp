@@ -27,9 +27,9 @@ class testTracker : public ::testing::Test {
 
         f_vector_2d_t hVec(n_sections, f_vector_t(N_t + 1, h));
 
-        f_vector_2d_t voltageVec(N_t + 1, f_vector_t(n_sections, V));
+        f_vector_2d_t voltageVec(n_sections, f_vector_t(N_t + 1, V));
 
-        f_vector_2d_t dphiVec(N_t + 1, f_vector_t(n_sections, dphi));
+        f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 
         Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
                                             momentumVec, proton);
@@ -89,9 +89,9 @@ class testTrackerPeriodicity : public ::testing::Test {
 
         f_vector_2d_t hVec(n_sections, f_vector_t(N_t + 1, h));
 
-        f_vector_2d_t voltageVec(N_t + 1, f_vector_t(n_sections, V));
+        f_vector_2d_t voltageVec(n_sections, f_vector_t(N_t + 1, V));
 
-        f_vector_2d_t dphiVec(N_t + 1, f_vector_t(n_sections, dphi));
+        f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 
         Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
                                             momentumVec, proton);

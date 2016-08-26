@@ -26,8 +26,8 @@ void PhaseLoop::beam_phase() {
     auto RfP = Context::RfP;
     auto Slice = Context::Slice;
 
-    ftype omega_RF = RfP->omega_RF[RfP->counter][RfP->idx];
-    ftype phi_RF = RfP->phi_RF[RfP->counter][RfP->idx];
+    ftype omega_RF = RfP->omega_RF[RfP->idx][RfP->counter];
+    ftype phi_RF = RfP->phi_RF[RfP->idx][RfP->counter];
     // Convolve with window function
     //
     ftype* base = new ftype[Slice->n_slices];
@@ -89,11 +89,11 @@ void PhaseLoop::radial_steering_from_freq() {
     const uint counter = RfP->counter;
 
     const auto radial_steering_domega_RF =
-        -RfP->omega_RF_d[counter][0] * RfP->eta_0(counter) / GP->alpha[0][0] *
+        -RfP->omega_RF_d[0][counter] * RfP->eta_0(counter) / GP->alpha[0][0] *
         reference / GP->ring_radius;
 
     for (uint i = 0; i < RfP->n_rf; ++i) {
-        RfP->omega_RF[counter][i] += radial_steering_domega_RF *
+        RfP->omega_RF[i][counter] += radial_steering_domega_RF *
                                      RfP->harmonic[i][counter] /
                                      RfP->harmonic[0][counter];
     }
@@ -103,13 +103,13 @@ void PhaseLoop::radial_steering_from_freq() {
     for (uint i = 0; i < RfP->n_rf; ++i) {
         RfP->dphi_RF_steering[i] +=
             2 * constant::pi * RfP->harmonic[i][counter] *
-            (RfP->omega_RF[counter][i] - RfP->omega_RF_d[counter][i]) /
-            RfP->omega_RF_d[counter][i];
+            (RfP->omega_RF[i][counter] - RfP->omega_RF_d[i][counter]) /
+            RfP->omega_RF_d[i][counter];
     }
 
     // Total phase offset
     for (uint i = 0; i < RfP->n_rf; ++i) {
-        RfP->phi_RF[counter][i] += RfP->dphi_RF_steering[i];
+        RfP->phi_RF[i][counter] += RfP->dphi_RF_steering[i];
     }
 }
 
@@ -150,7 +150,7 @@ void PhaseLoop::default_track() {
     // uint turns = GP->n_turns;
     // Update the RF frequency of all systems for the next turn
     for (uint i = 0; i < RfP->n_rf; ++i) {
-        RfP->omega_RF[counter][i] +=
+        RfP->omega_RF[i][counter] +=
             domega_RF * RfP->harmonic[i][counter] / RfP->harmonic[0][counter];
     }
 
@@ -159,13 +159,13 @@ void PhaseLoop::default_track() {
     for (uint i = 0; i < RfP->n_rf; ++i) {
         RfP->dphi_RF[i] +=
             2 * constant::pi * RfP->harmonic[i][counter] *
-            (RfP->omega_RF[counter][i] - RfP->omega_RF_d[counter][i]) /
-            RfP->omega_RF_d[counter][i];
+            (RfP->omega_RF[i][counter] - RfP->omega_RF_d[i][counter]) /
+            RfP->omega_RF_d[i][counter];
     }
 
     // Total phase offset
     for (uint i = 0; i < RfP->n_rf; ++i) {
-        RfP->phi_RF[counter][i] += RfP->dphi_RF[i];
+        RfP->phi_RF[i][counter] += RfP->dphi_RF[i];
     }
 }
 
@@ -351,8 +351,8 @@ void PSB::track() {
         // Add correction from radial loop
         if (PL_counter % static_cast<int>(dt[1]) == 0) {
 
-            drho = (RfP->omega_RF[counter][0] - RfP->omega_RF_d[counter][0]) /
-                       (RfP->omega_RF_d[counter][0] *
+            drho = (RfP->omega_RF[0][counter] - RfP->omega_RF_d[0][counter]) /
+                       (RfP->omega_RF_d[0][counter] *
                         (1 / (GP->alpha[0][0] * RfP->gamma(counter) *
                               RfP->gamma(counter)) -
                          1)) +
@@ -421,7 +421,7 @@ void LHC_F::track() {
 
     // Frequency correction from phase loop and frequency loop
     const auto factor =
-        RfP->omega_RF[counter][0] - RfP->omega_RF_d[counter][0] + reference;
+        RfP->omega_RF[0][counter] - RfP->omega_RF_d[0][counter] + reference;
     // for (int i = 0; i < (int)gain.size(); ++i) {
     domega_RF = -gain * dphi - gain2 * factor;
     // }

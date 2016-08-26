@@ -22,7 +22,16 @@ set(SHARED_LIBRARY_ENABLED "True")
 set(EXTERNAL_INSTALL_DIR ${PROJECT_SOURCE_DIR}/external/install)
 set(TEST_ENABLED "True" CACHE STRING "Cerate unit-test projects")
 set(BENCHMARK_ENABLED "True" CACHE STRING "Cerate benchmark projects")
-set(ARCHITECTURE "Default" CACHE STRING "Set architecture 'x86' or 'x32'") # todo: find usages and  fix comment
+
+if (NOT DEFINED ARCHITECTURE)
+	set(ARCHITECTURE "Default" CACHE STRING "Set architecture 'x86' or 'x64'") # todo: find usages and  fix comment
+	# Project architecture
+	if ((${CMAKE_GENERATOR} MATCHES ".*(64).*") OR (${CMAKE_SIZEOF_VOID_P} MATCHES ".*(64).*"))
+	    set(ARCHITECTURE "x64")
+	    message(STATUS "architecture: ${ARCHITECTURE} detected from (${CMAKE_GENERATOR} and ${CMAKE_SIZEOF_VOID_P}) ")
+	endif ()
+endif()
+
 
 set(WITH_COMPUTE "True" CACHE STRING "Should Build Boost.Compute library from source")
 set(BOOST_ROOT ${PROJECT_SOURCE_DIR}/external/build/boost CACHE STRING "Boost Library root")
@@ -78,13 +87,6 @@ add_definitions(-DDEMO_FILES="${DATAFILES_DIR_DEMOS}") #demos datafiles
 ProcessorCount(N)
 if (NOT N EQUAL 0)
     set(ctest_test_args ${ctest_test_args} PARALLEL_LEVEL ${N})
-endif ()
-
-# Project architecture
-set(ARCHITECTURE "Default" CACHE STRING "Two architectures avaliable 'Dafault' and 'x64', it is impartant for external libraries")
-if ((${CMAKE_GENERATOR} MATCHES ".*(64).*") OR (${CMAKE_SIZEOF_VOID_P} MATCHES ".*(64).*"))
-    set(ARCHITECTURE "x64")
-    message(STATUS "architecture: ${ARCHITECTURE} detected from (${CMAKE_GENERATOR} and ${CMAKE_SIZEOF_VOID_P}) ")
 endif ()
 
 #Compiler, Linker options

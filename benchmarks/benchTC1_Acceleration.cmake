@@ -1,4 +1,4 @@
-find_package(MPI REQUIRED)
+find_package(MPI)
 if(MPI)
     add_definitions("-DWITH_MPI=1")
 else()

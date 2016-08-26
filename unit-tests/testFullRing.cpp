@@ -10,7 +10,7 @@
 
 class testFullRing : public ::testing::Test {
 
-  protected:
+protected:
     // Bunch parameters
     const uint N_b = 0; // Intensity
 
@@ -33,7 +33,8 @@ class testFullRing : public ::testing::Test {
 
     uint N_slices = 100; // = (2^8)
 
-    virtual void SetUp() {
+    virtual void SetUp()
+    {
         f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1, p_i));
 
         f_vector_2d_t alphaVec(n_sections, f_vector_t(alpha_order + 1, alpha));
@@ -59,7 +60,8 @@ class testFullRing : public ::testing::Test {
                                     cuts_unit_type::rad);
     }
 
-    virtual void TearDown() {
+    virtual void TearDown()
+    {
         // Code here will be called immediately after each test
         // (right before the destructor).
         delete Context::GP;
@@ -69,14 +71,15 @@ class testFullRing : public ::testing::Test {
     }
 };
 
-TEST_F(testFullRing, constructor1) {
+TEST_F(testFullRing, constructor1)
+{
     auto RfP = Context::RfP;
 
     auto params = std::string(TEST_FILES "/FullRing/constructor1/");
     longitudinal_bigaussian(200e-9, 1e6, 1, false);
 
     auto long_tracker = new RingAndRfSection(RfP, simple);
-    std::vector<RingAndRfSection*> trackerList{long_tracker, long_tracker};
+    std::vector<RingAndRfSection *> trackerList{long_tracker, long_tracker};
     auto fullRing = new FullRingAndRf(trackerList);
 
     f_vector_t v;
@@ -88,7 +91,7 @@ TEST_F(testFullRing, constructor1) {
         auto ref = v[i];
         auto real = fullRing->fRingRadius;
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of ring_radius failed on i " << i << std::endl;
+                << "Testing of ring_radius failed on i " << i << std::endl;
     }
 
     delete long_tracker;
@@ -105,7 +108,7 @@ TEST_F(testFullRing, track1)
     longitudinal_bigaussian(200e-9, 1e6, -1, false);
 
     auto long_tracker = new RingAndRfSection(RfP, simple);
-    std::vector<RingAndRfSection*> trackerList{long_tracker, long_tracker};
+    std::vector<RingAndRfSection *> trackerList{long_tracker, long_tracker};
     auto fullRing = new FullRingAndRf(trackerList);
 
     for (int i = 0; i < 100; ++i)
@@ -121,7 +124,7 @@ TEST_F(testFullRing, track1)
         auto ref = v[i];
         auto real = Beam->dE[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of dE failed on i " << i << std::endl;
+                << "Testing of dE failed on i " << i << std::endl;
     }
 
     v.clear();
@@ -134,7 +137,7 @@ TEST_F(testFullRing, track1)
         auto ref = v[i];
         auto real = Beam->dt[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of dt failed on i " << i << std::endl;
+                << "Testing of dt failed on i " << i << std::endl;
     }
 
     delete long_tracker;
@@ -151,7 +154,7 @@ TEST_F(testFullRing, track2)
     longitudinal_bigaussian(200e-9, 1e6, 1, false);
 
     auto long_tracker = new RingAndRfSection(RfP, simple);
-    std::vector<RingAndRfSection*> trackerList{long_tracker, long_tracker};
+    std::vector<RingAndRfSection *> trackerList{long_tracker, long_tracker};
     auto fullRing = new FullRingAndRf(trackerList);
 
     for (int i = 0; i < 100; ++i)
@@ -164,12 +167,12 @@ TEST_F(testFullRing, track2)
     auto ref = v[0];
     auto real = mymath::mean(Beam->dE.data(), Beam->dE.size()); // - dEMeanPrev;
     auto max =
-        *max_element(Beam->dE.begin(), Beam->dE.end(), [](ftype i, ftype j) {
-            return std::abs(i) < std::abs(j);
-        });
+    *max_element(Beam->dE.begin(), Beam->dE.end(), [](ftype i, ftype j) {
+        return std::abs(i) < std::abs(j);
+    });
 
     ASSERT_NEAR(ref, real, epsilon * max * std::max(fabs(ref), fabs(real)))
-        << "Testing of deMean failed" << std::endl;
+            << "Testing of deMean failed" << std::endl;
     v.clear();
 
     util::read_vector_from_file(v, params + "dEStd.txt");
@@ -178,7 +181,7 @@ TEST_F(testFullRing, track2)
     real = mymath::standard_deviation(Beam->dE.data(), Beam->dE.size());
 
     ASSERT_NEAR(ref, real, epsilon * max * std::max(fabs(ref), fabs(real)))
-        << "Testing of dEStd failed" << std::endl;
+            << "Testing of dEStd failed" << std::endl;
     v.clear();
 
     epsilon = 1e-1;
@@ -188,7 +191,7 @@ TEST_F(testFullRing, track2)
     real = mymath::mean(Beam->dt.data(), Beam->dt.size());
 
     ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-        << "Testing of dtMean failed" << std::endl;
+            << "Testing of dtMean failed" << std::endl;
     v.clear();
 
     epsilon = 1e-2;
@@ -198,7 +201,7 @@ TEST_F(testFullRing, track2)
     real = mymath::standard_deviation(Beam->dt.data(), Beam->dt.size());
 
     ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-        << "Testing of dtStd failed" << std::endl;
+            << "Testing of dtStd failed" << std::endl;
 
     delete long_tracker;
     delete fullRing;

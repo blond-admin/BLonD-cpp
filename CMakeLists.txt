@@ -244,6 +244,7 @@ if (WITH_COMPUTE)
                 "C:/Windows/System32/OpenCL.dll"
                 )
     else ()
+	message(STATUS "ARCHITECTURE ${ARCHITECTURE}")
         if (ARCHITECTURE STREQUAL "x64")
             find_library(OPENCL_LIB
                     NAMES cl CL OpenCL OpenCL.lib libOpenCL libOpenCL.so
@@ -461,6 +462,8 @@ if (BENCHMARK_ENABLED)
     endif ()
 
     file(GLOB BENCHMARK_SOURCES "./benchmarks/*.cpp")
+    file(GLOB_RECURSE BENCHMARK_PROTOTYPES "./benchmarks/prototypes/*.cpp")
+
     set(BENCHMARK_FILES ${BENCHMARK_SOURCES})
 
     file(GLOB BENCHMARK_CONFIGURATIONS "./benchmarks/*.cmake")
@@ -470,7 +473,7 @@ if (BENCHMARK_ENABLED)
         file(RELATIVE_PATH testfile ${CMAKE_CURRENT_SOURCE_DIR} ${src})
         string(REPLACE ".cpp" "" testname ${testfile})
         string(REPLACE "benchmarks/" "" testname ${testname})
-        add_executable(${testname} ${src})
+        add_executable(${testname} ${src} ${BENCHMARK_PROTOTYPES})
         target_link_libraries(${testname} ${LIBRARIES})
     endforeach ()
 

@@ -1,4 +1,6 @@
+#ifdef __MINGW32__
 #undef _GLIBCXX_DEBUG
+#endif
 #include <benchmark/benchmark.h>
 #include <blond/math_functions.h>
 #include <boost/compute.hpp>

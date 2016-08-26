@@ -121,8 +121,6 @@ private:
 		typedef int hist_t;
 		auto tile = (static_cast<int>(n_macroparticles) + threads - 1) / threads;
 
-
-
 		auto catch_size = 256;
 		static std::vector<  std::valarray<int> >catch_map(omp_get_max_threads(),
 			std::valarray<int>(n_slices));

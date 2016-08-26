@@ -10,7 +10,7 @@
 #include <blond/globals.h>
 #include <blond/math_functions.h>
 #include <atomic>
-#include <unordered_map>
+#include <bitset>
 #include <omp.h>
 #include <valarray>
 
@@ -142,6 +142,7 @@ inline void Slices::slice_constant_space_histogram() {
 	histogram(Beam->dt.data(), n_macroparticles.data(), cut_left, cut_right,
 		n_slices, Beam->n_macroparticles);
 }
+
 
 inline void Slices::histogram(const ftype* __restrict input, 
 	int* __restrict output, const ftype cut_left,

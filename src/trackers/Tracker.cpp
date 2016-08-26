@@ -33,6 +33,7 @@ inline void RingAndRfSection::kick(const ftype* __restrict beam_dt,
 		const auto & current_omega_RF(omega_RF[j]);
 		const auto & current_phi_RF(phi_RF[j]);
 		const auto & current_voltage(voltage[j]);
+		
 #pragma omp parallel for
 		for (int i = 0; i < n_macroparticles; ++i) {
 			// const ftype a = omega_RF[j] * beam_dt[i] + phi_RF[j];

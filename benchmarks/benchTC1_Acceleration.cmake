@@ -1,0 +1,6 @@
+find_package(MPI REQUIRED)
+if(MPI)
+    add_definitions("-DWITH_MPI=1")
+else()
+    message(STATUS "MPI not found!")
+endif()

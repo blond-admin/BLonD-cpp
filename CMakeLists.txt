@@ -463,6 +463,9 @@ if (BENCHMARK_ENABLED)
     file(GLOB BENCHMARK_SOURCES "./benchmarks/*.cpp")
     set(BENCHMARK_FILES ${BENCHMARK_SOURCES})
 
+    file(GLOB BENCHMARK_CONFIGURATIONS "./benchmarks/*.cmake")
+    include(${BENCHMARK_CONFIGURATIONS})
+
     foreach (src ${BENCHMARK_FILES})
         file(RELATIVE_PATH testfile ${CMAKE_CURRENT_SOURCE_DIR} ${src})
         string(REPLACE ".cpp" "" testname ${testfile})

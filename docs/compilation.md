@@ -49,6 +49,6 @@ will take time
 6. Open generated .sln file in MSVC
 
 ##Linux
-OpenMP and OpenCL are requiered. There are many ways in which they can be installed so one must know paths to
-their installations on your particuar system for example on Ubuntu OpenCL it can be installed using default, Intell,
-NVidea or AMD SDKs. List of files for respective packages
+OpenMP and OpenCL are required. There are many ways in which they can be installed so one must know paths to
+their installations on your particular system for example on Ubuntu OpenCL it can be installed using default, Intel,
+NVidia or AMD SDKs.

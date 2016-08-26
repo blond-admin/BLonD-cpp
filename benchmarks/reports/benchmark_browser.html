@@ -259,6 +259,7 @@ function renderNd(ctx) {
 
 
 function render(ctx) {
+    $("#grid").html("");
     var rendererDiv = $("#render");
     rendererDiv.html("");
     rendererDiv.height("90vh")
@@ -291,7 +292,7 @@ function filesHandler(benchmark, urls, arguments) {
 
     ctx = {
         title: benchmark.name,
-        axis: benchmark.axces,
+        axis: benchmark.axes,
         data: result
     }
     render(ctx);

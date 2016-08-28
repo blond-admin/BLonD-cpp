@@ -34,7 +34,7 @@ BENCHMARK(n) \
 
 const ftype epsilon = 1e-8;
 const std::string params = 
-#ifdef NDEBUG && WIN32
+#if defined(NDEBUG) && defined(WIN32)
 "./../" 
 #endif
 TEST_FILES "/TC1_final/TC1_final_params/";

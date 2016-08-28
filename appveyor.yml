@@ -4,7 +4,7 @@ environment:
     - VSVER: Visual Studio 14 2015
     - VSVER: Visual Studio 14 2015 Win64
   global:
-    INTELOCLSDKROOT: "C:\Program Files (x86)\Intel\OpenCL SDK\5.3" 
+    INTELOCLSDKROOT: "C:/Program Files (x86)/Intel/OpenCL SDK/5.3"
 
 cache: 
   - C:\ProgramData\chocolatey\bin -> appveyor.yml 

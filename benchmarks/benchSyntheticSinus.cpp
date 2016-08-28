@@ -85,7 +85,7 @@ static void sin_blond_parallel(benchmark::State& state) {
 		state.ResumeTiming();
 #pragma omp for
         for(int i=0; i< size; ++i) {
-            v[i] = mymath::fast_sin(data[i]);
+            v[i] = vdt::fast_sin(data[i]);
         }
 		state.PauseTiming();
 #pragma omp for
@@ -107,7 +107,7 @@ static void sin_blond(benchmark::State& state) {
 		std::vector<double> v(size);
 		state.ResumeTiming();
 		for (int i = 0; i< size; ++i) {
-			v[i] = mymath::fast_sin(data[i]);
+			v[i] = vdt::fast_sin(data[i]);
 		}
 		state.PauseTiming();
 		for (int i = 0; i< size; ++i) {

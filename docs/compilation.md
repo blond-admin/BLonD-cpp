@@ -23,7 +23,7 @@ Windows Defender and other anty-virus software slows compilation down.
 ```
 mkdir build
 cd build
-cmake -DWITH_FFTW=True -DWITH_GOOGLETEST=True -DWITH_BENCHMARK=True -DBUILD_EXTERNALS=True  -G"MSYS Makefiles"  ..
+cmake -DWITH_FFTW=True -DWITH_GOOGLETEST=True -DWITH_BENCHMARK=True -DBUILD_EXTERNALS=True  -G"MSYS Makefiles" -DOPENCL_SDK_PATH=$CUDA_OR_INTELL_OR_AMD_SDK ..
 ```
 
 ### Clion

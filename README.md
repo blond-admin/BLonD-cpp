@@ -114,6 +114,7 @@ Developers FAQ and TLDR are located [here](./docs/DocumentationTOC.md)
 - Danilo Quartullo (danilo.quartullo (at) cern.ch)
 - Helga Timko (Helga.Timko (at) cern.ch)
 - Konstantinos Iliakis (konstantinos.iliakis (at) cern.ch)
+- Oleg Jakushkin (oleg.jakushking (at) gmail.com)
 
 ## Contributors Notice
 

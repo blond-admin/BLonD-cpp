@@ -3,7 +3,6 @@
 #endif
 #include <benchmark/benchmark.h>
 #include <blond/math_functions.h>
-#include <boost/compute.hpp>
 #include <random>
 
 const int max = 50000000;
@@ -125,6 +124,9 @@ static void sin_blond(benchmark::State& state) {
 }
 BENCHMARK(sin_blond)->Apply(CustomStep);
 
+#ifdef WITH_OPENCL
+#include <boost/compute.hpp>
+
 BOOST_COMPUTE_FUNCTION(double, gpu_sin, (double x), { return sin(x); });
 
 static void sin_opencl(benchmark::State& state) {
@@ -197,8 +199,8 @@ static void sin_opencl_short(benchmark::State& state) {
     std::cout << accumulator << std::endl;
 }
 BENCHMARK(sin_opencl_short)->Apply(CustomStep);
+#endif
 
-// BENCHMARK_MAIN();
 int main(int argc, char** argv) {
     ::benchmark::Initialize(&argc, argv);
     omp_set_num_threads(omp_get_max_threads());

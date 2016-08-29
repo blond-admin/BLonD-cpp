@@ -1,4 +1,6 @@
-sudo: false
+#note: OpenCL instructions taken from https://github.com/peastman/openmm/blob/a7ce5784bc1d728ef7088c10308fa61b9c87e1a9/.travis.yml
+sudo: required
+dist: trusty
 language: cpp
 
 os:
@@ -12,20 +14,23 @@ env:
     - BUILD_TYPE=Release
   global:
     - secure: inwXVLS3LG1+J8XHpN92Si87FLs8tT/SEWcg71us65o2AYDVCqqbXhFRpTqRY+K6ciT6IHd41LnmOaK1lID86YMcGUsQxvMJHbwMBCDPs+Qjup/g8xSjOZo11gnt9b2Jp5O/vEXOKdVoyBBXtR+J0JQ4ogS6VxvQyP2WDYH7FFFxsYZ83i93qCDUs7XnOwtN/f/wJMkMRQP+49Lp7EKWJEWXK87YM83fshQcLl2uOZfzdS9esN0QPXAW5W+jvB2EkvtjTy2EyDpdF1FMLLH50Uj4wP4A7FutnqfG4pRbhtdkDXqL429R9COyzXLdEiyTEoX7rbGLYqwfDpPC8huqUsp3NxdiSlx+ZdeBGySRkzcUmwKGzwapEgWEHu6Sujto1vLtU3tv0/Ywlf1nHsQ4jngnswtlVWi+pWPBVO5yyG3feKsj3fdvNdceszhU2Dj2e4zW6o9Ys7mJ41fbj1QsTSepVjcR/r9PU11948R+dyA37wF3lLdCApTbdI2PrVFUrQuHPr59s43ZGb52R24fdCi8Ao6Fd4oyJw9zLnhJDCehWDWYM5UcrC/mllzo8K1v4BqrEVlCeIBPx7SIsWUXjQ/gNv/JFp5+jYU1ibqz7VeS6ZhHd6tj6mUKkQ5Cqb9bkDkFBA48X0tet2qFQzuCoXUHqds/08odhMgVf0741Jc=
-
+    - OPENCL=true
+    - CUDA=false
+    - CMAKE_FLAGS="
+           -DOPENCL_INCLUDE_DIR=$HOME/AMDAPPSDK/include
+           -DOPENCL_LIBRARY=$HOME/AMDAPPSDK/lib/x86_64/libOpenCL.so"
 addons:
   apt:
     sources:
       - ubuntu-toolchain-r-test
-      - george-edison55-precise-backports
       - libreoffice/libreoffice-4-2
     packages:
       - cmake
       - cmake-data
       - gcc-4.8
       - g++-4.8
+      - opencl-headers
       - valgrind
-      - gcov-4.8
       - lcov
       - doxygen
       - graphviz
@@ -40,11 +45,23 @@ cache:
 before_install:
   - export CC=/usr/bin/gcc-4.8
   - export CXX=/usr/bin/g++-4.8
+  - if [[ "$OPENCL" == "true" ]]; then
+      wget https://jenkins.choderalab.org/userContent/AMD-APP-SDKInstaller-v3.0.130.135-GA-linux64.tar.bz2;
+      tar -xjf AMD-APP-SDK*.tar.bz2;
+      AMDAPPSDK=${HOME}/AMDAPPSDK;
+      export OPENCL_VENDOR_PATH=${AMDAPPSDK}/etc/OpenCL/vendors;
+      mkdir -p ${OPENCL_VENDOR_PATH};
+      sh AMD-APP-SDK*.sh --tar -xf -C ${AMDAPPSDK};
+      echo libamdocl64.so > ${OPENCL_VENDOR_PATH}/amdocl64.icd;
+      export LD_LIBRARY_PATH=${AMDAPPSDK}/lib/x86_64:${LD_LIBRARY_PATH};
+      chmod +x ${AMDAPPSDK}/bin/x86_64/clinfo;
+      ${AMDAPPSDK}/bin/x86_64/clinfo;
+    fi
 
 before_script:
   - mkdir build
   - cd build
-  - cmake -DWITH_FFTW=True -DWITH_GOOGLETEST=True -DWITH_BENCHMARK=True -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
+  - cmake -DWITH_FFTW=True -DWITH_GOOGLETEST=True -DWITH_BENCHMARK=True  -DBUILD_EXTERNALS=True -DOPENCL_SDK_PATH=$HOME/AMDAPPSDK -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DARCHITECTURE="x64" ..
 
 script:
   - cmake --build . -- -j2 VERBOSE=1

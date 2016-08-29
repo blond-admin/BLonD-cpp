@@ -23,6 +23,7 @@ if(BUILD_GOOGLETEST)
             -DBUILD_GMOCK=OFF
             -Dgtest_disable_pthreads=ON
             -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}
+            -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
             -DCMAKE_RULE_MESSAGES=OFF
             -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}
             -DCMAKE_CXX_FLAGS_DEBUG=${CMAKE_CXX_FLAGS_DEBUG}
@@ -39,14 +40,14 @@ if(BUILD_GOOGLETEST)
     if(WIN32 AND NOT MINGW)
         #on windows projects require debug+release libraries
         #adding additional step to move release build libraries
-            ExternalProject_Add_Step(googletest-src AFTER_INSTALL
-                    COMMAND ${CMAKE_COMMAND} -E copy ${INSTALL_LIB_DIR}/gtest.lib ${INSTALL_LIB_DIR}/gtest/$(Configuration)/gtest.lib
-                    COMMAND ${CMAKE_COMMAND} -E copy ${INSTALL_LIB_DIR}/gtest_main.lib ${INSTALL_LIB_DIR}/gtest/$(Configuration)/gtest_main.lib
-                    COMMAND ${CMAKE_COMMAND} -E remove -f ${INSTALL_LIB_DIR}/gtest.lib
-                    COMMAND ${CMAKE_COMMAND} -E remove -f ${INSTALL_LIB_DIR}/gtest_main.lib
-                    COMMENT "Copy release files into release directory"
-                    DEPENDEES Install
-                    )
+        ExternalProject_Add_Step(googletest-src AFTER_INSTALL
+                COMMAND ${CMAKE_COMMAND} -E copy ${INSTALL_LIB_DIR}/gtest.lib ${INSTALL_LIB_DIR}/gtest/$(Configuration)/gtest.lib
+                COMMAND ${CMAKE_COMMAND} -E copy ${INSTALL_LIB_DIR}/gtest_main.lib ${INSTALL_LIB_DIR}/gtest/$(Configuration)/gtest_main.lib
+                COMMAND ${CMAKE_COMMAND} -E remove -f ${INSTALL_LIB_DIR}/gtest.lib
+                COMMAND ${CMAKE_COMMAND} -E remove -f ${INSTALL_LIB_DIR}/gtest_main.lib
+                COMMENT "Copy release files into release directory"
+                DEPENDEES Install
+                )
         message(STATUS "note: on windows lib builds are seprate for debug and release")
     endif()
 endif()

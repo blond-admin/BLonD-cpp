@@ -13,11 +13,12 @@ configuration:
 
 install:
   - git submodule update --init --recursive
+  - choco install -y doxygen.portable swig > null
 
 before_build:
   - mkdir build
   - cd build
-  - cmake ..
+  - cmake -DBUILD_EXTERNALS=True ..
   - DIR
 
 #build: of

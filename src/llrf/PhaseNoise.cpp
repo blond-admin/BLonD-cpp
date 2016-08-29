@@ -40,7 +40,10 @@ void PhaseNoise::spectrum_to_phase_noise(f_vector_t& t, f_vector_t& dphi,
     }
 
     // Generate white noise in time domain
-    std::default_random_engine gen(fSeed1);
+	/**
+	* The classic Minimum Standard rand0 of Lewis, Goodman, and Miller.
+	*/
+    std::minstd_rand0 gen(fSeed1);
     std::uniform_real_distribution<> dist(0, 1);
 
     f_vector_t r1(nt);

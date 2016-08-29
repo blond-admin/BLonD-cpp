@@ -1,0 +1,25 @@
+@startuml
+skinparam monochrome true
+
+[BLonD-minimal-cpp] as blond
+package "Library source code" {
+    [blond] as headers
+    [blond] -> [src]
+    [blond] -> [include]
+    [include] -> [headers]
+}
+package "Applications" {
+    [blond] -> [unit-tests]
+    [blond] -> [demos]
+    [blond] -> [benchmarks]
+}
+package "Dependencies" {
+    [external] <- [blond]
+    [external] -> [install]
+    package "packages" {
+        [include] as externalincludes
+        [install] -> [externalincludes]
+        [install] -> [lib]
+    }
+}
+@enduml

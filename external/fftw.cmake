@@ -53,7 +53,7 @@ if (BUILD_FFTW)
         # build fftw as an external project
         ExternalProject_add(fftwf
                 PREFIX fftwf
-                URL "http://www.fftw.org/fftw-3.3.4.tar.gz"
+                URL "http://www.fftw.org/fftw-3.3.3.tar.gz"
                 CONFIGURE_COMMAND
                 env
                 "CC=${CMAKE_C_COMPILER} ${CMAKE_C_COMPILER_ARG1}"

@@ -88,7 +88,7 @@ if [ -e ${INSTALL}/include/hdf5.h ] && [ -e ${INSTALL}/lib/libhdf5.so ]; then
 fi
 
 
-if [ "${INSTALL_HDF5}" = "true" ] ; then
+if [ "${INSTALL_HDF5}" = "true" ]; then
    echo -e "\n\n---- Installing HDF5"
    wget http://www.hdfgroup.org/ftp/HDF5/current/src/hdf5-1.8.17.tar.gz -O${EXTERNAL}/tmp/hdf5.tar.gz
    tar -xzvf ${EXTERNAL}/tmp/hdf5.tar.gz -C${EXTERNAL}/tmp &>> $log

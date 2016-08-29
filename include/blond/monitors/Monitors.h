@@ -57,10 +57,10 @@ public:
     bool fGaussian;
     void track();
     void init_data(const int dimension);
-    void init_buffer();
-    void write_buffer();
+    // void init_buffer();
+    // void write_buffer();
     void write_data();
-    void open();
+    // void open();
     void close();
     BunchMonitor(GeneralParameters *GP, RfParameters *RfP, Beams *Beam,
                  std::string filename, int buffer_time = 0,

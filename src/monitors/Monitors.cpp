@@ -8,8 +8,63 @@
 #include <blond/monitors/Monitors.h>
 #include <string>
 #include <iostream>
-
+#include <algorithm>
 using namespace H5;
+
+
+void *read_2D(std::string fname, std::string dsname,
+              std::string type, hsize_t dims[])
+{
+    auto file_id = H5Fopen(fname.c_str(), H5F_ACC_RDONLY, H5P_DEFAULT);
+    H5T_class_t class_id;
+    size_t type_size;
+    H5LTget_dataset_info(file_id, dsname.c_str(),
+                         dims, &class_id, &type_size);
+    std::transform(type.begin(), type.end(), type.begin(), ::tolower);
+    void *res;
+
+    if (type == "int" && sizeof(int) == type_size) {
+        res = malloc(dims[0] * dims[1] * type_size);
+        H5LTread_dataset_int(file_id, dsname.c_str(), (int *)res);
+    } else if (type == "double" && sizeof(double) == type_size) {
+        res = malloc(dims[0] * dims[1] * type_size);
+        H5LTread_dataset_double(file_id, dsname.c_str(), (double *)res);
+    } else if (type == "float" && sizeof(float) == type_size) {
+        res = malloc(dims[0] * dims[1] * type_size);
+        H5LTread_dataset_float(file_id, dsname.c_str(), (float *)res);
+    } else {
+        std::cerr << "[Monitors] Requested type not supported or not compatible\n"
+                  << "with actual data type size\n";
+    }
+    return res;
+}
+
+void *read_1D(std::string fname, std::string dsname,
+              std::string type, hsize_t dims[])
+{
+    auto file_id = H5Fopen(fname.c_str(), H5F_ACC_RDONLY, H5P_DEFAULT);
+    H5T_class_t class_id;
+    size_t type_size;
+    H5LTget_dataset_info(file_id, dsname.c_str(),
+                         dims, &class_id, &type_size);
+    std::transform(type.begin(), type.end(), type.begin(), ::tolower);
+    void *res;
+
+    if (type == "int" && sizeof(int) == type_size) {
+        res = malloc(dims[0] * type_size);
+        H5LTread_dataset_int(file_id, dsname.c_str(), (int *)res);
+    } else if (type == "double" && sizeof(double) == type_size) {
+        res = malloc(dims[0] * type_size);
+        H5LTread_dataset_double(file_id, dsname.c_str(), (double *)res);
+    }else if (type == "float" && sizeof(float) == type_size) {
+        res = malloc(dims[0] * type_size);
+        H5LTread_dataset_float(file_id, dsname.c_str(), (float *)res);
+    } else {
+        std::cerr << "[Monitors] Requested type not supported or not compatible\n"
+                  << "with actual data type size\n";
+    }
+    return res;
+}
 
 SlicesMonitor::SlicesMonitor(std::string filename, int n_turns, Slices *slices)
 {

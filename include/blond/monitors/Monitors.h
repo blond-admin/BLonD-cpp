@@ -13,12 +13,19 @@
 #include <hdf5_hl.h>
 #include <blond/configuration.h>
 #include <blond/utilities.h>
-#include <blond/beams/Beams.h> 
+#include <blond/beams/Beams.h>
 #include <blond/beams/Slices.h>
 #include <blond/input_parameters/GeneralParameters.h>
 #include <blond/input_parameters/RfParameters.h>
 #include <blond/llrf/PhaseLoop.h>
 #include <blond/llrf/LHCNoiseFB.h>
+
+
+void *read_1D(std::string fname, std::string dsname,
+              std::string type, hsize_t dims[]);
+
+void *read_2D(std::string fname, std::string dsname,
+              std::string type, hsize_t dims[]);
 
 
 class API SlicesMonitor {

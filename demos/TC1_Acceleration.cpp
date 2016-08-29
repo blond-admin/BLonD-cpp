@@ -80,7 +80,7 @@ int main(int argc, char** argv) {
 
     Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
 
-    RingAndRfSection* long_tracker = new RingAndRfSection();
+    auto long_tracker = new RingAndRfSection();
 
     longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
 

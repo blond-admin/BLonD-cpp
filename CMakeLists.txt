@@ -317,6 +317,7 @@ SET(LIBRARIES
         util
         dl
         hdf5_cpp
+        hdf5_hl
         )
 
 file(GLOB_RECURSE SOURCES

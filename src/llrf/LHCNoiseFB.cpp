@@ -187,7 +187,7 @@ void LHCNoiseFB::fwhm_multi_bunch() {
 
         uint_vector_t index;
         auto k = 0;
-        for (const auto &j : bind) {
+        for (const auto& j : bind) {
             if (Slice->n_macroparticles[j] > hheight)
                 index.push_back(bind[k]);
             k++;

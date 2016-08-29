@@ -27,7 +27,7 @@ git clone --branch=master https://github.com/kiliakis/BLonD-minimal-cpp
 cd BLonD-minimal-cpp
 mkdir build  
 cd build 
-cmake -DWITH_FFTW=True -DWITH_GOOGLETEST=True -DWITH_BENCHMARK=True .. # Configuration
+cmake -DWITH_FFTW=True -DWITH_GOOGLETEST=True -DWITH_BENCHMARK=True -DBUILD_EXTERNALS=True -DCMAKE_BUILD_TYPE=Release .. # Configuration
 cmake --build . # Compilation
 ctest -VV # Testing
 ```
@@ -43,6 +43,7 @@ What was happening here:
 
 * The executables should be ready!
 * Developer's Notes:
+  * set `-DWITH_COMPUTE=True` and `-DOPENCL_SDK_PATH=$CUDA_OR_INTELL_OR_AMD_SDK` to build OpenCL benchmarks with boost
   * On Linux, by default, the Release version of the code is compiled. You can build a debug version by adding `-DCMAKE_BUILD_TYPE=Debug` argument to configuration command, before `..`
   * On Windows by default, the Debug version of the code is compiled. You can build a debug version by adding `--target ALL_BUILD --config Release` argument to Compilation command after `.`
   * On Windows one shall copy contents of `external/install/bin/fftw/$(configuration)` into corresponding to given build configuration folder to be able to test and run executables.
@@ -96,6 +97,9 @@ cd BLonD-minimal-cpp/build
 lcov --capture --directory .. --output-file coverage.info
 genhtml coverage.info --output-directory html
 ```
+
+## Extended documentation for developers
+Developers FAQ and TLDR are located [here](./docs/DocumentationTOC.md)
 
 ## Original BLonD Links
 

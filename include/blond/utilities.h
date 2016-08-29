@@ -71,7 +71,7 @@ namespace util {
 
         for (std::string line; std::getline(source, line);) {
             std::istringstream in(line);
-            T type;
+			T type;
             while (in >> type)
                 v.push_back(type);
         }

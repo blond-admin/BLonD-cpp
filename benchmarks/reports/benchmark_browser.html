@@ -1,0 +1,358 @@
+﻿<!DOCTYPE html>
+<!-- Note: we assume each benchmark contains tests that have same ammount of dimentions! -->
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="benchmark_browser/semantic.min.css" />
+    <link rel="stylesheet" type="text/css" href="benchmark_browser/d3.parcoords.css" />
+    <link rel="stylesheet" type="text/css" href="benchmark_browser/d3.divgrid.css" />
+
+    <script type="text/javascript" src="benchmark_browser/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="benchmark_browser/linq.min.js"></script>
+    <script type="text/javascript" src="benchmark_browser/semantic.min.js"></script>
+    <script type="text/javascript" src="benchmark_browser/plotly-latest.min.js"></script>
+    <script type="text/javascript" src="benchmark_browser/d3.v3.min.js"></script>
+    <script type="text/javascript" src="benchmark_browser/d3.parcoords.js"></script>
+    <script type="text/javascript" src="benchmark_browser/d3.divgrid.js"></script>
+
+    <script type="text/javascript" src="./benchmarks_list.js"></script>
+    <title>Google Benchmark Renderer</title>
+</head>
+
+<body>
+<div class="ui bottom attached segment">
+    <div class="toc ui visible full height  inverted left vertical sidebar menu " id="menu">
+    </div>
+    <div class="pusher grid">
+        <div id="render" class="parcoords" style="margin: 10px; padding: 10px; width: 80%; height: 50vh;"></div>
+        <div id="grid" style="margin: 10px; padding: 10px;"></div>
+    </div>
+</div>
+<script type='text/javascript'>
+//<![CDATA[
+function parser(bm) {
+    var surfaces = {};
+
+    // Filter only mean results
+    var bm_filter_mean = [];
+    for (i = 0; i < bm.length; i++) {
+        arr = bm[i].name.split("_");
+        if (arr.length > 1 && (arr[arr.length - 1] == "mean")) {
+            arr.pop();
+            bm[i].name = arr.join("");
+            bm_filter_mean.push(bm[i]);
+        }
+    }
+    if (bm_filter_mean.length > 0) {
+        bm = bm_filter_mean;
+    }
+
+    // Parse data points
+    var point;
+    for (i = 0; i < bm.length; i++) {
+        var data = bm[i].name.split("/");
+        point = [];
+
+        for (j = 1; j < data.length; j++) {
+            if (data[j].includes("B")) {
+                data[j] = parseFloat(data[j]) * 1000000000.0;
+            } else if (data[j].includes("M")) {
+                data[j] = parseFloat(data[j]) * 1000000.0;
+            } else if (data[j].includes("k")) {
+                data[j] = parseFloat(data[j]) * 1000.0;
+            } else {
+                data[j] = parseFloat(data[j])
+            }
+            point.push(data[j]);
+        }
+        point.unshift(bm[i].real_time); // y
+        if (!(data[0] in surfaces)) {
+            surfaces[data[0]] = [];
+        }
+
+        surfaces[data[0]].push(point);
+    }
+
+    return surfaces;
+}
+
+function render2d(ctx) {
+    var surfaces = ctx.surfaces;
+
+    var plot = [];
+    var layout = {};
+
+    //Fit data points to 2d scatter plot
+    var xx;
+    var yy;
+    for (surface in surfaces) {
+        xx = [];
+        yy = [];
+
+        for (i = 0; i < surfaces[surface].length; i++) {
+            yy.push(surfaces[surface][i][0]);
+            xx.push(surfaces[surface][i][1]);
+        }
+
+        var item = {
+            x: xx,
+            y: yy,
+            fill: 'tonexty',
+            name: surface,
+            type: 'scatter'
+        };
+        plot.push(item);
+    }
+
+    layout = {
+        showlegend: true,
+        xaxis: {
+            title: ctx.axis[0]
+        },
+        yaxis: {
+            title: 'real time (ns)'
+        }
+    };
+
+    Plotly.newPlot('render', plot, layout);
+
+}
+
+function render3d(ctx) {
+    surfaces = ctx.surfaces;
+    plot = [];
+    layout = {};
+
+    //Fit data points to 3d scatter plot
+    for (surface in surfaces) {
+        x = [];
+        y = [];
+        z = [];
+        for (i = 0; i < surfaces[surface].length; i++) {
+            x.push(surfaces[surface][i][2]);
+            y.push(surfaces[surface][i][1]);
+            z.push(surfaces[surface][i][0]);
+        }
+
+        var item = {
+            y: y,
+            x: x,
+            z: z,
+            opacity: 0.5,
+            showscale: false,
+            name: surface,
+            type: 'scatter3d'
+        };
+        plot.push(item)
+    }
+    layout = {
+        showlegend: true,
+        scene: {
+            xaxis: {
+                title: ctx.axis[0]
+            },
+            yaxis: {
+                title: ctx.axis[1]
+            },
+            zaxis: {
+                title: 'real time (ns)'
+            }
+        }
+    };
+    Plotly.newPlot('render', plot, layout);
+
+
+}
+
+function renderNd(ctx) {
+    var plot = [];
+    var layout = {};
+    var data = [];
+    for (surface in ctx.surfaces) {
+        arr = ctx.surfaces[surface];
+        for (i = 0; i < arr.length; ++i) {
+            result = {}
+            point = arr[i];
+            result["real time (ns)"] = point[0];
+
+            for (j = 1; j < point.length; ++j) {
+                result[ctx.axis[j - 1]] = point[j];
+            }
+            result["curve_name"] = surface
+            data.push(result);
+        }
+    }
+
+    console.log(data[0]);
+    data = Enumerable.From(data)
+            .OrderByDescending(function(x) {
+                return x["real time (ns)"];
+            })
+            .ThenBy(function(x) {
+                return x["curve_name"];
+            })
+            .ToArray();
+
+    var curves = Enumerable.From(data)
+            .OrderByDescending(function (x) {
+                return x["real time (ns)"];
+            })
+            .GroupBy(function (x) {
+                return x["curve_name"];
+            })
+            .Select(function (x) {
+                return x.First();
+            });
+
+
+    var blue_to_brown = d3.scale.linear()
+            .domain([curves.Last()["real time (ns)"], curves.First()["real time (ns)"]])
+            .range(["steelblue", "brown"])
+            .interpolate(d3.interpolateLab);
+
+    var colors = {};
+    curves.ForEach(function(x) {
+        colors[x["curve_name"]] = blue_to_brown(x["real time (ns)"])
+    });
+
+
+    var parcoord = d3.parcoords()("#render")
+            .data(data)
+            .color(function (d) {
+                return colors[d["curve_name"]];
+            })
+            .hideAxis(["curve_name"])
+            .alpha(0.7)
+            .render()
+            .createAxes()
+            .brushMode("1D-axes") // enable brushing
+            .reorderable()
+            .interactive() // command line mode
+
+    var grid = d3.divgrid();
+    d3.select("#grid")
+            .datum(data)
+            .call(grid)
+            .selectAll(".row")
+            .on({
+                "mouseover": function(d) {
+                    parcoord.highlight([d])
+                },
+                "mouseout": parcoord.unhighlight
+            });
+
+    // update data table on brush event
+    parcoord.on("brush", function(d) {
+        d3.select("#grid")
+                .datum(d)
+                .call(grid)
+                .selectAll(".row")
+                .on({
+                    "mouseover": function(d) {
+                        parcoord.highlight([d])
+                    },
+                    "mouseout": parcoord.unhighlight
+                });
+    });
+}
+
+
+function render(ctx) {
+    $("#grid").html("");
+    var rendererDiv = $("#render");
+    rendererDiv.html("");
+    rendererDiv.height("90vh")
+    ctx.surfaces = parser(ctx.data);
+
+    testType = ctx.data[0].name.split("/")
+    plot = {}
+    if (testType.length == 3) {
+        plot = render3d(ctx);
+    } else if (testType.length == 2) {
+        plot = render2d(ctx);
+    } else {
+        rendererDiv.height("50vh")
+        plot = renderNd(ctx);
+    }
+}
+
+function filesHandler(benchmark, urls, arguments) {
+    result = [];
+    for (var i = 0; i < arguments.length; i++) {
+        var bm = arguments[i].benchmarks;
+
+        var file_name = urls[i].substring(urls[i].lastIndexOf('/') + 1);
+        file_name = file_name.split(".")[0];
+        for (var j = 0; j < bm.length; j++) {
+            bm[j].name = file_name + "-|-" + bm[j].name;
+        }
+        result = result.concat(bm);
+    }
+
+    ctx = {
+        title: benchmark.name,
+        axis: benchmark.axes,
+        data: result
+    }
+    render(ctx);
+}
+
+jQuery.getMultipleJSON = function() {
+    var
+            num = 0,
+            def = jQuery.Deferred(),
+            map = jQuery.map(arguments, function(jsonfile) {
+                return jQuery.getJSON(jsonfile).then(function() {
+                    def.notify(1 / map.length * ++num, num, map.length);
+                    return arguments;
+                });
+            });
+    jQuery.when.apply(jQuery, map)
+            .fail(function() {
+                def.rejectWith(def, arguments);
+            })
+            .done(function() {
+                def.resolveWith(def, jQuery.map(arguments, function(response) {
+                    return response[0];
+                }));
+            });
+    return def;
+};
+
+$(document).ready(function() {
+    var url;
+    for (i = 0; i < benchmarks.length; i++) {
+        url = JSON.stringify(benchmarks[i].ref)
+        url = url.replace(/"/g, "'");
+        $('<a class="item" id="' + i + '" url="' + url + '">' + benchmarks[i].name + '</a>').appendTo("#menu");
+    }
+
+    $('.item').click(function() {
+        var url = $(this).attr("url");
+        url = url.replace(/'/g, "\"");
+        url = JSON.parse(url)
+
+        if (!$.isArray(url)) {
+            url = [url];
+        }
+        var id = $(this).attr('id')
+        $.getMultipleJSON.apply(null, url)
+                .done(function() {
+                    filesHandler(benchmarks[id], url, arguments);
+                })
+                .fail(function(error) {
+                    $("#render")
+                            .html("<h2>error: json file is missing or you opened document locally! Please use FireFox to be able to open documents locally</h2><pre>" +
+                                    JSON.stringify(error) + "</pre>")
+                            .css({
+                                'font-weight': 'bold'
+                            });
+                });
+    });
+    $('.item').first().click();
+}); //]]>
+</script>
+</body>
+
+</html>

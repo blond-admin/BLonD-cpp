@@ -192,7 +192,7 @@ TEST(testConvolution, test1)
         ftype ref = v[i];
         ftype real = c[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-                << "Testing of convolution1 failed on i " << i << std::endl;
+                                    << "Testing of convolution1 failed on i " << i << std::endl;
     }
 
     v.clear();
@@ -219,7 +219,7 @@ TEST(testConvolution, test2)
         ftype ref = v[i];
         ftype real = c[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-                << "Testing of convolution2 failed on i " << i << std::endl;
+                                    << "Testing of convolution2 failed on i " << i << std::endl;
     }
 
     v.clear();
@@ -245,7 +245,7 @@ TEST(testConvolution, test3)
         ftype ref = v[i];
         ftype real = c[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-                << "Testing of convolution3 failed on i " << i << std::endl;
+                                    << "Testing of convolution3 failed on i " << i << std::endl;
     }
 
     v.clear();
@@ -268,7 +268,7 @@ TEST(arange, test1)
         ftype ref = v[i];
         ftype real = a[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-                << "Testing of a failed on i " << i << std::endl;
+                                    << "Testing of a failed on i " << i << std::endl;
     }
 }
 
@@ -288,7 +288,7 @@ TEST(arange, test2)
         ftype ref = v[i];
         ftype real = a[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-                << "Testing of a failed on i " << i << std::endl;
+                                    << "Testing of a failed on i " << i << std::endl;
     }
 }
 

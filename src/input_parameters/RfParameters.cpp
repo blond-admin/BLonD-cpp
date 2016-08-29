@@ -26,7 +26,7 @@
 
 RfParameters::RfParameters(uint _n_rf, f_vector_2d_t _harmonic,
                            f_vector_2d_t _voltage, f_vector_2d_t _phi_offset,
-                           f_vector_2d_t _phi_noise, f_vector_2d_t _omega_rf,
+                           f_vector_2d_t _phi_noise, f_vector_2d_t _omega_rf, // _omega_rf never used!
                            uint _section_index,
                            accelerating_systems_t accelerating_systems) {
     auto GP = Context::GP;

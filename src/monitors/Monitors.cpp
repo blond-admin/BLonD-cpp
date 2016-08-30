@@ -56,7 +56,7 @@ void *read_1D(std::string fname, std::string dsname,
     } else if (type == "double" && sizeof(double) == type_size) {
         res = malloc(dims[0] * type_size);
         H5LTread_dataset_double(file_id, dsname.c_str(), (double *)res);
-    }else if (type == "float" && sizeof(float) == type_size) {
+    } else if (type == "float" && sizeof(float) == type_size) {
         res = malloc(dims[0] * type_size);
         H5LTread_dataset_float(file_id, dsname.c_str(), (float *)res);
     } else {
@@ -164,6 +164,7 @@ BunchMonitor::BunchMonitor(GeneralParameters *GP, RfParameters *RfP, Beams *Beam
         fGaussian = false;
 
     init_data(fNTurns + 1);
+    init_buffer();
     track();
 }
 
@@ -177,10 +178,12 @@ BunchMonitor::~BunchMonitor()
 void BunchMonitor::track()
 {
     fBeam->statistics();
+    write_buffer();
     fITurn++;
 
     if (fITurn > 0 && fITurn % fBufferTime == 0) {
         write_data();
+        // init_buffer();
     }
 }
 
@@ -346,59 +349,58 @@ void BunchMonitor::write_data()
 {
     // const int rank = dims.size();
     hsize_t offset[1], count[1], stride[1], block[1];
-    count[0] = 1;
-    offset[0] = fITurn;
+    count[0] = fBufferTime;
+    offset[0] = fITurn - fBufferTime;
     stride[0] = 1;
     block[0] = 1;
     DataSpace memspace(1, count, NULL);
-
+    // std::cout << fITurn << "\n";
     auto dataset = fH5Group->openDataSet("n_macroparticles_alive");
     auto dataspace = dataset.getSpace();
     dataspace.selectHyperslab(H5S_SELECT_SET, count, offset, stride, block);
-    int temp = fBeam->n_macroparticles_alive();
-    dataset.write(&temp, PredType::NATIVE_INT,
+    dataset.write(b_np_alive.data(), PredType::NATIVE_INT,
                   memspace, dataspace);
 
 
     dataset = fH5Group->openDataSet("mean_dt");
     dataspace = dataset.getSpace();
     dataspace.selectHyperslab(H5S_SELECT_SET, count, offset, stride, block);
-    dataset.write(&fBeam->mean_dt, PredType::NATIVE_DOUBLE,
+    dataset.write(b_mean_dt.data(), PredType::NATIVE_DOUBLE,
                   memspace, dataspace);
 
 
     dataset = fH5Group->openDataSet("mean_dE");
     dataspace = dataset.getSpace();
     dataspace.selectHyperslab(H5S_SELECT_SET, count, offset, stride, block);
-    dataset.write(&fBeam->mean_dE, PredType::NATIVE_DOUBLE,
+    dataset.write(b_mean_dE.data(), PredType::NATIVE_DOUBLE,
                   memspace, dataspace);
 
 
     dataset = fH5Group->openDataSet("sigma_dt");
     dataspace = dataset.getSpace();
     dataspace.selectHyperslab(H5S_SELECT_SET, count, offset, stride, block);
-    dataset.write(&fBeam->sigma_dt, PredType::NATIVE_DOUBLE,
+    dataset.write(b_sigma_dt.data(), PredType::NATIVE_DOUBLE,
                   memspace, dataspace);
 
 
     dataset = fH5Group->openDataSet("sigma_dE");
     dataspace = dataset.getSpace();
     dataspace.selectHyperslab(H5S_SELECT_SET, count, offset, stride, block);
-    dataset.write(&fBeam->sigma_dE, PredType::NATIVE_DOUBLE,
+    dataset.write(b_sigma_dE.data(), PredType::NATIVE_DOUBLE,
                   memspace, dataspace);
 
 
     dataset = fH5Group->openDataSet("epsn_rms_l");
     dataspace = dataset.getSpace();
     dataspace.selectHyperslab(H5S_SELECT_SET, count, offset, stride, block);
-    dataset.write(&fBeam->epsn_rms_l, PredType::NATIVE_DOUBLE,
+    dataset.write(b_epsn_rms.data(), PredType::NATIVE_DOUBLE,
                   memspace, dataspace);
 
     if (fGaussian) {
         dataset = fH5Group->openDataSet("bunch_length_gaussian");
         dataspace = dataset.getSpace();
         dataspace.selectHyperslab(H5S_SELECT_SET, count, offset, stride, block);
-        dataset.write(&fSlices->bl_gauss, PredType::NATIVE_DOUBLE,
+        dataset.write(b_bl_gauss.data(), PredType::NATIVE_DOUBLE,
                       memspace, dataspace);
 
     }
@@ -407,44 +409,44 @@ void BunchMonitor::write_data()
         dataset = fH5Group->openDataSet("PL_omegaRF");
         dataspace = dataset.getSpace();
         dataspace.selectHyperslab(H5S_SELECT_SET, count, offset, stride, block);
-        dataset.write(&fRfP->omega_RF[0][0], PredType::NATIVE_DOUBLE,
+        dataset.write(b_PL_omegaRF.data(), PredType::NATIVE_DOUBLE,
                       memspace, dataspace);
 
         dataset = fH5Group->openDataSet("PL_phiRF");
         dataspace = dataset.getSpace();
         dataspace.selectHyperslab(H5S_SELECT_SET, count, offset, stride, block);
-        dataset.write(&fRfP->phi_RF[0][0], PredType::NATIVE_DOUBLE,
+        dataset.write(b_PL_phiRF.data(), PredType::NATIVE_DOUBLE,
                       memspace, dataspace);
 
         dataset = fH5Group->openDataSet("PL_bunch_phase");
         dataspace = dataset.getSpace();
         dataspace.selectHyperslab(H5S_SELECT_SET, count, offset, stride, block);
-        dataset.write(&fPL->phi_beam, PredType::NATIVE_DOUBLE,
+        dataset.write(b_PL_bunch_phase.data(), PredType::NATIVE_DOUBLE,
                       memspace, dataspace);
 
         dataset = fH5Group->openDataSet("PL_phase_corr");
         dataspace = dataset.getSpace();
         dataspace.selectHyperslab(H5S_SELECT_SET, count, offset, stride, block);
-        dataset.write(&fPL->dphi, PredType::NATIVE_DOUBLE,
+        dataset.write(b_PL_phase_corr.data(), PredType::NATIVE_DOUBLE,
                       memspace, dataspace);
 
         dataset = fH5Group->openDataSet("PL_omegaRF_corr");
         dataspace = dataset.getSpace();
         dataspace.selectHyperslab(H5S_SELECT_SET, count, offset, stride, block);
-        dataset.write(&fPL->domega_RF, PredType::NATIVE_DOUBLE,
+        dataset.write(b_PL_omegaRF_corr.data(), PredType::NATIVE_DOUBLE,
                       memspace, dataspace);
 
 
         dataset = fH5Group->openDataSet("SL_dhiRF");
         dataspace = dataset.getSpace();
         dataspace.selectHyperslab(H5S_SELECT_SET, count, offset, stride, block);
-        dataset.write(&fRfP->dphi_RF[0], PredType::NATIVE_DOUBLE,
+        dataset.write(b_SL_dphiRF.data(), PredType::NATIVE_DOUBLE,
                       memspace, dataspace);
 
         dataset = fH5Group->openDataSet("RL_drho");
         dataspace = dataset.getSpace();
         dataspace.selectHyperslab(H5S_SELECT_SET, count, offset, stride, block);
-        dataset.write(&fPL->drho, PredType::NATIVE_DOUBLE,
+        dataset.write(b_RL_drho.data(), PredType::NATIVE_DOUBLE,
                       memspace, dataspace);
     }
 
@@ -452,19 +454,20 @@ void BunchMonitor::write_data()
         dataset = fH5Group->openDataSet("LHC_noise_FB_factor");
         dataspace = dataset.getSpace();
         dataspace.selectHyperslab(H5S_SELECT_SET, count, offset, stride, block);
-        dataset.write(&fNoiseFB->fX, PredType::NATIVE_DOUBLE,
+        dataset.write(b_LHCnoiseFB_factor.data(), PredType::NATIVE_DOUBLE,
                       memspace, dataspace);
 
 
         dataset = fH5Group->openDataSet("LHC_noise_FB_bl");
         dataspace = dataset.getSpace();
         dataspace.selectHyperslab(H5S_SELECT_SET, count, offset, stride, block);
-        dataset.write(&fNoiseFB->fBlMeas, PredType::NATIVE_DOUBLE,
+        dataset.write(b_LHCnoiseFB_bl.data(), PredType::NATIVE_DOUBLE,
                       memspace, dataspace);
 
 
         // TODO: Particularly test this part
         if (!fNoiseFB->fBlMeasBBB.empty()) {
+            /*
             hsize_t offset[2], count[2], stride[2], block[2];
             const uint size = fNoiseFB->fBlMeasBBB.size();
             count[0] = 1;
@@ -484,10 +487,11 @@ void BunchMonitor::write_data()
             dataset = fH5Group->openDataSet("LHC_noise_FB_bl_bbb");
             dataspace = dataset.getSpace();
             dataspace.selectHyperslab(H5S_SELECT_SET, count, offset, stride, block);
-            dataset.write(temp, PredType::NATIVE_DOUBLE,
+            dataset.write(b_LHCnoiseFB_bl_bbb.data(), PredType::NATIVE_DOUBLE,
                           memspace, dataspace);
 
             delete[] temp;
+            */
         }
 
     }
@@ -496,8 +500,72 @@ void BunchMonitor::write_data()
 
 
 // void BunchMonitor::open(){}
-// void BunchMonitor::init_buffer(){}
-// void BunchMonitor::write_buffer() {}
+void BunchMonitor::init_buffer()
+{
+    b_np_alive.resize(fBufferTime);
+    b_mean_dt.resize(fBufferTime);
+    b_mean_dE.resize(fBufferTime);
+    b_sigma_dt.resize(fBufferTime);
+    b_sigma_dE.resize(fBufferTime);
+    b_epsn_rms.resize(fBufferTime);
+
+    if (fGaussian)
+        b_bl_gauss.resize(fBufferTime);
+
+    if (fPL != NULL) {
+        b_PL_omegaRF.resize(fBufferTime);
+        b_PL_phiRF.resize(fBufferTime);
+        b_PL_bunch_phase.resize(fBufferTime);
+        b_PL_phase_corr.resize(fBufferTime);
+        b_PL_omegaRF_corr.resize(fBufferTime);
+        b_SL_dphiRF.resize(fBufferTime);
+        b_RL_drho.resize(fBufferTime);
+    }
+    if (fNoiseFB != NULL) {
+        b_LHCnoiseFB_factor.resize(fBufferTime);
+        b_LHCnoiseFB_bl.resize(fBufferTime);
+        if (!fNoiseFB->fBlMeasBBB.empty()) {
+            b_LHCnoiseFB_bl_bbb.resize(fBufferTime,
+                                       f_vector_t(fNoiseFB->fBlMeasBBB.size()));
+        }
+    }
+
+}
+
+
+void BunchMonitor::write_buffer()
+{
+
+    int i = fITurn % fBufferTime;
+
+    b_np_alive[i] = fBeam->n_macroparticles_alive();
+    b_mean_dt[i] = fBeam->mean_dt;
+    b_mean_dE[i] = fBeam->mean_dE;
+    b_sigma_dt[i] = fBeam->sigma_dt;
+    b_sigma_dE[i] = fBeam->sigma_dE;
+    b_epsn_rms[i] = fBeam->epsn_rms_l;
+
+    if (fGaussian)
+        b_bl_gauss[i] = fSlices->bl_gauss;
+
+    if (fPL != NULL) {
+        b_PL_omegaRF[i] = fRfP->omega_RF[0][fITurn];
+        b_PL_phiRF[i] = fRfP->phi_RF[0][fITurn];
+        b_PL_bunch_phase[i] = fPL->phi_beam;
+        b_PL_phase_corr[i] = fPL->dphi;
+        b_PL_omegaRF_corr[i] = fPL->domega_RF;
+        b_SL_dphiRF[i] = fRfP->dphi_RF[0];
+        b_RL_drho[i] = fPL->drho;
+    }
+
+    if (fNoiseFB != NULL) {
+        b_LHCnoiseFB_factor[i] = fNoiseFB->fX;
+        b_LHCnoiseFB_bl[i] = fNoiseFB->fBlMeas;
+        if (!fNoiseFB->fBlMeasBBB.empty()) {
+            b_LHCnoiseFB_bl_bbb[i] = fNoiseFB->fBlMeasBBB;
+        }
+    }
+}
 
 void BunchMonitor::close()
 {

@@ -9,11 +9,11 @@
 #include <blond/constants.h>
 #include <blond/math_functions.h>
 
-Beams::Beams(const uint _n_macroparticles, const long long _intensity)
+Beams::Beams(const uint n_macroparticles, const long long intensity)
 {
 
-    this->n_macroparticles = _n_macroparticles;
-    this->intensity = _intensity;
+    this->n_macroparticles = n_macroparticles;
+    this->intensity = intensity;
     this->dt.resize(n_macroparticles);
     this->dE.resize(n_macroparticles);
     this->id = mymath::arange<int>(1, n_macroparticles + 1);
@@ -37,7 +37,7 @@ void Beams::statistics()
     ftype m_dE, m_dt, s_dE, s_dt;
     m_dt = m_dE = s_dE = s_dt = 0;
     uint n = 0;
-    for (uint i = 0; i < n_macroparticles; ++i) {
+    for (int i = 0; i < (int) n_macroparticles; ++i) {
         if (id[i] != 0) {
             m_dE += dE[i];
             m_dt += dt[i];
@@ -46,14 +46,14 @@ void Beams::statistics()
     }
     mean_dE = m_dE /= n;
     mean_dt = m_dt /= n;
-    for (uint i = 0; i < n_macroparticles; ++i) {
+    for (int i = 0; i < (int) n_macroparticles; ++i) {
         if (id[i] != 0) {
             s_dE += (dE[i] - m_dE) * (dE[i] - m_dE);
             s_dt += (dt[i] - m_dt) * (dt[i] - m_dt);
         }
     }
-    sigma_dE = sqrt(s_dE / n);
-    sigma_dt = sqrt(s_dt / n);
+    sigma_dE = std::sqrt(s_dE / n);
+    sigma_dt = std::sqrt(s_dt / n);
 
     epsn_rms_l = constant::pi * sigma_dE * sigma_dt; // in eVs
 

@@ -48,6 +48,24 @@ public:
 };
 
 class API BunchMonitor {
+private:
+    int_vector_t b_np_alive;
+    f_vector_t b_mean_dt;
+    f_vector_t b_mean_dE;
+    f_vector_t b_sigma_dt;
+    f_vector_t b_sigma_dE;
+    f_vector_t b_epsn_rms;
+    f_vector_t b_bl_gauss;
+    f_vector_t b_PL_omegaRF;
+    f_vector_t b_PL_phiRF;
+    f_vector_t b_PL_bunch_phase;
+    f_vector_t b_PL_phase_corr;
+    f_vector_t b_PL_omegaRF_corr;
+    f_vector_t b_SL_dphiRF;
+    f_vector_t b_RL_drho;
+    f_vector_t b_LHCnoiseFB_factor;
+    f_vector_t b_LHCnoiseFB_bl;
+    f_vector_2d_t b_LHCnoiseFB_bl_bbb;
 public:
     H5::H5File *fH5File;
     H5::Group *fH5Group;
@@ -64,8 +82,8 @@ public:
     bool fGaussian;
     void track();
     void init_data(const int dimension);
-    // void init_buffer();
-    // void write_buffer();
+    void init_buffer();
+    void write_buffer();
     void write_data();
     // void open();
     void close();

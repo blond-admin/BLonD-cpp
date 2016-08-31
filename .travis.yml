@@ -34,7 +34,7 @@ addons:
       - liblapack-dev
       - libatlas-base-dev
       - gfortran
-      - libpng12
+      - libpng-dev
       - libfreetype6
 
 install:

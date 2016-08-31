@@ -212,8 +212,7 @@ fi
 
 PYTHON=${INSTALL}/bin/python2.7
 export PATH="${INSTALL}/bin:$PATH"
-# export PYTHONPATH="${BLOND_HOME}/python"
-export LD_LIBRARY_PATH="${INSTALL}/lib:$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH="${INSTALL}/lib:/usr/lib/atlas-base"
 # --------------------------
 # end of Python installation
 # --------------------------
@@ -245,7 +244,6 @@ echo -e "---- Installation of setuptools is completed\n\n"
 
 echo -e "\n\n---- Installing pip.."
 
-# PIP_INSTALLED=`which pip`
 $PYTHON -c "import pip" &> /dev/null
 PIP_INSTALLED=`echo $?`
 if [ "$PIP_INSTALLED" == "1" ]; then
@@ -266,10 +264,13 @@ echo -e "---- Installation of pip is completed\n\n"
 # Python external modules installation
 # -----------------------
 
-#PYTHON_MODULES=( "numpy" )
+#PYTHON_MODULES=( "scipy" )
 PYTHON_MODULES=( "numpy" "scipy" "matplotlib" "h5py" )
 $PYTHON -c "import pip" &> /dev/null
 PIP_INSTALLED=`echo $?`
+export BLAS=/usr/lib/libblas.so
+export LAPACK=/usr/lib/liblapack.so
+export ATLAS=/usr/lib/atlas-base/libatlas.so
 
 if [ "$PIP_INSTALLED" == "1" ]; then
    echo -e "\n\n---- PIP is needed in order to install required python modules"
@@ -286,9 +287,11 @@ else
           $PYTHON -m pip install \
           --target="${INSTALL}/lib/python2.7/site-packages" \
           --global-option=build_ext \
-          --global-option="-L/usr/lib" \
+          --global-option="-L/usr/lib/" \
+          --global-option="-L/usr/lib/atlas-base/" \
           --global-option="-L${INSTALL}/lib" \
-          ${module}
+          --global-option="-I${INSTALL}/include" \
+          ${module} &>> $log
       fi
       echo -e "---- Installation of ${module} is completed\n\n"
    done

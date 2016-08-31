@@ -29,14 +29,13 @@ addons:
       - lcov
       - doxygen
       - graphviz
-      # - python-dev
-      - python-pandas
-      - python-sympy
-      - python-nose
+      - python-dev
       - libopenblas-dev
       - liblapack-dev
-      - libatlas-dev
-      # - libblas-dev
+      - libatlas-base-dev
+      - gfortran
+      - libpng12
+      - libfreetype6
 
 install:
   - pip install --user cpp-coveralls

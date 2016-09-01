@@ -18,27 +18,25 @@ addons:
     sources:
       - ubuntu-toolchain-r-test
       - george-edison55-precise-backports
-      # - libreoffice/libreoffice-4-2
     packages:
       - cmake
       - cmake-data
       - gcc-4.8
       - g++-4.8
-      # - valgrind
-      # - gcov-4.8
       - lcov
       - doxygen
       - graphviz
-      - python-dev
-      - libopenblas-dev
-      - liblapack-dev
-      - libatlas-base-dev
+      # - python-dev
+      # - libopenblas-dev
+      # - liblapack-dev
+      # - libatlas-base-dev
       - gfortran
       - libpng-dev
       - libfreetype6
 
 install:
   - pip install --user cpp-coveralls
+  - pip install --user virtualenv
 
 cache:
   - apt
@@ -47,8 +45,9 @@ cache:
 before_install:
   - export CC=/usr/bin/gcc-4.8
   - export CXX=/usr/bin/g++-4.8
-  - export PYTHONPATH="$(pwd)/python/:$PYTHONPATH"
-  - export PATH="$(pwd)/external/install/bin/:$PATH"
+  # - export PYTHONPATH="$(pwd)/python/:$PYTHONPATH"
+  # - export PATH="$(pwd)/external/install/bin/:$PATH"
+
 before_script:
   - bash install-linux.sh
   - mkdir build
@@ -57,7 +56,7 @@ before_script:
   - cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
 
 script:
-  - cmake --build . -- -j2 VERBOSE=1
+  - cmake --build . -- -j2
   - ctest -VV
 
 after_success:

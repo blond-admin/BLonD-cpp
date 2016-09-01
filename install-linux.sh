@@ -222,7 +222,8 @@ fi
 # PYTHON=${INSTALL}/bin/python
 virtualenv --python=${PYTHON} ${INSTALL}
 source ${INSTALL}/bin/activate
-pip install -r ${EXTERNAL}/python-packages.txt 
+pip install -r ${EXTERNAL}/python-packages.txt
+export PYTHONPATH="${BLOND_HOME}/python:$PYTHONPATH"
 
 # export LD_LIBRARY_PATH="${INSTALL}/lib:/usr/lib/atlas-base"
 # --------------------------

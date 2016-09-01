@@ -218,17 +218,38 @@ else
    PYTHON="python"
 fi
 
-# pip install --user virtualenv
-# PYTHON=${INSTALL}/bin/python
-virtualenv --python=${PYTHON} ${INSTALL}
-source ${INSTALL}/bin/activate
-pip install -r ${EXTERNAL}/python-packages.txt
-export PYTHONPATH="${BLOND_HOME}/python:$PYTHONPATH"
 
-# export LD_LIBRARY_PATH="${INSTALL}/lib:/usr/lib/atlas-base"
 # --------------------------
 # end of Python installation
 # --------------------------
+
+
+# -----------------------
+# Python external modules installation
+# -----------------------
+PIP_INSTALLED=`echo $?`
+if [ "$PIP_INSTALLED" == "1" ]; then
+   echo -e "\n\n---- PIP is needed in order to install required python modules"
+   echo -e "---- If you are on Fedora/CentOS/RHEL try: yum install python-pip"
+   echo -e "---- If you are on Debian/Ubuntu try: apt-get install python-pip"
+   echo -e "---- and then re-run this script."
+   echo -e "---- For more information, please visit this site: https://packaging.python.org/install_requirements_linux/ \n\n"
+else
+   echo -e "\n\n---- Installing Python's external modules..."
+   pip install --user virtualenv 2>> $log
+   virtualenv --python=${PYTHON} ${INSTALL} &>> $log
+   source ${INSTALL}/bin/activate &>> $log
+   pip install -r ${EXTERNAL}/python-packages.txt 2>> $log
+   export PYTHONPATH="${BLOND_HOME}/python:$PYTHONPATH"
+   echo -e "\n\n---- Python's external modules have been installed successfully\n\n"
+fi
+# ----------------------------------
+# end of Python Modules installation
+# ----------------------------------
+
+
+
+# export LD_LIBRARY_PATH="${INSTALL}/lib:/usr/lib/atlas-base"
 
 # cd ${EXTERNAL}
 

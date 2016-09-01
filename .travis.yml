@@ -26,17 +26,13 @@ addons:
       - lcov
       - doxygen
       - graphviz
-      # - python-dev
-      # - libopenblas-dev
-      # - liblapack-dev
-      # - libatlas-base-dev
       - gfortran
       - libpng-dev
       - libfreetype6
 
 install:
   - pip install --user cpp-coveralls
-  - pip install --user virtualenv
+  # - pip install --user virtualenv
 
 cache:
   - apt
@@ -45,8 +41,6 @@ cache:
 before_install:
   - export CC=/usr/bin/gcc-4.8
   - export CXX=/usr/bin/g++-4.8
-  # - export PYTHONPATH="$(pwd)/python/:$PYTHONPATH"
-  # - export PATH="$(pwd)/external/install/bin/:$PATH"
 
 before_script:
   - source install-linux.sh
@@ -60,9 +54,7 @@ script:
   - ctest -VV
 
 after_success:
- # - coveralls --help
  - coveralls --gcov gcov-4.8  --root .. -E ".*external.*" -E ".*CMakeFiles.*" -E ".*unit-tests/.*.cpp.*" -E "/usr/include/.*"
- # - ./TC1_Acceleration --threads 4
  - if [ "$BUILD_TYPE" == "Debug" ]; then
      cd ../ ;
      doxygen Doxyfile ;

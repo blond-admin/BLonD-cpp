@@ -2,7 +2,7 @@
 
 echo -e "Installing necessary libraries...\n"
 
-BLOND_HOME=$(pwd)
+BLOND_HOME="$(pwd)"
 EXTERNAL="${BLOND_HOME}/external"
 INSTALL="${EXTERNAL}/install"
 log="${EXTERNAL}/log.out"
@@ -172,59 +172,64 @@ cd ${BLOND_HOME}
 # -------------------
 # Python installation
 # -------------------
+# PY_VERSION=$(which python &>/dev/null && python --version 2>&1 || false)
+PY_VERSION=$(which python 2>/dev/null)
+if [ -z ${PY_VERSION} ]; then
 
-# if [ -e ${INSTALL}/include/python2.7/Python.h ] && [ -e ${INSTALL}/lib/python2.7/config/libpython2.7.a ]; then
-#    echo -e "\n\n---- Looks like Python2.7 is already installed,"
-#    echo -e "---- are you sure you want to reinstall it?"
-#    select yn in "Yes" "No"; do
-#       case $yn in
-#          Yes ) INSTALL_PYTHON=true; break;;
-#          No ) INSTALL_PYTHON=false; break;;
-#       esac
-#    done
-# fi
+   if [ -e ${INSTALL}/include/python2.7/Python.h ] && [ -e ${INSTALL}/lib/python2.7/config/libpython2.7.a ]; then
+      echo -e "\n\n---- Looks like Python2.7 is already installed,"
+      echo -e "---- are you sure you want to reinstall it?"
+      select yn in "Yes" "No"; do
+         case $yn in
+            Yes ) INSTALL_PYTHON=true; break;;
+            No ) INSTALL_PYTHON=false; break;;
+         esac
+      done
+   fi
 
+   if [ "${INSTALL_PYTHON}" = "true" ] ; then
+      echo -e "\n\n---- Installing Python2.7\n\n"
+      wget https://www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz -O${EXTERNAL}/tmp/Python-2.7.12.tgz
+      tar -xzvf ${EXTERNAL}/tmp/Python-2.7.12.tgz -C${EXTERNAL}/ &>> $log
+      cd ${EXTERNAL}/Python-2.7.12
+      ./configure --enable-unicode=ucs4 \
+                  --with-threads \
+                  --enable-shared \
+                  --prefix="$(pwd)" &>> $log
+      make &>> $log
+      make install &>> $log
 
-# if [ "${INSTALL_PYTHON}" = "true" ] ; then
-#    echo -e "\n\n---- Installing Python2.7\n\n"
-#    wget https://www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz -O${EXTERNAL}/tmp/Python-2.7.12.tgz
-#    tar -xzvf ${EXTERNAL}/tmp/Python-2.7.12.tgz -C${EXTERNAL}/tmp &>> $log
-#    cd ${EXTERNAL}/tmp/Python-2.7.12
-#    ./configure --enable-unicode=ucs4 \
-#                --with-threads \
-#                --enable-shared \
-#                --prefix="$(pwd)" &>> $log
-#    make &>> $log
-#    make install &>> $log
+      # export PATH="${INSTALL}/bin:$PATH"
+      cd ${BLOND_HOME}
 
-#    cd ${BLOND_HOME}
+      if [ -e ${INSTALL}/include/python2.7/Python.h ] && [ -e ${INSTALL}/lib/python2.7/config/libpython2.7.a ]; then
+         echo -e "---- Python has been installed successfully\n\n"
+         PYTHON="${INSTALL}/Python-2.7.12/bin/python"
+      else
+         echo -e "\n\n---- Python has failed to install successfully"
+         echo -e "---- You will have to manually install this library"
+         echo -e "---- into directory ${BLOND_HOME}/external/install\n\n"
+      fi
 
-#    if [ -e ${INSTALL}/include/python2.7/Python.h ] && [ -e ${INSTALL}/lib/python2.7/config/libpython2.7.a ]; then
-#       echo -e "---- Python has been installed successfully\n\n"
-#    else
-#       echo -e "\n\n---- Python has failed to install successfully"
-#       echo -e "---- You will have to manually install this library"
-#       echo -e "---- into directory ${BLOND_HOME}/external/install\n\n"
-#    fi
+      #echo -e "---- Installing of Python2.7 is completed\n\n"
+   fi
 
-#    #echo -e "---- Installing of Python2.7 is completed\n\n"
-# fi
-
+else
+   PYTHON="python"
+fi
 
 # pip install --user virtualenv
 # PYTHON=${INSTALL}/bin/python
-virtualenv ${INSTALL}
+virtualenv --python=${PYTHON} ${INSTALL}
+source ${INSTALL}/bin/activate
+pip install -r ${EXTERNAL}/python-packages.txt 
 
-
-export PATH="${INSTALL}/bin:$PATH"
-export LD_LIBRARY_PATH="${INSTALL}/lib:/usr/lib/atlas-base"
+# export LD_LIBRARY_PATH="${INSTALL}/lib:/usr/lib/atlas-base"
 # --------------------------
 # end of Python installation
 # --------------------------
 
 # cd ${EXTERNAL}
-source ${INSTALL}/bin/activate
-pip install -r ${EXTERNAL}/python-packages.txt 
 
 
 # ------------------------------
@@ -315,5 +320,5 @@ echo -e "\n\n---- Exteranl depedencies installation procedure completed"
 echo -e "---- You may now try to build the project :)"
 echo -e "---- You can consult the ${log} file for any errors\n\n"
 
-# rm -rf ${EXTERNAL}/tmp &> /dev/null
+rm -rf ${EXTERNAL}/tmp &> /dev/null
 # rm -rf ${BLOND_HOME}/setuptools-*.zip &> /dev/null

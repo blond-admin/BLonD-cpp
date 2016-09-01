@@ -173,65 +173,73 @@ cd ${BLOND_HOME}
 # Python installation
 # -------------------
 
-if [ -e ${INSTALL}/include/python2.7/Python.h ] && [ -e ${INSTALL}/lib/python2.7/config/libpython2.7.a ]; then
-   echo -e "\n\n---- Looks like Python2.7 is already installed,"
-   echo -e "---- are you sure you want to reinstall it?"
-   select yn in "Yes" "No"; do
-      case $yn in
-         Yes ) INSTALL_PYTHON=true; break;;
-         No ) INSTALL_PYTHON=false; break;;
-      esac
-   done
-fi
+# if [ -e ${INSTALL}/include/python2.7/Python.h ] && [ -e ${INSTALL}/lib/python2.7/config/libpython2.7.a ]; then
+#    echo -e "\n\n---- Looks like Python2.7 is already installed,"
+#    echo -e "---- are you sure you want to reinstall it?"
+#    select yn in "Yes" "No"; do
+#       case $yn in
+#          Yes ) INSTALL_PYTHON=true; break;;
+#          No ) INSTALL_PYTHON=false; break;;
+#       esac
+#    done
+# fi
 
 
-if [ "${INSTALL_PYTHON}" = "true" ] ; then
-   echo -e "\n\n---- Installing Python2.7\n\n"
-   wget https://www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz -O${EXTERNAL}/tmp/Python-2.7.12.tgz
-   tar -xzvf ${EXTERNAL}/tmp/Python-2.7.12.tgz -C${EXTERNAL}/tmp &>> $log
-   cd ${EXTERNAL}/tmp/Python-2.7.12
-   ./configure --enable-unicode=ucs4 \
-               --with-threads \
-               --enable-shared \
-               --prefix="${INSTALL}" &>> $log
-   make &>> $log
-   make install &>> $log
+# if [ "${INSTALL_PYTHON}" = "true" ] ; then
+#    echo -e "\n\n---- Installing Python2.7\n\n"
+#    wget https://www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz -O${EXTERNAL}/tmp/Python-2.7.12.tgz
+#    tar -xzvf ${EXTERNAL}/tmp/Python-2.7.12.tgz -C${EXTERNAL}/tmp &>> $log
+#    cd ${EXTERNAL}/tmp/Python-2.7.12
+#    ./configure --enable-unicode=ucs4 \
+#                --with-threads \
+#                --enable-shared \
+#                --prefix="$(pwd)" &>> $log
+#    make &>> $log
+#    make install &>> $log
 
-   cd ${BLOND_HOME}
+#    cd ${BLOND_HOME}
 
-   if [ -e ${INSTALL}/include/python2.7/Python.h ] && [ -e ${INSTALL}/lib/python2.7/config/libpython2.7.a ]; then
-      echo -e "---- Python has been installed successfully\n\n"
-   else
-      echo -e "\n\n---- Python has failed to install successfully"
-      echo -e "---- You will have to manually install this library"
-      echo -e "---- into directory ${BLOND_HOME}/external/install\n\n"
-   fi
+#    if [ -e ${INSTALL}/include/python2.7/Python.h ] && [ -e ${INSTALL}/lib/python2.7/config/libpython2.7.a ]; then
+#       echo -e "---- Python has been installed successfully\n\n"
+#    else
+#       echo -e "\n\n---- Python has failed to install successfully"
+#       echo -e "---- You will have to manually install this library"
+#       echo -e "---- into directory ${BLOND_HOME}/external/install\n\n"
+#    fi
 
-   #echo -e "---- Installing of Python2.7 is completed\n\n"
-fi
+#    #echo -e "---- Installing of Python2.7 is completed\n\n"
+# fi
 
-PYTHON=${INSTALL}/bin/python2.7
+
+# pip install --user virtualenv
+# PYTHON=${INSTALL}/bin/python
+virtualenv ${INSTALL}
+
+
 export PATH="${INSTALL}/bin:$PATH"
 export LD_LIBRARY_PATH="${INSTALL}/lib:/usr/lib/atlas-base"
 # --------------------------
 # end of Python installation
 # --------------------------
 
+# cd ${EXTERNAL}
+source ${INSTALL}/bin/activate
+pip install -r ${EXTERNAL}/python-packages.txt 
 
 
 # ------------------------------
 # Python setuptools installation
 # ------------------------------
-echo -e "\n\n---- Installing setuptools.."
+# echo -e "\n\n---- Installing setuptools.."
 
-$PYTHON -c "import setuptools" &> /dev/null
-SETUPTOOLS_INSTALLED=`echo $?`
-if [ "$SETUPTOOLS_INSTALLED" == "1" ]; then
-    wget --no-check-certificate https://bootstrap.pypa.io/ez_setup.py -O${EXTERNAL}/tmp/ez_setup.py
-    $PYTHON ${EXTERNAL}/tmp/ez_setup.py --insecure &>> $log
-fi
+# $PYTHON -c "import setuptools" &> /dev/null
+# SETUPTOOLS_INSTALLED=`echo $?`
+# if [ "$SETUPTOOLS_INSTALLED" == "1" ]; then
+#     wget --no-check-certificate https://bootstrap.pypa.io/ez_setup.py -O${EXTERNAL}/tmp/ez_setup.py
+#     $PYTHON ${EXTERNAL}/tmp/ez_setup.py --insecure &>> $log
+# fi
 
-echo -e "---- Installation of setuptools is completed\n\n"
+# echo -e "---- Installation of setuptools is completed\n\n"
 
 # ------------------------------
 # End of setuptools installation
@@ -242,18 +250,18 @@ echo -e "---- Installation of setuptools is completed\n\n"
 # Python pip installation
 # -----------------------
 
-echo -e "\n\n---- Installing pip.."
+# echo -e "\n\n---- Installing pip.."
 
-$PYTHON -c "import pip" &> /dev/null
-PIP_INSTALLED=`echo $?`
-if [ "$PIP_INSTALLED" == "1" ]; then
-   wget https://pypi.python.org/packages/e7/a8/7556133689add8d1a54c0b14aeff0acb03c64707ce100ecd53934da1aa13/pip-8.1.2.tar.gz -O${EXTERNAL}/tmp/pip-8.1.2.tar.gz
-   tar -xzvf ${EXTERNAL}/tmp/pip-8.1.2.tar.gz -C${EXTERNAL}/tmp &>> $log
-   cd ${EXTERNAL}/tmp/pip-8.1.2
-   $PYTHON setup.py install --prefix="${INSTALL}" &>> ${log}
-fi
+# $PYTHON -c "import pip" &> /dev/null
+# PIP_INSTALLED=`echo $?`
+# if [ "$PIP_INSTALLED" == "1" ]; then
+#    wget https://pypi.python.org/packages/e7/a8/7556133689add8d1a54c0b14aeff0acb03c64707ce100ecd53934da1aa13/pip-8.1.2.tar.gz -O${EXTERNAL}/tmp/pip-8.1.2.tar.gz
+#    tar -xzvf ${EXTERNAL}/tmp/pip-8.1.2.tar.gz -C${EXTERNAL}/tmp &>> $log
+#    cd ${EXTERNAL}/tmp/pip-8.1.2
+#    $PYTHON setup.py install --prefix="${INSTALL}" &>> ${log}
+# fi
 
-echo -e "---- Installation of pip is completed\n\n"
+# echo -e "---- Installation of pip is completed\n\n"
 
 # -----------------------
 # End of pip installation
@@ -265,37 +273,37 @@ echo -e "---- Installation of pip is completed\n\n"
 # -----------------------
 
 #PYTHON_MODULES=( "scipy" )
-PYTHON_MODULES=( "numpy" "scipy" "matplotlib" "h5py" )
-$PYTHON -c "import pip" &> /dev/null
-PIP_INSTALLED=`echo $?`
-export BLAS=/usr/lib/libblas.so
-export LAPACK=/usr/lib/liblapack.so
-export ATLAS=/usr/lib/atlas-base/libatlas.so
+# PYTHON_MODULES=( "numpy" "scipy" "matplotlib" "h5py" )
+# $PYTHON -c "import pip" &> /dev/null
+# PIP_INSTALLED=`echo $?`
+# export BLAS=/usr/lib/libblas.so
+# export LAPACK=/usr/lib/liblapack.so
+# export ATLAS=/usr/lib/atlas-base/libatlas.so
 
-if [ "$PIP_INSTALLED" == "1" ]; then
-   echo -e "\n\n---- PIP is needed in order to install required python modules"
-   echo -e "---- If you are on Fedora/CentOS/RHEL try: yum install python-pip"
-   echo -e "---- If you are on Debian/Ubuntu try: apt-get install python-pip"
-   echo -e "---- and then re-run this script."
-   echo -e "---- For more information, please visit this site: https://packaging.python.org/install_requirements_linux/ \n\n"
-else
-   for module in "${PYTHON_MODULES[@]}"; do
-      echo -e "\n\n---- Installing ${module}"
-      $PYTHON -c "import $module" &> /dev/null
-      IS_INSTALLED=`echo $?`
-      if [ "$IS_INSTALLED" == "1" ]; then
-          $PYTHON -m pip install \
-          --target="${INSTALL}/lib/python2.7/site-packages" \
-          --global-option=build_ext \
-          --global-option="-L/usr/lib/" \
-          --global-option="-L/usr/lib/atlas-base/" \
-          --global-option="-L${INSTALL}/lib" \
-          --global-option="-I${INSTALL}/include" \
-          ${module} &>> $log
-      fi
-      echo -e "---- Installation of ${module} is completed\n\n"
-   done
-fi
+# if [ "$PIP_INSTALLED" == "1" ]; then
+#    echo -e "\n\n---- PIP is needed in order to install required python modules"
+#    echo -e "---- If you are on Fedora/CentOS/RHEL try: yum install python-pip"
+#    echo -e "---- If you are on Debian/Ubuntu try: apt-get install python-pip"
+#    echo -e "---- and then re-run this script."
+#    echo -e "---- For more information, please visit this site: https://packaging.python.org/install_requirements_linux/ \n\n"
+# else
+#    for module in "${PYTHON_MODULES[@]}"; do
+#       echo -e "\n\n---- Installing ${module}"
+#       $PYTHON -c "import $module" &> /dev/null
+#       IS_INSTALLED=`echo $?`
+#       if [ "$IS_INSTALLED" == "1" ]; then
+#           $PYTHON -m pip install \
+#           --target="${INSTALL}/lib/python2.7/site-packages" \
+#           --global-option=build_ext \
+#           --global-option="-L/usr/lib/" \
+#           --global-option="-L/usr/lib/atlas-base/" \
+#           --global-option="-L${INSTALL}/lib" \
+#           --global-option="-I${INSTALL}/include" \
+#           ${module} &>> $log
+#       fi
+#       echo -e "---- Installation of ${module} is completed\n\n"
+#    done
+# fi
 
 
 # ----------------------------------
@@ -307,5 +315,5 @@ echo -e "\n\n---- Exteranl depedencies installation procedure completed"
 echo -e "---- You may now try to build the project :)"
 echo -e "---- You can consult the ${log} file for any errors\n\n"
 
-rm -rf ${EXTERNAL}/tmp &> /dev/null
-rm -rf ${BLOND_HOME}/setuptools-*.zip &> /dev/null
+# rm -rf ${EXTERNAL}/tmp &> /dev/null
+# rm -rf ${BLOND_HOME}/setuptools-*.zip &> /dev/null

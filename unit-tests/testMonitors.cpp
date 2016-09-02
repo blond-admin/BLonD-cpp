@@ -344,6 +344,92 @@ TEST_F(testMonitors, BunchMonitor2)
 
 
 
+
+
+    std::remove(filename);
+}
+
+
+// TODO: test the LHC_noise_FB_bl_bbb dataset
+TEST_F(testMonitors, BunchMonitor3)
+{
+    auto GP = Context::GP;
+    auto RfP = Context::RfP;
+    auto beam = Context::Beam;
+    auto epsilon = 1e-6;
+    std::string params =
+        TEST_FILES "/Monitors/BunchMonitor3/";
+    auto filename = "bunch.h5";
+
+    longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
+    auto slice = Slices(N_slices);
+    auto PL_gain = 1.0 / (5 * GP->t_rev[0]);
+    auto SL_gain = PL_gain / 10.0;
+    f_vector_t PL_gainVec(N_t + 1 , PL_gain);
+    auto PL = LHC(PL_gainVec, SL_gain);
+
+    auto noiseFB = LHCNoiseFB(1e-8, 0.1e9, 0.93, 100, true, {10, 20, 30});
+
+    auto bunchmonitor = BunchMonitor(GP, RfP, beam, filename,
+                                     100, &slice, &PL, &noiseFB);
+    auto tracker = RingAndRfSection();
+
+    for (int i = 0; i < N_t; i++) {
+        tracker.track();
+        slice.track();
+        bunchmonitor.track();
+    }
+    bunchmonitor.track();
+    bunchmonitor.close();
+
+    hsize_t dimsPy[1];
+    hsize_t dimsCpp[1];
+
+    double *real = (double *) read_1D(filename,
+                                      "Beam/LHC_noise_FB_factor",
+                                      "double", dimsCpp);
+    float *ref = (float *) read_1D(params + filename,
+                                   "Beam/LHC_noise_FB_factor",
+                                   "float", dimsPy);
+    ASSERT_EQ(dimsCpp[0], dimsPy[0]);
+    for (uint i = 0; i < dimsCpp[0]; i++)
+        ASSERT_NEAR(ref[i], real[i], epsilon *
+                    std::max((double)std::abs(ref[i]), std::abs(real[i])))
+                << "Testing of LHC_noise_FB_factor failed on i " << i << '\n';
+
+    free(ref); free(real);
+
+
+    real = (double *) read_1D(filename,
+                              "Beam/LHC_noise_FB_bl",
+                              "double", dimsCpp);
+    ref = (float *) read_1D(params + filename,
+                            "Beam/LHC_noise_FB_bl",
+                            "float", dimsPy);
+    ASSERT_EQ(dimsCpp[0], dimsPy[0]);
+    for (uint i = 0; i < dimsCpp[0]; ++i)
+        ASSERT_NEAR(ref[i], real[i], epsilon *
+                    std::max((double)std::abs(ref[i]), std::abs(real[i])))
+                << "Testing of LHC_noise_FB_bl failed on i " << i << '\n';
+    free(real); free(ref);
+
+
+    // hsize_t dimsCpp2[2];
+    // hsize_t dimsPy2[2];
+    // real = (double *) read_2D(filename, "Beam/LHC_noise_FB_bl_bbb",
+    //                           "double", dimsCpp2);
+    // ref = (float *) read_2D(params + filename, "Beam/LHC_noise_FB_bl_bbb",
+    //                         "float", dimsPy2);
+
+    // for (int i = 0; i < 2; i++) ASSERT_EQ(dimsCpp2[i], dimsPy2[i]);
+
+    // for (uint i = 0; i < dimsCpp2[0] * dimsCpp2[1]; i++)
+    //     ASSERT_NEAR(ref[i], real[i], epsilon *
+    //                 std::max((double)std::abs(ref[i]), std::abs(real[i])))
+    //             << "Testing of LHC_noise_FB_bl_bbb failed on i " << i << '\n';
+
+
+    // free(real); free(ref);
     std::remove(filename);
 }
 

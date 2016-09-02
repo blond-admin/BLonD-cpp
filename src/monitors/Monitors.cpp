@@ -178,7 +178,7 @@ BunchMonitor::~BunchMonitor()
 void BunchMonitor::track()
 {
     fBeam->statistics();
-    if(fITurn <= fNTurns)
+    if (fITurn <= fNTurns)
         write_buffer();
     fITurn++;
     if (fITurn > 0 && fITurn % fBufferTime == 0) {
@@ -325,13 +325,15 @@ void BunchMonitor::init_data(int dimension)
         dataset.write(doubleV.data(), PredType::NATIVE_DOUBLE);
 
         if (!fNoiseFB->fBlMeasBBB.empty()) {
-            hsize_t dim[1], chunk[1];
-            dim[0] = fNoiseFB->fBlMeasBBB.size();
-            chunk[0] = dim[0];
+            hsize_t dim[2], chunk[2];
+            dim[1] = fNoiseFB->fBlMeasBBB.size();
+            dim[0] = dimension;
+            chunk[0] = dimension / 10;
+            chunk[1] = 1;
 
-            DataSpace dataspace(1, dim);
+            DataSpace dataspace(2, dim);
             DSetCreatPropList plist;
-            plist.setChunk(1, chunk);
+            plist.setChunk(2, chunk);
             plist.setDeflate(9);
 
             dataset = fH5Group->createDataSet("LHC_noise_FB_bl_bbb",
@@ -467,7 +469,7 @@ void BunchMonitor::write_data()
 
         // TODO: Particularly test this part
         if (!fNoiseFB->fBlMeasBBB.empty()) {
-            /*
+
             hsize_t offset[2], count[2], stride[2], block[2];
             const uint size = fNoiseFB->fBlMeasBBB.size();
             count[0] = 1;
@@ -479,19 +481,19 @@ void BunchMonitor::write_data()
 
             DataSpace memspace(2, count, NULL);
 
-            auto temp = new ftype[size];
-            for (uint i = 0; i < size; i++)
-                temp[i] = fNoiseFB->fBlMeasBBB[i];
+            auto temp = new double[fBufferTime * size];
+            for (int i = 0; i < fBufferTime; i++)
+                for (uint j = 0; j < size; j++)
+                    temp[i * size + j] = b_LHCnoiseFB_bl_bbb[i][j];
 
 
             dataset = fH5Group->openDataSet("LHC_noise_FB_bl_bbb");
             dataspace = dataset.getSpace();
             dataspace.selectHyperslab(H5S_SELECT_SET, count, offset, stride, block);
-            dataset.write(b_LHCnoiseFB_bl_bbb.data(), PredType::NATIVE_DOUBLE,
+            dataset.write(temp, PredType::NATIVE_DOUBLE,
                           memspace, dataspace);
 
             delete[] temp;
-            */
         }
 
     }
@@ -524,10 +526,8 @@ void BunchMonitor::init_buffer()
     if (fNoiseFB != NULL) {
         b_LHCnoiseFB_factor.resize(fBufferTime);
         b_LHCnoiseFB_bl.resize(fBufferTime);
-        if (!fNoiseFB->fBlMeasBBB.empty()) {
-            b_LHCnoiseFB_bl_bbb.resize(fBufferTime,
-                                       f_vector_t(fNoiseFB->fBlMeasBBB.size()));
-        }
+        if (!fNoiseFB->fBlMeasBBB.empty())
+            b_LHCnoiseFB_bl_bbb.resize(fBufferTime);
     }
 
 }
@@ -561,9 +561,8 @@ void BunchMonitor::write_buffer()
     if (fNoiseFB != NULL) {
         b_LHCnoiseFB_factor[i] = fNoiseFB->fX;
         b_LHCnoiseFB_bl[i] = fNoiseFB->fBlMeas;
-        if (!fNoiseFB->fBlMeasBBB.empty()) {
+        if (!fNoiseFB->fBlMeasBBB.empty())
             b_LHCnoiseFB_bl_bbb[i] = fNoiseFB->fBlMeasBBB;
-        }
     }
 }
 

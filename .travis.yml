@@ -32,7 +32,6 @@ addons:
 
 install:
   - pip install --user cpp-coveralls
-  # - pip install --user virtualenv
 
 cache:
   - apt

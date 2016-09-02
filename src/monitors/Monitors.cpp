@@ -178,9 +178,9 @@ BunchMonitor::~BunchMonitor()
 void BunchMonitor::track()
 {
     fBeam->statistics();
-    write_buffer();
+    if(fITurn <= fNTurns)
+        write_buffer();
     fITurn++;
-
     if (fITurn > 0 && fITurn % fBufferTime == 0) {
         write_data();
         // init_buffer();
@@ -437,7 +437,7 @@ void BunchMonitor::write_data()
                       memspace, dataspace);
 
 
-        dataset = fH5Group->openDataSet("SL_dhiRF");
+        dataset = fH5Group->openDataSet("SL_dphiRF");
         dataspace = dataset.getSpace();
         dataspace.selectHyperslab(H5S_SELECT_SET, count, offset, stride, block);
         dataset.write(b_SL_dphiRF.data(), PredType::NATIVE_DOUBLE,

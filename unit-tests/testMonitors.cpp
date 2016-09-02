@@ -228,6 +228,7 @@ TEST_F(testMonitors, BunchMonitor2)
     auto slice = Slices(N_slices);
     auto PL_gain = 1.0 / (5 * GP->t_rev[0]);
     auto SL_gain = PL_gain / 10.0;
+    f_vector_t PL_gainVec(N_t + 1 , PL_gain);
     auto PL = LHC(PL_gainVec, SL_gain);
     auto bunchmonitor = BunchMonitor(GP, RfP, beam, filename,
                                      100, &slice, &PL);
@@ -236,6 +237,7 @@ TEST_F(testMonitors, BunchMonitor2)
     for (int i = 0; i < N_t; i++) {
         tracker.track();
         slice.track();
+        // std::cout << "round " << i << "\n";
         bunchmonitor.track();
     }
     bunchmonitor.track();
@@ -247,24 +249,24 @@ TEST_F(testMonitors, BunchMonitor2)
     double *real = (double *) read_1D(filename,
                                       "Beam/PL_omegaRF",
                                       "double", dimsCpp);
-    float *ref = (float *) read_1D(params + filename,
-                                   "Beam/PL_omegaRF",
-                                   "float", dimsPy);
+    double *refD = (double *) read_1D(params + filename,
+                                      "Beam/PL_omegaRF",
+                                      "double", dimsPy);
     ASSERT_EQ(dimsCpp[0], dimsPy[0]);
     for (uint i = 0; i < dimsCpp[0]; i++)
-        ASSERT_NEAR(ref[i], real[i], epsilon *
-                    std::max((double)std::abs(ref[i]), std::abs(real[i])))
+        ASSERT_NEAR(refD[i], real[i], epsilon *
+                    std::max((double)std::abs(refD[i]), std::abs(real[i])))
                 << "Testing of PL_omegaRF failed on i " << i << '\n';
 
-    free(ref); free(real);
+    free(refD); free(real);
 
 
     real = (double *) read_1D(filename,
-                               "Beam/PL_phiRF",
-                               "double", dimsCpp);
-    ref = (float *) read_1D(params + filename,
-                            "Beam/PL_phiRF",
-                            "float", dimsPy);
+                              "Beam/PL_phiRF",
+                              "double", dimsCpp);
+    float *ref = (float *) read_1D(params + filename,
+                                   "Beam/PL_phiRF",
+                                   "float", dimsPy);
     ASSERT_EQ(dimsCpp[0], dimsPy[0]);
     for (uint i = 0; i < dimsCpp[0]; ++i)
         ASSERT_NEAR(ref[i], real[i], epsilon *
@@ -274,8 +276,8 @@ TEST_F(testMonitors, BunchMonitor2)
 
 
     real = (double *) read_1D(filename,
-                               "Beam/PL_bunch_phase",
-                               "double", dimsCpp);
+                              "Beam/PL_bunch_phase",
+                              "double", dimsCpp);
     ref = (float *) read_1D(params + filename,
                             "Beam/PL_bunch_phase",
                             "float", dimsPy);
@@ -288,8 +290,8 @@ TEST_F(testMonitors, BunchMonitor2)
 
 
     real = (double *) read_1D(filename,
-                               "Beam/PL_phase_corr",
-                               "double", dimsCpp);
+                              "Beam/PL_phase_corr",
+                              "double", dimsCpp);
     ref = (float *) read_1D(params + filename,
                             "Beam/PL_phase_corr",
                             "float", dimsPy);
@@ -301,8 +303,8 @@ TEST_F(testMonitors, BunchMonitor2)
     free(real); free(ref);
 
     real = (double *) read_1D(filename,
-                               "Beam/PL_omegaRF_corr",
-                               "double", dimsCpp);
+                              "Beam/PL_omegaRF_corr",
+                              "double", dimsCpp);
     ref = (float *) read_1D(params + filename,
                             "Beam/PL_omegaRF_corr",
                             "float", dimsPy);
@@ -314,8 +316,8 @@ TEST_F(testMonitors, BunchMonitor2)
     free(real); free(ref);
 
     real = (double *) read_1D(filename,
-                               "Beam/SL_dphiRF",
-                               "double", dimsCpp);
+                              "Beam/SL_dphiRF",
+                              "double", dimsCpp);
     ref = (float *) read_1D(params + filename,
                             "Beam/SL_dphiRF",
                             "float", dimsPy);
@@ -328,8 +330,8 @@ TEST_F(testMonitors, BunchMonitor2)
 
 
     real = (double *) read_1D(filename,
-                               "Beam/RL_drho",
-                               "double", dimsCpp);
+                              "Beam/RL_drho",
+                              "double", dimsCpp);
     ref = (float *) read_1D(params + filename,
                             "Beam/RL_drho",
                             "float", dimsPy);

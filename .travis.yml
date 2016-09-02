@@ -54,7 +54,10 @@ script:
   - ctest -VV
 
 after_success:
- - coveralls --gcov gcov-4.8  --root .. -E ".*external.*" -E ".*CMakeFiles.*" -E ".*unit-tests/.*.cpp.*" -E "/usr/include/.*"
+ - coveralls --gcov gcov-4.8  --root .. -E ".*external.*" -E ".*CMakeFiles.*"\
+                            -E ".*unit-tests/.*.cpp.*" -E "/usr/include/.*"\
+                            -E ".*demos/.*" -E ".*include/blond/plots/.*"\
+                            -E ".*src/plots/.*" -E ".*include/blond/optionparser.h"
  - if [ "$BUILD_TYPE" == "Debug" ]; then
      cd ../ ;
      doxygen Doxyfile ;

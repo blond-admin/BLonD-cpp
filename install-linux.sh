@@ -233,7 +233,7 @@ if [ "$PIP_INSTALLED" == "1" ]; then
    echo -e "---- If you are on Fedora/CentOS/RHEL try: yum install python-pip"
    echo -e "---- If you are on Debian/Ubuntu try: apt-get install python-pip"
    echo -e "---- and then re-run this script."
-   echo -e "---- For more information, please visit this site: https://packaging.python.org/install_requirements_linux/ \n\n"
+   echo -e "---- For more information, please visit this site: https://packaging.python.org/install_requirements_linux/\n\n"
 else
    echo -e "\n\n---- Installing Python's external modules..."
    pip install --user virtualenv 2>> $log

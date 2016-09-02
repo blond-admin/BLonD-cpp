@@ -214,6 +214,137 @@ TEST_F(testMonitors, BunchMonitor1)
 }
 
 
+TEST_F(testMonitors, BunchMonitor2)
+{
+    auto GP = Context::GP;
+    auto RfP = Context::RfP;
+    auto beam = Context::Beam;
+    auto epsilon = 1e-6;
+    std::string params =
+        TEST_FILES "/Monitors/BunchMonitor2/";
+    auto filename = "bunch.h5";
+
+    longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
+    auto slice = Slices(N_slices);
+    auto PL_gain = 1.0 / (5 * GP->t_rev[0]);
+    auto SL_gain = PL_gain / 10.0;
+    auto PL = LHC(PL_gainVec, SL_gain);
+    auto bunchmonitor = BunchMonitor(GP, RfP, beam, filename,
+                                     100, &slice, &PL);
+    auto tracker = RingAndRfSection();
+
+    for (int i = 0; i < N_t; i++) {
+        tracker.track();
+        slice.track();
+        bunchmonitor.track();
+    }
+    bunchmonitor.track();
+    bunchmonitor.close();
+
+    hsize_t dimsPy[1];
+    hsize_t dimsCpp[1];
+
+    double *real = (double *) read_1D(filename,
+                                      "Beam/PL_omegaRF",
+                                      "double", dimsCpp);
+    float *ref = (float *) read_1D(params + filename,
+                                   "Beam/PL_omegaRF",
+                                   "float", dimsPy);
+    ASSERT_EQ(dimsCpp[0], dimsPy[0]);
+    for (uint i = 0; i < dimsCpp[0]; i++)
+        ASSERT_NEAR(ref[i], real[i], epsilon *
+                    std::max((double)std::abs(ref[i]), std::abs(real[i])))
+                << "Testing of PL_omegaRF failed on i " << i << '\n';
+
+    free(ref); free(real);
+
+
+    real = (double *) read_1D(filename,
+                               "Beam/PL_phiRF",
+                               "double", dimsCpp);
+    ref = (float *) read_1D(params + filename,
+                            "Beam/PL_phiRF",
+                            "float", dimsPy);
+    ASSERT_EQ(dimsCpp[0], dimsPy[0]);
+    for (uint i = 0; i < dimsCpp[0]; ++i)
+        ASSERT_NEAR(ref[i], real[i], epsilon *
+                    std::max((double)std::abs(ref[i]), std::abs(real[i])))
+                << "Testing of PL_phiRF failed on i " << i << '\n';
+    free(real); free(ref);
+
+
+    real = (double *) read_1D(filename,
+                               "Beam/PL_bunch_phase",
+                               "double", dimsCpp);
+    ref = (float *) read_1D(params + filename,
+                            "Beam/PL_bunch_phase",
+                            "float", dimsPy);
+    ASSERT_EQ(dimsCpp[0], dimsPy[0]);
+    for (uint i = 0; i < dimsCpp[0]; ++i)
+        ASSERT_NEAR(ref[i], real[i], epsilon *
+                    std::max(std::abs((double)ref[i]), std::abs(real[i])))
+                << "Testing of PL_bunch_phase failed on i " << i << '\n';
+    free(real); free(ref);
+
+
+    real = (double *) read_1D(filename,
+                               "Beam/PL_phase_corr",
+                               "double", dimsCpp);
+    ref = (float *) read_1D(params + filename,
+                            "Beam/PL_phase_corr",
+                            "float", dimsPy);
+    ASSERT_EQ(dimsCpp[0], dimsPy[0]);
+    for (uint i = 0; i < dimsCpp[0]; ++i)
+        ASSERT_NEAR(ref[i], real[i], epsilon *
+                    std::max((double)std::abs(ref[i]), std::abs(real[i])))
+                << "Testing of PL_phase_corr failed on i " << i << '\n';
+    free(real); free(ref);
+
+    real = (double *) read_1D(filename,
+                               "Beam/PL_omegaRF_corr",
+                               "double", dimsCpp);
+    ref = (float *) read_1D(params + filename,
+                            "Beam/PL_omegaRF_corr",
+                            "float", dimsPy);
+    ASSERT_EQ(dimsCpp[0], dimsPy[0]);
+    for (uint i = 0; i < dimsCpp[0]; ++i)
+        ASSERT_NEAR(ref[i], real[i], epsilon *
+                    std::max((double)std::abs(ref[i]), std::abs(real[i])))
+                << "Testing of PL_omegaRF_corr failed on i " << i << '\n';
+    free(real); free(ref);
+
+    real = (double *) read_1D(filename,
+                               "Beam/SL_dphiRF",
+                               "double", dimsCpp);
+    ref = (float *) read_1D(params + filename,
+                            "Beam/SL_dphiRF",
+                            "float", dimsPy);
+    ASSERT_EQ(dimsCpp[0], dimsPy[0]);
+    for (uint i = 0; i < dimsCpp[0]; ++i)
+        ASSERT_NEAR(ref[i], real[i], epsilon *
+                    std::max((double)std::abs(ref[i]), std::abs(real[i])))
+                << "Testing of SL_dphiRF failed on i " << i << '\n';
+    free(real); free(ref);
+
+
+    real = (double *) read_1D(filename,
+                               "Beam/RL_drho",
+                               "double", dimsCpp);
+    ref = (float *) read_1D(params + filename,
+                            "Beam/RL_drho",
+                            "float", dimsPy);
+    ASSERT_EQ(dimsCpp[0], dimsPy[0]);
+    for (uint i = 0; i < dimsCpp[0]; ++i)
+        ASSERT_NEAR(ref[i], real[i], epsilon *
+                    std::max((double)std::abs(ref[i]), std::abs(real[i])))
+                << "Testing of RL_drho failed on i " << i << '\n';
+    free(real); free(ref);
+
+
+
+    std::remove(filename);
+}
+
 int main(int ac, char *av[])
 {
     ::testing::InitGoogleTest(&ac, av);

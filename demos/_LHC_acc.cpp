@@ -197,7 +197,7 @@ int main(int argc, char **argv)
     auto monitorTime = 0.0;
     timespec start;
 
-    for (uint i = 0; i < 1000001; ++i) {
+    for (uint i = 0; i < N_t; ++i) {
 
         util::get_time(begin_t);
 

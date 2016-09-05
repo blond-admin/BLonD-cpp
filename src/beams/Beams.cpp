@@ -76,6 +76,12 @@ void Beams::losses_energy_cut(const ftype dE_min, const ftype dE_max)
         id[i] = (dE[i] - dE_min) * (dE_max - dE[i]) < 0 ? 0 : id[i];
 }
 
+
+void Beams::losses_separatrix(GeneralParameters *GP, RfParameters *RfP)
+{
+
+
+}
 /*
 void Beams::losses_longitudinal_cut(const ftype* __restrict dt,
                                     const ftype dt_min, const ftype dt_max,

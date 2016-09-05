@@ -8,10 +8,12 @@
 #ifndef INPUT_PARAMETERS_RFPARAMETERS_H_
 #define INPUT_PARAMETERS_RFPARAMETERS_H_
 
+
+class RfParameters;
+
 #include <blond/beams/Beams.h>
 #include <blond/input_parameters/GeneralParameters.h>
-//#include <algorithm>
-//#include <iterator>
+
 
 class API RfParameters {
   public:
@@ -40,7 +42,7 @@ class API RfParameters {
     uint idx;
     ftype length_ratio;
     ftype section_length;
-
+    // TODO write an eta_tracking function with a vector dE
     ftype eta_tracking(const Beams* beam, const uint counter, const ftype dE);
     ftype eta_0(const uint i);
     ftype eta_1(const uint i);

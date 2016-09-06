@@ -247,7 +247,7 @@ TEST_F(testTrackerUtilities, hamiltonian6)
 {
     auto params = std::string(TEST_FILES) +
                   "/TrackerUtilities/hamiltonian6/";
-    auto epsilon = 1e-8;
+    auto epsilon = 1e-6;
     auto GP = Context::GP;
     auto Beam = Context::Beam;
     auto RfP = Context::RfP;

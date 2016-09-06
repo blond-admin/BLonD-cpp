@@ -268,6 +268,72 @@ TEST_F(testTrackerUtilities, hamiltonian6)
 }
 
 
+TEST_F(testTrackerUtilities, is_in_separatrix2)
+{
+    auto params = std::string(TEST_FILES) +
+                  "/TrackerUtilities/is_in_separatrix2/";
+    auto GP = Context::GP;
+    auto Beam = Context::Beam;
+    auto RfP = Context::RfP;
+
+    int i = 0;
+    for (auto &t : Beam->dt)
+        t += (1.0 * (i++) / N_p) * t;
+
+    i = 0;
+    for (auto &t : Beam->dE)
+        t += (1.0 * (i++) / N_p) * t;
+
+
+    auto dt = f_vector_t(Beam->dt.begin() + 5000, Beam->dt.begin() + 6000);
+    auto dE = f_vector_t(Beam->dE.begin() + 5000, Beam->dE.begin() + 6000);
+
+
+    auto sep = is_in_separatrix(GP, RfP, Beam, dt, dE);
+
+    f_vector_t v;
+
+    util::read_vector_from_file(v, params + "separatrix.txt");
+    ASSERT_EQ(v.size(), sep.size());
+    for (uint i = 0; i < v.size(); ++i) {
+        bool ref = v[i];
+        bool real = sep[i];
+        ASSERT_EQ(ref, real)
+                << "Testing of separatrix failed on i " << i << "\n";
+    }
+
+}
+
+
+TEST_F(testTrackerUtilities, is_in_separatrix1)
+{
+    auto params = std::string(TEST_FILES) +
+                  "/TrackerUtilities/is_in_separatrix1/";
+    auto GP = Context::GP;
+    auto Beam = Context::Beam;
+    auto RfP = Context::RfP;
+
+    int i = 0;
+    for (auto &t : Beam->dt)
+        t += (1.0 * (i++) / N_p) * t;
+
+    auto sep = is_in_separatrix(GP, RfP, Beam, Beam->dt, Beam->dE);
+
+    f_vector_t v;
+
+    util::read_vector_from_file(v, params + "separatrix.txt");
+    ASSERT_EQ(v.size(), sep.size());
+    for (uint i = 0; i < v.size(); ++i) {
+        bool ref = v[i];
+        bool real = sep[i];
+        ASSERT_EQ(ref, real)
+                << "Testing of separatrix failed on i " << i << "\n";
+    }
+
+}
+
+
+
 
 
 

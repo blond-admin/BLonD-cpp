@@ -1,18 +1,19 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$df/d6d/namespacemymath.html#a45cee6943f76e1f289057abfa0c9c1fc" title="mymath::linspace" alt="" coords="565,5,691,35"/>
-<area shape="rect" id="node5" href="$da/dd4/classPhaseNoise.html#a972dfcb47f993cb8271978cadd4d5b3c" title="PhaseNoise::spectrum_generation" alt="" coords="256,59,477,88"/>
-<area shape="rect" id="node8" href="$da/dd4/classPhaseNoise.html#a5b9bb8a443851f55cd0845608c35112f" title="PhaseNoise::spectrum_to_phase_noise" alt="" coords="240,112,493,141"/>
-<area shape="rect" id="node43" href="$df/d6d/namespacemymath.html#a29f60bbcfa65218d96c8be64f7052c4d" title="mymath::standard_deviation" alt="" coords="273,165,460,195"/>
-<area shape="rect" id="node10" href="$d8/de0/namespacefft.html#ace866b5e38da8e32910f39bc63eb91e9" title="fft::fft" alt="" coords="601,112,655,141"/>
-<area shape="rect" id="node28" href="$d8/de0/namespacefft.html#abf17de86632e9d1624635de461dbcd4f" title="fft::ifft" alt="" coords="600,272,656,301"/>
-<area shape="rect" id="node32" href="$d8/de0/namespacefft.html#a7870786fb204fa75feedfb6eeadbd788" title="fft::irfft" alt="" coords="597,219,659,248"/>
-<area shape="rect" id="node37" href="$d6/d72/namespaceutil.html#ac3954fc1a1f21ba2c7b199390cf609ff" title="util::read_vector_from_file" alt="" coords="543,165,713,195"/>
-<area shape="rect" id="node39" href="$d8/de0/namespacefft.html#a789573d204d06c288f6b74c45cd92137" title="fft::rfft" alt="" coords="599,59,657,88"/>
-<area shape="rect" id="node12" href="$d8/de0/namespacefft.html#af7197252dd2a265bd53282a343582d02" title="fft::find_plan" alt="" coords="764,125,857,155"/>
-<area shape="rect" id="node26" href="$d8/de0/namespacefft.html#a032995ee545c6cd17120d4478fcb25b5" title="fft::run_fft" alt="" coords="772,205,849,235"/>
-<area shape="rect" id="node14" href="$d8/de0/namespacefft.html#abb6f84e834ac2b3b2b1da535a152bcbb" title="fft::init_fft" alt="" coords="911,179,988,208"/>
-<area shape="rect" id="node20" href="$d8/de0/namespacefft.html#a88d4a20e5d9813ff03802c42ff5b944c" title="fft::init_irfft" alt="" coords="907,125,992,155"/>
-<area shape="rect" id="node23" href="$d8/de0/namespacefft.html#aabee360fd4b67414d2f0edca8253ecf2" title="fft::init_rfft" alt="" coords="908,72,991,101"/>
-<area shape="rect" id="node16" href="$df/d6d/namespacemymath.html#a4220093922a0ab5e3a6e265b0c94ec89" title="mymath::min" alt="" coords="1041,125,1140,155"/>
-<area shape="rect" id="node18" href="$df/d6d/namespacemymath.html#a146bad53837f3e384e5b98b2e4c153d0" title="mymath::sign" alt="" coords="1040,179,1141,208"/>
+<map id="LHCFlatSpectrum::generate" name="LHCFlatSpectrum::generate">
+<area shape="rect" id="node3" href="$df/d6d/namespacemymath.html#a45cee6943f76e1f289057abfa0c9c1fc" title="mymath::linspace" alt="" coords="499,5,624,35"/>
+<area shape="rect" id="node5" href="$da/dd4/classPhaseNoise.html#a972dfcb47f993cb8271978cadd4d5b3c" title="PhaseNoise::spectrum\l_generation" alt="" coords="256,57,411,103"/>
+<area shape="rect" id="node8" href="$da/dd4/classPhaseNoise.html#a5b9bb8a443851f55cd0845608c35112f" title="PhaseNoise::spectrum\l_to_phase_noise" alt="" coords="256,126,411,173"/>
+<area shape="rect" id="node43" href="$df/d6d/namespacemymath.html#ab01df805ab25fb8c5851fb2916e2c81e" title="mymath::standard_deviation" alt="" coords="240,260,427,289"/>
+<area shape="rect" id="node10" href="$d6/d72/namespaceutil.html#a490b3dd52b27f7d7de8cf81a753b97fa" title="util::read_vector_from_file" alt="" coords="476,112,647,141"/>
+<area shape="rect" id="node12" href="$d8/de0/namespacefft.html#a789573d204d06c288f6b74c45cd92137" title="fft::rfft" alt="" coords="532,59,591,88"/>
+<area shape="rect" id="node30" href="$d8/de0/namespacefft.html#a7870786fb204fa75feedfb6eeadbd788" title="fft::irfft" alt="" coords="531,272,592,301"/>
+<area shape="rect" id="node35" href="$d8/de0/namespacefft.html#ace866b5e38da8e32910f39bc63eb91e9" title="fft::fft" alt="" coords="535,165,588,195"/>
+<area shape="rect" id="node39" href="$d8/de0/namespacefft.html#abf17de86632e9d1624635de461dbcd4f" title="fft::ifft" alt="" coords="533,219,589,248"/>
+<area shape="rect" id="node14" href="$d8/de0/namespacefft.html#af7197252dd2a265bd53282a343582d02" title="fft::find_plan" alt="" coords="697,165,791,195"/>
+<area shape="rect" id="node28" href="$d8/de0/namespacefft.html#a032995ee545c6cd17120d4478fcb25b5" title="fft::run_fft" alt="" coords="705,219,783,248"/>
+<area shape="rect" id="node16" href="$d8/de0/namespacefft.html#abb6f84e834ac2b3b2b1da535a152bcbb" title="fft::init_fft" alt="" coords="844,219,921,248"/>
+<area shape="rect" id="node22" href="$d8/de0/namespacefft.html#aabee360fd4b67414d2f0edca8253ecf2" title="fft::init_rfft" alt="" coords="841,165,924,195"/>
+<area shape="rect" id="node25" href="$d8/de0/namespacefft.html#a88d4a20e5d9813ff03802c42ff5b944c" title="fft::init_irfft" alt="" coords="840,112,925,141"/>
+<area shape="rect" id="node18" href="$df/d6d/namespacemymath.html#a5bcc40b5ebadd9d98f351775df65ec9f" title="mymath::min" alt="" coords="975,165,1073,195"/>
+<area shape="rect" id="node20" href="$df/d6d/namespacemymath.html#ad7df5693cd882f31037d7533f5f77bbe" title="mymath::sign" alt="" coords="973,219,1075,248"/>
+<area shape="rect" id="node45" href="$df/d6d/namespacemymath.html#a0c3266208d3fd64201093717945f63f5" title="mymath::mean" alt="" coords="507,325,616,355"/>
 </map>

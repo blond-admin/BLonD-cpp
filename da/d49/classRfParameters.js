@@ -1,0 +1,38 @@
+var classRfParameters =
+[
+    [ "accelerating_systems_t", "da/d49/classRfParameters.html#ac7abb30e54aa2eac2617fcf098843da6", [
+      [ "as_single", "da/d49/classRfParameters.html#ac7abb30e54aa2eac2617fcf098843da6ad7556b903236d44e1d01d1ffe6cdfb8b", null ],
+      [ "all", "da/d49/classRfParameters.html#ac7abb30e54aa2eac2617fcf098843da6a7daeab306bb7743ed11543e6603d0118", null ],
+      [ "first", "da/d49/classRfParameters.html#ac7abb30e54aa2eac2617fcf098843da6ade16c52556127ce0e001cfb883e08d92", null ]
+    ] ],
+    [ "RfParameters", "da/d49/classRfParameters.html#a52dd5384f6f923f5950f7473fe1aa5ca", null ],
+    [ "~RfParameters", "da/d49/classRfParameters.html#a6424978e623d1842c44c659bff989284", null ],
+    [ "beta", "da/d49/classRfParameters.html#a16d65aa705e7a2e243501f95b7829ea5", null ],
+    [ "energy", "da/d49/classRfParameters.html#a4acab8a2eb8213fd54d8f37d0a605622", null ],
+    [ "eta_0", "da/d49/classRfParameters.html#a8bd6f75641792cabf97e4c0f2d37597b", null ],
+    [ "eta_1", "da/d49/classRfParameters.html#a3f915e25c6016e2fbc4554023b796720", null ],
+    [ "eta_2", "da/d49/classRfParameters.html#a1e1926245fc92f4af91b3aa681b35bdc", null ],
+    [ "eta_tracking", "da/d49/classRfParameters.html#a2a4da5f84c795c162c680fa320c92e01", null ],
+    [ "gamma", "da/d49/classRfParameters.html#ab32cf0e326d76b0ebc39e2658c699fea", null ],
+    [ "momentum", "da/d49/classRfParameters.html#a36c69c4fa34b35b8066740c93e410f81", null ],
+    [ "sign_eta_0", "da/d49/classRfParameters.html#a92162102842a92d895a07de6927b019e", null ],
+    [ "counter", "da/d49/classRfParameters.html#ac415e919886aab0e5cba52fb3c3d4740", null ],
+    [ "dphi_RF", "da/d49/classRfParameters.html#a77fc0f36a0a1cb33011faa9871bddbd9", null ],
+    [ "dphi_RF_steering", "da/d49/classRfParameters.html#ae617f527c3553500fdd2ba6b5c3e7cf3", null ],
+    [ "E_increment", "da/d49/classRfParameters.html#a66530c1f1510aa495c8277bf26a25eab", null ],
+    [ "harmonic", "da/d49/classRfParameters.html#a8221a6edc51203d7f1bf373e79c42373", null ],
+    [ "idx", "da/d49/classRfParameters.html#a5f8ecdb5c300db60e0bb4b74e2711338", null ],
+    [ "length_ratio", "da/d49/classRfParameters.html#a705bff1c9a19b185aa30388495b645dc", null ],
+    [ "n_rf", "da/d49/classRfParameters.html#a08b9bc81dedcac7e68baf31560363a58", null ],
+    [ "omega_RF", "da/d49/classRfParameters.html#a7ee0ce84ec7437b3cec7f3cb901c0187", null ],
+    [ "omega_RF_d", "da/d49/classRfParameters.html#af34fe3bad4a01687a0f42549c0ad4dc2", null ],
+    [ "omega_s0", "da/d49/classRfParameters.html#a46cdb432a905e5f864225130d02c4df8", null ],
+    [ "phi_noise", "da/d49/classRfParameters.html#ac624694344840f3b7637d52d6932c81a", null ],
+    [ "phi_offset", "da/d49/classRfParameters.html#a19f52eeaf1ec7c6ed064347b674a39ac", null ],
+    [ "phi_RF", "da/d49/classRfParameters.html#ad5e71c7254b877ac7f83f5b8efad0c93", null ],
+    [ "phi_s", "da/d49/classRfParameters.html#a7c2f76b32a2594bc7f6830dd77e71085", null ],
+    [ "Qs", "da/d49/classRfParameters.html#aca5bdbae4a7d4c85682c468172414647", null ],
+    [ "section_length", "da/d49/classRfParameters.html#ae59e1274703908f1ef1fe61fb171e9ac", null ],
+    [ "t_RF", "da/d49/classRfParameters.html#a658f3684bf92ab9c668af498d66dfda0", null ],
+    [ "voltage", "da/d49/classRfParameters.html#a439542a6e0c0d5bd0778acda2b75da13", null ]
+];

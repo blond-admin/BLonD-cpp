@@ -1,0 +1,27 @@
+var classInducedVoltageFreq =
+[
+    [ "InducedVoltageFreq", "d5/de7/classInducedVoltageFreq.html#aaa6e298697c2a9473de1cf1e938f4816", null ],
+    [ "~InducedVoltageFreq", "d5/de7/classInducedVoltageFreq.html#a644e56cce5d135a597d046e3d6901e13", null ],
+    [ "induced_voltage_generation", "d5/de7/classInducedVoltageFreq.html#a1e5148ba1149372dc16509ca858ab4d3", null ],
+    [ "reprocess", "d5/de7/classInducedVoltageFreq.html#a6f749441b75b7d178935ebbe0365b96f", null ],
+    [ "sum_impedances", "d5/de7/classInducedVoltageFreq.html#ad4bf4411c545885d9272093b6469748b", null ],
+    [ "track", "d5/de7/classInducedVoltageFreq.html#acc7f20769421b46ad8fcf1518f642548", null ],
+    [ "fFreqArray", "d5/de7/classInducedVoltageFreq.html#ab1c7bf0f443bef80d163ba81b878780c", null ],
+    [ "fFreqArrayMem", "d5/de7/classInducedVoltageFreq.html#a7e40329b85c79f94f5013a4ae2b172b8", null ],
+    [ "fFreqResolution", "d5/de7/classInducedVoltageFreq.html#aedcd146a9a540eebe255c8ab86b31a8e", null ],
+    [ "fFreqResolutionInput", "d5/de7/classInducedVoltageFreq.html#adcb613acfba15c31446b5f90ec255215", null ],
+    [ "fFreqResOption", "d5/de7/classInducedVoltageFreq.html#a514bf1432440966974e7f04a26fa58c5", null ],
+    [ "fImpedanceSourceList", "d5/de7/classInducedVoltageFreq.html#af0cb209da8ad9c4bf54140bc4cc95c86", null ],
+    [ "fLenArrayMem", "d5/de7/classInducedVoltageFreq.html#a1f0df98e31a05420d8766b466625a94c", null ],
+    [ "fLenArrayMemExt", "d5/de7/classInducedVoltageFreq.html#a4db4360ad43d14acca646159a7447f22", null ],
+    [ "fMatrixSaveIndividualImpedances", "d5/de7/classInducedVoltageFreq.html#a2b1a3b07226a6a197ce9e87b5352020c", null ],
+    [ "fMatrixSaveIndividualVoltages", "d5/de7/classInducedVoltageFreq.html#a9f8ebe9274eaf7eed9fa8e13910dbf32", null ],
+    [ "fNFFTSampling", "d5/de7/classInducedVoltageFreq.html#a69759c6c1218846e4b80fa434e98c5c0", null ],
+    [ "fNPointsFFT", "d5/de7/classInducedVoltageFreq.html#a4643da3545c9e898359ea16af7a92269", null ],
+    [ "fNTurnsMem", "d5/de7/classInducedVoltageFreq.html#aec393d88dcd604439c97708f61e14d35", null ],
+    [ "fRecalculationImpedance", "d5/de7/classInducedVoltageFreq.html#ae703ece9b926695185b5affea0c1027e", null ],
+    [ "fSaveIndividualVoltages", "d5/de7/classInducedVoltageFreq.html#ae41b6e2c9410d596412627fa445d7ba3", null ],
+    [ "fTimeArrayMem", "d5/de7/classInducedVoltageFreq.html#a05e9cea42ef1dfa722beb3ba68223bac", null ],
+    [ "fTotalImpedance", "d5/de7/classInducedVoltageFreq.html#aaeb2840057e37802c7ff29c1d5b2487f", null ],
+    [ "fTotalImpedanceMem", "d5/de7/classInducedVoltageFreq.html#a89006d80617587cdfe5572dace8f5b61", null ]
+];

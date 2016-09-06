@@ -43,12 +43,17 @@ script:
 - cmake --build . -- -j2
 - ctest -VV
 after_success:
-- coveralls --gcov gcov-4.8  --root .. -E ".*external.*" -E ".*CMakeFiles.*" -E ".*unit-tests/.*.cpp.*"
-  -E "/usr/include/.*" -E ".*demos/.*" -E ".*include/blond/plots/.*" -E ".*src/plots/.*"
-  -E ".*include/blond/optionparser.h"
-- if [ "$BUILD_TYPE" == "Debug" ]; then cd ../ ; doxygen Doxyfile ; export BUILD_PATH=$(pwd)
-  ; cd "$TRAVIS_BUILD_DIR" ; git clone --branch=gh-pages --recursive https://github.com/kiliakis/BLonD-minimal-cpp.git
-  web ; cd web ; cp -rf $BUILD_PATH/documentation/html/* ./ ; git add -A ; git -c
-  user.name='travis' -c user.email='travis' commit -am "documentation update" ; git
-  push -f -q https://kiliakis:$GITHUB_API_KEY@github.com/kiliakis/BLonD-minimal-cpp.git
-  gh-pages ; fi
+ - coveralls --gcov gcov-4.8  --root .. -E ".*external.*" -E ".*CMakeFiles.*" -E ".*unit-tests/.*.cpp.*" -E "/usr/include/.*" -E ".*demos/.*" -E ".*include/blond/plots/.*" -E ".*src/plots/.*" -E ".*include/blond/optionparser.h" -E ".*include/blond/sincos.h"
+ - if [ "$BUILD_TYPE" == "Debug" ]; then
+     cd ../ ;
+     doxygen Doxyfile ;
+     export BUILD_PATH=$(pwd) ;
+     cd "$TRAVIS_BUILD_DIR" ;
+     git clone --branch=gh-pages --recursive https://github.com/kiliakis/BLonD-minimal-cpp.git web ;
+     cd web ;
+     cp -rf $BUILD_PATH/documentation/html/* ./ ;
+     git add -A ;
+     git -c user.name='travis' -c user.email='travis' commit -am "documentation update" ;
+     git push -f -q https://kiliakis:$GITHUB_API_KEY@github.com/kiliakis/BLonD-minimal-cpp.git gh-pages ;
+   fi
+

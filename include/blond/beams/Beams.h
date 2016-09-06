@@ -8,8 +8,12 @@
 #ifndef BEAMS_BEAMS_H_
 #define BEAMS_BEAMS_H_
 
+class Beams;
+
 #include <blond/configuration.h>
 #include <blond/utilities.h>
+#include <blond/input_parameters/GeneralParameters.h>
+#include <blond/input_parameters/RfParameters.h>
 
 class API Beams {
 public:
@@ -31,6 +35,7 @@ public:
     uint n_macroparticles_alive();
     void losses_longitudinal_cut(const ftype dt_min, const ftype dt_max);
     void losses_energy_cut(const ftype dE_min, const ftype dE_max);
+    void losses_separatrix(GeneralParameters *GP, RfParameters *RfP);
 
     // void losses_longitudinal_cut(const ftype* __restrict dt, const ftype dt_min,
     //                              const ftype dt_max, int* __restrict id);

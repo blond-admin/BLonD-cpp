@@ -8,6 +8,7 @@
 #include <blond/beams/Beams.h>
 #include <blond/constants.h>
 #include <blond/math_functions.h>
+#include <blond/trackers/utilities.h>
 
 Beams::Beams(const uint n_macroparticles, const long long intensity)
 {
@@ -28,7 +29,6 @@ Beams::~Beams() {}
 
 uint Beams::n_macroparticles_alive()
 {
-
     return n_macroparticles - n_macroparticles_lost;
 }
 

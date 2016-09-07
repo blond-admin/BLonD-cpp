@@ -39,7 +39,7 @@ ftype bl_target = 0.9e-9; // 4 sigma r.m.s. target bunch length in [s]
 int N_slices = 2200;
 
 int dt_save = 500000;
-int dt_plot = 500000;
+int dt_plot = 10000;
 
 const std::string datafiles = "/afs/cern.ch/user/h/htimko/public/LHC/input/";
 
@@ -190,14 +190,14 @@ int main(int argc, char **argv)
     printf("Ready for tracking!\n");
 
     auto totVoltageTime = 0.0;
-    auto statsTime = 0.0;
+    auto separatrixTime = 0.0;
     auto sliceTime = 0.0;
     auto trackerTime = 0.0;
     auto noiseTime = 0.0;
     auto monitorTime = 0.0;
     timespec start;
 
-    for (uint i = 0; i < N_t; ++i) {
+    for (uint i = 0; i < N_t && i < 500000; ++i) {
 
         util::get_time(begin_t);
 
@@ -205,10 +205,12 @@ int main(int argc, char **argv)
         totVoltage->track();
         totVoltageTime += util::time_elapsed(start);
 
+        // if (i % 10 == 0) {
         util::get_time(start);
-        Context::Beam->statistics();
-        statsTime += util::time_elapsed(start);
-
+        Beam->losses_separatrix(GP, RfP);
+        separatrixTime += util::time_elapsed(start);
+        // }
+        
         util::get_time(start);
         Context::Slice->track();
         sliceTime += util::time_elapsed(start);
@@ -234,7 +236,8 @@ int main(int argc, char **argv)
             printf("   Mean Slices track time %.4e\n", sliceTime / (i + 1));
             printf("   Mean Tracker track time %.4e\n", trackerTime / (i + 1));
             printf("   Mean noiseFB track time %.4e\n", noiseTime / (i + 1));
-            printf("   Mean Stats track time %.4e\n", statsTime / (i + 1));
+            printf("   Mean Separatrix track time %.4e\n", separatrixTime / (i + 1));
+            printf("   Mean Monitor track time %.4e\n", monitorTime / (i + 1));
             printf("   RF tracker counter is %d\n", RfP->counter);
             printf("   Beam momentum %0.6e eV\n", RfP->momentum(RfP->counter));
             printf("   Beam gamma %4.3f\n", RfP->gamma(RfP->counter));
@@ -251,7 +254,7 @@ int main(int argc, char **argv)
             printf("   SL recursion variable %.4e\n", PL->lhc_y);
             printf("   Mean bunch position %.4e s\n", Beam->mean_dt);
             printf("   Four-times r.m.s. bunch length %.4e s\n", 4.0 * Beam->sigma_dt);
-            printf("   Gaussian bunch length %.4e s\n", Slice->bl_gauss);
+            // printf("   Gaussian bunch length %.4e s\n", Slice->bl_gauss);
             printf("   Slices min %.4e ns max %.4e s\n", Slice->cut_left, Slice->cut_right);
             printf("   Bunch 1 FWHM bunch length %.4e s\n", noiseFB->fBlMeasBBB[0]);
             printf("   Bunch 2 FWHM bunch length %.4e s\n", noiseFB->fBlMeasBBB[1]);

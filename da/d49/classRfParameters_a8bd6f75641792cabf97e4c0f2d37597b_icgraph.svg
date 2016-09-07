@@ -32,7 +32,7 @@
         </defs>
 
 <script type="text/javascript">
-var viewWidth = 592;
+var viewWidth = 758;
 var viewHeight = 251;
 var sectionId = 'dynsection-4';
 </script>
@@ -40,7 +40,7 @@ var sectionId = 'dynsection-4';
 <svg id="graph" class="graph">
 <g id="viewport">
 <title>RfParameters::eta_0</title>
-<polygon fill="white" stroke="white" points="-4,5 -4,-247 589,-247 589,5 -4,5"/>
+<polygon fill="white" stroke="white" points="-4,5 -4,-247 755,-247 755,5 -4,5"/>
 <!-- Node1 -->
 <g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0.5,-110.5 0.5,-131.5 107.5,-131.5 107.5,-110.5 0.5,-110.5"/>
@@ -66,7 +66,7 @@ var sectionId = 'dynsection-4';
 </a>
 </g>
 <!-- Node1&#45;&gt;Node4 -->
-<g id="edge18" class="edge"><title>Node1&#45;&gt;Node4</title>
+<g id="edge20" class="edge"><title>Node1&#45;&gt;Node4</title>
 <path fill="none" stroke="midnightblue" d="M81.638,-136.244C99.006,-145.065 122.18,-155.483 144,-161 201.31,-175.49 268.317,-179.879 317.913,-180.847"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="83.1174,-133.068 72.632,-131.549 79.8815,-139.275 83.1174,-133.068"/>
 </g>
@@ -90,32 +90,32 @@ var sectionId = 'dynsection-4';
 </a>
 </g>
 <!-- Node1&#45;&gt;Node6 -->
-<g id="edge14" class="edge"><title>Node1&#45;&gt;Node6</title>
+<g id="edge16" class="edge"><title>Node1&#45;&gt;Node6</title>
 <path fill="none" stroke="midnightblue" d="M117.809,-121C189.037,-121 301.552,-121 356.95,-121"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="117.612,-117.5 107.612,-121 117.612,-124.5 117.612,-117.5"/>
 </g>
-<!-- Node8 -->
-<g id="node16" class="node"><title>Node8</title>
+<!-- Node9 -->
+<g id="node18" class="node"><title>Node9</title>
 <a xlink:href="../../d8/d94/plot__beams_8h.html#ae6215f03e38354ba5f04e99f640cf700" target="_top" xlink:title="plot_long_phase_space">
 <polygon fill="white" stroke="black" points="153.5,-52.5 153.5,-73.5 272.5,-73.5 272.5,-52.5 153.5,-52.5"/>
 <text text-anchor="middle" x="213" y="-60.5" font-family="Helvetica,sans-Serif" font-size="10.00">plot_long_phase_space</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node8 -->
-<g id="edge16" class="edge"><title>Node1&#45;&gt;Node8</title>
+<!-- Node1&#45;&gt;Node9 -->
+<g id="edge18" class="edge"><title>Node1&#45;&gt;Node9</title>
 <path fill="none" stroke="midnightblue" d="M92.3147,-106.915C108.289,-101.051 127.037,-94.1827 144,-88 157.048,-83.244 171.494,-78.0058 183.782,-73.5583"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="90.9484,-103.688 82.7676,-110.42 93.3612,-110.259 90.9484,-103.688"/>
 </g>
-<!-- Node9 -->
-<g id="node19" class="node"><title>Node9</title>
+<!-- Node10 -->
+<g id="node21" class="node"><title>Node10</title>
 <a xlink:href="../../da/d49/classRfParameters.html#a92162102842a92d895a07de6927b019e" target="_top" xlink:title="RfParameters::sign\l_eta_0">
 <polygon fill="white" stroke="black" points="162.5,-0 162.5,-34 263.5,-34 263.5,-0 162.5,-0"/>
 <text text-anchor="start" x="170.5" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">RfParameters::sign</text>
 <text text-anchor="middle" x="213" y="-8" font-family="Helvetica,sans-Serif" font-size="10.00">_eta_0</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node9 -->
-<g id="edge20" class="edge"><title>Node1&#45;&gt;Node9</title>
+<!-- Node1&#45;&gt;Node10 -->
+<g id="edge22" class="edge"><title>Node1&#45;&gt;Node10</title>
 <path fill="none" stroke="midnightblue" d="M70.905,-103.038C87.9846,-85.739 115.81,-59.792 144,-43 149.719,-39.5934 155.962,-36.498 162.279,-33.7279"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="68.2991,-100.697 63.8511,-110.313 73.3248,-105.57 68.2991,-100.697"/>
 </g>
@@ -153,6 +153,18 @@ var sectionId = 'dynsection-4';
 <g id="edge12" class="edge"><title>Node6&#45;&gt;Node7</title>
 <path fill="none" stroke="midnightblue" d="M433.148,-121C453.637,-121 478.046,-121 498.457,-121"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="433.138,-117.5 423.138,-121 433.138,-124.5 433.138,-117.5"/>
+</g>
+<!-- Node8 -->
+<g id="node15" class="node"><title>Node8</title>
+<a xlink:href="../../d9/d7c/classBeams.html#a76e4b807fd1a83ae8fe190a774acaa19" target="_top" xlink:title="Beams::losses_separatrix">
+<polygon fill="white" stroke="black" points="620,-110.5 620,-131.5 750,-131.5 750,-110.5 620,-110.5"/>
+<text text-anchor="middle" x="685" y="-118.5" font-family="Helvetica,sans-Serif" font-size="10.00">Beams::losses_separatrix</text>
+</a>
+</g>
+<!-- Node7&#45;&gt;Node8 -->
+<g id="edge14" class="edge"><title>Node7&#45;&gt;Node8</title>
+<path fill="none" stroke="midnightblue" d="M593.922,-121C602.391,-121 611.239,-121 619.95,-121"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="593.815,-117.5 583.815,-121 593.815,-124.5 593.815,-117.5"/>
 </g>
 </g>
 </svg>

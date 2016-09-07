@@ -32,7 +32,7 @@
         </defs>
 
 <script type="text/javascript">
-var viewWidth = 666;
+var viewWidth = 832;
 var viewHeight = 142;
 var sectionId = 'dynsection-6';
 </script>
@@ -40,7 +40,7 @@ var sectionId = 'dynsection-6';
 <svg id="graph" class="graph">
 <g id="viewport">
 <title>vdt::fast_sincos</title>
-<polygon fill="white" stroke="white" points="-4,5 -4,-138 663,-138 663,5 -4,5"/>
+<polygon fill="white" stroke="white" points="-4,5 -4,-138 829,-138 829,5 -4,5"/>
 <!-- Node1 -->
 <g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-92.5 0,-113.5 86,-113.5 86,-92.5 0,-92.5"/>
@@ -70,15 +70,15 @@ var sectionId = 'dynsection-6';
 <path fill="none" stroke="midnightblue" d="M203.647,-110.608C212.346,-112.058 221.472,-113.579 230.235,-115.039"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="204.118,-107.138 193.679,-108.947 202.968,-114.043 204.118,-107.138"/>
 </g>
-<!-- Node6 -->
-<g id="node11" class="node"><title>Node6</title>
+<!-- Node7 -->
+<g id="node13" class="node"><title>Node7</title>
 <a xlink:href="../../df/d6d/namespacemymath.html#ad1aa822800d7c0b68cec8efe86a34602" target="_top" xlink:title="mymath::fast_sin">
 <polygon fill="white" stroke="black" points="232,-72.5 232,-93.5 324,-93.5 324,-72.5 232,-72.5"/>
 <text text-anchor="middle" x="278" y="-80.5" font-family="Helvetica,sans-Serif" font-size="10.00">mymath::fast_sin</text>
 </a>
 </g>
-<!-- Node2&#45;&gt;Node6 -->
-<g id="edge10" class="edge"><title>Node2&#45;&gt;Node6</title>
+<!-- Node2&#45;&gt;Node7 -->
+<g id="edge12" class="edge"><title>Node2&#45;&gt;Node7</title>
 <path fill="none" stroke="midnightblue" d="M203.544,-95.4093C212.857,-93.8572 222.664,-92.2227 231.992,-90.668"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="202.968,-91.957 193.679,-97.0535 204.118,-98.8618 202.968,-91.957"/>
 </g>
@@ -106,58 +106,70 @@ var sectionId = 'dynsection-6';
 <path fill="none" stroke="midnightblue" d="M467.362,-123C492.044,-123 522.838,-123 547.394,-123"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="467.194,-119.5 457.194,-123 467.194,-126.5 467.194,-119.5"/>
 </g>
-<!-- Node6&#45;&gt;Node4 -->
-<g id="edge12" class="edge"><title>Node6&#45;&gt;Node4</title>
+<!-- Node6 -->
+<g id="node11" class="node"><title>Node6</title>
+<a xlink:href="../../d9/d7c/classBeams.html#a76e4b807fd1a83ae8fe190a774acaa19" target="_top" xlink:title="Beams::losses_separatrix">
+<polygon fill="white" stroke="black" points="694,-112.5 694,-133.5 824,-133.5 824,-112.5 694,-112.5"/>
+<text text-anchor="middle" x="759" y="-120.5" font-family="Helvetica,sans-Serif" font-size="10.00">Beams::losses_separatrix</text>
+</a>
+</g>
+<!-- Node5&#45;&gt;Node6 -->
+<g id="edge10" class="edge"><title>Node5&#45;&gt;Node6</title>
+<path fill="none" stroke="midnightblue" d="M642.98,-123C659.147,-123 677.11,-123 693.977,-123"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="642.646,-119.5 632.646,-123 642.646,-126.5 642.646,-119.5"/>
+</g>
+<!-- Node7&#45;&gt;Node4 -->
+<g id="edge14" class="edge"><title>Node7&#45;&gt;Node4</title>
 <path fill="none" stroke="midnightblue" d="M326.16,-96.1946C347.362,-102.003 371.736,-108.681 390.853,-113.919"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="326.929,-92.7763 316.36,-93.5095 325.08,-99.5276 326.929,-92.7763"/>
 </g>
-<!-- Node7 -->
-<g id="node14" class="node"><title>Node7</title>
+<!-- Node8 -->
+<g id="node16" class="node"><title>Node8</title>
 <a xlink:href="../../de/da1/classRingAndRfSection.html#a9edad70fb4b1103d9b0ac3f522be57fe" target="_top" xlink:title="RingAndRfSection::kick">
 <polygon fill="white" stroke="black" points="363,-72.5 363,-93.5 485,-93.5 485,-72.5 363,-72.5"/>
 <text text-anchor="middle" x="424" y="-80.5" font-family="Helvetica,sans-Serif" font-size="10.00">RingAndRfSection::kick</text>
 </a>
 </g>
-<!-- Node6&#45;&gt;Node7 -->
-<g id="edge14" class="edge"><title>Node6&#45;&gt;Node7</title>
+<!-- Node7&#45;&gt;Node8 -->
+<g id="edge16" class="edge"><title>Node7&#45;&gt;Node8</title>
 <path fill="none" stroke="midnightblue" d="M334.199,-83C343.588,-83 353.37,-83 362.876,-83"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="334.195,-79.5001 324.195,-83 334.195,-86.5001 334.195,-79.5001"/>
 </g>
-<!-- Node8 -->
-<g id="node16" class="node"><title>Node8</title>
+<!-- Node9 -->
+<g id="node18" class="node"><title>Node9</title>
 <a xlink:href="../../d6/d13/classFullRingAndRf.html#abf38f0c9ebe6bb856b6d4ca473ad0e5c" target="_top" xlink:title="FullRingAndRf::potential\l_well_generation">
 <polygon fill="white" stroke="black" points="362.5,-20 362.5,-54 485.5,-54 485.5,-20 362.5,-20"/>
 <text text-anchor="start" x="370.5" y="-41" font-family="Helvetica,sans-Serif" font-size="10.00">FullRingAndRf::potential</text>
 <text text-anchor="middle" x="424" y="-28" font-family="Helvetica,sans-Serif" font-size="10.00">_well_generation</text>
 </a>
 </g>
-<!-- Node6&#45;&gt;Node8 -->
-<g id="edge16" class="edge"><title>Node6&#45;&gt;Node8</title>
+<!-- Node7&#45;&gt;Node9 -->
+<g id="edge18" class="edge"><title>Node7&#45;&gt;Node9</title>
 <path fill="none" stroke="midnightblue" d="M321.171,-69.398C336.409,-64.5972 353.74,-59.1366 369.775,-54.0845"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="319.981,-66.1033 311.495,-72.4467 322.085,-72.7798 319.981,-66.1033"/>
 </g>
-<!-- Node9 -->
-<g id="node18" class="node"><title>Node9</title>
+<!-- Node10 -->
+<g id="node20" class="node"><title>Node10</title>
 <a xlink:href="../../dc/d7d/Distributions_8h.html#a39ba163b714fe197bd81ac64ffa48d30" target="_top" xlink:title="matched_from_distribution\l_density">
 <polygon fill="white" stroke="black" points="524.5,-40 524.5,-74 655.5,-74 655.5,-40 524.5,-40"/>
 <text text-anchor="start" x="532.5" y="-61" font-family="Helvetica,sans-Serif" font-size="10.00">matched_from_distribution</text>
 <text text-anchor="middle" x="590" y="-48" font-family="Helvetica,sans-Serif" font-size="10.00">_density</text>
 </a>
 </g>
-<!-- Node8&#45;&gt;Node9 -->
-<g id="edge18" class="edge"><title>Node8&#45;&gt;Node9</title>
+<!-- Node9&#45;&gt;Node10 -->
+<g id="edge20" class="edge"><title>Node9&#45;&gt;Node10</title>
 <path fill="none" stroke="midnightblue" d="M495.925,-45.6657C505.336,-46.7996 514.941,-47.9568 524.243,-49.0775"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="496.159,-42.1686 485.812,-44.4473 495.322,-49.1184 496.159,-42.1686"/>
 </g>
-<!-- Node10 -->
-<g id="node20" class="node"><title>Node10</title>
+<!-- Node11 -->
+<g id="node22" class="node"><title>Node11</title>
 <a xlink:href="../../dc/d7d/Distributions_8h.html#af8a750601d38e475a922ae843f837cc9" target="_top" xlink:title="matched_from_line_density">
 <polygon fill="white" stroke="black" points="522,-0.5 522,-21.5 658,-21.5 658,-0.5 522,-0.5"/>
 <text text-anchor="middle" x="590" y="-8.5" font-family="Helvetica,sans-Serif" font-size="10.00">matched_from_line_density</text>
 </a>
 </g>
-<!-- Node8&#45;&gt;Node10 -->
-<g id="edge20" class="edge"><title>Node8&#45;&gt;Node10</title>
+<!-- Node9&#45;&gt;Node11 -->
+<g id="edge22" class="edge"><title>Node9&#45;&gt;Node11</title>
 <path fill="none" stroke="midnightblue" d="M495.839,-25.7481C504.807,-24.3435 513.951,-22.9112 522.844,-21.5184"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="495.15,-22.3132 485.812,-27.3186 496.233,-29.2289 495.15,-22.3132"/>
 </g>

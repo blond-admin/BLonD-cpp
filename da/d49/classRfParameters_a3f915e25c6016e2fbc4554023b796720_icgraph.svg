@@ -32,7 +32,7 @@
         </defs>
 
 <script type="text/javascript">
-var viewWidth = 514;
+var viewWidth = 680;
 var viewHeight = 30;
 var sectionId = 'dynsection-5';
 </script>
@@ -40,7 +40,7 @@ var sectionId = 'dynsection-5';
 <svg id="graph" class="graph">
 <g id="viewport">
 <title>RfParameters::eta_1</title>
-<polygon fill="white" stroke="white" points="-4,5 -4,-26 511,-26 511,5 -4,5"/>
+<polygon fill="white" stroke="white" points="-4,5 -4,-26 677,-26 677,5 -4,5"/>
 <!-- Node1 -->
 <g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0.5,-0.5 0.5,-21.5 107.5,-21.5 107.5,-0.5 0.5,-0.5"/>
@@ -81,6 +81,18 @@ var sectionId = 'dynsection-5';
 <g id="edge6" class="edge"><title>Node3&#45;&gt;Node4</title>
 <path fill="none" stroke="midnightblue" d="M394.46,-11C403.003,-11 411.956,-11 420.468,-11"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="394.3,-7.5001 384.3,-11 394.3,-14.5001 394.3,-7.5001"/>
+</g>
+<!-- Node5 -->
+<g id="node9" class="node"><title>Node5</title>
+<a xlink:href="../../d9/d7c/classBeams.html#a76e4b807fd1a83ae8fe190a774acaa19" target="_top" xlink:title="Beams::losses_separatrix">
+<polygon fill="white" stroke="black" points="542,-0.5 542,-21.5 672,-21.5 672,-0.5 542,-0.5"/>
+<text text-anchor="middle" x="607" y="-8.5" font-family="Helvetica,sans-Serif" font-size="10.00">Beams::losses_separatrix</text>
+</a>
+</g>
+<!-- Node4&#45;&gt;Node5 -->
+<g id="edge8" class="edge"><title>Node4&#45;&gt;Node5</title>
+<path fill="none" stroke="midnightblue" d="M515.922,-11C524.391,-11 533.239,-11 541.95,-11"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="515.815,-7.5001 505.815,-11 515.815,-14.5001 515.815,-7.5001"/>
 </g>
 </g>
 </svg>

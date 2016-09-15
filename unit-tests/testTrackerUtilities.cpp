@@ -227,7 +227,7 @@ TEST_F(testTrackerUtilities, hamiltonian5)
     auto dt = f_vector_t(Beam->dt.begin() + 100, Beam->dt.begin() + 200);
     auto dE = f_vector_t(Beam->dE.begin() + 100, Beam->dE.begin() + 200);
 
-    auto ham = hamiltonian(GP, RfP, Beam, dt, dE);
+    auto ham = hamiltonian(GP, RfP, Beam, dt.data(), dE.data(), dt.size());
 
     f_vector_t v;
 
@@ -252,7 +252,8 @@ TEST_F(testTrackerUtilities, hamiltonian6)
     auto Beam = Context::Beam;
     auto RfP = Context::RfP;
 
-    auto ham = hamiltonian(GP, RfP, Beam, Beam->dt, Beam->dE);
+    auto ham = hamiltonian(GP, RfP, Beam, Beam->dt.data(),
+                           Beam->dE.data(), Beam->dt.size());
 
     f_vector_t v;
 

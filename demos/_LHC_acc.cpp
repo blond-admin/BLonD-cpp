@@ -19,15 +19,15 @@ using namespace std;
 
 // Simulation parameters
 // --------------------------------------------------------
-const int N_b = (int) 1.2e9;                // Intensity
+const long N_b = (long) 1.2e9;                // Intensity
 int N_p = 600000;                           // Macro-particles
 
 // Machine and RF parameters
-const float C = 26658.883;                  // Machine circumference [m]
+const double C = 26658.883;                  // Machine circumference [m]
 const int h = 35640;                        // Harmonic number
-const float dphi = 0.;                      // Phase modulation/offset
-const float gamma_t = 55.759505;            // Transition gamma
-const float alpha = 1. / gamma_t / gamma_t; // First order mom. comp. factor
+const double dphi = 0.;                      // Phase modulation/offset
+const double gamma_t = 55.759505;            // Transition gamma
+const double alpha = 1. / gamma_t / gamma_t; // First order mom. comp. factor
 
 int alpha_order = 1;
 int n_sections = 1;
@@ -210,7 +210,7 @@ int main(int argc, char **argv)
         Beam->losses_separatrix(GP, RfP);
         separatrixTime += util::time_elapsed(start);
         // }
-        
+
         util::get_time(start);
         Context::Slice->track();
         sliceTime += util::time_elapsed(start);
@@ -220,7 +220,7 @@ int main(int argc, char **argv)
         trackerTime += util::time_elapsed(start);
 
         util::get_time(start);
-        monitor->track();
+        // monitor->track();
         monitorTime += util::time_elapsed(start);
 
         util::get_time(start);
@@ -261,6 +261,7 @@ int main(int argc, char **argv)
             printf("   Bunch 3 FWHM bunch length %.4e s\n", noiseFB->fBlMeasBBB[2]);
             printf("\n");
             printf("   Mean turn time:\t\t %.4lf s\n", turn_time / (i + 1));
+            fflush(stdout);
         }
 
         if (i % dt_save == 0) {

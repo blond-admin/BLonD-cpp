@@ -25,11 +25,11 @@ const int N_b = 1.2e9; // Intensity
 int N_p = 100000;      // Macro-particles
 
 // Machine and RF parameters
-const float C = 26658.883;                  // Machine circumference [m]
+const double C = 26658.883;                  // Machine circumference [m]
 const int h = 35640;                        // Harmonic number
-const float dphi = 0.;                      // Phase modulation/offset
-const float gamma_t = 55.759505;            // Transition gamma
-const float alpha = 1. / gamma_t / gamma_t; // First order mom. comp. factor
+const double dphi = 0.;                      // Phase modulation/offset
+const double gamma_t = 55.759505;            // Transition gamma
+const double alpha = 1. / gamma_t / gamma_t; // First order mom. comp. factor
 
 // Tracking details
 uint N_t = 1000000;      // Number of turns to track; full ramp: 8700001

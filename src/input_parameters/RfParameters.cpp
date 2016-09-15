@@ -65,10 +65,17 @@ RfParameters::RfParameters(uint n_rf, f_vector_2d_t harmonic,
 
     this->omega_RF_d.resize(n_rf, f_vector_t(GP->n_turns + 1));
 
+    // printf("beta(0) = %.12lf\n", beta(0));
+    // printf("pi = %.12lf\n", constant::pi);
+    // printf("c = %.12lf\n", constant::c);
+    // printf("harmonic = %.12lf\n", harmonic[0][0]);
+    // printf("ring_circumference = %.12lf\n", GP->ring_circumference);
+
     for (uint i = 0; i < n_rf; ++i)
         for (uint j = 0; j < GP->n_turns + 1; ++j)
             omega_RF_d[i][j] = 2 * constant::pi * beta(j) * constant::c *
                                harmonic[i][j] / GP->ring_circumference;
+    // printf("omega_RF_d = %.12lf\n", omega_RF_d[0][0]);
 
     if (omega_rf.empty()) {
         omega_RF = omega_RF_d;
@@ -87,7 +94,7 @@ RfParameters::RfParameters(uint n_rf, f_vector_2d_t harmonic,
 RfParameters::~RfParameters() {}
 
 ftype RfParameters::eta_tracking(const Beams *beam, const uint counter,
-                                 const ftype dE)
+                                 const ftype dE) const
 {
     auto GP = Context::GP;
 
@@ -110,21 +117,21 @@ ftype RfParameters::eta_tracking(const Beams *beam, const uint counter,
     return eta;
 }
 
-ftype RfParameters::eta_0(const uint i) { return Context::GP->eta_0[idx][i]; }
+ftype RfParameters::eta_0(const uint i) const { return Context::GP->eta_0[idx][i]; }
 
-ftype RfParameters::eta_1(const uint i) { return Context::GP->eta_1[idx][i]; }
+ftype RfParameters::eta_1(const uint i) const { return Context::GP->eta_1[idx][i]; }
 
-ftype RfParameters::eta_2(const uint i) { return Context::GP->eta_2[idx][i]; }
+ftype RfParameters::eta_2(const uint i) const { return Context::GP->eta_2[idx][i]; }
 
-ftype RfParameters::beta(const uint i) { return Context::GP->beta[idx][i]; }
+ftype RfParameters::beta(const uint i) const { return Context::GP->beta[idx][i]; }
 
-ftype RfParameters::gamma(const uint i) { return Context::GP->gamma[idx][i]; }
+ftype RfParameters::gamma(const uint i) const { return Context::GP->gamma[idx][i]; }
 
-ftype RfParameters::energy(const uint i) { return Context::GP->energy[idx][i]; }
+ftype RfParameters::energy(const uint i) const { return Context::GP->energy[idx][i]; }
 
-ftype RfParameters::momentum(const uint i) {return Context::GP->momentum[idx][i];}
+ftype RfParameters::momentum(const uint i) const {return Context::GP->momentum[idx][i];}
 
-int RfParameters::sign_eta_0(const uint i)
+int RfParameters::sign_eta_0(const uint i) const
 {
     if (eta_0(i) > 0)
         return 1;

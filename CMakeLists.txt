@@ -98,9 +98,9 @@ else ()
         message(FATAL_ERROR "ERROR: Compiler is lacking support for c++11")
     endif ()
 
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -std=c++11 -fopenmp -Wall -pedantic -fno-rtti -Wno-unused-variable -ffast-math")
-    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g3 -gstabs") #-fsanitize=address -fno-omit-frame-pointer ")
-    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -march=native")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -std=c++11 -fopenmp -Wall -pedantic -fno-rtti -Wno-unused-variable")
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g -fno-omit-frame-pointer") #-fsanitize=address -fno-omit-frame-pointer ")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -ffast-math -march=native -fopt-info-vec=report.txt")
 
     if (TEST_ENABLED STREQUAL "True")
         set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fprofile-arcs -ftest-coverage")
@@ -186,10 +186,10 @@ if ((NOT WITH_GOOGLETEST) AND TEST_ENABLED)
 
 endif ()
 
-if ((NOT WITH_BENCHMARK) AND BENCHMARK_ENABLED)
-    find_path(BENCHMARK_INCLUDES benchmark/benchmark.h)
-    find_library(BENCHMARK_LIB NAME benchmark REQUIRED)
-endif ()
+# if ((NOT WITH_BENCHMARK) AND BENCHMARK_ENABLED)
+#     find_path(BENCHMARK_INCLUDES benchmark/benchmark.h)
+#     find_library(BENCHMARK_LIB NAME benchmark REQUIRED)
+# endif ()
 
 if (NOT (EXISTS ${PROJECT_SOURCE_DIR}/external/build))
     execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/external/build)
@@ -280,36 +280,18 @@ function(assign_source_group)
     endforeach ()
 endfunction(assign_source_group)
 
-include_directories(include
-   # $ENV{HOME}/work/anaconda2/include/python2.7
-   # $ENV{HOME}/work/anaconda2/include
-   # $ENV{HOME}/work/anaconda2/lib/python2.7/site-packages
-   # $ENV{HOME}/opt/python2.7
-   # $ENV{HOME}/opt/include/python2.7
-   # $ENV{HOME}/opt/include/
-   # $ENV{HOME}/opt/lib/python2.7/site-packages
-
-   # external/opt/python2.7
-   ${EXTERNAL_INSTALL_DIR}/include/python2.7
-   ${EXTERNAL_INSTALL_DIR}/include/
-   ${EXTERNAL_INSTALL_DIR}/lib/python2.7/site-packages
+include_directories(
+    include
+    ${EXTERNAL_INSTALL_DIR}/include/python2.7
+    ${EXTERNAL_INSTALL_DIR}/include/
+    ${EXTERNAL_INSTALL_DIR}/lib/python2.7/site-packages
    )
 
 link_directories(
-    #/usr/lib
-    # $ENV{HOME}/opt/lib/python2.7/config
     ${EXTERNAL_INSTALL_DIR}/lib/python2.7/config
-   # $ENV{HOME}/work/anaconda2/lib/python2.7/config
    )
 
 # main library
-include_directories(include)
-
-# find_library(PYTHON_LIB
-#                 NAMES python2.7 libpython2.7
-#                 PATHS "$ENV{HOME}/work/anaconda2/lib/python2.7/config"
-#                 NO_DEFAULT_PATH
-#             )
 
 SET(LIBRARIES
         ${FFTW_LIB}
@@ -318,6 +300,7 @@ SET(LIBRARIES
         dl
         hdf5_cpp
         hdf5_hl
+        benchmark
         )
 
 file(GLOB_RECURSE SOURCES
@@ -328,9 +311,6 @@ file(GLOB_RECURSE SOURCES
 set(SOURCE_FILES ${SOURCES})
 assign_source_group(${SOURCE_FILES})
 
-# foreach(source ${SOURCE_FILES})
-#   set_source_files_properties(${source} PROPERTIES COMPILE_FLAGS "-fopt-info-vec=report.txt")
-# endforeach()
 
 if (SHARED_LIBRARY_ENABLED)
     add_library(blond SHARED ${SOURCE_FILES})
@@ -434,16 +414,16 @@ if (BENCHMARK_ENABLED)
                     )
             get_filename_component(BENCHMARK_LIB ${BENCHMARK_LIB} NAME)
         else ()
-            find_library(BENCHMARK_LIB
-                    NAMES benchmark libbenchmark
-                    PATHS "${EXTERNAL_INSTALL_DIR}/lib/"
-                    NO_DEFAULT_PATH
-                    )
+            # find_library(BENCHMARK_LIB
+            #         NAMES benchmark libbenchmark
+            #         PATHS "${EXTERNAL_INSTALL_DIR}/lib/"
+            #         NO_DEFAULT_PATH
+            #         )
         endif ()
     endif ()
 
     message(STATUS "generating benchmark executables")
-    LIST(APPEND LIBRARIES ${BENCHMARK_LIB})
+    # LIST(APPEND LIBRARIES ${BENCHMARK_LIB})
 
     if (MSVC)
         LIST(APPEND LIBRARIES Shlwapi)

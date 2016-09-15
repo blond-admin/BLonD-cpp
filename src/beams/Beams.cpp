@@ -80,8 +80,9 @@ void Beams::losses_energy_cut(const ftype dE_min, const ftype dE_max)
 void Beams::losses_separatrix(GeneralParameters *GP, RfParameters *RfP)
 {
     auto index = is_in_separatrix(GP, RfP, this, dt, dE);
+    #pragma omp parallel for
     for (int i = 0; i < (int) n_macroparticles; i++)
-        id[i] = index[i] == true ? id[i] : 0;
+        id[i] = id[i] * index[i];
 }
 /*
 void Beams::losses_longitudinal_cut(const ftype* __restrict dt,

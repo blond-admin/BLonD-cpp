@@ -16,7 +16,7 @@ class RfParameters;
 
 
 class API RfParameters {
-  public:
+public:
     enum accelerating_systems_t { as_single, all, first };
 
     f_vector_t E_increment;
@@ -42,16 +42,20 @@ class API RfParameters {
     uint idx;
     ftype length_ratio;
     ftype section_length;
+
+
     // TODO write an eta_tracking function with a vector dE
-    ftype eta_tracking(const Beams* beam, const uint counter, const ftype dE);
-    ftype eta_0(const uint i);
-    ftype eta_1(const uint i);
-    ftype eta_2(const uint i);
-    ftype beta(const uint i);
-    ftype gamma(const uint i);
-    ftype energy(const uint i);
-    ftype momentum(const uint i);
-    int sign_eta_0(const uint i);
+    ftype eta_tracking(const Beams *beam,
+                       const uint counter,
+                       const ftype dE) const;
+    ftype eta_0(const uint i) const;
+    ftype eta_1(const uint i) const;
+    ftype eta_2(const uint i) const;
+    ftype beta(const uint i) const;
+    ftype gamma(const uint i) const;
+    ftype energy(const uint i) const;
+    ftype momentum(const uint i) const;
+    int sign_eta_0(const uint i) const;
 
     RfParameters(uint _n_rf, f_vector_2d_t _harmonic, f_vector_2d_t _voltage,
                  f_vector_2d_t _phi_offset,
@@ -61,10 +65,10 @@ class API RfParameters {
                  accelerating_systems_t accelerating_systems = as_single);
     ~RfParameters();
 
-  private:
+private:
 };
 
-void calc_phi_s(ftype* out, RfParameters* rfp,
+void calc_phi_s(ftype *out, RfParameters *rfp,
                 const RfParameters::accelerating_systems_t acc_sys =
                     RfParameters::accelerating_systems_t::as_single);
 

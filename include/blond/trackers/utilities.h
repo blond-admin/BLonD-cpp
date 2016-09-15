@@ -12,23 +12,41 @@
 #include <blond/utilities.h>
 #include <blond/input_parameters/GeneralParameters.h>
 #include <blond/input_parameters/RfParameters.h>
-
-ftype phase_modulo_below_transition(const ftype phi);
-
-
-ftype phase_modulo_above_transition(const ftype phi);
+#include <blond/constants.h>
 
 
-std::vector<bool> is_in_separatrix(GeneralParameters *GP, RfParameters *RfP,
-                                   Beams *Beam, f_vector_t &dt, f_vector_t &dE,
-                                   f_vector_t total_voltage = {});
+static inline ftype phase_modulo_above_transition(const ftype phi)
+{
+    return phi - 2.0 * constant::pi * std::floor(phi / (2.0 * constant::pi));
+}
 
-f_vector_t hamiltonian(GeneralParameters *GP, RfParameters *RfP, Beams *Beam,
-                  f_vector_t &dt, f_vector_t &dE,
-                  f_vector_t total_voltage = {});
 
-ftype hamiltonian(GeneralParameters *GP, RfParameters *RfP, Beams *Beam,
-                  ftype dt, ftype dE,
-                  f_vector_t total_voltage = {});
+static inline ftype phase_modulo_below_transition(const ftype phi)
+{
+    return phi - 2.0 * constant::pi *
+           (std::floor(phi / (2.0 * constant::pi) + 0.5));
+}
+
+std::vector<bool> is_in_separatrix(const GeneralParameters *GP,
+                                   const RfParameters *RfP,
+                                   const Beams *Beam,
+                                   const f_vector_t &dt,
+                                   const f_vector_t &dE,
+                                   const f_vector_t total_voltage = {});
+
+f_vector_t hamiltonian(const GeneralParameters *GP,
+                       const RfParameters *RfP,
+                       const Beams *Beam,
+                       const ftype *__restrict dt,
+                       const ftype *__restrict dE,
+                       const int size,
+                       const f_vector_t total_voltage = {});
+
+ftype hamiltonian(const GeneralParameters *GP,
+                  const RfParameters *RfP,
+                  const Beams *Beam,
+                  const ftype dt,
+                  const ftype dE,
+                  const f_vector_t total_voltage = {});
 
 #endif /* TRACKERS_UTILITIES_H_ */

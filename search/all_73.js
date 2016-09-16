@@ -11,7 +11,7 @@ var searchData=
   ['sigma_5fde',['sigma_dE',['../d9/d7c/classBeams.html#ab5ef252c5bb7ea8cb47c8db7fa61d68d',1,'Beams']]],
   ['sigma_5fdt',['sigma_dt',['../d9/d7c/classBeams.html#a723d63856345010e15bcd23a8d7db8c6',1,'Beams']]],
   ['sign',['sign',['../df/d6d/namespacemymath.html#ad7df5693cd882f31037d7533f5f77bbe',1,'mymath']]],
-  ['sign_5feta_5f0',['sign_eta_0',['../da/d49/classRfParameters.html#a92162102842a92d895a07de6927b019e',1,'RfParameters']]],
+  ['sign_5feta_5f0',['sign_eta_0',['../da/d49/classRfParameters.html#ae8a2bfb2ac202e7a3ee40a37b182bc2c',1,'RfParameters']]],
   ['simple',['simple',['../d2/d0e/Tracker_8h.html#a4775bc060a554f018f85756eadd690d1aeab0ccdadd2d4bf1106f73d24d8dd1e7',1,'Tracker.h']]],
   ['sin_2eh',['sin.h',['../d1/d3d/sin_8h.html',1,'']]],
   ['sincos_2eh',['sincos.h',['../dc/dfa/sincos_8h.html',1,'']]],

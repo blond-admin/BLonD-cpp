@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['gamma',['gamma',['../da/d49/classRfParameters.html#ab32cf0e326d76b0ebc39e2658c699fea',1,'RfParameters']]],
+  ['gamma',['gamma',['../da/d49/classRfParameters.html#a505dc94c4723566796d1535d72b429ba',1,'RfParameters']]],
   ['gauss',['gauss',['../dc/d45/classSlices.html#aeed331c21465b7fbd0d3b8888d6a4192',1,'Slices']]],
   ['gaussian_5ffilter1d',['gaussian_filter1d',['../dc/d45/classSlices.html#ab1443b2ebec9ed465a8301be8e1c747f',1,'Slices']]],
   ['gaussian_5ffit',['gaussian_fit',['../dc/d45/classSlices.html#a31398a7ae3bf058bf358e38e61eb50c9',1,'Slices']]],

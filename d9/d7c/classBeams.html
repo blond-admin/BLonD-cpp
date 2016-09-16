@@ -335,12 +335,13 @@ Public Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../dc/d0f/Beams_8cpp_source.html#l00080">80</a> of file <a class="el" href="../../dc/d0f/Beams_8cpp_source.html">Beams.cpp</a>.</p>
 
-<p>References <a class="el" href="../../d7/d74/Beams_8h_source.html#l00021">dE</a>, <a class="el" href="../../d7/d74/Beams_8h_source.html#l00020">dt</a>, <a class="el" href="../../de/da5/utilities_8cpp_source.html#l00026">is_in_separatrix()</a>, and <a class="el" href="../../d7/d74/Beams_8h_source.html#l00031">n_macroparticles</a>.</p>
+<p>References <a class="el" href="../../d7/d74/Beams_8h_source.html#l00021">dE</a>, <a class="el" href="../../d7/d74/Beams_8h_source.html#l00020">dt</a>, <a class="el" href="../../de/da5/utilities_8cpp_source.html#l00015">is_in_separatrix()</a>, and <a class="el" href="../../d7/d74/Beams_8h_source.html#l00031">n_macroparticles</a>.</p>
 <div class="fragment"><div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;{</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">auto</span> index = <a class="code" href="../../de/da5/utilities_8cpp.html#a5160d4699696c26e4742dec3af22c6d4">is_in_separatrix</a>(GP, RfP, <span class="keyword">this</span>, <a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>, <a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>);</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; (int) <a class="code" href="../../d9/d7c/classBeams.html#a1b105ba722dc72d5098d979fc900b3ff">n_macroparticles</a>; i++)</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keywordtype">id</span>[i] = index[i] == <span class="keyword">true</span> ? <span class="keywordtype">id</span>[i] : 0;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;}</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">auto</span> index = <a class="code" href="../../de/da5/utilities_8cpp.html#adc840b0dc865131c6354ceb43674752f">is_in_separatrix</a>(GP, RfP, <span class="keyword">this</span>, <a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>, <a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">    #pragma omp parallel for</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; (int) <a class="code" href="../../d9/d7c/classBeams.html#a1b105ba722dc72d5098d979fc900b3ff">n_macroparticles</a>; i++)</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordtype">id</span>[i] = <span class="keywordtype">id</span>[i] * index[i];</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;}</div>
 </div><!-- fragment -->
 <p><div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
@@ -621,7 +622,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../d9/d7c/classBeams.html">Beams</a></li>
-    <li class="footer">Generated on Wed Sep 7 2016 11:12:21 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Fri Sep 16 2016 12:42:11 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

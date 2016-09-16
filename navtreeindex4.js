@@ -1,7 +1,5 @@
 var NAVTREEINDEX4 =
 {
-"functions_0x61.html":[1,3,0,1],
-"functions_0x62.html":[1,3,0,2],
 "functions_0x63.html":[1,3,0,3],
 "functions_0x64.html":[1,3,0,4],
 "functions_0x65.html":[1,3,0,5],
@@ -50,8 +48,8 @@ var NAVTREEINDEX4 =
 "functions_func_0x77.html":[1,3,1,20],
 "functions_func_0x7e.html":[1,3,1,21],
 "functions_rela.html":[1,3,5],
-"functions_vars.html":[1,3,2],
 "functions_vars.html":[1,3,2,0],
+"functions_vars.html":[1,3,2],
 "functions_vars_0x61.html":[1,3,2,1],
 "functions_vars_0x62.html":[1,3,2,2],
 "functions_vars_0x63.html":[1,3,2,3],

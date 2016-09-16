@@ -26,7 +26,7 @@ var searchData=
   ['beams_2ecpp',['Beams.cpp',['../dc/d0f/Beams_8cpp.html',1,'']]],
   ['beams_2eh',['Beams.h',['../d7/d74/Beams_8h.html',1,'']]],
   ['begin',['begin',['../d4/d19/classmymath_1_1Ham.html#a0e2f07884b3a24179a69015096f36f63',1,'mymath::Ham']]],
-  ['beta',['beta',['../d1/dfc/classGeneralParameters.html#a1dfbb2b28b96314abba548b4a750fce8',1,'GeneralParameters::beta()'],['../da/d49/classRfParameters.html#a16d65aa705e7a2e243501f95b7829ea5',1,'RfParameters::beta()']]],
+  ['beta',['beta',['../d1/dfc/classGeneralParameters.html#a1dfbb2b28b96314abba548b4a750fce8',1,'GeneralParameters::beta()'],['../da/d49/classRfParameters.html#a18cc55dde4c1cfc84c2604b1eda15a01',1,'RfParameters::beta()']]],
   ['bin_5fcenters',['bin_centers',['../dc/d45/classSlices.html#a20fe6ad5ead7011307efdd5a81392366',1,'Slices']]],
   ['bl_5ffwhm',['bl_fwhm',['../dc/d45/classSlices.html#a09267c8bbd53152b5632ce45145431c4',1,'Slices']]],
   ['bl_5fgauss',['bl_gauss',['../dc/d45/classSlices.html#a84dcdfe3f0e39073c0f35c96aebba053',1,'Slices']]],

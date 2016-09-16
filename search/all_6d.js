@@ -17,7 +17,7 @@ var searchData=
   ['mean_5fdt',['mean_dt',['../d9/d7c/classBeams.html#a625f43b7b4ee7a3ab2a7923037231a9d',1,'Beams']]],
   ['min',['min',['../df/d6d/namespacemymath.html#a5bcc40b5ebadd9d98f351775df65ec9f',1,'mymath']]],
   ['minlogf',['MINLOGF',['../d1/d47/namespacevdt_1_1details.html#ab9f484180a8db3772b24deb558bd45fa',1,'vdt::details']]],
-  ['momentum',['momentum',['../d1/dfc/classGeneralParameters.html#aea11b2e34e53638809f9764489230dbf',1,'GeneralParameters::momentum()'],['../da/d49/classRfParameters.html#a36c69c4fa34b35b8066740c93e410f81',1,'RfParameters::momentum()']]],
+  ['momentum',['momentum',['../d1/dfc/classGeneralParameters.html#aea11b2e34e53638809f9764489230dbf',1,'GeneralParameters::momentum()'],['../da/d49/classRfParameters.html#afb02a001f99f87b1953daaf2af12512d',1,'RfParameters::momentum()']]],
   ['monitors_2ecpp',['Monitors.cpp',['../da/dda/Monitors_8cpp.html',1,'']]],
   ['monitors_2eh',['Monitors.h',['../d0/da6/Monitors_8h.html',1,'']]],
   ['morebits',['MOREBITS',['../d1/d47/namespacevdt_1_1details.html#ae43e8ec975cab257cd2e1edea344c4a9',1,'vdt::details']]],

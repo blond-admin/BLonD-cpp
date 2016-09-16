@@ -5,7 +5,7 @@ var searchData=
   ['set_5fperiodicity',['set_periodicity',['../de/da1/classRingAndRfSection.html#ac95a3ae3696416ded55b2a31125f0d21',1,'RingAndRfSection']]],
   ['shift',['shift',['../d6/d83/classoption_1_1Parser.html#a50028a8c1f78607119e164ba8059018c',1,'option::Parser']]],
   ['sign',['sign',['../df/d6d/namespacemymath.html#ad7df5693cd882f31037d7533f5f77bbe',1,'mymath']]],
-  ['sign_5feta_5f0',['sign_eta_0',['../da/d49/classRfParameters.html#a92162102842a92d895a07de6927b019e',1,'RfParameters']]],
+  ['sign_5feta_5f0',['sign_eta_0',['../da/d49/classRfParameters.html#ae8a2bfb2ac202e7a3ee40a37b182bc2c',1,'RfParameters']]],
   ['sinfv',['sinfv',['../d5/d7b/namespacevdt.html#af63f5e7aa6a3fc85caf5957647fa57af',1,'vdt']]],
   ['sinv',['sinv',['../d5/d7b/namespacevdt.html#aebae6573d29204b4d18bf2a005d3ab8c',1,'vdt']]],
   ['slice_5fconstant_5fspace_5fhistogram',['slice_constant_space_histogram',['../dc/d45/classSlices.html#ae9463517699373a87a1dae18becf9319',1,'Slices']]],

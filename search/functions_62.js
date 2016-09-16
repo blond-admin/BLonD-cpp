@@ -6,7 +6,7 @@ var searchData=
   ['beam_5fspectrum_5fgeneration',['beam_spectrum_generation',['../dc/d45/classSlices.html#a77b0f27dab45e9f789d5725b1d660673',1,'Slices']]],
   ['beams',['Beams',['../d9/d7c/classBeams.html#ac7fd9f17f15c75dd99678899c797e2cc',1,'Beams']]],
   ['begin',['begin',['../d4/d19/classmymath_1_1Ham.html#a0e2f07884b3a24179a69015096f36f63',1,'mymath::Ham']]],
-  ['beta',['beta',['../da/d49/classRfParameters.html#a16d65aa705e7a2e243501f95b7829ea5',1,'RfParameters']]],
+  ['beta',['beta',['../da/d49/classRfParameters.html#a18cc55dde4c1cfc84c2604b1eda15a01',1,'RfParameters']]],
   ['buf_5fempty',['buf_empty',['../de/d50/classoption_1_1PrintUsageImplementation_1_1LineWrapper.html#a9cd367ca1d308458366be2ebbd018ebe',1,'option::PrintUsageImplementation::LineWrapper']]],
   ['buf_5ffull',['buf_full',['../de/d50/classoption_1_1PrintUsageImplementation_1_1LineWrapper.html#ac814c95dcda4174b29e2f24c6bb13519',1,'option::PrintUsageImplementation::LineWrapper']]],
   ['buf_5fnext',['buf_next',['../de/d50/classoption_1_1PrintUsageImplementation_1_1LineWrapper.html#a2e0ef4f940413addf063ad7e429c6556',1,'option::PrintUsageImplementation::LineWrapper']]],

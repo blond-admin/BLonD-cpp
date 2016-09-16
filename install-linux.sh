@@ -220,8 +220,9 @@ if [ "${INSTALL_GBENCH}" = "true" ] ; then
    cd build
    CC=gcc CXX=g++ cmake -DCMAKE_BUILD_TYPE=Release \
                         -DBENCHMARK_CXX_LINKER_FLAGS="-lrt" \
-                        .. &>> $log
-   make &>> $log
+                        .. #&>> $log
+   make #&>> $log
+   ls
    cp src/*.a "${INSTALL}/lib"
 
    cd ${BLOND_HOME}

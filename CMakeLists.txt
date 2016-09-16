@@ -20,7 +20,7 @@ set(CMAKE_BUILD_TYPE Release CACHE STRING "default build type for Make-like gene
 set(SHARED_LIBRARY_ENABLED "True")
 set(EXTERNAL_INSTALL_DIR ${PROJECT_SOURCE_DIR}/external/install)
 set(TEST_ENABLED "True" CACHE STRING "Cerate unit-test projects")
-set(BENCHMARK_ENABLED "True" CACHE STRING "Cerate benchmark projects")
+# set(BENCHMARK_ENABLED "True" CACHE STRING "Cerate benchmark projects")
 set(ARCHITECTURE "x64" CACHE STRING "Set architecture 'x86' or 'x32'") # todo: find usages and  fix comment
 # if(NOT ABSOLUTE_DATA_PATHS)
 #    set(DATAFILES_DIR_DEMOS "../demos/input_files" CACHE STRING "Set demos input files path")
@@ -54,20 +54,20 @@ endif ()
 
 set(GOOGLETEST_ROOT ${PROJECT_SOURCE_DIR}/external/googletest/ CACHE STRING "Google Test source root")
 
-if (NOT DEFINED WITH_BENCHMARK)
-    if (MSVC)
-        set(WITH_BENCHMARK "True" CACHE STRING "Should Build GoogleBenchmark library from source")
-    else ()
-        set(WITH_BENCHMARK "False" CACHE STRING "Should Build GoogleBenchmark library from source")
-    endif ()
-endif ()
+# if (NOT DEFINED WITH_BENCHMARK)
+#     if (MSVC)
+#         set(WITH_BENCHMARK "True" CACHE STRING "Should Build GoogleBenchmark library from source")
+#     else ()
+#         set(WITH_BENCHMARK "False" CACHE STRING "Should Build GoogleBenchmark library from source")
+#     endif ()
+# endif ()
 
-set(BENCHMARK_ROOT ${PROJECT_SOURCE_DIR}/external/benchmark CACHE STRING "Google Benchmark Library root")
+# set(BENCHMARK_ROOT ${PROJECT_SOURCE_DIR}/external/benchmark CACHE STRING "Google Benchmark Library root")
 
 set(WITH_FORMAT "False" CACHE STRING "Clang-Format all project files on build (requires clang-format)")
 
 # Package settings
-set(USE_FFTW_OMP "False" CACHE STRING "Should use OpenMP flavour of FFTW library (linux only)") #todo: test and configure
+set(USE_FFTW_OMP "True" CACHE STRING "Should use OpenMP flavour of FFTW library (linux only)") #todo: test and configure
 add_definitions(-DDEMO_FILES="${DATAFILES_DIR_DEMOS}" 
                 -DTEST_FILES="${DATAFILES_DIR_TESTS}") #demos datafiles
 
@@ -100,7 +100,7 @@ else ()
 
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -std=c++11 -fopenmp -Wall -pedantic -fno-rtti -Wno-unused-variable")
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g -fno-omit-frame-pointer") #-fsanitize=address -fno-omit-frame-pointer ")
-    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -ffast-math -march=native -fopt-info-vec=report.txt")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -ffast-math -march=native") #-fopt-info-vec=report.txt")
 
     if (TEST_ENABLED STREQUAL "True")
         set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fprofile-arcs -ftest-coverage")
@@ -198,44 +198,6 @@ else ()
     execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/external/build)
 endif ()
 
-# message(STATUS "Building required started...")
-
-# execute_process(
-#         COMMAND ${CMAKE_COMMAND}
-#         #options
-#         -DWITH_FFTW=${WITH_FFTW}
-#         -DWITH_BENCHMARK=${WITH_BENCHMARK}
-#         -DWITH_GOOGLETEST=${WITH_GOOGLETEST}
-#         #destinations
-#         -DINSTALL_DIR=${EXTERNAL_INSTALL_DIR}
-#         -DCOMPILE_FLAGS=${COMPILE_FLAGS}
-#         -DGOOGLETEST_ROOT=${GOOGLETEST_ROOT}
-#         -DBENCHMARK_ROOT=${BENCHMARK_ROOT}
-#         -DGOOGLETEST_ROOT=${GOOGLETEST_ROOT}
-#         #forward all collected compilation arguments
-#         -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} # relevant only for Make-like build files
-#         -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}
-#         -DCMAKE_CXX_FLAGS_DEBUG=${CMAKE_CXX_FLAGS_DEBUG}
-#         -DCMAKE_CXX_FLAGS_RELEASE=${CMAKE_CXX_FLAGS_RELEASE}
-#         -DCMAKE_EXE_LINKER_FLAGS_RELEASE=${CMAKE_EXE_LINKER_FLAGS_RELEASE}
-#         -DCMAKE_EXE_LINKER_FLAGS_DEBUG=${CMAKE_EXE_LINKER_FLAGS_DEBUG}
-#         -v
-#         -G "${CMAKE_GENERATOR}"
-#         ${PROJECT_SOURCE_DIR}/external/
-#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/external/build
-# )
-
-# message(STATUS "building external projects begins")
-# execute_process(
-#         COMMAND cmake --build . --config Release
-#         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/external/build
-# )
-# if (WIN32 AND NOT MINGW)
-#     execute_process(
-#             COMMAND cmake --build . --config Debug
-#             WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/external/build
-#     )
-# endif ()
 message(STATUS "building external projects ended")
 
 message(STATUS "Building required libraries complete")
@@ -300,7 +262,7 @@ SET(LIBRARIES
         dl
         hdf5_cpp
         hdf5_hl
-        benchmark
+        # benchmark
         )
 
 file(GLOB_RECURSE SOURCES
@@ -403,48 +365,48 @@ endif ()
 
 
 # benchmarks
-if (BENCHMARK_ENABLED)
-    if (WITH_BENCHMARK)
-        if (WIN32 AND NOT MINGW)
-            link_directories(${EXTERNAL_INSTALL_DIR}/lib/fftw/$(Configuration)/)
-            find_library(BENCHMARK_LIB
-                    NAMES benchmark libbenchmark
-                    PATHS "${EXTERNAL_INSTALL_DIR}/lib/benchmark/Debug"
-                    NO_DEFAULT_PATH
-                    )
-            get_filename_component(BENCHMARK_LIB ${BENCHMARK_LIB} NAME)
-        else ()
-            # find_library(BENCHMARK_LIB
-            #         NAMES benchmark libbenchmark
-            #         PATHS "${EXTERNAL_INSTALL_DIR}/lib/"
-            #         NO_DEFAULT_PATH
-            #         )
-        endif ()
-    endif ()
+# if (BENCHMARK_ENABLED)
+#     if (WITH_BENCHMARK)
+#         if (WIN32 AND NOT MINGW)
+#             link_directories(${EXTERNAL_INSTALL_DIR}/lib/fftw/$(Configuration)/)
+#             find_library(BENCHMARK_LIB
+#                     NAMES benchmark libbenchmark
+#                     PATHS "${EXTERNAL_INSTALL_DIR}/lib/benchmark/Debug"
+#                     NO_DEFAULT_PATH
+#                     )
+#             get_filename_component(BENCHMARK_LIB ${BENCHMARK_LIB} NAME)
+#         else ()
+#             # find_library(BENCHMARK_LIB
+#             #         NAMES benchmark libbenchmark
+#             #         PATHS "${EXTERNAL_INSTALL_DIR}/lib/"
+#             #         NO_DEFAULT_PATH
+#             #         )
+#         endif ()
+#     endif ()
 
-    message(STATUS "generating benchmark executables")
-    # LIST(APPEND LIBRARIES ${BENCHMARK_LIB})
+#     message(STATUS "generating benchmark executables")
+#     # LIST(APPEND LIBRARIES ${BENCHMARK_LIB})
 
-    if (MSVC)
-        LIST(APPEND LIBRARIES Shlwapi)
-    else ()
-        LIST(APPEND LIBRARIES pthread)
-    endif ()
+#     if (MSVC)
+#         LIST(APPEND LIBRARIES Shlwapi)
+#     else ()
+#         LIST(APPEND LIBRARIES pthread)
+#     endif ()
 
-    file(GLOB BENCHMARK_SOURCES "./benchmarks/*.cpp")
-    set(BENCHMARK_FILES ${BENCHMARK_SOURCES})
+#     file(GLOB BENCHMARK_SOURCES "./benchmarks/*.cpp")
+#     set(BENCHMARK_FILES ${BENCHMARK_SOURCES})
 
-    foreach (src ${BENCHMARK_FILES})
-        file(RELATIVE_PATH testfile ${CMAKE_CURRENT_SOURCE_DIR} ${src})
-        string(REPLACE ".cpp" "" testname ${testfile})
-        string(REPLACE "benchmarks/" "" testname ${testname})
-        add_executable(${testname} ${src})
-        target_link_libraries(${testname} ${LIBRARIES})
-        add_test(${testname} ${testname})
-    endforeach ()
+#     foreach (src ${BENCHMARK_FILES})
+#         file(RELATIVE_PATH testfile ${CMAKE_CURRENT_SOURCE_DIR} ${src})
+#         string(REPLACE ".cpp" "" testname ${testfile})
+#         string(REPLACE "benchmarks/" "" testname ${testname})
+#         add_executable(${testname} ${src})
+#         target_link_libraries(${testname} ${LIBRARIES})
+#         add_test(${testname} ${testname})
+#     endforeach ()
 
-    enable_testing()
-endif ()
+#     enable_testing()
+# endif ()
 
 install(TARGETS blond
         RUNTIME DESTINATION bin

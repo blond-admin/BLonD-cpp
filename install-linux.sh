@@ -52,8 +52,6 @@ done
 # -----------------
 
 
-echo $INSTALL_GBENCH
-
 if [ -e ${INSTALL}/include/fftw3.h ] && [ -e ${INSTALL}/lib/libfftw3.la ]; then
    echo -e "\n\n---- Looks like fftw3 is already installed,"
    echo -e "---- are you sure you want to reinstall it?"
@@ -220,9 +218,8 @@ if [ "${INSTALL_GBENCH}" = "true" ] ; then
    cd build
    CC=gcc CXX=g++ cmake -DCMAKE_BUILD_TYPE=Release \
                         -DBENCHMARK_CXX_LINKER_FLAGS="-lrt" \
-                        .. #&>> $log
-   make #&>> $log
-   ls
+                        .. &>> $log
+   make &>> $log
    cp src/*.a "${INSTALL}/lib"
 
    cd ${BLOND_HOME}

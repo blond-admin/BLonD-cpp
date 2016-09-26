@@ -27,7 +27,7 @@ static inline ftype phase_modulo_below_transition(const ftype phi)
            (std::floor(phi / (2.0 * constant::pi) + 0.5));
 }
 
-std::vector<bool> is_in_separatrix(const GeneralParameters *GP,
+std::vector<int> is_in_separatrix(const GeneralParameters *GP,
                                    const RfParameters *RfP,
                                    const Beams *Beam,
                                    const f_vector_t &dt,

@@ -402,10 +402,10 @@ if (BENCHMARK_ENABLED)
         string(REPLACE "benchmarks/" "" testname ${testname})
         add_executable(${testname} ${src})
         target_link_libraries(${testname} ${LIBRARIES})
-        add_test(${testname} ${testname})
+        # add_test(${testname} ${testname})
     endforeach ()
 
-    enable_testing()
+    # enable_testing()
 endif ()
 
 install(TARGETS blond

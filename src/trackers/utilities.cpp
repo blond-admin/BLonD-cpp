@@ -12,7 +12,7 @@
 #include <blond/math_functions.h>
 
 
-std::vector<bool> is_in_separatrix(const GeneralParameters *GP,
+std::vector<int> is_in_separatrix(const GeneralParameters *GP,
                                    const RfParameters *RfP,
                                    const Beams *Beam,
                                    const f_vector_t &dt,
@@ -45,8 +45,10 @@ std::vector<bool> is_in_separatrix(const GeneralParameters *GP,
                             dE.data(), dt.size(),
                             total_voltage);
 
-    std::vector<bool> isin(temp.size());
+    // vector<bool> is not thread safe!!
+    std::vector<int> isin(temp.size());
     const int size = isin.size();
+    
     #pragma omp parallel for
     for (int i = 0; i < size; i++)
         isin[i] = std::abs(temp[i]) < Hsep;

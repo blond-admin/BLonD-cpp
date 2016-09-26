@@ -33,6 +33,8 @@ class testLHCFlatSpectrum : public ::testing::Test {
 
   protected:
     virtual void SetUp() {
+        omp_set_num_threads(1);
+        
         f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1));
         for (auto& v : momentumVec)
             mymath::linspace(v.data(), p_i, 1.01 * p_i, N_t + 1);

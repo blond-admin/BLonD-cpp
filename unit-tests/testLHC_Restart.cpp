@@ -29,7 +29,7 @@ class testLHC_Restart : public ::testing::Test {
 
     virtual void SetUp() {
         // printf("ok here\n");
-        omp_set_num_threads(Context::n_threads);
+        omp_set_num_threads(1);
 
         f_vector_2d_t momentumVec(1, f_vector_t());
         util::read_vector_from_file(momentumVec[0],

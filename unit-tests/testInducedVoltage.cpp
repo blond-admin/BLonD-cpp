@@ -50,7 +50,7 @@ protected:
     virtual void SetUp()
     {
 
-        omp_set_num_threads(Context::n_threads);
+        omp_set_num_threads(1);
 
         f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1, p_i));
 

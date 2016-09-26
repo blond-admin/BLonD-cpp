@@ -20,6 +20,8 @@ class testPL : public ::testing::Test {
     // const ftype tau_0 = 0.4e-9;          // Initial bunch length, 4 sigma [s]
 
     virtual void SetUp() {
+        omp_set_num_threads(1);
+
         f_vector_2d_t momentumVec(1, f_vector_t());
         util::read_vector_from_file(momentumVec[0],
                                     datafiles + "LHC_momentum_programme");
@@ -117,6 +119,8 @@ class testPL : public ::testing::Test {
 class testPL2 : public ::testing::Test {
 
     virtual void SetUp() {
+        omp_set_num_threads(1);
+        
         f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1, p_i));
 
         f_vector_2d_t alphaVec(n_sections, f_vector_t(alpha_order + 1, alpha));

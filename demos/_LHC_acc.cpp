@@ -39,7 +39,7 @@ ftype bl_target = 0.9e-9; // 4 sigma r.m.s. target bunch length in [s]
 int N_slices = 2200;
 
 int dt_save = 500000;
-int dt_plot = 10000;
+int dt_plot = 100000;
 
 const std::string datafiles = "/afs/cern.ch/user/h/htimko/public/LHC/input/";
 
@@ -197,7 +197,7 @@ int main(int argc, char **argv)
     auto monitorTime = 0.0;
     timespec start;
 
-    for (uint i = 0; i < N_t && i < 500000; ++i) {
+    for (uint i = 0; i < N_t; ++i) {
 
         util::get_time(begin_t);
 
@@ -220,7 +220,7 @@ int main(int argc, char **argv)
         trackerTime += util::time_elapsed(start);
 
         util::get_time(start);
-        // monitor->track();
+        monitor->track();
         monitorTime += util::time_elapsed(start);
 
         util::get_time(start);

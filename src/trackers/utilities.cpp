@@ -77,10 +77,9 @@ f_vector_t hamiltonian(const GeneralParameters *GP,
     ftype v0;
 
     if (total_voltage.empty())
-        v0 = RfP->voltage[0][counter];
+        v0 = RfP->voltage[0][counter] * GP->charge;
     else
-        v0 = total_voltage[counter];
-    v0 *= GP->charge;
+        v0 = total_voltage[counter] * GP->charge;
 
     // TODO it should be dE instead of 0.0
     const ftype c1 = RfP->eta_tracking(Beam, counter, 0.0)
@@ -92,13 +91,14 @@ f_vector_t hamiltonian(const GeneralParameters *GP,
                      / (h0 * GP->ring_circumference);
     const ftype phi_s = RfP->phi_s[counter];
 
-    f_vector_t phi_b(size);
     const ftype omega_rf0 = RfP->omega_RF[0][counter];
     const ftype phi_rf0 = RfP->phi_RF[0][counter];
 
+    f_vector_t phi_b(size, phi_rf0);
+
     #pragma omp parallel for
     for (int i = 0; i < size; i++)
-        phi_b[i] = omega_rf0 * dt[i] + phi_rf0;
+        phi_b[i] += omega_rf0 * dt[i];
 
     const ftype eta0 = RfP->eta_0(counter);
 
@@ -111,11 +111,20 @@ f_vector_t hamiltonian(const GeneralParameters *GP,
         for (int i = 0; i < size; i++)
             phi_b[i] = phase_modulo_above_transition(phi_b[i]);
 
+    const ftype cos_phi_s = mymath::fast_cos(phi_s);
+    const ftype sin_phi_s = mymath::fast_sin(phi_s);
+
+    // auto f1 = [ = ](double phib, double de) {
+    //     return c1 * de * de + c2
+    //            * (mymath::fast_cos(phib) - cos_phi_s + (phib - phi_s) * sin_phi_s);
+    // };
+    // std::transform(phi_b.begin(), phi_b.end(), &dE[0], phi_b.begin(), f1);
+
     #pragma omp parallel for
     for (int i = 0; i < size; i++)
-        phi_b[i] =  c1 * dE[i] * dE[i]
-                    + c2 * (mymath::fast_cos(phi_b[i]) - mymath::fast_cos(phi_s)
-                            + (phi_b[i] - phi_s) * mymath::fast_sin(phi_s));
+        phi_b[i] = c1 * dE[i] * dE[i]
+                   + c2 * (mymath::fast_cos(phi_b[i]) - cos_phi_s
+                           + (phi_b[i] - phi_s) * sin_phi_s);
 
 
     return phi_b;

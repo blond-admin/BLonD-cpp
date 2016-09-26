@@ -20,7 +20,7 @@ set(CMAKE_BUILD_TYPE Release CACHE STRING "default build type for Make-like gene
 set(SHARED_LIBRARY_ENABLED "True")
 set(EXTERNAL_INSTALL_DIR ${PROJECT_SOURCE_DIR}/external/install)
 set(TEST_ENABLED "True" CACHE STRING "Cerate unit-test projects")
-# set(BENCHMARK_ENABLED "True" CACHE STRING "Cerate benchmark projects")
+set(BENCHMARK_ENABLED "True" CACHE STRING "Cerate benchmark projects")
 set(ARCHITECTURE "x64" CACHE STRING "Set architecture 'x86' or 'x32'") # todo: find usages and  fix comment
 # if(NOT ABSOLUTE_DATA_PATHS)
 #    set(DATAFILES_DIR_DEMOS "../demos/input_files" CACHE STRING "Set demos input files path")
@@ -365,48 +365,48 @@ endif ()
 
 
 # benchmarks
-# if (BENCHMARK_ENABLED)
-#     if (WITH_BENCHMARK)
-#         if (WIN32 AND NOT MINGW)
-#             link_directories(${EXTERNAL_INSTALL_DIR}/lib/fftw/$(Configuration)/)
-#             find_library(BENCHMARK_LIB
-#                     NAMES benchmark libbenchmark
-#                     PATHS "${EXTERNAL_INSTALL_DIR}/lib/benchmark/Debug"
-#                     NO_DEFAULT_PATH
-#                     )
-#             get_filename_component(BENCHMARK_LIB ${BENCHMARK_LIB} NAME)
-#         else ()
-#             # find_library(BENCHMARK_LIB
-#             #         NAMES benchmark libbenchmark
-#             #         PATHS "${EXTERNAL_INSTALL_DIR}/lib/"
-#             #         NO_DEFAULT_PATH
-#             #         )
-#         endif ()
-#     endif ()
+if (BENCHMARK_ENABLED)
+    if (WITH_BENCHMARK)
+        if (WIN32 AND NOT MINGW)
+            link_directories(${EXTERNAL_INSTALL_DIR}/lib/fftw/$(Configuration)/)
+            find_library(BENCHMARK_LIB
+                    NAMES benchmark libbenchmark
+                    PATHS "${EXTERNAL_INSTALL_DIR}/lib/benchmark/Debug"
+                    NO_DEFAULT_PATH
+                    )
+            get_filename_component(BENCHMARK_LIB ${BENCHMARK_LIB} NAME)
+        else ()
+            # find_library(BENCHMARK_LIB
+            #         NAMES benchmark libbenchmark
+            #         PATHS "${EXTERNAL_INSTALL_DIR}/lib/"
+            #         NO_DEFAULT_PATH
+            #         )
+        endif ()
+    endif ()
 
-#     message(STATUS "generating benchmark executables")
-#     # LIST(APPEND LIBRARIES ${BENCHMARK_LIB})
+    message(STATUS "generating benchmark executables")
+    # LIST(APPEND LIBRARIES ${BENCHMARK_LIB})
 
-#     if (MSVC)
-#         LIST(APPEND LIBRARIES Shlwapi)
-#     else ()
-#         LIST(APPEND LIBRARIES pthread)
-#     endif ()
+    if (MSVC)
+        LIST(APPEND LIBRARIES Shlwapi)
+    else ()
+        LIST(APPEND LIBRARIES pthread)
+    endif ()
 
-#     file(GLOB BENCHMARK_SOURCES "./benchmarks/*.cpp")
-#     set(BENCHMARK_FILES ${BENCHMARK_SOURCES})
+    file(GLOB BENCHMARK_SOURCES "./benchmarks/*.cpp")
+    set(BENCHMARK_FILES ${BENCHMARK_SOURCES})
 
-#     foreach (src ${BENCHMARK_FILES})
-#         file(RELATIVE_PATH testfile ${CMAKE_CURRENT_SOURCE_DIR} ${src})
-#         string(REPLACE ".cpp" "" testname ${testfile})
-#         string(REPLACE "benchmarks/" "" testname ${testname})
-#         add_executable(${testname} ${src})
-#         target_link_libraries(${testname} ${LIBRARIES})
-#         add_test(${testname} ${testname})
-#     endforeach ()
+    foreach (src ${BENCHMARK_FILES})
+        file(RELATIVE_PATH testfile ${CMAKE_CURRENT_SOURCE_DIR} ${src})
+        string(REPLACE ".cpp" "" testname ${testfile})
+        string(REPLACE "benchmarks/" "" testname ${testname})
+        add_executable(${testname} ${src})
+        target_link_libraries(${testname} ${LIBRARIES})
+        add_test(${testname} ${testname})
+    endforeach ()
 
-#     enable_testing()
-# endif ()
+    enable_testing()
+endif ()
 
 install(TARGETS blond
         RUNTIME DESTINATION bin

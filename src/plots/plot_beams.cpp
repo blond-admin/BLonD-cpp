@@ -127,6 +127,7 @@ void plot_bunch_length_evol(RfParameters *RfP, std::string h5data,
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, pSigmaDt,
                                             pOutputFreq, pDirname, NULL);
     assert(ret);
+    free(sigma_dt);
 
 }
 
@@ -154,6 +155,7 @@ void plot_bunch_length_evol_gaussian(RfParameters *RfP,
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, pBlGauss,
                                             pOutputFreq, pDirname, NULL);
     assert(ret);
+    free(bl_gauss);
 
 }
 
@@ -183,6 +185,7 @@ void plot_position_evol(RfParameters *RfP, std::string h5data,
                                             pOutputFreq, pStyle, pDirname,
                                             NULL);
     assert(ret);
+    free(mean_dt);
 
 }
 
@@ -211,6 +214,7 @@ void plot_energy_evol(RfParameters *RfP, std::string h5data,
                                             pOutputFreq, pStyle, pDirname,
                                             NULL);
     assert(ret);
+    free(mean_dE);
 }
 
 void plot_transmitted_particles(RfParameters *RfP, std::string h5data,
@@ -229,8 +233,8 @@ void plot_transmitted_particles(RfParameters *RfP, std::string h5data,
 
     hsize_t dims;
     int *n_macroparticles_alive = (int *) read_1D(h5data,
-                                     "Beam/n_macroparticles_alive",
-                                     "int", &dims);
+                                  "Beam/n_macroparticles_alive",
+                                  "int", &dims);
 
     auto pPartsAlive = python::convert_int_array(n_macroparticles_alive, dims);
 
@@ -238,4 +242,5 @@ void plot_transmitted_particles(RfParameters *RfP, std::string h5data,
                                             pOutputFreq, pStyle, pDirname,
                                             NULL);
     assert(ret);
+    free(n_macroparticles_alive);
 }

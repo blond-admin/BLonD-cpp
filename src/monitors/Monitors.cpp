@@ -21,7 +21,7 @@ void *read_2D(std::string fname, std::string dsname,
     H5LTget_dataset_info(file_id, dsname.c_str(),
                          dims, &class_id, &type_size);
     std::transform(type.begin(), type.end(), type.begin(), ::tolower);
-    void *res;
+    void *res = NULL;
 
     if (type == "int" && sizeof(int) == type_size) {
         res = malloc(dims[0] * dims[1] * type_size);
@@ -48,7 +48,7 @@ void *read_1D(std::string fname, std::string dsname,
     H5LTget_dataset_info(file_id, dsname.c_str(),
                          dims, &class_id, &type_size);
     std::transform(type.begin(), type.end(), type.begin(), ::tolower);
-    void *res;
+    void *res = NULL;
 
     if (type == "int" && sizeof(int) == type_size) {
         res = malloc(dims[0] * type_size);

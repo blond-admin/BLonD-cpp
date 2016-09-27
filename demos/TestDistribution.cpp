@@ -13,6 +13,7 @@
 #include <blond/plots/plot_beams.h>
 #include <blond/plots/plot_parameters.h>
 #include <blond/plots/plot_slices.h>
+#include <blond/plots/plot_llrf.h>
 #include <blond/python.h>
 #include <blond/monitors/Monitors.h>
 // Simulation parameters
@@ -87,7 +88,7 @@ int main(int argc, char **argv)
     //     time[i] = 1.0 * (i + 1);
     // plot_voltage_programme(time, voltageVec[0]);
 
-    auto bunchmonitor = BunchMonitor(GP, RfP, Beam, "bunch.h5", 10);
+    // auto bunchmonitor = BunchMonitor(GP, RfP, Beam, "bunch.h5", 10);
     auto tracker = RingAndRfSection();
 
     longitudinal_bigaussian(200e-9, 1e6, 1, false);
@@ -96,14 +97,23 @@ int main(int argc, char **argv)
             cuts_unit_type::rad);
 
 
-    for (int i = 0; i < N_t; i++) {
-        tracker.track();
-        slice->track();
-        bunchmonitor.track();
-    }
-    bunchmonitor.track();
-    bunchmonitor.close();
-
+    // for (int i = 0; i < N_t; i++) {
+    //     tracker.track();
+    //     slice->track();
+    //     bunchmonitor.track();
+    // }
+    // bunchmonitor.track();
+    // bunchmonitor.close();
+    plot_PL_bunch_phase(RfP, "output_data_full.h5");
+    plot_PL_RF_phase(RfP, "output_data_full.h5");
+    plot_PL_phase_corr(RfP, "output_data_full.h5");
+    plot_PL_RF_freq(RfP, "output_data_full.h5");
+    plot_PL_freq_corr(RfP, "output_data_full.h5");
+    plot_RF_phase_error(RfP, "output_data_full.h5");
+    plot_COM_motion(RfP, "output_data_full.h5");
+    plot_LHCNoiseFB(RfP, "output_data_full.h5");
+    plot_LHCNoiseFB_FWHM(RfP, "output_data_full.h5");
+    plot_LHCNoiseFB_FWHM_bbb(RfP, "output_data_full.h5");
     // auto psb =
     //     new PSB(f_vector_t(N_t, 1.0 / 25e-6), f_vector_t{0, 0}, 10e-6, 7);
 
@@ -128,10 +138,20 @@ int main(int argc, char **argv)
     // Context::Slice->track();
     // Context::Slice->beam_spectrum_generation(100, false);
 
-    plot_bunch_length_evol(RfP, "bunch.h5");
-    plot_position_evol(RfP, "bunch.h5");
-    plot_energy_evol(RfP, "bunch.h5");
-    plot_transmitted_particles(RfP, "bunch.h5");
+    // plot_bunch_length_evol(RfP, "bunch.h5");
+    // plot_position_evol(RfP, "bunch.h5");
+    // plot_energy_evol(RfP, "bunch.h5");
+    // plot_transmitted_particles(RfP, "bunch.h5");
+
+    // auto f = mymath::arange(0., 5.6227612455e+03, 1.12455000e-02);
+    // auto spectrum = f_vector_t(4980, 1.111e-07);//np.concatenate((1.11100000e-07 * np.ones(4980), np.zeros(495021)))
+    // spectrum.resize(495021 + 4980, 0);
+
+    // // auto rfnoise = PhaseNoise();
+
+    // // rfnoise.spectrum_to_phase_noise();
+    // plot_noise_spectrum(f, spectrum, 100);
+    // plot_phase_noise(f, spectrum, 100);
     // plot_bunch_length_evol_gaussian(RfP, "bunch.h5", 1, "./");
     // plot_beam_profile(Context::Slice, 0);
     // plot_beam_spectrum(Context::Slice, 0);

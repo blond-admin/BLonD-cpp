@@ -1,6 +1,6 @@
 #include <blond/plots/plot_beams.h>
 #include <blond/python.h>
-
+#include <blond/monitors/Monitors.h>
 
 void plot_long_phase_space(GeneralParameters *GP, RfParameters *RfP,
                            Beams *Beam, double xmin, double xmax,
@@ -102,4 +102,140 @@ void plot_long_phase_space(GeneralParameters *GP, RfParameters *RfP,
 
     // python::finalize();
 
+}
+
+
+void plot_bunch_length_evol(RfParameters *RfP, std::string h5data,
+                            int output_freq, std::string dirname)
+{
+
+    python::import();
+
+    auto pFunc = python::import("plot_beams", "plot_bunch_length_evol");
+
+    int turn = RfP->counter;
+    auto pRfPCounter = python::convert_int(turn);
+    auto pOutputFreq = python::convert_int(output_freq);
+    auto pDirname = python::convert_string(dirname);
+
+    hsize_t dims;
+    double *sigma_dt = (double *) read_1D(h5data, "Beam/sigma_dt",
+                                          "double", &dims);
+
+    auto pSigmaDt = python::convert_double_array(sigma_dt, dims);
+
+    auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, pSigmaDt,
+                                            pOutputFreq, pDirname, NULL);
+    assert(ret);
+
+}
+
+// NOTE removed unused variable Slice
+void plot_bunch_length_evol_gaussian(RfParameters *RfP,
+                                     std::string h5data, int output_freq,
+                                     std::string dirname)
+{
+
+    python::import();
+
+    auto pFunc = python::import("plot_beams", "plot_bunch_length_evol_gaussian");
+
+    int turn = RfP->counter;
+    auto pRfPCounter = python::convert_int(turn);
+    auto pOutputFreq = python::convert_int(output_freq);
+    auto pDirname = python::convert_string(dirname);
+
+    hsize_t dims;
+    double *bl_gauss = (double *) read_1D(h5data, "Beam/bunch_length_gaussian",
+                                          "double", &dims);
+
+    auto pBlGauss = python::convert_double_array(bl_gauss, dims);
+
+    auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, pBlGauss,
+                                            pOutputFreq, pDirname, NULL);
+    assert(ret);
+
+}
+
+
+void plot_position_evol(RfParameters *RfP, std::string h5data,
+                        int output_freq, std::string style,
+                        std::string dirname)
+{
+
+    python::import();
+
+    auto pFunc = python::import("plot_beams", "plot_position_evol");
+
+    int turn = RfP->counter;
+    auto pRfPCounter = python::convert_int(turn);
+    auto pOutputFreq = python::convert_int(output_freq);
+    auto pDirname = python::convert_string(dirname);
+    auto pStyle = python::convert_string(style);
+
+    hsize_t dims;
+    double *mean_dt = (double *) read_1D(h5data, "Beam/mean_dt",
+                                         "double", &dims);
+
+    auto pMeanDt = python::convert_double_array(mean_dt, dims);
+
+    auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, pMeanDt,
+                                            pOutputFreq, pStyle, pDirname,
+                                            NULL);
+    assert(ret);
+
+}
+
+
+void plot_energy_evol(RfParameters *RfP, std::string h5data,
+                      int output_freq, std::string style,
+                      std::string dirname)
+{
+    python::import();
+
+    auto pFunc = python::import("plot_beams", "plot_energy_evol");
+
+    int turn = RfP->counter;
+    auto pRfPCounter = python::convert_int(turn);
+    auto pOutputFreq = python::convert_int(output_freq);
+    auto pDirname = python::convert_string(dirname);
+    auto pStyle = python::convert_string(style);
+
+    hsize_t dims;
+    double *mean_dE = (double *) read_1D(h5data, "Beam/mean_dE",
+                                         "double", &dims);
+
+    auto pMeanDE = python::convert_double_array(mean_dE, dims);
+
+    auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, pMeanDE,
+                                            pOutputFreq, pStyle, pDirname,
+                                            NULL);
+    assert(ret);
+}
+
+void plot_transmitted_particles(RfParameters *RfP, std::string h5data,
+                                int output_freq, std::string style,
+                                std::string dirname)
+{
+    python::import();
+
+    auto pFunc = python::import("plot_beams", "plot_transmitted_particles");
+
+    int turn = RfP->counter;
+    auto pRfPCounter = python::convert_int(turn);
+    auto pOutputFreq = python::convert_int(output_freq);
+    auto pDirname = python::convert_string(dirname);
+    auto pStyle = python::convert_string(style);
+
+    hsize_t dims;
+    int *n_macroparticles_alive = (int *) read_1D(h5data,
+                                     "Beam/n_macroparticles_alive",
+                                     "int", &dims);
+
+    auto pPartsAlive = python::convert_int_array(n_macroparticles_alive, dims);
+
+    auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, pPartsAlive,
+                                            pOutputFreq, pStyle, pDirname,
+                                            NULL);
+    assert(ret);
 }

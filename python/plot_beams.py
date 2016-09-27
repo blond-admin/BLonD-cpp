@@ -143,23 +143,22 @@ def plot_long_phase_space(rfp_counter, rfp_omega_RF_0, rfp_phi_RF_0,
     plt.savefig(fign)
     plt.clf()
 
-'''
 
-def plot_bunch_length_evol(RFSectionParameters, h5data, output_freq=1,
+def plot_bunch_length_evol(time_step, sigma_dt, output_freq=1,
                            dirname='fig'):
     """
     Plot of r.m.s. 4-sigma bunch length [s] as a function of time.
     """
 
     # Time step of plotting
-    time_step = RFSectionParameters.counter[0]
+    # time_step = RFSectionParameters.counter[0]
 
     # Get bunch length data in metres or seconds
     if output_freq < 1:
         output_freq = 1
     ndata = int(time_step/output_freq)
     t = output_freq*np.arange(ndata)
-    bl = np.array(h5data["/Beam/sigma_dt"][0:ndata], dtype=np.double)
+    bl = np.array(sigma_dt[0:ndata], dtype=np.double)
     bl *= 4
     bl[time_step:] = np.nan
 
@@ -179,7 +178,7 @@ def plot_bunch_length_evol(RFSectionParameters, h5data, output_freq=1,
     plt.clf()
 
 
-def plot_bunch_length_evol_gaussian(RFSectionParameters, Slices, h5data,
+def plot_bunch_length_evol_gaussian(time_step, bunch_length_gaussian,
                                     output_freq=1, dirname='fig'):
     """
     Plot of Gaussian 4-sigma bunch length [s] as a function of time.
@@ -187,7 +186,7 @@ def plot_bunch_length_evol_gaussian(RFSectionParameters, Slices, h5data,
     """
 
     # Time step of plotting
-    time_step = RFSectionParameters.counter[0]
+    # time_step = RFSectionParameters.counter[0]
 
     # Get bunch length data in metres or nanoseconds
     if output_freq < 1:
@@ -196,7 +195,7 @@ def plot_bunch_length_evol_gaussian(RFSectionParameters, Slices, h5data,
     t = output_freq*np.arange(ndata)
 
     bl = np.array(
-        h5data["/Beam/bunch_length_gaussian"][0:ndata], dtype=np.double)
+        bunch_length_gaussian[0:ndata], dtype=np.double)
 
     bl[time_step:] = np.nan
 
@@ -216,20 +215,21 @@ def plot_bunch_length_evol_gaussian(RFSectionParameters, Slices, h5data,
     plt.clf()
 
 
-def plot_position_evol(RFSectionParameters, h5data, output_freq=1,
+def plot_position_evol(time_step, mean_dt, output_freq=1,
                        style='.', dirname='fig'):
 
     # Time step of plotting
-    time_step = RFSectionParameters.counter[0]
+    # time_step = RFSectionParameters.counter[0]
 
     # Get position data [s]
     if output_freq < 1:
         output_freq = 1
     ndata = int(time_step/output_freq)
     t = output_freq*np.arange(ndata)
-    pos = np.array(h5data["/Beam/mean_dt"][0:ndata], dtype=np.double)
+    # print t
+    pos = np.array(mean_dt[0:ndata], dtype=np.double)
     pos[time_step:] = np.nan
-
+    # print pos
     # Plot
     fig = plt.figure(1)
     fig.set_size_inches(8, 6)
@@ -246,18 +246,18 @@ def plot_position_evol(RFSectionParameters, h5data, output_freq=1,
     plt.clf()
 
 
-def plot_energy_evol(RFSectionParameters, h5data, output_freq=1, style='.',
+def plot_energy_evol(time_step, mean_dE, output_freq=1, style='.',
                      dirname='fig'):
 
     # Time step of plotting
-    time_step = RFSectionParameters.counter[0]
+    # time_step = RFSectionParameters.counter[0]
 
     # Get position data in metres or nanoseconds
     if output_freq < 1:
         output_freq = 1
     ndata = int(time_step/output_freq)
     t = output_freq*np.arange(ndata)
-    nrg = np.array(h5data["/Beam/mean_dE"][0:ndata], dtype=np.double)
+    nrg = np.array(mean_dE[0:ndata], dtype=np.double)
     nrg[time_step:] = np.nan
 
     # Plot
@@ -277,21 +277,21 @@ def plot_energy_evol(RFSectionParameters, h5data, output_freq=1, style='.',
     plt.clf()
 
 
-def plot_transmitted_particles(RFSectionParameters, h5data, output_freq=1,
+def plot_transmitted_particles(time_step, parts_alive, output_freq=1,
                                style='.', dirname='fig'):
 
     # Time step of plotting
-    time_step = RFSectionParameters.counter[0]
+    # time_step = RFSectionParameters.counter[0]
 
     # Get position data in metres or nanoseconds
     if output_freq < 1:
         output_freq = 1
     ndata = int(time_step/output_freq)
     t = output_freq*np.arange(ndata)
-    prtcls = np.array(h5data["/Beam/n_macroparticles_alive"][0:ndata],
+    prtcls = np.array(parts_alive[0:ndata],
                       dtype=np.double)
     prtcls[time_step:] = np.nan
-
+    # print prtcls
     # Plot
     plt.figure(1, figsize=(8, 6))
     ax = plt.axes([0.15, 0.1, 0.8, 0.8])
@@ -306,5 +306,3 @@ def plot_transmitted_particles(RFSectionParameters, h5data, output_freq=1,
     fign = dirname+'/bunch_transmitted_particles.png'
     plt.savefig(fign)
     plt.clf()
-
-'''

@@ -43,10 +43,10 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d4/dd7/classTotalInducedVoltage.html#a1c8f62744112ea3b610d37d9a258ffec",
-"d8/dcd/exp_8h.html#adf51f303b8a0ca09ebf352cad48eb661",
-"dc/d7d/Distributions_8h.html#af8a750601d38e475a922ae843f837cc9",
-"functions_0x63.html"
+"d4/d19/classmymath_1_1Ham.html#ad44bdfa6e0025bb052aec5e4a3c6afd6",
+"d8/dcd/exp_8h.html#a64c9ed3eca28c6d0c273807b3565c93e",
+"dc/d45/classSlices.html#aeed331c21465b7fbd0d3b8888d6a4192",
+"df/de1/vdtcore__common_8h.html#aefaf0c36bf6b7f53e4b20638ec6ab60a"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

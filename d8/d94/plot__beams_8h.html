@@ -117,6 +117,7 @@ $(document).ready(function(){initNavTree('d8/d94/plot__beams_8h.html','../../');
 <div class="textblock"><code>#include &lt;<a class="el" href="../../d5/d34/GeneralParameters_8h_source.html">blond/input_parameters/GeneralParameters.h</a>&gt;</code><br/>
 <code>#include &lt;<a class="el" href="../../d6/db7/RfParameters_8h_source.html">blond/input_parameters/RfParameters.h</a>&gt;</code><br/>
 <code>#include &lt;<a class="el" href="../../d7/d74/Beams_8h_source.html">blond/beams/Beams.h</a>&gt;</code><br/>
+<code>#include &lt;<a class="el" href="../../dc/df2/Slices_8h_source.html">blond/beams/Slices.h</a>&gt;</code><br/>
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Include dependency graph for plot_beams.h:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -138,10 +139,248 @@ $(document).ready(function(){initNavTree('d8/d94/plot__beams_8h.html','../../');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a7b5c6ac8b8a54e16e8ad2e6009036935"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d94/plot__beams_8h.html#a7b5c6ac8b8a54e16e8ad2e6009036935">plot_bunch_length_evol</a> (<a class="el" href="../../da/d49/classRfParameters.html">RfParameters</a> *RfP, std::string h5data, int output_freq=1, std::string dirname=&quot;fig&quot;)</td></tr>
+<tr class="separator:a7b5c6ac8b8a54e16e8ad2e6009036935"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab78555117ca7153c811de718d84ed052"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d94/plot__beams_8h.html#ab78555117ca7153c811de718d84ed052">plot_bunch_length_evol_gaussian</a> (<a class="el" href="../../da/d49/classRfParameters.html">RfParameters</a> *RfP, std::string h5data, int output_freq=1, std::string dirname=&quot;fig&quot;)</td></tr>
+<tr class="separator:ab78555117ca7153c811de718d84ed052"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87891b0c397e75daceb729f00d3ad076"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d94/plot__beams_8h.html#a87891b0c397e75daceb729f00d3ad076">plot_energy_evol</a> (<a class="el" href="../../da/d49/classRfParameters.html">RfParameters</a> *RfP, std::string h5data, int output_freq=1, std::string style=&quot;.&quot;, std::string dirname=&quot;fig&quot;)</td></tr>
+<tr class="separator:a87891b0c397e75daceb729f00d3ad076"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6215f03e38354ba5f04e99f640cf700"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d94/plot__beams_8h.html#ae6215f03e38354ba5f04e99f640cf700">plot_long_phase_space</a> (<a class="el" href="../../d1/dfc/classGeneralParameters.html">GeneralParameters</a> *GP, <a class="el" href="../../da/d49/classRfParameters.html">RfParameters</a> *RfP, <a class="el" href="../../d9/d7c/classBeams.html">Beams</a> *Beam, double xmin, double xmax, double ymin, double ymax, std::string xunit=&quot;s&quot;, int sampling=1, bool separatrix_plot=false, bool histograms_plot=true, std::string dirname=&quot;fig&quot;, int alpha=1)</td></tr>
 <tr class="separator:ae6215f03e38354ba5f04e99f640cf700"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1102a9d176b48aff9607b9568641ac0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d94/plot__beams_8h.html#ab1102a9d176b48aff9607b9568641ac0">plot_position_evol</a> (<a class="el" href="../../da/d49/classRfParameters.html">RfParameters</a> *RfP, std::string h5data, int output_freq=1, std::string style=&quot;.&quot;, std::string dirname=&quot;fig&quot;)</td></tr>
+<tr class="separator:ab1102a9d176b48aff9607b9568641ac0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a198f97a92351f9813d557ebd71b482ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d94/plot__beams_8h.html#a198f97a92351f9813d557ebd71b482ee">plot_transmitted_particles</a> (<a class="el" href="../../da/d49/classRfParameters.html">RfParameters</a> *RfP, std::string h5data, int output_freq=1, std::string style=&quot;.&quot;, std::string dirname=&quot;fig&quot;)</td></tr>
+<tr class="separator:a198f97a92351f9813d557ebd71b482ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a7b5c6ac8b8a54e16e8ad2e6009036935"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void plot_bunch_length_evol </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../da/d49/classRfParameters.html">RfParameters</a> *&#160;</td>
+          <td class="paramname"><em>RfP</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>h5data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>output_freq</em> = <code>1</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>dirname</em> = <code>&quot;fig&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="../../d3/d2c/plot__beams_8cpp_source.html#l00108">108</a> of file <a class="el" href="../../d3/d2c/plot__beams_8cpp_source.html">plot_beams.cpp</a>.</p>
+
+<p>References <a class="el" href="../../d1/da8/python_8h_source.html#l00097">python::convert_double_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00065">python::convert_int()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00072">python::convert_string()</a>, <a class="el" href="../../d6/db7/RfParameters_8h_source.html#l00035">RfParameters::counter</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00029">python::import()</a>, and <a class="el" href="../../da/dda/Monitors_8cpp_source.html#l00042">read_1D()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;{</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>();</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keyword">auto</span> pFunc = <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>(<span class="stringliteral">&quot;plot_beams&quot;</span>, <span class="stringliteral">&quot;plot_bunch_length_evol&quot;</span>);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordtype">int</span> turn = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#ac415e919886aab0e5cba52fb3c3d4740">counter</a>;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keyword">auto</span> pRfPCounter = <a class="code" href="../../de/d4a/namespacepython.html#adb27db8de2c6c5b4f381fadcc86a4939">python::convert_int</a>(turn);</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keyword">auto</span> pOutputFreq = <a class="code" href="../../de/d4a/namespacepython.html#adb27db8de2c6c5b4f381fadcc86a4939">python::convert_int</a>(output_freq);</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keyword">auto</span> pDirname = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(dirname);</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    hsize_t dims;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keywordtype">double</span> *sigma_dt = (<span class="keywordtype">double</span> *) <a class="code" href="../../da/dda/Monitors_8cpp.html#a24cd35802fcba6633b02321bc436ab5f">read_1D</a>(h5data, <span class="stringliteral">&quot;Beam/sigma_dt&quot;</span>,</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                                          <span class="stringliteral">&quot;double&quot;</span>, &amp;dims);</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keyword">auto</span> pSigmaDt = <a class="code" href="../../de/d4a/namespacepython.html#a38f56692b4793b00b074fc192783947e">python::convert_double_array</a>(sigma_dt, dims);</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keyword">auto</span> ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, pSigmaDt,</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                                            pOutputFreq, pDirname, NULL);</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    assert(ret);</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;}</div>
+</div><!-- fragment -->
+<p><div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d8/d94/plot__beams_8h_a7b5c6ac8b8a54e16e8ad2e6009036935_cgraph.svg" width="376" height="270"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ab78555117ca7153c811de718d84ed052"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void plot_bunch_length_evol_gaussian </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../da/d49/classRfParameters.html">RfParameters</a> *&#160;</td>
+          <td class="paramname"><em>RfP</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>h5data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>output_freq</em> = <code>1</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>dirname</em> = <code>&quot;fig&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="../../d3/d2c/plot__beams_8cpp_source.html#l00134">134</a> of file <a class="el" href="../../d3/d2c/plot__beams_8cpp_source.html">plot_beams.cpp</a>.</p>
+
+<p>References <a class="el" href="../../d1/da8/python_8h_source.html#l00097">python::convert_double_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00065">python::convert_int()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00072">python::convert_string()</a>, <a class="el" href="../../d6/db7/RfParameters_8h_source.html#l00035">RfParameters::counter</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00029">python::import()</a>, and <a class="el" href="../../da/dda/Monitors_8cpp_source.html#l00042">read_1D()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;{</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>();</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <span class="keyword">auto</span> pFunc = <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>(<span class="stringliteral">&quot;plot_beams&quot;</span>, <span class="stringliteral">&quot;plot_bunch_length_evol_gaussian&quot;</span>);</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keywordtype">int</span> turn = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#ac415e919886aab0e5cba52fb3c3d4740">counter</a>;</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="keyword">auto</span> pRfPCounter = <a class="code" href="../../de/d4a/namespacepython.html#adb27db8de2c6c5b4f381fadcc86a4939">python::convert_int</a>(turn);</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keyword">auto</span> pOutputFreq = <a class="code" href="../../de/d4a/namespacepython.html#adb27db8de2c6c5b4f381fadcc86a4939">python::convert_int</a>(output_freq);</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keyword">auto</span> pDirname = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(dirname);</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    hsize_t dims;</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keywordtype">double</span> *bl_gauss = (<span class="keywordtype">double</span> *) <a class="code" href="../../da/dda/Monitors_8cpp.html#a24cd35802fcba6633b02321bc436ab5f">read_1D</a>(h5data, <span class="stringliteral">&quot;Beam/bunch_length_gaussian&quot;</span>,</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;                                          <span class="stringliteral">&quot;double&quot;</span>, &amp;dims);</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keyword">auto</span> pBlGauss = <a class="code" href="../../de/d4a/namespacepython.html#a38f56692b4793b00b074fc192783947e">python::convert_double_array</a>(bl_gauss, dims);</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keyword">auto</span> ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, pBlGauss,</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                                            pOutputFreq, pDirname, NULL);</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    assert(ret);</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;}</div>
+</div><!-- fragment -->
+<p><div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d8/d94/plot__beams_8h_ab78555117ca7153c811de718d84ed052_cgraph.svg" width="376" height="270"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a87891b0c397e75daceb729f00d3ad076"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void plot_energy_evol </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../da/d49/classRfParameters.html">RfParameters</a> *&#160;</td>
+          <td class="paramname"><em>RfP</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>h5data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>output_freq</em> = <code>1</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>style</em> = <code>&quot;.&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>dirname</em> = <code>&quot;fig&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="../../d3/d2c/plot__beams_8cpp_source.html#l00190">190</a> of file <a class="el" href="../../d3/d2c/plot__beams_8cpp_source.html">plot_beams.cpp</a>.</p>
+
+<p>References <a class="el" href="../../d1/da8/python_8h_source.html#l00097">python::convert_double_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00065">python::convert_int()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00072">python::convert_string()</a>, <a class="el" href="../../d6/db7/RfParameters_8h_source.html#l00035">RfParameters::counter</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00029">python::import()</a>, and <a class="el" href="../../da/dda/Monitors_8cpp_source.html#l00042">read_1D()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;{</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>();</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    <span class="keyword">auto</span> pFunc = <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>(<span class="stringliteral">&quot;plot_beams&quot;</span>, <span class="stringliteral">&quot;plot_energy_evol&quot;</span>);</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <span class="keywordtype">int</span> turn = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#ac415e919886aab0e5cba52fb3c3d4740">counter</a>;</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    <span class="keyword">auto</span> pRfPCounter = <a class="code" href="../../de/d4a/namespacepython.html#adb27db8de2c6c5b4f381fadcc86a4939">python::convert_int</a>(turn);</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    <span class="keyword">auto</span> pOutputFreq = <a class="code" href="../../de/d4a/namespacepython.html#adb27db8de2c6c5b4f381fadcc86a4939">python::convert_int</a>(output_freq);</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    <span class="keyword">auto</span> pDirname = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(dirname);</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    <span class="keyword">auto</span> pStyle = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(style);</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    hsize_t dims;</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    <span class="keywordtype">double</span> *mean_dE = (<span class="keywordtype">double</span> *) <a class="code" href="../../da/dda/Monitors_8cpp.html#a24cd35802fcba6633b02321bc436ab5f">read_1D</a>(h5data, <span class="stringliteral">&quot;Beam/mean_dE&quot;</span>,</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;                                         <span class="stringliteral">&quot;double&quot;</span>, &amp;dims);</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    <span class="keyword">auto</span> pMeanDE = <a class="code" href="../../de/d4a/namespacepython.html#a38f56692b4793b00b074fc192783947e">python::convert_double_array</a>(mean_dE, dims);</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    <span class="keyword">auto</span> ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, pMeanDE,</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;                                            pOutputFreq, pStyle, pDirname,</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;                                            NULL);</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    assert(ret);</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;}</div>
+</div><!-- fragment -->
+<p><div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d8/d94/plot__beams_8h_a87891b0c397e75daceb729f00d3ad076_cgraph.svg" width="336" height="270"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+</p>
+
+</div>
+</div>
 <a class="anchor" id="ae6215f03e38354ba5f04e99f640cf700"></a>
 <div class="memitem">
 <div class="memproto">
@@ -329,13 +568,177 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="comment">// python::finalize();</span></div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;}</div><!-- fragment -->
-<p><div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;}</div>
+</div><!-- fragment -->
+<p><div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../d8/d94/plot__beams_8h_ae6215f03e38354ba5f04e99f640cf700_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ab1102a9d176b48aff9607b9568641ac0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void plot_position_evol </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../da/d49/classRfParameters.html">RfParameters</a> *&#160;</td>
+          <td class="paramname"><em>RfP</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>h5data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>output_freq</em> = <code>1</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>style</em> = <code>&quot;.&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>dirname</em> = <code>&quot;fig&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="../../d3/d2c/plot__beams_8cpp_source.html#l00161">161</a> of file <a class="el" href="../../d3/d2c/plot__beams_8cpp_source.html">plot_beams.cpp</a>.</p>
+
+<p>References <a class="el" href="../../d1/da8/python_8h_source.html#l00097">python::convert_double_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00065">python::convert_int()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00072">python::convert_string()</a>, <a class="el" href="../../d6/db7/RfParameters_8h_source.html#l00035">RfParameters::counter</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00029">python::import()</a>, and <a class="el" href="../../da/dda/Monitors_8cpp_source.html#l00042">read_1D()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;{</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>();</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keyword">auto</span> pFunc = <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>(<span class="stringliteral">&quot;plot_beams&quot;</span>, <span class="stringliteral">&quot;plot_position_evol&quot;</span>);</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="keywordtype">int</span> turn = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#ac415e919886aab0e5cba52fb3c3d4740">counter</a>;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keyword">auto</span> pRfPCounter = <a class="code" href="../../de/d4a/namespacepython.html#adb27db8de2c6c5b4f381fadcc86a4939">python::convert_int</a>(turn);</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="keyword">auto</span> pOutputFreq = <a class="code" href="../../de/d4a/namespacepython.html#adb27db8de2c6c5b4f381fadcc86a4939">python::convert_int</a>(output_freq);</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="keyword">auto</span> pDirname = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(dirname);</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <span class="keyword">auto</span> pStyle = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(style);</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    hsize_t dims;</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <span class="keywordtype">double</span> *mean_dt = (<span class="keywordtype">double</span> *) <a class="code" href="../../da/dda/Monitors_8cpp.html#a24cd35802fcba6633b02321bc436ab5f">read_1D</a>(h5data, <span class="stringliteral">&quot;Beam/mean_dt&quot;</span>,</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;                                         <span class="stringliteral">&quot;double&quot;</span>, &amp;dims);</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <span class="keyword">auto</span> pMeanDt = <a class="code" href="../../de/d4a/namespacepython.html#a38f56692b4793b00b074fc192783947e">python::convert_double_array</a>(mean_dt, dims);</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <span class="keyword">auto</span> ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, pMeanDt,</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;                                            pOutputFreq, pStyle, pDirname,</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;                                            NULL);</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    assert(ret);</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;}</div>
+</div><!-- fragment -->
+<p><div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d8/d94/plot__beams_8h_ab1102a9d176b48aff9607b9568641ac0_cgraph.svg" width="344" height="270"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a198f97a92351f9813d557ebd71b482ee"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void plot_transmitted_particles </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../da/d49/classRfParameters.html">RfParameters</a> *&#160;</td>
+          <td class="paramname"><em>RfP</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>h5data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>output_freq</em> = <code>1</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>style</em> = <code>&quot;.&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>dirname</em> = <code>&quot;fig&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="../../d3/d2c/plot__beams_8cpp_source.html#l00216">216</a> of file <a class="el" href="../../d3/d2c/plot__beams_8cpp_source.html">plot_beams.cpp</a>.</p>
+
+<p>References <a class="el" href="../../d1/da8/python_8h_source.html#l00065">python::convert_int()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00087">python::convert_int_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00072">python::convert_string()</a>, <a class="el" href="../../d6/db7/RfParameters_8h_source.html#l00035">RfParameters::counter</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00029">python::import()</a>, and <a class="el" href="../../da/dda/Monitors_8cpp_source.html#l00042">read_1D()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;{</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>();</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    <span class="keyword">auto</span> pFunc = <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>(<span class="stringliteral">&quot;plot_beams&quot;</span>, <span class="stringliteral">&quot;plot_transmitted_particles&quot;</span>);</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    <span class="keywordtype">int</span> turn = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#ac415e919886aab0e5cba52fb3c3d4740">counter</a>;</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    <span class="keyword">auto</span> pRfPCounter = <a class="code" href="../../de/d4a/namespacepython.html#adb27db8de2c6c5b4f381fadcc86a4939">python::convert_int</a>(turn);</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    <span class="keyword">auto</span> pOutputFreq = <a class="code" href="../../de/d4a/namespacepython.html#adb27db8de2c6c5b4f381fadcc86a4939">python::convert_int</a>(output_freq);</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    <span class="keyword">auto</span> pDirname = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(dirname);</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    <span class="keyword">auto</span> pStyle = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(style);</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    hsize_t dims;</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    <span class="keywordtype">int</span> *n_macroparticles_alive = (<span class="keywordtype">int</span> *) <a class="code" href="../../da/dda/Monitors_8cpp.html#a24cd35802fcba6633b02321bc436ab5f">read_1D</a>(h5data,</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;                                     <span class="stringliteral">&quot;Beam/n_macroparticles_alive&quot;</span>,</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;                                     <span class="stringliteral">&quot;int&quot;</span>, &amp;dims);</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    <span class="keyword">auto</span> pPartsAlive = <a class="code" href="../../de/d4a/namespacepython.html#aba320bc348e153e5057cb5a4add54102">python::convert_int_array</a>(n_macroparticles_alive, dims);</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    <span class="keyword">auto</span> ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, pPartsAlive,</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;                                            pOutputFreq, pStyle, pDirname,</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;                                            NULL);</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    assert(ret);</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;}</div>
+</div><!-- fragment -->
+<p><div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-7-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d8/d94/plot__beams_8h_a198f97a92351f9813d557ebd71b482ee_cgraph.svg" width="382" height="270"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </p>
@@ -348,7 +751,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_b2c71bdfd3af65c97a5a70fadf3dc512.html">include</a></li><li class="navelem"><a class="el" href="../../dir_c0e22518f92c7490e2ab56f92eef9024.html">blond</a></li><li class="navelem"><a class="el" href="../../dir_acefc2b4e542c43fbc30a2faea09b820.html">plots</a></li><li class="navelem"><a class="el" href="../../d8/d94/plot__beams_8h.html">plot_beams.h</a></li>
-    <li class="footer">Generated on Mon Sep 26 2016 12:48:11 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Tue Sep 27 2016 10:44:27 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

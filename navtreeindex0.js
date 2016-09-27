@@ -196,7 +196,12 @@ var NAVTREEINDEX0 =
 "d2/de2/math__functions_8h.html#ae2db875f437ec6abdb4e01e49e9026e0":[2,0,17,9],
 "d2/de2/math__functions_8h_source.html":[2,0,17],
 "d3/d2c/plot__beams_8cpp.html":[2,0,25],
-"d3/d2c/plot__beams_8cpp.html#a6b17aeac1381a7d030433ba3e51fb7ce":[2,0,25,0],
+"d3/d2c/plot__beams_8cpp.html#a23db68d4d73d27113a9a24db7ddb0e67":[2,0,25,1],
+"d3/d2c/plot__beams_8cpp.html#a36ca09419cd3fe7e170e0afec92dd540":[2,0,25,4],
+"d3/d2c/plot__beams_8cpp.html#a6b17aeac1381a7d030433ba3e51fb7ce":[2,0,25,3],
+"d3/d2c/plot__beams_8cpp.html#aa1293bf044a133c5ce15292607a9ae43":[2,0,25,5],
+"d3/d2c/plot__beams_8cpp.html#ab14eb3387fc51bd1617bbdd85f10c22c":[2,0,25,2],
+"d3/d2c/plot__beams_8cpp.html#ab2687c5561e0b1e4ceed9139e9d0c37b":[2,0,25,0],
 "d3/d2c/plot__beams_8cpp_source.html":[2,0,25],
 "d3/d33/PhaseLoop_8h.html":[2,0,22],
 "d3/d33/PhaseLoop_8h_source.html":[2,0,22],
@@ -244,10 +249,5 @@ var NAVTREEINDEX0 =
 "d4/d19/classmymath_1_1Ham.html#a6c5842fe46265501145f26ee45239832":[1,0,2,0,0],
 "d4/d19/classmymath_1_1Ham.html#a6eecfcb8817ea5dd2b88608975cbf524":[1,0,2,0,8],
 "d4/d19/classmymath_1_1Ham.html#a8e0028b64267fc04273c97c44a73d528":[1,0,2,0,5],
-"d4/d19/classmymath_1_1Ham.html#ac8553ccb9f3789adff64bfe2314bb121":[1,0,2,0,6],
-"d4/d19/classmymath_1_1Ham.html#ad44bdfa6e0025bb052aec5e4a3c6afd6":[1,0,2,0,3],
-"d4/d19/classmymath_1_1Ham.html#ae775141e79bf7b400d914dfe283d481d":[1,0,2,0,7],
-"d4/dba/LHCNoiseFB_8h.html":[2,0,16],
-"d4/dba/LHCNoiseFB_8h_source.html":[2,0,16],
-"d4/dd7/classTotalInducedVoltage.html":[1,0,31]
+"d4/d19/classmymath_1_1Ham.html#ac8553ccb9f3789adff64bfe2314bb121":[1,0,2,0,6]
 };

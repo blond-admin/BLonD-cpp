@@ -1,5 +1,10 @@
 var NAVTREEINDEX1 =
 {
+"d4/d19/classmymath_1_1Ham.html#ad44bdfa6e0025bb052aec5e4a3c6afd6":[1,0,2,0,3],
+"d4/d19/classmymath_1_1Ham.html#ae775141e79bf7b400d914dfe283d481d":[1,0,2,0,7],
+"d4/dba/LHCNoiseFB_8h.html":[2,0,16],
+"d4/dba/LHCNoiseFB_8h_source.html":[2,0,16],
+"d4/dd7/classTotalInducedVoltage.html":[1,0,31],
 "d4/dd7/classTotalInducedVoltage.html#a1c8f62744112ea3b610d37d9a258ffec":[1,0,31,12],
 "d4/dd7/classTotalInducedVoltage.html#a2472e2ebae3fdcd114efb5646d75fd32":[1,0,31,9],
 "d4/dd7/classTotalInducedVoltage.html#a36092e40f045bda57e6db61bab57a18d":[1,0,31,5],
@@ -219,7 +224,12 @@ var NAVTREEINDEX1 =
 "d8/d2b/classLHCNoiseFB.html#af1f65e30469f9049bc3116d9033635dd":[1,0,20,5],
 "d8/d2b/classLHCNoiseFB.html#afc9d75aa21d4b583fbaddb9d0709c861":[1,0,20,10],
 "d8/d94/plot__beams_8h.html":[2,0,26],
-"d8/d94/plot__beams_8h.html#ae6215f03e38354ba5f04e99f640cf700":[2,0,26,0],
+"d8/d94/plot__beams_8h.html#a198f97a92351f9813d557ebd71b482ee":[2,0,26,5],
+"d8/d94/plot__beams_8h.html#a7b5c6ac8b8a54e16e8ad2e6009036935":[2,0,26,0],
+"d8/d94/plot__beams_8h.html#a87891b0c397e75daceb729f00d3ad076":[2,0,26,2],
+"d8/d94/plot__beams_8h.html#ab1102a9d176b48aff9607b9568641ac0":[2,0,26,4],
+"d8/d94/plot__beams_8h.html#ab78555117ca7153c811de718d84ed052":[2,0,26,1],
+"d8/d94/plot__beams_8h.html#ae6215f03e38354ba5f04e99f640cf700":[2,0,26,3],
 "d8/d94/plot__beams_8h_source.html":[2,0,26],
 "d8/da8/structoption_1_1PrintUsageImplementation_1_1TemporaryWriter.html":[1,0,3,4,7],
 "d8/da8/structoption_1_1PrintUsageImplementation_1_1TemporaryWriter.html#a0c65740b5a897ca2a2465d1c112882a8":[1,0,3,4,7,0],
@@ -239,15 +249,5 @@ var NAVTREEINDEX1 =
 "d8/dcd/exp_8h.html#a5a8d5eaec2a0588b2b67e06aa187bd71":[2,0,5,2],
 "d8/dcd/exp_8h.html#a5dfe9171186b3c59c7df5bc82e5f3e66":[2,0,5,14],
 "d8/dcd/exp_8h.html#a60ff4e9fd82d23f2eb2308d47563c017":[2,0,5,7],
-"d8/dcd/exp_8h.html#a638e7ff7e5fb6797404db7831529951a":[2,0,5,15],
-"d8/dcd/exp_8h.html#a64c9ed3eca28c6d0c273807b3565c93e":[2,0,5,1],
-"d8/dcd/exp_8h.html#a70a416f36e468bd87ccd3e5360868e15":[2,0,5,20],
-"d8/dcd/exp_8h.html#a780ce9076bbef3b8a091f585dcd48a0e":[2,0,5,3],
-"d8/dcd/exp_8h.html#a7a9784a24b428c5b7f25c263909d1ad7":[2,0,5,24],
-"d8/dcd/exp_8h.html#a8b3e0d813098eebbbf6050141240b543":[2,0,5,23],
-"d8/dcd/exp_8h.html#a9eca5f7d88e87edffff9e5ccd776de04":[2,0,5,18],
-"d8/dcd/exp_8h.html#ab9f484180a8db3772b24deb558bd45fa":[2,0,5,12],
-"d8/dcd/exp_8h.html#abe16534aaf1240ca5df8c5de80b2c5d0":[2,0,5,25],
-"d8/dcd/exp_8h.html#ac4eb1f21e075bbcc0584a44506fed23e":[2,0,5,13],
-"d8/dcd/exp_8h.html#adca1dee5b8a4bf7bf51c832506800ccb":[2,0,5,8]
+"d8/dcd/exp_8h.html#a638e7ff7e5fb6797404db7831529951a":[2,0,5,15]
 };

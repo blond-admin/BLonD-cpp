@@ -6,6 +6,8 @@ var searchData=
   ['phasenoise_2eh',['PhaseNoise.h',['../d9/dc8/PhaseNoise_8h.html',1,'']]],
   ['plot_5fbeams_2ecpp',['plot_beams.cpp',['../d3/d2c/plot__beams_8cpp.html',1,'']]],
   ['plot_5fbeams_2eh',['plot_beams.h',['../d8/d94/plot__beams_8h.html',1,'']]],
+  ['plot_5fllrf_2ecpp',['plot_llrf.cpp',['../d3/dca/plot__llrf_8cpp.html',1,'']]],
+  ['plot_5fllrf_2eh',['plot_llrf.h',['../d3/dda/plot__llrf_8h.html',1,'']]],
   ['plot_5fparameters_2ecpp',['plot_parameters.cpp',['../d2/d3c/plot__parameters_8cpp.html',1,'']]],
   ['plot_5fparameters_2eh',['plot_parameters.h',['../d8/d1b/plot__parameters_8h.html',1,'']]],
   ['plot_5fslices_2ecpp',['plot_slices.cpp',['../d4/dfd/plot__slices_8cpp.html',1,'']]],

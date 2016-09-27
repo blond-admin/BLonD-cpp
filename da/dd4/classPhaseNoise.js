@@ -14,7 +14,7 @@ var classPhaseNoise =
     ] ],
     [ "PhaseNoise", "da/dd4/classPhaseNoise.html#aec3cd0f672a3d6802ce518491f73cb9d", null ],
     [ "~PhaseNoise", "da/dd4/classPhaseNoise.html#af4d26b6663cf2cbabdf51b337ff7d3fa", null ],
-    [ "generate", "da/dd4/classPhaseNoise.html#aeac4694e7d7b29ebd82724027139c483", null ],
+    [ "generate", "da/dd4/classPhaseNoise.html#a6d049cf7ec73c74279bf79a65a2102b6", null ],
     [ "spectrum_generation", "da/dd4/classPhaseNoise.html#a972dfcb47f993cb8271978cadd4d5b3c", null ],
     [ "spectrum_to_phase_noise", "da/dd4/classPhaseNoise.html#a5b9bb8a443851f55cd0845608c35112f", null ],
     [ "fAi", "da/dd4/classPhaseNoise.html#a6e3189a91d44e8a6e9e7aec9dbd6c891", null ],

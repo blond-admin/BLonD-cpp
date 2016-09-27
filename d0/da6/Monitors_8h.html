@@ -139,7 +139,7 @@ $(document).ready(function(){initNavTree('d0/da6/Monitors_8h.html','../../');});
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../d8/d71/Monitors_8h__dep__incl.svg" width="246" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d8/d71/Monitors_8h__dep__incl.svg" width="358" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </div>
@@ -198,7 +198,7 @@ Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../da/dda/Monitors_8cpp_source.html#l00042">42</a> of file <a class="el" href="../../da/dda/Monitors_8cpp_source.html">Monitors.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d3/d2c/plot__beams_8cpp_source.html#l00108">plot_bunch_length_evol()</a>, <a class="el" href="../../d3/d2c/plot__beams_8cpp_source.html#l00134">plot_bunch_length_evol_gaussian()</a>, <a class="el" href="../../d3/d2c/plot__beams_8cpp_source.html#l00190">plot_energy_evol()</a>, <a class="el" href="../../d3/d2c/plot__beams_8cpp_source.html#l00161">plot_position_evol()</a>, and <a class="el" href="../../d3/d2c/plot__beams_8cpp_source.html#l00216">plot_transmitted_particles()</a>.</p>
+<p>Referenced by <a class="el" href="../../d3/d2c/plot__beams_8cpp_source.html#l00108">plot_bunch_length_evol()</a>, <a class="el" href="../../d3/d2c/plot__beams_8cpp_source.html#l00135">plot_bunch_length_evol_gaussian()</a>, <a class="el" href="../../d3/dca/plot__llrf_8cpp_source.html#l00237">plot_COM_motion()</a>, <a class="el" href="../../d3/d2c/plot__beams_8cpp_source.html#l00193">plot_energy_evol()</a>, <a class="el" href="../../d3/dca/plot__llrf_8cpp_source.html#l00270">plot_LHCNoiseFB()</a>, <a class="el" href="../../d3/dca/plot__llrf_8cpp_source.html#l00296">plot_LHCNoiseFB_FWHM()</a>, <a class="el" href="../../d3/dca/plot__llrf_8cpp_source.html#l00054">plot_PL_bunch_phase()</a>, <a class="el" href="../../d3/dca/plot__llrf_8cpp_source.html#l00159">plot_PL_freq_corr()</a>, <a class="el" href="../../d3/dca/plot__llrf_8cpp_source.html#l00107">plot_PL_phase_corr()</a>, <a class="el" href="../../d3/dca/plot__llrf_8cpp_source.html#l00133">plot_PL_RF_freq()</a>, <a class="el" href="../../d3/dca/plot__llrf_8cpp_source.html#l00081">plot_PL_RF_phase()</a>, <a class="el" href="../../d3/d2c/plot__beams_8cpp_source.html#l00163">plot_position_evol()</a>, <a class="el" href="../../d3/dca/plot__llrf_8cpp_source.html#l00185">plot_RF_phase_error()</a>, <a class="el" href="../../d3/dca/plot__llrf_8cpp_source.html#l00211">plot_RL_radial_error()</a>, and <a class="el" href="../../d3/d2c/plot__beams_8cpp_source.html#l00220">plot_transmitted_particles()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;{</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">auto</span> file_id = H5Fopen(fname.c_str(), H5F_ACC_RDONLY, H5P_DEFAULT);</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    H5T_class_t class_id;</div>
@@ -206,7 +206,7 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    H5LTget_dataset_info(file_id, dsname.c_str(),</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                         dims, &amp;class_id, &amp;type_size);</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    std::transform(type.begin(), type.end(), type.begin(), ::tolower);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> *res;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> *res = NULL;</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">if</span> (type == <span class="stringliteral">&quot;int&quot;</span> &amp;&amp; <span class="keyword">sizeof</span>(<span class="keywordtype">int</span>) == type_size) {</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        res = malloc(dims[0] * type_size);</div>
@@ -229,7 +229,7 @@ Functions</h2></td></tr>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../d0/da6/Monitors_8h_a24cd35802fcba6633b02321bc436ab5f_icgraph.svg" width="302" height="270"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../d0/da6/Monitors_8h_a24cd35802fcba6633b02321bc436ab5f_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 </p>
@@ -273,6 +273,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Definition at line <a class="el" href="../../da/dda/Monitors_8cpp_source.html#l00015">15</a> of file <a class="el" href="../../da/dda/Monitors_8cpp_source.html">Monitors.cpp</a>.</p>
+
+<p>Referenced by <a class="el" href="../../d3/dca/plot__llrf_8cpp_source.html#l00322">plot_LHCNoiseFB_FWHM_bbb()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">auto</span> file_id = H5Fopen(fname.c_str(), H5F_ACC_RDONLY, H5P_DEFAULT);</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    H5T_class_t class_id;</div>
@@ -280,7 +282,7 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    H5LTget_dataset_info(file_id, dsname.c_str(),</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;                         dims, &amp;class_id, &amp;type_size);</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    std::transform(type.begin(), type.end(), type.begin(), ::tolower);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">void</span> *res;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">void</span> *res = NULL;</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">if</span> (type == <span class="stringliteral">&quot;int&quot;</span> &amp;&amp; <span class="keyword">sizeof</span>(<span class="keywordtype">int</span>) == type_size) {</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        res = malloc(dims[0] * dims[1] * type_size);</div>
@@ -298,6 +300,16 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">return</span> res;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
 </div><!-- fragment -->
+<p><div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d0/da6/Monitors_8h_aa772acf54ad202bb2e5ed534215c8f8b_icgraph.svg" width="336" height="40"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+</p>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -306,7 +318,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_b2c71bdfd3af65c97a5a70fadf3dc512.html">include</a></li><li class="navelem"><a class="el" href="../../dir_c0e22518f92c7490e2ab56f92eef9024.html">blond</a></li><li class="navelem"><a class="el" href="../../dir_d0b39b9eb5a701590d015623f4a53079.html">monitors</a></li><li class="navelem"><a class="el" href="../../d0/da6/Monitors_8h.html">Monitors.h</a></li>
-    <li class="footer">Generated on Tue Sep 27 2016 10:44:27 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Tue Sep 27 2016 14:58:17 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

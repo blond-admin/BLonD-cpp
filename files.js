@@ -47,6 +47,8 @@ var files =
     ] ],
     [ "plot_beams.cpp", "d3/d2c/plot__beams_8cpp.html", "d3/d2c/plot__beams_8cpp" ],
     [ "plot_beams.h", "d8/d94/plot__beams_8h.html", "d8/d94/plot__beams_8h" ],
+    [ "plot_llrf.cpp", "d3/dca/plot__llrf_8cpp.html", "d3/dca/plot__llrf_8cpp" ],
+    [ "plot_llrf.h", "d3/dda/plot__llrf_8h.html", "d3/dda/plot__llrf_8h" ],
     [ "plot_parameters.cpp", "d2/d3c/plot__parameters_8cpp.html", "d2/d3c/plot__parameters_8cpp" ],
     [ "plot_parameters.h", "d8/d1b/plot__parameters_8h.html", "d8/d1b/plot__parameters_8h" ],
     [ "plot_slices.cpp", "d4/dfd/plot__slices_8cpp.html", "d4/dfd/plot__slices_8cpp" ],

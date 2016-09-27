@@ -39,7 +39,7 @@ ftype bl_target = 0.9e-9; // 4 sigma r.m.s. target bunch length in [s]
 int N_slices = 2200;
 
 int dt_save = 500000;
-int dt_plot = 100000;
+int dt_plot = 500000;
 
 const std::string datafiles = "/afs/cern.ch/user/h/htimko/public/LHC/input/";
 
@@ -174,7 +174,7 @@ int main(int argc, char **argv)
     auto totVoltage = new TotalInducedVoltage(indVoltageV);
 
 
-    auto monitor = new BunchMonitor(GP, RfP, Beam, "output_data.h5",
+    auto monitor = new BunchMonitor(GP, RfP, Beam, "output_data_full.h5",
                                     dt_save, Slice, PL, noiseFB);
     // double slice_time = 0, track_time = 0;
     double turn_time = 0.0;

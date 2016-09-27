@@ -14,6 +14,7 @@
 #include <blond/plots/plot_parameters.h>
 #include <blond/plots/plot_slices.h>
 #include <blond/python.h>
+#include <blond/monitors/Monitors.h>
 // Simulation parameters
 // --------------------------------------------------------
 
@@ -33,10 +34,10 @@ const uint alpha_order = 1;
 const uint n_sections = 1;
 // Tracking details
 
-uint N_t = 500;    // Number of turns to track
-uint N_p = 100000; // Macro-particles
+int N_t = 500;    // Number of turns to track
+int N_p = 100000; // Macro-particles
 
-uint N_slices = 200; // = (2^8)
+int N_slices = 200; // = (2^8)
 
 void parse_args(int argc, char **argv);
 
@@ -86,11 +87,22 @@ int main(int argc, char **argv)
     //     time[i] = 1.0 * (i + 1);
     // plot_voltage_programme(time, voltageVec[0]);
 
-
-    Context::Slice = new Slices(N_slices, 0, -constant::pi, constant::pi,
-                                cuts_unit_type::rad);
+    auto bunchmonitor = BunchMonitor(GP, RfP, Beam, "bunch.h5", 10);
+    auto tracker = RingAndRfSection();
 
     longitudinal_bigaussian(200e-9, 1e6, 1, false);
+
+    auto slice = Context::Slice = new Slices(N_slices, 0, -constant::pi, constant::pi,
+            cuts_unit_type::rad);
+
+
+    for (int i = 0; i < N_t; i++) {
+        tracker.track();
+        slice->track();
+        bunchmonitor.track();
+    }
+    bunchmonitor.track();
+    bunchmonitor.close();
 
     // auto psb =
     //     new PSB(f_vector_t(N_t, 1.0 / 25e-6), f_vector_t{0, 0}, 10e-6, 7);
@@ -113,12 +125,18 @@ int main(int argc, char **argv)
     // util::dump(Beam->id, "Beam->id\n");
 
     // plot_long_phase_space(GP, RfP, Beam, 5e-7, 1.2e-6, -3e5, 3e5, "s", 1, true);
-    Context::Slice->track();
-    Context::Slice->beam_spectrum_generation(100, false);
-    plot_beam_profile(Context::Slice, 0);
-    plot_beam_spectrum(Context::Slice, 0);
-    plot_beam_profile_derivative(Context::Slice, 100, "-",
-                                 "fig", {"gradient", "diff", "filter1d"});
+    // Context::Slice->track();
+    // Context::Slice->beam_spectrum_generation(100, false);
+
+    plot_bunch_length_evol(RfP, "bunch.h5");
+    plot_position_evol(RfP, "bunch.h5");
+    plot_energy_evol(RfP, "bunch.h5");
+    plot_transmitted_particles(RfP, "bunch.h5");
+    // plot_bunch_length_evol_gaussian(RfP, "bunch.h5", 1, "./");
+    // plot_beam_profile(Context::Slice, 0);
+    // plot_beam_spectrum(Context::Slice, 0);
+    // plot_beam_profile_derivative(Context::Slice, 100, "-",
+    //                              "fig", {"gradient", "diff", "filter1d"});
     // std::map<std::string, std::string> distribution_opt;
     // distribution_opt["type"] = "binomial";
     // distribution_opt["exponent"] = "1.5";
@@ -174,6 +192,7 @@ int main(int argc, char **argv)
     // delete Context::RfP;
     delete GP;
     delete Beam;
+    delete slice;
     python::finalize();
     // delete psb;
 

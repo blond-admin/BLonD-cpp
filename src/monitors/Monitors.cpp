@@ -346,7 +346,7 @@ void BunchMonitor::init_data(int dimension)
 
 }
 
-
+// TODO error when chosing buffer_time == 1,2
 void BunchMonitor::write_data()
 {
     // const int rank = dims.size();

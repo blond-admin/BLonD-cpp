@@ -310,6 +310,7 @@ if [ "$PIP_INSTALLED" == "1" ]; then
 else
    echo -e "\n\n---- Installing Python's external modules..."
    pip install --user virtualenv 2>> $log
+   # pip install virtualenv &>> $log
    virtualenv --python=${PYTHON} ${INSTALL} &>> $log
    source ${INSTALL}/bin/activate &>> $log
    pip install -r ${EXTERNAL}/python-packages.txt 2>> $log

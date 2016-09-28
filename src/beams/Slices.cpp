@@ -5,11 +5,11 @@
 *      Author: kiliakis
 */
 
-#include <algorithm>
+// #include <algorithm>
 #include <blond/beams/Slices.h>
 #include <blond/globals.h>
 #include <blond/math_functions.h>
-#include <omp.h>
+#include <blond/fft.h>
 #include <blond/python.h>
 
 

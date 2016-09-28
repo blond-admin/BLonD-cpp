@@ -8,9 +8,9 @@
 #include <blond/math_functions.h>
 #include <blond/trackers/Tracker.h>
 #include <blond/utilities.h>
+#include <blond/fft.h>
 #include <complex>
 #include <gtest/gtest.h>
-#include <omp.h>
 #include <stdio.h>
 
 
@@ -40,7 +40,7 @@ protected:
 
     virtual void SetUp()
     {
-        omp_set_num_threads(1);
+        omp_set_num_threads(2);
 
         f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1, p_i));
 

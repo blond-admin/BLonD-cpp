@@ -3,6 +3,7 @@
 #include <blond/globals.h>
 #include <blond/impedances/InducedVoltage.h>
 #include <blond/math_functions.h>
+#include <blond/fft.h>
 #include <blond/utilities.h>
 
 
@@ -136,7 +137,7 @@ f_vector_t InducedVoltageTime::induced_voltage_generation(uint length)
 
         f_vector_t in2 = fTotalWake;
 
-        mymath::convolution_with_ffts(in1, in2, inducedVoltage);
+        fft::convolution_with_ffts(in1, in2, inducedVoltage);
 
         /*
         fft::rfft(in, fft1, fShape, n_threads);

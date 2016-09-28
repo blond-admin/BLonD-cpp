@@ -173,9 +173,10 @@ int main(int argc, char **argv)
 
     auto totVoltage = new TotalInducedVoltage(indVoltageV);
 
-
-    auto monitor = new BunchMonitor(GP, RfP, Beam, "output_data.h5",
+    string h5file = "thr-" + to_string(Context::n_threads) + "-output_data.h5";
+    auto monitor = new BunchMonitor(GP, RfP, Beam, h5file,
                                     dt_save, Slice, PL, noiseFB);
+    monitor->fCompressionLevel = 0;
     // double slice_time = 0, track_time = 0;
     double turn_time = 0.0;
 
@@ -220,7 +221,7 @@ int main(int argc, char **argv)
         trackerTime += util::time_elapsed(start);
 
         util::get_time(start);
-        // monitor->track();
+        monitor->track();
         monitorTime += util::time_elapsed(start);
 
         util::get_time(start);
@@ -264,29 +265,29 @@ int main(int argc, char **argv)
             fflush(stdout);
         }
 
-        if (i % dt_save == 0) {
-            ofstream out;
-            out.open("out/coords_" + to_string(RfP->counter) + ".dat");
-            cout.precision(10);
-            cout << scientific << showpos;
-            for (int j = 0; j < N_p; ++j) {
-                out << Beam->dt[j] << "\t" << Beam->dE[j] << "\n";
-            }
-            out.close();
-        }
+        // if (i % dt_save == 0) {
+        //     ofstream out;
+        //     out.open("out/coords_" + to_string(RfP->counter) + ".dat");
+        //     cout.precision(10);
+        //     cout << scientific << showpos;
+        //     for (int j = 0; j < N_p; ++j) {
+        //         out << Beam->dt[j] << "\t" << Beam->dE[j] << "\n";
+        //     }
+        //     out.close();
+        // }
 
     }
-    ofstream out;
-    out.open("out/coords_" + to_string(RfP->counter) + ".dat");
-    cout.precision(10);
-    cout << scientific << showpos;
-    for (int j = 0; j < N_p; ++j) {
-        out << Beam->dt[j] << "\t" << Beam->dE[j] << "\n";
-    }
-    out.close();
+    // ofstream out;
+    // out.open("out/coords_" + to_string(RfP->counter) + ".dat");
+    // cout.precision(10);
+    // cout << scientific << showpos;
+    // for (int j = 0; j < N_p; ++j) {
+    //     out << Beam->dt[j] << "\t" << Beam->dE[j] << "\n";
+    // }
+    // out.close();
 
     util::get_time(end);
-    util::print_time("Simulation Time", begin, end);
+    util::print_time("Simulation Time in sec", begin, end);
 
     delete PL;
     delete Slice;

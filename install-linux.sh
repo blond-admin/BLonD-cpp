@@ -73,13 +73,14 @@ if [ "${INSTALL_FFTW}" = "true" ] ; then
                --disable-fortran \
                --disable-static \
                --enable-shared \
-               --enable-threads \
-               --with-combined-threads \
+               --enable-openmp \
                --enable-sse2 \
                --enable-avx \
                --with-our-malloc \
                --with-incoming-stack-boundary=2 \
                --prefix="${INSTALL}" &>> $log
+               # --enable-threads \
+               # --with-combined-threads \
    # ./configure --enable-openmp --prefix="${INSTALL}" &>> $log
    make &>> $log
    make install &>> $log

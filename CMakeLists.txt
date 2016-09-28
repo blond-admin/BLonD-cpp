@@ -113,20 +113,21 @@ if(FFTW_INCLUDES STREQUAL "FFTW_INCLUDES-NOTFOUND")
     message(FATAL_ERROR "ERROR: fftw3.h not found")
 endif()
 
+find_library(FFTW_LIB NAMES fftw fftw3 libfftw3 libfftw-3.3
+    PATHS ${EXTERNAL_INSTALL_DIR}/lib
+    NO_DEFAULT_PATH
+    REQUIRED)
+
 
 if (USE_FFTW_OMP)
-    find_library(FFTW_LIB NAMES fftw_omp fftw3_omp libfftw3_omp libfftw-3.3_omp
+    # message(STATUS "using omp version of fftw")
+    find_library(FFTW_OMP_LIB NAMES fftw_omp fftw3_omp libfftw3_omp libfftw-3.3_omp
         PATHS ${EXTERNAL_INSTALL_DIR}/lib
         NO_DEFAULT_PATH
         REQUIRED)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DUSE_FFTW_OMP")
-else ()
-    find_library(FFTW_LIB NAMES fftw fftw3 libfftw3 libfftw-3.3
-        PATHS ${EXTERNAL_INSTALL_DIR}/lib
-        NO_DEFAULT_PATH
-        REQUIRED)
+    set(FFTW_LIB ${FFTW_LIB} ${FFTW_OMP_LIB})
 endif ()
-
 
 # GTEST
 if (TEST_ENABLED)

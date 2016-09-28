@@ -11,7 +11,7 @@ var searchData=
   ['slice_5fconstant_5fspace_5fhistogram',['slice_constant_space_histogram',['../dc/d45/classSlices.html#ae9463517699373a87a1dae18becf9319',1,'Slices']]],
   ['slice_5fconstant_5fspace_5fhistogram_5fsmooth',['slice_constant_space_histogram_smooth',['../dc/d45/classSlices.html#ab6c06f1fa1f97ec1fdec7db63c121715',1,'Slices']]],
   ['slices',['Slices',['../dc/d45/classSlices.html#a7a38e2aee99dad7db53da5cc7e005619',1,'Slices']]],
-  ['slicesmonitor',['SlicesMonitor',['../de/d59/classSlicesMonitor.html#a7f00fdb8e97653fa44e951b653d57594',1,'SlicesMonitor']]],
+  ['slicesmonitor',['SlicesMonitor',['../de/d59/classSlicesMonitor.html#a9acc49a0674e5892018116a7905a2c0e',1,'SlicesMonitor']]],
   ['smooth_5fhistogram',['smooth_histogram',['../dc/d45/classSlices.html#ab69b0b825cf428183c12ec6be7ad2b41',1,'Slices']]],
   ['sort_5fparticles',['sort_particles',['../dc/d45/classSlices.html#a66da8b26310c40415c351b99d6d390e9',1,'Slices']]],
   ['sp2uint32',['sp2uint32',['../d1/d47/namespacevdt_1_1details.html#a631572330106e60e1dbe032a3eb10610',1,'vdt::details']]],

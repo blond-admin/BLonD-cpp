@@ -34,7 +34,7 @@
 <script type="text/javascript">
 var viewWidth = 1000;
 var viewHeight = 222;
-var sectionId = 'dynsection-16';
+var sectionId = 'dynsection-14';
 </script>
 <script xlink:href="../../svgpan.js"/>
 <svg id="graph" class="graph">
@@ -134,14 +134,14 @@ var sectionId = 'dynsection-16';
 <!-- Node9 -->
 <g id="node18" class="node"><title>Node9</title>
 <a xlink:href="../../d8/de0/namespacefft.html#a7870786fb204fa75feedfb6eeadbd788" target="_top" xlink:title="fft::irfft">
-<polygon fill="white" stroke="black" points="444,-66.5 444,-87.5 490,-87.5 490,-66.5 444,-66.5"/>
-<text text-anchor="middle" x="467" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">fft::irfft</text>
+<polygon fill="white" stroke="black" points="444,-69.5 444,-90.5 490,-90.5 490,-69.5 444,-69.5"/>
+<text text-anchor="middle" x="467" y="-77.5" font-family="Helvetica,sans-Serif" font-size="10.00">fft::irfft</text>
 </a>
 </g>
 <!-- Node3&#45;&gt;Node9 -->
 <g id="edge18" class="edge"><title>Node3&#45;&gt;Node9</title>
-<path fill="none" stroke="midnightblue" d="M385.43,-129.783C393.131,-126.939 400.92,-123.668 408,-120 425.332,-111.021 443.162,-97.2845 454.619,-87.7632"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="384.068,-126.551 375.782,-133.154 386.377,-133.159 384.068,-126.551"/>
+<path fill="none" stroke="midnightblue" d="M385.326,-129.579C393.039,-126.758 400.858,-123.547 408,-120 424.625,-111.743 442.024,-99.4292 453.582,-90.6476"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="383.966,-126.346 375.673,-132.939 386.268,-132.957 383.966,-126.346"/>
 </g>
 <!-- Node15 -->
 <g id="node31" class="node"><title>Node15</title>
@@ -158,15 +158,15 @@ var sectionId = 'dynsection-16';
 <!-- Node5 -->
 <g id="node9" class="node"><title>Node5</title>
 <a xlink:href="../../da/dd4/classPhaseNoise.html#a5b9bb8a443851f55cd0845608c35112f" target="_top" xlink:title="PhaseNoise::spectrum\l_to_phase_noise">
-<polygon fill="white" stroke="black" points="540,-161 540,-195 656,-195 656,-161 540,-161"/>
-<text text-anchor="start" x="548" y="-182" font-family="Helvetica,sans-Serif" font-size="10.00">PhaseNoise::spectrum</text>
-<text text-anchor="middle" x="598" y="-169" font-family="Helvetica,sans-Serif" font-size="10.00">_to_phase_noise</text>
+<polygon fill="white" stroke="black" points="540,-160 540,-194 656,-194 656,-160 540,-160"/>
+<text text-anchor="start" x="548" y="-181" font-family="Helvetica,sans-Serif" font-size="10.00">PhaseNoise::spectrum</text>
+<text text-anchor="middle" x="598" y="-168" font-family="Helvetica,sans-Serif" font-size="10.00">_to_phase_noise</text>
 </a>
 </g>
 <!-- Node4&#45;&gt;Node5 -->
 <g id="edge8" class="edge"><title>Node4&#45;&gt;Node5</title>
-<path fill="none" stroke="midnightblue" d="M497.684,-197.144C510.251,-194.746 525.229,-191.888 539.729,-189.12"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="496.924,-193.726 487.757,-199.039 498.236,-200.602 496.924,-193.726"/>
+<path fill="none" stroke="midnightblue" d="M497.684,-196.91C510.251,-194.416 525.229,-191.443 539.729,-188.565"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="496.885,-193.5 487.757,-198.88 498.247,-200.366 496.885,-193.5"/>
 </g>
 <!-- Node6 -->
 <g id="node11" class="node"><title>Node6</title>
@@ -177,8 +177,8 @@ var sectionId = 'dynsection-16';
 </g>
 <!-- Node5&#45;&gt;Node6 -->
 <g id="edge10" class="edge"><title>Node5&#45;&gt;Node6</title>
-<path fill="none" stroke="midnightblue" d="M666.691,-186.777C680.3,-188.516 694.599,-190.343 708.243,-192.087"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="666.804,-183.263 656.441,-185.467 665.917,-190.207 666.804,-183.263"/>
+<path fill="none" stroke="midnightblue" d="M666.691,-186.159C680.3,-187.973 694.599,-189.88 708.243,-191.699"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="666.816,-182.645 656.441,-184.792 665.891,-189.583 666.816,-182.645"/>
 </g>
 <!-- Node7 -->
 <g id="node13" class="node"><title>Node7</title>
@@ -190,106 +190,105 @@ var sectionId = 'dynsection-16';
 </g>
 <!-- Node5&#45;&gt;Node7 -->
 <g id="edge12" class="edge"><title>Node5&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M666.577,-169.237C682.235,-167.237 698.812,-165.118 714.258,-163.145"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="665.917,-165.793 656.441,-170.533 666.804,-172.737 665.917,-165.793"/>
+<path fill="none" stroke="midnightblue" d="M666.577,-168.618C682.235,-166.705 698.812,-164.679 714.258,-162.791"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="665.942,-165.17 656.441,-169.857 666.792,-172.118 665.942,-165.17"/>
 </g>
 <!-- Node8&#45;&gt;Node5 -->
 <g id="edge16" class="edge"><title>Node8&#45;&gt;Node5</title>
-<path fill="none" stroke="midnightblue" d="M498.863,-166.648C511.224,-168.064 525.778,-169.73 539.871,-171.344"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="498.965,-163.137 488.632,-165.477 498.169,-170.092 498.965,-163.137"/>
+<path fill="none" stroke="midnightblue" d="M498.863,-166.405C511.224,-167.726 525.778,-169.282 539.871,-170.788"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="498.947,-162.894 488.632,-165.312 498.203,-169.855 498.947,-162.894"/>
 </g>
 <!-- Node9&#45;&gt;Node5 -->
 <g id="edge30" class="edge"><title>Node9&#45;&gt;Node5</title>
-<path fill="none" stroke="midnightblue" d="M483.843,-95.6338C485.95,-98.0827 488.049,-100.582 490,-103 506.97,-124.031 504.354,-135.822 526,-152 530.471,-155.342 535.413,-158.287 540.551,-160.875"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="486.083,-92.8817 476.848,-87.69 480.83,-97.5079 486.083,-92.8817"/>
+<path fill="none" stroke="midnightblue" d="M485.812,-98.3608C487.256,-99.9055 488.668,-101.464 490,-103 507.472,-123.145 504.562,-135.141 526,-151 530.487,-154.32 535.44,-157.25 540.585,-159.829"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="488.047,-95.6396 478.56,-90.9233 483.036,-100.527 488.047,-95.6396"/>
 </g>
 <!-- Node10 -->
 <g id="node20" class="node"><title>Node10</title>
-<a xlink:href="../../df/d6d/namespacemymath.html#ad9a3bb795e12d3f347816837e628087b" target="_top" xlink:title="mymath::convolution\l_with_ffts">
-<polygon fill="white" stroke="black" points="544.5,-57 544.5,-91 651.5,-91 651.5,-57 544.5,-57"/>
-<text text-anchor="start" x="552.5" y="-78" font-family="Helvetica,sans-Serif" font-size="10.00">mymath::convolution</text>
-<text text-anchor="middle" x="598" y="-65" font-family="Helvetica,sans-Serif" font-size="10.00">_with_ffts</text>
+<a xlink:href="../../d8/de0/namespacefft.html#acfc0c7a2bf86a2515926f3b0284732c8" target="_top" xlink:title="fft::convolution_with_ffts">
+<polygon fill="white" stroke="black" points="536,-68.5 536,-89.5 660,-89.5 660,-68.5 536,-68.5"/>
+<text text-anchor="middle" x="598" y="-76.5" font-family="Helvetica,sans-Serif" font-size="10.00">fft::convolution_with_ffts</text>
 </a>
 </g>
 <!-- Node9&#45;&gt;Node10 -->
 <g id="edge20" class="edge"><title>Node9&#45;&gt;Node10</title>
-<path fill="none" stroke="midnightblue" d="M500.284,-76.2378C513.677,-75.9311 529.463,-75.5696 544.395,-75.2276"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="500.036,-72.7424 490.119,-76.4706 500.196,-79.7406 500.036,-72.7424"/>
+<path fill="none" stroke="midnightblue" d="M500.348,-79.7454C511.159,-79.6629 523.524,-79.5685 535.739,-79.4753"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="500.092,-76.2472 490.119,-79.8235 500.145,-83.247 500.092,-76.2472"/>
 </g>
 <!-- Node13 -->
 <g id="node26" class="node"><title>Node13</title>
 <a xlink:href="../../d5/de7/classInducedVoltageFreq.html#a1e5148ba1149372dc16509ca858ab4d3" target="_top" xlink:title="InducedVoltageFreq\l::induced_voltage_generation">
-<polygon fill="white" stroke="black" points="526.5,-5 526.5,-39 669.5,-39 669.5,-5 526.5,-5"/>
-<text text-anchor="start" x="534.5" y="-26" font-family="Helvetica,sans-Serif" font-size="10.00">InducedVoltageFreq</text>
-<text text-anchor="middle" x="598" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">::induced_voltage_generation</text>
+<polygon fill="white" stroke="black" points="526.5,-13 526.5,-47 669.5,-47 669.5,-13 526.5,-13"/>
+<text text-anchor="start" x="534.5" y="-34" font-family="Helvetica,sans-Serif" font-size="10.00">InducedVoltageFreq</text>
+<text text-anchor="middle" x="598" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">::induced_voltage_generation</text>
 </a>
 </g>
 <!-- Node9&#45;&gt;Node13 -->
 <g id="edge26" class="edge"><title>Node9&#45;&gt;Node13</title>
-<path fill="none" stroke="midnightblue" d="M496.19,-61.8605C505.604,-57.1921 516.152,-52.1835 526,-48 533.217,-44.9343 540.932,-41.9007 548.531,-39.0472"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="494.582,-58.7514 487.221,-66.3722 497.728,-65.0047 494.582,-58.7514"/>
+<path fill="none" stroke="midnightblue" d="M499.706,-67.5169C515.939,-61.321 535.794,-53.7426 553.399,-47.0231"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="498.213,-64.3402 490.119,-71.1761 500.709,-70.8801 498.213,-64.3402"/>
 </g>
 <!-- Node11 -->
 <g id="node22" class="node"><title>Node11</title>
 <a xlink:href="../../d0/d6b/classInducedVoltageTime.html#ada28e04191e2d2933ba9e3820e61d5c2" target="_top" xlink:title="InducedVoltageTime\l::induced_voltage_generation">
-<polygon fill="white" stroke="black" points="706.5,-57 706.5,-91 849.5,-91 849.5,-57 706.5,-57"/>
-<text text-anchor="start" x="714.5" y="-78" font-family="Helvetica,sans-Serif" font-size="10.00">InducedVoltageTime</text>
-<text text-anchor="middle" x="778" y="-65" font-family="Helvetica,sans-Serif" font-size="10.00">::induced_voltage_generation</text>
+<polygon fill="white" stroke="black" points="706.5,-64 706.5,-98 849.5,-98 849.5,-64 706.5,-64"/>
+<text text-anchor="start" x="714.5" y="-85" font-family="Helvetica,sans-Serif" font-size="10.00">InducedVoltageTime</text>
+<text text-anchor="middle" x="778" y="-72" font-family="Helvetica,sans-Serif" font-size="10.00">::induced_voltage_generation</text>
 </a>
 </g>
 <!-- Node10&#45;&gt;Node11 -->
 <g id="edge22" class="edge"><title>Node10&#45;&gt;Node11</title>
-<path fill="none" stroke="midnightblue" d="M661.819,-74C676.237,-74 691.636,-74 706.352,-74"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="661.519,-70.5001 651.519,-74 661.519,-77.5001 661.519,-70.5001"/>
+<path fill="none" stroke="midnightblue" d="M670.432,-79.8048C682.226,-79.9358 694.438,-80.0715 706.216,-80.2024"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="670.236,-76.3025 660.198,-79.6911 670.158,-83.3021 670.236,-76.3025"/>
 </g>
 <!-- Node12 -->
 <g id="node24" class="node"><title>Node12</title>
 <a xlink:href="../../d0/d6b/classInducedVoltageTime.html#a63d40bebb86206cd65c7d448e65a87a8" target="_top" xlink:title="InducedVoltageTime\l::track">
-<polygon fill="white" stroke="black" points="886,-57 886,-91 992,-91 992,-57 886,-57"/>
-<text text-anchor="start" x="894" y="-78" font-family="Helvetica,sans-Serif" font-size="10.00">InducedVoltageTime</text>
-<text text-anchor="middle" x="939" y="-65" font-family="Helvetica,sans-Serif" font-size="10.00">::track</text>
+<polygon fill="white" stroke="black" points="886,-64 886,-98 992,-98 992,-64 886,-64"/>
+<text text-anchor="start" x="894" y="-85" font-family="Helvetica,sans-Serif" font-size="10.00">InducedVoltageTime</text>
+<text text-anchor="middle" x="939" y="-72" font-family="Helvetica,sans-Serif" font-size="10.00">::track</text>
 </a>
 </g>
 <!-- Node11&#45;&gt;Node12 -->
 <g id="edge24" class="edge"><title>Node11&#45;&gt;Node12</title>
-<path fill="none" stroke="midnightblue" d="M859.798,-74C868.538,-74 877.257,-74 885.543,-74"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="859.555,-70.5001 849.555,-74 859.555,-77.5001 859.555,-70.5001"/>
+<path fill="none" stroke="midnightblue" d="M859.798,-81C868.538,-81 877.257,-81 885.543,-81"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="859.555,-77.5001 849.555,-81 859.555,-84.5001 859.555,-77.5001"/>
 </g>
 <!-- Node14 -->
 <g id="node28" class="node"><title>Node14</title>
 <a xlink:href="../../d5/de7/classInducedVoltageFreq.html#acc7f20769421b46ad8fcf1518f642548" target="_top" xlink:title="InducedVoltageFreq\l::track">
-<polygon fill="white" stroke="black" points="726,-5 726,-39 830,-39 830,-5 726,-5"/>
-<text text-anchor="start" x="734" y="-26" font-family="Helvetica,sans-Serif" font-size="10.00">InducedVoltageFreq</text>
-<text text-anchor="middle" x="778" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">::track</text>
+<polygon fill="white" stroke="black" points="726,-12 726,-46 830,-46 830,-12 726,-12"/>
+<text text-anchor="start" x="734" y="-33" font-family="Helvetica,sans-Serif" font-size="10.00">InducedVoltageFreq</text>
+<text text-anchor="middle" x="778" y="-20" font-family="Helvetica,sans-Serif" font-size="10.00">::track</text>
 </a>
 </g>
 <!-- Node13&#45;&gt;Node14 -->
 <g id="edge28" class="edge"><title>Node13&#45;&gt;Node14</title>
-<path fill="none" stroke="midnightblue" d="M679.893,-22C695.572,-22 711.581,-22 725.997,-22"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="679.658,-18.5001 669.658,-22 679.658,-25.5001 679.658,-18.5001"/>
+<path fill="none" stroke="midnightblue" d="M679.893,-29.545C695.572,-29.4579 711.581,-29.369 725.997,-29.2889"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="679.638,-26.0463 669.658,-29.6019 679.677,-33.0462 679.638,-26.0463"/>
 </g>
 <!-- Node15&#45;&gt;Node5 -->
 <g id="edge38" class="edge"><title>Node15&#45;&gt;Node5</title>
-<path fill="none" stroke="midnightblue" d="M496.19,-138.14C505.604,-142.808 516.152,-147.816 526,-152 533.217,-155.066 540.932,-158.099 548.531,-160.953"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="497.728,-134.995 487.221,-133.628 494.582,-141.249 497.728,-134.995"/>
+<path fill="none" stroke="midnightblue" d="M497.203,-138.021C506.37,-142.393 516.524,-147.051 526,-151 533.238,-154.016 540.964,-157.023 548.569,-159.865"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="498.604,-134.811 488.078,-133.61 495.558,-141.113 498.604,-134.811"/>
 </g>
 <!-- Node15&#45;&gt;Node10 -->
 <g id="edge36" class="edge"><title>Node15&#45;&gt;Node10</title>
-<path fill="none" stroke="midnightblue" d="M498.647,-110.494C507.483,-107.048 517.101,-103.341 526,-100 533.839,-97.0574 542.18,-93.9885 550.301,-91.0336"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="497.118,-107.334 489.083,-114.24 499.671,-113.852 497.118,-107.334"/>
+<path fill="none" stroke="midnightblue" d="M498.672,-109.333C507.447,-105.762 517.027,-102.06 526,-99 535.946,-95.6083 546.806,-92.3607 557.006,-89.5055"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="497.08,-106.204 489.184,-113.268 499.761,-112.67 497.08,-106.204"/>
 </g>
 <!-- Node16 -->
 <g id="node33" class="node"><title>Node16</title>
 <a xlink:href="../../dc/d45/classSlices.html#a77b0f27dab45e9f789d5725b1d660673" target="_top" xlink:title="Slices::beam_spectrum\l_generation">
-<polygon fill="white" stroke="black" points="538.5,-109 538.5,-143 657.5,-143 657.5,-109 538.5,-109"/>
-<text text-anchor="start" x="546.5" y="-130" font-family="Helvetica,sans-Serif" font-size="10.00">Slices::beam_spectrum</text>
-<text text-anchor="middle" x="598" y="-117" font-family="Helvetica,sans-Serif" font-size="10.00">_generation</text>
+<polygon fill="white" stroke="black" points="538.5,-108 538.5,-142 657.5,-142 657.5,-108 538.5,-108"/>
+<text text-anchor="start" x="546.5" y="-129" font-family="Helvetica,sans-Serif" font-size="10.00">Slices::beam_spectrum</text>
+<text text-anchor="middle" x="598" y="-116" font-family="Helvetica,sans-Serif" font-size="10.00">_generation</text>
 </a>
 </g>
 <!-- Node15&#45;&gt;Node16 -->
 <g id="edge34" class="edge"><title>Node15&#45;&gt;Node16</title>
-<path fill="none" stroke="midnightblue" d="M499.444,-123.743C511.239,-124.013 524.971,-124.328 538.373,-124.634"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="499.3,-120.239 489.222,-123.509 499.14,-127.237 499.3,-120.239"/>
+<path fill="none" stroke="midnightblue" d="M499.444,-123.495C511.239,-123.675 524.971,-123.885 538.373,-124.09"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="499.275,-119.992 489.222,-123.339 499.168,-126.992 499.275,-119.992"/>
 </g>
 <!-- Node18 -->
 <g id="node39" class="node"><title>Node18</title>

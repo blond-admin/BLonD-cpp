@@ -59,15 +59,15 @@ var sectionId = 'dynsection-5';
 <path fill="none" stroke="midnightblue" d="M119.679,-40.4729C131.51,-42.3508 143.498,-44.2536 153.967,-45.9154"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="153.443,-49.3759 163.868,-47.4869 154.54,-42.4624 153.443,-49.3759"/>
 </g>
-<!-- Node10 -->
-<g id="node21" class="node"><title>Node10</title>
+<!-- Node9 -->
+<g id="node17" class="node"><title>Node9</title>
 <a xlink:href="../../d8/de0/namespacefft.html#a033d2ce3e0176d2afede62d2bc1e9163" target="_top" xlink:title="fft::rfftfreq">
 <polygon fill="white" stroke="black" points="156,-0.5 156,-21.5 216,-21.5 216,-0.5 156,-0.5"/>
 <text text-anchor="middle" x="186" y="-8.5" font-family="Helvetica,sans-Serif" font-size="10.00">fft::rfftfreq</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node10 -->
-<g id="edge22" class="edge"><title>Node1&#45;&gt;Node10</title>
+<!-- Node1&#45;&gt;Node9 -->
+<g id="edge16" class="edge"><title>Node1&#45;&gt;Node9</title>
 <path fill="none" stroke="midnightblue" d="M119.679,-21.5271C128.633,-20.1059 137.676,-18.6704 146.083,-17.336"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="146.646,-20.7906 155.974,-15.7661 145.549,-13.8771 146.646,-20.7906"/>
 </g>
@@ -83,87 +83,65 @@ var sectionId = 'dynsection-5';
 <path fill="none" stroke="midnightblue" d="M208.132,-55.3397C218.203,-57.3143 230.513,-59.7279 242.423,-62.0633"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="241.789,-65.5057 252.276,-63.9953 243.136,-58.6365 241.789,-65.5057"/>
 </g>
-<!-- Node9 -->
-<g id="node19" class="node"><title>Node9</title>
+<!-- Node8 -->
+<g id="node15" class="node"><title>Node8</title>
 <a xlink:href="../../d8/de0/namespacefft.html#a032995ee545c6cd17120d4478fcb25b5" target="_top" xlink:title="fft::run_fft">
 <polygon fill="white" stroke="black" points="258.5,-20.5 258.5,-41.5 317.5,-41.5 317.5,-20.5 258.5,-20.5"/>
 <text text-anchor="middle" x="288" y="-28.5" font-family="Helvetica,sans-Serif" font-size="10.00">fft::run_fft</text>
 </a>
 </g>
-<!-- Node2&#45;&gt;Node9 -->
-<g id="edge20" class="edge"><title>Node2&#45;&gt;Node9</title>
+<!-- Node2&#45;&gt;Node8 -->
+<g id="edge14" class="edge"><title>Node2&#45;&gt;Node8</title>
 <path fill="none" stroke="midnightblue" d="M208.132,-46.6603C219.805,-44.3716 234.486,-41.493 248.067,-38.8301"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="249.03,-42.2079 258.17,-36.8491 247.683,-35.3387 249.03,-42.2079"/>
 </g>
 <!-- Node4 -->
 <g id="node7" class="node"><title>Node4</title>
 <a xlink:href="../../d8/de0/namespacefft.html#abb6f84e834ac2b3b2b1da535a152bcbb" target="_top" xlink:title="fft::init_fft">
-<polygon fill="white" stroke="black" points="362.5,-20.5 362.5,-41.5 421.5,-41.5 421.5,-20.5 362.5,-20.5"/>
-<text text-anchor="middle" x="392" y="-28.5" font-family="Helvetica,sans-Serif" font-size="10.00">fft::init_fft</text>
+<polygon fill="white" stroke="black" points="362.5,-100.5 362.5,-121.5 421.5,-121.5 421.5,-100.5 362.5,-100.5"/>
+<text text-anchor="middle" x="392" y="-108.5" font-family="Helvetica,sans-Serif" font-size="10.00">fft::init_fft</text>
 </a>
 </g>
 <!-- Node3&#45;&gt;Node4 -->
 <g id="edge6" class="edge"><title>Node3&#45;&gt;Node4</title>
-<path fill="none" stroke="midnightblue" d="M315.325,-60.4905C327.41,-55.8422 341.81,-50.3037 354.851,-45.2882"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="356.42,-48.4348 364.497,-41.5782 353.907,-41.9014 356.42,-48.4348"/>
+<path fill="none" stroke="midnightblue" d="M315.325,-81.5095C327.41,-86.1578 341.81,-91.6963 354.851,-96.7118"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="353.907,-100.099 364.497,-100.422 356.42,-93.5652 353.907,-100.099"/>
+</g>
+<!-- Node6 -->
+<g id="node11" class="node"><title>Node6</title>
+<a xlink:href="../../d8/de0/namespacefft.html#aabee360fd4b67414d2f0edca8253ecf2" target="_top" xlink:title="fft::init_rfft">
+<polygon fill="white" stroke="black" points="361,-60.5 361,-81.5 423,-81.5 423,-60.5 361,-60.5"/>
+<text text-anchor="middle" x="392" y="-68.5" font-family="Helvetica,sans-Serif" font-size="10.00">fft::init_rfft</text>
+</a>
+</g>
+<!-- Node3&#45;&gt;Node6 -->
+<g id="edge10" class="edge"><title>Node3&#45;&gt;Node6</title>
+<path fill="none" stroke="midnightblue" d="M323.5,-71C332.213,-71 341.615,-71 350.579,-71"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="350.833,-74.5001 360.833,-71 350.833,-67.5001 350.833,-74.5001"/>
 </g>
 <!-- Node7 -->
 <g id="node13" class="node"><title>Node7</title>
-<a xlink:href="../../d8/de0/namespacefft.html#aabee360fd4b67414d2f0edca8253ecf2" target="_top" xlink:title="fft::init_rfft">
-<polygon fill="white" stroke="black" points="361,-100.5 361,-121.5 423,-121.5 423,-100.5 361,-100.5"/>
-<text text-anchor="middle" x="392" y="-108.5" font-family="Helvetica,sans-Serif" font-size="10.00">fft::init_rfft</text>
+<a xlink:href="../../d8/de0/namespacefft.html#a88d4a20e5d9813ff03802c42ff5b944c" target="_top" xlink:title="fft::init_irfft">
+<polygon fill="white" stroke="black" points="360,-20.5 360,-41.5 424,-41.5 424,-20.5 360,-20.5"/>
+<text text-anchor="middle" x="392" y="-28.5" font-family="Helvetica,sans-Serif" font-size="10.00">fft::init_irfft</text>
 </a>
 </g>
 <!-- Node3&#45;&gt;Node7 -->
 <g id="edge12" class="edge"><title>Node3&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M315.325,-81.5095C327.41,-86.1578 341.81,-91.6963 354.851,-96.7118"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="353.907,-100.099 364.497,-100.422 356.42,-93.5652 353.907,-100.099"/>
-</g>
-<!-- Node8 -->
-<g id="node16" class="node"><title>Node8</title>
-<a xlink:href="../../d8/de0/namespacefft.html#a88d4a20e5d9813ff03802c42ff5b944c" target="_top" xlink:title="fft::init_irfft">
-<polygon fill="white" stroke="black" points="360,-60.5 360,-81.5 424,-81.5 424,-60.5 360,-60.5"/>
-<text text-anchor="middle" x="392" y="-68.5" font-family="Helvetica,sans-Serif" font-size="10.00">fft::init_irfft</text>
-</a>
-</g>
-<!-- Node3&#45;&gt;Node8 -->
-<g id="edge16" class="edge"><title>Node3&#45;&gt;Node8</title>
-<path fill="none" stroke="midnightblue" d="M323.5,-71C331.959,-71 341.067,-71 349.794,-71"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="349.802,-74.5001 359.802,-71 349.802,-67.5001 349.802,-74.5001"/>
+<path fill="none" stroke="midnightblue" d="M315.325,-60.4905C327.41,-55.8422 341.81,-50.3037 354.851,-45.2882"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="356.42,-48.4348 364.497,-41.5782 353.907,-41.9014 356.42,-48.4348"/>
 </g>
 <!-- Node5 -->
 <g id="node9" class="node"><title>Node5</title>
-<a xlink:href="../../df/d6d/namespacemymath.html#a5bcc40b5ebadd9d98f351775df65ec9f" target="_top" xlink:title="mymath::min">
-<polygon fill="white" stroke="black" points="461,-60.5 461,-81.5 535,-81.5 535,-60.5 461,-60.5"/>
-<text text-anchor="middle" x="498" y="-68.5" font-family="Helvetica,sans-Serif" font-size="10.00">mymath::min</text>
+<a xlink:href="../../df/d6d/namespacemymath.html#ad7df5693cd882f31037d7533f5f77bbe" target="_top" xlink:title="mymath::sign">
+<polygon fill="white" stroke="black" points="460,-100.5 460,-121.5 536,-121.5 536,-100.5 460,-100.5"/>
+<text text-anchor="middle" x="498" y="-108.5" font-family="Helvetica,sans-Serif" font-size="10.00">mymath::sign</text>
 </a>
 </g>
 <!-- Node4&#45;&gt;Node5 -->
 <g id="edge8" class="edge"><title>Node4&#45;&gt;Node5</title>
-<path fill="none" stroke="midnightblue" d="M419.85,-41.5095C432.289,-46.2033 447.133,-51.805 460.527,-56.8592"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="459.376,-60.1658 469.968,-60.4218 461.847,-53.6165 459.376,-60.1658"/>
-</g>
-<!-- Node6 -->
-<g id="node11" class="node"><title>Node6</title>
-<a xlink:href="../../df/d6d/namespacemymath.html#ad7df5693cd882f31037d7533f5f77bbe" target="_top" xlink:title="mymath::sign">
-<polygon fill="white" stroke="black" points="460,-20.5 460,-41.5 536,-41.5 536,-20.5 460,-20.5"/>
-<text text-anchor="middle" x="498" y="-28.5" font-family="Helvetica,sans-Serif" font-size="10.00">mymath::sign</text>
-</a>
-</g>
-<!-- Node4&#45;&gt;Node6 -->
-<g id="edge10" class="edge"><title>Node4&#45;&gt;Node6</title>
-<path fill="none" stroke="midnightblue" d="M421.527,-31C430.254,-31 440.046,-31 449.634,-31"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="449.898,-34.5001 459.898,-31 449.898,-27.5001 449.898,-34.5001"/>
-</g>
-<!-- Node7&#45;&gt;Node5 -->
-<g id="edge14" class="edge"><title>Node7&#45;&gt;Node5</title>
-<path fill="none" stroke="midnightblue" d="M419.85,-100.49C432.289,-95.7967 447.133,-90.195 460.527,-85.1408"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="461.847,-88.3835 469.968,-81.5782 459.376,-81.8342 461.847,-88.3835"/>
-</g>
-<!-- Node8&#45;&gt;Node5 -->
-<g id="edge18" class="edge"><title>Node8&#45;&gt;Node5</title>
-<path fill="none" stroke="midnightblue" d="M424.091,-71C432.503,-71 441.752,-71 450.774,-71"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="450.809,-74.5001 460.809,-71 450.809,-67.5001 450.809,-74.5001"/>
+<path fill="none" stroke="midnightblue" d="M421.527,-111C430.254,-111 440.046,-111 449.634,-111"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="449.898,-114.5 459.898,-111 449.898,-107.5 449.898,-114.5"/>
 </g>
 </g>
 </svg>

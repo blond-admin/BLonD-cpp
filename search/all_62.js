@@ -42,5 +42,5 @@ var searchData=
   ['buffer_5fmax',['buffer_max',['../d8/de3/structoption_1_1Stats.html#a2c9a7b4174f91ba8bcadaa9ad6f0db06',1,'option::Stats::buffer_max()'],['../d8/de3/structoption_1_1Stats.html#ac9f390594a5a52f52c6b998e84d33be5',1,'option::Stats::buffer_max()']]],
   ['bufmask',['bufmask',['../de/d50/classoption_1_1PrintUsageImplementation_1_1LineWrapper.html#ac47be76ba68b2e70f5cc6285c8e0fa6a',1,'option::PrintUsageImplementation::LineWrapper']]],
   ['bufmax',['bufmax',['../d6/d83/classoption_1_1Parser.html#a64411429028fb6ab915f189eb9733a71',1,'option::Parser']]],
-  ['bunchmonitor',['BunchMonitor',['../d2/d00/classBunchMonitor.html',1,'BunchMonitor'],['../d2/d00/classBunchMonitor.html#a428bf0af0478370f270473ef0ee078de',1,'BunchMonitor::BunchMonitor()']]]
+  ['bunchmonitor',['BunchMonitor',['../d2/d00/classBunchMonitor.html',1,'BunchMonitor'],['../d2/d00/classBunchMonitor.html#a14485bacd7d9af74055f49568ad24a61',1,'BunchMonitor::BunchMonitor()']]]
 ];

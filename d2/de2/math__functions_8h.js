@@ -3,7 +3,6 @@ var math__functions_8h =
     [ "Ham", "d4/d19/classmymath_1_1Ham.html", "d4/d19/classmymath_1_1Ham" ],
     [ "arange", "d2/de2/math__functions_8h.html#a604bb4037dc4262bc4a8af03cfbb0bfe", null ],
     [ "convolution", "d2/de2/math__functions_8h.html#a34ffdf8691d17b0ceab32ea0ca68337d", null ],
-    [ "convolution_with_ffts", "d2/de2/math__functions_8h.html#ad9a3bb795e12d3f347816837e628087b", null ],
     [ "cum_trapezoid", "d2/de2/math__functions_8h.html#a37e69ec6da5a044211b293b350ed0df5", null ],
     [ "cum_trapezoid", "d2/de2/math__functions_8h.html#a035c965a877c6f3352f5702fe6ebcc3e", null ],
     [ "fast_cos", "d2/de2/math__functions_8h.html#a7e61fb3b4b1b043286fb14b823e8a401", null ],

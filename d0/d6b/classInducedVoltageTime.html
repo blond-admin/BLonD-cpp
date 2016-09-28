@@ -203,38 +203,38 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00037">37</a> of file <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html">InducedVoltage.cpp</a>.</p>
+<p>Definition at line <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00038">38</a> of file <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html">InducedVoltage.cpp</a>.</p>
 
-<p>References <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00048">fCut</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00033">InducedVoltage::fInducedVoltage</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00049">fShape</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00046">fTimeArray</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00050">fTimeOrFreq</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00047">fTotalWake</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00045">fWakeSourceList</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00051">mymath::next_regular()</a>, <a class="el" href="../../d5/d87/globals_8h_source.html#l00017">Context::Slice</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00088">sum_wakes()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;{</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="comment">// Induced voltage derived from the sum of</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="comment">// several wake fields (time domain).*</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">auto</span> Slice = <a class="code" href="../../d6/d7a/structContext.html#a54aa8ced44f99c981069a16cf4473f84">Context::Slice</a>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="comment">// *Wake sources inputed as a list (eg: list of BBResonators objects)*</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#ab04846f75250739419ac5c8d2e571f21">fWakeSourceList</a> = WakeSourceList;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="comment">// *Time array of the wake in [s]*</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a1d61be1c9b114c3d91e904ea476b9747">fTimeArray</a> = <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a>();</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="comment">// *Total wake array of all sources in* [:math:`\Omega / s`]</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a02592837a2167fd3bcff842976efe792">fTotalWake</a> = <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a>();</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="comment">// *Induced voltage from the sum of the wake sources in [V]*</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="../../dd/de2/classInducedVoltage.html#ab3b536669db5802b51f0d1e634dd5124">fInducedVoltage</a> = <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a>();</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="comment">// Pre-processing the wakes</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a1d61be1c9b114c3d91e904ea476b9747">fTimeArray</a>.resize(Slice-&gt;n_slices);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a1d61be1c9b114c3d91e904ea476b9747">fTimeArray</a>.size(); ++i) {</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a1d61be1c9b114c3d91e904ea476b9747">fTimeArray</a>[i] = Slice-&gt;bin_centers[i] - Slice-&gt;bin_centers[0];</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#ab88e0f5ff8f3ef8cd0dcc71bbb7bc581">sum_wakes</a>(<a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a1d61be1c9b114c3d91e904ea476b9747">fTimeArray</a>);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#aecc111811c172775a6a5d5a0417eeea7">fCut</a> = <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a1d61be1c9b114c3d91e904ea476b9747">fTimeArray</a>.size() + Slice-&gt;n_slices - 1;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a9cfe3a75273f751024754a80429cb41b">fShape</a> = <a class="code" href="../../df/d6d/namespacemymath.html#accbb9ef1f97a6dca6e5fb46dc038130a">mymath::next_regular</a>(<a class="code" href="../../d0/d6b/classInducedVoltageTime.html#aecc111811c172775a6a5d5a0417eeea7">fCut</a>);</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a3118facaa88596d7f6f7563a75c14fd5">fTimeOrFreq</a> = TimeOrFreq;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;}</div>
+<p>References <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00048">fCut</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00033">InducedVoltage::fInducedVoltage</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00049">fShape</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00046">fTimeArray</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00050">fTimeOrFreq</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00047">fTotalWake</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00045">fWakeSourceList</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00051">mymath::next_regular()</a>, <a class="el" href="../../d5/d87/globals_8h_source.html#l00017">Context::Slice</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00089">sum_wakes()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;{</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="comment">// Induced voltage derived from the sum of</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="comment">// several wake fields (time domain).*</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">auto</span> Slice = <a class="code" href="../../d6/d7a/structContext.html#a54aa8ced44f99c981069a16cf4473f84">Context::Slice</a>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="comment">// *Wake sources inputed as a list (eg: list of BBResonators objects)*</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#ab04846f75250739419ac5c8d2e571f21">fWakeSourceList</a> = WakeSourceList;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="comment">// *Time array of the wake in [s]*</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a1d61be1c9b114c3d91e904ea476b9747">fTimeArray</a> = <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a>();</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="comment">// *Total wake array of all sources in* [:math:`\Omega / s`]</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a02592837a2167fd3bcff842976efe792">fTotalWake</a> = <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a>();</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="comment">// *Induced voltage from the sum of the wake sources in [V]*</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <a class="code" href="../../dd/de2/classInducedVoltage.html#ab3b536669db5802b51f0d1e634dd5124">fInducedVoltage</a> = <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a>();</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="comment">// Pre-processing the wakes</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a1d61be1c9b114c3d91e904ea476b9747">fTimeArray</a>.resize(Slice-&gt;n_slices);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a1d61be1c9b114c3d91e904ea476b9747">fTimeArray</a>.size(); ++i) {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a1d61be1c9b114c3d91e904ea476b9747">fTimeArray</a>[i] = Slice-&gt;bin_centers[i] - Slice-&gt;bin_centers[0];</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    }</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#ab88e0f5ff8f3ef8cd0dcc71bbb7bc581">sum_wakes</a>(<a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a1d61be1c9b114c3d91e904ea476b9747">fTimeArray</a>);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#aecc111811c172775a6a5d5a0417eeea7">fCut</a> = <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a1d61be1c9b114c3d91e904ea476b9747">fTimeArray</a>.size() + Slice-&gt;n_slices - 1;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a9cfe3a75273f751024754a80429cb41b">fShape</a> = <a class="code" href="../../df/d6d/namespacemymath.html#accbb9ef1f97a6dca6e5fb46dc038130a">mymath::next_regular</a>(<a class="code" href="../../d0/d6b/classInducedVoltageTime.html#aecc111811c172775a6a5d5a0417eeea7">fCut</a>);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a3118facaa88596d7f6f7563a75c14fd5">fTimeOrFreq</a> = TimeOrFreq;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;}</div>
 </div><!-- fragment -->
 <p><div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
@@ -261,10 +261,10 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00069">69</a> of file <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html">InducedVoltage.cpp</a>.</p>
+<p>Definition at line <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00070">70</a> of file <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html">InducedVoltage.cpp</a>.</p>
 
-<p>References <a class="el" href="../../d7/d76/fft_8h_source.html#l00143">fft::destroy_plans()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;{ <a class="code" href="../../d8/de0/namespacefft.html#a912305da2a5cea6ffdb34f36fc27169f">fft::destroy_plans</a>(); }</div>
+<p>References <a class="el" href="../../d7/d76/fft_8h_source.html#l00153">fft::destroy_plans()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;{ <a class="code" href="../../d8/de0/namespacefft.html#a912305da2a5cea6ffdb34f36fc27169f">fft::destroy_plans</a>(); }</div>
 </div><!-- fragment -->
 <p><div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
@@ -303,84 +303,84 @@ Public Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="../../dd/de2/classInducedVoltage.html#af28e13b96de2242a7c6776cfa04050ff">InducedVoltage</a>.</p>
 
-<p>Definition at line <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00117">117</a> of file <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html">InducedVoltage.cpp</a>.</p>
+<p>Definition at line <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00118">118</a> of file <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html">InducedVoltage.cpp</a>.</p>
 
-<p>References <a class="el" href="../../d5/d87/globals_8h_source.html#l00019">Context::Beam</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00069">mymath::convolution()</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00089">mymath::convolution_with_ffts()</a>, <a class="el" href="../../de/df0/utilities_8h_source.html#l00051">dprintf</a>, <a class="el" href="../../d2/d6f/constants_8h_source.html#l00017">constant::e</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00033">InducedVoltage::fInducedVoltage</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00015">freq_domain</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00050">fTimeOrFreq</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00047">fTotalWake</a>, <a class="el" href="../../d5/d87/globals_8h_source.html#l00018">Context::GP</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00243">mymath::min()</a>, <a class="el" href="../../d5/d87/globals_8h_source.html#l00017">Context::Slice</a>, and <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00015">time_domain</a>.</p>
+<p>References <a class="el" href="../../d5/d87/globals_8h_source.html#l00019">Context::Beam</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00069">mymath::convolution()</a>, <a class="el" href="../../d7/d76/fft_8h_source.html#l00354">fft::convolution_with_ffts()</a>, <a class="el" href="../../de/df0/utilities_8h_source.html#l00051">dprintf</a>, <a class="el" href="../../d2/d6f/constants_8h_source.html#l00017">constant::e</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00033">InducedVoltage::fInducedVoltage</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00015">freq_domain</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00050">fTimeOrFreq</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00047">fTotalWake</a>, <a class="el" href="../../d5/d87/globals_8h_source.html#l00018">Context::GP</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00227">mymath::min()</a>, <a class="el" href="../../d5/d87/globals_8h_source.html#l00017">Context::Slice</a>, and <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00015">time_domain</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00071">track()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;{</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="comment">// Method to calculate the induced voltage from wakes with convolution.*</span></div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keyword">auto</span> GP = <a class="code" href="../../d6/d7a/structContext.html#a0a2469a256c098797644d0ec49a8e430">Context::GP</a>;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keyword">auto</span> Beam = <a class="code" href="../../d6/d7a/structContext.html#ac43da1eea654ea818bca0a056ee20361">Context::Beam</a>;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keyword">auto</span> Slice = <a class="code" href="../../d6/d7a/structContext.html#a54aa8ced44f99c981069a16cf4473f84">Context::Slice</a>;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> inducedVoltage;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> factor =</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        -GP-&gt;charge * <a class="code" href="../../da/db5/namespaceconstant.html#ac8669eb61b1b2cb90269446e1b7e0ed2">constant::e</a> * Beam-&gt;intensity / Beam-&gt;n_macroparticles;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a3118facaa88596d7f6f7563a75c14fd5">fTimeOrFreq</a> == <a class="code" href="../../d9/dee/InducedVoltage_8h.html#afe43045369f0313fc3091ae664db5dc8a3794772ea53090a09415f16d9dc71903">freq_domain</a>) {</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        <span class="comment">// std::vector&lt;complex_t&gt; fft1, fft2;</span></div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="comment">// f_vector_t in1 = (Slice-&gt;n_macroparticles,</span></div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        <span class="comment">//               Slice-&gt;n_macroparticles + Slice-&gt;n_slices);</span></div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> in1(Slice-&gt;n_slices);</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        std::copy(Slice-&gt;n_macroparticles.begin(),</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;                  Slice-&gt;n_macroparticles.end(), in1.begin());</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> in2 = <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a02592837a2167fd3bcff842976efe792">fTotalWake</a>;</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        <a class="code" href="../../df/d6d/namespacemymath.html#ad9a3bb795e12d3f347816837e628087b">mymath::convolution_with_ffts</a>(in1, in2, inducedVoltage);</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        <span class="comment">/*</span></div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;<span class="comment">        fft::rfft(in, fft1, fShape, n_threads);</span></div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;<span class="comment"></span></div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="comment">        in = fTotalWake;</span></div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="comment">        fft::rfft(in, fft2, fShape, n_threads);</span></div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="comment"></span></div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="comment">        std::transform(fft1.begin(), fft1.end(), fft2.begin(),</span></div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="comment">                       fft1.begin(), std::multiplies&lt;complex_t&gt;());</span></div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="comment"></span></div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="comment">        fft::irfft(fft1, inducedVoltage, fShape, n_threads);</span></div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="comment">        */</span></div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        std::transform(inducedVoltage.begin(), inducedVoltage.end(),</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                       inducedVoltage.begin(),</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                       std::bind1st(std::multiplies&lt;ftype&gt;(), factor));</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a3118facaa88596d7f6f7563a75c14fd5">fTimeOrFreq</a> == <a class="code" href="../../d9/dee/InducedVoltage_8h.html#afe43045369f0313fc3091ae664db5dc8a0f7e2e8ad56d1a98dc82770d07e693c4">time_domain</a>) {</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> temp(Slice-&gt;n_slices);</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        std::copy(Slice-&gt;n_macroparticles.begin(),</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                  Slice-&gt;n_macroparticles.end(), temp.begin());</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        inducedVoltage.resize(<a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a02592837a2167fd3bcff842976efe792">fTotalWake</a>.size() + temp.size() - 1);</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        <a class="code" href="../../df/d6d/namespacemymath.html#a34ffdf8691d17b0ceab32ea0ca68337d">mymath::convolution</a>(<a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a02592837a2167fd3bcff842976efe792">fTotalWake</a>.data(), <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a02592837a2167fd3bcff842976efe792">fTotalWake</a>.size(), temp.data(),</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                            temp.size(), inducedVoltage.data());</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        std::transform(inducedVoltage.begin(), inducedVoltage.end(),</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                       inducedVoltage.begin(),</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                       std::bind1st(std::multiplies&lt;ftype&gt;(), factor));</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        <a class="code" href="../../de/df0/utilities_8h.html#a0fb7bf82c787085c8b1ef0ad7d028424">dprintf</a>(<span class="stringliteral">&quot;Error: Only freq_domain or time_domain are allowed\n&quot;</span>);</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        exit(-1);</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    }</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    inducedVoltage.resize((<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a>)Slice-&gt;n_slices);</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <a class="code" href="../../dd/de2/classInducedVoltage.html#ab3b536669db5802b51f0d1e634dd5124">fInducedVoltage</a> = inducedVoltage;</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    <span class="keywordflow">if</span> (length &gt; 0)</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        inducedVoltage.resize(<a class="code" href="../../df/d6d/namespacemymath.html#a5bcc40b5ebadd9d98f351775df65ec9f">std::min</a>((<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a>)Slice-&gt;n_slices, length), 0);</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <span class="keywordflow">return</span> inducedVoltage;</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;}</div>
+<p>Referenced by <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00072">track()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;{</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="comment">// Method to calculate the induced voltage from wakes with convolution.*</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keyword">auto</span> GP = <a class="code" href="../../d6/d7a/structContext.html#a0a2469a256c098797644d0ec49a8e430">Context::GP</a>;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keyword">auto</span> Beam = <a class="code" href="../../d6/d7a/structContext.html#ac43da1eea654ea818bca0a056ee20361">Context::Beam</a>;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keyword">auto</span> Slice = <a class="code" href="../../d6/d7a/structContext.html#a54aa8ced44f99c981069a16cf4473f84">Context::Slice</a>;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> inducedVoltage;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> factor =</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        -GP-&gt;charge * <a class="code" href="../../da/db5/namespaceconstant.html#ac8669eb61b1b2cb90269446e1b7e0ed2">constant::e</a> * Beam-&gt;intensity / Beam-&gt;n_macroparticles;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a3118facaa88596d7f6f7563a75c14fd5">fTimeOrFreq</a> == <a class="code" href="../../d9/dee/InducedVoltage_8h.html#afe43045369f0313fc3091ae664db5dc8a3794772ea53090a09415f16d9dc71903">freq_domain</a>) {</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="comment">// std::vector&lt;complex_t&gt; fft1, fft2;</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        <span class="comment">// f_vector_t in1 = (Slice-&gt;n_macroparticles,</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        <span class="comment">//               Slice-&gt;n_macroparticles + Slice-&gt;n_slices);</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> in1(Slice-&gt;n_slices);</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        std::copy(Slice-&gt;n_macroparticles.begin(),</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;                  Slice-&gt;n_macroparticles.end(), in1.begin());</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> in2 = <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a02592837a2167fd3bcff842976efe792">fTotalWake</a>;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        <a class="code" href="../../d8/de0/namespacefft.html#acfc0c7a2bf86a2515926f3b0284732c8">fft::convolution_with_ffts</a>(in1, in2, inducedVoltage);</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        <span class="comment">/*</span></div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;<span class="comment">        fft::rfft(in, fft1, fShape, n_threads);</span></div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="comment">        in = fTotalWake;</span></div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="comment">        fft::rfft(in, fft2, fShape, n_threads);</span></div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="comment">        std::transform(fft1.begin(), fft1.end(), fft2.begin(),</span></div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="comment">                       fft1.begin(), std::multiplies&lt;complex_t&gt;());</span></div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="comment">        fft::irfft(fft1, inducedVoltage, fShape, n_threads);</span></div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="comment">        */</span></div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        std::transform(inducedVoltage.begin(), inducedVoltage.end(),</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                       inducedVoltage.begin(),</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                       std::bind1st(std::multiplies&lt;ftype&gt;(), factor));</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a3118facaa88596d7f6f7563a75c14fd5">fTimeOrFreq</a> == <a class="code" href="../../d9/dee/InducedVoltage_8h.html#afe43045369f0313fc3091ae664db5dc8a0f7e2e8ad56d1a98dc82770d07e693c4">time_domain</a>) {</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> temp(Slice-&gt;n_slices);</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        std::copy(Slice-&gt;n_macroparticles.begin(),</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;                  Slice-&gt;n_macroparticles.end(), temp.begin());</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        inducedVoltage.resize(<a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a02592837a2167fd3bcff842976efe792">fTotalWake</a>.size() + temp.size() - 1);</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        <a class="code" href="../../df/d6d/namespacemymath.html#a34ffdf8691d17b0ceab32ea0ca68337d">mymath::convolution</a>(<a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a02592837a2167fd3bcff842976efe792">fTotalWake</a>.data(), <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a02592837a2167fd3bcff842976efe792">fTotalWake</a>.size(), temp.data(),</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;                            temp.size(), inducedVoltage.data());</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        std::transform(inducedVoltage.begin(), inducedVoltage.end(),</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                       inducedVoltage.begin(),</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                       std::bind1st(std::multiplies&lt;ftype&gt;(), factor));</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        <a class="code" href="../../de/df0/utilities_8h.html#a0fb7bf82c787085c8b1ef0ad7d028424">dprintf</a>(<span class="stringliteral">&quot;Error: Only freq_domain or time_domain are allowed\n&quot;</span>);</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        exit(-1);</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    }</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    inducedVoltage.resize((<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a>)Slice-&gt;n_slices);</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <a class="code" href="../../dd/de2/classInducedVoltage.html#ab3b536669db5802b51f0d1e634dd5124">fInducedVoltage</a> = inducedVoltage;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <span class="keywordflow">if</span> (length &gt; 0)</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        inducedVoltage.resize(<a class="code" href="../../df/d6d/namespacemymath.html#a5bcc40b5ebadd9d98f351775df65ec9f">std::min</a>((<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a>)Slice-&gt;n_slices, length), 0);</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    <span class="keywordflow">return</span> inducedVoltage;</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;}</div>
 </div><!-- fragment -->
 <p><div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-4-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../d0/d6b/classInducedVoltageTime_ada28e04191e2d2933ba9e3820e61d5c2_cgraph.svg" width="100%" height="488"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../d0/d6b/classInducedVoltageTime_ada28e04191e2d2933ba9e3820e61d5c2_cgraph.svg" width="100%" height="430"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 </p>
@@ -420,24 +420,24 @@ Public Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="../../dd/de2/classInducedVoltage.html#ad777f92a5976e4d383b7a098e1658e48">InducedVoltage</a>.</p>
 
-<p>Definition at line <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00100">100</a> of file <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html">InducedVoltage.cpp</a>.</p>
+<p>Definition at line <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00101">101</a> of file <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html">InducedVoltage.cpp</a>.</p>
 
-<p>References <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00048">fCut</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00049">fShape</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00046">fTimeArray</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00051">mymath::next_regular()</a>, <a class="el" href="../../d5/d87/globals_8h_source.html#l00017">Context::Slice</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00088">sum_wakes()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;{</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="comment">// *Reprocess the wake contributions with respect to the new_slicing.*</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="comment">// WARNING As Slice is a global variable,</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="comment">// users will have to change this variable and call reprocess()</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keyword">auto</span> Slice = <a class="code" href="../../d6/d7a/structContext.html#a54aa8ced44f99c981069a16cf4473f84">Context::Slice</a>;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a1d61be1c9b114c3d91e904ea476b9747">fTimeArray</a>.resize(Slice-&gt;n_slices);</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a1d61be1c9b114c3d91e904ea476b9747">fTimeArray</a>.size(); ++i) {</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a1d61be1c9b114c3d91e904ea476b9747">fTimeArray</a>[i] = Slice-&gt;bin_centers[i] - Slice-&gt;bin_centers[0];</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    }</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#ab88e0f5ff8f3ef8cd0dcc71bbb7bc581">sum_wakes</a>(<a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a1d61be1c9b114c3d91e904ea476b9747">fTimeArray</a>);</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#aecc111811c172775a6a5d5a0417eeea7">fCut</a> = <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a1d61be1c9b114c3d91e904ea476b9747">fTimeArray</a>.size() + Slice-&gt;n_slices - 1;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a9cfe3a75273f751024754a80429cb41b">fShape</a> = <a class="code" href="../../df/d6d/namespacemymath.html#accbb9ef1f97a6dca6e5fb46dc038130a">mymath::next_regular</a>(<a class="code" href="../../d0/d6b/classInducedVoltageTime.html#aecc111811c172775a6a5d5a0417eeea7">fCut</a>);</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;}</div>
+<p>References <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00048">fCut</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00049">fShape</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00046">fTimeArray</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00051">mymath::next_regular()</a>, <a class="el" href="../../d5/d87/globals_8h_source.html#l00017">Context::Slice</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00089">sum_wakes()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;{</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="comment">// *Reprocess the wake contributions with respect to the new_slicing.*</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="comment">// WARNING As Slice is a global variable,</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="comment">// users will have to change this variable and call reprocess()</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keyword">auto</span> Slice = <a class="code" href="../../d6/d7a/structContext.html#a54aa8ced44f99c981069a16cf4473f84">Context::Slice</a>;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a1d61be1c9b114c3d91e904ea476b9747">fTimeArray</a>.resize(Slice-&gt;n_slices);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a1d61be1c9b114c3d91e904ea476b9747">fTimeArray</a>.size(); ++i) {</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a1d61be1c9b114c3d91e904ea476b9747">fTimeArray</a>[i] = Slice-&gt;bin_centers[i] - Slice-&gt;bin_centers[0];</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    }</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#ab88e0f5ff8f3ef8cd0dcc71bbb7bc581">sum_wakes</a>(<a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a1d61be1c9b114c3d91e904ea476b9747">fTimeArray</a>);</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#aecc111811c172775a6a5d5a0417eeea7">fCut</a> = <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a1d61be1c9b114c3d91e904ea476b9747">fTimeArray</a>.size() + Slice-&gt;n_slices - 1;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a9cfe3a75273f751024754a80429cb41b">fShape</a> = <a class="code" href="../../df/d6d/namespacemymath.html#accbb9ef1f97a6dca6e5fb46dc038130a">mymath::next_regular</a>(<a class="code" href="../../d0/d6b/classInducedVoltageTime.html#aecc111811c172775a6a5d5a0417eeea7">fCut</a>);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;}</div>
 </div><!-- fragment -->
 <p><div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
@@ -465,21 +465,21 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00088">88</a> of file <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html">InducedVoltage.cpp</a>.</p>
+<p>Definition at line <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00089">89</a> of file <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html">InducedVoltage.cpp</a>.</p>
 
 <p>References <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00047">fTotalWake</a>, and <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00045">fWakeSourceList</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00037">InducedVoltageTime()</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00100">reprocess()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;{</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="comment">// *Summing all the wake contributions in one total wake.*</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a02592837a2167fd3bcff842976efe792">fTotalWake</a>.resize(TimeArray.size());</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    std::fill(<a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a02592837a2167fd3bcff842976efe792">fTotalWake</a>.begin(), <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a02592837a2167fd3bcff842976efe792">fTotalWake</a>.end(), 0);</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../dc/dad/classIntensity.html">Intensity</a> *i : <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#ab04846f75250739419ac5c8d2e571f21">fWakeSourceList</a>) {</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        i-&gt;wake_calc(TimeArray);</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        std::transform(<a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a02592837a2167fd3bcff842976efe792">fTotalWake</a>.begin(), <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a02592837a2167fd3bcff842976efe792">fTotalWake</a>.end(), i-&gt;fWake.begin(),</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                       <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a02592837a2167fd3bcff842976efe792">fTotalWake</a>.begin(), std::plus&lt;ftype&gt;());</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    }</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;}</div>
+<p>Referenced by <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00038">InducedVoltageTime()</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00101">reprocess()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;{</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="comment">// *Summing all the wake contributions in one total wake.*</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a02592837a2167fd3bcff842976efe792">fTotalWake</a>.resize(TimeArray.size());</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    std::fill(<a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a02592837a2167fd3bcff842976efe792">fTotalWake</a>.begin(), <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a02592837a2167fd3bcff842976efe792">fTotalWake</a>.end(), 0);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../dc/dad/classIntensity.html">Intensity</a> *i : <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#ab04846f75250739419ac5c8d2e571f21">fWakeSourceList</a>) {</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        i-&gt;wake_calc(TimeArray);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        std::transform(<a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a02592837a2167fd3bcff842976efe792">fTotalWake</a>.begin(), <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a02592837a2167fd3bcff842976efe792">fTotalWake</a>.end(), i-&gt;fWake.begin(),</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                       <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a02592837a2167fd3bcff842976efe792">fTotalWake</a>.begin(), std::plus&lt;ftype&gt;());</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    }</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;}</div>
 </div><!-- fragment -->
 <p><div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
@@ -516,31 +516,31 @@ Public Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="../../dd/de2/classInducedVoltage.html#a5ab19e457c61f3469a41e70d6e1ab31a">InducedVoltage</a>.</p>
 
-<p>Definition at line <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00071">71</a> of file <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html">InducedVoltage.cpp</a>.</p>
+<p>Definition at line <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00072">72</a> of file <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html">InducedVoltage.cpp</a>.</p>
 
-<p>References <a class="el" href="../../d5/d87/globals_8h_source.html#l00019">Context::Beam</a>, <a class="el" href="../../d5/d87/globals_8h_source.html#l00018">Context::GP</a>, <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00117">induced_voltage_generation()</a>, <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00009">linear_interp_kick()</a>, and <a class="el" href="../../d5/d87/globals_8h_source.html#l00017">Context::Slice</a>.</p>
-<div class="fragment"><div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;{</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">auto</span> GP = <a class="code" href="../../d6/d7a/structContext.html#a0a2469a256c098797644d0ec49a8e430">Context::GP</a>;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keyword">auto</span> Beam = <a class="code" href="../../d6/d7a/structContext.html#ac43da1eea654ea818bca0a056ee20361">Context::Beam</a>;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">auto</span> Slice = <a class="code" href="../../d6/d7a/structContext.html#a54aa8ced44f99c981069a16cf4473f84">Context::Slice</a>;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="comment">// Tracking Method</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> v = this-&gt;<a class="code" href="../../d0/d6b/classInducedVoltageTime.html#ada28e04191e2d2933ba9e3820e61d5c2">induced_voltage_generation</a>();</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    std::transform(v.begin(), v.end(), v.begin(),</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                   std::bind1st(std::multiplies&lt;ftype&gt;(), GP-&gt;charge));</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <a class="code" href="../../d5/dfa/InducedVoltage_8cpp.html#a3466d4b57e8c5a8ad6b18c33131351fc">linear_interp_kick</a>(Beam-&gt;dt.data(), Beam-&gt;dE.data(), v.data(),</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                       Slice-&gt;bin_centers.data(), Slice-&gt;n_slices,</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                       Beam-&gt;n_macroparticles);</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;}</div>
+<p>References <a class="el" href="../../d5/d87/globals_8h_source.html#l00019">Context::Beam</a>, <a class="el" href="../../d5/d87/globals_8h_source.html#l00018">Context::GP</a>, <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00118">induced_voltage_generation()</a>, <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00010">linear_interp_kick()</a>, and <a class="el" href="../../d5/d87/globals_8h_source.html#l00017">Context::Slice</a>.</p>
+<div class="fragment"><div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;{</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keyword">auto</span> GP = <a class="code" href="../../d6/d7a/structContext.html#a0a2469a256c098797644d0ec49a8e430">Context::GP</a>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">auto</span> Beam = <a class="code" href="../../d6/d7a/structContext.html#ac43da1eea654ea818bca0a056ee20361">Context::Beam</a>;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">auto</span> Slice = <a class="code" href="../../d6/d7a/structContext.html#a54aa8ced44f99c981069a16cf4473f84">Context::Slice</a>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="comment">// Tracking Method</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> v = this-&gt;<a class="code" href="../../d0/d6b/classInducedVoltageTime.html#ada28e04191e2d2933ba9e3820e61d5c2">induced_voltage_generation</a>();</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    std::transform(v.begin(), v.end(), v.begin(),</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                   std::bind1st(std::multiplies&lt;ftype&gt;(), GP-&gt;charge));</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <a class="code" href="../../d5/dfa/InducedVoltage_8cpp.html#a3466d4b57e8c5a8ad6b18c33131351fc">linear_interp_kick</a>(Beam-&gt;dt.data(), Beam-&gt;dE.data(), v.data(),</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                       Slice-&gt;bin_centers.data(), Slice-&gt;n_slices,</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                       Beam-&gt;n_macroparticles);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;}</div>
 </div><!-- fragment -->
 <p><div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-8-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-8-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-8-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../d0/d6b/classInducedVoltageTime_a63d40bebb86206cd65c7d448e65a87a8_cgraph.svg" width="100%" height="488"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../d0/d6b/classInducedVoltageTime_a63d40bebb86206cd65c7d448e65a87a8_cgraph.svg" width="100%" height="436"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 </p>
@@ -560,7 +560,7 @@ Public Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00048">48</a> of file <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html">InducedVoltage.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00037">InducedVoltageTime()</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00100">reprocess()</a>.</p>
+<p>Referenced by <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00038">InducedVoltageTime()</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00101">reprocess()</a>.</p>
 
 </div>
 </div>
@@ -576,7 +576,7 @@ Public Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00049">49</a> of file <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html">InducedVoltage.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00037">InducedVoltageTime()</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00100">reprocess()</a>.</p>
+<p>Referenced by <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00038">InducedVoltageTime()</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00101">reprocess()</a>.</p>
 
 </div>
 </div>
@@ -592,7 +592,7 @@ Public Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00046">46</a> of file <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html">InducedVoltage.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00037">InducedVoltageTime()</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00100">reprocess()</a>.</p>
+<p>Referenced by <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00038">InducedVoltageTime()</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00101">reprocess()</a>.</p>
 
 </div>
 </div>
@@ -608,7 +608,7 @@ Public Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00050">50</a> of file <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html">InducedVoltage.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00117">induced_voltage_generation()</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00037">InducedVoltageTime()</a>.</p>
+<p>Referenced by <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00118">induced_voltage_generation()</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00038">InducedVoltageTime()</a>.</p>
 
 </div>
 </div>
@@ -624,7 +624,7 @@ Public Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00047">47</a> of file <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html">InducedVoltage.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00117">induced_voltage_generation()</a>, <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00037">InducedVoltageTime()</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00088">sum_wakes()</a>.</p>
+<p>Referenced by <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00118">induced_voltage_generation()</a>, <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00038">InducedVoltageTime()</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00089">sum_wakes()</a>.</p>
 
 </div>
 </div>
@@ -640,7 +640,7 @@ Public Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00045">45</a> of file <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html">InducedVoltage.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00037">InducedVoltageTime()</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00088">sum_wakes()</a>.</p>
+<p>Referenced by <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00038">InducedVoltageTime()</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00089">sum_wakes()</a>.</p>
 
 </div>
 </div>
@@ -650,7 +650,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../d0/d6b/classInducedVoltageTime.html">InducedVoltageTime</a></li>
-    <li class="footer">Generated on Wed Sep 28 2016 09:17:26 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Wed Sep 28 2016 10:27:37 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

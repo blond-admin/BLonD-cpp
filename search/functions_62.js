@@ -11,5 +11,5 @@ var searchData=
   ['buf_5ffull',['buf_full',['../de/d50/classoption_1_1PrintUsageImplementation_1_1LineWrapper.html#ac814c95dcda4174b29e2f24c6bb13519',1,'option::PrintUsageImplementation::LineWrapper']]],
   ['buf_5fnext',['buf_next',['../de/d50/classoption_1_1PrintUsageImplementation_1_1LineWrapper.html#a2e0ef4f940413addf063ad7e429c6556',1,'option::PrintUsageImplementation::LineWrapper']]],
   ['buf_5fstore',['buf_store',['../de/d50/classoption_1_1PrintUsageImplementation_1_1LineWrapper.html#a43e2f45da4f29cc1eda7bf1f38a63806',1,'option::PrintUsageImplementation::LineWrapper']]],
-  ['bunchmonitor',['BunchMonitor',['../d2/d00/classBunchMonitor.html#a428bf0af0478370f270473ef0ee078de',1,'BunchMonitor']]]
+  ['bunchmonitor',['BunchMonitor',['../d2/d00/classBunchMonitor.html#a14485bacd7d9af74055f49568ad24a61',1,'BunchMonitor']]]
 ];

@@ -321,7 +321,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00038">38</a> of file <a class="el" href="../../d7/d91/Slices_8cpp_source.html">Slices.cpp</a>.</p>
 
-<p>References <a class="el" href="../../d7/d76/fft_8h_source.html#l00143">fft::destroy_plans()</a>.</p>
+<p>References <a class="el" href="../../d7/d76/fft_8h_source.html#l00153">fft::destroy_plans()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;{ <a class="code" href="../../d8/de0/namespacefft.html#a912305da2a5cea6ffdb34f36fc27169f">fft::destroy_plans</a>(); }</div>
 </div><!-- fragment -->
 <p><div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -369,7 +369,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00420">420</a> of file <a class="el" href="../../d7/d91/Slices_8cpp_source.html">Slices.cpp</a>.</p>
 
-<p>References <a class="el" href="../../dc/df2/Slices_8h_source.html#l00035">bin_centers</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00462">gaussian_filter1d()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00482">gradient()</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00114">mymath::lin_interp()</a>, and <a class="el" href="../../dc/df2/Slices_8h_source.html#l00033">n_macroparticles</a>.</p>
+<p>References <a class="el" href="../../dc/df2/Slices_8h_source.html#l00035">bin_centers</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00462">gaussian_filter1d()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00482">gradient()</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00098">mymath::lin_interp()</a>, and <a class="el" href="../../dc/df2/Slices_8h_source.html#l00033">n_macroparticles</a>.</p>
 
 <p>Referenced by <a class="el" href="../../d4/dfd/plot__slices_8cpp_source.html#l00031">plot_beam_profile_derivative()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;{</div>
@@ -476,7 +476,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00409">409</a> of file <a class="el" href="../../d7/d91/Slices_8cpp_source.html">Slices.cpp</a>.</p>
 
-<p>References <a class="el" href="../../dc/df2/Slices_8h_source.html#l00035">bin_centers</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00037">fBeamSpectrum</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00038">fBeamSpectrumFreq</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00033">n_macroparticles</a>, <a class="el" href="../../d5/d87/globals_8h_source.html#l00024">Context::n_threads</a>, <a class="el" href="../../d7/d76/fft_8h_source.html#l00234">fft::rfft()</a>, and <a class="el" href="../../d7/d76/fft_8h_source.html#l00326">fft::rfftfreq()</a>.</p>
+<p>References <a class="el" href="../../dc/df2/Slices_8h_source.html#l00035">bin_centers</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00037">fBeamSpectrum</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00038">fBeamSpectrumFreq</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00033">n_macroparticles</a>, <a class="el" href="../../d5/d87/globals_8h_source.html#l00024">Context::n_threads</a>, <a class="el" href="../../d7/d76/fft_8h_source.html#l00246">fft::rfft()</a>, and <a class="el" href="../../d7/d76/fft_8h_source.html#l00342">fft::rfftfreq()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;{</div>
 <div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;</div>
 <div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;    <a class="code" href="../../dc/d45/classSlices.html#a2c292b1090ee232f4d7e3b4bd43e500a">fBeamSpectrumFreq</a> = <a class="code" href="../../d8/de0/namespacefft.html#a033d2ce3e0176d2afede62d2bc1e9163">fft::rfftfreq</a>(n, <a class="code" href="../../dc/d45/classSlices.html#a20fe6ad5ead7011307efdd5a81392366">bin_centers</a>[1] - <a class="code" href="../../dc/d45/classSlices.html#a20fe6ad5ead7011307efdd5a81392366">bin_centers</a>[0]);</div>
@@ -578,7 +578,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00379">379</a> of file <a class="el" href="../../d7/d91/Slices_8cpp_source.html">Slices.cpp</a>.</p>
 
-<p>References <a class="el" href="../../d5/d87/globals_8h_source.html#l00019">Context::Beam</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00035">bin_centers</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00014">cfwhm</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00258">mymath::max()</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00033">n_macroparticles</a>, and <a class="el" href="../../dc/df2/Slices_8h_source.html#l00028">n_slices</a>.</p>
+<p>References <a class="el" href="../../d5/d87/globals_8h_source.html#l00019">Context::Beam</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00035">bin_centers</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00014">cfwhm</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00242">mymath::max()</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00033">n_macroparticles</a>, and <a class="el" href="../../dc/df2/Slices_8h_source.html#l00028">n_slices</a>.</p>
 <div class="fragment"><div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;{</div>
 <div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;</div>
 <div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;    <span class="comment">/*</span></div>
@@ -634,7 +634,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00319">319</a> of file <a class="el" href="../../d7/d91/Slices_8cpp_source.html">Slices.cpp</a>.</p>
 
-<p>References <a class="el" href="../../dc/df2/Slices_8h_source.html#l00035">bin_centers</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00026">bl_fwhm</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00026">bp_fwhm</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00014">cfwhm</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00258">mymath::max()</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00033">n_macroparticles</a>, and <a class="el" href="../../dc/df2/Slices_8h_source.html#l00028">n_slices</a>.</p>
+<p>References <a class="el" href="../../dc/df2/Slices_8h_source.html#l00035">bin_centers</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00026">bl_fwhm</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00026">bp_fwhm</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00014">cfwhm</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00242">mymath::max()</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00033">n_macroparticles</a>, and <a class="el" href="../../dc/df2/Slices_8h_source.html#l00028">n_slices</a>.</p>
 <div class="fragment"><div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;{</div>
 <div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;</div>
 <div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    <span class="comment">/*</span></div>
@@ -1016,7 +1016,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00147">147</a> of file <a class="el" href="../../d7/d91/Slices_8cpp_source.html">Slices.cpp</a>.</p>
 
-<p>References <a class="el" href="../../dc/df2/Slices_8h_source.html#l00029">cut_left</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00243">mymath::min()</a>, and <a class="el" href="../../dc/df2/Slices_8h_source.html#l00028">n_slices</a>.</p>
+<p>References <a class="el" href="../../dc/df2/Slices_8h_source.html#l00029">cut_left</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00227">mymath::min()</a>, and <a class="el" href="../../dc/df2/Slices_8h_source.html#l00028">n_slices</a>.</p>
 
 <p>Referenced by <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00131">slice_constant_space_histogram()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;{</div>
@@ -1117,7 +1117,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00287">287</a> of file <a class="el" href="../../d7/d91/Slices_8cpp_source.html">Slices.cpp</a>.</p>
 
-<p>References <a class="el" href="../../d5/d87/globals_8h_source.html#l00019">Context::Beam</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00035">bin_centers</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00027">bl_rms</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00027">bp_rms</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00033">n_macroparticles</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00028">n_slices</a>, and <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00205">mymath::trapezoid()</a>.</p>
+<p>References <a class="el" href="../../d5/d87/globals_8h_source.html#l00019">Context::Beam</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00035">bin_centers</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00027">bl_rms</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00027">bp_rms</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00033">n_macroparticles</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00028">n_slices</a>, and <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00189">mymath::trapezoid()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;{</div>
 <div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;</div>
 <div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    <span class="comment">/*</span></div>
@@ -1176,7 +1176,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00040">40</a> of file <a class="el" href="../../d7/d91/Slices_8cpp_source.html">Slices.cpp</a>.</p>
 
-<p>References <a class="el" href="../../d5/d87/globals_8h_source.html#l00019">Context::Beam</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00035">bin_centers</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00107">convert_coordinates()</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00029">cut_left</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00030">cut_right</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00032">cuts_unit</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00034">edges</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00272">mymath::linspace()</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00295">mymath::mean()</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00031">n_sigma</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00028">n_slices</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00077">sort_particles()</a>, and <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00306">mymath::standard_deviation()</a>.</p>
+<p>References <a class="el" href="../../d5/d87/globals_8h_source.html#l00019">Context::Beam</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00035">bin_centers</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00107">convert_coordinates()</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00029">cut_left</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00030">cut_right</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00032">cuts_unit</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00034">edges</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00256">mymath::linspace()</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00279">mymath::mean()</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00031">n_sigma</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00028">n_slices</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00077">sort_particles()</a>, and <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00290">mymath::standard_deviation()</a>.</p>
 
 <p>Referenced by <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00019">Slices()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;{</div>
@@ -1605,7 +1605,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../dc/df2/Slices_8h_source.html#l00035">35</a> of file <a class="el" href="../../dc/df2/Slices_8h_source.html">Slices.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00420">beam_profile_derivative()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00409">beam_spectrum_generation()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00379">fast_fwhm()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00319">fwhm()</a>, <a class="el" href="../../d3/db7/LHCNoiseFB_8cpp_source.html#l00080">LHCNoiseFB::fwhm_interpolation()</a>, <a class="el" href="../../d4/dfd/plot__slices_8cpp_source.html#l00005">plot_beam_profile()</a>, <a class="el" href="../../d2/d6f/Tracker_8cpp_source.html#l00269">RingAndRfSection::rf_voltage_calculation()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00287">rms()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00040">set_cuts()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00019">Slices()</a>, <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00457">TotalInducedVoltage::TotalInducedVoltage()</a>, <a class="el" href="../../d2/d6f/Tracker_8cpp_source.html#l00133">RingAndRfSection::track()</a>, and <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00212">track_cuts()</a>.</p>
+<p>Referenced by <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00420">beam_profile_derivative()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00409">beam_spectrum_generation()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00379">fast_fwhm()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00319">fwhm()</a>, <a class="el" href="../../d3/db7/LHCNoiseFB_8cpp_source.html#l00080">LHCNoiseFB::fwhm_interpolation()</a>, <a class="el" href="../../d4/dfd/plot__slices_8cpp_source.html#l00005">plot_beam_profile()</a>, <a class="el" href="../../d2/d6f/Tracker_8cpp_source.html#l00269">RingAndRfSection::rf_voltage_calculation()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00287">rms()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00040">set_cuts()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00019">Slices()</a>, <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00458">TotalInducedVoltage::TotalInducedVoltage()</a>, <a class="el" href="../../d2/d6f/Tracker_8cpp_source.html#l00133">RingAndRfSection::track()</a>, and <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00212">track_cuts()</a>.</p>
 
 </div>
 </div>
@@ -1867,7 +1867,7 @@ Private Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dc/d45/classSlices.html">Slices</a></li>
-    <li class="footer">Generated on Wed Sep 28 2016 09:17:27 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Wed Sep 28 2016 10:27:37 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

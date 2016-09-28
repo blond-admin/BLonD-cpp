@@ -131,8 +131,8 @@ $(document).ready(function(){initNavTree('de/d59/classSlicesMonitor.html','../..
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a7f00fdb8e97653fa44e951b653d57594"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d59/classSlicesMonitor.html#a7f00fdb8e97653fa44e951b653d57594">SlicesMonitor</a> (std::string filename, int n_turns, <a class="el" href="../../dc/d45/classSlices.html">Slices</a> *slices)</td></tr>
-<tr class="separator:a7f00fdb8e97653fa44e951b653d57594"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9acc49a0674e5892018116a7905a2c0e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d59/classSlicesMonitor.html#a9acc49a0674e5892018116a7905a2c0e">SlicesMonitor</a> (std::string filename, int n_turns, <a class="el" href="../../dc/d45/classSlices.html">Slices</a> *slices, int compression_level=9)</td></tr>
+<tr class="separator:a9acc49a0674e5892018116a7905a2c0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aefb7c3588394e4c28f150274d1aaf168"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d59/classSlicesMonitor.html#aefb7c3588394e4c28f150274d1aaf168">~SlicesMonitor</a> ()</td></tr>
 <tr class="separator:aefb7c3588394e4c28f150274d1aaf168"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad228876b9de204e6551bec2eef540c38"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d59/classSlicesMonitor.html#ad228876b9de204e6551bec2eef540c38">close</a> ()</td></tr>
@@ -146,6 +146,8 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
+<tr class="memitem:ac456caafc78f8026b4975d73a6b27e36"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d59/classSlicesMonitor.html#ac456caafc78f8026b4975d73a6b27e36">fCompressionLevel</a></td></tr>
+<tr class="separator:ac456caafc78f8026b4975d73a6b27e36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a380e0dac65e9f7aaf6febf3ca29e1f96"><td class="memItemLeft" align="right" valign="top">H5::H5File *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d59/classSlicesMonitor.html#a380e0dac65e9f7aaf6febf3ca29e1f96">fFile</a></td></tr>
 <tr class="separator:a380e0dac65e9f7aaf6febf3ca29e1f96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11c0e24da93260d4786b28e51f123811"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d59/classSlicesMonitor.html#a11c0e24da93260d4786b28e51f123811">fFileName</a></td></tr>
@@ -163,7 +165,7 @@ Public Attributes</h2></td></tr>
 <div class="textblock">
 <p>Definition at line <a class="el" href="../../d0/da6/Monitors_8h_source.html#l00031">31</a> of file <a class="el" href="../../d0/da6/Monitors_8h_source.html">Monitors.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a7f00fdb8e97653fa44e951b653d57594"></a>
+<a class="anchor" id="a9acc49a0674e5892018116a7905a2c0e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -183,7 +185,13 @@ Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="../../dc/d45/classSlices.html">Slices</a> *&#160;</td>
-          <td class="paramname"><em>slices</em>&#160;</td>
+          <td class="paramname"><em>slices</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>compression_level</em> = <code>9</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -194,14 +202,15 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Definition at line <a class="el" href="../../da/dda/Monitors_8cpp_source.html#l00069">69</a> of file <a class="el" href="../../da/dda/Monitors_8cpp_source.html">Monitors.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;{</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <a class="code" href="../../de/d59/classSlicesMonitor.html#a11c0e24da93260d4786b28e51f123811">fFileName</a> = filename;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="../../de/d59/classSlicesMonitor.html#a8e33ce278c4749a4ce68474abd720b98">fNTurns</a> = n_turns;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="../../de/d59/classSlicesMonitor.html#aa9e638f8de13c51033b28bce37c826f5">fSlices</a> = slices;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="../../de/d59/classSlicesMonitor.html#a116433c1c6f927fc80f943f882c8f414">fITurn</a> = 0;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="../../de/d59/classSlicesMonitor.html#a380e0dac65e9f7aaf6febf3ca29e1f96">fFile</a> = <span class="keyword">new</span> H5File(<a class="code" href="../../de/d59/classSlicesMonitor.html#a11c0e24da93260d4786b28e51f123811">fFileName</a>, H5F_ACC_TRUNC);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="code" href="../../de/d59/classSlicesMonitor.html#ae833e09d0c80c799114c80caf2c17ed6">fGroup</a> = <span class="keyword">new</span> Group(<a class="code" href="../../de/d59/classSlicesMonitor.html#a380e0dac65e9f7aaf6febf3ca29e1f96">fFile</a>-&gt;createGroup(<span class="stringliteral">&quot;Slices&quot;</span>));</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;}</div>
+<div class="fragment"><div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;{</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="../../de/d59/classSlicesMonitor.html#a11c0e24da93260d4786b28e51f123811">fFileName</a> = filename;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="../../de/d59/classSlicesMonitor.html#a8e33ce278c4749a4ce68474abd720b98">fNTurns</a> = n_turns;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="../../de/d59/classSlicesMonitor.html#aa9e638f8de13c51033b28bce37c826f5">fSlices</a> = slices;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="../../de/d59/classSlicesMonitor.html#a116433c1c6f927fc80f943f882c8f414">fITurn</a> = 0;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="code" href="../../de/d59/classSlicesMonitor.html#a380e0dac65e9f7aaf6febf3ca29e1f96">fFile</a> = <span class="keyword">new</span> H5File(<a class="code" href="../../de/d59/classSlicesMonitor.html#a11c0e24da93260d4786b28e51f123811">fFileName</a>, H5F_ACC_TRUNC);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <a class="code" href="../../de/d59/classSlicesMonitor.html#ae833e09d0c80c799114c80caf2c17ed6">fGroup</a> = <span class="keyword">new</span> Group(<a class="code" href="../../de/d59/classSlicesMonitor.html#a380e0dac65e9f7aaf6febf3ca29e1f96">fFile</a>-&gt;createGroup(<span class="stringliteral">&quot;Slices&quot;</span>));</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <a class="code" href="../../de/d59/classSlicesMonitor.html#ac456caafc78f8026b4975d73a6b27e36">fCompressionLevel</a> = compression_level;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -218,11 +227,11 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../da/dda/Monitors_8cpp_source.html#l00079">79</a> of file <a class="el" href="../../da/dda/Monitors_8cpp_source.html">Monitors.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;{</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">delete</span> <a class="code" href="../../de/d59/classSlicesMonitor.html#a380e0dac65e9f7aaf6febf3ca29e1f96">fFile</a>;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">delete</span> <a class="code" href="../../de/d59/classSlicesMonitor.html#ae833e09d0c80c799114c80caf2c17ed6">fGroup</a>;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;}</div>
+<p>Definition at line <a class="el" href="../../da/dda/Monitors_8cpp_source.html#l00081">81</a> of file <a class="el" href="../../da/dda/Monitors_8cpp_source.html">Monitors.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;{</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">delete</span> <a class="code" href="../../de/d59/classSlicesMonitor.html#a380e0dac65e9f7aaf6febf3ca29e1f96">fFile</a>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">delete</span> <a class="code" href="../../de/d59/classSlicesMonitor.html#ae833e09d0c80c799114c80caf2c17ed6">fGroup</a>;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -240,11 +249,11 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../da/dda/Monitors_8cpp_source.html#l00136">136</a> of file <a class="el" href="../../da/dda/Monitors_8cpp_source.html">Monitors.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;{</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <a class="code" href="../../de/d59/classSlicesMonitor.html#ae833e09d0c80c799114c80caf2c17ed6">fGroup</a>-&gt;close();</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <a class="code" href="../../de/d59/classSlicesMonitor.html#a380e0dac65e9f7aaf6febf3ca29e1f96">fFile</a>-&gt;close();</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;}</div>
+<p>Definition at line <a class="el" href="../../da/dda/Monitors_8cpp_source.html#l00138">138</a> of file <a class="el" href="../../da/dda/Monitors_8cpp_source.html">Monitors.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;{</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <a class="code" href="../../de/d59/classSlicesMonitor.html#ae833e09d0c80c799114c80caf2c17ed6">fGroup</a>-&gt;close();</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <a class="code" href="../../de/d59/classSlicesMonitor.html#a380e0dac65e9f7aaf6febf3ca29e1f96">fFile</a>-&gt;close();</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -262,21 +271,21 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../da/dda/Monitors_8cpp_source.html#l00119">119</a> of file <a class="el" href="../../da/dda/Monitors_8cpp_source.html">Monitors.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;{</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    hsize_t dim[2], chunk[2];</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    dim[0] = dims[0];</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    dim[1] = dims[1];</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    chunk[0] = dims[0];</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    chunk[1] = 1;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    DataSpace dataspace(2, dim);</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    DSetCreatPropList plist;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    plist.setChunk(2, chunk);</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    plist.setDeflate(9);</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keyword">auto</span> dset = DataSet(<a class="code" href="../../de/d59/classSlicesMonitor.html#ae833e09d0c80c799114c80caf2c17ed6">fGroup</a>-&gt;createDataSet(<span class="stringliteral">&quot;n_macroparticles&quot;</span>,</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                        PredType::NATIVE_INT,</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                        dataspace, plist));</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;}</div>
+<p>Definition at line <a class="el" href="../../da/dda/Monitors_8cpp_source.html#l00121">121</a> of file <a class="el" href="../../da/dda/Monitors_8cpp_source.html">Monitors.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;{</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    hsize_t dim[2], chunk[2];</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    dim[0] = dims[0];</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    dim[1] = dims[1];</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    chunk[0] = dims[0];</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    chunk[1] = 1;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    DataSpace dataspace(2, dim);</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    DSetCreatPropList plist;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    plist.setChunk(2, chunk);</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    plist.setDeflate(<a class="code" href="../../de/d59/classSlicesMonitor.html#ac456caafc78f8026b4975d73a6b27e36">fCompressionLevel</a>);</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keyword">auto</span> dset = DataSet(<a class="code" href="../../de/d59/classSlicesMonitor.html#ae833e09d0c80c799114c80caf2c17ed6">fGroup</a>-&gt;createDataSet(<span class="stringliteral">&quot;n_macroparticles&quot;</span>,</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                        PredType::NATIVE_INT,</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                        dataspace, plist));</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -293,13 +302,13 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../da/dda/Monitors_8cpp_source.html#l00085">85</a> of file <a class="el" href="../../da/dda/Monitors_8cpp_source.html">Monitors.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;{</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../de/d59/classSlicesMonitor.html#a116433c1c6f927fc80f943f882c8f414">fITurn</a> == 0)</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <a class="code" href="../../de/d59/classSlicesMonitor.html#a1eeb69c2cf52d7abbb4fcbc6001e8a21">create_data</a>({<a class="code" href="../../de/d59/classSlicesMonitor.html#aa9e638f8de13c51033b28bce37c826f5">fSlices</a>-&gt;<a class="code" href="../../dc/d45/classSlices.html#a1c869f247c0a5dab4772de45dd8e5f8d">n_slices</a>, (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a>) <a class="code" href="../../de/d59/classSlicesMonitor.html#a8e33ce278c4749a4ce68474abd720b98">fNTurns</a>});</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <a class="code" href="../../de/d59/classSlicesMonitor.html#afc4e8c6b1ddb7691c5b2054848428bbe">write_data</a>();</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <a class="code" href="../../de/d59/classSlicesMonitor.html#a116433c1c6f927fc80f943f882c8f414">fITurn</a>++;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;}</div>
+<p>Definition at line <a class="el" href="../../da/dda/Monitors_8cpp_source.html#l00087">87</a> of file <a class="el" href="../../da/dda/Monitors_8cpp_source.html">Monitors.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;{</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../de/d59/classSlicesMonitor.html#a116433c1c6f927fc80f943f882c8f414">fITurn</a> == 0)</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <a class="code" href="../../de/d59/classSlicesMonitor.html#a1eeb69c2cf52d7abbb4fcbc6001e8a21">create_data</a>({<a class="code" href="../../de/d59/classSlicesMonitor.html#aa9e638f8de13c51033b28bce37c826f5">fSlices</a>-&gt;<a class="code" href="../../dc/d45/classSlices.html#a1c869f247c0a5dab4772de45dd8e5f8d">n_slices</a>, (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a>) <a class="code" href="../../de/d59/classSlicesMonitor.html#a8e33ce278c4749a4ce68474abd720b98">fNTurns</a>});</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <a class="code" href="../../de/d59/classSlicesMonitor.html#afc4e8c6b1ddb7691c5b2054848428bbe">write_data</a>();</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <a class="code" href="../../de/d59/classSlicesMonitor.html#a116433c1c6f927fc80f943f882c8f414">fITurn</a>++;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -316,33 +325,47 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../da/dda/Monitors_8cpp_source.html#l00094">94</a> of file <a class="el" href="../../da/dda/Monitors_8cpp_source.html">Monitors.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;{</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keyword">auto</span> dataset = <a class="code" href="../../de/d59/classSlicesMonitor.html#ae833e09d0c80c799114c80caf2c17ed6">fGroup</a>-&gt;openDataSet(<span class="stringliteral">&quot;n_macroparticles&quot;</span>);</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    hsize_t offset[2], count[2], stride[2], block[2];</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> size = <a class="code" href="../../de/d59/classSlicesMonitor.html#aa9e638f8de13c51033b28bce37c826f5">fSlices</a>-&gt;<a class="code" href="../../dc/d45/classSlices.html#a463a0439b51fc502a49415aca6982755">n_macroparticles</a>.size();</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    count[0] = size;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    count[1] = 1;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    offset[0] = 0;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    offset[1] = <a class="code" href="../../de/d59/classSlicesMonitor.html#a116433c1c6f927fc80f943f882c8f414">fITurn</a>;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    stride[0] = stride[1] = 1;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    block[0] = block[1] = 1;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    DataSpace memspace(2, count, NULL);</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keyword">auto</span> dataspace = dataset.getSpace();</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    dataspace.selectHyperslab(H5S_SELECT_SET, count, offset, stride, block);</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keyword">auto</span> temp = <span class="keyword">new</span> <span class="keywordtype">int</span>[size][1];</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; size; i++)</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        temp[i][0] = <a class="code" href="../../de/d59/classSlicesMonitor.html#aa9e638f8de13c51033b28bce37c826f5">fSlices</a>-&gt;<a class="code" href="../../dc/d45/classSlices.html#a463a0439b51fc502a49415aca6982755">n_macroparticles</a>[i];</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    dataset.write(temp, PredType::NATIVE_INT, memspace, dataspace);</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keyword">delete</span>[] temp;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;}</div>
+<p>Definition at line <a class="el" href="../../da/dda/Monitors_8cpp_source.html#l00096">96</a> of file <a class="el" href="../../da/dda/Monitors_8cpp_source.html">Monitors.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;{</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keyword">auto</span> dataset = <a class="code" href="../../de/d59/classSlicesMonitor.html#ae833e09d0c80c799114c80caf2c17ed6">fGroup</a>-&gt;openDataSet(<span class="stringliteral">&quot;n_macroparticles&quot;</span>);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    hsize_t offset[2], count[2], stride[2], block[2];</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> size = <a class="code" href="../../de/d59/classSlicesMonitor.html#aa9e638f8de13c51033b28bce37c826f5">fSlices</a>-&gt;<a class="code" href="../../dc/d45/classSlices.html#a463a0439b51fc502a49415aca6982755">n_macroparticles</a>.size();</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    count[0] = size;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    count[1] = 1;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    offset[0] = 0;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    offset[1] = <a class="code" href="../../de/d59/classSlicesMonitor.html#a116433c1c6f927fc80f943f882c8f414">fITurn</a>;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    stride[0] = stride[1] = 1;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    block[0] = block[1] = 1;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    DataSpace memspace(2, count, NULL);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keyword">auto</span> dataspace = dataset.getSpace();</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    dataspace.selectHyperslab(H5S_SELECT_SET, count, offset, stride, block);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keyword">auto</span> temp = <span class="keyword">new</span> <span class="keywordtype">int</span>[size][1];</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; size; i++)</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        temp[i][0] = <a class="code" href="../../de/d59/classSlicesMonitor.html#aa9e638f8de13c51033b28bce37c826f5">fSlices</a>-&gt;<a class="code" href="../../dc/d45/classSlices.html#a463a0439b51fc502a49415aca6982755">n_macroparticles</a>[i];</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    dataset.write(temp, PredType::NATIVE_INT, memspace, dataspace);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keyword">delete</span>[] temp;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="ac456caafc78f8026b4975d73a6b27e36"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int SlicesMonitor::fCompressionLevel</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="../../d0/da6/Monitors_8h_source.html#l00041">41</a> of file <a class="el" href="../../d0/da6/Monitors_8h_source.html">Monitors.h</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a380e0dac65e9f7aaf6febf3ca29e1f96"></a>
 <div class="memitem">
 <div class="memproto">
@@ -433,7 +456,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../de/d59/classSlicesMonitor.html">SlicesMonitor</a></li>
-    <li class="footer">Generated on Wed Sep 28 2016 09:17:27 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Wed Sep 28 2016 10:27:37 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

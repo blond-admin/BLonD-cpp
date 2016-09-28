@@ -5,8 +5,6 @@ var searchData=
   ['edges',['edges',['../dc/d45/classSlices.html#a8a2aa21d1129c16a79bf8fbb251cfa03',1,'Slices']]],
   ['elapsed_5ftime',['elapsed_time',['../de/da1/classRingAndRfSection.html#a7a4be79f0bf863ea1a3e1d7f29e88623',1,'RingAndRfSection']]],
   ['electron',['electron',['../d5/d34/GeneralParameters_8h.html#a5dbb1c3ceb3016f7de6044ac3be2c95da1e4c9e1097c8f3bbb41c25b3b3176b6b',1,'GeneralParameters.h']]],
-  ['elems_5fper_5fthread_5ffft',['ELEMS_PER_THREAD_FFT',['../d8/de0/namespacefft.html#a65ed6f0c99a4702512ffd3e5d9793bd0',1,'fft']]],
-  ['elems_5fper_5fthread_5frfft',['ELEMS_PER_THREAD_RFFT',['../d8/de0/namespacefft.html#a2caea71936df00280c5a7ec9719d5bf6',1,'fft']]],
   ['end',['end',['../d4/d19/classmymath_1_1Ham.html#a0df55a2d71bfb54a0bcdf0037a9fa5a3',1,'mymath::Ham']]],
   ['energy',['energy',['../d1/dfc/classGeneralParameters.html#ad95d8eaac393bbb3210b8cf10ab0a20a',1,'GeneralParameters::energy()'],['../da/d49/classRfParameters.html#a755e2835ebc2eab23c273ceeb662cea0',1,'RfParameters::energy()']]],
   ['epsn_5frms_5fl',['epsn_rms_l',['../d9/d7c/classBeams.html#a229134de5356c339f1a1b7bc3f007293',1,'Beams']]],

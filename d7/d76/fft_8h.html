@@ -125,6 +125,7 @@ $(document).ready(function(){initNavTree('d7/d76/fft_8h.html','../../');});
 <code>#include &lt;cmath&gt;</code><br/>
 <code>#include &lt;fftw3.h&gt;</code><br/>
 <code>#include &lt;functional&gt;</code><br/>
+<code>#include &lt;omp.h&gt;</code><br/>
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Include dependency graph for fft.h:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -138,7 +139,7 @@ $(document).ready(function(){initNavTree('d7/d76/fft_8h.html','../../');});
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../dd/db5/fft_8h__dep__incl.svg" width="100%" height="446"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../dd/db5/fft_8h__dep__incl.svg" width="395" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </div>
@@ -167,6 +168,8 @@ Enumerations</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:a9564dccf78dd581dff25efe2a03cd3d8"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de0/namespacefft.html#a9564dccf78dd581dff25efe2a03cd3d8">fft::complex_to_real</a> (const std::vector&lt; <a class="el" href="../../d2/d2c/configuration_8h.html#a25493212503aadaaf268ef40744bb67f">complex_t</a> &gt; &amp;in, std::vector&lt; <a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> &gt; &amp;out)</td></tr>
 <tr class="separator:a9564dccf78dd581dff25efe2a03cd3d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfc0c7a2bf86a2515926f3b0284732c8"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de0/namespacefft.html#acfc0c7a2bf86a2515926f3b0284732c8">fft::convolution_with_ffts</a> (<a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> signal, <a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> kernel, <a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> &amp;res)</td></tr>
+<tr class="separator:acfc0c7a2bf86a2515926f3b0284732c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adbd82fccb9e02c65511781361a4f21f0"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de0/namespacefft.html#adbd82fccb9e02c65511781361a4f21f0">fft::destroy_fft</a> (fftw_plan &amp;p)</td></tr>
 <tr class="separator:adbd82fccb9e02c65511781361a4f21f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a912305da2a5cea6ffdb34f36fc27169f"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de0/namespacefft.html#a912305da2a5cea6ffdb34f36fc27169f">fft::destroy_plans</a> ()</td></tr>
@@ -200,10 +203,6 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a65ed6f0c99a4702512ffd3e5d9793bd0"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de0/namespacefft.html#a65ed6f0c99a4702512ffd3e5d9793bd0">fft::ELEMS_PER_THREAD_FFT</a> = 10000</td></tr>
-<tr class="separator:a65ed6f0c99a4702512ffd3e5d9793bd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2caea71936df00280c5a7ec9719d5bf6"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de0/namespacefft.html#a2caea71936df00280c5a7ec9719d5bf6">fft::ELEMS_PER_THREAD_RFFT</a> = 15000</td></tr>
-<tr class="separator:a2caea71936df00280c5a7ec9719d5bf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9d7e5b47197d324f64f802c079a2ea3"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de0/namespacefft.html#aa9d7e5b47197d324f64f802c079a2ea3">fft::FFTW_FLAGS</a> = FFTW_ESTIMATE | FFTW_DESTROY_INPUT</td></tr>
 <tr class="separator:aa9d7e5b47197d324f64f802c079a2ea3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8fc3251bf2569d17dafebf18890da294"><td class="memItemLeft" align="right" valign="top">static std::vector<br class="typebreak"/>
@@ -216,7 +215,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_b2c71bdfd3af65c97a5a70fadf3dc512.html">include</a></li><li class="navelem"><a class="el" href="../../dir_c0e22518f92c7490e2ab56f92eef9024.html">blond</a></li><li class="navelem"><a class="el" href="../../d7/d76/fft_8h.html">fft.h</a></li>
-    <li class="footer">Generated on Wed Sep 28 2016 09:17:26 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Wed Sep 28 2016 10:27:36 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

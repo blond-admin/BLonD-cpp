@@ -119,10 +119,10 @@ $(document).ready(function(){initNavTree('d2/de2/math__functions_8h.html','../..
 <div class="textblock"><code>#include &lt;algorithm&gt;</code><br/>
 <code>#include &lt;<a class="el" href="../../d2/d2c/configuration_8h_source.html">blond/configuration.h</a>&gt;</code><br/>
 <code>#include &lt;<a class="el" href="../../d8/dcd/exp_8h_source.html">blond/exp.h</a>&gt;</code><br/>
-<code>#include &lt;<a class="el" href="../../d7/d76/fft_8h_source.html">blond/fft.h</a>&gt;</code><br/>
 <code>#include &lt;<a class="el" href="../../d1/d3d/sin_8h_source.html">blond/sin.h</a>&gt;</code><br/>
 <code>#include &lt;<a class="el" href="../../de/df0/utilities_8h_source.html">blond/utilities.h</a>&gt;</code><br/>
 <code>#include &lt;cmath&gt;</code><br/>
+<code>#include &lt;cassert&gt;</code><br/>
 <code>#include &lt;omp.h&gt;</code><br/>
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Include dependency graph for math_functions.h:</div>
@@ -160,8 +160,6 @@ Functions</h2></td></tr>
 <tr class="separator:a604bb4037dc4262bc4a8af03cfbb0bfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34ffdf8691d17b0ceab32ea0ca68337d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d6d/namespacemymath.html#a34ffdf8691d17b0ceab32ea0ca68337d">mymath::convolution</a> (const <a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *__restrict signal, const int SignalLen, const <a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *__restrict kernel, const int KernelLen, <a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *__restrict res)</td></tr>
 <tr class="separator:a34ffdf8691d17b0ceab32ea0ca68337d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad9a3bb795e12d3f347816837e628087b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d6d/namespacemymath.html#ad9a3bb795e12d3f347816837e628087b">mymath::convolution_with_ffts</a> (<a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> signal, <a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> kernel, <a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> &amp;res)</td></tr>
-<tr class="separator:ad9a3bb795e12d3f347816837e628087b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a37e69ec6da5a044211b293b350ed0df5"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a37e69ec6da5a044211b293b350ed0df5"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../df/d6d/namespacemymath.html#a37e69ec6da5a044211b293b350ed0df5">mymath::cum_trapezoid</a> (const T *f, const T deltaX, const int nsub)</td></tr>
 <tr class="separator:a37e69ec6da5a044211b293b350ed0df5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -211,7 +209,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_b2c71bdfd3af65c97a5a70fadf3dc512.html">include</a></li><li class="navelem"><a class="el" href="../../dir_c0e22518f92c7490e2ab56f92eef9024.html">blond</a></li><li class="navelem"><a class="el" href="../../d2/de2/math__functions_8h.html">math_functions.h</a></li>
-    <li class="footer">Generated on Wed Sep 28 2016 09:17:26 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Wed Sep 28 2016 10:27:36 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

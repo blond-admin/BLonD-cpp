@@ -1,6 +1,5 @@
 var NAVTREEINDEX2 =
 {
-"d8/d2b/classLHCNoiseFB.html#ae80df891fa97e43ec93229a6adbe9fb7":[1,0,20,2],
 "d8/d2b/classLHCNoiseFB.html#af1f65e30469f9049bc3116d9033635dd":[1,0,20,5],
 "d8/d2b/classLHCNoiseFB.html#afc9d75aa21d4b583fbaddb9d0709c861":[1,0,20,10],
 "d8/d94/plot__beams_8h.html":[2,0,26],
@@ -249,5 +248,6 @@ var NAVTREEINDEX2 =
 "dc/d45/classSlices.html#a1ad6096cfca13a05fbee0197367b8f82":[1,0,28,13],
 "dc/d45/classSlices.html#a1c869f247c0a5dab4772de45dd8e5f8d":[1,0,28,38],
 "dc/d45/classSlices.html#a20fe6ad5ead7011307efdd5a81392366":[1,0,28,22],
-"dc/d45/classSlices.html#a2517d74300a1b23a59f567b33ab7c573":[1,0,28,26]
+"dc/d45/classSlices.html#a2517d74300a1b23a59f567b33ab7c573":[1,0,28,26],
+"dc/d45/classSlices.html#a28ccffe297646bfd3a7b39cbbbeb76d1":[1,0,28,28]
 };

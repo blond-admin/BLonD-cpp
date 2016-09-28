@@ -23,7 +23,7 @@ var searchData=
   ['slices',['Slices',['../dc/d45/classSlices.html',1,'Slices'],['../dc/d45/classSlices.html#a7a38e2aee99dad7db53da5cc7e005619',1,'Slices::Slices()'],['../de/da1/classRingAndRfSection.html#a4dc04b63525c67bd4b154861edc204ae',1,'RingAndRfSection::slices()']]],
   ['slices_2ecpp',['Slices.cpp',['../d7/d91/Slices_8cpp.html',1,'']]],
   ['slices_2eh',['Slices.h',['../dc/df2/Slices_8h.html',1,'']]],
-  ['slicesmonitor',['SlicesMonitor',['../de/d59/classSlicesMonitor.html',1,'SlicesMonitor'],['../de/d59/classSlicesMonitor.html#a7f00fdb8e97653fa44e951b653d57594',1,'SlicesMonitor::SlicesMonitor()']]],
+  ['slicesmonitor',['SlicesMonitor',['../de/d59/classSlicesMonitor.html',1,'SlicesMonitor'],['../de/d59/classSlicesMonitor.html#a9acc49a0674e5892018116a7905a2c0e',1,'SlicesMonitor::SlicesMonitor()']]],
   ['smooth_5fhistogram',['smooth_histogram',['../dc/d45/classSlices.html#ab69b0b825cf428183c12ec6be7ad2b41',1,'Slices']]],
   ['solver',['solver',['../de/da1/classRingAndRfSection.html#a0b9e1b140bc882fe60c16e0df39de3c5',1,'RingAndRfSection']]],
   ['solver_5ftype',['solver_type',['../d2/d0e/Tracker_8h.html#a4775bc060a554f018f85756eadd690d1',1,'Tracker.h']]],

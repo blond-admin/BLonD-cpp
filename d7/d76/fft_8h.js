@@ -8,6 +8,7 @@ var fft_8h =
       [ "IRFFT", "d7/d76/fft_8h.html#a1aaf2c8a8ef62200a1813b59306aaee0a7d2abe7561d48226bb8c7bafe9aef828", null ]
     ] ],
     [ "complex_to_real", "d7/d76/fft_8h.html#a9564dccf78dd581dff25efe2a03cd3d8", null ],
+    [ "convolution_with_ffts", "d7/d76/fft_8h.html#acfc0c7a2bf86a2515926f3b0284732c8", null ],
     [ "destroy_fft", "d7/d76/fft_8h.html#adbd82fccb9e02c65511781361a4f21f0", null ],
     [ "destroy_plans", "d7/d76/fft_8h.html#a912305da2a5cea6ffdb34f36fc27169f", null ],
     [ "fft", "d7/d76/fft_8h.html#ace866b5e38da8e32910f39bc63eb91e9", null ],
@@ -23,8 +24,6 @@ var fft_8h =
     [ "rfftfreq", "d7/d76/fft_8h.html#a033d2ce3e0176d2afede62d2bc1e9163", null ],
     [ "run_fft", "d7/d76/fft_8h.html#a032995ee545c6cd17120d4478fcb25b5", null ],
     [ "unpack_complex", "d7/d76/fft_8h.html#a050049726fdc7c2d3ad088a30f8466f0", null ],
-    [ "ELEMS_PER_THREAD_FFT", "d7/d76/fft_8h.html#a65ed6f0c99a4702512ffd3e5d9793bd0", null ],
-    [ "ELEMS_PER_THREAD_RFFT", "d7/d76/fft_8h.html#a2caea71936df00280c5a7ec9719d5bf6", null ],
     [ "FFTW_FLAGS", "d7/d76/fft_8h.html#aa9d7e5b47197d324f64f802c079a2ea3", null ],
     [ "planV", "d7/d76/fft_8h.html#a8fc3251bf2569d17dafebf18890da294", null ]
 ];

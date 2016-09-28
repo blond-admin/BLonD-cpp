@@ -1,6 +1,6 @@
 var NAVTREEINDEX4 =
 {
-"df/de0/namespaceoption.html":[0,0,3],
+"df/de0/namespaceoption.html":[1,0,3],
 "df/de1/vdtcore__common_8h.html":[2,0,45],
 "df/de1/vdtcore__common_8h.html#a0955c5c09034993fc754e50eb88cb52e":[2,0,45,10],
 "df/de1/vdtcore__common_8h.html#a118d5060963c6a7cd68f0aca61555858":[2,0,45,16],

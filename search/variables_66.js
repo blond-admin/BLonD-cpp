@@ -12,6 +12,7 @@ var searchData=
   ['fbltarg',['fBlTarg',['../d8/d2b/classLHCNoiseFB.html#afc9d75aa21d4b583fbaddb9d0709c861',1,'LHCNoiseFB']]],
   ['fbuffertime',['fBufferTime',['../d2/d00/classBunchMonitor.html#a763b928875c925d88ea1a21e3707678a',1,'BunchMonitor']]],
   ['fbunchpattern',['fBunchPattern',['../d8/d2b/classLHCNoiseFB.html#a4c509d05f469e8ff5b2498af16046331',1,'LHCNoiseFB']]],
+  ['fcompressionlevel',['fCompressionLevel',['../de/d59/classSlicesMonitor.html#ac456caafc78f8026b4975d73a6b27e36',1,'SlicesMonitor::fCompressionLevel()'],['../d2/d00/classBunchMonitor.html#a8e9d636624fd03194ddada081bd2a04e',1,'BunchMonitor::fCompressionLevel()']]],
   ['fcorr',['fCorr',['../da/dd4/classPhaseNoise.html#ab6b1c5459deea7405e517117db01b817',1,'PhaseNoise']]],
   ['fcounterturn',['fCounterTurn',['../d4/dd7/classTotalInducedVoltage.html#a664c9a6b8e1f57244c82d3247fe7d47e',1,'TotalInducedVoltage']]],
   ['fcut',['fCut',['../d0/d6b/classInducedVoltageTime.html#aecc111811c172775a6a5d5a0417eeea7',1,'InducedVoltageTime']]],

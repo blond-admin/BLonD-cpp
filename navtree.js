@@ -44,8 +44,8 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "d3/df3/classoption_1_1Option.html#a4622754149f7502c434f5f9fee47d2bb",
-"d8/d2b/classLHCNoiseFB.html#ae80df891fa97e43ec93229a6adbe9fb7",
-"dc/d45/classSlices.html#a28ccffe297646bfd3a7b39cbbbeb76d1",
+"d8/d2b/classLHCNoiseFB.html#af1f65e30469f9049bc3116d9033635dd",
+"dc/d45/classSlices.html#a2c292b1090ee232f4d7e3b4bd43e500a",
 "df/de0/namespaceoption.html"
 ];
 

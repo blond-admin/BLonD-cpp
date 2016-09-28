@@ -4,8 +4,6 @@ var searchData=
   ['e_5fincrement',['E_increment',['../da/d49/classRfParameters.html#a66530c1f1510aa495c8277bf26a25eab',1,'RfParameters']]],
   ['edges',['edges',['../dc/d45/classSlices.html#a8a2aa21d1129c16a79bf8fbb251cfa03',1,'Slices']]],
   ['elapsed_5ftime',['elapsed_time',['../de/da1/classRingAndRfSection.html#a7a4be79f0bf863ea1a3e1d7f29e88623',1,'RingAndRfSection']]],
-  ['elems_5fper_5fthread_5ffft',['ELEMS_PER_THREAD_FFT',['../d8/de0/namespacefft.html#a65ed6f0c99a4702512ffd3e5d9793bd0',1,'fft']]],
-  ['elems_5fper_5fthread_5frfft',['ELEMS_PER_THREAD_RFFT',['../d8/de0/namespacefft.html#a2caea71936df00280c5a7ec9719d5bf6',1,'fft']]],
   ['energy',['energy',['../d1/dfc/classGeneralParameters.html#ad95d8eaac393bbb3210b8cf10ab0a20a',1,'GeneralParameters']]],
   ['epsn_5frms_5fl',['epsn_rms_l',['../d9/d7c/classBeams.html#a229134de5356c339f1a1b7bc3f007293',1,'Beams']]],
   ['err',['err',['../d6/d83/classoption_1_1Parser.html#ac982fccc777759d1e699302a072d728c',1,'option::Parser']]],

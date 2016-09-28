@@ -1,6 +1,6 @@
 var classBunchMonitor =
 [
-    [ "BunchMonitor", "d2/d00/classBunchMonitor.html#a428bf0af0478370f270473ef0ee078de", null ],
+    [ "BunchMonitor", "d2/d00/classBunchMonitor.html#a14485bacd7d9af74055f49568ad24a61", null ],
     [ "~BunchMonitor", "d2/d00/classBunchMonitor.html#a45068abbd87901e6d0b1d45fd06e49f2", null ],
     [ "close", "d2/d00/classBunchMonitor.html#a7f4c9f9dcd83fc0ad60775c031138e76", null ],
     [ "init_buffer", "d2/d00/classBunchMonitor.html#a619f0e9ff85340c996e56cb6a5cd07c1", null ],
@@ -27,6 +27,7 @@ var classBunchMonitor =
     [ "b_SL_dphiRF", "d2/d00/classBunchMonitor.html#a79781dde34ddcc1c30e49ead7f4e8ef0", null ],
     [ "fBeam", "d2/d00/classBunchMonitor.html#ad3a014617f0c98496601eada9da2066f", null ],
     [ "fBufferTime", "d2/d00/classBunchMonitor.html#a763b928875c925d88ea1a21e3707678a", null ],
+    [ "fCompressionLevel", "d2/d00/classBunchMonitor.html#a8e9d636624fd03194ddada081bd2a04e", null ],
     [ "fFileName", "d2/d00/classBunchMonitor.html#ac4effb481a056f3dc7df943aa50eb076", null ],
     [ "fGaussian", "d2/d00/classBunchMonitor.html#a32f1cff9fe61f7c658ec97cd213c4d42", null ],
     [ "fH5File", "d2/d00/classBunchMonitor.html#a444ab43254cecc8a2e19e4daf5bdb510", null ],

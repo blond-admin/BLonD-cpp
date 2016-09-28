@@ -67,7 +67,7 @@ if (NOT COMPILER_HAS_CXX11)
     message(FATAL_ERROR "ERROR: Compiler is lacking support for c++11")
 endif ()
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -std=c++11 -fopenmp -Wall -pedantic -fno-rtti -Wno-unused-variable")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -std=c++11 -Wall -pedantic -fno-rtti -Wno-unused-variable")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g -fno-omit-frame-pointer") #-fsanitize=address -fno-omit-frame-pointer ")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -ffast-math -march=native") #-fopt-info-vec=report.txt")
 
@@ -102,7 +102,13 @@ endif ()
 
 
 #OpenMP
-find_package(OpenMP REQUIRED)
+find_package(OpenMP QUIET)
+if(OPENMP_FOUND)
+    message(STATUS "OpenMP found")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DUSE_OMP -fopenmp")
+else()
+    message(STATUS "OpenMP not found")
+endif()
 
 # FFTW
 find_path(FFTW_INCLUDES fftw3.h

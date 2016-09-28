@@ -174,7 +174,7 @@ int main(int argc, char **argv)
     auto totVoltage = new TotalInducedVoltage(indVoltageV);
 
 
-    auto monitor = new BunchMonitor(GP, RfP, Beam, "output_data_full.h5",
+    auto monitor = new BunchMonitor(GP, RfP, Beam, "output_data.h5",
                                     dt_save, Slice, PL, noiseFB);
     // double slice_time = 0, track_time = 0;
     double turn_time = 0.0;
@@ -197,7 +197,7 @@ int main(int argc, char **argv)
     auto monitorTime = 0.0;
     timespec start;
 
-    for (uint i = 0; i < N_t && i < 10000; ++i) {
+    for (uint i = 0; i < N_t; ++i) {
 
         util::get_time(begin_t);
 
@@ -220,7 +220,7 @@ int main(int argc, char **argv)
         trackerTime += util::time_elapsed(start);
 
         util::get_time(start);
-        monitor->track();
+        // monitor->track();
         monitorTime += util::time_elapsed(start);
 
         util::get_time(start);

@@ -104,16 +104,16 @@ int main(int argc, char **argv)
     // }
     // bunchmonitor.track();
     // bunchmonitor.close();
-    plot_PL_bunch_phase(RfP, "output_data_full.h5");
-    plot_PL_RF_phase(RfP, "output_data_full.h5");
-    plot_PL_phase_corr(RfP, "output_data_full.h5");
-    plot_PL_RF_freq(RfP, "output_data_full.h5");
-    plot_PL_freq_corr(RfP, "output_data_full.h5");
-    plot_RF_phase_error(RfP, "output_data_full.h5");
-    plot_COM_motion(RfP, "output_data_full.h5");
-    plot_LHCNoiseFB(RfP, "output_data_full.h5");
-    plot_LHCNoiseFB_FWHM(RfP, "output_data_full.h5");
-    plot_LHCNoiseFB_FWHM_bbb(RfP, "output_data_full.h5");
+    plot_PL_bunch_phase(RfP, "../build-2/output_data_full.h5");
+    plot_PL_RF_phase(RfP, "../build-2/output_data_full.h5");
+    plot_PL_phase_corr(RfP, "../build-2/output_data_full.h5");
+    plot_PL_RF_freq(RfP, "../build-2/output_data_full.h5");
+    plot_PL_freq_corr(RfP, "../build-2/output_data_full.h5");
+    plot_RF_phase_error(RfP, "../build-2/output_data_full.h5");
+    plot_COM_motion(RfP, "../build-2/output_data_full.h5");
+    plot_LHCNoiseFB(RfP, "../build-2/output_data_full.h5");
+    plot_LHCNoiseFB_FWHM(RfP, "../build-2/output_data_full.h5");
+    plot_LHCNoiseFB_FWHM_bbb(RfP, "../build-2/output_data_full.h5");
     // auto psb =
     //     new PSB(f_vector_t(N_t, 1.0 / 25e-6), f_vector_t{0, 0}, 10e-6, 7);
 

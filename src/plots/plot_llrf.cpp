@@ -1,7 +1,7 @@
-#include <blond/plots/plot_beams.h>
+#include <blond/plots/plot_llrf.h>
 #include <blond/python.h>
 #include <blond/monitors/Monitors.h>
-
+#include <memory>
 
 
 void plot_noise_spectrum(f_vector_t &frequency, f_vector_t &spectrum,
@@ -65,15 +65,15 @@ void plot_PL_bunch_phase(RfParameters *RfP, std::string h5data,
     auto pDirname = python::convert_string(dirname);
 
     hsize_t dims;
-    double *array = (double *) read_1D(h5data, "Beam/PL_bunch_phase",
-                                       "double", &dims);
+    std::unique_ptr<double> array((double *)read_1D(h5data,
+                                  "Beam/PL_bunch_phase",
+                                  "double", &dims));
 
-    auto ph5Data = python::convert_double_array(array, dims);
+    auto ph5Data = python::convert_double_array(array.get(), dims);
 
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, ph5Data,
                                             pOutputFreq, pDirname, NULL);
     assert(ret);
-    free(array);
 
 }
 
@@ -91,15 +91,14 @@ void plot_PL_RF_phase(RfParameters *RfP, std::string h5data,
     auto pDirname = python::convert_string(dirname);
 
     hsize_t dims;
-    double *array = (double *) read_1D(h5data, "Beam/PL_phiRF",
-                                       "double", &dims);
+    std::unique_ptr<double> array((double *) read_1D(h5data, "Beam/PL_phiRF",
+                                  "double", &dims));
 
-    auto ph5Data = python::convert_double_array(array, dims);
+    auto ph5Data = python::convert_double_array(array.get(), dims);
 
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, ph5Data,
                                             pOutputFreq, pDirname, NULL);
     assert(ret);
-    free(array);
 
 }
 
@@ -117,15 +116,14 @@ void plot_PL_phase_corr(RfParameters *RfP, std::string h5data,
     auto pDirname = python::convert_string(dirname);
 
     hsize_t dims;
-    double *array = (double *) read_1D(h5data, "Beam/PL_phase_corr",
-                                       "double", &dims);
+    std::unique_ptr<double> array((double *) read_1D(h5data,
+                                  "Beam/PL_phase_corr", "double", &dims));
 
-    auto ph5Data = python::convert_double_array(array, dims);
+    auto ph5Data = python::convert_double_array(array.get(), dims);
 
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, ph5Data,
                                             pOutputFreq, pDirname, NULL);
     assert(ret);
-    free(array);
 
 }
 
@@ -143,15 +141,14 @@ void plot_PL_RF_freq(RfParameters *RfP, std::string h5data,
     auto pDirname = python::convert_string(dirname);
 
     hsize_t dims;
-    double *array = (double *) read_1D(h5data, "Beam/PL_omegaRF",
-                                       "double", &dims);
+    std::unique_ptr<double> array((double *) read_1D(h5data, "Beam/PL_omegaRF",
+                                  "double", &dims));
 
-    auto ph5Data = python::convert_double_array(array, dims);
+    auto ph5Data = python::convert_double_array(array.get(), dims);
 
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, ph5Data,
                                             pOutputFreq, pDirname, NULL);
     assert(ret);
-    free(array);
 
 }
 
@@ -169,15 +166,15 @@ void plot_PL_freq_corr(RfParameters *RfP, std::string h5data,
     auto pDirname = python::convert_string(dirname);
 
     hsize_t dims;
-    double *array = (double *) read_1D(h5data, "Beam/PL_omegaRF_corr",
-                                       "double", &dims);
+    std::unique_ptr<double> array((double *) read_1D(h5data,
+                                  "Beam/PL_omegaRF_corr",
+                                  "double", &dims));
 
-    auto ph5Data = python::convert_double_array(array, dims);
+    auto ph5Data = python::convert_double_array(array.get(), dims);
 
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, ph5Data,
                                             pOutputFreq, pDirname, NULL);
     assert(ret);
-    free(array);
 
 }
 
@@ -195,15 +192,14 @@ void plot_RF_phase_error(RfParameters *RfP, std::string h5data,
     auto pDirname = python::convert_string(dirname);
 
     hsize_t dims;
-    double *array = (double *) read_1D(h5data, "Beam/SL_dphiRF",
-                                       "double", &dims);
+    std::unique_ptr<double> array((double *) read_1D(h5data, "Beam/SL_dphiRF",
+                                  "double", &dims));
 
-    auto ph5Data = python::convert_double_array(array, dims);
+    auto ph5Data = python::convert_double_array(array.get(), dims);
 
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, ph5Data,
                                             pOutputFreq, pDirname, NULL);
     assert(ret);
-    free(array);
 
 }
 
@@ -221,15 +217,14 @@ void plot_RL_radial_error(RfParameters *RfP, std::string h5data,
     auto pDirname = python::convert_string(dirname);
 
     hsize_t dims;
-    double *array = (double *) read_1D(h5data, "Beam/RL_drho",
-                                       "double", &dims);
+    std::unique_ptr<double> array((double *) read_1D(h5data, "Beam/RL_drho",
+                                  "double", &dims));
 
-    auto ph5Data = python::convert_double_array(array, dims);
+    auto ph5Data = python::convert_double_array(array.get(), dims);
 
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, ph5Data,
                                             pOutputFreq, pDirname, NULL);
     assert(ret);
-    free(array);
 
 }
 
@@ -248,22 +243,20 @@ void plot_COM_motion(RfParameters *RfP, std::string h5data,
     auto pDirname = python::convert_string(dirname);
 
     hsize_t dims;
-    double *array = (double *) read_1D(h5data, "Beam/mean_dt",
-                                       "double", &dims);
+    std::unique_ptr<double> array((double *) read_1D(h5data, "Beam/mean_dt",
+                                  "double", &dims));
 
-    auto pMeanDt = python::convert_double_array(array, dims);
+    auto pMeanDt = python::convert_double_array(array.get(), dims);
 
-    free(array);
-    array = (double *) read_1D(h5data, "Beam/mean_dE",
-                               "double", &dims);
+    array = std::unique_ptr<double> ((double *) read_1D(h5data,
+                                     "Beam/mean_dE", "double", &dims));
 
-    auto pMeanDE = python::convert_double_array(array, dims);
+    auto pMeanDE = python::convert_double_array(array.get(), dims);
 
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, pMeanDt,
                                             pMeanDE, pOutputFreq, pDirname,
                                             NULL);
     assert(ret);
-    free(array);
 }
 
 
@@ -280,15 +273,15 @@ void plot_LHCNoiseFB(RfParameters *RfP, std::string h5data,
     auto pDirname = python::convert_string(dirname);
 
     hsize_t dims;
-    double *array = (double *) read_1D(h5data, "Beam/LHC_noise_FB_factor",
-                                       "double", &dims);
+    std::unique_ptr<double> array((double *) read_1D(h5data,
+                                  "Beam/LHC_noise_FB_factor",
+                                  "double", &dims));
 
-    auto ph5Data = python::convert_double_array(array, dims);
+    auto ph5Data = python::convert_double_array(array.get(), dims);
 
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, ph5Data,
                                             pOutputFreq, pDirname, NULL);
     assert(ret);
-    free(array);
 }
 
 
@@ -306,15 +299,14 @@ void plot_LHCNoiseFB_FWHM(RfParameters *RfP, std::string h5data,
     auto pDirname = python::convert_string(dirname);
 
     hsize_t dims;
-    double *array = (double *) read_1D(h5data, "Beam/LHC_noise_FB_bl",
-                                       "double", &dims);
+    std::unique_ptr<double> array((double *) read_1D(h5data,
+                                  "Beam/LHC_noise_FB_bl", "double", &dims));
 
-    auto ph5Data = python::convert_double_array(array, dims);
+    auto ph5Data = python::convert_double_array(array.get(), dims);
 
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, ph5Data,
                                             pOutputFreq, pDirname, NULL);
     assert(ret);
-    free(array);
 }
 
 
@@ -332,13 +324,14 @@ void plot_LHCNoiseFB_FWHM_bbb(RfParameters *RfP, std::string h5data,
     auto pDirname = python::convert_string(dirname);
 
     hsize_t dims[2];
-    double *array = (double *) read_2D(h5data, "Beam/LHC_noise_FB_bl_bbb",
-                                       "double", dims);
+    std::unique_ptr<double> array((double *) read_2D(h5data,
+                                  "Beam/LHC_noise_FB_bl_bbb",
+                                  "double", dims));
 
     f_vector_2d_t temp;
     for (uint i = 0; i < dims[0]; i++) {
-        temp.push_back(f_vector_t(&array[i * dims[1]],
-                                  &array[(i + 1) * dims[1]]));
+        temp.push_back(f_vector_t(&array.get()[i * dims[1]],
+                                  &array.get()[(i + 1) * dims[1]]));
     }
 
     auto ph5Data = python::convert_double_2d_array(temp);
@@ -346,5 +339,4 @@ void plot_LHCNoiseFB_FWHM_bbb(RfParameters *RfP, std::string h5data,
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, ph5Data,
                                             pOutputFreq, pDirname, NULL);
     assert(ret);
-    free(array);
 }

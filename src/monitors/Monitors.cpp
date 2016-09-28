@@ -66,7 +66,8 @@ void *read_1D(std::string fname, std::string dsname,
     return res;
 }
 
-SlicesMonitor::SlicesMonitor(std::string filename, int n_turns, Slices *slices)
+SlicesMonitor::SlicesMonitor(std::string filename, int n_turns, Slices *slices,
+                             int compression_level)
 {
     fFileName = filename;
     fNTurns = n_turns;
@@ -74,6 +75,7 @@ SlicesMonitor::SlicesMonitor(std::string filename, int n_turns, Slices *slices)
     fITurn = 0;
     fFile = new H5File(fFileName, H5F_ACC_TRUNC);
     fGroup = new Group(fFile->createGroup("Slices"));
+    fCompressionLevel = compression_level;
 }
 
 SlicesMonitor::~SlicesMonitor()
@@ -126,7 +128,7 @@ void SlicesMonitor::create_data(const uint_vector_t dims)
     DataSpace dataspace(2, dim);
     DSetCreatPropList plist;
     plist.setChunk(2, chunk);
-    plist.setDeflate(9);
+    plist.setDeflate(fCompressionLevel);
     auto dset = DataSet(fGroup->createDataSet("n_macroparticles",
                         PredType::NATIVE_INT,
                         dataspace, plist));
@@ -144,7 +146,8 @@ void SlicesMonitor::close()
 
 BunchMonitor::BunchMonitor(GeneralParameters *GP, RfParameters *RfP, Beams *Beam,
                            std::string filename, int buffer_time,
-                           Slices *Slices, PhaseLoop *PL, LHCNoiseFB *noiseFB)
+                           Slices *Slices, PhaseLoop *PL, LHCNoiseFB *noiseFB,
+                           int compression_level)
 {
     fFileName = filename;
     fNTurns = GP->n_turns;
@@ -157,6 +160,8 @@ BunchMonitor::BunchMonitor(GeneralParameters *GP, RfParameters *RfP, Beams *Beam
     fPL = PL;
     fH5File = new H5File(fFileName, H5F_ACC_TRUNC);
     fH5Group = new Group(fH5File->createGroup("Beam"));
+    fCompressionLevel = compression_level;
+
 
     if (fSlices != NULL && fSlices->fit_option == fit_type::gaussian_fit)
         fGaussian = true;
@@ -199,7 +204,7 @@ void BunchMonitor::init_data(int dimension)
     DataSpace dataspace(1, dim);
     DSetCreatPropList plist;
     plist.setChunk(1, chunk);
-    plist.setDeflate(9);
+    plist.setDeflate(fCompressionLevel);
 
     fBeam->statistics();
 
@@ -334,7 +339,7 @@ void BunchMonitor::init_data(int dimension)
             DataSpace dataspace(2, dim);
             DSetCreatPropList plist;
             plist.setChunk(2, chunk);
-            plist.setDeflate(9);
+            plist.setDeflate(fCompressionLevel);
 
             dataset = fH5Group->createDataSet("LHC_noise_FB_bl_bbb",
                                               PredType::NATIVE_DOUBLE,

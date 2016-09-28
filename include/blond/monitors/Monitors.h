@@ -38,12 +38,14 @@ public:
     Slices *fSlices;
     int fITurn;
     int fNTurns;
+    int fCompressionLevel;
 
     void track();
     void write_data();
     void create_data(const uint_vector_t dims);
     void close();
-    SlicesMonitor(std::string filename, int n_turns, Slices *slices);
+    SlicesMonitor(std::string filename, int n_turns, Slices *slices,
+                  int compression_level = 9);
     ~SlicesMonitor();
 };
 
@@ -74,6 +76,7 @@ public:
     int fNTurns;
     int fITurn;
     int fBufferTime;
+    int fCompressionLevel;
     RfParameters *fRfP;
     Beams *fBeam;
     Slices *fSlices;
@@ -90,7 +93,7 @@ public:
     BunchMonitor(GeneralParameters *GP, RfParameters *RfP, Beams *Beam,
                  std::string filename, int buffer_time = 0,
                  Slices *Slices = NULL, PhaseLoop *PL = NULL,
-                 LHCNoiseFB *noiseFB = NULL);
+                 LHCNoiseFB *noiseFB = NULL, int compression_level = 9);
     ~BunchMonitor();
 };
 

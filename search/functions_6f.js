@@ -1,5 +1,8 @@
 var searchData=
 [
+  ['omp_5fget_5fnum_5fthreads',['omp_get_num_threads',['../df/d28/omp_8h.html#ab628587850957d925be0c2157f5f6823',1,'omp.h']]],
+  ['omp_5fget_5fthread_5fnum',['omp_get_thread_num',['../df/d28/omp_8h.html#aba06990768c6b572ca3f69029334a9df',1,'omp.h']]],
+  ['omp_5fset_5fnum_5fthreads',['omp_set_num_threads',['../df/d28/omp_8h.html#a00080ecab6e482d7af870db88658e238',1,'omp.h']]],
   ['operator_20const_20option_20_2a',['operator const Option *',['../d3/df3/classoption_1_1Option.html#aaaeedf023bc3f5eee0b199c64d8fe1ec',1,'option::Option']]],
   ['operator_20option_20_2a',['operator Option *',['../d3/df3/classoption_1_1Option.html#ac5b9235d79208035d97e41fe17ba04d6',1,'option::Option']]],
   ['operator_21_3d',['operator!=',['../d4/d19/classmymath_1_1Ham.html#ad44bdfa6e0025bb052aec5e4a3c6afd6',1,'mymath::Ham']]],

@@ -1016,7 +1016,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00147">147</a> of file <a class="el" href="../../d7/d91/Slices_8cpp_source.html">Slices.cpp</a>.</p>
 
-<p>References <a class="el" href="../../dc/df2/Slices_8h_source.html#l00029">cut_left</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00227">mymath::min()</a>, and <a class="el" href="../../dc/df2/Slices_8h_source.html#l00028">n_slices</a>.</p>
+<p>References <a class="el" href="../../dc/df2/Slices_8h_source.html#l00029">cut_left</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00227">mymath::min()</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00028">n_slices</a>, <a class="el" href="../../df/d28/omp_8h_source.html#l00017">omp_get_num_threads()</a>, and <a class="el" href="../../df/d28/omp_8h_source.html#l00018">omp_get_thread_num()</a>.</p>
 
 <p>Referenced by <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00131">slice_constant_space_histogram()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;{</div>
@@ -1028,8 +1028,8 @@ Private Member Functions</h2></td></tr>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    hist_t *h;</div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="preprocessor">    #pragma omp parallel</span></div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="preprocessor"></span>    {</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> threads = omp_get_num_threads();</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> <span class="keywordtype">id</span> = omp_get_thread_num();</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> threads = <a class="code" href="../../df/d28/omp_8h.html#ab628587850957d925be0c2157f5f6823">omp_get_num_threads</a>();</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> <span class="keywordtype">id</span> = <a class="code" href="../../df/d28/omp_8h.html#aba06990768c6b572ca3f69029334a9df">omp_get_thread_num</a>();</div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        <span class="keyword">auto</span> tile =</div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;            <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>((<a class="code" href="../../dc/d45/classSlices.html#a463a0439b51fc502a49415aca6982755">n_macroparticles</a> + threads - 1) / threads);</div>
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        <span class="keyword">auto</span> start = <span class="keywordtype">id</span> * tile;</div>
@@ -1085,7 +1085,7 @@ Private Member Functions</h2></td></tr>
 <div id="dynsection-14-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-14-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../dc/d45/classSlices_a1ad6096cfca13a05fbee0197367b8f82_cgraph.svg" width="280" height="40"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../dc/d45/classSlices_a1ad6096cfca13a05fbee0197367b8f82_cgraph.svg" width="336" height="147"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </p>
@@ -1283,7 +1283,7 @@ Private Member Functions</h2></td></tr>
 <div id="dynsection-19-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-19-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../dc/d45/classSlices_ae9463517699373a87a1dae18becf9319_cgraph.svg" width="480" height="56"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../dc/d45/classSlices_ae9463517699373a87a1dae18becf9319_cgraph.svg" width="536" height="147"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </p>
@@ -1537,7 +1537,7 @@ Private Member Functions</h2></td></tr>
 <div id="dynsection-24-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-24-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../dc/d45/classSlices_adee634f207f19e4484a7a509e07776b2_cgraph.svg" width="624" height="110"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../dc/d45/classSlices_adee634f207f19e4484a7a509e07776b2_cgraph.svg" width="100%" height="416"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 </p>
@@ -1605,7 +1605,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../dc/df2/Slices_8h_source.html#l00035">35</a> of file <a class="el" href="../../dc/df2/Slices_8h_source.html">Slices.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00420">beam_profile_derivative()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00409">beam_spectrum_generation()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00379">fast_fwhm()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00319">fwhm()</a>, <a class="el" href="../../d3/db7/LHCNoiseFB_8cpp_source.html#l00080">LHCNoiseFB::fwhm_interpolation()</a>, <a class="el" href="../../d4/dfd/plot__slices_8cpp_source.html#l00005">plot_beam_profile()</a>, <a class="el" href="../../d2/d6f/Tracker_8cpp_source.html#l00269">RingAndRfSection::rf_voltage_calculation()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00287">rms()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00040">set_cuts()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00019">Slices()</a>, <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00458">TotalInducedVoltage::TotalInducedVoltage()</a>, <a class="el" href="../../d2/d6f/Tracker_8cpp_source.html#l00133">RingAndRfSection::track()</a>, and <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00212">track_cuts()</a>.</p>
+<p>Referenced by <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00420">beam_profile_derivative()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00409">beam_spectrum_generation()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00379">fast_fwhm()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00319">fwhm()</a>, <a class="el" href="../../d3/db7/LHCNoiseFB_8cpp_source.html#l00080">LHCNoiseFB::fwhm_interpolation()</a>, <a class="el" href="../../d4/dfd/plot__slices_8cpp_source.html#l00005">plot_beam_profile()</a>, <a class="el" href="../../d8/d29/plot__impedance_8cpp_source.html#l00079">plot_induced_voltage_vs_bin_centers()</a>, <a class="el" href="../../d2/d6f/Tracker_8cpp_source.html#l00269">RingAndRfSection::rf_voltage_calculation()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00287">rms()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00040">set_cuts()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00019">Slices()</a>, <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00458">TotalInducedVoltage::TotalInducedVoltage()</a>, <a class="el" href="../../d2/d6f/Tracker_8cpp_source.html#l00133">RingAndRfSection::track()</a>, and <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00212">track_cuts()</a>.</p>
 
 </div>
 </div>
@@ -1777,7 +1777,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../dc/df2/Slices_8h_source.html#l00037">37</a> of file <a class="el" href="../../dc/df2/Slices_8h_source.html">Slices.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00409">beam_spectrum_generation()</a>, and <a class="el" href="../../d4/dfd/plot__slices_8cpp_source.html#l00061">plot_beam_spectrum()</a>.</p>
+<p>Referenced by <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00409">beam_spectrum_generation()</a>, <a class="el" href="../../d4/dfd/plot__slices_8cpp_source.html#l00061">plot_beam_spectrum()</a>, and <a class="el" href="../../d8/d29/plot__impedance_8cpp_source.html#l00005">plot_impedance_vs_frequency()</a>.</p>
 
 </div>
 </div>
@@ -1793,7 +1793,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../dc/df2/Slices_8h_source.html#l00038">38</a> of file <a class="el" href="../../dc/df2/Slices_8h_source.html">Slices.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00409">beam_spectrum_generation()</a>, and <a class="el" href="../../d4/dfd/plot__slices_8cpp_source.html#l00061">plot_beam_spectrum()</a>.</p>
+<p>Referenced by <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00409">beam_spectrum_generation()</a>, <a class="el" href="../../d4/dfd/plot__slices_8cpp_source.html#l00061">plot_beam_spectrum()</a>, and <a class="el" href="../../d8/d29/plot__impedance_8cpp_source.html#l00005">plot_impedance_vs_frequency()</a>.</p>
 
 </div>
 </div>
@@ -1867,7 +1867,7 @@ Private Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dc/d45/classSlices.html">Slices</a></li>
-    <li class="footer">Generated on Wed Sep 28 2016 10:27:37 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Thu Sep 29 2016 15:53:18 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

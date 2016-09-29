@@ -20,7 +20,7 @@ var searchData=
   ['restarttable',['restartTable',['../de/dc9/classoption_1_1PrintUsageImplementation_1_1LinePartIterator.html#a0cbe8ed79ab4958a70b957598dd76fa6',1,'option::PrintUsageImplementation::LinePartIterator']]],
   ['rf_5fkick_5finterp',['rf_kick_interp',['../de/da1/classRingAndRfSection.html#a799fd4f05f1593ed68b5daf087e7b469',1,'RingAndRfSection']]],
   ['rf_5fvoltage_5fcalculation',['rf_voltage_calculation',['../de/da1/classRingAndRfSection.html#a91ff9d48e9593ed5db6dcf98b75dd823',1,'RingAndRfSection']]],
-  ['rfft',['rfft',['../d8/de0/namespacefft.html#a789573d204d06c288f6b74c45cd92137',1,'fft::rfft(f_vector_t &amp;in, complex_vector_t &amp;out, uint n=0, const uint threads=1)'],['../d8/de0/namespacefft.html#a1aaf2c8a8ef62200a1813b59306aaee0a57ef828fbd2211a76965d5dca018db74',1,'fft::RFFT()']]],
+  ['rfft',['RFFT',['../d8/de0/namespacefft.html#a1aaf2c8a8ef62200a1813b59306aaee0a57ef828fbd2211a76965d5dca018db74',1,'fft::RFFT()'],['../d8/de0/namespacefft.html#a789573d204d06c288f6b74c45cd92137',1,'fft::rfft(f_vector_t &amp;in, complex_vector_t &amp;out, uint n=0, const uint threads=1)']]],
   ['rfftfreq',['rfftfreq',['../d8/de0/namespacefft.html#a033d2ce3e0176d2afede62d2bc1e9163',1,'fft']]],
   ['rfnoise',['RFnoise',['../d6/d87/classPhaseLoop.html#ae7403a2c2ca509e90939edaf3ea6377b',1,'PhaseLoop']]],
   ['rfp',['RfP',['../d6/d7a/structContext.html#a48db4fc5c2a199a0c1685dc11f5f0a6f',1,'Context']]],

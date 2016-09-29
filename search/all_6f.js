@@ -4,6 +4,10 @@ var searchData=
   ['omega_5frf',['omega_RF',['../da/d49/classRfParameters.html#a7ee0ce84ec7437b3cec7f3cb901c0187',1,'RfParameters']]],
   ['omega_5frf_5fd',['omega_RF_d',['../da/d49/classRfParameters.html#af34fe3bad4a01687a0f42549c0ad4dc2',1,'RfParameters']]],
   ['omega_5fs0',['omega_s0',['../da/d49/classRfParameters.html#a46cdb432a905e5f864225130d02c4df8',1,'RfParameters']]],
+  ['omp_2eh',['omp.h',['../df/d28/omp_8h.html',1,'']]],
+  ['omp_5fget_5fnum_5fthreads',['omp_get_num_threads',['../df/d28/omp_8h.html#ab628587850957d925be0c2157f5f6823',1,'omp.h']]],
+  ['omp_5fget_5fthread_5fnum',['omp_get_thread_num',['../df/d28/omp_8h.html#aba06990768c6b572ca3f69029334a9df',1,'omp.h']]],
+  ['omp_5fset_5fnum_5fthreads',['omp_set_num_threads',['../df/d28/omp_8h.html#a00080ecab6e482d7af870db88658e238',1,'omp.h']]],
   ['on_5ftime',['on_time',['../d9/d59/classPSB.html#aa819118a263ed668d8ac399e5370994f',1,'PSB']]],
   ['oneopio4',['ONEOPIO4',['../d1/d47/namespacevdt_1_1details.html#a7755f26941d64e22d3084adbcf8c16d4',1,'vdt::details']]],
   ['oneopio4f',['ONEOPIO4F',['../d1/d47/namespacevdt_1_1details.html#a39356d3aa0412a34760958fd02e13be1',1,'vdt::details']]],
@@ -23,8 +27,8 @@ var searchData=
   ['options_5fmax',['options_max',['../d8/de3/structoption_1_1Stats.html#a8121787feb1c7db84fca3ccb012b0473',1,'option::Stats']]],
   ['optionscount',['optionsCount',['../d6/d83/classoption_1_1Parser.html#aee62badd2a19a5b88cbc4a9b11813b82',1,'option::Parser']]],
   ['ostream',['ostream',['../d5/deb/structoption_1_1PrintUsageImplementation_1_1OStreamWriter.html#a9b808696e204a834acd4362c62b9f4c1',1,'option::PrintUsageImplementation::OStreamWriter']]],
-  ['ostreamwriter',['OStreamWriter',['../d5/deb/structoption_1_1PrintUsageImplementation_1_1OStreamWriter.html#abf38eb181267e96d86de1ea09ad22c3f',1,'option::PrintUsageImplementation::OStreamWriter']]],
   ['ostreamwriter',['OStreamWriter',['../d5/deb/structoption_1_1PrintUsageImplementation_1_1OStreamWriter.html',1,'option::PrintUsageImplementation']]],
+  ['ostreamwriter',['OStreamWriter',['../d5/deb/structoption_1_1PrintUsageImplementation_1_1OStreamWriter.html#abf38eb181267e96d86de1ea09ad22c3f',1,'option::PrintUsageImplementation::OStreamWriter']]],
   ['out',['out',['../dc/daf/structfft_1_1fft__plan__t.html#a9b98f9d5fd8aa6d69caadff17cc91d04',1,'fft::fft_plan_t']]],
   ['output',['output',['../de/d50/classoption_1_1PrintUsageImplementation_1_1LineWrapper.html#a5b27b788033f4d6617a910da8cbcd511',1,'option::PrintUsageImplementation::LineWrapper']]]
 ];

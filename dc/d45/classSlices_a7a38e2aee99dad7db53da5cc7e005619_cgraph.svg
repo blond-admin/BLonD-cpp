@@ -32,7 +32,7 @@
         </defs>
 
 <script type="text/javascript">
-var viewWidth = 624;
+var viewWidth = 666;
 var viewHeight = 280;
 var sectionId = 'dynsection-1';
 </script>
@@ -40,7 +40,7 @@ var sectionId = 'dynsection-1';
 <svg id="graph" class="graph">
 <g id="viewport">
 <title>Slices::Slices</title>
-<polygon fill="white" stroke="white" points="-4,5 -4,-276 621,-276 621,5 -4,5"/>
+<polygon fill="white" stroke="white" points="-4,5 -4,-276 663,-276 663,5 -4,5"/>
 <!-- Node1 -->
 <g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0.5,-99.5 0.5,-120.5 77.5,-120.5 77.5,-99.5 0.5,-99.5"/>
@@ -148,15 +148,15 @@ var sectionId = 'dynsection-1';
 <path fill="none" stroke="midnightblue" d="M193.548,-57C207.825,-57 224.769,-57 241.183,-57"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="241.306,-60.5001 251.306,-57 241.306,-53.5001 241.306,-60.5001"/>
 </g>
-<!-- Node12 -->
-<g id="node24" class="node"><title>Node12</title>
+<!-- Node14 -->
+<g id="node28" class="node"><title>Node14</title>
 <a xlink:href="../../dc/d45/classSlices.html#a31398a7ae3bf058bf358e38e61eb50c9" target="_top" xlink:title="Slices::gaussian_fit">
 <polygon fill="white" stroke="black" points="257,-0.5 257,-21.5 359,-21.5 359,-0.5 257,-0.5"/>
 <text text-anchor="middle" x="308" y="-8.5" font-family="Helvetica,sans-Serif" font-size="10.00">Slices::gaussian_fit</text>
 </a>
 </g>
-<!-- Node8&#45;&gt;Node12 -->
-<g id="edge24" class="edge"><title>Node8&#45;&gt;Node12</title>
+<!-- Node8&#45;&gt;Node14 -->
+<g id="edge28" class="edge"><title>Node8&#45;&gt;Node14</title>
 <path fill="none" stroke="midnightblue" d="M189.454,-46.4886C204.162,-41.6479 221.937,-35.9032 238,-31 245.229,-28.7935 252.899,-26.5266 260.411,-24.3479"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="261.503,-27.6759 270.145,-21.547 259.567,-20.9489 261.503,-27.6759"/>
 </g>
@@ -174,15 +174,39 @@ var sectionId = 'dynsection-1';
 </g>
 <!-- Node11 -->
 <g id="node22" class="node"><title>Node11</title>
-<a xlink:href="../../df/d6d/namespacemymath.html#a5bcc40b5ebadd9d98f351775df65ec9f" target="_top" xlink:title="mymath::min">
-<polygon fill="white" stroke="black" points="542,-46.5 542,-67.5 616,-67.5 616,-46.5 542,-46.5"/>
-<text text-anchor="middle" x="579" y="-54.5" font-family="Helvetica,sans-Serif" font-size="10.00">mymath::min</text>
+<a xlink:href="../../df/d28/omp_8h.html#ab628587850957d925be0c2157f5f6823" target="_top" xlink:title="omp_get_num_threads">
+<polygon fill="white" stroke="black" points="542,-86.5 542,-107.5 658,-107.5 658,-86.5 542,-86.5"/>
+<text text-anchor="middle" x="600" y="-94.5" font-family="Helvetica,sans-Serif" font-size="10.00">omp_get_num_threads</text>
 </a>
 </g>
 <!-- Node10&#45;&gt;Node11 -->
 <g id="edge22" class="edge"><title>Node10&#45;&gt;Node11</title>
-<path fill="none" stroke="midnightblue" d="M506.009,-57C514.471,-57 523.318,-57 531.815,-57"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="531.955,-60.5001 541.955,-57 531.955,-53.5001 531.955,-60.5001"/>
+<path fill="none" stroke="midnightblue" d="M496.783,-67.5095C514.089,-72.454 534.92,-78.4058 553.324,-83.6639"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="552.399,-87.0398 562.976,-86.4218 554.323,-80.3092 552.399,-87.0398"/>
+</g>
+<!-- Node12 -->
+<g id="node24" class="node"><title>Node12</title>
+<a xlink:href="../../df/d28/omp_8h.html#aba06990768c6b572ca3f69029334a9df" target="_top" xlink:title="omp_get_thread_num">
+<polygon fill="white" stroke="black" points="545,-46.5 545,-67.5 655,-67.5 655,-46.5 545,-46.5"/>
+<text text-anchor="middle" x="600" y="-54.5" font-family="Helvetica,sans-Serif" font-size="10.00">omp_get_thread_num</text>
+</a>
+</g>
+<!-- Node10&#45;&gt;Node12 -->
+<g id="edge24" class="edge"><title>Node10&#45;&gt;Node12</title>
+<path fill="none" stroke="midnightblue" d="M506.229,-57C515.237,-57 524.84,-57 534.337,-57"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="534.566,-60.5001 544.566,-57 534.566,-53.5001 534.566,-60.5001"/>
+</g>
+<!-- Node13 -->
+<g id="node26" class="node"><title>Node13</title>
+<a xlink:href="../../df/d6d/namespacemymath.html#a5bcc40b5ebadd9d98f351775df65ec9f" target="_top" xlink:title="mymath::min">
+<polygon fill="white" stroke="black" points="563,-6.5 563,-27.5 637,-27.5 637,-6.5 563,-6.5"/>
+<text text-anchor="middle" x="600" y="-14.5" font-family="Helvetica,sans-Serif" font-size="10.00">mymath::min</text>
+</a>
+</g>
+<!-- Node10&#45;&gt;Node13 -->
+<g id="edge26" class="edge"><title>Node10&#45;&gt;Node13</title>
+<path fill="none" stroke="midnightblue" d="M496.783,-46.4905C514.089,-41.546 534.92,-35.5942 553.324,-30.3361"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="554.323,-33.6908 562.976,-27.5782 552.399,-26.9602 554.323,-33.6908"/>
 </g>
 </g>
 </svg>

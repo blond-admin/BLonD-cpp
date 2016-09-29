@@ -13,11 +13,9 @@
 #include <blond/math_functions.h>
 #include <blond/trackers/Tracker.h>
 #include <blond/utilities.h>
-#include <omp.h>
 #include <stdio.h>
-//#include <blond/impedances/Intensity.h>
 #include <blond/impedances/InducedVoltage.h>
-#include <complex>
+// #include <complex>
 
 const std::string datafiles = DEMO_FILES "/TC5_Wake_impedance/";
 

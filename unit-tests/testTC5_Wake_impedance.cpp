@@ -8,9 +8,7 @@
 #include <blond/math_functions.h>
 #include <blond/trackers/Tracker.h>
 #include <blond/utilities.h>
-#include <complex>
 #include <gtest/gtest.h>
-#include <omp.h>
 #include <stdio.h>
 
 Resonators *resonator;

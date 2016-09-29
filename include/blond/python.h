@@ -132,6 +132,7 @@ namespace python {
         return pVar;
     }
 
+
     static inline PyObject *convert_complex_array(std::complex<double> *array,
             int size)
     {

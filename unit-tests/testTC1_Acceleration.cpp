@@ -6,7 +6,6 @@
 #include <blond/trackers/Tracker.h>
 #include <blond/utilities.h>
 #include <gtest/gtest.h>
-#include <omp.h>
 
 class testTC1 : public ::testing::Test {
 

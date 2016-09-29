@@ -40,6 +40,7 @@ set(WITH_FORMAT "False" CACHE STRING
 # Package settings
 set(USE_FFTW_OMP "False" CACHE STRING 
     "Should use OpenMP flavour of FFTW library (linux only)") #todo: test and configure
+
 add_definitions(-DDEMO_FILES="${DATAFILES_DIR_DEMOS}" 
                 -DTEST_FILES="${DATAFILES_DIR_TESTS}") #demos datafiles
 
@@ -67,7 +68,7 @@ if (NOT COMPILER_HAS_CXX11)
     message(FATAL_ERROR "ERROR: Compiler is lacking support for c++11")
 endif ()
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -std=c++11 -Wall -pedantic -fno-rtti -Wno-unused-variable")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -std=c++11 -Wall -pedantic -Wno-unused-variable")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g -fno-omit-frame-pointer") #-fsanitize=address -fno-omit-frame-pointer ")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -ffast-math -march=native") #-fopt-info-vec=report.txt")
 
@@ -108,6 +109,7 @@ if(OPENMP_FOUND)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DUSE_OMP -fopenmp")
 else()
     message(STATUS "OpenMP not found")
+    set(USE_FFTW_OMP "False")
 endif()
 
 # FFTW

@@ -16,7 +16,6 @@
 #include <blond/optionparser.h>
 #include <blond/trackers/Tracker.h>
 #include <blond/utilities.h>
-#include <omp.h>
 #include <stdio.h>
 // Simulation parameters
 // --------------------------------------------------------

@@ -9,7 +9,6 @@
 #include <blond/trackers/Tracker.h>
 #include <blond/utilities.h>
 #include <blond/fft.h>
-#include <complex>
 #include <gtest/gtest.h>
 #include <stdio.h>
 

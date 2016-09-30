@@ -115,20 +115,6 @@ int main(int argc, char **argv)
 
     auto resonator = new Resonators(R_shunt, f_res, Q_factor);
 
-    // NOTE remove from here
-    // f_vector_t timeArray;
-    // timeArray.reserve(N_slices);
-    // for (int i = 0; i < N_slices; ++i) {
-    //     timeArray.push_back(Slice->bin_centers[i] - Slice->bin_centers[0]);
-    // }
-    // resonator->wake_calc(timeArray);
-    // auto inputTable = new InputTable(timeArray, resonator->fWake,
-    //                                  resonator->fWake);
-
-    // plot_impedance_vs_frequency(0, indVoltFreq, Slice, "sum", "no_spectrum",
-    //                             "freq_table");
-    // NOTE remove to here
-
     std::vector<Intensity *> ImpSourceList({resonator});
     auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
 

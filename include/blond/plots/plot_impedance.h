@@ -5,6 +5,7 @@
 
 #include <blond/impedances/InducedVoltage.h>
 #include <blond/beams/Slices.h>
+#include <blond/python.h>
 
 void plot_impedance_vs_frequency(int counter, InducedVoltageFreq *indVoltFreq,
                                  Slices *slices,

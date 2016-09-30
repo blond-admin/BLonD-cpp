@@ -16,6 +16,7 @@
 from __future__ import division
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 
 
 def plot_impedance_vs_frequency(counter,
@@ -33,6 +34,9 @@ def plot_impedance_vs_frequency(counter,
     """
     Plot of impedance vs frequency.
     """
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
+
     frequency_array = np.array(frequency_array)
     total_impedance = np.array(total_impedance)
     if option1 == "sum":
@@ -102,6 +106,8 @@ def plot_induced_voltage_vs_bin_centers(counter, bin_centers, induced_voltage,
     ax0.set_ylabel("Induced voltage [V]")
 
     # Save plot
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
     fign = dirname + '/induced_voltage_' "%d" % counter + '.png'
     plt.savefig(fign)
     plt.clf()

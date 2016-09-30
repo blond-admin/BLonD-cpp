@@ -6,6 +6,8 @@
 #include <blond/input_parameters/GeneralParameters.h>
 #include <blond/input_parameters/RfParameters.h>
 #include <blond/llrf/LHCNoiseFB.h>
+#include <blond/python.h>
+
 
 
 void plot_noise_spectrum(f_vector_t &frequency, f_vector_t &spectrum,

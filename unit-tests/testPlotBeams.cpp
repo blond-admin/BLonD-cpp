@@ -1,13 +1,16 @@
 #include <iostream>
-
 #include <blond/beams/Distributions.h>
 #include <blond/input_parameters/GeneralParameters.h>
 #include <blond/math_functions.h>
-#include <blond/trackers/Tracker.h>
 #include <blond/utilities.h>
+#include <blond/plots/plot_beams.h>
 #include <gtest/gtest.h>
 
-class testTC1 : public ::testing::Test {
+using namespace std;
+
+string h5file = TEST_FILES "/Plots/beam.h5";
+
+class testPlotBeams : public ::testing::Test {
 
 protected:
     // Machine and RF parameters
@@ -31,9 +34,10 @@ protected:
     const int N_slices = 100;
 
 
+
     virtual void SetUp()
     {
-        omp_set_num_threads(4);
+        omp_set_num_threads(1);
 
 
         f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1));
@@ -57,8 +61,6 @@ protected:
 
         Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
 
-
-        // Context::Slice = new Slices(N_slices);
     }
 
     virtual void TearDown()
@@ -68,119 +70,97 @@ protected:
         delete Context::GP;
         delete Context::Beam;
         delete Context::RfP;
-        delete Context::Slice;
     }
 
 };
 
-TEST_F(testTC1, phaseSpace1)
+
+TEST_F(testPlotBeams, plot_long_phase_space1)
 {
     longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
-    auto epsilon = 1e-6;
-    omp_set_num_threads(Context::n_threads);
-    std::string params = TEST_FILES "/TC1_final/phaseSpace1/";
-
+    auto GP = Context::GP;
+    auto RfP = Context::RfP;
     auto Beam = Context::Beam;
-    auto slices = new Slices(N_slices);
 
-    auto long_tracker = new RingAndRfSection();
-    for (int i = 0; i < N_t; ++i) {
-        long_tracker->track();
-        slices->track();
-    }
+    plot_long_phase_space(GP, RfP, Beam, 0., 1e-5, -1e7, 1e7);
 
-    f_vector_t v;
-    util::read_vector_from_file(v, params + "dE.txt");
-    ASSERT_EQ(v.size(), Beam->dE.size());
-    for (uint i = 0; i < v.size(); ++i) {
-        auto ref = v[i];
-        auto real = Beam->dE[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
-                << "Testing of dE failed on i " << i << '\n';
-
-    }
-
-
-    util::read_vector_from_file(v, params + "dt.txt");
-    ASSERT_EQ(v.size(), Beam->dt.size());
-    for (uint i = 0; i < v.size(); ++i) {
-        auto ref = v[i];
-        auto real = Beam->dt[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
-                << "Testing of dt failed on i " << i << '\n';
-
-    }
-
-    util::read_vector_from_file(v, params + "n_macroparticles.txt");
-    ASSERT_EQ(v.size(), slices->n_macroparticles.size());
-    for (uint i = 0; i < v.size(); ++i) {
-        auto ref = v[i];
-        auto real = 1.0 * slices->n_macroparticles[i];
-        ASSERT_EQ(ref, real)
-                << "Testing of n_macroparticles failed on i " << i << '\n';
-
-    }
-
-    delete long_tracker;
-    delete slices;
 }
 
 
-TEST_F(testTC1, phaseSpace2)
+TEST_F(testPlotBeams, plot_long_phase_space2)
 {
     longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
-    auto epsilon = 1e-6;
-
-    Context::n_threads = 3;
-    auto slices = new Slices(N_slices);
-    omp_set_num_threads(Context::n_threads);
-    std::string params = TEST_FILES "/TC1_final/phaseSpace1/";
-
+    auto GP = Context::GP;
+    auto RfP = Context::RfP;
     auto Beam = Context::Beam;
-    auto long_tracker = new RingAndRfSection();
-    for (int i = 0; i < N_t; ++i) {
-        long_tracker->track();
-        slices->track();
-    }
 
-    f_vector_t v;
-    util::read_vector_from_file(v, params + "dE.txt");
-    ASSERT_EQ(v.size(), Beam->dE.size());
-    for (uint i = 0; i < v.size(); ++i) {
-        auto ref = v[i];
-        auto real = Beam->dE[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
-                << "Testing of dE failed on i " << i << '\n';
+    plot_long_phase_space(GP, RfP, Beam, 0., 1e-5, -1e7, 1e7,  "s", 1, true);
 
-    }
-
-
-    util::read_vector_from_file(v, params + "dt.txt");
-    ASSERT_EQ(v.size(), Beam->dt.size());
-    for (uint i = 0; i < v.size(); ++i) {
-        auto ref = v[i];
-        auto real = Beam->dt[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
-                << "Testing of dt failed on i " << i << '\n';
-
-    }
-
-    util::read_vector_from_file(v, params + "n_macroparticles.txt");
-    ASSERT_EQ(v.size(), slices->n_macroparticles.size());
-    for (uint i = 0; i < v.size(); ++i) {
-        int ref = v[i];
-        int real = slices->n_macroparticles[i];
-        ASSERT_EQ(ref, real)
-                << "Testing of n_macroparticles failed on i " << i << '\n';
-
-    }
-
-    delete long_tracker;
-    delete slices;
 }
+
+TEST_F(testPlotBeams, plot_bunch_length_evol1)
+{
+    auto GP = Context::GP;
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+
+    plot_bunch_length_evol(RfP, h5file);
+
+}
+
+
+/*
+TEST_F(testPlotBeams, plot_bunch_length_evol_gaussian1)
+{
+    auto GP = Context::GP;
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+
+    plot_bunch_length_evol_gaussian(RfP, h5file);
+
+}
+*/
+
+
+TEST_F(testPlotBeams, plot_position_evol1)
+{
+    auto GP = Context::GP;
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+
+    plot_position_evol(RfP, h5file);
+
+}
+
+
+
+TEST_F(testPlotBeams, plot_energy_evol1)
+{
+    auto GP = Context::GP;
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+
+    plot_energy_evol(RfP, h5file);
+
+}
+
+
+TEST_F(testPlotBeams, plot_transmitted_particles1)
+{
+    auto GP = Context::GP;
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+
+    plot_transmitted_particles(RfP, h5file);
+
+}
+
 
 int main(int ac, char *av[])
 {
+    python::initialize();
     ::testing::InitGoogleTest(&ac, av);
-    return RUN_ALL_TESTS();
+    auto ret = RUN_ALL_TESTS();
+    python::finalize();
+    return ret;
 }

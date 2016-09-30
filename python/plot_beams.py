@@ -19,7 +19,7 @@ import numpy as np
 # import warnings
 import matplotlib.pyplot as plt
 from utilities import separatrix
-
+import os
 
 def plot_long_phase_space(rfp_counter, rfp_omega_RF_0, rfp_phi_RF_0,
                           beam_id, beam_dt, beam_dE, xmin, xmax, ymin,
@@ -71,6 +71,7 @@ def plot_long_phase_space(rfp_counter, rfp_omega_RF_0, rfp_phi_RF_0,
                           s=1, edgecolor='none', alpha=alpha)
         axScatter.scatter(beam_dt[indlost], beam_dE[indlost], c='0.5',
                           s=1, edgecolor='none')
+        
     elif xunit == 'rad':
         axScatter.set_xlabel(r"$\varphi$ [rad]")
         axScatter.scatter(omega_RF*beam_dt[indalive] + phi_RF,
@@ -116,16 +117,15 @@ def plot_long_phase_space(rfp_counter, rfp_omega_RF_0, rfp_phi_RF_0,
         ybin = (ymax - ymin)/200.
         yh = np.arange(ymin, ymax + ybin, ybin)
         # print beam_dt[::sampling]
+        # print xh
         if xunit == 's':
             axHistx.hist(beam_dt[::sampling], bins=xh, histtype='step')
         elif xunit == 'rad':
             axHistx.hist(
                 omega_RF*beam_dt[::sampling] + phi_RF, bins=xh, histtype='step')
-        # print 'ok2'
 
         axHisty.hist(beam_dE[::sampling], bins=yh, histtype='step',
                      orientation='horizontal')
-        # print 'ok3'
 
         axHistx.ticklabel_format(style='sci', axis='y', scilimits=(0, 0))
         axHisty.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
@@ -139,6 +139,8 @@ def plot_long_phase_space(rfp_counter, rfp_omega_RF_0, rfp_phi_RF_0,
     # print "hello from python!"
 
     # Save plot
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
     fign = dirname + '/long_distr_'"%d" % rfp_counter+'.png'
     plt.savefig(fign)
     plt.clf()
@@ -173,6 +175,9 @@ def plot_bunch_length_evol(time_step, sigma_dt, output_freq=1,
         ax.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
 
     # Save plot
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
+
     fign = dirname + '/bunch_length.png'
     plt.savefig(fign)
     plt.clf()
@@ -210,6 +215,9 @@ def plot_bunch_length_evol_gaussian(time_step, bunch_length_gaussian,
         ax.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
 
     # Save plot
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
+
     fign = dirname + '/bunch_length_Gaussian.png'
     plt.savefig(fign)
     plt.clf()
@@ -241,6 +249,9 @@ def plot_position_evol(time_step, mean_dt, output_freq=1,
         ax.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
 
     # Save plot
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
+
     fign = dirname+'/bunch_mean_position.png'
     plt.savefig(fign)
     plt.clf()
@@ -272,6 +283,9 @@ def plot_energy_evol(time_step, mean_dE, output_freq=1, style='.',
         ax.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
 
     # Save plot
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
+
     fign = dirname+'/bunch_mean_energy.png'
     plt.savefig(fign)
     plt.clf()
@@ -302,6 +316,8 @@ def plot_transmitted_particles(time_step, parts_alive, output_freq=1,
     if time_step > 100000:
         ax.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
 
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
     # Save plot
     fign = dirname+'/bunch_transmitted_particles.png'
     plt.savefig(fign)

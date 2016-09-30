@@ -17,7 +17,7 @@ from __future__ import division
 import matplotlib.pyplot as plt
 from pylab import cm
 import numpy as np
-
+import os
 
 def plot_noise_spectrum(frequency, spectrum, sampling=1, dirname='fig',
                         figno=0):
@@ -39,6 +39,9 @@ def plot_noise_spectrum(frequency, spectrum, sampling=1, dirname='fig',
     ax.ticklabel_format(style='sci', axis='y', scilimits=(0, 0))
 
     # Save figure
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
+
     fign = dirname + '/noise_spectrum_' "%d" % figno + '.png'
     plt.savefig(fign)
     plt.clf()
@@ -59,6 +62,9 @@ def plot_phase_noise(time, dphi, sampling=1, dirname='fig', figno=0):
     ax.set_ylabel(r"Phase noise [rad]")
 
     # Save figure
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
+
     fign = dirname + '/phase_noise_' "%d" % figno + '.png'
     plt.savefig(fign)
     plt.clf()
@@ -94,6 +100,9 @@ def plot_PL_bunch_phase(time_step, PL_bunch_phase, output_freq=1,
         ax.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
 
     # Save figure
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
+
     fign = dirname + '/PL_bunch_phase.png'
     plt.savefig(fign)
     plt.clf()
@@ -128,6 +137,9 @@ def plot_PL_RF_phase(time_step, PL_phiRF, output_freq=1,
         ax.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
 
     # Save figure
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
+
     fign = dirname + '/RF_phase.png'
     plt.savefig(fign)
     plt.clf()
@@ -163,6 +175,9 @@ def plot_PL_phase_corr(time_step, PL_phase_corr, output_freq=1,
         ax.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
 
     # Save figure
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
+
     fign = dirname + '/PL_phase_corr.png'
     plt.savefig(fign)
     plt.clf()
@@ -197,6 +212,9 @@ def plot_PL_RF_freq(time_step, PL_omegaRF, output_freq=1,
         ax.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
 
     # Save figure
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
+
     fign = dirname + '/RF_freq.png'
     plt.savefig(fign)
     plt.clf()
@@ -232,6 +250,9 @@ def plot_PL_freq_corr(time_step, PL_omegaRF_corr, output_freq=1,
         ax.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
 
     # Save figure
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
+
     fign = dirname + '/PL_freq_corr.png'
     plt.savefig(fign)
     plt.clf()
@@ -266,6 +287,9 @@ def plot_RF_phase_error(time_step, SL_dphiRF, output_freq=1,
         ax.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
 
     # Save figure
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
+
     fign = dirname + '/RF_phase_error.png'
     plt.savefig(fign)
     plt.clf()
@@ -300,6 +324,8 @@ def plot_RL_radial_error(time_step, RL_drho, output_freq=1,
         ax.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
 
     # Save figure
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
     fign = dirname + '/RL_radial_error.png'
     plt.savefig(fign)
     plt.clf()
@@ -339,6 +365,8 @@ def plot_COM_motion(time_step, mean_dt, mean_dE, output_freq=1,
                 va='center')
 
     # Save plot
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
     fign = dirname + '/COM_evolution.png'
     plt.savefig(fign)
     plt.clf()
@@ -374,6 +402,8 @@ def plot_LHCNoiseFB(time_step, LHC_noise_FB_factor, output_freq=1,
         ax.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
 
     # Save figure
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
     fign = dirname + '/LHC_noise_FB.png'
     plt.savefig(fign)
     plt.clf()
@@ -408,6 +438,8 @@ def plot_LHCNoiseFB_FWHM(time_step, LHC_noise_FB_bl,
         ax.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
 
     # Save figure
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
     fign = dirname + '/LHC_noise_FB_bl.png'
     plt.savefig(fign)
     plt.clf()
@@ -446,6 +478,8 @@ def plot_LHCNoiseFB_FWHM_bbb(time_step, LHC_noise_FB_bl_bbb,
     ax.legend()
 
     # Save figure
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
     fign = dirname + '/LHC_noise_FB_bl_bbb.png'
     plt.savefig(fign)
     plt.clf()

@@ -4,8 +4,8 @@
 #include <memory>
 
 
-void plot_noise_spectrum(f_vector_t &frequency, f_vector_t &spectrum,
-                         int sampling, std::string dirname, int figno)
+int plot_noise_spectrum(f_vector_t &frequency, f_vector_t &spectrum,
+                        int sampling, std::string dirname, int figno)
 {
     python::import();
 
@@ -24,12 +24,13 @@ void plot_noise_spectrum(f_vector_t &frequency, f_vector_t &spectrum,
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pFreq,
                                             pSpectrum, pSampling,
                                             pDirname, pFigNo, NULL);
-    assert(ret);
+    return ret != nullptr;
+    // assert(ret);
 }
 
 
-void plot_phase_noise(f_vector_t &time, f_vector_t &dphi, int sampling,
-                      std::string dirname, int figno)
+int plot_phase_noise(f_vector_t &time, f_vector_t &dphi, int sampling,
+                     std::string dirname, int figno)
 {
     python::import();
 
@@ -47,11 +48,12 @@ void plot_phase_noise(f_vector_t &time, f_vector_t &dphi, int sampling,
 
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pTime, pDPhi, pSampling,
                                             pDirname, pFigNo, NULL);
-    assert(ret);
+    return ret != nullptr;
+    // assert(ret);
 }
 
 
-void plot_PL_bunch_phase(RfParameters *RfP, std::string h5data,
+int plot_PL_bunch_phase(RfParameters *RfP, std::string h5data,
                          int output_freq, std::string dirname)
 {
 
@@ -73,12 +75,12 @@ void plot_PL_bunch_phase(RfParameters *RfP, std::string h5data,
 
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, ph5Data,
                                             pOutputFreq, pDirname, NULL);
-    assert(ret);
+    return ret != nullptr;
 
 }
 
 
-void plot_PL_RF_phase(RfParameters *RfP, std::string h5data,
+int plot_PL_RF_phase(RfParameters *RfP, std::string h5data,
                       int output_freq, std::string dirname)
 {
     python::import();
@@ -98,12 +100,12 @@ void plot_PL_RF_phase(RfParameters *RfP, std::string h5data,
 
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, ph5Data,
                                             pOutputFreq, pDirname, NULL);
-    assert(ret);
+    return ret != nullptr;
 
 }
 
 
-void plot_PL_phase_corr(RfParameters *RfP, std::string h5data,
+int plot_PL_phase_corr(RfParameters *RfP, std::string h5data,
                         int output_freq, std::string dirname)
 {
     python::import();
@@ -123,12 +125,12 @@ void plot_PL_phase_corr(RfParameters *RfP, std::string h5data,
 
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, ph5Data,
                                             pOutputFreq, pDirname, NULL);
-    assert(ret);
+    return ret != nullptr;
 
 }
 
 
-void plot_PL_RF_freq(RfParameters *RfP, std::string h5data,
+int plot_PL_RF_freq(RfParameters *RfP, std::string h5data,
                      int output_freq, std::string dirname)
 {
     python::import();
@@ -148,12 +150,12 @@ void plot_PL_RF_freq(RfParameters *RfP, std::string h5data,
 
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, ph5Data,
                                             pOutputFreq, pDirname, NULL);
-    assert(ret);
+    return ret != nullptr;
 
 }
 
 
-void plot_PL_freq_corr(RfParameters *RfP, std::string h5data,
+int plot_PL_freq_corr(RfParameters *RfP, std::string h5data,
                        int output_freq, std::string dirname)
 {
     python::import();
@@ -174,12 +176,12 @@ void plot_PL_freq_corr(RfParameters *RfP, std::string h5data,
 
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, ph5Data,
                                             pOutputFreq, pDirname, NULL);
-    assert(ret);
+    return ret != nullptr;
 
 }
 
 
-void plot_RF_phase_error(RfParameters *RfP, std::string h5data,
+int plot_RF_phase_error(RfParameters *RfP, std::string h5data,
                          int output_freq, std::string dirname)
 {
     python::import();
@@ -199,12 +201,12 @@ void plot_RF_phase_error(RfParameters *RfP, std::string h5data,
 
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, ph5Data,
                                             pOutputFreq, pDirname, NULL);
-    assert(ret);
+    return ret != nullptr;
 
 }
 
 
-void plot_RL_radial_error(RfParameters *RfP, std::string h5data,
+int plot_RL_radial_error(RfParameters *RfP, std::string h5data,
                           int output_freq, std::string dirname)
 {
     python::import();
@@ -224,12 +226,12 @@ void plot_RL_radial_error(RfParameters *RfP, std::string h5data,
 
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, ph5Data,
                                             pOutputFreq, pDirname, NULL);
-    assert(ret);
+    return ret != nullptr;
 
 }
 
 
-void plot_COM_motion(RfParameters *RfP, std::string h5data,
+int plot_COM_motion(RfParameters *RfP, std::string h5data,
                      int output_freq, std::string dirname)
 {
 
@@ -256,11 +258,11 @@ void plot_COM_motion(RfParameters *RfP, std::string h5data,
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, pMeanDt,
                                             pMeanDE, pOutputFreq, pDirname,
                                             NULL);
-    assert(ret);
+    return ret != nullptr;
 }
 
 
-void plot_LHCNoiseFB(RfParameters *RfP, std::string h5data,
+int plot_LHCNoiseFB(RfParameters *RfP, std::string h5data,
                      int output_freq, std::string dirname)
 {
     python::import();
@@ -281,12 +283,12 @@ void plot_LHCNoiseFB(RfParameters *RfP, std::string h5data,
 
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, ph5Data,
                                             pOutputFreq, pDirname, NULL);
-    assert(ret);
+    return ret != nullptr;
 }
 
 
 
-void plot_LHCNoiseFB_FWHM(RfParameters *RfP, std::string h5data,
+int plot_LHCNoiseFB_FWHM(RfParameters *RfP, std::string h5data,
                           int output_freq, std::string dirname)
 {
     python::import();
@@ -306,12 +308,12 @@ void plot_LHCNoiseFB_FWHM(RfParameters *RfP, std::string h5data,
 
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, ph5Data,
                                             pOutputFreq, pDirname, NULL);
-    assert(ret);
+    return ret != nullptr;
 }
 
 
 // TODO fix this to read & convert 2d array
-void plot_LHCNoiseFB_FWHM_bbb(RfParameters *RfP, std::string h5data,
+int plot_LHCNoiseFB_FWHM_bbb(RfParameters *RfP, std::string h5data,
                               int output_freq, std::string dirname)
 {
     python::import();
@@ -338,5 +340,5 @@ void plot_LHCNoiseFB_FWHM_bbb(RfParameters *RfP, std::string h5data,
 
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, ph5Data,
                                             pOutputFreq, pDirname, NULL);
-    assert(ret);
+    return ret != nullptr;
 }

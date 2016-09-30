@@ -175,7 +175,7 @@ int main(int argc, char **argv)
 
     string h5file = "thr-" + to_string(Context::n_threads) + "-output_data.h5";
     auto monitor = new BunchMonitor(GP, RfP, Beam, h5file,
-                                    dt_save, Slice, PL, noiseFB);
+                                    100, Slice, PL, noiseFB);
     monitor->fCompressionLevel = 0;
     // double slice_time = 0, track_time = 0;
     double turn_time = 0.0;
@@ -198,7 +198,7 @@ int main(int argc, char **argv)
     auto monitorTime = 0.0;
     timespec start;
 
-    for (uint i = 0; i < N_t; ++i) {
+    for (uint i = 0; i < N_t && i < 10000; ++i) {
 
         util::get_time(begin_t);
 

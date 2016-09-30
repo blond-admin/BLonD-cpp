@@ -15,9 +15,11 @@
 #include <blond/utilities.h>
 #include <stdio.h>
 #include <blond/impedances/InducedVoltage.h>
+#include <blond/plots/plot_impedance.h>
 // #include <complex>
+using namespace std;
 
-const std::string datafiles = DEMO_FILES "/TC5_Wake_impedance/";
+const string datafiles = DEMO_FILES "/TC5_Wake_impedance/";
 
 // Simulation parameters
 // --------------------------------------------------------
@@ -38,27 +40,30 @@ const int alpha_order = 1;
 const int n_sections = 1;
 // Tracking details
 
-unsigned N_t = 1000;    // Number of turns to track
-unsigned N_p = 5000000; // Macro-particles
+long N_t = 1000;    // Number of turns to track
+long N_p = 5000000; // Macro-particles
 
-unsigned N_slices = 1 << 8; // = (2^8)
+long N_slices = 1 << 8; // = (2^8)
 
-void parse_args(int argc, char** argv);
+void parse_args(int argc, char **argv);
 
 // Simulation setup
 // -------------------------------------------------------------
-int main(int argc, char** argv) {
+int main(int argc, char **argv)
+{
+    python::initialize();
+
     parse_args(argc, argv);
 
     omp_set_num_threads(Context::n_threads);
 
     /// initializations
 
-    printf("Setting up the simulation...\n\n");
-    printf("Number of turns: %d\n", N_t);
-    printf("Number of macro-particles: %d\n", N_p);
-    printf("Number of Slices: %d\n", N_slices);
-    printf("Number of openmp threads: %d\n", Context::n_threads);
+    cout << "Setting up the simulation...\n\n";
+    cout << "Number of turns: " <<  N_t << "\n";
+    cout << "Number of macro-particles: " << N_p << "\n";
+    cout << "Number of Slices: " <<  N_slices << "\n";
+    cout << "Number of openmp threads: " <<  Context::n_threads << "\n";
 
     timespec begin;
     // timespec end;
@@ -75,25 +80,28 @@ int main(int argc, char** argv) {
 
     f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 
-    Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
-                                        momentumVec, proton);
-
-    Context::Beam = new Beams(N_p, N_b);
+    Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
+                                        alpha_order, momentumVec, proton);
+    auto GP = Context::GP;
+    auto Beam = Context::Beam = new Beams(N_p, N_b);
 
     Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+    auto RfP = Context::RfP;
 
-    RingAndRfSection* long_tracker = new RingAndRfSection();
+    auto long_tracker = new RingAndRfSection();
 
     longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
 
     Context::Slice = new Slices(N_slices, 0, 0, 2 * constant::pi, rad);
+    auto Slice = Context::Slice;
+
     // util::dump(Slice->bin_centers, 10, "bin_centers\n");
 
-    std::vector<ftype> v;
+    f_vector_t v;
     util::read_vector_from_file(v, datafiles + "TC5_new_HQ_table.dat");
     assert(v.size() % 3 == 0);
 
-    std::vector<ftype> R_shunt, f_res, Q_factor;
+    f_vector_t R_shunt, f_res, Q_factor;
 
     R_shunt.reserve(v.size() / 3);
     f_res.reserve(v.size() / 3);
@@ -105,15 +113,28 @@ int main(int argc, char** argv) {
         R_shunt.push_back(v[i + 2] * 1e6);
     }
 
-    Resonators* resonator = new Resonators(R_shunt, f_res, Q_factor);
+    auto resonator = new Resonators(R_shunt, f_res, Q_factor);
 
-    std::vector<Intensity*> ImpSourceList({resonator});
+    // NOTE remove from here
+    // f_vector_t timeArray;
+    // timeArray.reserve(N_slices);
+    // for (int i = 0; i < N_slices; ++i) {
+    //     timeArray.push_back(Slice->bin_centers[i] - Slice->bin_centers[0]);
+    // }
+    // resonator->wake_calc(timeArray);
+    // auto inputTable = new InputTable(timeArray, resonator->fWake,
+    //                                  resonator->fWake);
 
+    // plot_impedance_vs_frequency(0, indVoltFreq, Slice, "sum", "no_spectrum",
+    //                             "freq_table");
+    // NOTE remove to here
+
+    std::vector<Intensity *> ImpSourceList({resonator});
     auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
 
-    std::vector<InducedVoltage*> indVoltList({indVoltFreq});
+    std::vector<InducedVoltage *> indVoltList({indVoltFreq});
 
-    TotalInducedVoltage* totVol = new TotalInducedVoltage(indVoltList);
+    auto totVol = new TotalInducedVoltage(indVoltList);
 
     auto indTrack = 0.0, longTrack = 0.0, sliceTrack = 0.0;
     for (unsigned i = 0; i < N_t; ++i) {
@@ -129,38 +150,41 @@ int main(int argc, char** argv) {
         longTrack += util::time_elapsed(begin);
 
         util::get_time(begin);
-        Context::Slice->track();
+        Slice->track();
         sliceTrack += util::time_elapsed(begin);
 
         // util::print_time_elapsed("Slice Track", begin);
     }
 
-    std::cout << std::scientific;
-    std::cout << "Average Turn Time : "
-              << (indTrack + longTrack + sliceTrack) / N_t << std::endl;
-    std::cout << "Average Induced Voltage Frequency Track Time : "
-              << indTrack / N_t << std::endl;
-    std::cout << "Average Tracker Track Time : " << longTrack / N_t
-              << std::endl;
-    std::cout << "Average Slice Track Time : " << sliceTrack / N_t << std::endl;
+    cout << scientific;
+    cout << "Average Turn Time : "
+         << (indTrack + longTrack + sliceTrack) / N_t << endl;
+    cout << "Average Induced Voltage Frequency Track Time : "
+         << indTrack / N_t << endl;
+    cout << "Average Tracker Track Time : " << longTrack / N_t
+         << endl;
+    cout << "Average Slice Track Time : " << sliceTrack / N_t << endl;
 
     // util::dump(Beam->dE.data(), 10, "dE\n");
     // util::dump(Beam->dt.data(), 10, "dt\n");
     // util::dump(Slice->n_macroparticles, 10, "n_macroparticles\n");
 
-    delete Context::Slice;
+    delete Slice;
     delete long_tracker;
-    delete Context::RfP;
-    delete Context::GP;
-    delete Context::Beam;
+    delete RfP;
+    delete GP;
+    delete Beam;
     delete resonator;
     delete indVoltFreq;
     delete totVol;
 
+    python::finalize();
+
     printf("Done!\n");
 }
 
-void parse_args(int argc, char** argv) {
+void parse_args(int argc, char **argv)
+{
     using namespace std;
     using namespace option;
 
@@ -175,24 +199,39 @@ void parse_args(int argc, char** argv) {
     };
 
     const option::Descriptor usage[] = {
-        {UNKNOWN, 0, "", "", Arg::None,
-         "USAGE: ./TC5_Wake_impedance [options]\n\n"
-         "Options:"},
-        {HELP, 0, "h", "help", Arg::None,
-         "  --help,              -h        Print usage and exit."},
-        {N_TURNS, 0, "t", "turns", util::Arg::Numeric,
-         "  --turns=<num>,       -t <num>  Number of turns (default: 10k)"},
-        {N_PARTICLES, 0, "p", "particles", util::Arg::Numeric,
-         "  --particles=<num>,   -p <num>  Number of particles (default: 10k)"},
-        {N_SLICES, 0, "s", "slices", util::Arg::Numeric,
-         "  --slices=<num>,      -s <num>  Number of slices (default: 100)"},
-        {N_THREADS, 0, "m", "threads", util::Arg::Numeric,
-         "  --threads=<num>,     -m <num>  Number of threads (default: 1)"},
-        {UNKNOWN, 0, "", "", Arg::None,
-         "\nExamples:\n"
-         "\t./TC5_Wake_impedance\n"
-         "\t./TC5_Wake_impedance -t 1000 -p 10000 -m 4\n"},
-        {0, 0, 0, 0, 0, 0}};
+        {
+            UNKNOWN, 0, "", "", Arg::None,
+            "USAGE: ./TC5_Wake_impedance [options]\n\n"
+            "Options:"
+        },
+        {
+            HELP, 0, "h", "help", Arg::None,
+            "  --help,              -h        Print usage and exit."
+        },
+        {
+            N_TURNS, 0, "t", "turns", util::Arg::Numeric,
+            "  --turns=<num>,       -t <num>  Number of turns (default: 10k)"
+        },
+        {
+            N_PARTICLES, 0, "p", "particles", util::Arg::Numeric,
+            "  --particles=<num>,   -p <num>  Number of particles (default: 10k)"
+        },
+        {
+            N_SLICES, 0, "s", "slices", util::Arg::Numeric,
+            "  --slices=<num>,      -s <num>  Number of slices (default: 100)"
+        },
+        {
+            N_THREADS, 0, "m", "threads", util::Arg::Numeric,
+            "  --threads=<num>,     -m <num>  Number of threads (default: 1)"
+        },
+        {
+            UNKNOWN, 0, "", "", Arg::None,
+            "\nExamples:\n"
+            "\t./TC5_Wake_impedance\n"
+            "\t./TC5_Wake_impedance -t 1000 -p 10000 -m 4\n"
+        },
+        {0, 0, 0, 0, 0, 0}
+    };
 
     argc -= (argc > 0);
     argv += (argc > 0); // skip program name argv[0] if present
@@ -207,31 +246,31 @@ void parse_args(int argc, char** argv) {
     }
 
     for (int i = 0; i < parse.optionsCount(); ++i) {
-        Option& opt = buffer[i];
+        Option &opt = buffer[i];
         // fprintf(stdout, "Argument #%d is ", i);
         switch (opt.index()) {
-        case HELP:
-        // not possible, because handled further above and exits the program
-        case N_TURNS:
-            N_t = atoi(opt.arg);
-            // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
-            break;
-        case N_THREADS:
-            Context::n_threads = atoi(opt.arg);
-            // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
-            break;
-        case N_SLICES:
-            N_slices = atoi(opt.arg);
-            // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
-            break;
-        case N_PARTICLES:
-            N_p = atoi(opt.arg);
-            // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
-            break;
-        case UNKNOWN:
-            // not possible because Arg::Unknown returns ARG_ILLEGAL
-            // which aborts the parse with an error
-            break;
+            case HELP:
+            // not possible, because handled further above and exits the program
+            case N_TURNS:
+                N_t = atoi(opt.arg);
+                // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
+                break;
+            case N_THREADS:
+                Context::n_threads = atoi(opt.arg);
+                // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
+                break;
+            case N_SLICES:
+                N_slices = atoi(opt.arg);
+                // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
+                break;
+            case N_PARTICLES:
+                N_p = atoi(opt.arg);
+                // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
+                break;
+            case UNKNOWN:
+                // not possible because Arg::Unknown returns ARG_ILLEGAL
+                // which aborts the parse with an error
+                break;
         }
     }
 }

@@ -7,6 +7,7 @@
 #include <blond/beams/Slices.h>
 
 void plot_impedance_vs_frequency(int counter, InducedVoltageFreq *indVoltFreq,
+                                 Slices *slices,
                                  std::string option1 = "sum",
                                  std::string option2 = "no_spectrum",
                                  std::string option3 = "freq_fft",

@@ -131,9 +131,8 @@ void plot_bunch_length_evol(RfParameters *RfP, std::string h5data,
 }
 
 // NOTE removed unused variable Slice
-void plot_bunch_length_evol_gaussian(RfParameters *RfP,
-                                     std::string h5data, int output_freq,
-                                     std::string dirname)
+void plot_bunch_length_evol_gaussian(RfParameters *RfP, std::string h5data,
+                                     int output_freq, std::string dirname)
 {
 
     python::import();

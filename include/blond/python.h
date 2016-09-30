@@ -115,7 +115,7 @@ namespace python {
     }
 
 
-
+    /*
     static inline PyArrayObject *convert_double_2d_array(f_vector_2d_t &v)
     {
         int dims[2] = {v.size(), v.front().size()};
@@ -131,6 +131,23 @@ namespace python {
         assert(pVar);
         return pVar;
     }
+    */
+
+    static inline PyObject *convert_double_2d_array(f_vector_2d_t &v)
+    {
+        int size = v.size();
+        auto pList = PyList_New(size);
+        for (int i = 0; i < size; i++) {
+            int dims[1] = {v[i].size()};
+            auto pVar = (PyObject *) PyArray_FromDimsAndData(1, dims,
+                        NPY_DOUBLE,
+                        (char *)v[i].data());
+            assert(pVar);
+            assert(PyList_SetItem(pList, i, pVar) == 0);
+        }
+        return pList;
+    }
+
 
 
     static inline PyObject *convert_complex_array(std::complex<double> *array,

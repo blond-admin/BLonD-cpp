@@ -33,7 +33,8 @@ def plot_impedance_vs_frequency(counter,
     """
     Plot of impedance vs frequency.
     """
-
+    frequency_array = np.array(frequency_array)
+    total_impedance = np.array(total_impedance)
     if option1 == "sum":
         ax1 = plt.subplots()[1]
         ax1.plot(frequency_array, total_impedance.real, style)
@@ -42,7 +43,7 @@ def plot_impedance_vs_frequency(counter,
             ax2 = ax1.twinx()
             ax2.plot(beam_spectrum_freq, np.abs(beam_spectrum))
         fign = dirname + '/sum_imp_vs_freq_fft' "%d" % counter + '.png'
-        plt.show()
+        # plt.show()
         plt.savefig(fign)
         plt.clf()
 

@@ -27,7 +27,6 @@ void plot_beam_profile(Slices *Slices,
 }
 
 
-// TODO: Implement beam_profile_derivative
 void plot_beam_profile_derivative(Slices *Slices,
                                   int counter,
                                   std::string style,
@@ -53,8 +52,8 @@ void plot_beam_profile_derivative(Slices *Slices,
     auto pStyle = python::convert_string(style);
     auto pDirname = python::convert_string(dirname);
 
-    auto ret = PyObject_CallFunctionObjArgs(pFunc, pX, pDerivative, pCounter, pStyle,
-                                            pDirname, pModes, NULL);
+    auto ret = PyObject_CallFunctionObjArgs(pFunc, pX, pDerivative, pCounter,
+                                            pStyle, pDirname, pModes, NULL);
     assert(ret);
 }
 

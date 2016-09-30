@@ -16,6 +16,7 @@
 from __future__ import division
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 
 
 def plot_beam_profile(bin_centers, n_macroparticles, counter, style, dirname):
@@ -37,6 +38,8 @@ def plot_beam_profile(bin_centers, n_macroparticles, counter, style, dirname):
                 va='center')
 
     # Save plot
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
     fign = dirname + '/beam_profile_' "%d" % counter + '.png'
     plt.savefig(fign)
     plt.clf()
@@ -50,6 +53,9 @@ def plot_beam_profile_derivative(x, derivative, counter, style,
     modes = modes.split(' ')
     for a, b, m in zip(x, derivative, modes):
         plt.plot(a, b, style, label=m)
+
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
     fign = dirname + '/beam_profile_derivative_' "%d" % counter + '.png'
     plt.legend()
     plt.savefig(fign)
@@ -76,6 +82,8 @@ def plot_beam_spectrum(beam_spectrum_freq, beam_spectrum,
                 va='center')
 
     # Save plot
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
     fign = dirname + '/beam_spectrum_' "%d" % counter + '.png'
     plt.savefig(fign)
     plt.clf()

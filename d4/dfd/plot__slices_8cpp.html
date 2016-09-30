@@ -253,7 +253,7 @@ Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d4/dfd/plot__slices_8cpp_source.html#l00031">31</a> of file <a class="el" href="../../d4/dfd/plot__slices_8cpp_source.html">plot_slices.cpp</a>.</p>
 
-<p>References <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00420">Slices::beam_profile_derivative()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00119">python::convert_double_2d_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00065">python::convert_int()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00072">python::convert_string()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00107">python::convert_string_array()</a>, and <a class="el" href="../../d1/da8/python_8h_source.html#l00029">python::import()</a>.</p>
+<p>References <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00420">Slices::beam_profile_derivative()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00136">python::convert_double_2d_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00065">python::convert_int()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00072">python::convert_string()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00107">python::convert_string_array()</a>, and <a class="el" href="../../d1/da8/python_8h_source.html#l00029">python::import()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;{</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>();</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">auto</span> pFunc = <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>(<span class="stringliteral">&quot;plot_slices&quot;</span>, <span class="stringliteral">&quot;plot_beam_profile_derivative&quot;</span>);</div>
@@ -266,8 +266,8 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="comment">// util::dump(derivative[i], &quot;derivative\n&quot;);</span></div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    }</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">auto</span> pX = <a class="code" href="../../de/d4a/namespacepython.html#ad0235e18865fdc48462d0361f898d019">python::convert_double_2d_array</a>(x);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">auto</span> pDerivative = <a class="code" href="../../de/d4a/namespacepython.html#ad0235e18865fdc48462d0361f898d019">python::convert_double_2d_array</a>(derivative);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">auto</span> pX = <a class="code" href="../../de/d4a/namespacepython.html#aded750ac9f79158f844ee939da42f420">python::convert_double_2d_array</a>(x);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">auto</span> pDerivative = <a class="code" href="../../de/d4a/namespacepython.html#aded750ac9f79158f844ee939da42f420">python::convert_double_2d_array</a>(derivative);</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">auto</span> pModes = <a class="code" href="../../de/d4a/namespacepython.html#aae3649b0cfb7cc13494115b355f2f15c">python::convert_string_array</a>(modes.data(), modes.size());</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">auto</span> pCounter = <a class="code" href="../../de/d4a/namespacepython.html#adb27db8de2c6c5b4f381fadcc86a4939">python::convert_int</a>(counter);</div>
@@ -329,7 +329,7 @@ Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d4/dfd/plot__slices_8cpp_source.html#l00061">61</a> of file <a class="el" href="../../d4/dfd/plot__slices_8cpp_source.html">plot_slices.cpp</a>.</p>
 
-<p>References <a class="el" href="../../d1/da8/python_8h_source.html#l00136">python::convert_complex_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00097">python::convert_double_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00065">python::convert_int()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00072">python::convert_string()</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00037">Slices::fBeamSpectrum</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00038">Slices::fBeamSpectrumFreq</a>, and <a class="el" href="../../d1/da8/python_8h_source.html#l00029">python::import()</a>.</p>
+<p>References <a class="el" href="../../d1/da8/python_8h_source.html#l00153">python::convert_complex_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00097">python::convert_double_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00065">python::convert_int()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00072">python::convert_string()</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00037">Slices::fBeamSpectrum</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00038">Slices::fBeamSpectrumFreq</a>, and <a class="el" href="../../d1/da8/python_8h_source.html#l00029">python::import()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;{</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>();</div>
@@ -372,7 +372,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_5d7403ebb2084c8168855698fd97528e.html">src</a></li><li class="navelem"><a class="el" href="../../dir_3476844eb5e48d0c1d763bee8b69b934.html">plots</a></li><li class="navelem"><a class="el" href="../../d4/dfd/plot__slices_8cpp.html">plot_slices.cpp</a></li>
-    <li class="footer">Generated on Thu Sep 29 2016 15:53:18 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Fri Sep 30 2016 10:35:06 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

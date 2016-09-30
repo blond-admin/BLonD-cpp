@@ -207,70 +207,81 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d8/d29/plot__impedance_8cpp_source.html#l00005">5</a> of file <a class="el" href="../../d8/d29/plot__impedance_8cpp_source.html">plot_impedance.cpp</a>.</p>
+<p>Definition at line <a class="el" href="../../d8/d29/plot__impedance_8cpp_source.html#l00004">4</a> of file <a class="el" href="../../d8/d29/plot__impedance_8cpp_source.html">plot_impedance.cpp</a>.</p>
 
-<p>References <a class="el" href="../../d1/da8/python_8h_source.html#l00136">python::convert_complex_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00119">python::convert_double_2d_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00097">python::convert_double_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00065">python::convert_int()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00072">python::convert_string()</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00037">Slices::fBeamSpectrum</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00038">Slices::fBeamSpectrumFreq</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00081">InducedVoltageFreq::fFreqArray</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00085">InducedVoltageFreq::fTotalImpedance</a>, and <a class="el" href="../../d1/da8/python_8h_source.html#l00029">python::import()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>();</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">auto</span> pFunc = <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>(<span class="stringliteral">&quot;plot_impedance&quot;</span>,</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;                                <span class="stringliteral">&quot;plot_impedance_vs_frequency&quot;</span>);</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">auto</span> pCounter = <a class="code" href="../../de/d4a/namespacepython.html#adb27db8de2c6c5b4f381fadcc86a4939">python::convert_int</a>(counter);</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">auto</span> pDirname = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(dirname);</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">auto</span> pStyle = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(style);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">auto</span> pOption1 = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(option1);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">auto</span> pOption2 = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(option2);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">auto</span> pOption3 = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(option3);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">auto</span> pCutLR = <a class="code" href="../../de/d4a/namespacepython.html#a38f56692b4793b00b074fc192783947e">python::convert_double_array</a>(cut_left_right.data(),</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                  cut_left_right.size());</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">auto</span> pCutUD = <a class="code" href="../../de/d4a/namespacepython.html#a38f56692b4793b00b074fc192783947e">python::convert_double_array</a>(cut_up_down.data(),</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                  cut_up_down.size());</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">auto</span> pTotalImpedance = <a class="code" href="../../de/d4a/namespacepython.html#ac861e0dca45fa6613832b68878c13528">python::convert_complex_array</a>(</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                               indVoltFreq-&gt;<a class="code" href="../../d5/de7/classInducedVoltageFreq.html#aaeb2840057e37802c7ff29c1d5b2487f">fTotalImpedance</a>.data(),</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                               indVoltFreq-&gt;<a class="code" href="../../d5/de7/classInducedVoltageFreq.html#aaeb2840057e37802c7ff29c1d5b2487f">fTotalImpedance</a>.size());</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">auto</span> pBeamSpec = <a class="code" href="../../de/d4a/namespacepython.html#ac861e0dca45fa6613832b68878c13528">python::convert_complex_array</a>(</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                         slices-&gt;<a class="code" href="../../dc/d45/classSlices.html#a33f3014f3986c7ee8b4580ca74aaab72">fBeamSpectrum</a>.data(),</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                         slices-&gt;<a class="code" href="../../dc/d45/classSlices.html#a33f3014f3986c7ee8b4580ca74aaab72">fBeamSpectrum</a>.size());</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">auto</span> pBeamSpecFreq = <a class="code" href="../../de/d4a/namespacepython.html#a38f56692b4793b00b074fc192783947e">python::convert_double_array</a>(</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                             slices-&gt;<a class="code" href="../../dc/d45/classSlices.html#a2c292b1090ee232f4d7e3b4bd43e500a">fBeamSpectrumFreq</a>.data(),</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                             slices-&gt;<a class="code" href="../../dc/d45/classSlices.html#a2c292b1090ee232f4d7e3b4bd43e500a">fBeamSpectrumFreq</a>.size());</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">auto</span> pFreqArray = <a class="code" href="../../de/d4a/namespacepython.html#a38f56692b4793b00b074fc192783947e">python::convert_double_array</a>(</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                          indVoltFreq-&gt;<a class="code" href="../../d5/de7/classInducedVoltageFreq.html#ab1c7bf0f443bef80d163ba81b878780c">fFreqArray</a>.data(),</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                          indVoltFreq-&gt;<a class="code" href="../../d5/de7/classInducedVoltageFreq.html#ab1c7bf0f443bef80d163ba81b878780c">fFreqArray</a>.size());</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="comment">// TODO</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="comment">// I still need to pass a double 2d array of</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="comment">// frequency_array/ frequency_array_loaded</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="comment">// and a 2d complec array of Re/Im_array_loaded or impedance</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="comment">// the first dimension is the number of elements in impedance_source_list</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a578604c41b2b32700ab03fc63ec857eb">f_vector_2d_t</a> freq_array_2d;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a578604c41b2b32700ab03fc63ec857eb">f_vector_2d_t</a> impedance_real_2d;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a578604c41b2b32700ab03fc63ec857eb">f_vector_2d_t</a> impedance_imag_2d;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="comment">// TODO</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="comment">// fill in the arrays above and we are done :)</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">auto</span> pFreqArray2D = <a class="code" href="../../de/d4a/namespacepython.html#ad0235e18865fdc48462d0361f898d019">python::convert_double_2d_array</a>(freq_array_2d);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">auto</span> pIMpedanceReal2D = <a class="code" href="../../de/d4a/namespacepython.html#ad0235e18865fdc48462d0361f898d019">python::convert_double_2d_array</a>(impedance_real_2d);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">auto</span> pIMpedanceImag2D = <a class="code" href="../../de/d4a/namespacepython.html#ad0235e18865fdc48462d0361f898d019">python::convert_double_2d_array</a>(impedance_imag_2d);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">auto</span> ret = PyObject_CallFunctionObjArgs(pFunc, pCounter, pFreqArray,</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                                            pTotalImpedance, pBeamSpec,</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                                            pBeamSpecFreq, pFreqArray2D,</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                                            pIMpedanceReal2D, pIMpedanceImag2D,</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                                            pOption1, pOption2, pOption3,</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                                            pStyle, pCutLR, pCutUD,</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                                            pDirname, NULL);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    assert(ret);</div>
+<p>References <a class="el" href="../../d1/da8/python_8h_source.html#l00153">python::convert_complex_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00136">python::convert_double_2d_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00097">python::convert_double_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00065">python::convert_int()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00072">python::convert_string()</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00037">Slices::fBeamSpectrum</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00038">Slices::fBeamSpectrumFreq</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00081">InducedVoltageFreq::fFreqArray</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00065">InducedVoltageFreq::fImpedanceSourceList</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00085">InducedVoltageFreq::fTotalImpedance</a>, and <a class="el" href="../../d1/da8/python_8h_source.html#l00029">python::import()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>();</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">auto</span> pFunc = <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>(<span class="stringliteral">&quot;plot_impedance&quot;</span>,</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;                                <span class="stringliteral">&quot;plot_impedance_vs_frequency&quot;</span>);</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">auto</span> pCounter = <a class="code" href="../../de/d4a/namespacepython.html#adb27db8de2c6c5b4f381fadcc86a4939">python::convert_int</a>(counter);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">auto</span> pDirname = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(dirname);</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">auto</span> pStyle = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(style);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">auto</span> pOption1 = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(option1);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">auto</span> pOption2 = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(option2);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">auto</span> pOption3 = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(option3);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">auto</span> pCutLR = <a class="code" href="../../de/d4a/namespacepython.html#a38f56692b4793b00b074fc192783947e">python::convert_double_array</a>(cut_left_right.data(),</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                  cut_left_right.size());</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">auto</span> pCutUD = <a class="code" href="../../de/d4a/namespacepython.html#a38f56692b4793b00b074fc192783947e">python::convert_double_array</a>(cut_up_down.data(),</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                  cut_up_down.size());</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">auto</span> pTotalImpedance = <a class="code" href="../../de/d4a/namespacepython.html#ac861e0dca45fa6613832b68878c13528">python::convert_complex_array</a>(</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                               indVoltFreq-&gt;<a class="code" href="../../d5/de7/classInducedVoltageFreq.html#aaeb2840057e37802c7ff29c1d5b2487f">fTotalImpedance</a>.data(),</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                               indVoltFreq-&gt;<a class="code" href="../../d5/de7/classInducedVoltageFreq.html#aaeb2840057e37802c7ff29c1d5b2487f">fTotalImpedance</a>.size());</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">auto</span> pBeamSpec = <a class="code" href="../../de/d4a/namespacepython.html#ac861e0dca45fa6613832b68878c13528">python::convert_complex_array</a>(</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                         slices-&gt;<a class="code" href="../../dc/d45/classSlices.html#a33f3014f3986c7ee8b4580ca74aaab72">fBeamSpectrum</a>.data(),</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                         slices-&gt;<a class="code" href="../../dc/d45/classSlices.html#a33f3014f3986c7ee8b4580ca74aaab72">fBeamSpectrum</a>.size());</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">auto</span> pBeamSpecFreq = <a class="code" href="../../de/d4a/namespacepython.html#a38f56692b4793b00b074fc192783947e">python::convert_double_array</a>(</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                             slices-&gt;<a class="code" href="../../dc/d45/classSlices.html#a2c292b1090ee232f4d7e3b4bd43e500a">fBeamSpectrumFreq</a>.data(),</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                             slices-&gt;<a class="code" href="../../dc/d45/classSlices.html#a2c292b1090ee232f4d7e3b4bd43e500a">fBeamSpectrumFreq</a>.size());</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">auto</span> pFreqArray = <a class="code" href="../../de/d4a/namespacepython.html#a38f56692b4793b00b074fc192783947e">python::convert_double_array</a>(</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                          indVoltFreq-&gt;<a class="code" href="../../d5/de7/classInducedVoltageFreq.html#ab1c7bf0f443bef80d163ba81b878780c">fFreqArray</a>.data(),</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                          indVoltFreq-&gt;<a class="code" href="../../d5/de7/classInducedVoltageFreq.html#ab1c7bf0f443bef80d163ba81b878780c">fFreqArray</a>.size());</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a578604c41b2b32700ab03fc63ec857eb">f_vector_2d_t</a> freq_array_2d;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a578604c41b2b32700ab03fc63ec857eb">f_vector_2d_t</a> impedance_real_2d;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a578604c41b2b32700ab03fc63ec857eb">f_vector_2d_t</a> impedance_imag_2d;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;intensity : indVoltFreq-&gt;<a class="code" href="../../d5/de7/classInducedVoltageFreq.html#af0cb209da8ad9c4bf54140bc4cc95c86">fImpedanceSourceList</a>) {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keyword">auto</span> p = <span class="keyword">dynamic_cast&lt;</span><a class="code" href="../../db/da5/classInputTable.html">InputTable</a> *<span class="keyword">&gt;</span>(intensity);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">if</span> (p != <span class="keyword">nullptr</span> &amp;&amp; option3 == <span class="stringliteral">&quot;freq_table&quot;</span>) {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            freq_array_2d.push_back(p-&gt;fFrequencyArrayLoaded);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            impedance_real_2d.push_back(p-&gt;fReZArrayLoaded);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            impedance_imag_2d.push_back(p-&gt;fImZArrayLoaded);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            freq_array_2d.push_back(indVoltFreq-&gt;<a class="code" href="../../d5/de7/classInducedVoltageFreq.html#ab1c7bf0f443bef80d163ba81b878780c">fFreqArray</a>);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> real, imag;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;z : intensity-&gt;fImpedance) {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                real.push_back(z.real());</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                imag.push_back(z.imag());</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            }</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            impedance_real_2d.push_back(real);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            impedance_imag_2d.push_back(imag);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        }</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    }</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keyword">auto</span> pFreqArray2D = <a class="code" href="../../de/d4a/namespacepython.html#aded750ac9f79158f844ee939da42f420">python::convert_double_2d_array</a>(freq_array_2d);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keyword">auto</span> pIMpedanceReal2D = <a class="code" href="../../de/d4a/namespacepython.html#aded750ac9f79158f844ee939da42f420">python::convert_double_2d_array</a>(impedance_real_2d);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">auto</span> pIMpedanceImag2D = <a class="code" href="../../de/d4a/namespacepython.html#aded750ac9f79158f844ee939da42f420">python::convert_double_2d_array</a>(impedance_imag_2d);</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;}</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">auto</span> ret = PyObject_CallFunctionObjArgs(pFunc, pCounter, pFreqArray,</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                                            pTotalImpedance, pBeamSpec,</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                                            pBeamSpecFreq, pFreqArray2D,</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                                            pIMpedanceReal2D, pIMpedanceImag2D,</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                                            pOption1, pOption2, pOption3,</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                                            pStyle, pCutLR, pCutUD,</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                                            pDirname, NULL);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    assert(ret);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;}</div>
 </div><!-- fragment -->
 <p><div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
@@ -326,32 +337,32 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d8/d29/plot__impedance_8cpp_source.html#l00079">79</a> of file <a class="el" href="../../d8/d29/plot__impedance_8cpp_source.html">plot_impedance.cpp</a>.</p>
+<p>Definition at line <a class="el" href="../../d8/d29/plot__impedance_8cpp_source.html#l00089">89</a> of file <a class="el" href="../../d8/d29/plot__impedance_8cpp_source.html">plot_impedance.cpp</a>.</p>
 
 <p>References <a class="el" href="../../dc/df2/Slices_8h_source.html#l00035">Slices::bin_centers</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00097">python::convert_double_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00065">python::convert_int()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00072">python::convert_string()</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00033">InducedVoltage::fInducedVoltage</a>, and <a class="el" href="../../d1/da8/python_8h_source.html#l00029">python::import()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;{</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>();</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">auto</span> pFunc = <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>(<span class="stringliteral">&quot;plot_impedance&quot;</span>,</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                                <span class="stringliteral">&quot;plot_induced_voltage_vs_bin_centers&quot;</span>);</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keyword">auto</span> pCounter = <a class="code" href="../../de/d4a/namespacepython.html#adb27db8de2c6c5b4f381fadcc86a4939">python::convert_int</a>(counter);</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keyword">auto</span> pDirname = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(dirname);</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keyword">auto</span> pStyle = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(style);</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keyword">auto</span> pBinCenters = <a class="code" href="../../de/d4a/namespacepython.html#a38f56692b4793b00b074fc192783947e">python::convert_double_array</a>(</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                           slices-&gt;<a class="code" href="../../dc/d45/classSlices.html#a20fe6ad5ead7011307efdd5a81392366">bin_centers</a>.data(),</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                           slices-&gt;<a class="code" href="../../dc/d45/classSlices.html#a20fe6ad5ead7011307efdd5a81392366">bin_centers</a>.size());</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keyword">auto</span> pInducedVoltage = <a class="code" href="../../de/d4a/namespacepython.html#a38f56692b4793b00b074fc192783947e">python::convert_double_array</a>(</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                               totIndVolt-&gt;<a class="code" href="../../dd/de2/classInducedVoltage.html#ab3b536669db5802b51f0d1e634dd5124">fInducedVoltage</a>.data(),</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                               totIndVolt-&gt;<a class="code" href="../../dd/de2/classInducedVoltage.html#ab3b536669db5802b51f0d1e634dd5124">fInducedVoltage</a>.size());</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keyword">auto</span> ret = PyObject_CallFunctionObjArgs(pFunc, pCounter, pBinCenters,</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                                            pInducedVoltage, pStyle,</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                                            pDirname, NULL);</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    assert(ret);</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;}</div>
+<div class="fragment"><div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;{</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>();</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keyword">auto</span> pFunc = <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>(<span class="stringliteral">&quot;plot_impedance&quot;</span>,</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                                <span class="stringliteral">&quot;plot_induced_voltage_vs_bin_centers&quot;</span>);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keyword">auto</span> pCounter = <a class="code" href="../../de/d4a/namespacepython.html#adb27db8de2c6c5b4f381fadcc86a4939">python::convert_int</a>(counter);</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keyword">auto</span> pDirname = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(dirname);</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keyword">auto</span> pStyle = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(style);</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keyword">auto</span> pBinCenters = <a class="code" href="../../de/d4a/namespacepython.html#a38f56692b4793b00b074fc192783947e">python::convert_double_array</a>(</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                           slices-&gt;<a class="code" href="../../dc/d45/classSlices.html#a20fe6ad5ead7011307efdd5a81392366">bin_centers</a>.data(),</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                           slices-&gt;<a class="code" href="../../dc/d45/classSlices.html#a20fe6ad5ead7011307efdd5a81392366">bin_centers</a>.size());</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keyword">auto</span> pInducedVoltage = <a class="code" href="../../de/d4a/namespacepython.html#a38f56692b4793b00b074fc192783947e">python::convert_double_array</a>(</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                               totIndVolt-&gt;<a class="code" href="../../dd/de2/classInducedVoltage.html#ab3b536669db5802b51f0d1e634dd5124">fInducedVoltage</a>.data(),</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                               totIndVolt-&gt;<a class="code" href="../../dd/de2/classInducedVoltage.html#ab3b536669db5802b51f0d1e634dd5124">fInducedVoltage</a>.size());</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keyword">auto</span> ret = PyObject_CallFunctionObjArgs(pFunc, pCounter, pBinCenters,</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;                                            pInducedVoltage, pStyle,</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                                            pDirname, NULL);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    assert(ret);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;}</div>
 </div><!-- fragment -->
 <p><div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
@@ -371,7 +382,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_5d7403ebb2084c8168855698fd97528e.html">src</a></li><li class="navelem"><a class="el" href="../../dir_3476844eb5e48d0c1d763bee8b69b934.html">plots</a></li><li class="navelem"><a class="el" href="../../d8/d29/plot__impedance_8cpp.html">plot_impedance.cpp</a></li>
-    <li class="footer">Generated on Thu Sep 29 2016 15:53:18 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Fri Sep 30 2016 10:35:06 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

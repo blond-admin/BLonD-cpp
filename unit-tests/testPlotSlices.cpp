@@ -82,7 +82,7 @@ TEST_F(testPlotSlices, plot_beam_profile1)
 
     auto slice = new Slices(N_slices);
 
-    plot_beam_profile(slice, 0);
+    ASSERT_EQ(plot_beam_profile(slice, 0), 1);
 
     delete slice;
 }
@@ -97,7 +97,7 @@ TEST_F(testPlotSlices, plot_beam_profile_derivative1)
 
     auto slice = new Slices(N_slices);
 
-    plot_beam_profile_derivative(slice, 0);
+    ASSERT_EQ(plot_beam_profile_derivative(slice, 0), 1);
 
     delete slice;
 }
@@ -112,8 +112,8 @@ TEST_F(testPlotSlices, plot_beam_profile_derivative2)
 
     auto slice = new Slices(N_slices);
 
-    plot_beam_profile_derivative(slice, 0, "-", "fig",
-    {"filter1d", "gradient", "diff"});
+    ASSERT_EQ(plot_beam_profile_derivative(slice, 0, "-", "fig",
+    {"filter1d", "gradient", "diff"}), 1);
 
     delete slice;
 }
@@ -129,7 +129,7 @@ TEST_F(testPlotSlices, plot_beam_spectrum1)
 
     auto slice = new Slices(N_slices);
 
-    plot_beam_spectrum(slice, 0);
+    ASSERT_EQ(plot_beam_spectrum(slice, 0), 1);
 
     delete slice;
 }

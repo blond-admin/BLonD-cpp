@@ -9,7 +9,7 @@
 
 // Simulation parameters
 // --------------------------------------------------------
-const ftype N_b = 1e9;      // Intensity
+const long long N_b = 1e9;      // Intensity
 const ftype tau_0 = 0.4e-9; // Initial bunch length, 4 sigma [s]
 
 // Machine and RF parameters

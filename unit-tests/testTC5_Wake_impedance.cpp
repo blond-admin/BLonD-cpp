@@ -18,7 +18,7 @@ class testTC5 : public ::testing::Test {
 
 protected:
 
-    const long long int N_b = (long int)1e10; // Intensity
+    const long long int N_b = 1e10; // Intensity
     const ftype tau_0 = 2e-9;  // Initial bunch length, 4 sigma [s]
     const ftype C = 6911.56;   // Machine circumference [m]
     const ftype p_i = 25.92e9; // Synchronous momentum [eV/c]

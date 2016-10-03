@@ -11,9 +11,9 @@ TEST(testPlotParameters, plot_voltage_programme1)
     f_vector_t voltage;
     for (int i = 0; i < 100; i++) {
         time.push_back(i);
-        voltage.push_back(10.0*i + 1.0);
+        voltage.push_back(10.0 * i + 1.0);
     }
-    plot_voltage_programme(time, voltage);
+    ASSERT_EQ(plot_voltage_programme(time, voltage), 1);
 }
 
 

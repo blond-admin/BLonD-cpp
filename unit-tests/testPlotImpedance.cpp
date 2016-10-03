@@ -19,7 +19,7 @@ using namespace std;
 class testPlotImpedance : public ::testing::Test {
 
 protected:
-    const long long int N_b = (long int)1e10; // Intensity
+    const long long int N_b = 1e10; // Intensity
     const ftype tau_0 = 2e-9;  // Initial bunch length, 4 sigma [s]
     const ftype C = 6911.56;   // Machine circumference [m]
     const ftype p_i = 25.92e9; // Synchronous momentum [eV/c]
@@ -106,7 +106,7 @@ TEST_F(testPlotImpedance, plot_impedance_vs_frequency1)
     std::vector<Intensity *> ImpSourceList({resonator});
     auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
 
-    plot_impedance_vs_frequency(0, indVoltFreq, slice);
+    ASSERT_EQ(plot_impedance_vs_frequency(0, indVoltFreq, slice), 1);
 
     delete indVoltFreq;
 }
@@ -129,13 +129,32 @@ TEST_F(testPlotImpedance, plot_impedance_vs_frequency2)
     std::vector<Intensity *> ImpSourceList({resonator});
     auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
 
-    plot_impedance_vs_frequency(0, indVoltFreq, slice, "sum", "no_spectrum",
-                                "freq_table");
+    ASSERT_EQ(plot_impedance_vs_frequency(0, indVoltFreq, slice, "sum",
+                                          "no_spectrum", "freq_table"), 1);
 
 
     delete indVoltFreq;
     delete inputTable;
 }
+
+TEST_F(testPlotImpedance, plot_induced_voltage_vs_bin_centers)
+{
+    auto slice = Context::Slice;
+
+    std::vector<Intensity *> wakeSourceList({resonator});
+    auto indVoltTime = new InducedVoltageTime(wakeSourceList);
+    std::vector<InducedVoltage *> indVoltList({indVoltTime});
+    auto totVol = new TotalInducedVoltage(indVoltList);
+    totVol->track();
+
+    ASSERT_EQ(plot_induced_voltage_vs_bin_centers(0, totVol, slice), 1);
+
+
+    delete indVoltTime;
+    delete totVol;
+
+}
+
 
 
 int main(int ac, char *av[])

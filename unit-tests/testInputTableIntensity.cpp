@@ -15,7 +15,7 @@ const std::string datafiles = DEMO_FILES "/TC5_Wake_impedance/";
 // Simulation parameters
 // --------------------------------------------------------
 // Bunch parameters
-const int N_b = (int)1e10; // Intensity
+const long long N_b = 1e10; // Intensity
 const ftype tau_0 = 2e-9;  // Initial bunch length, 4 sigma [s]
 // const particle_type particle = proton;
 // Machine and RF parameters

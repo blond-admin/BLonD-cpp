@@ -12,8 +12,7 @@
 #include <gtest/gtest.h>
 #include <stdio.h>
 
-
-Resonators *resonator;
+using namespace std;
 
 class testInducedVoltage : public ::testing::Test {
 
@@ -21,7 +20,7 @@ protected:
     // Simulation parameters
     // --------------------------------------------------------
     // Bunch parameters
-    const long long int N_b = (long int)1e10; // Intensity
+    const long long N_b = 1e10; // Intensity
     const ftype tau_0 = 2e-9; // Initial bunch length, 4 sigma [s]
     // const particle_type particle = proton;
     // Machine and RF parameters
@@ -29,7 +28,7 @@ protected:
     const ftype p_i = 25.92e9; // Synchronous momentum [eV/c]
     // const ftype p_f = 460.005e9;                  // Synchronous momentum,
     // final
-    const long long h = 4620;                     // Harmonic number
+    const long h = 4620;                     // Harmonic number
     const ftype V = 0.9e6;                        // RF voltage [V]
     const ftype dphi = 0;                         // Phase modulation/offset
     const ftype gamma_t = 1 / std::sqrt(0.00192); // Transition gamma
@@ -39,11 +38,12 @@ protected:
     const int n_sections = 1;
     // Tracking details
 
-    int N_t = 1000;       // Number of turns to track
-    int N_p = 5000; // Macro-particles
+    long N_t = 1000;       // Number of turns to track
+    long N_p = 5000; // Macro-particles
 
-    int N_slices = 1 << 8; // = (2^8)
-    const std::string datafiles = DEMO_FILES "/TC5_Wake_impedance/";
+    long N_slices = 1 << 8; // = (2^8)
+    const string datafiles = DEMO_FILES "/TC5_Wake_impedance/";
+    Resonators *resonator;
 
     virtual void SetUp()
     {
@@ -240,7 +240,6 @@ TEST_F(testInducedVoltage, generation1)
         return std::abs(i) < std::abs(j);
     });
     max = std::abs(max);
-    // cout << max << "\n";
     for (uint i = 0; i < v.size(); ++i) {
         ftype ref = v[i];
         ftype real = res[i];

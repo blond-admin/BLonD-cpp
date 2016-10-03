@@ -128,9 +128,6 @@ f_vector_t InducedVoltageTime::induced_voltage_generation(uint length)
                          / Beam->n_macroparticles;
 
     if (fTimeOrFreq == freq_domain) {
-        // std::vector<complex_t> fft1, fft2;
-        // f_vector_t in1 = (Slice->n_macroparticles,
-        //               Slice->n_macroparticles + Slice->n_slices);
         f_vector_t in1(Slice->n_slices);
         std::copy(Slice->n_macroparticles.begin(),
                   Slice->n_macroparticles.end(), in1.begin());

@@ -357,7 +357,7 @@ namespace fft {
     {
         complex_vector_t v1; //(signal.size());
         complex_vector_t v2; //(kernel.size());
-        const uint size = signal.size() + kernel.size() - 1;
+        const long unsigned size = signal.size() + kernel.size() - 1;
         res.resize(size);
 
         fft::rfft(signal, v1, size, omp_get_max_threads());

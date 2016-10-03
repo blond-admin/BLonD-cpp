@@ -82,7 +82,7 @@ TEST_F(testPlotBeams, plot_long_phase_space1)
     auto RfP = Context::RfP;
     auto Beam = Context::Beam;
 
-    plot_long_phase_space(GP, RfP, Beam, 0., 1e-5, -1e7, 1e7);
+    ASSERT_EQ(plot_long_phase_space(GP, RfP, Beam, 0., 1e-5, -1e7, 1e7), 1);
 
 }
 
@@ -94,7 +94,8 @@ TEST_F(testPlotBeams, plot_long_phase_space2)
     auto RfP = Context::RfP;
     auto Beam = Context::Beam;
 
-    plot_long_phase_space(GP, RfP, Beam, 0., 1e-5, -1e7, 1e7,  "s", 1, true);
+    ASSERT_EQ(plot_long_phase_space(GP, RfP, Beam, 0., 1e-5,
+                                    -1e7, 1e7,  "s", 1, true), 1);
 
 }
 
@@ -104,7 +105,7 @@ TEST_F(testPlotBeams, plot_bunch_length_evol1)
     auto RfP = Context::RfP;
     auto Beam = Context::Beam;
 
-    plot_bunch_length_evol(RfP, h5file);
+    ASSERT_EQ(plot_bunch_length_evol(RfP, h5file), 1);
 
 }
 
@@ -128,7 +129,7 @@ TEST_F(testPlotBeams, plot_position_evol1)
     auto RfP = Context::RfP;
     auto Beam = Context::Beam;
 
-    plot_position_evol(RfP, h5file);
+    ASSERT_EQ(plot_position_evol(RfP, h5file), 1);
 
 }
 
@@ -140,7 +141,7 @@ TEST_F(testPlotBeams, plot_energy_evol1)
     auto RfP = Context::RfP;
     auto Beam = Context::Beam;
 
-    plot_energy_evol(RfP, h5file);
+    ASSERT_EQ(plot_energy_evol(RfP, h5file), 1);
 
 }
 
@@ -151,7 +152,7 @@ TEST_F(testPlotBeams, plot_transmitted_particles1)
     auto RfP = Context::RfP;
     auto Beam = Context::Beam;
 
-    plot_transmitted_particles(RfP, h5file);
+    ASSERT_EQ(plot_transmitted_particles(RfP, h5file), 1);
 
 }
 

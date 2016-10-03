@@ -471,7 +471,7 @@ $(document).ready(function(){initNavTree('d7/d76/fft_8h_source.html','../../');}
 <div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;    {</div>
 <div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a875b9fae4b39f3f3a363bd3732836b71">complex_vector_t</a> v1; <span class="comment">//(signal.size());</span></div>
 <div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a875b9fae4b39f3f3a363bd3732836b71">complex_vector_t</a> v2; <span class="comment">//(kernel.size());</span></div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;        <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> size = signal.size() + kernel.size() - 1;</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">long</span> <span class="keywordtype">unsigned</span> size = signal.size() + kernel.size() - 1;</div>
 <div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;        res.resize(size);</div>
 <div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;</div>
 <div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;        <a class="code" href="../../d8/de0/namespacefft.html#a789573d204d06c288f6b74c45cd92137">fft::rfft</a>(signal, v1, size, omp_get_max_threads());</div>
@@ -491,7 +491,7 @@ $(document).ready(function(){initNavTree('d7/d76/fft_8h_source.html','../../');}
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_b2c71bdfd3af65c97a5a70fadf3dc512.html">include</a></li><li class="navelem"><a class="el" href="../../dir_c0e22518f92c7490e2ab56f92eef9024.html">blond</a></li><li class="navelem"><a class="el" href="../../d7/d76/fft_8h.html">fft.h</a></li>
-    <li class="footer">Generated on Mon Oct 3 2016 10:11:07 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Mon Oct 3 2016 11:10:13 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

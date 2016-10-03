@@ -292,7 +292,7 @@ Variables</h2></td></tr>
 <div class="fragment"><div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;    {</div>
 <div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a875b9fae4b39f3f3a363bd3732836b71">complex_vector_t</a> v1; <span class="comment">//(signal.size());</span></div>
 <div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a875b9fae4b39f3f3a363bd3732836b71">complex_vector_t</a> v2; <span class="comment">//(kernel.size());</span></div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;        <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> size = signal.size() + kernel.size() - 1;</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">long</span> <span class="keywordtype">unsigned</span> size = signal.size() + kernel.size() - 1;</div>
 <div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;        res.resize(size);</div>
 <div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;</div>
 <div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;        <a class="code" href="../../d8/de0/namespacefft.html#a789573d204d06c288f6b74c45cd92137">fft::rfft</a>(signal, v1, size, omp_get_max_threads());</div>
@@ -378,7 +378,7 @@ Variables</h2></td></tr>
 
 <p>References <a class="el" href="../../d7/d76/fft_8h_source.html#l00050">planV</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00281">InducedVoltageFreq::~InducedVoltageFreq()</a>, <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00070">InducedVoltageTime::~InducedVoltageTime()</a>, <a class="el" href="../../db/d82/PhaseNoise_8cpp_source.html#l00377">LHCFlatSpectrum::~LHCFlatSpectrum()</a>, <a class="el" href="../../db/d82/PhaseNoise_8cpp_source.html#l00273">PSBPhaseNoiseInjection::~PSBPhaseNoiseInjection()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00038">Slices::~Slices()</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00456">TotalInducedVoltage::~TotalInducedVoltage()</a>.</p>
+<p>Referenced by <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00278">InducedVoltageFreq::~InducedVoltageFreq()</a>, <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00070">InducedVoltageTime::~InducedVoltageTime()</a>, <a class="el" href="../../db/d82/PhaseNoise_8cpp_source.html#l00377">LHCFlatSpectrum::~LHCFlatSpectrum()</a>, <a class="el" href="../../db/d82/PhaseNoise_8cpp_source.html#l00273">PSBPhaseNoiseInjection::~PSBPhaseNoiseInjection()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00038">Slices::~Slices()</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00453">TotalInducedVoltage::~TotalInducedVoltage()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    {</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        <span class="comment">// std::cout&lt;&lt;&quot;planV size = &quot; &lt;&lt; planV.size()&lt;&lt;&quot;\n&quot;;</span></div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;i : <a class="code" href="../../d8/de0/namespacefft.html#a8fc3251bf2569d17dafebf18890da294">planV</a>) {</div>
@@ -1026,7 +1026,7 @@ Variables</h2></td></tr>
 
 <p>References <a class="el" href="../../d7/d76/fft_8h_source.html#l00166">find_plan()</a>, <a class="el" href="../../d7/d76/fft_8h_source.html#l00040">IRFFT</a>, <a class="el" href="../../d7/d76/fft_8h_source.html#l00050">planV</a>, and <a class="el" href="../../d7/d76/fft_8h_source.html#l00149">run_fft()</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d7/d76/fft_8h_source.html#l00354">convolution_with_ffts()</a>, <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00361">InducedVoltageFreq::induced_voltage_generation()</a>, and <a class="el" href="../../db/d82/PhaseNoise_8cpp_source.html#l00017">PhaseNoise::spectrum_to_phase_noise()</a>.</p>
+<p>Referenced by <a class="el" href="../../d7/d76/fft_8h_source.html#l00354">convolution_with_ffts()</a>, <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00358">InducedVoltageFreq::induced_voltage_generation()</a>, and <a class="el" href="../../db/d82/PhaseNoise_8cpp_source.html#l00017">PhaseNoise::spectrum_to_phase_noise()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    {</div>
 <div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;        n = (n == 0) ? 2 * (in.size() - 1) : n;</div>
 <div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;        <span class="comment">// std::cout &lt;&lt; &quot;out size will be &quot; &lt;&lt; n &lt;&lt; &quot;\n&quot;;</span></div>
@@ -1275,7 +1275,7 @@ Variables</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d7/d76/fft_8h_source.html#l00342">342</a> of file <a class="el" href="../../d7/d76/fft_8h_source.html">fft.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00409">Slices::beam_spectrum_generation()</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00174">InducedVoltageFreq::InducedVoltageFreq()</a>.</p>
+<p>Referenced by <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00409">Slices::beam_spectrum_generation()</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00171">InducedVoltageFreq::InducedVoltageFreq()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;    {</div>
 <div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> v(n / 2 + 1);</div>
 <div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;        <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> factor = 1.0 / (d * n);</div>
@@ -1428,7 +1428,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../d8/de0/namespacefft.html">fft</a></li>
-    <li class="footer">Generated on Mon Oct 3 2016 10:11:08 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Mon Oct 3 2016 11:10:14 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

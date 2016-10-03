@@ -119,34 +119,35 @@ $(document).ready(function(){initNavTree('da/d77/plot__impedance_8h_source.html'
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../d9/dee/InducedVoltage_8h.html">blond/impedances/InducedVoltage.h</a>&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../dc/df2/Slices_8h.html">blond/beams/Slices.h</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d8/d29/plot__impedance_8cpp.html#a3c723db6c0ceec729ff02eacfb9f5fe0">plot_impedance_vs_frequency</a>(<span class="keywordtype">int</span> counter, <a class="code" href="../../d5/de7/classInducedVoltageFreq.html">InducedVoltageFreq</a> *indVoltFreq,</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;                                 <a class="code" href="../../dc/d45/classSlices.html">Slices</a> *slices,</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;                                 std::string option1 = <span class="stringliteral">&quot;sum&quot;</span>,</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;                                 std::string option2 = <span class="stringliteral">&quot;no_spectrum&quot;</span>,</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;                                 std::string option3 = <span class="stringliteral">&quot;freq_fft&quot;</span>,</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;                                 std::string style = <span class="stringliteral">&quot;-&quot;</span>,</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                                 <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> cut_left_right = {},</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;                                 <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> cut_up_down = {},</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;                                 std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>);</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../d1/da8/python_8h.html">blond/python.h</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d8/d29/plot__impedance_8cpp.html#a851f94bda95411e0961ab077b3f6d94f">plot_impedance_vs_frequency</a>(<span class="keywordtype">int</span> counter, <a class="code" href="../../d5/de7/classInducedVoltageFreq.html">InducedVoltageFreq</a> *indVoltFreq,</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;                                 <a class="code" href="../../dc/d45/classSlices.html">Slices</a> *slices,</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;                                 std::string option1 = <span class="stringliteral">&quot;sum&quot;</span>,</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;                                 std::string option2 = <span class="stringliteral">&quot;no_spectrum&quot;</span>,</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;                                 std::string option3 = <span class="stringliteral">&quot;freq_fft&quot;</span>,</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                                 std::string style = <span class="stringliteral">&quot;-&quot;</span>,</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;                                 <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> cut_left_right = {},</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;                                 <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> cut_up_down = {},</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;                                 std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>);</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d8/d29/plot__impedance_8cpp.html#a2bf5b32574c435d33327b93268a37456">plot_induced_voltage_vs_bin_centers</a>(<span class="keywordtype">int</span> counter,</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <a class="code" href="../../d4/dd7/classTotalInducedVoltage.html">TotalInducedVoltage</a> *totIndVolt,</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <a class="code" href="../../dc/d45/classSlices.html">Slices</a> *slices,</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        std::string style = <span class="stringliteral">&quot;-&quot;</span>,</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d8/d29/plot__impedance_8cpp.html#a4ea06285dfaba91de62edc8a0c3310f5">plot_induced_voltage_vs_bin_centers</a>(<span class="keywordtype">int</span> counter,</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <a class="code" href="../../d4/dd7/classTotalInducedVoltage.html">TotalInducedVoltage</a> *totIndVolt,</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <a class="code" href="../../dc/d45/classSlices.html">Slices</a> *slices,</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        std::string style = <span class="stringliteral">&quot;-&quot;</span>,</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>);</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* INCLUDE_BLOND_PLOTS_PLOT_IMPEDANCE_H_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* INCLUDE_BLOND_PLOTS_PLOT_IMPEDANCE_H_ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_b2c71bdfd3af65c97a5a70fadf3dc512.html">include</a></li><li class="navelem"><a class="el" href="../../dir_c0e22518f92c7490e2ab56f92eef9024.html">blond</a></li><li class="navelem"><a class="el" href="../../dir_acefc2b4e542c43fbc30a2faea09b820.html">plots</a></li><li class="navelem"><a class="el" href="../../da/d77/plot__impedance_8h.html">plot_impedance.h</a></li>
-    <li class="footer">Generated on Fri Sep 30 2016 10:35:06 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Mon Oct 3 2016 10:11:07 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

@@ -115,13 +115,14 @@ $(document).ready(function(){initNavTree('d8/d1b/plot__parameters_8h.html','../.
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="../../d2/d2c/configuration_8h_source.html">blond/configuration.h</a>&gt;</code><br/>
+<code>#include &lt;<a class="el" href="../../d1/da8/python_8h_source.html">blond/python.h</a>&gt;</code><br/>
 <code>#include &lt;string&gt;</code><br/>
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Include dependency graph for plot_parameters.h:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../dc/d2d/plot__parameters_8h__incl.svg" width="238" height="195"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../dc/d2d/plot__parameters_8h__incl.svg" width="595" height="291"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </div><div class="textblock"><div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -137,16 +138,16 @@ $(document).ready(function(){initNavTree('d8/d1b/plot__parameters_8h.html','../.
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a12d0870215c7365ba3c9b175bc7e18c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d1b/plot__parameters_8h.html#a12d0870215c7365ba3c9b175bc7e18c5">plot_voltage_programme</a> (<a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> &amp;time, <a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> &amp;voltage, int sampling=1, std::string dirname=&quot;fig&quot;, int figno=0)</td></tr>
-<tr class="separator:a12d0870215c7365ba3c9b175bc7e18c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85d8f3cd2cb068b4acb7e34897d0d622"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d1b/plot__parameters_8h.html#a85d8f3cd2cb068b4acb7e34897d0d622">plot_voltage_programme</a> (<a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> &amp;time, <a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> &amp;voltage, int sampling=1, std::string dirname=&quot;fig&quot;, int figno=0)</td></tr>
+<tr class="separator:a85d8f3cd2cb068b4acb7e34897d0d622"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a12d0870215c7365ba3c9b175bc7e18c5"></a>
+<a class="anchor" id="a85d8f3cd2cb068b4acb7e34897d0d622"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void plot_voltage_programme </td>
+          <td class="memname">int plot_voltage_programme </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> &amp;&#160;</td>
           <td class="paramname"><em>time</em>, </td>
@@ -201,7 +202,7 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">auto</span> ret = PyObject_CallFunctionObjArgs(pFunc, pTime, pVoltage, pSampling,</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;                                            pDirname, pFigno, NULL);</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    assert(ret);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">return</span> ret != <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
@@ -211,7 +212,7 @@ Functions</h2></td></tr>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../d8/d1b/plot__parameters_8h_a12d0870215c7365ba3c9b175bc7e18c5_cgraph.svg" width="382" height="216"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d8/d1b/plot__parameters_8h_a85d8f3cd2cb068b4acb7e34897d0d622_cgraph.svg" width="382" height="216"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </p>
@@ -224,7 +225,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_b2c71bdfd3af65c97a5a70fadf3dc512.html">include</a></li><li class="navelem"><a class="el" href="../../dir_c0e22518f92c7490e2ab56f92eef9024.html">blond</a></li><li class="navelem"><a class="el" href="../../dir_acefc2b4e542c43fbc30a2faea09b820.html">plots</a></li><li class="navelem"><a class="el" href="../../d8/d1b/plot__parameters_8h.html">plot_parameters.h</a></li>
-    <li class="footer">Generated on Fri Sep 30 2016 10:35:06 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Mon Oct 3 2016 10:11:08 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

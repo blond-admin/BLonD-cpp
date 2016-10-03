@@ -121,7 +121,7 @@ $(document).ready(function(){initNavTree('d2/d3c/plot__parameters_8cpp.html','..
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../d5/d09/plot__parameters_8cpp__incl.svg" width="664" height="291"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d5/d09/plot__parameters_8cpp__incl.svg" width="595" height="368"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </div>
@@ -129,16 +129,16 @@ $(document).ready(function(){initNavTree('d2/d3c/plot__parameters_8cpp.html','..
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a5553aa2385e6d8045cf1cec1c2d85200"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d3c/plot__parameters_8cpp.html#a5553aa2385e6d8045cf1cec1c2d85200">plot_voltage_programme</a> (<a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> &amp;time, <a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> &amp;voltage, int sampling, std::string dirname, int figno)</td></tr>
-<tr class="separator:a5553aa2385e6d8045cf1cec1c2d85200"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada23365ba3d3b48a1b7441ce03440894"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d3c/plot__parameters_8cpp.html#ada23365ba3d3b48a1b7441ce03440894">plot_voltage_programme</a> (<a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> &amp;time, <a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> &amp;voltage, int sampling, std::string dirname, int figno)</td></tr>
+<tr class="separator:ada23365ba3d3b48a1b7441ce03440894"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a5553aa2385e6d8045cf1cec1c2d85200"></a>
+<a class="anchor" id="ada23365ba3d3b48a1b7441ce03440894"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void plot_voltage_programme </td>
+          <td class="memname">int plot_voltage_programme </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> &amp;&#160;</td>
           <td class="paramname"><em>time</em>, </td>
@@ -193,7 +193,7 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">auto</span> ret = PyObject_CallFunctionObjArgs(pFunc, pTime, pVoltage, pSampling,</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;                                            pDirname, pFigno, NULL);</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    assert(ret);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">return</span> ret != <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
@@ -203,7 +203,7 @@ Functions</h2></td></tr>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../d2/d3c/plot__parameters_8cpp_a5553aa2385e6d8045cf1cec1c2d85200_cgraph.svg" width="382" height="216"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d2/d3c/plot__parameters_8cpp_ada23365ba3d3b48a1b7441ce03440894_cgraph.svg" width="382" height="216"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </p>
@@ -216,7 +216,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_5d7403ebb2084c8168855698fd97528e.html">src</a></li><li class="navelem"><a class="el" href="../../dir_3476844eb5e48d0c1d763bee8b69b934.html">plots</a></li><li class="navelem"><a class="el" href="../../d2/d3c/plot__parameters_8cpp.html">plot_parameters.cpp</a></li>
-    <li class="footer">Generated on Fri Sep 30 2016 10:35:06 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Mon Oct 3 2016 10:11:08 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

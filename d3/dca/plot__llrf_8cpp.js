@@ -1,16 +1,16 @@
 var plot__llrf_8cpp =
 [
-    [ "plot_COM_motion", "d3/dca/plot__llrf_8cpp.html#a5a26dca1ec3dffe17f8fd5260b8a1b0d", null ],
-    [ "plot_LHCNoiseFB", "d3/dca/plot__llrf_8cpp.html#af7f647e218d02b02bbf4250e6a9382a3", null ],
-    [ "plot_LHCNoiseFB_FWHM", "d3/dca/plot__llrf_8cpp.html#a51ea68707cb1a56eae56cb3775faf9d1", null ],
-    [ "plot_LHCNoiseFB_FWHM_bbb", "d3/dca/plot__llrf_8cpp.html#a3edffe772e24c2b5b24bb66c30713335", null ],
-    [ "plot_noise_spectrum", "d3/dca/plot__llrf_8cpp.html#a6fef34498b5b906cb61c5eb289e24d5b", null ],
-    [ "plot_phase_noise", "d3/dca/plot__llrf_8cpp.html#ac32d36c7e1388991f0d06c7b99694658", null ],
-    [ "plot_PL_bunch_phase", "d3/dca/plot__llrf_8cpp.html#a9a5c4c645a00f48fa2cd531d62d19bf6", null ],
-    [ "plot_PL_freq_corr", "d3/dca/plot__llrf_8cpp.html#a4eb6ab27bb09d0fda1834887640f303a", null ],
-    [ "plot_PL_phase_corr", "d3/dca/plot__llrf_8cpp.html#a7e5ceda4c9017411f1b401d31c05c2f7", null ],
-    [ "plot_PL_RF_freq", "d3/dca/plot__llrf_8cpp.html#ac4e2df904737411f9002f904d5e6ff81", null ],
-    [ "plot_PL_RF_phase", "d3/dca/plot__llrf_8cpp.html#ae145527cb2bab6376e1cf61123fb53f2", null ],
-    [ "plot_RF_phase_error", "d3/dca/plot__llrf_8cpp.html#a04f574a3c1188657f9dfc22db62791f7", null ],
-    [ "plot_RL_radial_error", "d3/dca/plot__llrf_8cpp.html#a1f1d899ddfa8ed117b10a473b7547738", null ]
+    [ "plot_COM_motion", "d3/dca/plot__llrf_8cpp.html#a8e53081e319d1e9e79796ddd4cfcfa3f", null ],
+    [ "plot_LHCNoiseFB", "d3/dca/plot__llrf_8cpp.html#ae11d7dcf6ae700e4454f00c6bb5ad6d9", null ],
+    [ "plot_LHCNoiseFB_FWHM", "d3/dca/plot__llrf_8cpp.html#ad4efd00981d0d79f694b73d260c42baa", null ],
+    [ "plot_LHCNoiseFB_FWHM_bbb", "d3/dca/plot__llrf_8cpp.html#ad264906a8be4ff269af37febef34251b", null ],
+    [ "plot_noise_spectrum", "d3/dca/plot__llrf_8cpp.html#a3ce107f897563a674c3dcfd0ceafab2b", null ],
+    [ "plot_phase_noise", "d3/dca/plot__llrf_8cpp.html#ae45dccac8b3363794a59b0795cf76d77", null ],
+    [ "plot_PL_bunch_phase", "d3/dca/plot__llrf_8cpp.html#afc23b809976d8f884eed368b3da22f81", null ],
+    [ "plot_PL_freq_corr", "d3/dca/plot__llrf_8cpp.html#ad5f147c9ce832d06926c5710297f91de", null ],
+    [ "plot_PL_phase_corr", "d3/dca/plot__llrf_8cpp.html#aff1a3a32521187f5f9d71bb0f2af7c40", null ],
+    [ "plot_PL_RF_freq", "d3/dca/plot__llrf_8cpp.html#a49b90eec0fa81b680b7ec4adfea8095e", null ],
+    [ "plot_PL_RF_phase", "d3/dca/plot__llrf_8cpp.html#ab630273c00ebea4fb57badf91ae966b1", null ],
+    [ "plot_RF_phase_error", "d3/dca/plot__llrf_8cpp.html#ad1cf3364708ea35b11093e6e06728e45", null ],
+    [ "plot_RL_radial_error", "d3/dca/plot__llrf_8cpp.html#ad6f7ddc82f08146a8ed8f129b7da7c37", null ]
 ];

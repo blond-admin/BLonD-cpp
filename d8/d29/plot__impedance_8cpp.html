@@ -129,18 +129,18 @@ $(document).ready(function(){initNavTree('d8/d29/plot__impedance_8cpp.html','../
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a3c723db6c0ceec729ff02eacfb9f5fe0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d29/plot__impedance_8cpp.html#a3c723db6c0ceec729ff02eacfb9f5fe0">plot_impedance_vs_frequency</a> (int counter, <a class="el" href="../../d5/de7/classInducedVoltageFreq.html">InducedVoltageFreq</a> *indVoltFreq, <a class="el" href="../../dc/d45/classSlices.html">Slices</a> *slices, std::string option1, std::string option2, std::string option3, std::string style, <a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> cut_left_right, <a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> cut_up_down, std::string dirname)</td></tr>
-<tr class="separator:a3c723db6c0ceec729ff02eacfb9f5fe0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2bf5b32574c435d33327b93268a37456"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d29/plot__impedance_8cpp.html#a2bf5b32574c435d33327b93268a37456">plot_induced_voltage_vs_bin_centers</a> (int counter, <a class="el" href="../../d4/dd7/classTotalInducedVoltage.html">TotalInducedVoltage</a> *totIndVolt, <a class="el" href="../../dc/d45/classSlices.html">Slices</a> *slices, std::string style, std::string dirname)</td></tr>
-<tr class="separator:a2bf5b32574c435d33327b93268a37456"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a851f94bda95411e0961ab077b3f6d94f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d29/plot__impedance_8cpp.html#a851f94bda95411e0961ab077b3f6d94f">plot_impedance_vs_frequency</a> (int counter, <a class="el" href="../../d5/de7/classInducedVoltageFreq.html">InducedVoltageFreq</a> *indVoltFreq, <a class="el" href="../../dc/d45/classSlices.html">Slices</a> *slices, std::string option1, std::string option2, std::string option3, std::string style, <a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> cut_left_right, <a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> cut_up_down, std::string dirname)</td></tr>
+<tr class="separator:a851f94bda95411e0961ab077b3f6d94f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ea06285dfaba91de62edc8a0c3310f5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d29/plot__impedance_8cpp.html#a4ea06285dfaba91de62edc8a0c3310f5">plot_induced_voltage_vs_bin_centers</a> (int counter, <a class="el" href="../../d4/dd7/classTotalInducedVoltage.html">TotalInducedVoltage</a> *totIndVolt, <a class="el" href="../../dc/d45/classSlices.html">Slices</a> *slices, std::string style, std::string dirname)</td></tr>
+<tr class="separator:a4ea06285dfaba91de62edc8a0c3310f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a3c723db6c0ceec729ff02eacfb9f5fe0"></a>
+<a class="anchor" id="a851f94bda95411e0961ab077b3f6d94f"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void plot_impedance_vs_frequency </td>
+          <td class="memname">int plot_impedance_vs_frequency </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>counter</em>, </td>
@@ -279,7 +279,7 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                                            pOption1, pOption2, pOption3,</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                                            pStyle, pCutLR, pCutUD,</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                                            pDirname, NULL);</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    assert(ret);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">return</span> ret != <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;}</div>
 </div><!-- fragment -->
@@ -288,19 +288,19 @@ Functions</h2></td></tr>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../d8/d29/plot__impedance_8cpp_a3c723db6c0ceec729ff02eacfb9f5fe0_cgraph.svg" width="427" height="355"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d8/d29/plot__impedance_8cpp_a851f94bda95411e0961ab077b3f6d94f_cgraph.svg" width="427" height="355"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </p>
 
 </div>
 </div>
-<a class="anchor" id="a2bf5b32574c435d33327b93268a37456"></a>
+<a class="anchor" id="a4ea06285dfaba91de62edc8a0c3310f5"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void plot_induced_voltage_vs_bin_centers </td>
+          <td class="memname">int plot_induced_voltage_vs_bin_centers </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>counter</em>, </td>
@@ -361,7 +361,7 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keyword">auto</span> ret = PyObject_CallFunctionObjArgs(pFunc, pCounter, pBinCenters,</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;                                            pInducedVoltage, pStyle,</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                                            pDirname, NULL);</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    assert(ret);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordflow">return</span> ret != <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;}</div>
 </div><!-- fragment -->
 <p><div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -369,7 +369,7 @@ Functions</h2></td></tr>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../d8/d29/plot__impedance_8cpp_a2bf5b32574c435d33327b93268a37456_cgraph.svg" width="360" height="216"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d8/d29/plot__impedance_8cpp_a4ea06285dfaba91de62edc8a0c3310f5_cgraph.svg" width="360" height="216"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </p>
@@ -382,7 +382,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_5d7403ebb2084c8168855698fd97528e.html">src</a></li><li class="navelem"><a class="el" href="../../dir_3476844eb5e48d0c1d763bee8b69b934.html">plots</a></li><li class="navelem"><a class="el" href="../../d8/d29/plot__impedance_8cpp.html">plot_impedance.cpp</a></li>
-    <li class="footer">Generated on Fri Sep 30 2016 10:35:06 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Mon Oct 3 2016 10:11:08 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

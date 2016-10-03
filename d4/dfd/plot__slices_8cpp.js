@@ -1,6 +1,6 @@
 var plot__slices_8cpp =
 [
-    [ "plot_beam_profile", "d4/dfd/plot__slices_8cpp.html#aba15ca712ef5f021d33bfc6b8391281c", null ],
-    [ "plot_beam_profile_derivative", "d4/dfd/plot__slices_8cpp.html#a4e7cc8d24487215b73534ebbcb8913e0", null ],
-    [ "plot_beam_spectrum", "d4/dfd/plot__slices_8cpp.html#abf08a2802b1956462d14b35d31d1c506", null ]
+    [ "plot_beam_profile", "d4/dfd/plot__slices_8cpp.html#a43d17a220d6ee73c507d596b0f0d6ae6", null ],
+    [ "plot_beam_profile_derivative", "d4/dfd/plot__slices_8cpp.html#aad9cd9be5d81bbff046cb2dd55fb10aa", null ],
+    [ "plot_beam_spectrum", "d4/dfd/plot__slices_8cpp.html#aba732f61f3a9c50f4559f06304237e75", null ]
 ];

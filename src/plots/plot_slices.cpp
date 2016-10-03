@@ -3,9 +3,9 @@
 #include <blond/utilities.h>
 
 int plot_beam_profile(Slices *Slices,
-                       int counter,
-                       std::string style,
-                       std::string dirname)
+                      int counter,
+                      std::string style,
+                      std::string dirname)
 {
     // python::initialize();
     python::import();
@@ -28,22 +28,25 @@ int plot_beam_profile(Slices *Slices,
 
 
 int plot_beam_profile_derivative(Slices *Slices,
-                                  int counter,
-                                  std::string style,
-                                  std::string dirname,
-                                  string_vector_t modes)
+                                 int counter,
+                                 std::string style,
+                                 std::string dirname,
+                                 string_vector_t modes)
 {
     python::import();
     auto pFunc = python::import("plot_slices", "plot_beam_profile_derivative");
 
     f_vector_2d_t x(modes.size(), f_vector_t());
     f_vector_2d_t derivative(modes.size(), f_vector_t());
-    for (uint i = 0; i < modes.size(); i++) {
-        Slices->beam_profile_derivative(x[i], derivative[i], modes[i]);
-        // util::dump(x[i], "x\n", 5);
-        // util::dump(derivative[i], "derivative\n");
-    }
 
+    for (uint i = 0; i < modes.size(); i++)
+        Slices->beam_profile_derivative(x[i], derivative[i], modes[i]);
+
+    // for (auto &r : x){
+    //     std::cout << "new row\n";
+    //     for (auto &i : r)
+    //         std::cout << i << "\n";
+    // }
     auto pX = python::convert_double_2d_array(x);
     auto pDerivative = python::convert_double_2d_array(derivative);
 
@@ -58,8 +61,8 @@ int plot_beam_profile_derivative(Slices *Slices,
 }
 
 int plot_beam_spectrum(Slices *Slices, int counter,
-                        std::string style,
-                        std::string dirname)
+                       std::string style,
+                       std::string dirname)
 {
 
     python::import();

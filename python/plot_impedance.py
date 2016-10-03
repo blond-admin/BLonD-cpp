@@ -41,6 +41,10 @@ def plot_impedance_vs_frequency(counter,
 
     frequency_array = np.array(frequency_array)
     total_impedance = np.array(total_impedance)
+    freq_array_2d = np.array(freq_array_2d)
+    impedance_real_2d = np.array(impedance_real_2d)
+    impedance_imag_2d = np.array(impedance_imag_2d)
+
     if option1 == "sum":
         ax1 = plt.subplots()[1]
         ax1.plot(frequency_array, total_impedance.real, style)

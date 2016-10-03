@@ -7,11 +7,10 @@
 // Avoid tons of warnings with root code
 #pragma GCC system_header
 #endif
+
 #include <Python.h>
 #include <numpy/core/include/numpy/arrayobject.h>
-// #include <iostream>
 #include <map>
-// #include <complex>
 #include <blond/configuration.h>
 #include <algorithm>
 
@@ -87,8 +86,8 @@ namespace python {
     static inline PyArrayObject *convert_int_array(int *array, int size)
     {
         int dims[1] = {size};
-        auto pVar = (PyArrayObject *) PyArray_FromDimsAndData(1, dims, NPY_INT,
-                    (char *)array);
+        auto pVar = (PyArrayObject *) PyArray_FromDimsAndData(1, dims,
+                    NPY_INT, (char *)array);
 
         assert(pVar);
         return pVar;
@@ -97,8 +96,8 @@ namespace python {
     static inline PyArrayObject *convert_double_array(double *array, int size)
     {
         int dims[1] = {size};
-        auto pVar = (PyArrayObject *) PyArray_FromDimsAndData(1, dims, NPY_DOUBLE,
-                    (char *)array);
+        auto pVar = (PyArrayObject *) PyArray_FromDimsAndData(1, dims,
+                    NPY_DOUBLE, (char *)array);
 
         assert(pVar);
         return pVar;
@@ -137,21 +136,22 @@ namespace python {
     {
         int xsize = v.size();
         auto pList = PyList_New(xsize);
+        assert(pList);
         for (int i = 0; i < xsize; i++) {
             int ysize = v[i].size();
             auto pRow = PyList_New(ysize);
             for (int j = 0; j < ysize; j++) {
                 auto pVar = PyFloat_FromDouble(v[i][j]);
                 assert(pVar);
-                assert(PyList_SetItem(pRow, j, pVar) == 0);
+                PyList_SET_ITEM(pRow, j, pVar);
             }
-            assert(PyList_SetItem(pList, i, pRow) == 0);
+            PyList_SET_ITEM(pList, i, pRow);
             // int dims[1] = {v[i].size()};
             // auto pVar = (PyObject *) PyArray_FromDimsAndData(1, dims,
             //             NPY_DOUBLE,
             //             (char *)v[i].data());
             // assert(pVar);
-            // assert(PyList_SetItem(pList, i, pVar) == 0);
+            // PyList_SET_ITEM(pList, i, pVar);
         }
         return pList;
     }
@@ -167,16 +167,14 @@ namespace python {
             auto z = array[i];
             auto pZ = PyComplex_FromDoubles(z.real(), z.imag());
             assert(pZ);
-            assert(PyList_SetItem(pList, i, pZ) == 0);
+            PyList_SET_ITEM(pList, i, pZ);
         }
         return pList;
     }
 
-    static inline PyObject *convert_dictionary(std::map<std::string, std::string> map)
+    static inline PyObject *convert_dictionary(std::map<std::string,
+            std::string> map)
     {
-        // int dims[1] = {size};
-        // auto pArray = (PyArrayObject *) PyArray_FromDimsAndData(1, dims, NPY_DOUBLE,
-        //               reinterpret_cast<char *>(array));
         if (map.size() > 0) {
             auto pDict = PyDict_New();
             assert(pDict);

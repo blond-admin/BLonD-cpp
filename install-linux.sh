@@ -309,11 +309,11 @@ if [ "$PIP_INSTALLED" == "1" ]; then
    echo -e "---- For more information, please visit this site: https://packaging.python.org/install_requirements_linux/\n\n"
 else
    echo -e "\n\n---- Installing Python's external modules..."
-   pip install --user virtualenv 2>> $log
+   ${PYTHON} -m pip install --user virtualenv 2>> $log
    # pip install virtualenv &>> $log
-   virtualenv --python=${PYTHON} ${INSTALL} &>> $log
+   ${PYTHON} -m virtualenv --python=${PYTHON} ${INSTALL} &>> $log
    source ${INSTALL}/bin/activate &>> $log
-   pip install -r ${EXTERNAL}/python-packages.txt 2>> $log
+   ${PYTHON} -m pip install -r ${EXTERNAL}/python-packages.txt 2>> $log
    export PYTHONPATH="${BLOND_HOME}/python:$PYTHONPATH"
    echo -e "\n\n---- Python's external modules have been installed successfully\n\n"
 fi

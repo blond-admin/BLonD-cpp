@@ -15,6 +15,8 @@
 
 from __future__ import division
 import numpy as np
+import matplotlib as mpl
+mpl.use('Agg')
 import matplotlib.pyplot as plt
 from utilities import separatrix
 import os

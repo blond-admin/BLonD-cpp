@@ -7,7 +7,7 @@
 #include <blond/beams/Slices.h>
 #include <blond/python.h>
 
-void plot_impedance_vs_frequency(int counter, InducedVoltageFreq *indVoltFreq,
+int plot_impedance_vs_frequency(int counter, InducedVoltageFreq *indVoltFreq,
                                  Slices *slices,
                                  std::string option1 = "sum",
                                  std::string option2 = "no_spectrum",
@@ -19,7 +19,7 @@ void plot_impedance_vs_frequency(int counter, InducedVoltageFreq *indVoltFreq,
 
 
 
-void plot_induced_voltage_vs_bin_centers(int counter,
+int plot_induced_voltage_vs_bin_centers(int counter,
         TotalInducedVoltage *totIndVolt,
         Slices *slices,
         std::string style = "-",

@@ -2,7 +2,7 @@
 #include <blond/python.h>
 #include <blond/utilities.h>
 
-void plot_beam_profile(Slices *Slices,
+int plot_beam_profile(Slices *Slices,
                        int counter,
                        std::string style,
                        std::string dirname)
@@ -22,12 +22,12 @@ void plot_beam_profile(Slices *Slices,
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pBinCenters, pNMacropaticles,
                                             pCounter, pStyle,  pDirname,
                                             NULL);
-    assert(ret);
+    return ret != nullptr;
     // python::finalize();
 }
 
 
-void plot_beam_profile_derivative(Slices *Slices,
+int plot_beam_profile_derivative(Slices *Slices,
                                   int counter,
                                   std::string style,
                                   std::string dirname,
@@ -54,10 +54,10 @@ void plot_beam_profile_derivative(Slices *Slices,
 
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pX, pDerivative, pCounter,
                                             pStyle, pDirname, pModes, NULL);
-    assert(ret);
+    return ret != nullptr;
 }
 
-void plot_beam_spectrum(Slices *Slices, int counter,
+int plot_beam_spectrum(Slices *Slices, int counter,
                         std::string style,
                         std::string dirname)
 {
@@ -80,6 +80,6 @@ void plot_beam_spectrum(Slices *Slices, int counter,
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pBeamSpectrumFreq,
                                             pBeamSpectrum, pCounter, pStyle,
                                             pDirname, NULL);
-    assert(ret);
+    return ret != nullptr;
 
 }

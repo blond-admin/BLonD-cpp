@@ -1,16 +1,16 @@
 #include <blond/plots/plot_impedance.h>
 #include <blond/python.h>
 
-void plot_impedance_vs_frequency(int counter,
-                                 InducedVoltageFreq *indVoltFreq,
-                                 Slices *slices,
-                                 std::string option1,
-                                 std::string option2,
-                                 std::string option3,
-                                 std::string style,
-                                 f_vector_t cut_left_right,
-                                 f_vector_t cut_up_down,
-                                 std::string dirname)
+int plot_impedance_vs_frequency(int counter,
+                                InducedVoltageFreq *indVoltFreq,
+                                Slices *slices,
+                                std::string option1,
+                                std::string option2,
+                                std::string option3,
+                                std::string style,
+                                f_vector_t cut_left_right,
+                                f_vector_t cut_up_down,
+                                std::string dirname)
 {
     python::import();
 
@@ -80,17 +80,17 @@ void plot_impedance_vs_frequency(int counter,
                                             pOption1, pOption2, pOption3,
                                             pStyle, pCutLR, pCutUD,
                                             pDirname, NULL);
-    assert(ret);
+    return ret != nullptr;
 
 }
 
 
 
-void plot_induced_voltage_vs_bin_centers(int counter,
-        TotalInducedVoltage *totIndVolt,
-        Slices *slices,
-        std::string style ,
-        std::string dirname)
+int plot_induced_voltage_vs_bin_centers(int counter,
+                                        TotalInducedVoltage *totIndVolt,
+                                        Slices *slices,
+                                        std::string style ,
+                                        std::string dirname)
 {
     python::import();
 
@@ -112,5 +112,5 @@ void plot_induced_voltage_vs_bin_centers(int counter,
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pCounter, pBinCenters,
                                             pInducedVoltage, pStyle,
                                             pDirname, NULL);
-    assert(ret);
+    return ret != nullptr;
 }

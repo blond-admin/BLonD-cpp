@@ -2,7 +2,7 @@
 #include <blond/python.h>
 #include <blond/monitors/Monitors.h>
 
-void plot_long_phase_space(GeneralParameters *GP, RfParameters *RfP,
+int plot_long_phase_space(GeneralParameters *GP, RfParameters *RfP,
                            Beams *Beam, double xmin, double xmax,
                            double ymin, double ymax, std::string xunit,
                            int sampling, bool separatrix_plot,
@@ -69,7 +69,7 @@ void plot_long_phase_space(GeneralParameters *GP, RfParameters *RfP,
                                                 pRfPHarmonic, pRfPPhiS, pRfPEIncrement,
                                                 pHistogramsPlot, pDirname, pAlpha,
                                                 NULL);
-        assert(ret);
+        return ret != nullptr;
 
     } else {
         auto pGPNSections = python::get_none();
@@ -95,7 +95,7 @@ void plot_long_phase_space(GeneralParameters *GP, RfParameters *RfP,
                                                 pRfPHarmonic, pRfPPhiS, pRfPEIncrement,
                                                 pHistogramsPlot, pDirname, pAlpha,
                                                 NULL);
-        assert(ret);
+        return ret != nullptr;
     }
 
 
@@ -105,7 +105,7 @@ void plot_long_phase_space(GeneralParameters *GP, RfParameters *RfP,
 }
 
 
-void plot_bunch_length_evol(RfParameters *RfP, std::string h5data,
+int plot_bunch_length_evol(RfParameters *RfP, std::string h5data,
                             int output_freq, std::string dirname)
 {
 
@@ -126,12 +126,12 @@ void plot_bunch_length_evol(RfParameters *RfP, std::string h5data,
 
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, pSigmaDt,
                                             pOutputFreq, pDirname, NULL);
-    assert(ret);
+    return ret != nullptr;
 
 }
 
 // NOTE removed unused variable Slice
-void plot_bunch_length_evol_gaussian(RfParameters *RfP, std::string h5data,
+int plot_bunch_length_evol_gaussian(RfParameters *RfP, std::string h5data,
                                      int output_freq, std::string dirname)
 {
 
@@ -153,12 +153,12 @@ void plot_bunch_length_evol_gaussian(RfParameters *RfP, std::string h5data,
 
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, pBlGauss,
                                             pOutputFreq, pDirname, NULL);
-    assert(ret);
+    return ret != nullptr;
 
 }
 
 
-void plot_position_evol(RfParameters *RfP, std::string h5data,
+int plot_position_evol(RfParameters *RfP, std::string h5data,
                         int output_freq, std::string style,
                         std::string dirname)
 {
@@ -182,11 +182,11 @@ void plot_position_evol(RfParameters *RfP, std::string h5data,
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, pMeanDt,
                                             pOutputFreq, pStyle, pDirname,
                                             NULL);
-    assert(ret);
+    return ret != nullptr;
 }
 
 
-void plot_energy_evol(RfParameters *RfP, std::string h5data,
+int plot_energy_evol(RfParameters *RfP, std::string h5data,
                       int output_freq, std::string style,
                       std::string dirname)
 {
@@ -209,10 +209,10 @@ void plot_energy_evol(RfParameters *RfP, std::string h5data,
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, pMeanDE,
                                             pOutputFreq, pStyle, pDirname,
                                             NULL);
-    assert(ret);
+    return ret != nullptr;
 }
 
-void plot_transmitted_particles(RfParameters *RfP, std::string h5data,
+int plot_transmitted_particles(RfParameters *RfP, std::string h5data,
                                 int output_freq, std::string style,
                                 std::string dirname)
 {
@@ -237,5 +237,5 @@ void plot_transmitted_particles(RfParameters *RfP, std::string h5data,
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pRfPCounter, pPartsAlive,
                                             pOutputFreq, pStyle, pDirname,
                                             NULL);
-    assert(ret);
+    return ret != nullptr;
 }

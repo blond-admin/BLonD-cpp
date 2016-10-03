@@ -19,8 +19,8 @@ import numpy as np
 import warnings
 import signal
 import copy
-# import matplotlib as mpl
-# mpl.use('Agg')
+import matplotlib as mpl
+mpl.use('Agg')
 import matplotlib.pyplot as plt
 from scipy.integrate import cumtrapz
 from utilities import potential_well_cut, minmax_location

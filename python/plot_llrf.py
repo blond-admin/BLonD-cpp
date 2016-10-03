@@ -14,6 +14,7 @@
 '''
 
 from __future__ import division
+
 import matplotlib.pyplot as plt
 from pylab import cm
 import numpy as np

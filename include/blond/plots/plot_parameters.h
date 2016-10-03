@@ -8,7 +8,7 @@
 #include <blond/python.h>
 #include <string>
 
-void plot_voltage_programme(f_vector_t &time, f_vector_t &voltage,
+int plot_voltage_programme(f_vector_t &time, f_vector_t &voltage,
                             int sampling = 1, std::string dirname = "fig",
                             int figno = 0);
 

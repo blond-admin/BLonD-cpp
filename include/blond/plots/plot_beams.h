@@ -9,7 +9,7 @@
 #include <blond/beams/Slices.h>
 
 
-void plot_long_phase_space(GeneralParameters *GP, RfParameters *RfP,
+int plot_long_phase_space(GeneralParameters *GP, RfParameters *RfP,
                            Beams *Beam, double xmin, double xmax,
                            double ymin, double ymax, std::string xunit = "s",
                            int sampling = 1, bool separatrix_plot = false,
@@ -17,26 +17,26 @@ void plot_long_phase_space(GeneralParameters *GP, RfParameters *RfP,
                            int alpha = 1);
 
 
-void plot_bunch_length_evol(RfParameters *RfP, std::string h5data,
+int plot_bunch_length_evol(RfParameters *RfP, std::string h5data,
                             int output_freq = 1, std::string dirname = "fig");
 
 
-void plot_bunch_length_evol_gaussian(RfParameters *RfP,
+int plot_bunch_length_evol_gaussian(RfParameters *RfP,
                                      std::string h5data, int output_freq = 1,
                                      std::string dirname = "fig");
 
 
-void plot_position_evol(RfParameters *RfP, std::string h5data,
+int plot_position_evol(RfParameters *RfP, std::string h5data,
                         int output_freq = 1, std::string style = ".",
                         std::string dirname = "fig");
 
 
-void plot_energy_evol(RfParameters *RfP, std::string h5data,
+int plot_energy_evol(RfParameters *RfP, std::string h5data,
                       int output_freq = 1, std::string style = ".",
                       std::string dirname = "fig");
 
 
-void plot_transmitted_particles(RfParameters *RfP, std::string h5data,
+int plot_transmitted_particles(RfParameters *RfP, std::string h5data,
                                 int output_freq = 1, std::string style = ".",
                                 std::string dirname = "fig");
 

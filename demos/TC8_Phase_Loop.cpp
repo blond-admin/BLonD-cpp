@@ -15,7 +15,7 @@
 // --------------------------------------------------------
 
 // Bunch parameters
-const uint N_b = 0; // Intensity
+const long long N_b = 0; // Intensity
 
 // Machine and RF parameters
 const ftype radius = 25;

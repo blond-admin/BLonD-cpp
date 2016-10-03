@@ -135,15 +135,23 @@ namespace python {
 
     static inline PyObject *convert_double_2d_array(f_vector_2d_t &v)
     {
-        int size = v.size();
-        auto pList = PyList_New(size);
-        for (int i = 0; i < size; i++) {
-            int dims[1] = {v[i].size()};
-            auto pVar = (PyObject *) PyArray_FromDimsAndData(1, dims,
-                        NPY_DOUBLE,
-                        (char *)v[i].data());
-            assert(pVar);
-            assert(PyList_SetItem(pList, i, pVar) == 0);
+        int xsize = v.size();
+        auto pList = PyList_New(xsize);
+        for (int i = 0; i < xsize; i++) {
+            int ysize = v[i].size();
+            auto pRow = PyList_New(ysize);
+            for (int j = 0; j < ysize; j++) {
+                auto pVar = PyFloat_FromDouble(v[i][j]);
+                assert(pVar);
+                assert(PyList_SetItem(pRow, j, pVar) == 0);
+            }
+            assert(PyList_SetItem(pList, i, pRow) == 0);
+            // int dims[1] = {v[i].size()};
+            // auto pVar = (PyObject *) PyArray_FromDimsAndData(1, dims,
+            //             NPY_DOUBLE,
+            //             (char *)v[i].data());
+            // assert(pVar);
+            // assert(PyList_SetItem(pList, i, pVar) == 0);
         }
         return pList;
     }

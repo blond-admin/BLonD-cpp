@@ -171,7 +171,7 @@ TEST_F(testSlices, sort_particles1)
 
     auto Beam = Context::Beam;
     std::string params = TEST_FILES "/Slices/sort_particles1/";
-    auto epsilon = 1e-8;
+    auto epsilon = 1e-7;
 
     // util::dump(Beam->dE, "dE\n");
     // util::dump(Beam->dt, "dt\n");

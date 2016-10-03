@@ -20,7 +20,7 @@
 // Simulation parameters
 // --------------------------------------------------------
 
-const int N_b = 1.2e9; // Intensity
+const long long N_b = 1.2e9; // Intensity
 int N_p = 100000;      // Macro-particles
 
 // Machine and RF parameters

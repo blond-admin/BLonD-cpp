@@ -26,6 +26,7 @@ addons:
     - gfortran
     - libpng-dev
     - libfreetype6
+    - python-tk
 install:
 - pip install --user cpp-coveralls
 cache:

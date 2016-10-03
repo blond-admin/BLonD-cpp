@@ -26,16 +26,16 @@ def plot_voltage_programme(time, voltage, sampling=1, dirname='fig',
     """
 
     # Plot
-    # fig = plt.figure(1)
-    # fig.set_size_inches(8, 6)
-    # ax = plt.axes([0.15, 0.1, 0.8, 0.8])
-    # ax.plot(time[::sampling], voltage[::sampling])
-    # ax.set_xlabel("Time [s]")
-    # ax.set_ylabel(r"RF voltage [V]")
+    fig = plt.figure(1)
+    fig.set_size_inches(8, 6)
+    ax = plt.axes([0.15, 0.1, 0.8, 0.8])
+    ax.plot(time[::sampling], voltage[::sampling])
+    ax.set_xlabel("Time [s]")
+    ax.set_ylabel(r"RF voltage [V]")
 
-    # # Save figure
-    # if not os.path.exists(dirname):
-    #     os.makedirs(dirname)
-    # fign = dirname + '/RF_voltage_' "%d" % figno + '.png'
-    # plt.savefig(fign)
-    # plt.clf()
+    # Save figure
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
+    fign = dirname + '/RF_voltage_' "%d" % figno + '.png'
+    plt.savefig(fign)
+    plt.clf()

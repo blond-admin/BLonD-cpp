@@ -14,7 +14,8 @@
 '''
 
 from __future__ import division
-
+import matplotlib as mpl
+mpl.use('Agg')
 import matplotlib.pyplot as plt
 from pylab import cm
 import numpy as np

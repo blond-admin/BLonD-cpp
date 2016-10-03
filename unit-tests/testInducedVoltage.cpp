@@ -240,7 +240,7 @@ TEST_F(testInducedVoltage, generation1)
         return std::abs(i) < std::abs(j);
     });
     max = std::abs(max);
-
+    // cout << max << "\n";
     for (uint i = 0; i < v.size(); ++i) {
         ftype ref = v[i];
         ftype real = res[i];

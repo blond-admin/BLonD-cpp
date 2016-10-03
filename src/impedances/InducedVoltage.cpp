@@ -124,8 +124,8 @@ f_vector_t InducedVoltageTime::induced_voltage_generation(uint length)
     auto Slice = Context::Slice;
     f_vector_t inducedVoltage;
 
-    const ftype factor =
-        -GP->charge * constant::e * Beam->intensity / Beam->n_macroparticles;
+    const ftype factor = -GP->charge * constant::e * Beam->intensity
+                         / Beam->n_macroparticles;
 
     if (fTimeOrFreq == freq_domain) {
         // std::vector<complex_t> fft1, fft2;
@@ -138,18 +138,6 @@ f_vector_t InducedVoltageTime::induced_voltage_generation(uint length)
         f_vector_t in2 = fTotalWake;
 
         fft::convolution_with_ffts(in1, in2, inducedVoltage);
-
-        /*
-        fft::rfft(in, fft1, fShape, n_threads);
-
-        in = fTotalWake;
-        fft::rfft(in, fft2, fShape, n_threads);
-
-        std::transform(fft1.begin(), fft1.end(), fft2.begin(),
-                       fft1.begin(), std::multiplies<complex_t>());
-
-        fft::irfft(fft1, inducedVoltage, fShape, n_threads);
-        */
 
         std::transform(inducedVoltage.begin(), inducedVoltage.end(),
                        inducedVoltage.begin(),

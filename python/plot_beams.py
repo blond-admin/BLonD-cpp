@@ -14,9 +14,7 @@
 '''
 
 from __future__ import division
-# import h5py
 import numpy as np
-# import warnings
 import matplotlib.pyplot as plt
 from utilities import separatrix
 import os

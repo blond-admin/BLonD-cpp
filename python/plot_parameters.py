@@ -13,9 +13,9 @@
 :Authors: **Helga Timko**
 '''
 
-from __future__ import division
+# from __future__ import division
 import matplotlib.pyplot as plt
-# import os
+import os
 
 
 def plot_voltage_programme(time, voltage, sampling=1, dirname='fig',
@@ -34,8 +34,8 @@ def plot_voltage_programme(time, voltage, sampling=1, dirname='fig',
     ax.set_ylabel(r"RF voltage [V]")
 
     # Save figure
-    # if not os.path.exists(dirname):
-    #     os.makedirs(dirname)
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
     fign = dirname + '/RF_voltage_' "%d" % figno + '.png'
     plt.savefig(fign)
     plt.clf()

@@ -313,12 +313,12 @@ $(document).ready(function(){initNavTree('da/dda/Monitors_8cpp_source.html','../
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> doubleV;</div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    hsize_t dim[1], chunk[1];</div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    dim[0] = dimension;</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    chunk[0] = dimension / 10;</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    chunk[0] = 100;<span class="comment">//dimension / 10;</span></div>
 <div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;</div>
 <div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    DataSpace dataspace(1, dim);</div>
 <div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    DSetCreatPropList plist;</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    plist.setChunk(1, chunk);</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    plist.setDeflate(fCompressionLevel);</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    plist.setDeflate(fCompressionLevel);</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    plist.setChunk(1, chunk);</div>
 <div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;</div>
 <div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    fBeam-&gt;statistics();</div>
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;</div>
@@ -696,7 +696,7 @@ $(document).ready(function(){initNavTree('da/dda/Monitors_8cpp_source.html','../
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_5d7403ebb2084c8168855698fd97528e.html">src</a></li><li class="navelem"><a class="el" href="../../dir_a1430848d3b9dce39f7df934d4a9a6f2.html">monitors</a></li><li class="navelem"><a class="el" href="../../da/dda/Monitors_8cpp.html">Monitors.cpp</a></li>
-    <li class="footer">Generated on Tue Oct 4 2016 07:39:12 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Tue Oct 4 2016 11:02:02 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

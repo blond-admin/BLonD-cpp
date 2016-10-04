@@ -16,6 +16,7 @@ var utilities_8h =
     [ "get_time", "de/df0/utilities_8h.html#afeae4d3075fe9a2e1efbc83e92b44534", null ],
     [ "get_time", "de/df0/utilities_8h.html#af64fec14a4314c0135891e894d300319", null ],
     [ "GETENV", "de/df0/utilities_8h.html#a07f220ebf13c0c27121e2d8c2c0facf8", null ],
+    [ "getFileSize", "de/df0/utilities_8h.html#a18326f1a2746fdd1b2c9767d480021fd", null ],
     [ "print_time", "de/df0/utilities_8h.html#a7cf0a7262caed8109540d591cf70cd28", null ],
     [ "print_time", "de/df0/utilities_8h.html#a37e6f9e9551e12b4319ce38036c1a003", null ],
     [ "print_time_elapsed", "de/df0/utilities_8h.html#aafee22ee67a183549fc31ef17739abb1", null ],

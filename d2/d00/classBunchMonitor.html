@@ -422,12 +422,12 @@ Private Attributes</h2></td></tr>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> doubleV;</div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    hsize_t dim[1], chunk[1];</div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    dim[0] = dimension;</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    chunk[0] = dimension / 10;</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    chunk[0] = 100;<span class="comment">//dimension / 10;</span></div>
 <div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;</div>
 <div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    DataSpace dataspace(1, dim);</div>
 <div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    DSetCreatPropList plist;</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    plist.setChunk(1, chunk);</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    plist.setDeflate(<a class="code" href="../../d2/d00/classBunchMonitor.html#a8e9d636624fd03194ddada081bd2a04e">fCompressionLevel</a>);</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    plist.setDeflate(<a class="code" href="../../d2/d00/classBunchMonitor.html#a8e9d636624fd03194ddada081bd2a04e">fCompressionLevel</a>);</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    plist.setChunk(1, chunk);</div>
 <div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;</div>
 <div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    <a class="code" href="../../d2/d00/classBunchMonitor.html#ad3a014617f0c98496601eada9da2066f">fBeam</a>-&gt;<a class="code" href="../../d9/d7c/classBeams.html#ae9935138e1455799fa7e8afaf9f7be79">statistics</a>();</div>
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;</div>
@@ -1382,7 +1382,7 @@ Private Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../d2/d00/classBunchMonitor.html">BunchMonitor</a></li>
-    <li class="footer">Generated on Tue Oct 4 2016 07:39:13 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Tue Oct 4 2016 11:02:02 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

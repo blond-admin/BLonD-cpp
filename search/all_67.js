@@ -15,6 +15,7 @@ var searchData=
   ['get_5fsin_5fpx',['get_sin_px',['../d1/d47/namespacevdt_1_1details.html#a72ab4125be9fdc73004f1fcec303dea6',1,'vdt::details']]],
   ['get_5ftime',['get_time',['../d6/d72/namespaceutil.html#afeae4d3075fe9a2e1efbc83e92b44534',1,'util::get_time(timespec &amp;ts)'],['../d6/d72/namespaceutil.html#af64fec14a4314c0135891e894d300319',1,'util::get_time()']]],
   ['getenv',['GETENV',['../d6/d72/namespaceutil.html#a07f220ebf13c0c27121e2d8c2c0facf8',1,'util']]],
+  ['getfilesize',['getFileSize',['../d6/d72/namespaceutil.html#a18326f1a2746fdd1b2c9767d480021fd',1,'util']]],
   ['getmantexponent',['getMantExponent',['../d1/d47/namespacevdt_1_1details.html#ad33e8698c35686f447b6d93c94e9b391',1,'vdt::details']]],
   ['getmantexponentf',['getMantExponentf',['../d1/d47/namespacevdt_1_1details.html#a0955c5c09034993fc754e50eb88cb52e',1,'vdt::details']]],
   ['getsignmask',['getSignMask',['../d1/d47/namespacevdt_1_1details.html#aefaf0c36bf6b7f53e4b20638ec6ab60a',1,'vdt::details::getSignMask(const double x)'],['../d1/d47/namespacevdt_1_1details.html#a856d0762e0fe395fd009d3adf2b3a2a5',1,'vdt::details::getSignMask(const float x)']]],

@@ -127,6 +127,7 @@ $(document).ready(function(){initNavTree('de/df0/utilities_8h.html','../../');})
 <code>#include &lt;sstream&gt;</code><br/>
 <code>#include &lt;string&gt;</code><br/>
 <code>#include &lt;vector&gt;</code><br/>
+<code>#include &lt;sys/stat.h&gt;</code><br/>
 <code>#include &lt;<a class="el" href="../../d2/d2c/configuration_8h_source.html">blond/configuration.h</a>&gt;</code><br/>
 <code>#include &lt;mm_malloc.h&gt;</code><br/>
 <code>#include &lt;<a class="el" href="../../da/d69/optionparser_8h_source.html">blond/optionparser.h</a>&gt;</code><br/>
@@ -199,6 +200,8 @@ Functions</h2></td></tr>
 <tr class="separator:af64fec14a4314c0135891e894d300319"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07f220ebf13c0c27121e2d8c2c0facf8"><td class="memItemLeft" align="right" valign="top">static char const *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d72/namespaceutil.html#a07f220ebf13c0c27121e2d8c2c0facf8">util::GETENV</a> (char const *envstr)</td></tr>
 <tr class="separator:a07f220ebf13c0c27121e2d8c2c0facf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18326f1a2746fdd1b2c9767d480021fd"><td class="memItemLeft" align="right" valign="top">static size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d72/namespaceutil.html#a18326f1a2746fdd1b2c9767d480021fd">util::getFileSize</a> (const std::string &amp;file)</td></tr>
+<tr class="separator:a18326f1a2746fdd1b2c9767d480021fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7cf0a7262caed8109540d591cf70cd28"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d72/namespaceutil.html#a7cf0a7262caed8109540d591cf70cd28">util::print_time</a> (char const *prompt, timespec const &amp;begin, timespec const &amp;end)</td></tr>
 <tr class="separator:a7cf0a7262caed8109540d591cf70cd28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a37e6f9e9551e12b4319ce38036c1a003"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d72/namespaceutil.html#a37e6f9e9551e12b4319ce38036c1a003">util::print_time</a> (char const *prompt, double diff)</td></tr>
@@ -273,7 +276,7 @@ Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../de/df0/utilities_8h_source.html#l00051">51</a> of file <a class="el" href="../../de/df0/utilities_8h_source.html">utilities.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../dc/d61/RfParameters_8cpp_source.html#l00144">calc_phi_s()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00107">Slices::convert_coordinates()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00118">GeneralParameters::eta_generation()</a>, <a class="el" href="../../dc/d61/RfParameters_8cpp_source.html#l00096">RfParameters::eta_tracking()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00012">GeneralParameters::GeneralParameters()</a>, <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00118">InducedVoltageTime::induced_voltage_generation()</a>, <a class="el" href="../../de/df0/utilities_8h_source.html#l00232">util::print_time()</a>, and <a class="el" href="../../de/df0/utilities_8h_source.html#l00247">util::print_time_elapsed()</a>.</p>
+<p>Referenced by <a class="el" href="../../dc/d61/RfParameters_8cpp_source.html#l00144">calc_phi_s()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00107">Slices::convert_coordinates()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00118">GeneralParameters::eta_generation()</a>, <a class="el" href="../../dc/d61/RfParameters_8cpp_source.html#l00096">RfParameters::eta_tracking()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00012">GeneralParameters::GeneralParameters()</a>, <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00118">InducedVoltageTime::induced_voltage_generation()</a>, <a class="el" href="../../de/df0/utilities_8h_source.html#l00241">util::print_time()</a>, and <a class="el" href="../../de/df0/utilities_8h_source.html#l00256">util::print_time_elapsed()</a>.</p>
 
 </div>
 </div>
@@ -311,7 +314,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_b2c71bdfd3af65c97a5a70fadf3dc512.html">include</a></li><li class="navelem"><a class="el" href="../../dir_c0e22518f92c7490e2ab56f92eef9024.html">blond</a></li><li class="navelem"><a class="el" href="../../de/df0/utilities_8h.html">utilities.h</a></li>
-    <li class="footer">Generated on Tue Oct 4 2016 07:39:13 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Tue Oct 4 2016 11:02:02 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

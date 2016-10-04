@@ -15,7 +15,7 @@
 #include <blond/utilities.h>
 #include <cmath>
 #include <cassert>
-#include <blond/omp.h>
+#include <blond/openmp.h>
 
 namespace mymath {
 

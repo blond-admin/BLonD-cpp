@@ -15,7 +15,7 @@
 #include <cmath>
 #include <fftw3.h>
 #include <functional>
-#include <omp.h>
+#include <blond/openmp.h>
 
 namespace fft {
 

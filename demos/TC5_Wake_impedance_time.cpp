@@ -13,11 +13,8 @@
 #include <blond/math_functions.h>
 #include <blond/trackers/Tracker.h>
 #include <blond/utilities.h>
-#include <omp.h>
 #include <stdio.h>
-//#include <blond/impedances/Intensity.h>
 #include <blond/impedances/InducedVoltage.h>
-#include <complex>
 
 const std::string datafiles = DEMO_FILES "/TC5_Wake_impedance/";
 
@@ -45,11 +42,12 @@ unsigned N_p = 5000000; // Macro-particles
 
 unsigned N_slices = 1 << 8; // = (2^8)
 
-void parse_args(int argc, char** argv);
+void parse_args(int argc, char **argv);
 
 // Simulation setup
 // -------------------------------------------------------------
-int main(int argc, char** argv) {
+int main(int argc, char **argv)
+{
     parse_args(argc, argv);
 
     omp_set_num_threads(Context::n_threads);
@@ -83,7 +81,7 @@ int main(int argc, char** argv) {
 
     Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
 
-    RingAndRfSection* long_tracker = new RingAndRfSection();
+    RingAndRfSection *long_tracker = new RingAndRfSection();
 
     longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
 
@@ -106,14 +104,14 @@ int main(int argc, char** argv) {
         R_shunt.push_back(v[i + 2] * 1e6);
     }
 
-    Resonators* resonator = new Resonators(R_shunt, f_res, Q_factor);
+    Resonators *resonator = new Resonators(R_shunt, f_res, Q_factor);
 
-    std::vector<Intensity*> wakeSourceList({resonator});
-    InducedVoltageTime* indVoltTime =
+    std::vector<Intensity *> wakeSourceList({resonator});
+    InducedVoltageTime *indVoltTime =
         new InducedVoltageTime(wakeSourceList, time_domain);
-    std::vector<InducedVoltage*> indVoltList({indVoltTime});
+    std::vector<InducedVoltage *> indVoltList({indVoltTime});
 
-    TotalInducedVoltage* totVol = new TotalInducedVoltage(indVoltList);
+    TotalInducedVoltage *totVol = new TotalInducedVoltage(indVoltList);
 
     auto indTrack = 0.0, longTrack = 0.0, sliceTrack = 0.0;
     for (unsigned i = 0; i < N_t; ++i) {
@@ -160,7 +158,8 @@ int main(int argc, char** argv) {
     printf("Done!\n");
 }
 
-void parse_args(int argc, char** argv) {
+void parse_args(int argc, char **argv)
+{
     using namespace std;
     using namespace option;
 
@@ -175,24 +174,39 @@ void parse_args(int argc, char** argv) {
     };
 
     const option::Descriptor usage[] = {
-        {UNKNOWN, 0, "", "", Arg::None,
-         "USAGE: ./TC5_Wake_impedance [options]\n\n"
-         "Options:"},
-        {HELP, 0, "h", "help", Arg::None,
-         "  --help,              -h        Print usage and exit."},
-        {N_TURNS, 0, "t", "turns", util::Arg::Numeric,
-         "  --turns=<num>,       -t <num>  Number of turns (default: 10k)"},
-        {N_PARTICLES, 0, "p", "particles", util::Arg::Numeric,
-         "  --particles=<num>,   -p <num>  Number of particles (default: 10k)"},
-        {N_SLICES, 0, "s", "slices", util::Arg::Numeric,
-         "  --slices=<num>,      -s <num>  Number of slices (default: 100)"},
-        {N_THREADS, 0, "m", "threads", util::Arg::Numeric,
-         "  --threads=<num>,     -m <num>  Number of threads (default: 1)"},
-        {UNKNOWN, 0, "", "", Arg::None,
-         "\nExamples:\n"
-         "\t./TC5_Wake_impedance\n"
-         "\t./TC5_Wake_impedance -t 1000 -p 10000 -m 4\n"},
-        {0, 0, 0, 0, 0, 0}};
+        {
+            UNKNOWN, 0, "", "", Arg::None,
+            "USAGE: ./TC5_Wake_impedance [options]\n\n"
+            "Options:"
+        },
+        {
+            HELP, 0, "h", "help", Arg::None,
+            "  --help,              -h        Print usage and exit."
+        },
+        {
+            N_TURNS, 0, "t", "turns", util::Arg::Numeric,
+            "  --turns=<num>,       -t <num>  Number of turns (default: 10k)"
+        },
+        {
+            N_PARTICLES, 0, "p", "particles", util::Arg::Numeric,
+            "  --particles=<num>,   -p <num>  Number of particles (default: 10k)"
+        },
+        {
+            N_SLICES, 0, "s", "slices", util::Arg::Numeric,
+            "  --slices=<num>,      -s <num>  Number of slices (default: 100)"
+        },
+        {
+            N_THREADS, 0, "m", "threads", util::Arg::Numeric,
+            "  --threads=<num>,     -m <num>  Number of threads (default: 1)"
+        },
+        {
+            UNKNOWN, 0, "", "", Arg::None,
+            "\nExamples:\n"
+            "\t./TC5_Wake_impedance\n"
+            "\t./TC5_Wake_impedance -t 1000 -p 10000 -m 4\n"
+        },
+        {0, 0, 0, 0, 0, 0}
+    };
 
     argc -= (argc > 0);
     argv += (argc > 0); // skip program name argv[0] if present
@@ -207,31 +221,31 @@ void parse_args(int argc, char** argv) {
     }
 
     for (int i = 0; i < parse.optionsCount(); ++i) {
-        Option& opt = buffer[i];
+        Option &opt = buffer[i];
         // fprintf(stdout, "Argument #%d is ", i);
         switch (opt.index()) {
-        case HELP:
-        // not possible, because handled further above and exits the program
-        case N_TURNS:
-            N_t = atoi(opt.arg);
-            // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
-            break;
-        case N_THREADS:
-            Context::n_threads = atoi(opt.arg);
-            // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
-            break;
-        case N_SLICES:
-            N_slices = atoi(opt.arg);
-            // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
-            break;
-        case N_PARTICLES:
-            N_p = atoi(opt.arg);
-            // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
-            break;
-        case UNKNOWN:
-            // not possible because Arg::Unknown returns ARG_ILLEGAL
-            // which aborts the parse with an error
-            break;
+            case HELP:
+            // not possible, because handled further above and exits the program
+            case N_TURNS:
+                N_t = atoi(opt.arg);
+                // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
+                break;
+            case N_THREADS:
+                Context::n_threads = atoi(opt.arg);
+                // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
+                break;
+            case N_SLICES:
+                N_slices = atoi(opt.arg);
+                // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
+                break;
+            case N_PARTICLES:
+                N_p = atoi(opt.arg);
+                // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
+                break;
+            case UNKNOWN:
+                // not possible because Arg::Unknown returns ARG_ILLEGAL
+                // which aborts the parse with an error
+                break;
         }
     }
 }

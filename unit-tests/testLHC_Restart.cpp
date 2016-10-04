@@ -10,7 +10,6 @@
 #include <blond/trackers/Tracker.h>
 #include <blond/utilities.h>
 #include <gtest/gtest.h>
-#include <omp.h>
 
 // const ftype epsilon = 1e-3;
 const std::string params = TEST_FILES "/PL/LHC_restart_params/";

@@ -16,6 +16,9 @@
 #include <blond/plots/plot_llrf.h>
 #include <blond/python.h>
 #include <blond/monitors/Monitors.h>
+#include <chrono>
+
+using namespace std;
 // Simulation parameters
 // --------------------------------------------------------
 
@@ -35,10 +38,13 @@ const uint alpha_order = 1;
 const uint n_sections = 1;
 // Tracking details
 
-int N_t = 500;    // Number of turns to track
+int N_t = 100000;    // Number of turns to track
 int N_p = 100000; // Macro-particles
 
 int N_slices = 200; // = (2^8)
+
+int buffer_time = 0;
+int compression_level = 9;
 
 void parse_args(int argc, char **argv);
 
@@ -48,7 +54,7 @@ int main(int argc, char **argv)
 {
 
     parse_args(argc, argv);
-    python::initialize();
+    // python::initialize();
     omp_set_num_threads(Context::n_threads);
 
     /// initializations
@@ -87,27 +93,43 @@ int main(int argc, char **argv)
     // for (int i = 0; i < time.size(); i++)
     //     time[i] = 1.0 * (i + 1);
     // plot_voltage_programme(time, voltageVec[0]);
+    string h5file = "bunch.h5";
+    auto bunchmonitor = BunchMonitor(GP, RfP, Beam, h5file,
+                                     buffer_time, nullptr, nullptr, nullptr,
+                                     compression_level);
 
-    // auto bunchmonitor = BunchMonitor(GP, RfP, Beam, "bunch.h5", 10);
-    auto tracker = RingAndRfSection();
+    // auto tracker = RingAndRfSection();
 
-    longitudinal_bigaussian(200e-9, 1e6, 1, false);
+    longitudinal_bigaussian(200e-9, 1e6, -1, false);
 
-    auto slice = Context::Slice = new Slices(N_slices, 0, -constant::pi, constant::pi,
-            cuts_unit_type::rad);
+    // auto slice = Context::Slice = new Slices(N_slices, 0, -constant::pi, constant::pi,
+    //         cuts_unit_type::rad);
 
 
-    
-    
-    // for (int i = 0; i < N_t; i++) {
-    //     tracker.track();
-    //     slice->track();
-    //     bunchmonitor.track();
-    // }
-    // bunchmonitor.track();
-    // bunchmonitor.close();
-    plot_PL_bunch_phase(RfP, "../build-2/output_data_full.h5");
-    plot_PL_RF_phase(RfP, "../build-2/output_data_full.h5");
+
+    chrono::time_point<chrono::high_resolution_clock> start;
+
+    chrono::duration<double> stats_time(0.0);
+    chrono::duration<double> monitor_time(0.0);
+
+    for (int i = 0; i < N_t; i++) {
+        start = chrono::system_clock::now();
+        Beam->statistics();
+        stats_time = chrono::system_clock::now() - start;
+
+        start = chrono::system_clock::now();
+        bunchmonitor.track();
+        monitor_time = chrono::system_clock::now() - start;
+
+    }
+    bunchmonitor.close();
+
+    // cout << "Number of turns: " << N_t << "\n";
+    cout << "Buffer time: " << buffer_time << "\n";
+    cout << "Compression level: " << compression_level << "\n";
+    cout << "Stats calc time: " << stats_time.count() << "s\n";
+    cout << "Monitoring time: " << monitor_time.count() << "s\n";
+    cout << "H5 File size: " << util::getFileSize(h5file) << " B\n";
     // plot_PL_phase_corr(RfP, "../build-2/output_data_full.h5");
     // plot_PL_RF_freq(RfP, "../build-2/output_data_full.h5");
     // plot_PL_freq_corr(RfP, "../build-2/output_data_full.h5");
@@ -214,8 +236,9 @@ int main(int argc, char **argv)
     // delete Context::RfP;
     delete GP;
     delete Beam;
-    delete slice;
-    python::finalize();
+    delete RfP;
+    // delete slice;
+    // python::finalize();
     // delete psb;
 
     printf("Done!\n");
@@ -233,6 +256,8 @@ void parse_args(int argc, char **argv)
         N_TURNS,
         N_PARTICLES,
         N_SLICES,
+        BUFF_TIME,
+        COMP_LEVEL,
         OPTIONS_NUM
     };
 
@@ -261,6 +286,14 @@ void parse_args(int argc, char **argv)
         {
             N_THREADS, 0, "m", "threads", util::Arg::Numeric,
             "  --threads=<num>,     -m <num>  Number of threads (default: 1)"
+        },
+        {
+            BUFF_TIME, 0, "b", "buffer_time", util::Arg::Numeric,
+            "  --buffer_time=<num>,     -b <num>  Buffer time (default: 0)"
+        },
+        {
+            COMP_LEVEL, 0, "c", "compression_level", util::Arg::Numeric,
+            "  --compression_level=<num>,     -c <num>  Compression level (default: 9)"
         },
         {
             UNKNOWN, 0, "", "", Arg::None,
@@ -303,6 +336,14 @@ void parse_args(int argc, char **argv)
                 break;
             case N_PARTICLES:
                 N_p = atoi(opt.arg);
+                // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
+                break;
+            case BUFF_TIME:
+                buffer_time = atoi(opt.arg);
+                // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
+                break;
+            case COMP_LEVEL:
+                compression_level = atoi(opt.arg);
                 // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
                 break;
             case UNKNOWN:

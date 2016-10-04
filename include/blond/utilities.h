@@ -18,7 +18,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
-
+#include <sys/stat.h>
 #include <blond/configuration.h>
 
 #ifndef WIN32
@@ -57,6 +57,15 @@
     }
 
 namespace util {
+
+    static inline size_t getFileSize(const std::string &file)
+    {
+        struct stat st;
+        if (stat(file.c_str(), &st) != 0) {
+            return 0;
+        }
+        return st.st_size;
+    }
 
     template <typename T>
     static inline void read_vector_from_file(std::vector<T> &v,

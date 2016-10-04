@@ -199,12 +199,12 @@ void BunchMonitor::init_data(int dimension)
     f_vector_t doubleV;
     hsize_t dim[1], chunk[1];
     dim[0] = dimension;
-    chunk[0] = dimension / 10;
+    chunk[0] = 100;//dimension / 10;
 
     DataSpace dataspace(1, dim);
     DSetCreatPropList plist;
-    plist.setChunk(1, chunk);
     plist.setDeflate(fCompressionLevel);
+    plist.setChunk(1, chunk);
 
     fBeam->statistics();
 

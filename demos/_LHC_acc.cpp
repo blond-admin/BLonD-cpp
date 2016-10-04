@@ -173,10 +173,12 @@ int main(int argc, char **argv)
 
     auto totVoltage = new TotalInducedVoltage(indVoltageV);
 
-    string h5file = "output_data.h5";
+    string h5file = "output_data-"
+                    + to_string(Context::n_threads)
+                    + "threads.h5";
     auto monitor = new BunchMonitor(GP, RfP, Beam, h5file,
                                     dt_save, Slice, PL, noiseFB);
-    monitor->fCompressionLevel = 0;
+    // monitor->fCompressionLevel = 0;
     // double slice_time = 0, track_time = 0;
     double turn_time = 0.0;
 

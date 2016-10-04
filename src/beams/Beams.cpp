@@ -17,7 +17,8 @@ Beams::Beams(const uint n_macroparticles, const long long intensity)
     this->intensity = intensity;
     this->dt.resize(n_macroparticles);
     this->dE.resize(n_macroparticles);
-    this->id = mymath::arange<int>(1, n_macroparticles + 1);
+    this->id.resize(n_macroparticles, 1);
+    // this->id = mymath::arange<int>(1, n_macroparticles + 1);
     this->mean_dt = this->mean_dE = 0;
     this->sigma_dt = this->sigma_dE = 0;
     this->ratio = intensity / n_macroparticles;
@@ -34,31 +35,39 @@ uint Beams::n_macroparticles_alive()
 
 void Beams::statistics()
 {
-    ftype m_dE, m_dt, s_dE, s_dt;
-    m_dt = m_dE = s_dE = s_dt = 0;
-    uint n = 0;
-    for (int i = 0; i < (int) n_macroparticles; ++i) {
-        if (id[i] != 0) {
-            m_dE += dE[i];
-            m_dt += dt[i];
-            n++;
-        }
+    statistics(dE.data(), dt.data(), id.data(), dE.size());
+}
+
+void Beams::statistics(const double *__restrict dE,
+                       const double *__restrict dt,
+                       const int *__restrict id,
+                       const int size)
+{
+    double m_dE, m_dt, s_dE, s_dt;
+    m_dt = m_dE = s_dE = s_dt = 0.0;
+    int n = 0;
+
+    #pragma omp parallel for reduction(+:m_dE, m_dt, n)
+    for (int i = 0; i < size; ++i) {
+        m_dE += id[i] * dE[i];
+        m_dt += id[i] * dt[i];
+        n += id[i];
     }
+
     mean_dE = m_dE /= n;
     mean_dt = m_dt /= n;
-    for (int i = 0; i < (int) n_macroparticles; ++i) {
-        if (id[i] != 0) {
-            s_dE += (dE[i] - m_dE) * (dE[i] - m_dE);
-            s_dt += (dt[i] - m_dt) * (dt[i] - m_dt);
-        }
+
+    #pragma omp parallel for reduction(+:s_dE, s_dt)
+    for (int i = 0; i < size; ++i) {
+        s_dE += id[i] * (dE[i] - mean_dE) * (dE[i] - mean_dE);
+        s_dt += id[i] * (dt[i] - mean_dt) * (dt[i] - mean_dt);
     }
     sigma_dE = std::sqrt(s_dE / n);
     sigma_dt = std::sqrt(s_dt / n);
-
     epsn_rms_l = constant::pi * sigma_dE * sigma_dt; // in eVs
-
     // Losses
     n_macroparticles_lost = n_macroparticles - n;
+
 }
 
 

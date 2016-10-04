@@ -19,6 +19,7 @@ class API Beams {
 public:
     f_vector_t dt;
     f_vector_t dE;
+    // #NOTE id is 1 for active, 0 for inactive particles
     int_vector_t id;
 
     ftype mean_dt;
@@ -43,6 +44,12 @@ public:
     //                        const ftype dE_max, int* __restrict id);
 
     void statistics();
+
+private:
+    void statistics(const double *__restrict dE,
+                    const double *__restrict dt,
+                    const int *__restrict id,
+                    const int size);
 };
 
 #endif /* BEAMS_BEAMS_H_ */

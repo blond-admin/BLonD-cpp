@@ -9,10 +9,19 @@ NOT Stable - Under heavy development
 
 ## Requirements
 * cmake version >= 2.8 [install](https://cmake.org/install/)
-
-####Linux
 * gcc version >= 4.8.0 [install](https://gcc.gnu.org/wiki/InstallingGCC)
-
+* System packages:
+  * Debian based distributions: 
+    * python-dev
+    * libfreetype6
+    * libpng-dev
+    * python-tk
+  * Redhat based distributions:
+    * python-devel
+    * freetype-devel
+    * libpng-devel
+    * tcl
+    * tkinter
 
 ## Installation (Linux only)
 * clone the code into a directory (lets call it BLonD++/):

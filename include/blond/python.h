@@ -181,7 +181,7 @@ namespace python {
             for (const auto &pair : map) {
                 auto pKey = PyString_FromString(pair.first.c_str());
                 auto pVal = PyString_FromString(pair.second.c_str());
-                assert(PyDict_SetItem(pDict, pKey, pVal) == 0);
+                PyDict_SetItem(pDict, pKey, pVal);
             }
             return pDict;
         } else {

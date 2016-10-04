@@ -7,6 +7,7 @@ var classBeams =
     [ "losses_separatrix", "d9/d7c/classBeams.html#a76e4b807fd1a83ae8fe190a774acaa19", null ],
     [ "n_macroparticles_alive", "d9/d7c/classBeams.html#a62778a9071e6ab9dab3e02b733a014c5", null ],
     [ "statistics", "d9/d7c/classBeams.html#ae9935138e1455799fa7e8afaf9f7be79", null ],
+    [ "statistics", "d9/d7c/classBeams.html#a8439410dfe144df86ff2d55ebfcfa069", null ],
     [ "dE", "d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f", null ],
     [ "dt", "d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc", null ],
     [ "epsn_rms_l", "d9/d7c/classBeams.html#a229134de5356c339f1a1b7bc3f007293", null ],

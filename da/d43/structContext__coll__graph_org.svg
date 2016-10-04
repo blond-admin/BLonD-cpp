@@ -20,25 +20,26 @@
 </g>
 <!-- Node2 -->
 <g id="node2" class="node"><title>Node2</title>
-<a xlink:href="../../d9/d7c/classBeams.html" target="_top" xlink:title="{Beams\n||+ Beams()\l+ ~Beams()\l+ losses_energy_cut()\l+ losses_longitudinal_cut()\l+ losses_separatrix()\l+ n_macroparticles_alive()\l+ statistics()\l}">
-<polygon fill="white" stroke="black" points="950.622,-160.5 950.622,-301.5 1083.62,-301.5 1083.62,-160.5 950.622,-160.5"/>
-<text text-anchor="middle" x="1017.12" y="-288.5" font-family="Helvetica,sans-Serif" font-size="10.00">Beams</text>
-<polyline fill="none" stroke="black" points="950.622,-280.5 1083.62,-280.5 "/>
-<text text-anchor="middle" x="1017.12" y="-267.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="950.622,-259.5 1083.62,-259.5 "/>
-<text text-anchor="start" x="958.622" y="-246.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Beams()</text>
-<text text-anchor="start" x="958.622" y="-233.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~Beams()</text>
-<text text-anchor="start" x="958.622" y="-220.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ losses_energy_cut()</text>
-<text text-anchor="start" x="958.622" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ losses_longitudinal_cut()</text>
-<text text-anchor="start" x="958.622" y="-194.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ losses_separatrix()</text>
-<text text-anchor="start" x="958.622" y="-181.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ n_macroparticles_alive()</text>
-<text text-anchor="start" x="958.622" y="-168.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ statistics()</text>
+<a xlink:href="../../d9/d7c/classBeams.html" target="_top" xlink:title="{Beams\n||+ Beams()\l+ ~Beams()\l+ losses_energy_cut()\l+ losses_longitudinal_cut()\l+ losses_separatrix()\l+ n_macroparticles_alive()\l+ statistics()\l&#45; statistics()\l}">
+<polygon fill="white" stroke="black" points="950.622,-154 950.622,-308 1083.62,-308 1083.62,-154 950.622,-154"/>
+<text text-anchor="middle" x="1017.12" y="-295" font-family="Helvetica,sans-Serif" font-size="10.00">Beams</text>
+<polyline fill="none" stroke="black" points="950.622,-287 1083.62,-287 "/>
+<text text-anchor="middle" x="1017.12" y="-274" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="950.622,-266 1083.62,-266 "/>
+<text text-anchor="start" x="958.622" y="-253" font-family="Helvetica,sans-Serif" font-size="10.00">+ Beams()</text>
+<text text-anchor="start" x="958.622" y="-240" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~Beams()</text>
+<text text-anchor="start" x="958.622" y="-227" font-family="Helvetica,sans-Serif" font-size="10.00">+ losses_energy_cut()</text>
+<text text-anchor="start" x="958.622" y="-214" font-family="Helvetica,sans-Serif" font-size="10.00">+ losses_longitudinal_cut()</text>
+<text text-anchor="start" x="958.622" y="-201" font-family="Helvetica,sans-Serif" font-size="10.00">+ losses_separatrix()</text>
+<text text-anchor="start" x="958.622" y="-188" font-family="Helvetica,sans-Serif" font-size="10.00">+ n_macroparticles_alive()</text>
+<text text-anchor="start" x="958.622" y="-175" font-family="Helvetica,sans-Serif" font-size="10.00">+ statistics()</text>
+<text text-anchor="start" x="958.622" y="-162" font-family="Helvetica,sans-Serif" font-size="10.00">&#45; statistics()</text>
 </a>
 </g>
 <!-- Node2&#45;&gt;Node1 -->
 <g id="edge2" class="edge"><title>Node2&#45;&gt;Node1</title>
-<path fill="none" stroke="#404040" d="M1017.12,-160.28C1017.12,-132.12 1017.12,-100.596 1017.12,-75.8454"/>
-<polygon fill="none" stroke="#404040" points="1017.12,-75.5734 1013.12,-69.5734 1017.12,-63.5734 1021.12,-69.5733 1017.12,-75.5734"/>
+<path fill="none" stroke="#404040" d="M1017.12,-153.777C1017.12,-127.32 1017.12,-98.6491 1017.12,-75.7762"/>
+<polygon fill="none" stroke="#404040" points="1017.12,-75.7165 1013.12,-69.7165 1017.12,-63.7165 1021.12,-69.7164 1017.12,-75.7165"/>
 <text text-anchor="middle" x="1034.62" y="-86.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +Beam</text>
 </g>
 <!-- Node3 -->
@@ -180,8 +181,8 @@
 </g>
 <!-- Node4&#45;&gt;Node2 -->
 <g id="edge6" class="edge"><title>Node4&#45;&gt;Node2</title>
-<path fill="none" stroke="#404040" d="M959.67,-522.479C965.419,-515.472 971.755,-508.27 978.122,-502 987.371,-492.892 995.071,-495.484 1001.12,-484 1016.22,-455.345 1019.25,-376.007 1019.09,-313.738"/>
-<polygon fill="none" stroke="#404040" points="1019.09,-313.532 1015.05,-307.555 1019.02,-301.532 1023.05,-307.509 1019.09,-313.532"/>
+<path fill="none" stroke="#404040" d="M959.67,-522.479C965.419,-515.472 971.755,-508.27 978.122,-502 987.371,-492.892 995.071,-495.484 1001.12,-484 1015.69,-456.349 1019.02,-381.503 1019.1,-320.342"/>
+<polygon fill="none" stroke="#404040" points="1019.1,-320.31 1015.08,-314.319 1019.07,-308.31 1023.08,-314.302 1019.1,-320.31"/>
 <text text-anchor="middle" x="1041.12" y="-422.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +intensity</text>
 </g>
 <!-- Node5 -->
@@ -201,8 +202,8 @@
 </g>
 <!-- Node5&#45;&gt;Node2 -->
 <g id="edge8" class="edge"><title>Node5&#45;&gt;Node2</title>
-<path fill="none" stroke="#404040" d="M1482.55,-683.89C1452.95,-674.807 1385.42,-650.246 1348.12,-606 1316.59,-568.604 1330.56,-547.304 1312.12,-502 1286.94,-440.126 1302.38,-404.973 1248.12,-366 1191.44,-325.282 1151.34,-384.944 1092.12,-348 1077.49,-338.868 1065.17,-325.711 1055.03,-311.488"/>
-<polygon fill="none" stroke="#404040" points="1055.03,-311.482 1048.37,-308.72 1048.35,-301.509 1055.02,-304.271 1055.03,-311.482"/>
+<path fill="none" stroke="#404040" d="M1482.55,-683.89C1452.95,-674.807 1385.42,-650.246 1348.12,-606 1316.59,-568.604 1330.56,-547.304 1312.12,-502 1286.94,-440.126 1302.38,-404.973 1248.12,-366 1191.44,-325.282 1151.34,-384.944 1092.12,-348 1079.81,-340.317 1069.14,-329.784 1060.02,-318.166"/>
+<polygon fill="none" stroke="#404040" points="1059.81,-317.876 1053.04,-315.393 1052.73,-308.189 1059.5,-310.672 1059.81,-317.876"/>
 <text text-anchor="middle" x="1399.12" y="-558" font-family="Helvetica,sans-Serif" font-size="10.00"> +n_macroparticles</text>
 <text text-anchor="middle" x="1399.12" y="-545" font-family="Helvetica,sans-Serif" font-size="10.00">+n_macroparticles_lost</text>
 </g>
@@ -229,8 +230,8 @@
 </g>
 <!-- Node6&#45;&gt;Node2 -->
 <g id="edge10" class="edge"><title>Node6&#45;&gt;Node2</title>
-<path fill="none" stroke="#404040" d="M1106.83,-522.405C1099.05,-484.782 1084.78,-420.217 1068.12,-366 1062.78,-348.613 1056.37,-330.231 1049.92,-312.816"/>
-<polygon fill="none" stroke="#404040" points="1049.9,-312.768 1044.05,-308.554 1045.69,-301.532 1051.54,-305.746 1049.9,-312.768"/>
+<path fill="none" stroke="#404040" d="M1106.83,-522.405C1099.05,-484.782 1084.78,-420.217 1068.12,-366 1063.49,-350.923 1058.05,-335.098 1052.48,-319.803"/>
+<polygon fill="none" stroke="#404040" points="1052.37,-319.49 1046.54,-315.247 1048.21,-308.233 1054.04,-312.476 1052.37,-319.49"/>
 <text text-anchor="middle" x="1105.62" y="-422.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +id</text>
 </g>
 <!-- Node6&#45;&gt;Node15 -->

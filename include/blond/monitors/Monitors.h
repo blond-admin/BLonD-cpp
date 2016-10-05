@@ -21,6 +21,7 @@
 #include <blond/llrf/LHCNoiseFB.h>
 
 
+
 void *read_1D(std::string fname, std::string dsname,
               std::string type, hsize_t dims[]);
 
@@ -51,23 +52,26 @@ public:
 
 class API BunchMonitor {
 private:
+    typedef float real_t;
+    const H5::DataType NATIVE_REAL_T = H5::PredType::NATIVE_FLOAT;
+
     int_vector_t b_np_alive;
-    f_vector_t b_mean_dt;
-    f_vector_t b_mean_dE;
-    f_vector_t b_sigma_dt;
-    f_vector_t b_sigma_dE;
-    f_vector_t b_epsn_rms;
-    f_vector_t b_bl_gauss;
-    f_vector_t b_PL_omegaRF;
-    f_vector_t b_PL_phiRF;
-    f_vector_t b_PL_bunch_phase;
-    f_vector_t b_PL_phase_corr;
-    f_vector_t b_PL_omegaRF_corr;
-    f_vector_t b_SL_dphiRF;
-    f_vector_t b_RL_drho;
-    f_vector_t b_LHCnoiseFB_factor;
-    f_vector_t b_LHCnoiseFB_bl;
-    f_vector_2d_t b_LHCnoiseFB_bl_bbb;
+    std::vector<real_t> b_mean_dt;
+    std::vector<real_t> b_mean_dE;
+    std::vector<real_t> b_sigma_dt;
+    std::vector<real_t> b_sigma_dE;
+    std::vector<real_t> b_epsn_rms;
+    std::vector<real_t> b_bl_gauss;
+    std::vector<double> b_PL_omegaRF;
+    std::vector<real_t> b_PL_phiRF;
+    std::vector<real_t> b_PL_bunch_phase;
+    std::vector<real_t> b_PL_phase_corr;
+    std::vector<real_t> b_PL_omegaRF_corr;
+    std::vector<real_t> b_SL_dphiRF;
+    std::vector<real_t> b_RL_drho;
+    std::vector<real_t> b_LHCnoiseFB_factor;
+    std::vector<real_t> b_LHCnoiseFB_bl;
+    std::vector< std::vector<real_t> > b_LHCnoiseFB_bl_bbb;
 public:
     H5::H5File *fH5File;
     H5::Group *fH5Group;

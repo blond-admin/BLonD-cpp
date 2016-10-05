@@ -30,7 +30,7 @@ var files =
     [ "math_functions.h", "d2/de2/math__functions_8h.html", "d2/de2/math__functions_8h" ],
     [ "Monitors.cpp", "da/dda/Monitors_8cpp.html", "da/dda/Monitors_8cpp" ],
     [ "Monitors.h", "d0/da6/Monitors_8h.html", "d0/da6/Monitors_8h" ],
-    [ "omp.h", "df/d28/omp_8h.html", "df/d28/omp_8h" ],
+    [ "openmp.h", "d1/db0/openmp_8h.html", "d1/db0/openmp_8h" ],
     [ "optionparser.h", "da/d69/optionparser_8h.html", "da/d69/optionparser_8h" ],
     [ "PhaseLoop.cpp", "db/dee/PhaseLoop_8cpp.html", null ],
     [ "PhaseLoop.h", "d3/d33/PhaseLoop_8h.html", [

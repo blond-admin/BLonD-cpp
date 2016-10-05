@@ -1,5 +1,11 @@
 var NAVTREEINDEX2 =
 {
+"d8/d2b/classLHCNoiseFB.html#a33d9b644f1a429c02be762fa0b78ceff":[1,0,20,9],
+"d8/d2b/classLHCNoiseFB.html#a4c509d05f469e8ff5b2498af16046331":[1,0,20,11],
+"d8/d2b/classLHCNoiseFB.html#a8431c01776d443ecde3ef959fd306091":[1,0,20,12],
+"d8/d2b/classLHCNoiseFB.html#a96645718b7bf0be08865c7c95ac921ec":[1,0,20,16],
+"d8/d2b/classLHCNoiseFB.html#aa018d0e54ee78069b671f18d3fc20afd":[1,0,20,7],
+"d8/d2b/classLHCNoiseFB.html#aadc452244b90b234cf8e5a5b33098b3c":[1,0,20,1],
 "d8/d2b/classLHCNoiseFB.html#aca96da4eb2784f26076b0fd4e2b8cb80":[1,0,20,13],
 "d8/d2b/classLHCNoiseFB.html#ad02ca8d5c5b11af89e4460426890b056":[1,0,20,8],
 "d8/d2b/classLHCNoiseFB.html#add1db58c2e9b8c04d5b0a8229faead93":[1,0,20,0],
@@ -243,11 +249,5 @@ var NAVTREEINDEX2 =
 "db/dee/PhaseLoop_8cpp.html":[2,0,22],
 "db/dee/PhaseLoop_8cpp_source.html":[2,0,22],
 "dc/d0f/Beams_8cpp.html":[2,0,0],
-"dc/d0f/Beams_8cpp_source.html":[2,0,0],
-"dc/d32/classSPS__RL.html":[1,0,30],
-"dc/d32/classSPS__RL.html#a18e454de022b124a59b6a727fd7b594e":[1,0,30,0],
-"dc/d32/classSPS__RL.html#a864641f5311c3b9aaedc4d3fd03c5749":[1,0,30,2],
-"dc/d32/classSPS__RL.html#a86ee7de8bf3b33b12680f9bc3604d332":[1,0,30,1],
-"dc/d32/classSPS__RL.html#aa24d59f76bc7cb807bef4d00ca10e8d4":[1,0,30,3],
-"dc/d32/classSPS__RL.html#ac49d718ef8adc16427736af9325be1ae":[1,0,30,4]
+"dc/d0f/Beams_8cpp_source.html":[2,0,0]
 };

@@ -129,7 +129,7 @@ $(document).ready(function(){initNavTree('d7/d76/fft_8h_source.html','../../');}
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;cmath&gt;</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;fftw3.h&gt;</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../df/d28/omp_8h.html">omp.h</a>&gt;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../d1/db0/openmp_8h.html">blond/openmp.h</a>&gt;</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
 <div class="line"><a name="l00020"></a><span class="lineno"><a class="code" href="../../d8/de0/namespacefft.html">   20</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="../../d8/de0/namespacefft.html#ace866b5e38da8e32910f39bc63eb91e9">fft</a> {</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
@@ -474,13 +474,13 @@ $(document).ready(function(){initNavTree('d7/d76/fft_8h_source.html','../../');}
 <div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">long</span> <span class="keywordtype">unsigned</span> size = signal.size() + kernel.size() - 1;</div>
 <div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;        res.resize(size);</div>
 <div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;        <a class="code" href="../../d8/de0/namespacefft.html#a789573d204d06c288f6b74c45cd92137">fft::rfft</a>(signal, v1, size, omp_get_max_threads());</div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;        <a class="code" href="../../d8/de0/namespacefft.html#a789573d204d06c288f6b74c45cd92137">fft::rfft</a>(kernel, v2, size, omp_get_max_threads());</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;        <a class="code" href="../../d8/de0/namespacefft.html#a789573d204d06c288f6b74c45cd92137">fft::rfft</a>(signal, v1, size, <a class="code" href="../../d1/db0/openmp_8h.html#acc6932af59016ea398d34bd905b5ad50">omp_get_max_threads</a>());</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;        <a class="code" href="../../d8/de0/namespacefft.html#a789573d204d06c288f6b74c45cd92137">fft::rfft</a>(kernel, v2, size, <a class="code" href="../../d1/db0/openmp_8h.html#acc6932af59016ea398d34bd905b5ad50">omp_get_max_threads</a>());</div>
 <div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;</div>
 <div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;        std::transform(v1.begin(), v1.end(), v2.begin(), v1.begin(),</div>
 <div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;                       std::multiplies&lt;complex_t&gt;());</div>
 <div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;</div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;        <a class="code" href="../../d8/de0/namespacefft.html#a7870786fb204fa75feedfb6eeadbd788">fft::irfft</a>(v1, res, size, omp_get_max_threads());</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;        <a class="code" href="../../d8/de0/namespacefft.html#a7870786fb204fa75feedfb6eeadbd788">fft::irfft</a>(v1, res, size, <a class="code" href="../../d1/db0/openmp_8h.html#acc6932af59016ea398d34bd905b5ad50">omp_get_max_threads</a>());</div>
 <div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;    }</div>
 <div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;}</div>
 <div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;</div>
@@ -490,8 +490,8 @@ $(document).ready(function(){initNavTree('d7/d76/fft_8h_source.html','../../');}
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_b2c71bdfd3af65c97a5a70fadf3dc512.html">include</a></li><li class="navelem"><a class="el" href="../../dir_c0e22518f92c7490e2ab56f92eef9024.html">blond</a></li><li class="navelem"><a class="el" href="../../d7/d76/fft_8h.html">fft.h</a></li>
-    <li class="footer">Generated on Tue Oct 4 2016 15:13:00 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="navelem"><a class="el" href="../../dir_6b634e43e772001122993837e1d7e1c5.html">include</a></li><li class="navelem"><a class="el" href="../../dir_4a4b9f9a898a71f152a99978051a04a6.html">blond</a></li><li class="navelem"><a class="el" href="../../d7/d76/fft_8h.html">fft.h</a></li>
+    <li class="footer">Generated on Wed Oct 5 2016 09:47:10 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

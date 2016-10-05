@@ -271,8 +271,8 @@ $(document).ready(function(){initNavTree('d7/d91/Slices_8cpp_source.html','../..
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    hist_t *h;</div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="preprocessor">    #pragma omp parallel</span></div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="preprocessor"></span>    {</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> threads = <a class="code" href="../../df/d28/omp_8h.html#ab628587850957d925be0c2157f5f6823">omp_get_num_threads</a>();</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> <span class="keywordtype">id</span> = <a class="code" href="../../df/d28/omp_8h.html#aba06990768c6b572ca3f69029334a9df">omp_get_thread_num</a>();</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> threads = <a class="code" href="../../d1/db0/openmp_8h.html#ad5abda85be2c3d59dc7eaa0e1d320670">omp_get_num_threads</a>();</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> <span class="keywordtype">id</span> = <a class="code" href="../../d1/db0/openmp_8h.html#afa582dd42157e33aa4ac4b4e60872b9f">omp_get_thread_num</a>();</div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        <span class="keyword">auto</span> tile =</div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;            <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>((n_macroparticles + threads - 1) / threads);</div>
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        <span class="keyword">auto</span> start = <span class="keywordtype">id</span> * tile;</div>
@@ -623,8 +623,8 @@ $(document).ready(function(){initNavTree('d7/d91/Slices_8cpp_source.html','../..
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_5d7403ebb2084c8168855698fd97528e.html">src</a></li><li class="navelem"><a class="el" href="../../dir_0983a1a46e77bbc716180d5ceebb220d.html">beams</a></li><li class="navelem"><a class="el" href="../../d7/d91/Slices_8cpp.html">Slices.cpp</a></li>
-    <li class="footer">Generated on Tue Oct 4 2016 15:13:00 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="navelem"><a class="el" href="../../dir_2b12189b1b38a5891fb7949d75362c72.html">src</a></li><li class="navelem"><a class="el" href="../../dir_65a963df2049cffd9bd0ad804e3d7b5f.html">beams</a></li><li class="navelem"><a class="el" href="../../d7/d91/Slices_8cpp.html">Slices.cpp</a></li>
+    <li class="footer">Generated on Wed Oct 5 2016 09:47:10 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

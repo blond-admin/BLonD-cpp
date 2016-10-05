@@ -295,7 +295,7 @@ $(document).ready(function(){initNavTree('d1/da8/python_8h_source.html','../../'
 <div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;            <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;pair : map) {</div>
 <div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;                <span class="keyword">auto</span> pKey = PyString_FromString(pair.first.c_str());</div>
 <div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;                <span class="keyword">auto</span> pVal = PyString_FromString(pair.second.c_str());</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;                assert(PyDict_SetItem(pDict, pKey, pVal) == 0);</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;                PyDict_SetItem(pDict, pKey, pVal);</div>
 <div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;            }</div>
 <div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;            <span class="keywordflow">return</span> pDict;</div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        } <span class="keywordflow">else</span> {</div>
@@ -312,8 +312,8 @@ $(document).ready(function(){initNavTree('d1/da8/python_8h_source.html','../../'
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_b2c71bdfd3af65c97a5a70fadf3dc512.html">include</a></li><li class="navelem"><a class="el" href="../../dir_c0e22518f92c7490e2ab56f92eef9024.html">blond</a></li><li class="navelem"><a class="el" href="../../d1/da8/python_8h.html">python.h</a></li>
-    <li class="footer">Generated on Tue Oct 4 2016 15:13:00 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="navelem"><a class="el" href="../../dir_6b634e43e772001122993837e1d7e1c5.html">include</a></li><li class="navelem"><a class="el" href="../../dir_4a4b9f9a898a71f152a99978051a04a6.html">blond</a></li><li class="navelem"><a class="el" href="../../d1/da8/python_8h.html">python.h</a></li>
+    <li class="footer">Generated on Wed Oct 5 2016 09:47:10 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

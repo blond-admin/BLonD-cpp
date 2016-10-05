@@ -286,7 +286,7 @@ Variables</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d7/d76/fft_8h_source.html#l00354">354</a> of file <a class="el" href="../../d7/d76/fft_8h_source.html">fft.h</a>.</p>
 
-<p>References <a class="el" href="../../d7/d76/fft_8h_source.html#l00319">irfft()</a>, and <a class="el" href="../../d7/d76/fft_8h_source.html#l00246">rfft()</a>.</p>
+<p>References <a class="el" href="../../d7/d76/fft_8h_source.html#l00319">irfft()</a>, <a class="el" href="../../d1/db0/openmp_8h_source.html#l00018">omp_get_max_threads()</a>, and <a class="el" href="../../d7/d76/fft_8h_source.html#l00246">rfft()</a>.</p>
 
 <p>Referenced by <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00118">InducedVoltageTime::induced_voltage_generation()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;    {</div>
@@ -295,13 +295,13 @@ Variables</h2></td></tr>
 <div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">long</span> <span class="keywordtype">unsigned</span> size = signal.size() + kernel.size() - 1;</div>
 <div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;        res.resize(size);</div>
 <div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;        <a class="code" href="../../d8/de0/namespacefft.html#a789573d204d06c288f6b74c45cd92137">fft::rfft</a>(signal, v1, size, omp_get_max_threads());</div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;        <a class="code" href="../../d8/de0/namespacefft.html#a789573d204d06c288f6b74c45cd92137">fft::rfft</a>(kernel, v2, size, omp_get_max_threads());</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;        <a class="code" href="../../d8/de0/namespacefft.html#a789573d204d06c288f6b74c45cd92137">fft::rfft</a>(signal, v1, size, <a class="code" href="../../d1/db0/openmp_8h.html#acc6932af59016ea398d34bd905b5ad50">omp_get_max_threads</a>());</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;        <a class="code" href="../../d8/de0/namespacefft.html#a789573d204d06c288f6b74c45cd92137">fft::rfft</a>(kernel, v2, size, <a class="code" href="../../d1/db0/openmp_8h.html#acc6932af59016ea398d34bd905b5ad50">omp_get_max_threads</a>());</div>
 <div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;</div>
 <div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;        std::transform(v1.begin(), v1.end(), v2.begin(), v1.begin(),</div>
 <div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;                       std::multiplies&lt;complex_t&gt;());</div>
 <div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;</div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;        <a class="code" href="../../d8/de0/namespacefft.html#a7870786fb204fa75feedfb6eeadbd788">fft::irfft</a>(v1, res, size, omp_get_max_threads());</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;        <a class="code" href="../../d8/de0/namespacefft.html#a7870786fb204fa75feedfb6eeadbd788">fft::irfft</a>(v1, res, size, <a class="code" href="../../d1/db0/openmp_8h.html#acc6932af59016ea398d34bd905b5ad50">omp_get_max_threads</a>());</div>
 <div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;    }</div>
 </div><!-- fragment -->
 <p><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -309,7 +309,7 @@ Variables</h2></td></tr>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../d8/de0/namespacefft_acfc0c7a2bf86a2515926f3b0284732c8_cgraph.svg" width="100%" height="410"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../d8/de0/namespacefft_acfc0c7a2bf86a2515926f3b0284732c8_cgraph.svg" width="100%" height="450"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 </p>
@@ -1428,7 +1428,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../d8/de0/namespacefft.html">fft</a></li>
-    <li class="footer">Generated on Tue Oct 4 2016 15:13:00 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Wed Oct 5 2016 09:47:11 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

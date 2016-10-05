@@ -1,5 +1,7 @@
 var NAVTREEINDEX3 =
 {
+"dc/d0f/Beams_8cpp.html":[2,0,0],
+"dc/d0f/Beams_8cpp_source.html":[2,0,0],
 "dc/d32/classSPS__RL.html":[1,0,30],
 "dc/d32/classSPS__RL.html#a18e454de022b124a59b6a727fd7b594e":[1,0,30,0],
 "dc/d32/classSPS__RL.html#a864641f5311c3b9aaedc4d3fd03c5749":[1,0,30,2],
@@ -247,7 +249,5 @@ var NAVTREEINDEX3 =
 "de/df0/utilities_8h.html#a8b6fdda7c3572c84a202da85fefec634":[2,0,47,6],
 "de/df0/utilities_8h.html#aab07cd86e97debbdba09a14619c10710":[2,0,47,10],
 "de/df0/utilities_8h.html#aafee22ee67a183549fc31ef17739abb1":[2,0,47,19],
-"de/df0/utilities_8h.html#ac23c734b93bd28f5dead2bb9eb809d59":[2,0,47,9],
-"de/df0/utilities_8h.html#ad8ce4efaa307683d3d763b37b4711c53":[2,0,47,1],
-"de/df0/utilities_8h.html#ae0aeb3b7c368c886ba621b032db022f7":[2,0,47,7]
+"de/df0/utilities_8h.html#ac23c734b93bd28f5dead2bb9eb809d59":[2,0,47,9]
 };

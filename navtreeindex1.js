@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"d3/df3/classoption_1_1Option.html":[1,0,3,2],
+"d3/df3/classoption_1_1Option.html#a02a76b4896abd22d0ba8514362261de9":[1,0,3,2,24],
 "d3/df3/classoption_1_1Option.html#a1226e45dc2de30f269b2aff1784bbee7":[1,0,3,2,18],
 "d3/df3/classoption_1_1Option.html#a1d717f053449a3b35e22a20613188ef3":[1,0,3,2,10],
 "d3/df3/classoption_1_1Option.html#a385221e2a8f37c548f0d5777bfddb216":[1,0,3,2,1],
@@ -247,7 +249,5 @@ var NAVTREEINDEX1 =
 "d8/d2b/classLHCNoiseFB.html":[1,0,20],
 "d8/d2b/classLHCNoiseFB.html#a06601d6fb2617658517590f0c5ca9ff8":[1,0,20,4],
 "d8/d2b/classLHCNoiseFB.html#a157cdf50dacbc4018db5873c209aa737":[1,0,20,14],
-"d8/d2b/classLHCNoiseFB.html#a1f4261d97326d23f1f980cd2adc3d2be":[1,0,20,3],
-"d8/d2b/classLHCNoiseFB.html#a229544c3640d963e8b7a93486c6077fb":[1,0,20,15],
-"d8/d2b/classLHCNoiseFB.html#a29bc5f8017f5ecfe50f336e2f88c90e1":[1,0,20,6]
+"d8/d2b/classLHCNoiseFB.html#a1f4261d97326d23f1f980cd2adc3d2be":[1,0,20,3]
 };

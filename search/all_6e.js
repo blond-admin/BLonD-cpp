@@ -12,6 +12,7 @@ var searchData=
   ['n_5fturns',['n_turns',['../d1/dfc/classGeneralParameters.html#aa393ee4bd6784a8ef1e74227ee1f313b',1,'GeneralParameters']]],
   ['name',['name',['../d3/df3/classoption_1_1Option.html#a02a76b4896abd22d0ba8514362261de9',1,'option::Option']]],
   ['namelen',['namelen',['../d3/df3/classoption_1_1Option.html#a3aa2957b19ad5815873441b415d56050',1,'option::Option']]],
+  ['native_5freal_5ft',['NATIVE_REAL_T',['../d2/d00/classBunchMonitor.html#a86bff942004a13d0d38a0a7326ceada7',1,'BunchMonitor']]],
   ['next',['next',['../d3/df3/classoption_1_1Option.html#a59ae9aed505f4d410633bb36478a32be',1,'option::Option::next()'],['../de/dc9/classoption_1_1PrintUsageImplementation_1_1LinePartIterator.html#a58b8743da57de2d108472eee60324df6',1,'option::PrintUsageImplementation::LinePartIterator::next()']]],
   ['next_5f',['next_',['../d3/df3/classoption_1_1Option.html#ab4c101fe086777f62ebba72c3e74fda9',1,'option::Option']]],
   ['next_5fregular',['next_regular',['../df/d6d/namespacemymath.html#accbb9ef1f97a6dca6e5fb46dc038130a',1,'mymath']]],

@@ -11,6 +11,7 @@ var searchData=
   ['n_5fturns',['n_turns',['../d1/dfc/classGeneralParameters.html#aa393ee4bd6784a8ef1e74227ee1f313b',1,'GeneralParameters']]],
   ['name',['name',['../d3/df3/classoption_1_1Option.html#a02a76b4896abd22d0ba8514362261de9',1,'option::Option']]],
   ['namelen',['namelen',['../d3/df3/classoption_1_1Option.html#a3aa2957b19ad5815873441b415d56050',1,'option::Option']]],
+  ['native_5freal_5ft',['NATIVE_REAL_T',['../d2/d00/classBunchMonitor.html#a86bff942004a13d0d38a0a7326ceada7',1,'BunchMonitor']]],
   ['next_5f',['next_',['../d3/df3/classoption_1_1Option.html#ab4c101fe086777f62ebba72c3e74fda9',1,'option::Option']]],
   ['noisefb',['noiseFB',['../d6/d87/classPhaseLoop.html#a9346f7d58a2281b4f61572eca2481ada',1,'PhaseLoop::noiseFB()'],['../de/da1/classRingAndRfSection.html#a11f1bfacb142e878008fa8ac9b70af5c',1,'RingAndRfSection::noiseFB()']]],
   ['nonop_5fargs',['nonop_args',['../d6/d83/classoption_1_1Parser.html#ab6df1186f1e85a80366573b3e0c7bbf6',1,'option::Parser']]],

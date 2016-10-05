@@ -49,7 +49,7 @@ class testRFP : public ::testing::Test {
 
   private:
     const long long N_b = 1e9;  // Intensity
-    const ftype tau_0 = 0.4e-9; // Initial bunch length, 4 sigma [s]
+    // const ftype tau_0 = 0.4e-9; // Initial bunch length, 4 sigma [s]
 
     // Machine and RF parameters
     const ftype C = 26658.883;       // Machine circumference [m]
@@ -67,7 +67,7 @@ class testRFP : public ::testing::Test {
 
     const int N_t = 2000; // Number of turns to track
     const int N_p = 100;  // Macro-particles
-    const int N_slices = 10;
+    // const int N_slices = 10;
 };
 
 TEST_F(testRFP, test_length_ratio) {

@@ -106,8 +106,7 @@ class testPL : public ::testing::Test {
     const int alpha_order = 1;
     const int n_sections = 1;
     const uint N_t = 1000000; // Number of turns to track; full ramp: 8700001
-    const ftype bl_target =
-        1.25e-9; // 4 sigma r.m.s. target bunch length in [s]
+    // const ftype bl_target = 1.25e-9; // 4 sigma r.m.s. target bunch length in [s]
 
     const int N_slices = 151;
 

@@ -115,7 +115,7 @@ class testLHC_Restart : public ::testing::Test {
     const long long N_b = 1e9; // Intensity
     const int alpha_order = 1;
     const int n_sections = 1;
-    const int bl_target = 1.25e-9; // 4 sigma r.m.s. target bunch length in [s]
+    // const double bl_target = 1.25e-9; // 4 sigma r.m.s. target bunch length in [s]
 
     const std::string datafiles = DEMO_FILES "/LHC_restart/";
 

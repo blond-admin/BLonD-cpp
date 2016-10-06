@@ -163,7 +163,7 @@ TEST_F(testInducedVoltage, reprocess1)
     auto Slice = Context::Slice;
     Slice->track();
 
-    for (uint i = 0; i < Slice->n_slices; i++)
+    for (int i = 0; i < Slice->n_slices; i++)
         Slice->bin_centers[i] *= 1.1;
 
     indVoltTime->reprocess();

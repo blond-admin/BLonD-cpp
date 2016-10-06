@@ -302,7 +302,7 @@ TEST_F(testInducedVoltageFreq, reprocess1)
 
     auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
 
-    for (uint i = 0; i < Slice->n_slices; ++i)
+    for (int i = 0; i < Slice->n_slices; ++i)
         Slice->bin_centers[i] = 1.1 * Slice->bin_centers[i];
 
     indVoltFreq->reprocess();

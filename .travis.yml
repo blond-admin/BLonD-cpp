@@ -33,12 +33,14 @@ cache:
   apt: true
   pip: true
   directories:
-    - $TRAVIS_BUILD_DIR/external
+    - $HOME/external
 before_install:
 - export CC=/usr/bin/gcc-4.8
 - export CXX=/usr/bin/g++-4.8
 before_script:
+- cp -r $HOME/external ./
 - source install-linux.sh
+- cp -r external $HOME/
 - mkdir build
 - cd build
 - cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..

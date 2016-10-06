@@ -4,8 +4,8 @@ C++ Version of [CERN's BLonD code][1]
 
 NOT Stable - Under heavy development
 
-[![Build Status](https://travis-ci.org/kiliakis/BLonD-minimal-cpp.svg?branch=master)](https://travis-ci.org/kiliakis/BLonD-minimal-cpp)
-[![Coverage Status](https://coveralls.io/repos/github/kiliakis/BLonD-minimal-cpp/badge.svg?branch=master)](https://coveralls.io/github/kiliakis/BLonD-minimal-cpp?branch=master)
+[![Build Status](https://travis-ci.org/kiliakis/BLonD-cpp.svg?branch=master)](https://travis-ci.org/kiliakis/BLonD-cpp)
+[![Coverage Status](https://coveralls.io/repos/github/kiliakis/BLonD-cpp/badge.svg?branch=master)](https://coveralls.io/github/kiliakis/BLonD-cpp?branch=master)
 
 ## Requirements
 * cmake version >= 2.8 [install](https://cmake.org/install/)

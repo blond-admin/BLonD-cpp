@@ -17,9 +17,9 @@ INSTALL_GTEST=true
 INSTALL_PYTHON=true
 INSTALL_HDF5=true
 INSTALL_GBENCH=false
+SKIP_QUESTIONS=false
 
-
-while getopts ":f:t:p:h:b:" opt; do
+while getopts ":f:t:p:h:b:s:" opt; do
    case $opt in 
       f)
          INSTALL_FFTW=$OPTARG
@@ -36,6 +36,8 @@ while getopts ":f:t:p:h:b:" opt; do
       b)
          INSTALL_GBENCH=$OPTARG
          # echo "-b specified with arg $OPTARG"
+         ;;
+      s) SKIP_QUESTIONS=true
          ;;
       :)
          echo -e "Option -$OPTARG requires and argument"
@@ -54,13 +56,17 @@ done
 
 if [ -e ${INSTALL}/include/fftw3.h ] && [ -e ${INSTALL}/lib/libfftw3.la ]; then
    echo -e "\n\n---- Looks like fftw3 is already installed,"
-   echo -e "---- are you sure you want to reinstall it?"
-   select yn in "Yes" "No"; do
-      case $yn in
-         Yes ) INSTALL_FFTW=true; break;;
-         No ) INSTALL_FFTW=false; break;;
-      esac
-   done
+   if [ "${SKIP_QUESTIONS}" = "true" ] ; then
+      echo -e "---- fftw3 installation will be skipped"
+   else
+      echo -e "---- are you sure you want to reinstall it?"
+      select yn in "Yes" "No"; do
+         case $yn in
+            Yes ) INSTALL_FFTW=true; break;;
+            No ) INSTALL_FFTW=false; break;;
+         esac
+      done
+   fi
 fi
 
 
@@ -110,13 +116,17 @@ cd ${BLOND_HOME}
 
 if [ -e ${INSTALL}/include/hdf5.h ] && [ -e ${INSTALL}/lib/libhdf5.so ]; then
    echo -e "\n\n---- Looks like HDF5 is already installed,"
-   echo -e "---- are you sure you want to reinstall it?"
-   select yn in "Yes" "No"; do
-      case $yn in
-         Yes ) INSTALL_HDF5=true; break;;
-         No ) INSTALL_HDF5=false; break;;
-      esac
-   done
+   if [ "${SKIP_QUESTIONS}" = "true" ] ; then
+      echo -e "---- HDF5 installation will be skipped"
+   else
+      echo -e "---- are you sure you want to reinstall it?"
+      select yn in "Yes" "No"; do
+         case $yn in
+            Yes ) INSTALL_HDF5=true; break;;
+            No ) INSTALL_HDF5=false; break;;
+         esac
+      done
+   fi
 fi
 
 
@@ -159,13 +169,17 @@ cd ${BLOND_HOME}
 if [ -e ${INSTALL}/include/gtest/gtest.h ] && [ -e ${INSTALL}/lib/libgtest.a ] \
    && [ -e ${INSTALL}/lib/libgtest_main.a ]; then
    echo -e "\n\n---- Looks like googletest is already installed,"
-   echo -e "---- are you sure you want to reinstall it?"
-   select yn in "Yes" "No"; do
-      case $yn in
-         Yes ) INSTALL_GTEST=true; break;;
-         No ) INSTALL_GTEST=false; break;;
-      esac
-   done
+   if [ "${SKIP_QUESTIONS}" = "true" ] ; then
+      echo -e "---- googletest installation will be skipped"
+   else
+      echo -e "---- are you sure you want to reinstall it?"
+      select yn in "Yes" "No"; do
+         case $yn in
+            Yes ) INSTALL_GTEST=true; break;;
+            No ) INSTALL_GTEST=false; break;;
+         esac
+      done
+   fi
 fi
 
 if [ "${INSTALL_GTEST}" = "true" ] ; then
@@ -251,13 +265,17 @@ if [ -z ${PY_VERSION} ]; then
 
    if [ -e ${INSTALL}/include/python2.7/Python.h ] && [ -e ${INSTALL}/lib/python2.7/config/libpython2.7.a ]; then
       echo -e "\n\n---- Looks like Python2.7 is already installed,"
-      echo -e "---- are you sure you want to reinstall it?"
-      select yn in "Yes" "No"; do
-         case $yn in
-            Yes ) INSTALL_PYTHON=true; break;;
-            No ) INSTALL_PYTHON=false; break;;
-         esac
-      done
+      if [ "${SKIP_QUESTIONS}" = "true" ] ; then
+         echo -e "---- Python2.7 installation will be skipped"
+      else
+         echo -e "---- are you sure you want to reinstall it?"
+         select yn in "Yes" "No"; do
+            case $yn in
+               Yes ) INSTALL_PYTHON=true; break;;
+               No ) INSTALL_PYTHON=false; break;;
+            esac
+         done
+      fi
    fi
 
    if [ "${INSTALL_PYTHON}" = "true" ] ; then

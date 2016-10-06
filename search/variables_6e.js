@@ -6,7 +6,7 @@ var searchData=
   ['n_5frf',['n_rf',['../da/d49/classRfParameters.html#a08b9bc81dedcac7e68baf31560363a58',1,'RfParameters']]],
   ['n_5fsections',['n_sections',['../d1/dfc/classGeneralParameters.html#a992eb45bb4f0aa3e4e044a4469565e87',1,'GeneralParameters']]],
   ['n_5fsigma',['n_sigma',['../dc/d45/classSlices.html#a5923ddc4a73915fb97e5139b94548bf6',1,'Slices']]],
-  ['n_5fslices',['n_slices',['../dc/d45/classSlices.html#a1c869f247c0a5dab4772de45dd8e5f8d',1,'Slices']]],
+  ['n_5fslices',['n_slices',['../dc/d45/classSlices.html#a695dbc7b6fbdbef0f594e9b63d6877c7',1,'Slices']]],
   ['n_5fthreads',['n_threads',['../d6/d7a/structContext.html#a3fd53a37929e51bbef80cabe2f167f6c',1,'Context']]],
   ['n_5fturns',['n_turns',['../d1/dfc/classGeneralParameters.html#aa393ee4bd6784a8ef1e74227ee1f313b',1,'GeneralParameters']]],
   ['name',['name',['../d3/df3/classoption_1_1Option.html#a02a76b4896abd22d0ba8514362261de9',1,'option::Option']]],

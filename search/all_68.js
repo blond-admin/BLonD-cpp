@@ -7,7 +7,7 @@ var searchData=
   ['head',['head',['../de/d50/classoption_1_1PrintUsageImplementation_1_1LineWrapper.html#a5e2107b64c4a785fb92fca3f99e04c6e',1,'option::PrintUsageImplementation::LineWrapper']]],
   ['help',['help',['../dc/dfe/structoption_1_1Descriptor.html#a9045b19311533e1b8a08645d57149c79',1,'option::Descriptor']]],
   ['highest_5fvoltage',['highest_voltage',['../d6/d13/classFullRingAndRf.html#a6f5f0dd707a3dc279bdec805a914f6d8ae83077522000e4dbdb23b545641c13fd',1,'FullRingAndRf']]],
-  ['histogram',['histogram',['../dc/d45/classSlices.html#a1ad6096cfca13a05fbee0197367b8f82',1,'Slices']]],
+  ['histogram',['histogram',['../dc/d45/classSlices.html#a212e6cf79b793d0546ad34e45cc519d7',1,'Slices']]],
   ['hit_5ftarget_5fline',['hit_target_line',['../de/dc9/classoption_1_1PrintUsageImplementation_1_1LinePartIterator.html#a1538b520d8c7f40d9e35f0289805041d',1,'option::PrintUsageImplementation::LinePartIterator']]],
   ['horizontal_5fcut',['horizontal_cut',['../de/da1/classRingAndRfSection.html#a605e79c96fcc0901d131fcad4cb472ef',1,'RingAndRfSection']]],
   ['hyperbolic',['hyperbolic',['../da/dd4/classPhaseNoise.html#aeecdda7739ac1c11a18927ea7b1f9cd3aab2a6bab56a14c958f97a85838ee74dd',1,'PhaseNoise']]]

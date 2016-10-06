@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['gaussian_5ffit',['gaussian_fit',['../dc/df2/Slices_8h.html#a02b14794ec966816ffe397474b985361a86b720e7f0821b6152a23be5e8600435',1,'Slices.h']]]
+  ['gaussian',['gaussian',['../dc/d45/classSlices.html#a145b60aa2ecd01f1a4524e49bead73f7a09d77ed8033240de4746dcd9cbc1c98d',1,'Slices']]]
 ];

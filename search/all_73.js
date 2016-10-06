@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['s',['s',['../d6/d1e/unionvdt_1_1details_1_1ieee754.html#a51ab4676816641fdbc3d37d13b2100fa',1,'vdt::details::ieee754::s()'],['../dc/df2/Slices_8h.html#a0b582b5b17da9bbc95ef1b5d0c08bd93aa8e9307350b1e20521f37dfe5268df55',1,'s():&#160;Slices.h']]],
+  ['s',['s',['../dc/d45/classSlices.html#a3d9fef3e5ac7d449b0e1ce9ec31d3d3eabbc369193aaec74663be4e947bf758cf',1,'Slices::s()'],['../d6/d1e/unionvdt_1_1details_1_1ieee754.html#a51ab4676816641fdbc3d37d13b2100fa',1,'vdt::details::ieee754::s()']]],
   ['screenlen',['screenlen',['../de/dc9/classoption_1_1PrintUsageImplementation_1_1LinePartIterator.html#a80e35222723182a8245be699c3b2f141',1,'option::PrintUsageImplementation::LinePartIterator']]],
   ['screenlength',['screenLength',['../de/dc9/classoption_1_1PrintUsageImplementation_1_1LinePartIterator.html#a03b6fedfe805d7fc73216da5cd33270e',1,'option::PrintUsageImplementation::LinePartIterator']]],
   ['section_5flength',['section_length',['../da/d49/classRfParameters.html#ae59e1274703908f1ef1fe61fb171e9ac',1,'RfParameters']]],
@@ -20,11 +20,11 @@ var searchData=
   ['slice',['Slice',['../d6/d7a/structContext.html#a54aa8ced44f99c981069a16cf4473f84',1,'Context']]],
   ['slice_5fconstant_5fspace_5fhistogram',['slice_constant_space_histogram',['../dc/d45/classSlices.html#ae9463517699373a87a1dae18becf9319',1,'Slices']]],
   ['slice_5fconstant_5fspace_5fhistogram_5fsmooth',['slice_constant_space_histogram_smooth',['../dc/d45/classSlices.html#ab6c06f1fa1f97ec1fdec7db63c121715',1,'Slices']]],
-  ['slices',['Slices',['../dc/d45/classSlices.html',1,'Slices'],['../de/da1/classRingAndRfSection.html#a4dc04b63525c67bd4b154861edc204ae',1,'RingAndRfSection::slices()'],['../dc/d45/classSlices.html#a7a38e2aee99dad7db53da5cc7e005619',1,'Slices::Slices()']]],
+  ['slices',['Slices',['../dc/d45/classSlices.html',1,'Slices'],['../dc/d45/classSlices.html#a10c5c52b833e4f5d7fe45aa3cefbc782',1,'Slices::Slices()'],['../de/da1/classRingAndRfSection.html#a4dc04b63525c67bd4b154861edc204ae',1,'RingAndRfSection::slices()']]],
   ['slices_2ecpp',['Slices.cpp',['../d7/d91/Slices_8cpp.html',1,'']]],
   ['slices_2eh',['Slices.h',['../dc/df2/Slices_8h.html',1,'']]],
   ['slicesmonitor',['SlicesMonitor',['../de/d59/classSlicesMonitor.html',1,'SlicesMonitor'],['../de/d59/classSlicesMonitor.html#a9acc49a0674e5892018116a7905a2c0e',1,'SlicesMonitor::SlicesMonitor()']]],
-  ['smooth_5fhistogram',['smooth_histogram',['../dc/d45/classSlices.html#ab69b0b825cf428183c12ec6be7ad2b41',1,'Slices']]],
+  ['smooth_5fhistogram',['smooth_histogram',['../dc/d45/classSlices.html#adc5a41dcec4b1f261cf74157f7b6fe34',1,'Slices']]],
   ['solver',['solver',['../de/da1/classRingAndRfSection.html#a0b9e1b140bc882fe60c16e0df39de3c5',1,'RingAndRfSection']]],
   ['solver_5ftype',['solver_type',['../d2/d0e/Tracker_8h.html#a4775bc060a554f018f85756eadd690d1',1,'Tracker.h']]],
   ['sort_5fparticles',['sort_particles',['../dc/d45/classSlices.html#a66da8b26310c40415c351b99d6d390e9',1,'Slices']]],

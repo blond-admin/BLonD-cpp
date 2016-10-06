@@ -282,8 +282,8 @@ $(document).ready(function(){initNavTree('d7/d76/fft_8h_source.html','../../');}
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    {</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> flag = <a class="code" href="../../d8/de0/namespacefft.html#aa9d7e5b47197d324f64f802c079a2ea3">FFTW_FLAGS</a>;</div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        <span class="keyword">auto</span> it =</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        std::find_if(v.begin(), v.end(), [n, type](<span class="keyword">const</span> <a class="code" href="../../dc/daf/structfft_1_1fft__plan__t.html">fft_plan_t</a> &amp;<a class="code" href="../../dc/df2/Slices_8h.html#a0b582b5b17da9bbc95ef1b5d0c08bd93aa8e9307350b1e20521f37dfe5268df55">s</a>) {</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;            <span class="keywordflow">return</span> ((<a class="code" href="../../dc/df2/Slices_8h.html#a0b582b5b17da9bbc95ef1b5d0c08bd93aa8e9307350b1e20521f37dfe5268df55">s</a>.n == n) &amp;&amp; (<a class="code" href="../../dc/df2/Slices_8h.html#a0b582b5b17da9bbc95ef1b5d0c08bd93aa8e9307350b1e20521f37dfe5268df55">s</a>.type == type));</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        std::find_if(v.begin(), v.end(), [n, type](<span class="keyword">const</span> <a class="code" href="../../dc/daf/structfft_1_1fft__plan__t.html">fft_plan_t</a> &amp;s) {</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;            <span class="keywordflow">return</span> ((s.n == n) &amp;&amp; (s.type == type));</div>
 <div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        });</div>
 <div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;</div>
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        <span class="keywordflow">if</span> (it == v.end()) {</div>
@@ -491,7 +491,7 @@ $(document).ready(function(){initNavTree('d7/d76/fft_8h_source.html','../../');}
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_6b634e43e772001122993837e1d7e1c5.html">include</a></li><li class="navelem"><a class="el" href="../../dir_4a4b9f9a898a71f152a99978051a04a6.html">blond</a></li><li class="navelem"><a class="el" href="../../d7/d76/fft_8h.html">fft.h</a></li>
-    <li class="footer">Generated on Thu Oct 6 2016 10:57:48 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Thu Oct 6 2016 16:42:33 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

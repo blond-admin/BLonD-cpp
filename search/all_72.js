@@ -1,7 +1,7 @@
 var searchData=
 [
   ['r',['r',['../da/dd4/classPhaseNoise.html#a7f974a55e6f34b828e352b7634a22774acc4569d96e43f124a23cf29329e99ebf',1,'PhaseNoise']]],
-  ['rad',['rad',['../dc/df2/Slices_8h.html#a0b582b5b17da9bbc95ef1b5d0c08bd93a76d16d89f5cdddeaba5559b76f7d3938',1,'Slices.h']]],
+  ['rad',['rad',['../dc/d45/classSlices.html#a3d9fef3e5ac7d449b0e1ce9ec31d3d3eadd98b0b786642ccec14ad8cc2591a07c',1,'Slices']]],
   ['radial_5fdifference',['radial_difference',['../d6/d87/classPhaseLoop.html#a533be96ab317002d494f831e746c465a',1,'PhaseLoop']]],
   ['radial_5fsteering_5ffrom_5ffreq',['radial_steering_from_freq',['../d6/d87/classPhaseLoop.html#a8b9be8d7df4932c531d6b4a4e8438173',1,'PhaseLoop']]],
   ['ratio',['ratio',['../d9/d7c/classBeams.html#aa087a0abea585c520e8fb5f903175614',1,'Beams']]],

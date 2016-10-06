@@ -201,7 +201,7 @@ $(document).ready(function(){initNavTree('da/dda/Monitors_8cpp_source.html','../
 <div class="line"><a name="l00087"></a><span class="lineno"><a class="code" href="../../de/d59/classSlicesMonitor.html#aed7be11847dc8ef73ea5cd86616824c2">   87</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../de/d59/classSlicesMonitor.html#aed7be11847dc8ef73ea5cd86616824c2">SlicesMonitor::track</a>()</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;{</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">if</span> (fITurn == 0)</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        create_data({fSlices-&gt;n_slices, (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a>) fNTurns});</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        create_data({fSlices-&gt;n_slices, fNTurns});</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    write_data();</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    fITurn++;</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;}</div>
@@ -232,7 +232,7 @@ $(document).ready(function(){initNavTree('da/dda/Monitors_8cpp_source.html','../
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;}</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;</div>
-<div class="line"><a name="l00121"></a><span class="lineno"><a class="code" href="../../de/d59/classSlicesMonitor.html#a1eeb69c2cf52d7abbb4fcbc6001e8a21">  121</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../de/d59/classSlicesMonitor.html#a1eeb69c2cf52d7abbb4fcbc6001e8a21">SlicesMonitor::create_data</a>(<span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a1288353e74259a0fa4099f7af3cc6d8f">uint_vector_t</a> dims)</div>
+<div class="line"><a name="l00121"></a><span class="lineno"><a class="code" href="../../de/d59/classSlicesMonitor.html#a12bfa9050852e32241cf6ebd0573a9c5">  121</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../de/d59/classSlicesMonitor.html#a12bfa9050852e32241cf6ebd0573a9c5">SlicesMonitor::create_data</a>(<span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a793c26b686f40c50a951d01b70b08950">int_vector_t</a> dims)</div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;{</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    hsize_t dim[2], chunk[2];</div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    dim[0] = dims[0];</div>
@@ -277,7 +277,7 @@ $(document).ready(function(){initNavTree('da/dda/Monitors_8cpp_source.html','../
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    fCompressionLevel = compression_level;</div>
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;</div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="keywordflow">if</span> (fSlices != NULL &amp;&amp; fSlices-&gt;fit_option == <a class="code" href="../../dc/df2/Slices_8h.html#a02b14794ec966816ffe397474b985361a86b720e7f0821b6152a23be5e8600435">fit_type::gaussian_fit</a>)</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="keywordflow">if</span> (fSlices != NULL &amp;&amp; fSlices-&gt;fit_option == Slices::fit_t::gaussian)</div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        fGaussian = <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keywordflow">else</span></div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        fGaussian = <span class="keyword">false</span>;</div>
@@ -705,7 +705,7 @@ $(document).ready(function(){initNavTree('da/dda/Monitors_8cpp_source.html','../
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_2b12189b1b38a5891fb7949d75362c72.html">src</a></li><li class="navelem"><a class="el" href="../../dir_db673008428b52b7e7a829a085c7bf4f.html">monitors</a></li><li class="navelem"><a class="el" href="../../da/dda/Monitors_8cpp.html">Monitors.cpp</a></li>
-    <li class="footer">Generated on Thu Oct 6 2016 10:57:48 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Thu Oct 6 2016 16:42:33 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

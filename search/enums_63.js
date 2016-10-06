@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['cuts_5funit_5ftype',['cuts_unit_type',['../dc/df2/Slices_8h.html#a0b582b5b17da9bbc95ef1b5d0c08bd93',1,'Slices.h']]]
+  ['cuts_5funit_5ft',['cuts_unit_t',['../dc/d45/classSlices.html#a3d9fef3e5ac7d449b0e1ce9ec31d3d3e',1,'Slices']]]
 ];

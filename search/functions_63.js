@@ -6,7 +6,7 @@ var searchData=
   ['complex_5fto_5freal',['complex_to_real',['../d8/de0/namespacefft.html#a9564dccf78dd581dff25efe2a03cd3d8',1,'fft']]],
   ['convert_5fbool',['convert_bool',['../de/d4a/namespacepython.html#abf56eb1110be99d1157083e1536f3e5c',1,'python']]],
   ['convert_5fcomplex_5farray',['convert_complex_array',['../de/d4a/namespacepython.html#ac861e0dca45fa6613832b68878c13528',1,'python']]],
-  ['convert_5fcoordinates',['convert_coordinates',['../dc/d45/classSlices.html#aad2f5ba39d65310d1c0570b36dfb3d9c',1,'Slices']]],
+  ['convert_5fcoordinates',['convert_coordinates',['../dc/d45/classSlices.html#add9ca31477380ea55e59027058eafb0e',1,'Slices']]],
   ['convert_5fdictionary',['convert_dictionary',['../de/d4a/namespacepython.html#a3ed6443d960779c5c83ac6f6a2ff95ee',1,'python']]],
   ['convert_5fdouble',['convert_double',['../de/d4a/namespacepython.html#a740e30ed26764f275117126a9547767c',1,'python']]],
   ['convert_5fdouble_5f2d_5farray',['convert_double_2d_array',['../de/d4a/namespacepython.html#aded750ac9f79158f844ee939da42f420',1,'python']]],
@@ -19,6 +19,6 @@ var searchData=
   ['convolution_5fwith_5fffts',['convolution_with_ffts',['../d8/de0/namespacefft.html#acfc0c7a2bf86a2515926f3b0284732c8',1,'fft']]],
   ['count',['count',['../d3/df3/classoption_1_1Option.html#a8a632dcd89af60fe0806deb756c08f14',1,'option::Option']]],
   ['countoptionsaction',['CountOptionsAction',['../d8/de3/structoption_1_1Stats.html#a28ccea28ff81bf255bb43a2359a14d3e',1,'option::Stats']]],
-  ['create_5fdata',['create_data',['../de/d59/classSlicesMonitor.html#a1eeb69c2cf52d7abbb4fcbc6001e8a21',1,'SlicesMonitor']]],
+  ['create_5fdata',['create_data',['../de/d59/classSlicesMonitor.html#a12bfa9050852e32241cf6ebd0573a9c5',1,'SlicesMonitor']]],
   ['cum_5ftrapezoid',['cum_trapezoid',['../df/d6d/namespacemymath.html#a37e69ec6da5a044211b293b350ed0df5',1,'mymath::cum_trapezoid(const T *f, const T deltaX, const int nsub)'],['../df/d6d/namespacemymath.html#a035c965a877c6f3352f5702fe6ebcc3e',1,'mymath::cum_trapezoid(const T *f, const T deltaX, const T initial, const int nsub)']]]
 ];

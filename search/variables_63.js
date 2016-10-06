@@ -26,6 +26,6 @@ var searchData=
   ['cumulative_5ftimes',['cumulative_times',['../d1/dfc/classGeneralParameters.html#a7af775d573eec0caecdf178362a09498',1,'GeneralParameters']]],
   ['cut_5fleft',['cut_left',['../dc/d45/classSlices.html#a42b55924544007261f9320cdf1d15052',1,'Slices']]],
   ['cut_5fright',['cut_right',['../dc/d45/classSlices.html#a90de6e1c0b5abfe83e6a2db4f772f0a7',1,'Slices']]],
-  ['cuts_5funit',['cuts_unit',['../dc/d45/classSlices.html#a511cec7ea04248ada02f4cd269e9ebb3',1,'Slices']]],
+  ['cuts_5funit',['cuts_unit',['../dc/d45/classSlices.html#aefc4260bfce94c925166af01dcf58098',1,'Slices']]],
   ['cycle_5ftime',['cycle_time',['../d1/dfc/classGeneralParameters.html#a9af4e15de4910bbbb4bdbd2466f84944',1,'GeneralParameters']]]
 ];

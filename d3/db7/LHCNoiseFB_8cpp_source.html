@@ -191,138 +191,139 @@ $(document).ready(function(){initNavTree('d3/db7/LHCNoiseFB_8cpp_source.html','.
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    }</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;}</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div>
-<div class="line"><a name="l00080"></a><span class="lineno"><a class="code" href="../../d8/d2b/classLHCNoiseFB.html#ae80df891fa97e43ec93229a6adbe9fb7">   80</a></span>&#160;<a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> <a class="code" href="../../d8/d2b/classLHCNoiseFB.html#ae80df891fa97e43ec93229a6adbe9fb7">LHCNoiseFB::fwhm_interpolation</a>(<a class="code" href="../../d2/d2c/configuration_8h.html#a1288353e74259a0fa4099f7af3cc6d8f">uint_vector_t</a> index, <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> half_height) {</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">auto</span> Slice = <a class="code" href="../../d6/d7a/structContext.html#a54aa8ced44f99c981069a16cf4473f84">Context::Slice</a>;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> time_resolution = Slice-&gt;<a class="code" href="../../dc/d45/classSlices.html#a20fe6ad5ead7011307efdd5a81392366">bin_centers</a>[1] - Slice-&gt;bin_centers[0];</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> first = index[0];</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> prev = first &gt; 0 ? first - 1 : Slice-&gt;n_slices - 1;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> left =</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        Slice-&gt;bin_centers[first] -</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        (Slice-&gt;n_macroparticles[first] - half_height) /</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            (Slice-&gt;n_macroparticles[first] - Slice-&gt;n_macroparticles[prev]) *</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            time_resolution;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> last = index.back();</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keyword">auto</span> right = 0.0;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordflow">if</span> (last &lt; Slice-&gt;n_slices - 1) {</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        right = Slice-&gt;bin_centers[last] +</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                (Slice-&gt;n_macroparticles[last] - half_height) /</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                    (Slice-&gt;n_macroparticles[last] -</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                     Slice-&gt;n_macroparticles[last + 1]) *</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                    time_resolution;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    }</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="comment">// std::cout &lt;&lt; &quot;time_resolution &quot; &lt;&lt; time_resolution &lt;&lt; &#39;\n&#39;;</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="comment">// std::cout &lt;&lt; &quot;half_height &quot; &lt;&lt; half_height &lt;&lt; &#39;\n&#39;;</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="comment">// std::cout &lt;&lt; &quot;first &quot; &lt;&lt; first &lt;&lt; &#39;\n&#39;;</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="comment">// std::cout &lt;&lt; &quot;bin_centers[first] &quot; &lt;&lt; Slice-&gt;bin_centers[first] &lt;&lt; &#39;\n&#39;;</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="comment">// std::cout &lt;&lt; &quot;bin_centers[last] &quot; &lt;&lt; Slice-&gt;bin_centers[last] &lt;&lt; &#39;\n&#39;;</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="comment">// std::cout &lt;&lt; &quot;n_macroparticles[first] &quot; &lt;&lt; Slice-&gt;n_macroparticles[first]</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="comment">// &lt;&lt; &#39;\n&#39;;</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="comment">// std::cout &lt;&lt; &quot;n_macroparticles[prev] &quot; &lt;&lt; Slice-&gt;n_macroparticles[prev]</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="comment">// &lt;&lt;</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="comment">// &#39;\n&#39;;</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="comment">// std::cout &lt;&lt; &quot;n_macroparticles[last] &quot; &lt;&lt; Slice-&gt;n_macroparticles[last]</span></div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="comment">// &lt;&lt;</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="comment">// &#39;\n&#39;;</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="comment">// std::cout &lt;&lt; &quot;n_macroparticles[last+1] &quot; &lt;&lt; Slice-&gt;n_macroparticles[last</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="comment">// +</span></div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="comment">// 1] &lt;&lt; &#39;\n&#39;;</span></div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="comment">// std::cout &lt;&lt; &quot;left &quot; &lt;&lt; left &lt;&lt; &#39;\n&#39;;</span></div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="comment">// std::cout &lt;&lt; &quot;last &quot; &lt;&lt; last &lt;&lt; &#39;\n&#39;;</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="comment">// std::cout &lt;&lt; &quot;right &quot; &lt;&lt; right &lt;&lt; &#39;\n&#39;;</span></div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="comment">// std::cout &lt;&lt; &quot;cfwhm &quot; &lt;&lt; cfwhm &lt;&lt; &#39;\n&#39;;</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d8/d2b/classLHCNoiseFB.html#a29bc5f8017f5ecfe50f336e2f88c90e1">cfwhm</a> * (right - left);</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;}</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="comment">// TODO test this function</span></div>
-<div class="line"><a name="l00127"></a><span class="lineno"><a class="code" href="../../d8/d2b/classLHCNoiseFB.html#a06601d6fb2617658517590f0c5ca9ff8">  127</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d8/d2b/classLHCNoiseFB.html#a06601d6fb2617658517590f0c5ca9ff8">LHCNoiseFB::fwhm_single_bunch</a>() {</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keyword">auto</span> Slice = <a class="code" href="../../d6/d7a/structContext.html#a54aa8ced44f99c981069a16cf4473f84">Context::Slice</a>;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="comment">// Single-bunch FWHM bunch length calculation with interpolation.</span></div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keyword">auto</span> i = <a class="code" href="../../df/d6d/namespacemymath.html#a2a11685fa6ce2396ae977fa1502a2cc4">mymath::max</a>(Slice-&gt;n_macroparticles.data(), Slice-&gt;n_slices);</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> half_height = Slice-&gt;n_macroparticles[i] / 2;</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a1288353e74259a0fa4099f7af3cc6d8f">uint_vector_t</a> index;</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; Slice-&gt;n_slices; ++i)</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        <span class="keywordflow">if</span> (Slice-&gt;n_macroparticles[i] &gt; half_height)</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;            index.push_back(i);</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keywordflow">if</span> (index.empty()) {</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        <span class="comment">// std::cerr &lt;&lt; &quot;[LHCNoiseFB] ERROR! index vector should have at least</span></div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        <span class="comment">// one element\n&quot;;</span></div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    }</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <a class="code" href="../../d8/d2b/classLHCNoiseFB.html#ad02ca8d5c5b11af89e4460426890b056">fBlMeas</a> = <a class="code" href="../../d8/d2b/classLHCNoiseFB.html#ae80df891fa97e43ec93229a6adbe9fb7">fwhm_interpolation</a>(index, half_height);</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;}</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="comment">// TODO test this function</span></div>
-<div class="line"><a name="l00150"></a><span class="lineno"><a class="code" href="../../d8/d2b/classLHCNoiseFB.html#a1f4261d97326d23f1f980cd2adc3d2be">  150</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d8/d2b/classLHCNoiseFB.html#a1f4261d97326d23f1f980cd2adc3d2be">LHCNoiseFB::fwhm_multi_bunch</a>() {</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="comment">// Multi-bunch FWHM bunch length calculation with interpolation.*</span></div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keyword">auto</span> Slice = <a class="code" href="../../d6/d7a/structContext.html#a54aa8ced44f99c981069a16cf4473f84">Context::Slice</a>;</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keyword">auto</span> RfP = <a class="code" href="../../d6/d7a/structContext.html#a48db4fc5c2a199a0c1685dc11f5f0a6f">Context::RfP</a>;</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <span class="comment">// Find correct RF buckets</span></div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keyword">auto</span> phi_RF = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#ad5e71c7254b877ac7f83f5b8efad0c93">phi_RF</a>[0][RfP-&gt;counter];</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keyword">auto</span> omega_RF = RfP-&gt;omega_RF[0][RfP-&gt;counter];</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="comment">// std::cout &lt;&lt; phi_RF &lt;&lt; &quot;\n&quot;;</span></div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="comment">// std::cout &lt;&lt; omega_RF &lt;&lt; &quot;\n&quot;;</span></div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> bucket_min(<a class="code" href="../../d8/d2b/classLHCNoiseFB.html#a4c509d05f469e8ff5b2498af16046331">fBunchPattern</a>.size());</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; bucket_min.size(); ++i)</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        bucket_min[i] =</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;            (phi_RF + 2 * <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a> * <a class="code" href="../../d8/d2b/classLHCNoiseFB.html#a4c509d05f469e8ff5b2498af16046331">fBunchPattern</a>[i]) / omega_RF;</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> bucket_max(bucket_min.size());</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; bucket_min.size(); ++i)</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        bucket_max[i] = bucket_min[i] + 2 * <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a> / omega_RF;</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="comment">// Bunch-by-bunch FWHM bunch length</span></div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; <a class="code" href="../../d8/d2b/classLHCNoiseFB.html#a4c509d05f469e8ff5b2498af16046331">fBunchPattern</a>.size(); ++i) {</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a1288353e74259a0fa4099f7af3cc6d8f">uint_vector_t</a> bind;</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> j = 0; j &lt; Slice-&gt;n_slices; ++j) {</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;            <span class="keywordflow">if</span> ((Slice-&gt;bin_centers[j] - bucket_min[i]) *</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;                    (Slice-&gt;bin_centers[j] - bucket_max[i]) &lt; 0)</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;                bind.push_back(j);</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        }</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> hheight = 0;</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; j : bind) {</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;            <span class="keywordflow">if</span> (Slice-&gt;n_macroparticles[j] &gt; hheight)</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;                hheight = Slice-&gt;n_macroparticles[j];</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        }</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        hheight = hheight / 2;</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a1288353e74259a0fa4099f7af3cc6d8f">uint_vector_t</a> index;</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;        <span class="keyword">auto</span> k = 0;</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;j : bind) {</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;            <span class="keywordflow">if</span> (Slice-&gt;n_macroparticles[j] &gt; hheight)</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;                index.push_back(bind[k]);</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;            k++;</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        }</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        <span class="comment">// std::cout &lt;&lt; &quot;index size = &quot; &lt;&lt; index.size() &lt;&lt; &quot;\n&quot;;</span></div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        <span class="keywordflow">if</span> (index.empty()) {</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;            <span class="comment">// std::cerr &lt;&lt; &quot;[LHCNoiseFB] ERROR! index vector should have at least one element\n&quot;;</span></div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;            <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        }</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        <a class="code" href="../../d8/d2b/classLHCNoiseFB.html#a33d9b644f1a429c02be762fa0b78ceff">fBlMeasBBB</a>[i] = <a class="code" href="../../d8/d2b/classLHCNoiseFB.html#ae80df891fa97e43ec93229a6adbe9fb7">fwhm_interpolation</a>(index, hheight);</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    }</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    <a class="code" href="../../d8/d2b/classLHCNoiseFB.html#ad02ca8d5c5b11af89e4460426890b056">fBlMeas</a> = <a class="code" href="../../df/d6d/namespacemymath.html#a0c3266208d3fd64201093717945f63f5">mymath::mean</a>(<a class="code" href="../../d8/d2b/classLHCNoiseFB.html#a33d9b644f1a429c02be762fa0b78ceff">fBlMeasBBB</a>.data(), <a class="code" href="../../d8/d2b/classLHCNoiseFB.html#a33d9b644f1a429c02be762fa0b78ceff">fBlMeasBBB</a>.size());</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;}</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">// TODO check the conditions in this function</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="code" href="../../d8/d2b/classLHCNoiseFB.html#ae80df891fa97e43ec93229a6adbe9fb7">   81</a></span>&#160;<a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> <a class="code" href="../../d8/d2b/classLHCNoiseFB.html#ae80df891fa97e43ec93229a6adbe9fb7">LHCNoiseFB::fwhm_interpolation</a>(<a class="code" href="../../d2/d2c/configuration_8h.html#a1288353e74259a0fa4099f7af3cc6d8f">uint_vector_t</a> index, <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> half_height) {</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">auto</span> Slice = <a class="code" href="../../d6/d7a/structContext.html#a54aa8ced44f99c981069a16cf4473f84">Context::Slice</a>;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> time_resolution = Slice-&gt;<a class="code" href="../../dc/d45/classSlices.html#a20fe6ad5ead7011307efdd5a81392366">bin_centers</a>[1] - Slice-&gt;bin_centers[0];</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> first = index[0];</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> prev = first &gt; 0 ? first - 1 : Slice-&gt;n_slices - 1;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> left =</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        Slice-&gt;bin_centers[first] -</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        (Slice-&gt;n_macroparticles[first] - half_height) /</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            (Slice-&gt;n_macroparticles[first] - Slice-&gt;n_macroparticles[prev]) *</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            time_resolution;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> last = index.back();</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keyword">auto</span> right = 0.0;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordflow">if</span> (last &lt; Slice-&gt;n_slices - 1) {</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        right = Slice-&gt;bin_centers[last] +</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                (Slice-&gt;n_macroparticles[last] - half_height) /</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                    (Slice-&gt;n_macroparticles[last] -</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                     Slice-&gt;n_macroparticles[last + 1]) *</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                    time_resolution;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    }</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="comment">// std::cout &lt;&lt; &quot;time_resolution &quot; &lt;&lt; time_resolution &lt;&lt; &#39;\n&#39;;</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="comment">// std::cout &lt;&lt; &quot;half_height &quot; &lt;&lt; half_height &lt;&lt; &#39;\n&#39;;</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="comment">// std::cout &lt;&lt; &quot;first &quot; &lt;&lt; first &lt;&lt; &#39;\n&#39;;</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="comment">// std::cout &lt;&lt; &quot;bin_centers[first] &quot; &lt;&lt; Slice-&gt;bin_centers[first] &lt;&lt; &#39;\n&#39;;</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="comment">// std::cout &lt;&lt; &quot;bin_centers[last] &quot; &lt;&lt; Slice-&gt;bin_centers[last] &lt;&lt; &#39;\n&#39;;</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="comment">// std::cout &lt;&lt; &quot;n_macroparticles[first] &quot; &lt;&lt; Slice-&gt;n_macroparticles[first]</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="comment">// &lt;&lt; &#39;\n&#39;;</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="comment">// std::cout &lt;&lt; &quot;n_macroparticles[prev] &quot; &lt;&lt; Slice-&gt;n_macroparticles[prev]</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="comment">// &lt;&lt;</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="comment">// &#39;\n&#39;;</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="comment">// std::cout &lt;&lt; &quot;n_macroparticles[last] &quot; &lt;&lt; Slice-&gt;n_macroparticles[last]</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="comment">// &lt;&lt;</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="comment">// &#39;\n&#39;;</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="comment">// std::cout &lt;&lt; &quot;n_macroparticles[last+1] &quot; &lt;&lt; Slice-&gt;n_macroparticles[last</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="comment">// +</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="comment">// 1] &lt;&lt; &#39;\n&#39;;</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="comment">// std::cout &lt;&lt; &quot;left &quot; &lt;&lt; left &lt;&lt; &#39;\n&#39;;</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="comment">// std::cout &lt;&lt; &quot;last &quot; &lt;&lt; last &lt;&lt; &#39;\n&#39;;</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="comment">// std::cout &lt;&lt; &quot;right &quot; &lt;&lt; right &lt;&lt; &#39;\n&#39;;</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="comment">// std::cout &lt;&lt; &quot;cfwhm &quot; &lt;&lt; cfwhm &lt;&lt; &#39;\n&#39;;</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d8/d2b/classLHCNoiseFB.html#a29bc5f8017f5ecfe50f336e2f88c90e1">cfwhm</a> * (right - left);</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;}</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="comment">// TODO test this function</span></div>
+<div class="line"><a name="l00128"></a><span class="lineno"><a class="code" href="../../d8/d2b/classLHCNoiseFB.html#a06601d6fb2617658517590f0c5ca9ff8">  128</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d8/d2b/classLHCNoiseFB.html#a06601d6fb2617658517590f0c5ca9ff8">LHCNoiseFB::fwhm_single_bunch</a>() {</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keyword">auto</span> Slice = <a class="code" href="../../d6/d7a/structContext.html#a54aa8ced44f99c981069a16cf4473f84">Context::Slice</a>;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="comment">// Single-bunch FWHM bunch length calculation with interpolation.</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keyword">auto</span> i = <a class="code" href="../../df/d6d/namespacemymath.html#a2a11685fa6ce2396ae977fa1502a2cc4">mymath::max</a>(Slice-&gt;n_macroparticles.data(), Slice-&gt;n_slices);</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> half_height = Slice-&gt;n_macroparticles[i] / 2;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a1288353e74259a0fa4099f7af3cc6d8f">uint_vector_t</a> index;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; Slice-&gt;n_slices; ++i)</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        <span class="keywordflow">if</span> (Slice-&gt;n_macroparticles[i] &gt; half_height)</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;            index.push_back(i);</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <span class="keywordflow">if</span> (index.empty()) {</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        <span class="comment">// std::cerr &lt;&lt; &quot;[LHCNoiseFB] ERROR! index vector should have at least</span></div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        <span class="comment">// one element\n&quot;;</span></div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    }</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <a class="code" href="../../d8/d2b/classLHCNoiseFB.html#ad02ca8d5c5b11af89e4460426890b056">fBlMeas</a> = <a class="code" href="../../d8/d2b/classLHCNoiseFB.html#ae80df891fa97e43ec93229a6adbe9fb7">fwhm_interpolation</a>(index, half_height);</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;}</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="comment">// TODO test this function</span></div>
+<div class="line"><a name="l00151"></a><span class="lineno"><a class="code" href="../../d8/d2b/classLHCNoiseFB.html#a1f4261d97326d23f1f980cd2adc3d2be">  151</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d8/d2b/classLHCNoiseFB.html#a1f4261d97326d23f1f980cd2adc3d2be">LHCNoiseFB::fwhm_multi_bunch</a>() {</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="comment">// Multi-bunch FWHM bunch length calculation with interpolation.*</span></div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keyword">auto</span> Slice = <a class="code" href="../../d6/d7a/structContext.html#a54aa8ced44f99c981069a16cf4473f84">Context::Slice</a>;</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keyword">auto</span> RfP = <a class="code" href="../../d6/d7a/structContext.html#a48db4fc5c2a199a0c1685dc11f5f0a6f">Context::RfP</a>;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="comment">// Find correct RF buckets</span></div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keyword">auto</span> phi_RF = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#ad5e71c7254b877ac7f83f5b8efad0c93">phi_RF</a>[0][RfP-&gt;counter];</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="keyword">auto</span> omega_RF = RfP-&gt;omega_RF[0][RfP-&gt;counter];</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="comment">// std::cout &lt;&lt; phi_RF &lt;&lt; &quot;\n&quot;;</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <span class="comment">// std::cout &lt;&lt; omega_RF &lt;&lt; &quot;\n&quot;;</span></div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> bucket_min(<a class="code" href="../../d8/d2b/classLHCNoiseFB.html#a4c509d05f469e8ff5b2498af16046331">fBunchPattern</a>.size());</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; bucket_min.size(); ++i)</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        bucket_min[i] =</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;            (phi_RF + 2 * <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a> * <a class="code" href="../../d8/d2b/classLHCNoiseFB.html#a4c509d05f469e8ff5b2498af16046331">fBunchPattern</a>[i]) / omega_RF;</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> bucket_max(bucket_min.size());</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; bucket_min.size(); ++i)</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        bucket_max[i] = bucket_min[i] + 2 * <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a> / omega_RF;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="comment">// Bunch-by-bunch FWHM bunch length</span></div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; <a class="code" href="../../d8/d2b/classLHCNoiseFB.html#a4c509d05f469e8ff5b2498af16046331">fBunchPattern</a>.size(); ++i) {</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a1288353e74259a0fa4099f7af3cc6d8f">uint_vector_t</a> bind;</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; Slice-&gt;n_slices; ++j) {</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;            <span class="keywordflow">if</span> ((Slice-&gt;bin_centers[j] - bucket_min[i]) *</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;                    (Slice-&gt;bin_centers[j] - bucket_max[i]) &lt; 0)</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;                bind.push_back(j);</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        }</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> hheight = 0;</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; j : bind) {</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;            <span class="keywordflow">if</span> (Slice-&gt;n_macroparticles[j] &gt; hheight)</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;                hheight = Slice-&gt;n_macroparticles[j];</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        }</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        hheight = hheight / 2;</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a1288353e74259a0fa4099f7af3cc6d8f">uint_vector_t</a> index;</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        <span class="keyword">auto</span> k = 0;</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;j : bind) {</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;            <span class="keywordflow">if</span> (Slice-&gt;n_macroparticles[j] &gt; hheight)</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;                index.push_back(bind[k]);</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;            k++;</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        }</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        <span class="comment">// std::cout &lt;&lt; &quot;index size = &quot; &lt;&lt; index.size() &lt;&lt; &quot;\n&quot;;</span></div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;        <span class="keywordflow">if</span> (index.empty()) {</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;            <span class="comment">// std::cerr &lt;&lt; &quot;[LHCNoiseFB] ERROR! index vector should have at least one element\n&quot;;</span></div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;            <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        }</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        <a class="code" href="../../d8/d2b/classLHCNoiseFB.html#a33d9b644f1a429c02be762fa0b78ceff">fBlMeasBBB</a>[i] = <a class="code" href="../../d8/d2b/classLHCNoiseFB.html#ae80df891fa97e43ec93229a6adbe9fb7">fwhm_interpolation</a>(index, hheight);</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    }</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    <a class="code" href="../../d8/d2b/classLHCNoiseFB.html#ad02ca8d5c5b11af89e4460426890b056">fBlMeas</a> = <a class="code" href="../../df/d6d/namespacemymath.html#a0c3266208d3fd64201093717945f63f5">mymath::mean</a>(<a class="code" href="../../d8/d2b/classLHCNoiseFB.html#a33d9b644f1a429c02be762fa0b78ceff">fBlMeasBBB</a>.data(), <a class="code" href="../../d8/d2b/classLHCNoiseFB.html#a33d9b644f1a429c02be762fa0b78ceff">fBlMeasBBB</a>.size());</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_2b12189b1b38a5891fb7949d75362c72.html">src</a></li><li class="navelem"><a class="el" href="../../dir_6966c9973490ad52d8c72ed8b2860c83.html">llrf</a></li><li class="navelem"><a class="el" href="../../d3/db7/LHCNoiseFB_8cpp.html">LHCNoiseFB.cpp</a></li>
-    <li class="footer">Generated on Thu Oct 6 2016 10:57:48 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Thu Oct 6 2016 16:42:33 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

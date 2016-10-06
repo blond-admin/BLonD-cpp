@@ -7,7 +7,7 @@ var searchData=
   ['n_5frf',['n_rf',['../da/d49/classRfParameters.html#a08b9bc81dedcac7e68baf31560363a58',1,'RfParameters']]],
   ['n_5fsections',['n_sections',['../d1/dfc/classGeneralParameters.html#a992eb45bb4f0aa3e4e044a4469565e87',1,'GeneralParameters']]],
   ['n_5fsigma',['n_sigma',['../dc/d45/classSlices.html#a5923ddc4a73915fb97e5139b94548bf6',1,'Slices']]],
-  ['n_5fslices',['n_slices',['../dc/d45/classSlices.html#a1c869f247c0a5dab4772de45dd8e5f8d',1,'Slices']]],
+  ['n_5fslices',['n_slices',['../dc/d45/classSlices.html#a695dbc7b6fbdbef0f594e9b63d6877c7',1,'Slices']]],
   ['n_5fthreads',['n_threads',['../d6/d7a/structContext.html#a3fd53a37929e51bbef80cabe2f167f6c',1,'Context']]],
   ['n_5fturns',['n_turns',['../d1/dfc/classGeneralParameters.html#aa393ee4bd6784a8ef1e74227ee1f313b',1,'GeneralParameters']]],
   ['name',['name',['../d3/df3/classoption_1_1Option.html#a02a76b4896abd22d0ba8514362261de9',1,'option::Option']]],
@@ -28,7 +28,7 @@ var searchData=
   ['nonoption',['nonOption',['../d6/d83/classoption_1_1Parser.html#aeeafbf2892a5aca90b89803b2b1cb031',1,'option::Parser']]],
   ['nonoptions',['nonOptions',['../d6/d83/classoption_1_1Parser.html#a2c11b050f4248d71758dda52c5f9154d',1,'option::Parser']]],
   ['nonoptionscount',['nonOptionsCount',['../d6/d83/classoption_1_1Parser.html#aa64a6a7c196993a1b20d48e8ddd12a34',1,'option::Parser']]],
-  ['normal_5ffit',['normal_fit',['../dc/df2/Slices_8h.html#a02b14794ec966816ffe397474b985361a532df387bfe41a05e6d8354bc319d8e7',1,'Slices.h']]],
+  ['normal',['normal',['../dc/d45/classSlices.html#a145b60aa2ecd01f1a4524e49bead73f7a3967831be574a53441e9b28bde9e7c9e',1,'Slices']]],
   ['npy_5fno_5fdeprecated_5fapi',['NPY_NO_DEPRECATED_API',['../d1/da8/python_8h.html#ab6e6ee86736f9ebb56e74ae21bf3ff8a',1,'python.h']]],
   ['numeric',['Numeric',['../d7/d0f/structutil_1_1Arg.html#a3d06fdbb617caec16c6b1a1671da2586',1,'util::Arg']]]
 ];

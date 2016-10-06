@@ -150,17 +150,17 @@ $(document).ready(function(){initNavTree('d1/d3d/sin_8h_source.html','../../');}
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="comment">// --------------------------------------------------------</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
 <div class="line"><a name="l00039"></a><span class="lineno"><a class="code" href="../../d5/d7b/namespacevdt.html#a0013dcb44ade5e87e083c6a0daddcfd9">   39</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">double</span> <a class="code" href="../../d5/d7b/namespacevdt.html#a0013dcb44ade5e87e083c6a0daddcfd9" title="Double precision sine: just call sincos.">fast_sin</a>(<span class="keywordtype">double</span> x) {</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordtype">double</span> <a class="code" href="../../dc/df2/Slices_8h.html#a0b582b5b17da9bbc95ef1b5d0c08bd93aa8e9307350b1e20521f37dfe5268df55">s</a>, <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">c</a>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordtype">double</span> s, <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">c</a>;</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <a class="code" href="../../d5/d7b/namespacevdt.html#a1993fb5f0f92028ffbf6e853790a0161" title="Double precision sincos.">fast_sincos</a>(x, s, c);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../dc/df2/Slices_8h.html#a0b582b5b17da9bbc95ef1b5d0c08bd93aa8e9307350b1e20521f37dfe5268df55">s</a>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">return</span> s;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    }</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="comment">//------------------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
 <div class="line"><a name="l00047"></a><span class="lineno"><a class="code" href="../../d5/d7b/namespacevdt.html#a4b3ba73467a53a899944ffa869b75471">   47</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">float</span> <a class="code" href="../../d5/d7b/namespacevdt.html#a4b3ba73467a53a899944ffa869b75471">fast_sinf</a>(<span class="keywordtype">float</span> x) {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordtype">float</span> <a class="code" href="../../dc/df2/Slices_8h.html#a0b582b5b17da9bbc95ef1b5d0c08bd93aa8e9307350b1e20521f37dfe5268df55">s</a>, <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">c</a>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordtype">float</span> s, <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">c</a>;</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <a class="code" href="../../d5/d7b/namespacevdt.html#a1f5fb6e7ea0d2a74f70eb7861cd46f67" title="Single precision sincos.">fast_sincosf</a>(x, s, c);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../dc/df2/Slices_8h.html#a0b582b5b17da9bbc95ef1b5d0c08bd93aa8e9307350b1e20521f37dfe5268df55">s</a>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">return</span> s;</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    }</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="comment">//------------------------------------------------------------------------------</span></div>
@@ -182,7 +182,7 @@ $(document).ready(function(){initNavTree('d1/d3d/sin_8h_source.html','../../');}
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_6b634e43e772001122993837e1d7e1c5.html">include</a></li><li class="navelem"><a class="el" href="../../dir_4a4b9f9a898a71f152a99978051a04a6.html">blond</a></li><li class="navelem"><a class="el" href="../../d1/d3d/sin_8h.html">sin.h</a></li>
-    <li class="footer">Generated on Thu Oct 6 2016 10:57:49 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Thu Oct 6 2016 16:42:33 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

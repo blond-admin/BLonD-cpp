@@ -137,8 +137,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aefb7c3588394e4c28f150274d1aaf168"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad228876b9de204e6551bec2eef540c38"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d59/classSlicesMonitor.html#ad228876b9de204e6551bec2eef540c38">close</a> ()</td></tr>
 <tr class="separator:ad228876b9de204e6551bec2eef540c38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1eeb69c2cf52d7abbb4fcbc6001e8a21"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d59/classSlicesMonitor.html#a1eeb69c2cf52d7abbb4fcbc6001e8a21">create_data</a> (const <a class="el" href="../../d2/d2c/configuration_8h.html#a1288353e74259a0fa4099f7af3cc6d8f">uint_vector_t</a> dims)</td></tr>
-<tr class="separator:a1eeb69c2cf52d7abbb4fcbc6001e8a21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12bfa9050852e32241cf6ebd0573a9c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d59/classSlicesMonitor.html#a12bfa9050852e32241cf6ebd0573a9c5">create_data</a> (const <a class="el" href="../../d2/d2c/configuration_8h.html#a793c26b686f40c50a951d01b70b08950">int_vector_t</a> dims)</td></tr>
+<tr class="separator:a12bfa9050852e32241cf6ebd0573a9c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed7be11847dc8ef73ea5cd86616824c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d59/classSlicesMonitor.html#aed7be11847dc8ef73ea5cd86616824c2">track</a> ()</td></tr>
 <tr class="separator:aed7be11847dc8ef73ea5cd86616824c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afc4e8c6b1ddb7691c5b2054848428bbe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d59/classSlicesMonitor.html#afc4e8c6b1ddb7691c5b2054848428bbe">write_data</a> ()</td></tr>
@@ -257,14 +257,14 @@ Public Attributes</h2></td></tr>
 </div><!-- fragment -->
 </div>
 </div>
-<a class="anchor" id="a1eeb69c2cf52d7abbb4fcbc6001e8a21"></a>
+<a class="anchor" id="a12bfa9050852e32241cf6ebd0573a9c5"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void SlicesMonitor::create_data </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d2/d2c/configuration_8h.html#a1288353e74259a0fa4099f7af3cc6d8f">uint_vector_t</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d2/d2c/configuration_8h.html#a793c26b686f40c50a951d01b70b08950">int_vector_t</a>&#160;</td>
           <td class="paramname"><em>dims</em></td><td>)</td>
           <td></td>
         </tr>
@@ -305,7 +305,7 @@ Public Attributes</h2></td></tr>
 <p>Definition at line <a class="el" href="../../da/dda/Monitors_8cpp_source.html#l00087">87</a> of file <a class="el" href="../../da/dda/Monitors_8cpp_source.html">Monitors.cpp</a>.</p>
 <div class="fragment"><div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;{</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../de/d59/classSlicesMonitor.html#a116433c1c6f927fc80f943f882c8f414">fITurn</a> == 0)</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <a class="code" href="../../de/d59/classSlicesMonitor.html#a1eeb69c2cf52d7abbb4fcbc6001e8a21">create_data</a>({<a class="code" href="../../de/d59/classSlicesMonitor.html#aa9e638f8de13c51033b28bce37c826f5">fSlices</a>-&gt;<a class="code" href="../../dc/d45/classSlices.html#a1c869f247c0a5dab4772de45dd8e5f8d">n_slices</a>, (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a>) <a class="code" href="../../de/d59/classSlicesMonitor.html#a8e33ce278c4749a4ce68474abd720b98">fNTurns</a>});</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <a class="code" href="../../de/d59/classSlicesMonitor.html#a12bfa9050852e32241cf6ebd0573a9c5">create_data</a>({<a class="code" href="../../de/d59/classSlicesMonitor.html#aa9e638f8de13c51033b28bce37c826f5">fSlices</a>-&gt;<a class="code" href="../../dc/d45/classSlices.html#a695dbc7b6fbdbef0f594e9b63d6877c7">n_slices</a>, <a class="code" href="../../de/d59/classSlicesMonitor.html#a8e33ce278c4749a4ce68474abd720b98">fNTurns</a>});</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <a class="code" href="../../de/d59/classSlicesMonitor.html#afc4e8c6b1ddb7691c5b2054848428bbe">write_data</a>();</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <a class="code" href="../../de/d59/classSlicesMonitor.html#a116433c1c6f927fc80f943f882c8f414">fITurn</a>++;</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;}</div>
@@ -456,7 +456,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../de/d59/classSlicesMonitor.html">SlicesMonitor</a></li>
-    <li class="footer">Generated on Thu Oct 6 2016 10:57:49 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Thu Oct 6 2016 16:42:34 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

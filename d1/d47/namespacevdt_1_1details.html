@@ -137,10 +137,10 @@ Functions</h2></td></tr>
 <tr class="memitem:a8bd0fd70fe9dc55040125238c3be1e22"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d47/namespacevdt_1_1details.html#a8bd0fd70fe9dc55040125238c3be1e22">dpXORuint64</a> (const double x, const uint64_t i)</td></tr>
 <tr class="memdesc:a8bd0fd70fe9dc55040125238c3be1e22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Makes a XOR of a double and a unsigned long long long.  <a href="#a8bd0fd70fe9dc55040125238c3be1e22">More...</a><br/></td></tr>
 <tr class="separator:a8bd0fd70fe9dc55040125238c3be1e22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aefa743c10ceb855329b7005d9f353a5d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d47/namespacevdt_1_1details.html#aefa743c10ceb855329b7005d9f353a5d">fast_sincos_m45_45</a> (const double z, double &amp;<a class="el" href="../../dc/df2/Slices_8h.html#a0b582b5b17da9bbc95ef1b5d0c08bd93aa8e9307350b1e20521f37dfe5268df55">s</a>, double &amp;c)</td></tr>
+<tr class="memitem:aefa743c10ceb855329b7005d9f353a5d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d47/namespacevdt_1_1details.html#aefa743c10ceb855329b7005d9f353a5d">fast_sincos_m45_45</a> (const double z, double &amp;s, double &amp;c)</td></tr>
 <tr class="memdesc:aefa743c10ceb855329b7005d9f353a5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sincos only for -45deg &lt; x &lt; 45deg.  <a href="#aefa743c10ceb855329b7005d9f353a5d">More...</a><br/></td></tr>
 <tr class="separator:aefa743c10ceb855329b7005d9f353a5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b5beee557413b5dcf3b87f658c533a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d47/namespacevdt_1_1details.html#a8b5beee557413b5dcf3b87f658c533a6">fast_sincosf_m45_45</a> (const float x, float &amp;<a class="el" href="../../dc/df2/Slices_8h.html#a0b582b5b17da9bbc95ef1b5d0c08bd93aa8e9307350b1e20521f37dfe5268df55">s</a>, float &amp;c)</td></tr>
+<tr class="memitem:a8b5beee557413b5dcf3b87f658c533a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d47/namespacevdt_1_1details.html#a8b5beee557413b5dcf3b87f658c533a6">fast_sincosf_m45_45</a> (const float x, float &amp;s, float &amp;c)</td></tr>
 <tr class="memdesc:a8b5beee557413b5dcf3b87f658c533a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sincos only for -45deg &lt; x &lt; 45deg.  <a href="#a8b5beee557413b5dcf3b87f658c533a6">More...</a><br/></td></tr>
 <tr class="separator:a8b5beee557413b5dcf3b87f658c533a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afac5394acdf8e6047db199b251b86e98"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d47/namespacevdt_1_1details.html#afac5394acdf8e6047db199b251b86e98">fp2uint</a> (float x)</td></tr>
@@ -565,7 +565,7 @@ Variables</h2></td></tr>
 <div class="fragment"><div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                                                                             {</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            <span class="keywordtype">double</span> zz = z * z;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            <a class="code" href="../../dc/df2/Slices_8h.html#a0b582b5b17da9bbc95ef1b5d0c08bd93aa8e9307350b1e20521f37dfe5268df55">s</a> = z + z * zz * <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a72ab4125be9fdc73004f1fcec303dea6">get_sin_px</a>(zz);</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            s = z + z * zz * <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a72ab4125be9fdc73004f1fcec303dea6">get_sin_px</a>(zz);</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">c</a> = 1.0 - zz * .5 + zz * zz * <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a2d78ddff70416636dcab4eabcab25c8f">get_cos_px</a>(zz);</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        }</div>
 </div><!-- fragment -->
@@ -638,7 +638,7 @@ Variables</h2></td></tr>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;</div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;            <span class="keywordtype">float</span> z = x * x;</div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;            <a class="code" href="../../dc/df2/Slices_8h.html#a0b582b5b17da9bbc95ef1b5d0c08bd93aa8e9307350b1e20521f37dfe5268df55">s</a> = (((-1.9515295891E-4f * z + 8.3321608736E-3f) * z -</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;            s = (((-1.9515295891E-4f * z + 8.3321608736E-3f) * z -</div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                  1.6666654611E-1f) *</div>
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;                 z * x) +</div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;                x;</div>
@@ -2513,7 +2513,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../d5/d7b/namespacevdt.html">vdt</a></li><li class="navelem"><a class="el" href="../../d1/d47/namespacevdt_1_1details.html">details</a></li>
-    <li class="footer">Generated on Thu Oct 6 2016 10:57:49 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Thu Oct 6 2016 16:42:34 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

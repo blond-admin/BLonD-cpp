@@ -178,6 +178,7 @@ int main(int argc, char **argv)
                     + "threads.h5";
     auto monitor = new BunchMonitor(GP, RfP, Beam, h5file,
                                     dt_save, Slice, PL, noiseFB);
+    
     // monitor->fCompressionLevel = 0;
     // double slice_time = 0, track_time = 0;
     double turn_time = 0.0;

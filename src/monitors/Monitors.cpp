@@ -169,7 +169,9 @@ BunchMonitor::BunchMonitor(GeneralParameters *GP, RfParameters *RfP, Beams *Beam
         fGaussian = false;
 
     init_data(fNTurns + 1);
+
     init_buffer();
+
     track();
 }
 
@@ -201,7 +203,7 @@ void BunchMonitor::init_data(int dimension)
 
     hsize_t dim[1], chunk[1];
     dim[0] = dimension;
-    chunk[0] = dimension / 1000;
+    chunk[0] = 1000;
 
     DataSpace dataspace(1, dim);
     DSetCreatPropList plist;
@@ -333,7 +335,7 @@ void BunchMonitor::init_data(int dimension)
             hsize_t dim[2], chunk[2];
             dim[1] = fNoiseFB->fBlMeasBBB.size();
             dim[0] = dimension;
-            chunk[0] = dimension / 1000;
+            chunk[0] = 1000;
             chunk[1] = 1;
 
             DataSpace dataspace(2, dim);

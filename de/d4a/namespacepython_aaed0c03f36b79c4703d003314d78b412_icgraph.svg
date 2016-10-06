@@ -32,7 +32,7 @@
         </defs>
 
 <script type="text/javascript">
-var viewWidth = 660;
+var viewWidth = 630;
 var viewHeight = 1156;
 var sectionId = 'dynsection-8';
 </script>
@@ -40,7 +40,7 @@ var sectionId = 'dynsection-8';
 <svg id="graph" class="graph">
 <g id="viewport">
 <title>python::convert_string</title>
-<polygon fill="white" stroke="white" points="-4,5 -4,-1152 657,-1152 657,5 -4,5"/>
+<polygon fill="white" stroke="white" points="-4,5 -4,-1152 627,-1152 627,5 -4,5"/>
 <!-- Node1 -->
 <g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0.5,-540.5 0.5,-561.5 113.5,-561.5 113.5,-540.5 0.5,-540.5"/>
@@ -48,386 +48,360 @@ var sectionId = 'dynsection-8';
 </g>
 <!-- Node2 -->
 <g id="node3" class="node"><title>Node2</title>
-<a xlink:href="../../dc/d7d/Distributions_8h.html#a775adebc7be25b67916c028a031074be" target="_top" xlink:title="_matched_from_distribution\l_density">
-<polygon fill="white" stroke="black" points="158.5,-1114 158.5,-1148 295.5,-1148 295.5,-1114 158.5,-1114"/>
-<text text-anchor="start" x="166.5" y="-1135" font-family="Helvetica,sans-Serif" font-size="10.00">_matched_from_distribution</text>
-<text text-anchor="middle" x="227" y="-1122" font-family="Helvetica,sans-Serif" font-size="10.00">_density</text>
+<a xlink:href="../../dc/d45/classSlices.html#ab1443b2ebec9ed465a8301be8e1c747f" target="_top" xlink:title="Slices::gaussian_filter1d">
+<polygon fill="white" stroke="black" points="165.5,-1117.5 165.5,-1138.5 288.5,-1138.5 288.5,-1117.5 165.5,-1117.5"/>
+<text text-anchor="middle" x="227" y="-1125.5" font-family="Helvetica,sans-Serif" font-size="10.00">Slices::gaussian_filter1d</text>
 </a>
 </g>
 <!-- Node1&#45;&gt;Node2 -->
 <g id="edge2" class="edge"><title>Node1&#45;&gt;Node2</title>
-<path fill="none" stroke="midnightblue" d="M57.7009,-571.577C61.1756,-661.856 79.3303,-1022.07 150,-1105 152.837,-1108.33 156.116,-1111.23 159.688,-1113.77"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="61.1962,-571.383 57.3327,-561.518 54.2009,-571.639 61.1962,-571.383"/>
+<path fill="none" stroke="midnightblue" d="M57.7989,-571.933C61.6436,-662.187 80.9926,-1017.22 150,-1100 156.467,-1107.76 165.269,-1113.37 174.615,-1117.42"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="61.2923,-571.696 57.388,-561.847 54.2981,-571.981 61.2923,-571.696"/>
 </g>
 <!-- Node4 -->
 <g id="node7" class="node"><title>Node4</title>
-<a xlink:href="../../dc/d7d/Distributions_8h.html#a190d2b58297ff88be6d2ab351eba1207" target="_top" xlink:title="_matched_from_line\l_density">
-<polygon fill="white" stroke="black" points="175,-1062 175,-1096 279,-1096 279,-1062 175,-1062"/>
-<text text-anchor="start" x="183" y="-1083" font-family="Helvetica,sans-Serif" font-size="10.00">_matched_from_line</text>
-<text text-anchor="middle" x="227" y="-1070" font-family="Helvetica,sans-Serif" font-size="10.00">_density</text>
+<a xlink:href="../../d2/d51/plot__slices_8h.html#ad931c13f8d5ee8947ed320ac51b3a2b3" target="_top" xlink:title="plot_beam_profile_derivative">
+<polygon fill="white" stroke="black" points="482,-1097.5 482,-1118.5 622,-1118.5 622,-1097.5 482,-1097.5"/>
+<text text-anchor="middle" x="552" y="-1105.5" font-family="Helvetica,sans-Serif" font-size="10.00">plot_beam_profile_derivative</text>
 </a>
 </g>
 <!-- Node1&#45;&gt;Node4 -->
-<g id="edge6" class="edge"><title>Node1&#45;&gt;Node4</title>
-<path fill="none" stroke="midnightblue" d="M58.1051,-571.792C63.0367,-657.041 85.6883,-978.806 150,-1053 156.562,-1060.57 165.406,-1065.94 174.763,-1069.75"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="61.5984,-571.572 57.5459,-561.783 54.6094,-571.963 61.5984,-571.572"/>
+<g id="edge14" class="edge"><title>Node1&#45;&gt;Node4</title>
+<path fill="none" stroke="midnightblue" d="M57.553,-571.948C60.3355,-659.94 75.782,-998.266 150,-1067 173.805,-1089.05 373.142,-1100.64 481.88,-1105.38"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="61.049,-571.756 57.2562,-561.863 54.052,-571.962 61.049,-571.756"/>
+</g>
+<!-- Node5 -->
+<g id="node9" class="node"><title>Node5</title>
+<a xlink:href="../../dc/d7d/Distributions_8h.html#a39ba163b714fe197bd81ac64ffa48d30" target="_top" xlink:title="matched_from_distribution\l_density">
+<polygon fill="white" stroke="black" points="161.5,-1024 161.5,-1058 292.5,-1058 292.5,-1024 161.5,-1024"/>
+<text text-anchor="start" x="169.5" y="-1045" font-family="Helvetica,sans-Serif" font-size="10.00">matched_from_distribution</text>
+<text text-anchor="middle" x="227" y="-1032" font-family="Helvetica,sans-Serif" font-size="10.00">_density</text>
+</a>
+</g>
+<!-- Node1&#45;&gt;Node5 -->
+<g id="edge8" class="edge"><title>Node1&#45;&gt;Node5</title>
+<path fill="none" stroke="midnightblue" d="M58.4468,-571.76C64.4948,-652.851 90.269,-947.1 150,-1015 153.262,-1018.71 157.071,-1021.89 161.217,-1024.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="61.9371,-571.499 57.7228,-561.778 54.9555,-572.005 61.9371,-571.499"/>
 </g>
 <!-- Node6 -->
 <g id="node11" class="node"><title>Node6</title>
-<a xlink:href="../../dc/d45/classSlices.html#ab1443b2ebec9ed465a8301be8e1c747f" target="_top" xlink:title="Slices::gaussian_filter1d">
-<polygon fill="white" stroke="black" points="165.5,-1022.5 165.5,-1043.5 288.5,-1043.5 288.5,-1022.5 165.5,-1022.5"/>
-<text text-anchor="middle" x="227" y="-1030.5" font-family="Helvetica,sans-Serif" font-size="10.00">Slices::gaussian_filter1d</text>
+<a xlink:href="../../dc/d7d/Distributions_8h.html#af8a750601d38e475a922ae843f837cc9" target="_top" xlink:title="matched_from_line_density">
+<polygon fill="white" stroke="black" points="159,-984.5 159,-1005.5 295,-1005.5 295,-984.5 159,-984.5"/>
+<text text-anchor="middle" x="227" y="-992.5" font-family="Helvetica,sans-Serif" font-size="10.00">matched_from_line_density</text>
 </a>
 </g>
 <!-- Node1&#45;&gt;Node6 -->
 <g id="edge10" class="edge"><title>Node1&#45;&gt;Node6</title>
-<path fill="none" stroke="midnightblue" d="M58.5069,-571.963C64.7072,-652.61 90.7678,-941.654 150,-1008 155.523,-1014.19 162.59,-1018.85 170.196,-1022.36"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="61.9701,-571.339 57.7346,-561.628 54.9896,-571.861 61.9701,-571.339"/>
+<path fill="none" stroke="midnightblue" d="M58.746,-572.028C65.5752,-649.245 92.959,-915.737 150,-975 153.64,-978.781 157.895,-981.881 162.504,-984.418"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="62.2006,-571.349 57.8555,-561.687 55.2264,-571.95 62.2006,-571.349"/>
 </g>
-<!-- Node8 -->
-<g id="node15" class="node"><title>Node8</title>
-<a xlink:href="../../d2/d51/plot__slices_8h.html#ad931c13f8d5ee8947ed320ac51b3a2b3" target="_top" xlink:title="plot_beam_profile_derivative">
-<polygon fill="white" stroke="black" points="512,-1005.5 512,-1026.5 652,-1026.5 652,-1005.5 512,-1005.5"/>
-<text text-anchor="middle" x="582" y="-1013.5" font-family="Helvetica,sans-Serif" font-size="10.00">plot_beam_profile_derivative</text>
-</a>
-</g>
-<!-- Node1&#45;&gt;Node8 -->
-<g id="edge18" class="edge"><title>Node1&#45;&gt;Node8</title>
-<path fill="none" stroke="midnightblue" d="M58.4151,-571.856C64.1387,-649.53 88.2926,-920.358 150,-975 176.474,-998.443 396.477,-1009.55 511.902,-1013.81"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="61.9038,-571.573 57.7021,-561.847 54.9215,-572.07 61.9038,-571.573"/>
-</g>
-<!-- Node9 -->
-<g id="node17" class="node"><title>Node9</title>
+<!-- Node7 -->
+<g id="node13" class="node"><title>Node7</title>
 <a xlink:href="../../d2/d51/plot__slices_8h.html#a880d8f74eddb227b7ce8bd03a684f57e" target="_top" xlink:title="plot_beam_profile">
 <polygon fill="white" stroke="black" points="180.5,-944.5 180.5,-965.5 273.5,-965.5 273.5,-944.5 180.5,-944.5"/>
 <text text-anchor="middle" x="227" y="-952.5" font-family="Helvetica,sans-Serif" font-size="10.00">plot_beam_profile</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node9 -->
-<g id="edge16" class="edge"><title>Node1&#45;&gt;Node9</title>
+<!-- Node1&#45;&gt;Node7 -->
+<g id="edge12" class="edge"><title>Node1&#45;&gt;Node7</title>
 <path fill="none" stroke="midnightblue" d="M59.249,-571.902C67.4388,-644.194 97.9493,-882.083 150,-935 158.136,-943.271 169.223,-948.268 180.448,-951.248"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="62.7069,-571.329 58.1263,-561.776 55.7496,-572.1 62.7069,-571.329"/>
 </g>
-<!-- Node10 -->
-<g id="node20" class="node"><title>Node10</title>
+<!-- Node8 -->
+<g id="node16" class="node"><title>Node8</title>
 <a xlink:href="../../d2/d51/plot__slices_8h.html#a97786bacfe2a198ca748d497ecd0c3c8" target="_top" xlink:title="plot_beam_spectrum">
 <polygon fill="white" stroke="black" points="173.5,-904.5 173.5,-925.5 280.5,-925.5 280.5,-904.5 173.5,-904.5"/>
 <text text-anchor="middle" x="227" y="-912.5" font-family="Helvetica,sans-Serif" font-size="10.00">plot_beam_spectrum</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node10 -->
-<g id="edge20" class="edge"><title>Node1&#45;&gt;Node10</title>
+<!-- Node1&#45;&gt;Node8 -->
+<g id="edge16" class="edge"><title>Node1&#45;&gt;Node8</title>
 <path fill="none" stroke="midnightblue" d="M59.8745,-571.872C69.5422,-639.112 102.935,-848.4 150,-895 156.478,-901.414 164.733,-905.85 173.419,-908.901"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="63.3004,-571.1 58.4368,-561.687 56.3691,-572.078 63.3004,-571.1"/>
 </g>
-<!-- Node11 -->
-<g id="node22" class="node"><title>Node11</title>
+<!-- Node9 -->
+<g id="node18" class="node"><title>Node9</title>
 <a xlink:href="../../d8/d94/plot__beams_8h.html#ad94cdaedd5dbe47dd60c3c54213cfd30" target="_top" xlink:title="plot_bunch_length_evol">
 <polygon fill="white" stroke="black" points="167.5,-864.5 167.5,-885.5 286.5,-885.5 286.5,-864.5 167.5,-864.5"/>
 <text text-anchor="middle" x="227" y="-872.5" font-family="Helvetica,sans-Serif" font-size="10.00">plot_bunch_length_evol</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node11 -->
-<g id="edge22" class="edge"><title>Node1&#45;&gt;Node11</title>
+<!-- Node1&#45;&gt;Node9 -->
+<g id="edge18" class="edge"><title>Node1&#45;&gt;Node9</title>
 <path fill="none" stroke="midnightblue" d="M60.6577,-571.839C71.9229,-633.728 107.887,-814.65 150,-855 154.986,-859.778 160.962,-863.452 167.351,-866.272"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="64.0551,-570.954 58.8458,-561.729 57.1649,-572.189 64.0551,-570.954"/>
 </g>
-<!-- Node12 -->
-<g id="node24" class="node"><title>Node12</title>
+<!-- Node10 -->
+<g id="node20" class="node"><title>Node10</title>
 <a xlink:href="../../d8/d94/plot__beams_8h.html#a0db7edddd522f6703fbdf92e5a512ef5" target="_top" xlink:title="plot_bunch_length_evol\l_gaussian">
 <polygon fill="white" stroke="black" points="167.5,-812 167.5,-846 286.5,-846 286.5,-812 167.5,-812"/>
 <text text-anchor="start" x="175.5" y="-833" font-family="Helvetica,sans-Serif" font-size="10.00">plot_bunch_length_evol</text>
 <text text-anchor="middle" x="227" y="-820" font-family="Helvetica,sans-Serif" font-size="10.00">_gaussian</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node12 -->
-<g id="edge24" class="edge"><title>Node1&#45;&gt;Node12</title>
+<!-- Node1&#45;&gt;Node10 -->
+<g id="edge20" class="edge"><title>Node1&#45;&gt;Node10</title>
 <path fill="none" stroke="midnightblue" d="M58.7014,-571.594C63.7264,-619.15 82.6819,-737.534 150,-803 155.058,-807.918 161.077,-811.907 167.489,-815.142"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="62.1805,-571.207 57.7437,-561.586 55.2123,-571.874 62.1805,-571.207"/>
 </g>
-<!-- Node13 -->
-<g id="node26" class="node"><title>Node13</title>
+<!-- Node11 -->
+<g id="node22" class="node"><title>Node11</title>
 <a xlink:href="../../d3/dda/plot__llrf_8h.html#af5a02a39bc6683e75fbb078ba25f91cd" target="_top" xlink:title="plot_COM_motion">
 <polygon fill="white" stroke="black" points="179.5,-772.5 179.5,-793.5 274.5,-793.5 274.5,-772.5 179.5,-772.5"/>
 <text text-anchor="middle" x="227" y="-780.5" font-family="Helvetica,sans-Serif" font-size="10.00">plot_COM_motion</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node13 -->
-<g id="edge26" class="edge"><title>Node1&#45;&gt;Node13</title>
+<!-- Node1&#45;&gt;Node11 -->
+<g id="edge22" class="edge"><title>Node1&#45;&gt;Node11</title>
 <path fill="none" stroke="midnightblue" d="M60.0009,-571.767C67.2775,-614.337 89.9068,-711.79 150,-763 158.305,-770.077 168.817,-774.691 179.383,-777.688"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="63.4334,-571.066 58.4022,-561.742 56.5207,-572.168 63.4334,-571.066"/>
 </g>
-<!-- Node14 -->
-<g id="node28" class="node"><title>Node14</title>
+<!-- Node12 -->
+<g id="node24" class="node"><title>Node12</title>
 <a xlink:href="../../d8/d94/plot__beams_8h.html#a4c91d74ff98dda69ada829279371d511" target="_top" xlink:title="plot_energy_evol">
 <polygon fill="white" stroke="black" points="182,-732.5 182,-753.5 272,-753.5 272,-732.5 182,-732.5"/>
 <text text-anchor="middle" x="227" y="-740.5" font-family="Helvetica,sans-Serif" font-size="10.00">plot_energy_evol</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node14 -->
-<g id="edge28" class="edge"><title>Node1&#45;&gt;Node14</title>
+<!-- Node1&#45;&gt;Node12 -->
+<g id="edge24" class="edge"><title>Node1&#45;&gt;Node12</title>
 <path fill="none" stroke="midnightblue" d="M62.331,-571.811C72.7601,-608.215 99.3887,-683.344 150,-723 159.132,-730.156 170.562,-734.769 181.798,-737.737"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="65.6182,-570.563 59.6059,-561.839 58.8658,-572.408 65.6182,-570.563"/>
 </g>
-<!-- Node15 -->
-<g id="node30" class="node"><title>Node15</title>
+<!-- Node13 -->
+<g id="node26" class="node"><title>Node13</title>
 <a xlink:href="../../da/d77/plot__impedance_8h.html#a2c91da10e1b692849d85e285874f90b3" target="_top" xlink:title="plot_impedance_vs_frequency">
 <polygon fill="white" stroke="black" points="152.5,-692.5 152.5,-713.5 301.5,-713.5 301.5,-692.5 152.5,-692.5"/>
 <text text-anchor="middle" x="227" y="-700.5" font-family="Helvetica,sans-Serif" font-size="10.00">plot_impedance_vs_frequency</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node15 -->
-<g id="edge30" class="edge"><title>Node1&#45;&gt;Node15</title>
+<!-- Node1&#45;&gt;Node13 -->
+<g id="edge26" class="edge"><title>Node1&#45;&gt;Node13</title>
 <path fill="none" stroke="midnightblue" d="M65.5963,-571.061C79.1646,-600.272 108.353,-654.166 150,-683 155.564,-686.852 161.819,-689.963 168.297,-692.474"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="68.7442,-569.527 61.4536,-561.839 62.3589,-572.395 68.7442,-569.527"/>
 </g>
-<!-- Node16 -->
-<g id="node32" class="node"><title>Node16</title>
+<!-- Node14 -->
+<g id="node28" class="node"><title>Node14</title>
 <a xlink:href="../../da/d77/plot__impedance_8h.html#af6f3f2783431ef676828a728fdd28490" target="_top" xlink:title="plot_induced_voltage\l_vs_bin_centers">
 <polygon fill="white" stroke="black" points="173,-640 173,-674 281,-674 281,-640 173,-640"/>
 <text text-anchor="start" x="181" y="-661" font-family="Helvetica,sans-Serif" font-size="10.00">plot_induced_voltage</text>
 <text text-anchor="middle" x="227" y="-648" font-family="Helvetica,sans-Serif" font-size="10.00">_vs_bin_centers</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node16 -->
-<g id="edge32" class="edge"><title>Node1&#45;&gt;Node16</title>
+<!-- Node1&#45;&gt;Node14 -->
+<g id="edge28" class="edge"><title>Node1&#45;&gt;Node14</title>
 <path fill="none" stroke="midnightblue" d="M73.795,-569.05C91.3124,-586.95 120.315,-614.082 150,-631 157.11,-635.052 164.951,-638.603 172.826,-641.671"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="76.0426,-566.337 66.5934,-561.545 70.9919,-571.184 76.0426,-566.337"/>
 </g>
-<!-- Node17 -->
-<g id="node34" class="node"><title>Node17</title>
+<!-- Node15 -->
+<g id="node30" class="node"><title>Node15</title>
 <a xlink:href="../../d3/dda/plot__llrf_8h.html#acd7e44035fa3120550b2e4043a09de31" target="_top" xlink:title="plot_LHCNoiseFB">
 <polygon fill="white" stroke="black" points="179,-600.5 179,-621.5 275,-621.5 275,-600.5 179,-600.5"/>
 <text text-anchor="middle" x="227" y="-608.5" font-family="Helvetica,sans-Serif" font-size="10.00">plot_LHCNoiseFB</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node17 -->
-<g id="edge34" class="edge"><title>Node1&#45;&gt;Node17</title>
+<!-- Node1&#45;&gt;Node15 -->
+<g id="edge30" class="edge"><title>Node1&#45;&gt;Node15</title>
 <path fill="none" stroke="midnightblue" d="M88.502,-565.969C106.296,-574.062 129.097,-583.837 150,-591 160.061,-594.448 171.035,-597.631 181.464,-600.397"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="89.7226,-562.678 79.1755,-561.673 86.7939,-569.036 89.7226,-562.678"/>
 </g>
-<!-- Node18 -->
-<g id="node36" class="node"><title>Node18</title>
+<!-- Node16 -->
+<g id="node32" class="node"><title>Node16</title>
 <a xlink:href="../../d3/dda/plot__llrf_8h.html#a56ecdfbeea2fc00be9bcca4a3747cdeb" target="_top" xlink:title="plot_LHCNoiseFB_FWHM">
 <polygon fill="white" stroke="black" points="160.5,-560.5 160.5,-581.5 293.5,-581.5 293.5,-560.5 160.5,-560.5"/>
 <text text-anchor="middle" x="227" y="-568.5" font-family="Helvetica,sans-Serif" font-size="10.00">plot_LHCNoiseFB_FWHM</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node18 -->
-<g id="edge36" class="edge"><title>Node1&#45;&gt;Node18</title>
+<!-- Node1&#45;&gt;Node16 -->
+<g id="edge32" class="edge"><title>Node1&#45;&gt;Node16</title>
 <path fill="none" stroke="midnightblue" d="M123.6,-558.835C135.669,-560.255 148.257,-561.736 160.328,-563.156"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="123.948,-555.352 113.608,-557.66 123.13,-562.304 123.948,-555.352"/>
 </g>
-<!-- Node19 -->
-<g id="node38" class="node"><title>Node19</title>
+<!-- Node17 -->
+<g id="node34" class="node"><title>Node17</title>
 <a xlink:href="../../d3/dda/plot__llrf_8h.html#a323326634be1c515da00ebd14f8ed8b3" target="_top" xlink:title="plot_LHCNoiseFB_FWHM_bbb">
 <polygon fill="white" stroke="black" points="150,-520.5 150,-541.5 304,-541.5 304,-520.5 150,-520.5"/>
 <text text-anchor="middle" x="227" y="-528.5" font-family="Helvetica,sans-Serif" font-size="10.00">plot_LHCNoiseFB_FWHM_bbb</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node19 -->
-<g id="edge38" class="edge"><title>Node1&#45;&gt;Node19</title>
+<!-- Node1&#45;&gt;Node17 -->
+<g id="edge34" class="edge"><title>Node1&#45;&gt;Node17</title>
 <path fill="none" stroke="midnightblue" d="M123.553,-543.17C132.148,-542.159 141.008,-541.117 149.757,-540.087"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="123.13,-539.696 113.608,-544.34 123.948,-546.648 123.13,-539.696"/>
 </g>
-<!-- Node20 -->
-<g id="node40" class="node"><title>Node20</title>
+<!-- Node18 -->
+<g id="node36" class="node"><title>Node18</title>
 <a xlink:href="../../d8/d94/plot__beams_8h.html#a60f0c5f4e19f811bd8cea940c70007b6" target="_top" xlink:title="plot_long_phase_space">
 <polygon fill="white" stroke="black" points="167.5,-480.5 167.5,-501.5 286.5,-501.5 286.5,-480.5 167.5,-480.5"/>
 <text text-anchor="middle" x="227" y="-488.5" font-family="Helvetica,sans-Serif" font-size="10.00">plot_long_phase_space</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node20 -->
-<g id="edge40" class="edge"><title>Node1&#45;&gt;Node20</title>
+<!-- Node1&#45;&gt;Node18 -->
+<g id="edge36" class="edge"><title>Node1&#45;&gt;Node18</title>
 <path fill="none" stroke="midnightblue" d="M88.502,-536.031C106.296,-527.938 129.097,-518.163 150,-511 160.061,-507.552 171.035,-504.369 181.464,-501.603"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="86.7939,-532.964 79.1755,-540.327 89.7226,-539.322 86.7939,-532.964"/>
 </g>
-<!-- Node21 -->
-<g id="node42" class="node"><title>Node21</title>
+<!-- Node19 -->
+<g id="node38" class="node"><title>Node19</title>
 <a xlink:href="../../d3/dda/plot__llrf_8h.html#a333661d5cf95b6534ac63ab61b415e00" target="_top" xlink:title="plot_noise_spectrum">
 <polygon fill="white" stroke="black" points="173.5,-440.5 173.5,-461.5 280.5,-461.5 280.5,-440.5 173.5,-440.5"/>
 <text text-anchor="middle" x="227" y="-448.5" font-family="Helvetica,sans-Serif" font-size="10.00">plot_noise_spectrum</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node21 -->
-<g id="edge42" class="edge"><title>Node1&#45;&gt;Node21</title>
+<!-- Node1&#45;&gt;Node19 -->
+<g id="edge38" class="edge"><title>Node1&#45;&gt;Node19</title>
 <path fill="none" stroke="midnightblue" d="M73.2701,-532.797C90.5631,-514.546 119.566,-486.932 150,-471 157.219,-467.221 165.201,-464.121 173.21,-461.589"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="70.4117,-530.732 66.1855,-540.448 75.548,-535.488 70.4117,-530.732"/>
 </g>
-<!-- Node22 -->
-<g id="node44" class="node"><title>Node22</title>
+<!-- Node20 -->
+<g id="node40" class="node"><title>Node20</title>
 <a xlink:href="../../d3/dda/plot__llrf_8h.html#a8863c0678df39a4807f02ad6c64e6600" target="_top" xlink:title="plot_phase_noise">
 <polygon fill="white" stroke="black" points="181,-400.5 181,-421.5 273,-421.5 273,-400.5 181,-400.5"/>
 <text text-anchor="middle" x="227" y="-408.5" font-family="Helvetica,sans-Serif" font-size="10.00">plot_phase_noise</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node22 -->
-<g id="edge44" class="edge"><title>Node1&#45;&gt;Node22</title>
+<!-- Node1&#45;&gt;Node20 -->
+<g id="edge40" class="edge"><title>Node1&#45;&gt;Node20</title>
 <path fill="none" stroke="midnightblue" d="M66.8906,-531.262C81.387,-504.397 110.973,-456.726 150,-431 159.225,-424.919 170.204,-420.685 180.94,-417.738"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="63.6181,-529.967 62.0854,-540.451 69.8211,-533.211 63.6181,-529.967"/>
 </g>
-<!-- Node23 -->
-<g id="node46" class="node"><title>Node23</title>
+<!-- Node21 -->
+<g id="node42" class="node"><title>Node21</title>
 <a xlink:href="../../d3/dda/plot__llrf_8h.html#a0cf92ca93a86bbdc1bfa9331a83ea320" target="_top" xlink:title="plot_PL_bunch_phase">
 <polygon fill="white" stroke="black" points="170.5,-360.5 170.5,-381.5 283.5,-381.5 283.5,-360.5 170.5,-360.5"/>
 <text text-anchor="middle" x="227" y="-368.5" font-family="Helvetica,sans-Serif" font-size="10.00">plot_PL_bunch_phase</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node23 -->
-<g id="edge46" class="edge"><title>Node1&#45;&gt;Node23</title>
+<!-- Node1&#45;&gt;Node21 -->
+<g id="edge42" class="edge"><title>Node1&#45;&gt;Node21</title>
 <path fill="none" stroke="midnightblue" d="M63.0712,-530.689C74.3751,-496.459 101.965,-427.456 150,-391 156.051,-386.408 163.056,-382.865 170.326,-380.134"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="59.6481,-529.905 59.968,-540.495 66.3219,-532.017 59.6481,-529.905"/>
 </g>
-<!-- Node24 -->
-<g id="node48" class="node"><title>Node24</title>
+<!-- Node22 -->
+<g id="node44" class="node"><title>Node22</title>
 <a xlink:href="../../d3/dda/plot__llrf_8h.html#a458b12e1ab74c68d5bab0b7cebf18c09" target="_top" xlink:title="plot_PL_freq_corr">
 <polygon fill="white" stroke="black" points="180.5,-320.5 180.5,-341.5 273.5,-341.5 273.5,-320.5 180.5,-320.5"/>
 <text text-anchor="middle" x="227" y="-328.5" font-family="Helvetica,sans-Serif" font-size="10.00">plot_PL_freq_corr</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node24 -->
-<g id="edge48" class="edge"><title>Node1&#45;&gt;Node24</title>
+<!-- Node1&#45;&gt;Node22 -->
+<g id="edge44" class="edge"><title>Node1&#45;&gt;Node22</title>
 <path fill="none" stroke="midnightblue" d="M60.5405,-530.558C68.6775,-489.931 92.6082,-398.836 150,-351 158.594,-343.837 169.458,-339.205 180.296,-336.219"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="57.1007,-529.912 58.6871,-540.388 63.9794,-531.209 57.1007,-529.912"/>
 </g>
-<!-- Node25 -->
-<g id="node50" class="node"><title>Node25</title>
+<!-- Node23 -->
+<g id="node46" class="node"><title>Node23</title>
 <a xlink:href="../../d3/dda/plot__llrf_8h.html#a4cb55b3cec0038d53eecda7f25e2f426" target="_top" xlink:title="plot_PL_phase_corr">
 <polygon fill="white" stroke="black" points="175.5,-280.5 175.5,-301.5 278.5,-301.5 278.5,-280.5 175.5,-280.5"/>
 <text text-anchor="middle" x="227" y="-288.5" font-family="Helvetica,sans-Serif" font-size="10.00">plot_PL_phase_corr</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node25 -->
-<g id="edge50" class="edge"><title>Node1&#45;&gt;Node25</title>
+<!-- Node1&#45;&gt;Node23 -->
+<g id="edge46" class="edge"><title>Node1&#45;&gt;Node23</title>
 <path fill="none" stroke="midnightblue" d="M58.7864,-530.432C63.9489,-484.022 83.1041,-370.58 150,-311 157.117,-304.662 165.991,-300.287 175.158,-297.278"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="55.2944,-530.177 57.7758,-540.477 62.2593,-530.878 55.2944,-530.177"/>
 </g>
-<!-- Node26 -->
-<g id="node52" class="node"><title>Node26</title>
+<!-- Node24 -->
+<g id="node48" class="node"><title>Node24</title>
 <a xlink:href="../../d3/dda/plot__llrf_8h.html#a36abfb65cca9b6fff4241fc4ab085efd" target="_top" xlink:title="plot_PL_RF_freq">
 <polygon fill="white" stroke="black" points="182,-240.5 182,-261.5 272,-261.5 272,-240.5 182,-240.5"/>
 <text text-anchor="middle" x="227" y="-248.5" font-family="Helvetica,sans-Serif" font-size="10.00">plot_PL_RF_freq</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node26 -->
-<g id="edge52" class="edge"><title>Node1&#45;&gt;Node26</title>
+<!-- Node1&#45;&gt;Node24 -->
+<g id="edge48" class="edge"><title>Node1&#45;&gt;Node24</title>
 <path fill="none" stroke="midnightblue" d="M61.1305,-530.66C73.3162,-472.57 110.731,-307.739 150,-271 158.674,-262.885 170.21,-257.965 181.706,-255.01"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="57.6936,-529.997 59.095,-540.498 64.5485,-531.415 57.6936,-529.997"/>
 </g>
-<!-- Node27 -->
-<g id="node54" class="node"><title>Node27</title>
+<!-- Node25 -->
+<g id="node50" class="node"><title>Node25</title>
 <a xlink:href="../../d3/dda/plot__llrf_8h.html#ab90c89b375ef96ed998a974351f5f3e1" target="_top" xlink:title="plot_PL_RF_phase">
 <polygon fill="white" stroke="black" points="177,-200.5 177,-221.5 277,-221.5 277,-200.5 177,-200.5"/>
 <text text-anchor="middle" x="227" y="-208.5" font-family="Helvetica,sans-Serif" font-size="10.00">plot_PL_RF_phase</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node27 -->
-<g id="edge54" class="edge"><title>Node1&#45;&gt;Node27</title>
+<!-- Node1&#45;&gt;Node25 -->
+<g id="edge50" class="edge"><title>Node1&#45;&gt;Node25</title>
 <path fill="none" stroke="midnightblue" d="M60.2904,-530.338C70.8632,-466.459 105.867,-273.883 150,-231 157.33,-223.877 166.856,-219.201 176.697,-216.153"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="56.8061,-529.959 58.6536,-540.391 63.7151,-531.084 56.8061,-529.959"/>
 </g>
-<!-- Node28 -->
-<g id="node56" class="node"><title>Node28</title>
+<!-- Node26 -->
+<g id="node52" class="node"><title>Node26</title>
 <a xlink:href="../../d8/d94/plot__beams_8h.html#af8562d72b4487b1744e3126cf245ea52" target="_top" xlink:title="plot_position_evol">
 <polygon fill="white" stroke="black" points="179.5,-160.5 179.5,-181.5 274.5,-181.5 274.5,-160.5 179.5,-160.5"/>
 <text text-anchor="middle" x="227" y="-168.5" font-family="Helvetica,sans-Serif" font-size="10.00">plot_position_evol</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node28 -->
-<g id="edge56" class="edge"><title>Node1&#45;&gt;Node28</title>
+<!-- Node1&#45;&gt;Node26 -->
+<g id="edge52" class="edge"><title>Node1&#45;&gt;Node26</title>
 <path fill="none" stroke="midnightblue" d="M59.6152,-530.062C68.688,-460.709 100.957,-240.107 150,-191 157.905,-183.084 168.517,-178.175 179.331,-175.163"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="56.1178,-529.819 58.3168,-540.183 63.0609,-530.71 56.1178,-529.819"/>
 </g>
-<!-- Node29 -->
-<g id="node58" class="node"><title>Node29</title>
+<!-- Node27 -->
+<g id="node54" class="node"><title>Node27</title>
 <a xlink:href="../../d3/dda/plot__llrf_8h.html#af4f563c0864d6e4ba163b1e6ab46b5c8" target="_top" xlink:title="plot_RF_phase_error">
 <polygon fill="white" stroke="black" points="173.5,-120.5 173.5,-141.5 280.5,-141.5 280.5,-120.5 173.5,-120.5"/>
 <text text-anchor="middle" x="227" y="-128.5" font-family="Helvetica,sans-Serif" font-size="10.00">plot_RF_phase_error</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node29 -->
-<g id="edge58" class="edge"><title>Node1&#45;&gt;Node29</title>
+<!-- Node1&#45;&gt;Node27 -->
+<g id="edge54" class="edge"><title>Node1&#45;&gt;Node27</title>
 <path fill="none" stroke="midnightblue" d="M59.0221,-530.187C66.6342,-456.074 95.922,-206.485 150,-151 156.362,-144.472 164.562,-139.981 173.229,-136.91"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="55.537,-529.864 58.0208,-540.164 62.502,-530.563 55.537,-529.864"/>
 </g>
-<!-- Node30 -->
-<g id="node60" class="node"><title>Node30</title>
+<!-- Node28 -->
+<g id="node56" class="node"><title>Node28</title>
 <a xlink:href="../../d3/dda/plot__llrf_8h.html#a7d64d79aafd6df5c91eccb73505de169" target="_top" xlink:title="plot_RL_radial_error">
 <polygon fill="white" stroke="black" points="175,-80.5 175,-101.5 279,-101.5 279,-80.5 175,-80.5"/>
 <text text-anchor="middle" x="227" y="-88.5" font-family="Helvetica,sans-Serif" font-size="10.00">plot_RL_radial_error</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node30 -->
-<g id="edge60" class="edge"><title>Node1&#45;&gt;Node30</title>
+<!-- Node1&#45;&gt;Node28 -->
+<g id="edge56" class="edge"><title>Node1&#45;&gt;Node28</title>
 <path fill="none" stroke="midnightblue" d="M58.547,-530.194C64.8182,-451.43 90.8887,-172.884 150,-111 156.678,-104.009 165.461,-99.3455 174.699,-96.2598"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="55.0458,-530.075 57.7639,-540.315 62.025,-530.615 55.0458,-530.075"/>
 </g>
-<!-- Node31 -->
-<g id="node62" class="node"><title>Node31</title>
+<!-- Node29 -->
+<g id="node58" class="node"><title>Node29</title>
 <a xlink:href="../../d8/d94/plot__beams_8h.html#a823f1dc9ce1b63898e543add25cadb93" target="_top" xlink:title="plot_transmitted_particles">
 <polygon fill="white" stroke="black" points="163,-40.5 163,-61.5 291,-61.5 291,-40.5 163,-40.5"/>
 <text text-anchor="middle" x="227" y="-48.5" font-family="Helvetica,sans-Serif" font-size="10.00">plot_transmitted_particles</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node31 -->
-<g id="edge62" class="edge"><title>Node1&#45;&gt;Node31</title>
+<!-- Node1&#45;&gt;Node29 -->
+<g id="edge58" class="edge"><title>Node1&#45;&gt;Node29</title>
 <path fill="none" stroke="midnightblue" d="M58.1494,-530.2C63.1648,-446.996 85.8334,-139.325 150,-71 153.688,-67.0735 158.039,-63.8793 162.765,-61.2852"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="54.654,-530.019 57.5673,-540.206 61.6422,-530.426 54.654,-530.019"/>
 </g>
-<!-- Node32 -->
-<g id="node64" class="node"><title>Node32</title>
+<!-- Node30 -->
+<g id="node60" class="node"><title>Node30</title>
 <a xlink:href="../../d8/d1b/plot__parameters_8h.html#a85d8f3cd2cb068b4acb7e34897d0d622" target="_top" xlink:title="plot_voltage_programme">
 <polygon fill="white" stroke="black" points="165.5,-0.5 165.5,-21.5 288.5,-21.5 288.5,-0.5 165.5,-0.5"/>
 <text text-anchor="middle" x="227" y="-8.5" font-family="Helvetica,sans-Serif" font-size="10.00">plot_voltage_programme</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node32 -->
-<g id="edge64" class="edge"><title>Node1&#45;&gt;Node32</title>
+<!-- Node1&#45;&gt;Node30 -->
+<g id="edge60" class="edge"><title>Node1&#45;&gt;Node30</title>
 <path fill="none" stroke="midnightblue" d="M57.8128,-530.178C61.6496,-442.672 80.767,-105.792 150,-31 154.316,-26.3376 159.567,-22.705 165.278,-19.8826"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="54.3145,-530.067 57.3934,-540.204 61.3083,-530.36 54.3145,-530.067"/>
 </g>
 <!-- Node3 -->
 <g id="node5" class="node"><title>Node3</title>
-<a xlink:href="../../dc/d7d/Distributions_8h.html#a39ba163b714fe197bd81ac64ffa48d30" target="_top" xlink:title="matched_from_distribution\l_density">
-<polygon fill="white" stroke="black" points="342.5,-1114 342.5,-1148 473.5,-1148 473.5,-1114 342.5,-1114"/>
-<text text-anchor="start" x="350.5" y="-1135" font-family="Helvetica,sans-Serif" font-size="10.00">matched_from_distribution</text>
-<text text-anchor="middle" x="408" y="-1122" font-family="Helvetica,sans-Serif" font-size="10.00">_density</text>
+<a xlink:href="../../dc/d45/classSlices.html#ada42a57f8bea7bb582076bfb6f9f1812" target="_top" xlink:title="Slices::beam_profile\l_derivative">
+<polygon fill="white" stroke="black" points="340.5,-1114 340.5,-1148 445.5,-1148 445.5,-1114 340.5,-1114"/>
+<text text-anchor="start" x="348.5" y="-1135" font-family="Helvetica,sans-Serif" font-size="10.00">Slices::beam_profile</text>
+<text text-anchor="middle" x="393" y="-1122" font-family="Helvetica,sans-Serif" font-size="10.00">_derivative</text>
 </a>
 </g>
 <!-- Node2&#45;&gt;Node3 -->
 <g id="edge4" class="edge"><title>Node2&#45;&gt;Node3</title>
-<path fill="none" stroke="midnightblue" d="M305.835,-1131C318.02,-1131 330.493,-1131 342.348,-1131"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="305.686,-1127.5 295.686,-1131 305.686,-1134.5 305.686,-1127.5"/>
+<path fill="none" stroke="midnightblue" d="M298.872,-1129.3C312.823,-1129.55 327.201,-1129.81 340.391,-1130.05"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="298.874,-1125.8 288.812,-1129.12 298.747,-1132.8 298.874,-1125.8"/>
 </g>
-<!-- Node5 -->
-<g id="node9" class="node"><title>Node5</title>
-<a xlink:href="../../dc/d7d/Distributions_8h.html#af8a750601d38e475a922ae843f837cc9" target="_top" xlink:title="matched_from_line_density">
-<polygon fill="white" stroke="black" points="340,-1074.5 340,-1095.5 476,-1095.5 476,-1074.5 340,-1074.5"/>
-<text text-anchor="middle" x="408" y="-1082.5" font-family="Helvetica,sans-Serif" font-size="10.00">matched_from_line_density</text>
-</a>
-</g>
-<!-- Node4&#45;&gt;Node5 -->
-<g id="edge8" class="edge"><title>Node4&#45;&gt;Node5</title>
-<path fill="none" stroke="midnightblue" d="M289.778,-1081.08C305.967,-1081.62 323.467,-1082.2 339.912,-1082.74"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="289.463,-1077.57 279.353,-1080.74 289.231,-1084.56 289.463,-1077.57"/>
-</g>
-<!-- Node7 -->
-<g id="node13" class="node"><title>Node7</title>
-<a xlink:href="../../dc/d45/classSlices.html#ada42a57f8bea7bb582076bfb6f9f1812" target="_top" xlink:title="Slices::beam_profile\l_derivative">
-<polygon fill="white" stroke="black" points="355.5,-1022 355.5,-1056 460.5,-1056 460.5,-1022 355.5,-1022"/>
-<text text-anchor="start" x="363.5" y="-1043" font-family="Helvetica,sans-Serif" font-size="10.00">Slices::beam_profile</text>
-<text text-anchor="middle" x="408" y="-1030" font-family="Helvetica,sans-Serif" font-size="10.00">_derivative</text>
-</a>
-</g>
-<!-- Node6&#45;&gt;Node7 -->
-<g id="edge12" class="edge"><title>Node6&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M298.614,-1035.37C317.56,-1036 337.662,-1036.67 355.395,-1037.26"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="298.641,-1031.87 288.531,-1035.04 298.409,-1038.87 298.641,-1031.87"/>
-</g>
-<!-- Node7&#45;&gt;Node8 -->
-<g id="edge14" class="edge"><title>Node7&#45;&gt;Node8</title>
-<path fill="none" stroke="midnightblue" d="M470.699,-1030.71C484.046,-1028.95 498.222,-1027.07 511.828,-1025.28"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="470.133,-1027.26 460.678,-1032.04 471.05,-1034.2 470.133,-1027.26"/>
+<!-- Node3&#45;&gt;Node4 -->
+<g id="edge6" class="edge"><title>Node3&#45;&gt;Node4</title>
+<path fill="none" stroke="midnightblue" d="M455.531,-1121.95C464.207,-1120.7 473.165,-1119.4 481.967,-1118.13"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="454.899,-1118.51 445.503,-1123.41 455.901,-1125.44 454.899,-1118.51"/>
 </g>
 </g>
 </svg>

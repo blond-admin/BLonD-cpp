@@ -163,7 +163,7 @@ BunchMonitor::BunchMonitor(GeneralParameters *GP, RfParameters *RfP, Beams *Beam
     fCompressionLevel = compression_level;
 
 
-    if (fSlices != NULL && fSlices->fit_option == fit_type::gaussian_fit)
+    if (fSlices != NULL && fSlices->fit_option == Slices::fit_t::gaussian)
         fGaussian = true;
     else
         fGaussian = false;

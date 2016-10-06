@@ -35,11 +35,12 @@ uint N_p = 100000; // Macro-particles
 
 uint N_slices = 200; // = (2^8)
 
-void parse_args(int argc, char** argv);
+void parse_args(int argc, char **argv);
 
 // Simulation setup
 // -------------------------------------------------------------
-int main(int argc, char** argv) {
+int main(int argc, char **argv)
+{
 
     parse_args(argc, argv);
 
@@ -75,7 +76,7 @@ int main(int argc, char** argv) {
     // long_tracker = new RingAndRfSection(RfP);
 
     Context::Slice = new Slices(N_slices, 0, -constant::pi, constant::pi,
-                                cuts_unit_type::rad);
+                                Slices::cuts_unit_t::rad);
 
     longitudinal_bigaussian(200e-9, 1e6, 1, false);
 
@@ -85,7 +86,7 @@ int main(int argc, char** argv) {
     auto long_tracker =
         new RingAndRfSection(Context::RfP, simple, NULL, NULL, false);
 
-    for (auto& v : Context::Beam->dE)
+    for (auto &v : Context::Beam->dE)
         v += 90.0e3;
 
     Context::Slice->track();
@@ -132,7 +133,8 @@ int main(int argc, char** argv) {
     printf("Done!\n");
 }
 
-void parse_args(int argc, char** argv) {
+void parse_args(int argc, char **argv)
+{
     using namespace std;
     using namespace option;
 
@@ -147,24 +149,39 @@ void parse_args(int argc, char** argv) {
     };
 
     const option::Descriptor usage[] = {
-        {UNKNOWN, 0, "", "", Arg::None, "USAGE: ./TC8_Phase_Loop [options]\n\n"
-                                        "Options:"},
-        {HELP, 0, "h", "help", Arg::None,
-         "  --help,              -h        Print usage and exit."},
-        {N_TURNS, 0, "t", "turns", util::Arg::Numeric,
-         "  --turns=<num>,       -t <num>  Number of turns (default: 500)"},
-        {N_PARTICLES, 0, "p", "particles", util::Arg::Numeric,
-         "  --particles=<num>,   -p <num>  Number of particles (default: "
-         "100k)"},
-        {N_SLICES, 0, "s", "slices", util::Arg::Numeric,
-         "  --slices=<num>,      -s <num>  Number of slices (default: 200)"},
-        {N_THREADS, 0, "m", "threads", util::Arg::Numeric,
-         "  --threads=<num>,     -m <num>  Number of threads (default: 1)"},
-        {UNKNOWN, 0, "", "", Arg::None,
-         "\nExamples:\n"
-         "\t./TC8_Phase_Loop\n"
-         "\t./TC8_Phase_Loop -t 1000 -p 10000 -m 4\n"},
-        {0, 0, 0, 0, 0, 0}};
+        {
+            UNKNOWN, 0, "", "", Arg::None, "USAGE: ./TC8_Phase_Loop [options]\n\n"
+            "Options:"
+        },
+        {
+            HELP, 0, "h", "help", Arg::None,
+            "  --help,              -h        Print usage and exit."
+        },
+        {
+            N_TURNS, 0, "t", "turns", util::Arg::Numeric,
+            "  --turns=<num>,       -t <num>  Number of turns (default: 500)"
+        },
+        {
+            N_PARTICLES, 0, "p", "particles", util::Arg::Numeric,
+            "  --particles=<num>,   -p <num>  Number of particles (default: "
+            "100k)"
+        },
+        {
+            N_SLICES, 0, "s", "slices", util::Arg::Numeric,
+            "  --slices=<num>,      -s <num>  Number of slices (default: 200)"
+        },
+        {
+            N_THREADS, 0, "m", "threads", util::Arg::Numeric,
+            "  --threads=<num>,     -m <num>  Number of threads (default: 1)"
+        },
+        {
+            UNKNOWN, 0, "", "", Arg::None,
+            "\nExamples:\n"
+            "\t./TC8_Phase_Loop\n"
+            "\t./TC8_Phase_Loop -t 1000 -p 10000 -m 4\n"
+        },
+        {0, 0, 0, 0, 0, 0}
+    };
 
     argc -= (argc > 0);
     argv += (argc > 0); // skip program name argv[0] if present
@@ -179,31 +196,31 @@ void parse_args(int argc, char** argv) {
     }
 
     for (int i = 0; i < parse.optionsCount(); ++i) {
-        Option& opt = buffer[i];
+        Option &opt = buffer[i];
         // fprintf(stdout, "Argument #%d is ", i);
         switch (opt.index()) {
-        case HELP:
-        // not possible, because handled further above and exits the program
-        case N_TURNS:
-            N_t = atoi(opt.arg);
-            // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
-            break;
-        case N_THREADS:
-            Context::n_threads = atoi(opt.arg);
-            // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
-            break;
-        case N_SLICES:
-            N_slices = atoi(opt.arg);
-            // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
-            break;
-        case N_PARTICLES:
-            N_p = atoi(opt.arg);
-            // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
-            break;
-        case UNKNOWN:
-            // not possible because Arg::Unknown returns ARG_ILLEGAL
-            // which aborts the parse with an error
-            break;
+            case HELP:
+            // not possible, because handled further above and exits the program
+            case N_TURNS:
+                N_t = atoi(opt.arg);
+                // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
+                break;
+            case N_THREADS:
+                Context::n_threads = atoi(opt.arg);
+                // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
+                break;
+            case N_SLICES:
+                N_slices = atoi(opt.arg);
+                // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
+                break;
+            case N_PARTICLES:
+                N_p = atoi(opt.arg);
+                // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
+                break;
+            case UNKNOWN:
+                // not possible because Arg::Unknown returns ARG_ILLEGAL
+                // which aborts the parse with an error
+                break;
         }
     }
 }

@@ -37,12 +37,13 @@ int N_p = 5000000; // Macro-particles
 int N_slices = 1 << 8; // = (2^8)
 
 // RingAndRfSection *long_tracker;
-Resonators* resonator;
+Resonators *resonator;
 
 class testInputTableIntensity : public ::testing::Test {
 
-  protected:
-    virtual void SetUp() {
+protected:
+    virtual void SetUp()
+    {
 
         omp_set_num_threads(1);
 
@@ -69,7 +70,8 @@ class testInputTableIntensity : public ::testing::Test {
 
         longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
 
-        Context::Slice = new Slices(N_slices, 0, 0, 2 * constant::pi, rad);
+        Context::Slice = new Slices(N_slices, 0, 0, 2 * constant::pi,
+                                    Slices::cuts_unit_t::rad);
         // util::dump(Slice->bin_centers, 10, "bin_centers\n");
 
         std::vector<ftype> v;
@@ -93,7 +95,8 @@ class testInputTableIntensity : public ::testing::Test {
         //       resonator->fQ.size());
     }
 
-    virtual void TearDown() {
+    virtual void TearDown()
+    {
         // Code here will be called immediately after each test
         // (right before the destructor).
         delete Context::GP;
@@ -105,7 +108,8 @@ class testInputTableIntensity : public ::testing::Test {
     }
 };
 
-TEST_F(testInputTableIntensity, wake_calc) {
+TEST_F(testInputTableIntensity, wake_calc)
+{
     auto Slice = Context::Slice;
 
     std::vector<ftype> timeArray;
@@ -115,7 +119,7 @@ TEST_F(testInputTableIntensity, wake_calc) {
     }
     resonator->wake_calc(timeArray);
     std::vector<ftype> v1;
-    InputTable* inputTable = new InputTable(timeArray, resonator->fWake, v1);
+    InputTable *inputTable = new InputTable(timeArray, resonator->fWake, v1);
 
     for (uint i = 0; i < timeArray.size(); ++i) {
         timeArray[i] = 1.1 * Slice->bin_centers[i] - Slice->bin_centers[0];
@@ -135,13 +139,14 @@ TEST_F(testInputTableIntensity, wake_calc) {
         ftype ref = v[i];
         ftype real = inputTable->fWake[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of fWake failed on i " << i << std::endl;
+                << "Testing of fWake failed on i " << i << std::endl;
     }
     v.clear();
     delete inputTable;
 }
 
-TEST_F(testInputTableIntensity, imped_calc) {
+TEST_F(testInputTableIntensity, imped_calc)
+{
     auto Slice = Context::Slice;
 
     std::vector<ftype> timeArray;
@@ -152,7 +157,7 @@ TEST_F(testInputTableIntensity, imped_calc) {
     resonator->wake_calc(timeArray);
 
     std::transform(timeArray.begin(), timeArray.end(), timeArray.begin(),
-                   [](ftype a) { return a * 1e10; });
+    [](ftype a) { return a * 1e10; });
     resonator->imped_calc(timeArray);
 
     std::vector<ftype> Re;
@@ -161,11 +166,11 @@ TEST_F(testInputTableIntensity, imped_calc) {
     Im.resize(resonator->fImpedance.size());
 
     std::transform(resonator->fImpedance.begin(), resonator->fImpedance.end(),
-                   Re.begin(), [](complex_t a) { return a.real(); });
+    Re.begin(), [](complex_t a) { return a.real(); });
     std::transform(resonator->fImpedance.begin(), resonator->fImpedance.end(),
-                   Im.begin(), [](complex_t a) { return a.imag(); });
+    Im.begin(), [](complex_t a) { return a.imag(); });
 
-    InputTable* inputTable = new InputTable(timeArray, Re, Im);
+    InputTable *inputTable = new InputTable(timeArray, Re, Im);
 
     inputTable->imped_calc(timeArray);
 
@@ -182,13 +187,14 @@ TEST_F(testInputTableIntensity, imped_calc) {
         ftype ref = v[i];
         ftype real = std::abs(inputTable->fImpedance[i]);
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of fImpedance failed on i " << i << std::endl;
+                << "Testing of fImpedance failed on i " << i << std::endl;
     }
     v.clear();
     delete inputTable;
 }
 
-int main(int ac, char* av[]) {
+int main(int ac, char *av[])
+{
     ::testing::InitGoogleTest(&ac, av);
     return RUN_ALL_TESTS();
 }

@@ -17,7 +17,7 @@
 //#include <gsl/gsl_vector.h>
 
 Slices::Slices(uint n_slices, int n_sigma, ftype cut_left, ftype cut_right,
-               cuts_unit_type cuts_unit, fit_type fit_option,
+               cuts_unit_t cuts_unit, fit_t fit_option,
                bool direct_slicing)
 {
     this->n_slices = n_slices;
@@ -27,6 +27,7 @@ Slices::Slices(uint n_slices, int n_sigma, ftype cut_left, ftype cut_right,
     this->fit_option = fit_option;
     this->n_sigma = n_sigma;
     this->n_macroparticles.resize(n_slices, 0);
+    this->fFloatMacroparticles.resize(n_slices, 0.0);
     this->edges.resize(n_slices + 1, 0.0);
     this->bin_centers.resize(n_slices, 0.0);
 
@@ -104,31 +105,32 @@ void Slices::sort_particles()
     }
 }
 
-inline ftype Slices::convert_coordinates(const ftype cut,
-        const cuts_unit_type type)
+ftype Slices::convert_coordinates(const ftype cut,
+                                  const cuts_unit_t type)
 {
     auto RfP = Context::RfP;
     /*
     *Method to convert a value from one input_unit_type to 's'.*
     */
-    if (type == s) {
+    if (type == s)
         return cut;
-    } else if (type == rad) {
+    else  /*if (type == rad)*/
         return cut / RfP->omega_RF[RfP->idx][RfP->counter];
-    } else {
-        dprintf("WARNING: We were supposed to have either s or rad\n");
+    /*else {
+        dprintf("WARNING: Type was supposed to be either s or rad\n");
+        return 0.0;
     }
-    return 0.0;
+    */
 }
 
 void Slices::track()
 {
     slice_constant_space_histogram();
-    if (fit_option == fit_type::gaussian_fit)
+    if (fit_option == fit_t::gaussian)
         gaussian_fit();
 }
 
-inline void Slices::slice_constant_space_histogram()
+void Slices::slice_constant_space_histogram()
 {
     /*
     *Constant space slicing with the built-in numpy histogram function,
@@ -144,10 +146,12 @@ inline void Slices::slice_constant_space_histogram()
               n_slices, Beam->n_macroparticles);
 }
 
-inline void Slices::histogram(const ftype *__restrict input,
-                              int *__restrict output, const ftype cut_left,
-                              const ftype cut_right, const uint n_slices,
-                              const uint n_macroparticles)
+void Slices::histogram(const ftype *__restrict input,
+                       int *__restrict output,
+                       const ftype cut_left,
+                       const ftype cut_right,
+                       const int n_slices,
+                       const int n_macroparticles)
 {
 
     const ftype inv_bin_width = n_slices / (cut_right - cut_left);
@@ -157,42 +161,29 @@ inline void Slices::histogram(const ftype *__restrict input,
     hist_t *h;
     #pragma omp parallel
     {
-        const auto threads = omp_get_num_threads();
-        const auto id = omp_get_thread_num();
-        auto tile =
-            static_cast<int>((n_macroparticles + threads - 1) / threads);
-        auto start = id * tile;
-        auto end = std::min(start + tile, (int)n_macroparticles);
-        const auto row = id * n_slices;
+        const int threads = omp_get_num_threads();
+        const int id = omp_get_thread_num();
+        int tile = (n_macroparticles + threads - 1) / threads;
+        int start = id * tile;
+        int end = std::min(start + tile, n_macroparticles);
+        const int row = id * n_slices;
 
         #pragma omp single
         h = (hist_t *)calloc(threads * n_slices, sizeof(hist_t));
 
-        const auto h_row = &h[row];
+        int *h_row = &h[row];
 
         for (int i = start; i < end; ++i) {
             const ftype a = input[i];
-            // const ftype a = (input[i] - cut_left);
-            if (a < cut_left || a > cut_right)
-                continue;
-            const uint ffbin =
-                static_cast<uint>((a - cut_left) * inv_bin_width);
-
-            // if (a < 0)
-            //    continue;
-
-            // const uint ffbin = static_cast<uint>(a * inv_bin_width);
-
-            // if (ffbin >= n_slices)
-            //    continue;
-
+            if (a < cut_left || a > cut_right) continue;
+            const int ffbin = (int)((a - cut_left) * inv_bin_width);
             h_row[ffbin]++;
         }
         #pragma omp barrier
 
         tile = (n_slices + threads - 1) / threads;
         start = id * tile;
-        end = std::min(start + tile, (int)n_slices);
+        end = std::min(start + tile, n_slices);
 
         for (int i = start; i < end; i++)
             output[i] = 0;
@@ -205,8 +196,8 @@ inline void Slices::histogram(const ftype *__restrict input,
             }
         }
     }
-    if (h)
-        free(h);
+
+    if (h) free(h);
 }
 
 void Slices::track_cuts()
@@ -230,21 +221,22 @@ void Slices::track_cuts()
     }
 }
 
-inline void Slices::smooth_histogram(const ftype *__restrict input,
-                                     int *__restrict output,
-                                     const ftype cut_left,
-                                     const ftype cut_right, const uint n_slices,
-                                     const uint n_macroparticles)
+void Slices::smooth_histogram(const ftype *__restrict input,
+                              ftype *__restrict output,
+                              const ftype cut_left,
+                              const ftype cut_right,
+                              const int n_slices,
+                              const int n_macroparticles)
 {
 
-    uint i;
+    int i;
     ftype a;
     ftype fbin;
     ftype ratioffbin;
     ftype ratiofffbin;
     ftype distToCenter;
-    uint ffbin = 0;
-    uint fffbin = 0;
+    int ffbin = 0;
+    int fffbin = 0;
     const ftype inv_bin_width = n_slices / (cut_right - cut_left);
     const ftype bin_width = (cut_right - cut_left) / n_slices;
 
@@ -258,14 +250,14 @@ inline void Slices::smooth_histogram(const ftype *__restrict input,
                 (a > (cut_right - bin_width * 0.5)))
             continue;
         fbin = (a - cut_left) * inv_bin_width;
-        ffbin = (uint)(fbin);
+        ffbin = (int)(fbin);
         distToCenter = fbin - (ftype)(ffbin);
         if (distToCenter > 0.5)
-            fffbin = (uint)(fbin + 1.0);
+            fffbin = (int)(fbin + 1.0);
         ratioffbin = 1.5 - distToCenter;
         ratiofffbin = 1 - ratioffbin;
         if (distToCenter < 0.5)
-            fffbin = (uint)(fbin - 1.0);
+            fffbin = (int)(fbin - 1.0);
         ratioffbin = 0.5 - distToCenter;
         ratiofffbin = 1 - ratioffbin;
         output[ffbin] = output[ffbin] + ratioffbin;
@@ -280,7 +272,7 @@ void Slices::slice_constant_space_histogram_smooth()
     */
     auto Beam = Context::Beam;
 
-    smooth_histogram(Beam->dt.data(), this->n_macroparticles.data(), cut_left,
+    smooth_histogram(Beam->dt.data(), fFloatMacroparticles.data(), cut_left,
                      cut_right, n_slices, Beam->n_macroparticles);
 }
 

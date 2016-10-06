@@ -59,7 +59,7 @@ class testPLLHCF : public ::testing::Test {
         // long_tracker = new RingAndRfSection();
 
         Context::Slice = new Slices(N_slices, 0, -constant::pi, constant::pi,
-                                    cuts_unit_type::rad);
+                                    Slices::cuts_unit_t::rad);
     }
 
     virtual void TearDown() {

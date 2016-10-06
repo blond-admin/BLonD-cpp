@@ -13,35 +13,38 @@
 
 const ftype cfwhm = 2 * sqrt(2 * log(2));
 
-enum cuts_unit_type { s, rad };
 
-enum fit_type { normal_fit, gaussian_fit };
 
 class API Slices {
 private:
+
     f_vector_t gaussian_filter1d(f_vector_t &x, int sigma,
                                  int order, std::string mode);
     f_vector_t gradient(f_vector_t &x, ftype dist);
 public:
+    enum cuts_unit_t { s, rad };
+    enum fit_t { normal, gaussian };
+
     ftype bl_fwhm, bp_fwhm;
     ftype bp_rms, bl_rms;
     uint n_slices;
     ftype cut_left;
     ftype cut_right;
     int n_sigma;
-    cuts_unit_type cuts_unit;
+    cuts_unit_t cuts_unit;
     int_vector_t n_macroparticles;
+    f_vector_t fFloatMacroparticles;
     f_vector_t edges;
     f_vector_t bin_centers;
-    fit_type fit_option;
+    fit_t fit_option;
     complex_vector_t fBeamSpectrum;
     f_vector_t fBeamSpectrumFreq;
     ftype bl_gauss = 0;
     ftype bp_gauss = 0;
 
     Slices(uint _n_slices, int _n_sigma = 0, ftype cut_left = 0,
-           ftype cut_right = 0, cuts_unit_type cuts_unit = s,
-           fit_type fit_option = normal_fit, bool direct_slicing = false);
+           ftype cut_right = 0, cuts_unit_t cuts_unit = s,
+           fit_t fit_option = normal, bool direct_slicing = false);
 
     ~Slices();
     void track();
@@ -54,16 +57,16 @@ public:
     void beam_profile_filter_chebyshev();
     void set_cuts();
     void sort_particles();
-    inline ftype convert_coordinates(ftype cut, cuts_unit_type type);
+    ftype convert_coordinates(ftype cut, cuts_unit_t type);
 
-    inline void histogram(const ftype *__restrict input, int *__restrict output,
-                          const ftype cut_left, const ftype cut_right,
-                          const uint n_slices, const uint n_macroparticles);
-    inline void smooth_histogram(const ftype *__restrict input,
-                                 int *__restrict output, const ftype cut_left,
-                                 const ftype cut_right, const uint n_slices,
-                                 const uint n_macroparticles);
-    inline void slice_constant_space_histogram();
+    void histogram(const ftype *__restrict input, int *__restrict output,
+                   const ftype cut_left, const ftype cut_right,
+                   const int n_slices, const int n_macroparticles);
+    void smooth_histogram(const ftype *__restrict input,
+                          ftype *__restrict output, const ftype cut_left,
+                          const ftype cut_right, const int n_slices,
+                          const int n_macroparticles);
+    void slice_constant_space_histogram();
     void track_cuts();
     void slice_constant_space_histogram_smooth();
     void rms();

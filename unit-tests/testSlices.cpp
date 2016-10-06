@@ -5,6 +5,7 @@
 #include <blond/utilities.h>
 #include <gtest/gtest.h>
 
+using namespace std;
 
 class testSlices : public ::testing::Test {
 
@@ -31,7 +32,7 @@ protected:
     virtual void SetUp()
     {
         omp_set_num_threads(1);
-        
+
         f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1));
         for (auto &v : momentumVec)
             mymath::linspace(v.data(), p_i, p_f, N_t + 1);
@@ -70,31 +71,32 @@ protected:
 };
 
 
+
 TEST_F(testSlices, set_cuts1)
 {
     auto Slice = new Slices(N_slices);
 
-    std::string params = TEST_FILES "/Slices/set_cuts1/";
+    string params = TEST_FILES "/Slices/set_cuts1/";
     auto epsilon = 1e-8;
     f_vector_t v;
 
     util::read_vector_from_file(v, params + "cut_left.txt");
     auto ref = v[0];
     auto real = Slice->cut_left;
-    ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+    ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
             << "Testing of cut_left failed\n";
 
     util::read_vector_from_file(v, params + "cut_right.txt");
     ref = v[0];
     real = Slice->cut_right;
-    ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+    ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
             << "Testing of cut_right failed\n";
 
     util::read_vector_from_file(v, params + "bin_centers.txt");
     for (uint i = 0; i < v.size(); ++i) {
         ftype ref = v[i];
         ftype real = Slice->bin_centers[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
                 << "Testing of bin_centers failed on i " << i << '\n';
     }
     delete Slice;
@@ -105,27 +107,27 @@ TEST_F(testSlices, set_cuts2)
 {
     auto Slice = new Slices(N_slices, 10);
 
-    std::string params = TEST_FILES "/Slices/set_cuts2/";
+    string params = TEST_FILES "/Slices/set_cuts2/";
     auto epsilon = 1e-8;
     f_vector_t v;
 
     util::read_vector_from_file(v, params + "cut_left.txt");
     auto ref = v[0];
     auto real = Slice->cut_left;
-    ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+    ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
             << "Testing of cut_left failed\n";
 
     util::read_vector_from_file(v, params + "cut_right.txt");
     ref = v[0];
     real = Slice->cut_right;
-    ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+    ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
             << "Testing of cut_right failed\n";
 
     util::read_vector_from_file(v, params + "bin_centers.txt");
     for (uint i = 0; i < v.size(); ++i) {
         ftype ref = v[i];
         ftype real = Slice->bin_centers[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
                 << "Testing of bin_centers failed on i " << i << '\n';
     }
     delete Slice;
@@ -137,27 +139,27 @@ TEST_F(testSlices, set_cuts3)
 {
     auto Slice = new Slices(N_slices, 0, -1e-8, 1e8);
 
-    std::string params = TEST_FILES "/Slices/set_cuts3/";
+    string params = TEST_FILES "/Slices/set_cuts3/";
     auto epsilon = 1e-8;
     f_vector_t v;
 
     util::read_vector_from_file(v, params + "cut_left.txt");
     auto ref = v[0];
     auto real = Slice->cut_left;
-    ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+    ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
             << "Testing of cut_left failed\n";
 
     util::read_vector_from_file(v, params + "cut_right.txt");
     ref = v[0];
     real = Slice->cut_right;
-    ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+    ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
             << "Testing of cut_right failed\n";
 
     util::read_vector_from_file(v, params + "bin_centers.txt");
     for (uint i = 0; i < v.size(); ++i) {
         ftype ref = v[i];
         ftype real = Slice->bin_centers[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
                 << "Testing of bin_centers failed on i " << i << '\n';
     }
     delete Slice;
@@ -170,7 +172,7 @@ TEST_F(testSlices, sort_particles1)
     auto Slice = new Slices(N_slices);
 
     auto Beam = Context::Beam;
-    std::string params = TEST_FILES "/Slices/sort_particles1/";
+    string params = TEST_FILES "/Slices/sort_particles1/";
     auto epsilon = 1e-7;
 
     // util::dump(Beam->dE, "dE\n");
@@ -181,7 +183,7 @@ TEST_F(testSlices, sort_particles1)
     for (uint i = 0; i < v.size(); ++i) {
         auto ref = v[i];
         auto real = Beam->dE[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
                 << "Testing of dE failed on i " << i << '\n';
     }
 
@@ -189,7 +191,7 @@ TEST_F(testSlices, sort_particles1)
     for (uint i = 0; i < v.size(); ++i) {
         auto ref = v[i];
         auto real = Beam->dt[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
                 << "Testing of dt failed on i " << i << '\n';
     }
 
@@ -200,7 +202,7 @@ TEST_F(testSlices, sort_particles1)
     for (uint i = 0; i < v.size(); ++i) {
         auto ref = 1.0 * v[i];
         auto real = 1.0 * Beam->id[i];
-        EXPECT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+        EXPECT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
                 << "Testing of id failed on i " << i << '\n';
     }
     */
@@ -208,11 +210,79 @@ TEST_F(testSlices, sort_particles1)
 
 }
 
+TEST_F(testSlices, convert_coordinates1)
+{
+    auto slice = Slices(N_slices);
+    auto ret = slice.convert_coordinates(1.0, Slices::cuts_unit_t::s);
+    ASSERT_DOUBLE_EQ(1.0, ret);
+}
+
+
+TEST_F(testSlices, convert_coordinates2)
+{
+    auto RfP = Context::RfP;
+    auto slice = Slices(N_slices);
+    auto a = slice.convert_coordinates(1.0, Slices::cuts_unit_t::rad);
+    auto b = slice.convert_coordinates(2.0, Slices::cuts_unit_t::rad);
+    ASSERT_DOUBLE_EQ(1.0 / 2.0, a / b);
+}
+
+
+TEST_F(testSlices, smooth_histogram1)
+{
+    auto epsilon = 1e-8;
+    string params = TEST_FILES "/Slices/smooth_histogram1/";
+    f_vector_t v;
+
+    auto slice = Slices(N_slices);
+    slice.slice_constant_space_histogram_smooth();
+
+    util::read_vector_from_file(v, params + "n_macroparticles.txt");
+
+    ASSERT_EQ(v.size(), slice.n_macroparticles.size());
+
+    for (uint i = 0; i < v.size(); ++i) {
+        double ref = v[i];
+        double real = slice.fFloatMacroparticles[i];
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
+                << "Testing of n_macroparticles failed on i " << i << '\n';
+    }
+}
+
+
+
+TEST_F(testSlices, smooth_histogram2)
+{
+    auto epsilon = 1e-8;
+    auto Beam = Context::Beam;
+    string params = TEST_FILES "/Slices/smooth_histogram2/";
+    f_vector_t v;
+
+    auto cut_left = Beam->dt.front();
+    auto cut_right = Beam->dt.back();
+    if (cut_left > cut_right) swap(cut_left, cut_right);
+
+    auto slice = Slices(N_slices, 0, cut_left, cut_right);
+    slice.slice_constant_space_histogram_smooth();
+
+    util::read_vector_from_file(v, params + "n_macroparticles.txt");
+
+    ASSERT_EQ(v.size(), slice.n_macroparticles.size());
+
+    for (uint i = 0; i < v.size(); ++i) {
+        double ref = v[i];
+        double real = slice.fFloatMacroparticles[i];
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
+                << "Testing of n_macroparticles failed on i " << i << '\n';
+    }
+}
+
+
 TEST_F(testSlices, track1)
 {
     auto Slice = new Slices(N_slices);
 
-    std::string params = TEST_FILES "/Slices/track1/";
+    string params = TEST_FILES "/Slices/track1/";
     auto epsilon = 1e-8;
     f_vector_t v;
 
@@ -222,7 +292,7 @@ TEST_F(testSlices, track1)
     for (unsigned int i = 0; i < v.size(); ++i) {
         auto ref = 1.0 * v[i];
         auto real = 1.0 * Slice->n_macroparticles[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
                 << "Testing of n_macroparticles failed on i " << i << '\n';
     }
     delete Slice;
@@ -233,7 +303,7 @@ TEST_F(testSlices, track1)
 TEST_F(testSlices, beam_profile_derivative1)
 {
     auto Slice = new Slices(N_slices);
-    std::string params = TEST_FILES "/Slices/beam_profile_derivative1/";
+    string params = TEST_FILES "/Slices/beam_profile_derivative1/";
     auto epsilon = 1e-8;
     f_vector_t v;
 
@@ -246,7 +316,7 @@ TEST_F(testSlices, beam_profile_derivative1)
     for (unsigned int i = 0; i < v.size(); ++i) {
         auto ref = v[i];
         auto real = x[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
                 << "Testing of x failed on i " << i << '\n';
     }
 
@@ -255,7 +325,7 @@ TEST_F(testSlices, beam_profile_derivative1)
     for (unsigned int i = 0; i < v.size(); ++i) {
         auto ref = v[i];
         auto real = derivative[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
                 << "Testing of derivative failed on i " << i << '\n';
     }
     delete Slice;
@@ -266,7 +336,7 @@ TEST_F(testSlices, beam_profile_derivative1)
 TEST_F(testSlices, beam_profile_derivative2)
 {
     auto Slice = new Slices(N_slices);
-    std::string params = TEST_FILES "/Slices/beam_profile_derivative2/";
+    string params = TEST_FILES "/Slices/beam_profile_derivative2/";
     auto epsilon = 1e-8;
     f_vector_t v;
 
@@ -279,7 +349,7 @@ TEST_F(testSlices, beam_profile_derivative2)
     for (unsigned int i = 0; i < v.size(); ++i) {
         auto ref = v[i];
         auto real = x[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
                 << "Testing of x failed on i " << i << '\n';
     }
 
@@ -289,7 +359,7 @@ TEST_F(testSlices, beam_profile_derivative2)
     for (unsigned int i = 0; i < v.size(); ++i) {
         auto ref = v[i];
         auto real = derivative[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
                 << "Testing of derivative failed on i " << i << '\n';
     }
     delete Slice;
@@ -300,7 +370,7 @@ TEST_F(testSlices, beam_profile_derivative2)
 TEST_F(testSlices, beam_profile_derivative3)
 {
     auto Slice = new Slices(N_slices);
-    std::string params = TEST_FILES "/Slices/beam_profile_derivative3/";
+    string params = TEST_FILES "/Slices/beam_profile_derivative3/";
     auto epsilon = 1e-8;
     f_vector_t v;
 
@@ -312,7 +382,7 @@ TEST_F(testSlices, beam_profile_derivative3)
     for (unsigned int i = 0; i < v.size(); ++i) {
         auto ref = v[i];
         auto real = x[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
                 << "Testing of x failed on i " << i << '\n';
     }
 
@@ -320,7 +390,7 @@ TEST_F(testSlices, beam_profile_derivative3)
     ftype max = *max_element(v.begin(), v.end(), [](ftype i, ftype j) {
         return fabs(i) < fabs(j);
     });
-    max = std::abs(max);
+    max = abs(max);
     ASSERT_EQ(derivative.size(), v.size());
     for (unsigned int i = 0; i < v.size(); ++i) {
         auto ref = v[i];

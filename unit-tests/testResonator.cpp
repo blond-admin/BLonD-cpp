@@ -37,12 +37,13 @@ int N_p = 5000000; // Macro-particles
 int N_slices = 1 << 8; // = (2^8)
 
 // RingAndRfSection *long_tracker;
-Resonators* resonator;
+Resonators *resonator;
 
 class testResonator : public ::testing::Test {
 
-  protected:
-    virtual void SetUp() {
+protected:
+    virtual void SetUp()
+    {
 
         omp_set_num_threads(1);
 
@@ -69,7 +70,8 @@ class testResonator : public ::testing::Test {
 
         longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
 
-        Context::Slice = new Slices(N_slices, 0, 0, 2 * constant::pi, rad);
+        Context::Slice = new Slices(N_slices, 0, 0, 2 * constant::pi,
+                                    Slices::cuts_unit_t::rad);
         // util::dump(Slice->bin_centers, 10, "bin_centers\n");
 
         std::vector<ftype> v;
@@ -91,7 +93,8 @@ class testResonator : public ::testing::Test {
         resonator = new Resonators(R_shunt, f_res, Q_factor);
     }
 
-    virtual void TearDown() {
+    virtual void TearDown()
+    {
         // Code here will be called immediately after each test
         // (right before the destructor).
         delete Context::GP;
@@ -103,7 +106,8 @@ class testResonator : public ::testing::Test {
     }
 };
 
-TEST_F(testResonator, initializations) {
+TEST_F(testResonator, initializations)
+{
     std::string params = TEST_FILES "/Impedances/Intensity/";
 
     std::vector<ftype> v;
@@ -117,7 +121,7 @@ TEST_F(testResonator, initializations) {
         ftype ref = v[i];
         ftype real = resonator->fRS[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of fRS failed on i " << i << std::endl;
+                << "Testing of fRS failed on i " << i << std::endl;
     }
     v.clear();
 
@@ -129,7 +133,7 @@ TEST_F(testResonator, initializations) {
         ftype ref = v[i];
         ftype real = resonator->fQ[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of fQ failed on i " << i << std::endl;
+                << "Testing of fQ failed on i " << i << std::endl;
     }
     v.clear();
 
@@ -141,7 +145,7 @@ TEST_F(testResonator, initializations) {
         ftype ref = v[i];
         ftype real = resonator->fFrequencyR[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of fFrequencyR failed on i " << i << std::endl;
+                << "Testing of fFrequencyR failed on i " << i << std::endl;
     }
     v.clear();
 
@@ -153,12 +157,13 @@ TEST_F(testResonator, initializations) {
         ftype ref = v[i];
         ftype real = resonator->fOmegaR[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of fOmegaR failed on i " << i << std::endl;
+                << "Testing of fOmegaR failed on i " << i << std::endl;
     }
     v.clear();
 }
 
-TEST_F(testResonator, wake_calc) {
+TEST_F(testResonator, wake_calc)
+{
     auto Slice = Context::Slice;
     std::string params = TEST_FILES "/Impedances/Intensity/";
 
@@ -181,12 +186,13 @@ TEST_F(testResonator, wake_calc) {
         ftype ref = v[i];
         ftype real = resonator->fWake[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of fWake failed on i " << i << std::endl;
+                << "Testing of fWake failed on i " << i << std::endl;
     }
     v.clear();
 }
 
-TEST_F(testResonator, imped_calc) {
+TEST_F(testResonator, imped_calc)
+{
     auto Slice = Context::Slice;
 
     std::string params = TEST_FILES "/Impedances/Intensity/";
@@ -214,12 +220,13 @@ TEST_F(testResonator, imped_calc) {
         ftype ref = v[i];
         ftype real = std::abs((complex_t)resonator->fImpedance[i]);
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of fImpedance failed on i " << i << std::endl;
+                << "Testing of fImpedance failed on i " << i << std::endl;
     }
     v.clear();
 }
 
-int main(int ac, char* av[]) {
+int main(int ac, char *av[])
+{
     ::testing::InitGoogleTest(&ac, av);
     return RUN_ALL_TESTS();
 }

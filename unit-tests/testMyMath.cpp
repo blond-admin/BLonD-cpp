@@ -115,6 +115,8 @@ TEST(testTrapezoid, test1)
     ASSERT_NEAR(trap, 4.215, 1e-8);
 }
 
+
+
 TEST(testTrapezoid, test2)
 {
     ftype a[5] = {1.1, 1.2, 1.3, 1.4, 1.5};
@@ -125,6 +127,66 @@ TEST(testTrapezoid, test2)
     trap = mymath::trapezoid<ftype>(c, c, 10);
     ASSERT_NEAR(trap, 0.21895, 1e-8);
 }
+
+
+TEST(testTrapezoid, test3)
+{
+    int b[5] = {1, 2, 3, 4, 5};
+    ftype trap = mymath::trapezoid(b, 1.0, 5);
+    ASSERT_DOUBLE_EQ(trap, 12);
+}
+
+TEST(testTrapezoid, test4)
+{
+    int_vector_t a = {0, 0, 0, 1, 0, 9, 3, 9,
+                      50, 70, 90, 10, 5, 6, 2,
+                      1, 1, 0, 0
+                     };
+
+    ftype trap = mymath::trapezoid(a.data(), 1.0, a.size());
+    ASSERT_DOUBLE_EQ(trap, 257.0);
+
+}
+
+
+TEST(testTrapezoid, test5)
+{
+    int_vector_t a = {0, 0, 0, 1, 0, 9, 3, 9,
+                      50, 70, 90, 10, 5, 6, 2,
+                      1, 1, 0, 0
+                     };
+
+    ftype trap = mymath::trapezoid(a.data(), 0.12, a.size());
+    ASSERT_NEAR(trap, 30.84, 1e-5);
+
+}
+
+
+TEST(testTrapezoid, test6)
+{
+    int_vector_t a = {0, 0, 0, 0, 1, 0, 1, 0,
+                      1, 1, 0, 1, 0, 4, 9, 3,
+                      9, 6, 12, 19, 23, 33, 31,
+                      31, 37, 49, 53, 80, 85, 77,
+                      110, 111, 142, 153, 168, 196,
+                      208, 228, 247, 242, 257, 274,
+                      282, 301, 265, 356, 310, 363,
+                      334, 300, 353, 352, 312, 307,
+                      259, 312, 246, 261, 245, 198,
+                      211, 188, 171, 193, 139, 117,
+                      109, 94, 86, 70, 82, 46, 37,
+                      39, 34, 22, 24, 15, 10, 12,
+                      9, 9, 6, 6, 2, 0, 3, 1, 3,
+                      1, 2, 0, 0, 0, 0, 1, 0, 0,
+                      0, 0
+                     };
+
+    ftype trap = mymath::trapezoid(a.data(), 2.10324675e-10, a.size());
+    ASSERT_NEAR(trap, 2.10324675e-06, 1e-15);
+
+}
+
+
 
 TEST(testCumTrap, test1)
 {

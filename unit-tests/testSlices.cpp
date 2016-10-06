@@ -290,9 +290,9 @@ TEST_F(testSlices, track1)
 
     util::read_vector_from_file(v, params + "n_macroparticles.txt");
     for (unsigned int i = 0; i < v.size(); ++i) {
-        auto ref = 1.0 * v[i];
-        auto real = 1.0 * Slice->n_macroparticles[i];
-        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
+        int ref = v[i];
+        int real = Slice->n_macroparticles[i];
+        ASSERT_EQ(ref, real)
                 << "Testing of n_macroparticles failed on i " << i << '\n';
     }
     delete Slice;
@@ -399,6 +399,65 @@ TEST_F(testSlices, beam_profile_derivative3)
                 << "Testing of derivative failed on i " << i << '\n';
     }
     delete Slice;
+
+}
+
+
+
+TEST_F(testSlices, rms1)
+{
+    auto slice = Slices(N_slices);
+    string params = TEST_FILES "/Slices/rms1/";
+    auto epsilon = 1e-8;
+    f_vector_t v;
+
+    slice.track();
+    slice.rms();
+    
+    util::read_vector_from_file(v, params + "bp_rms.txt");
+    ASSERT_EQ(v.size(), 1);
+    EXPECT_NEAR(v[0], slice.bp_rms,
+                epsilon * max(abs(v[0]), abs(slice.bp_rms)))
+            << "Testing failed on slice.bp_rms\n";
+
+
+    util::read_vector_from_file(v, params + "bl_rms.txt");
+    ASSERT_EQ(v.size(), 1);
+    EXPECT_NEAR(v[0], slice.bl_rms,
+                epsilon * max(abs(v[0]), abs(slice.bl_rms)))
+            << "Testing failed on slice.bl_rms\n";
+
+}
+
+
+TEST_F(testSlices, rms2)
+{
+    auto Beam = Context::Beam;
+    string params = TEST_FILES "/Slices/rms2/";
+    auto epsilon = 1e-8;
+    f_vector_t v;
+
+    auto cut_left = Beam->dt.front();
+    auto cut_right = Beam->dt.back();
+    if (cut_left > cut_right) swap(cut_left, cut_right);
+
+    auto slice = Slices(N_slices, 0, cut_left, cut_right);
+
+    slice.track();
+    slice.rms();
+
+    util::read_vector_from_file(v, params + "bp_rms.txt");
+    ASSERT_EQ(v.size(), 1);
+    EXPECT_NEAR(v[0], slice.bp_rms,
+                epsilon * max(abs(v[0]), abs(slice.bp_rms)))
+            << "Testing failed on slice.bp_rms\n";
+
+
+    util::read_vector_from_file(v, params + "bl_rms.txt");
+    ASSERT_EQ(v.size(), 1);
+    EXPECT_NEAR(v[0], slice.bl_rms,
+                epsilon * max(abs(v[0]), abs(slice.bl_rms)))
+            << "Testing failed on slice.bl_rms\n";
 
 }
 

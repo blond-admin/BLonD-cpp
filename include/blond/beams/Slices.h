@@ -27,7 +27,7 @@ public:
 
     ftype bl_fwhm, bp_fwhm;
     ftype bp_rms, bl_rms;
-    uint n_slices;
+    int n_slices;
     ftype cut_left;
     ftype cut_right;
     int n_sigma;

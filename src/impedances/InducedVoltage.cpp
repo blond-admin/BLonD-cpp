@@ -386,7 +386,7 @@ f_vector_t InducedVoltageFreq::induced_voltage_generation(uint length)
 
             fft::irfft(in, res, 0, Context::n_threads);
 
-            assert(res.size() >= Slice->n_slices);
+            assert((int)res.size() >= Slice->n_slices);
 
             res.resize(Slice->n_slices);
 
@@ -420,7 +420,7 @@ f_vector_t InducedVoltageFreq::induced_voltage_generation(uint length)
         fft::irfft(in, res, 0, Context::n_threads);
         // std::cout << "res size : " << res.size() << std::endl;
         // std::cout << "n_slices : " << Slice->n_slices << std::endl;
-        assert(res.size() >= Slice->n_slices);
+        assert((int)res.size() >= Slice->n_slices);
 
         res.resize((uint)Slice->n_slices);
 

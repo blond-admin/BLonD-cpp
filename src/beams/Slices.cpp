@@ -213,10 +213,10 @@ void Slices::track_cuts()
     ftype delta = Beam->mean_dt - 0.5 * (cut_left + cut_right);
     cut_left += delta;
     cut_right += delta;
-    for (uint i = 0; i < n_slices + 1; ++i) {
+    for (int i = 0; i < n_slices + 1; ++i) {
         edges[i] += delta;
     }
-    for (uint i = 0; i < n_slices; ++i) {
+    for (int i = 0; i < n_slices; ++i) {
         bin_centers[i] += delta;
     }
 }
@@ -288,23 +288,23 @@ void Slices::rms()
     f_vector_t lineDenNormalized(n_slices); // = new ftype[n_slices];
     f_vector_t array(n_slices);             // = new ftype[n_slices];
 
-    ftype timeResolution = bin_centers[1] - bin_centers[0];
-    ftype trap = mymath::trapezoid(n_macroparticles.data(), timeResolution,
-                                   Beam->n_macroparticles);
+    const auto timeResolution = bin_centers[1] - bin_centers[0];
+    const auto trap = mymath::trapezoid(n_macroparticles.data(),
+                                        timeResolution,
+                                        n_slices);
 
-    for (uint i = 0; i < n_slices; ++i)
+    for (int i = 0; i < n_slices; ++i)
         lineDenNormalized[i] = n_macroparticles[i] / trap;
-
-    for (uint i = 0; i < n_slices; ++i)
+    for (int i = 0; i < n_slices; ++i)
         array[i] = bin_centers[i] * lineDenNormalized[i];
 
     bp_rms = mymath::trapezoid(array.data(), timeResolution, n_slices);
 
-    for (uint i = 0; i < n_slices; ++i)
+    for (int i = 0; i <  n_slices; ++i)
         array[i] = (bin_centers[i] - bp_rms) * (bin_centers[i] - bp_rms) *
                    lineDenNormalized[i];
 
-    ftype temp = mymath::trapezoid(array.data(), timeResolution, n_slices);
+    auto temp = mymath::trapezoid(array.data(), timeResolution, n_slices);
     bl_rms = 4 * std::sqrt(temp);
 }
 

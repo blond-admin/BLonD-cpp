@@ -86,7 +86,7 @@ namespace mymath {
         }
     }
 
-    
+
 
     // Parameters are like python's np.interp
     // @x: x-coordinates of the interpolated values

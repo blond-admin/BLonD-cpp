@@ -43,7 +43,7 @@ public:
 
     void track();
     void write_data();
-    void create_data(const uint_vector_t dims);
+    void create_data(const int_vector_t dims);
     void close();
     SlicesMonitor(std::string filename, int n_turns, Slices *slices,
                   int compression_level = 9);

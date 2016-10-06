@@ -87,7 +87,7 @@ SlicesMonitor::~SlicesMonitor()
 void SlicesMonitor::track()
 {
     if (fITurn == 0)
-        create_data({fSlices->n_slices, (uint) fNTurns});
+        create_data({fSlices->n_slices, fNTurns});
     write_data();
     fITurn++;
 }
@@ -118,7 +118,7 @@ void SlicesMonitor::write_data()
 }
 
 
-void SlicesMonitor::create_data(const uint_vector_t dims)
+void SlicesMonitor::create_data(const int_vector_t dims)
 {
     hsize_t dim[2], chunk[2];
     dim[0] = dims[0];

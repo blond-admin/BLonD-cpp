@@ -77,19 +77,20 @@ void LHCNoiseFB::track() {
     }
 }
 
+// TODO check the conditions in this function
 ftype LHCNoiseFB::fwhm_interpolation(uint_vector_t index, ftype half_height) {
     auto Slice = Context::Slice;
     const auto time_resolution = Slice->bin_centers[1] - Slice->bin_centers[0];
 
-    const auto first = index[0];
-    const auto prev = first > 0 ? first - 1 : Slice->n_slices - 1;
+    const int first = index[0];
+    const int prev = first > 0 ? first - 1 : Slice->n_slices - 1;
     const auto left =
         Slice->bin_centers[first] -
         (Slice->n_macroparticles[first] - half_height) /
             (Slice->n_macroparticles[first] - Slice->n_macroparticles[prev]) *
             time_resolution;
 
-    const auto last = index.back();
+    const int last = index.back();
     auto right = 0.0;
     if (last < Slice->n_slices - 1) {
         right = Slice->bin_centers[last] +
@@ -133,7 +134,7 @@ void LHCNoiseFB::fwhm_single_bunch() {
 
     uint_vector_t index;
 
-    for (uint i = 0; i < Slice->n_slices; ++i)
+    for (int i = 0; i < Slice->n_slices; ++i)
         if (Slice->n_macroparticles[i] > half_height)
             index.push_back(i);
 
@@ -171,7 +172,7 @@ void LHCNoiseFB::fwhm_multi_bunch() {
     // Bunch-by-bunch FWHM bunch length
     for (uint i = 0; i < fBunchPattern.size(); ++i) {
         uint_vector_t bind;
-        for (uint j = 0; j < Slice->n_slices; ++j) {
+        for (int j = 0; j < Slice->n_slices; ++j) {
             if ((Slice->bin_centers[j] - bucket_min[i]) *
                     (Slice->bin_centers[j] - bucket_max[i]) < 0)
                 bind.push_back(j);

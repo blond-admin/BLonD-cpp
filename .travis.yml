@@ -39,7 +39,7 @@ before_install:
 - export CXX=/usr/bin/g++-4.8
 before_script:
 - cp -r $HOME/external ./
-- source install-linux.sh
+- source install-linux.sh -s
 - cp -r external $HOME/
 - mkdir build
 - cd build

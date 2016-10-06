@@ -19,7 +19,7 @@ INSTALL_HDF5=true
 INSTALL_GBENCH=false
 SKIP_QUESTIONS=false
 
-while getopts ":f:t:p:h:b:s:" opt; do
+while getopts ":f:t:p:h:b:s" opt; do
    case $opt in 
       f)
          INSTALL_FFTW=$OPTARG
@@ -58,6 +58,7 @@ if [ -e ${INSTALL}/include/fftw3.h ] && [ -e ${INSTALL}/lib/libfftw3.la ]; then
    echo -e "\n\n---- Looks like fftw3 is already installed,"
    if [ "${SKIP_QUESTIONS}" = "true" ] ; then
       echo -e "---- fftw3 installation will be skipped"
+      INSTALL_FFTW=false
    else
       echo -e "---- are you sure you want to reinstall it?"
       select yn in "Yes" "No"; do
@@ -118,6 +119,7 @@ if [ -e ${INSTALL}/include/hdf5.h ] && [ -e ${INSTALL}/lib/libhdf5.so ]; then
    echo -e "\n\n---- Looks like HDF5 is already installed,"
    if [ "${SKIP_QUESTIONS}" = "true" ] ; then
       echo -e "---- HDF5 installation will be skipped"
+      INSTALL_HDF5=false
    else
       echo -e "---- are you sure you want to reinstall it?"
       select yn in "Yes" "No"; do
@@ -171,6 +173,7 @@ if [ -e ${INSTALL}/include/gtest/gtest.h ] && [ -e ${INSTALL}/lib/libgtest.a ] \
    echo -e "\n\n---- Looks like googletest is already installed,"
    if [ "${SKIP_QUESTIONS}" = "true" ] ; then
       echo -e "---- googletest installation will be skipped"
+      INSTALL_GTEST=false
    else
       echo -e "---- are you sure you want to reinstall it?"
       select yn in "Yes" "No"; do
@@ -267,6 +270,7 @@ if [ -z ${PY_VERSION} ]; then
       echo -e "\n\n---- Looks like Python2.7 is already installed,"
       if [ "${SKIP_QUESTIONS}" = "true" ] ; then
          echo -e "---- Python2.7 installation will be skipped"
+         INSTALL_PYTHON=false
       else
          echo -e "---- are you sure you want to reinstall it?"
          select yn in "Yes" "No"; do

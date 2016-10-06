@@ -30,8 +30,6 @@ addons:
 install:
 - pip install --user cpp-coveralls
 cache:
-  directories:
-  - ${TRAVIS_BUILD_DIR}/externall
 - apt
 - pip
 before_install:

@@ -34,7 +34,8 @@ def matched_from_line_density(beam_beta, beam_energy, beam_charge,
                               main_harmonic_option='lowest_freq',
                               # TotalInducedVoltage=None,
                               plot=None, figdir='fig', half_option='first',
-                              extraVoltageDict=None, n_iterations_input=100, seed=0):
+                              extraVoltageDict=None, n_iterations_input=100,
+                              seed=0):
     '''
     *Function to generate a beam by inputing the line density. The distribution
     density is then reconstructed with the Abel transform and the particles
@@ -711,6 +712,7 @@ def matched_from_distribution_density(beam_beta, beam_energy, beam_charge,
 
     temp = time_grid.flatten()[indexes]
     rand_nums = np.random.rand(beam_n_macroparticles)
+    
     for i in range(len(beam_dt)):
         beam_dt[i] = temp[i] + (rand_nums[i] - 0.5) * \
             (time_coord_low_res[1]-time_coord_low_res[0])
@@ -739,7 +741,7 @@ def _distribution_density_function(action_array, dist_type, length, exponent=Non
             exponent = 1
         elif dist_type == 'parabolic_line':
             exponent = 0.5
-
+        # print dist_type, exponent
         warnings.filterwarnings("ignore")
         density_function = (1 - action_array / length)**exponent
         warnings.filterwarnings("default")

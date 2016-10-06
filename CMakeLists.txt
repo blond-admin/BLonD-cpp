@@ -181,10 +181,11 @@ if (TEST_ENABLED)
 endif ()
 
 
-include_directories(
-    include
-    ${EXTERNAL_INSTALL_DIR}/include/python2.7
+include_directories(${PROJECT_SOURCE_DIR}/include/)
+
+include_directories(SYSTEM
     ${EXTERNAL_INSTALL_DIR}/include/
+    ${EXTERNAL_INSTALL_DIR}/include/python2.7
     ${EXTERNAL_INSTALL_DIR}/lib/python2.7/site-packages
    )
 

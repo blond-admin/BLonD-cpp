@@ -70,7 +70,7 @@ public:
     void track_cuts();
     void slice_constant_space_histogram_smooth();
     void rms();
-    ftype gauss(const ftype x, const ftype x0, const ftype sx, const ftype A);
+    // ftype gauss(const ftype x, const ftype x0, const ftype sx, const ftype A);
 
     // not for now
     void gaussian_fit();

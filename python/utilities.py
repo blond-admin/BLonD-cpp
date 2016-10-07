@@ -276,3 +276,20 @@ def minmax_location(x, f):
     warnings.filterwarnings("default")
 
     return [min_x_position, max_x_position], [min_values, max_values]
+
+
+def gauss(x, *p):
+        A, x0, sx = p
+        return A*np.exp(-(x-x0)**2/2./sx**2)
+
+
+def curve_fit(bin_centers, n_macroparticles, p0):
+    from scipy.optimize import curve_fit
+    # n_macroparticles = np.array(n_macroparticles, dtype=float)
+    # print "bin_centers", bin_centers
+    # print "n_macroparticles", n_macroparticles
+    # print "p0", p0    
+    result = curve_fit(gauss, bin_centers, n_macroparticles, p0)[0]
+    # print result[1]
+    # print result[2]
+    return result

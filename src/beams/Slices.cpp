@@ -483,10 +483,54 @@ f_vector_t Slices::gradient(f_vector_t &x, ftype dist)
 
 void Slices::beam_profile_filter_chebyshev() {}
 
-ftype Slices::gauss(const ftype x, const ftype x0, const ftype sx,
-                    const ftype A)
-{
-    return A * exp(-(x - x0) * (x - x0) / 2.0 / (sx * sx));
-}
+// ftype Slices::gauss(const ftype x, const ftype x0, const ftype sx,
+//                     const ftype A)
+// {
+//     return A * exp(-(x - x0) * (x - x0) / 2.0 / (sx * sx));
+// }
 
-void Slices::gaussian_fit() {}
+void Slices::gaussian_fit()
+{
+    auto Beam = Context::Beam;
+    f_vector_t p0;
+    double max = *std::max_element(n_macroparticles.begin(),
+                                   n_macroparticles.end());
+    // std::cout.precision(12);
+    // std::cout << "max: " << max << "\n";
+    if (bl_gauss == 0 && bp_gauss == 0) {
+        p0 = {max,
+              mymath::mean(Beam->dt.data(), Beam->dt.size()),
+              mymath::standard_deviation(Beam->dt.data(), Beam->dt.size())
+             };
+    } else {
+        p0 = {max,
+              bp_gauss,
+              bl_gauss / 4
+             };
+    }
+    // util::dump(p0, "p0\n");
+
+    python::import();
+    auto pFunc = python::import("utilities", "curve_fit");
+    auto pBinCenters = python::convert_double_array(bin_centers.data(),
+                       bin_centers.size());
+    auto pNMacroparticles = python::convert_int_array(n_macroparticles.data(),
+                            n_macroparticles.size());
+    auto pP0 = python::convert_double_array(p0.data(), p0.size());
+    auto ret = PyObject_CallFunctionObjArgs(pFunc, pBinCenters,
+                                            pNMacroparticles, pP0, NULL);
+    if (!ret) {
+        std::cerr << "[gaussian_fit] An error occured while running"
+                  << "a python function\n";
+        exit(-1);
+    }
+
+    auto npArray = (PyArrayObject *) ret;
+    int len = PyArray_SHAPE(npArray)[0];
+    ftype *pfit_gauss = (ftype *) PyArray_DATA(npArray);
+    // std::cout << "pfit_gauss[1]: " <<pfit_gauss[1] << "\n";
+    // std::cout << "pfit_gauss[2]: " <<pfit_gauss[2] << "\n";
+    bl_gauss = 4 * std::abs(pfit_gauss[2]);
+    bp_gauss = std::abs(pfit_gauss[1]);
+
+}

@@ -550,6 +550,92 @@ TEST_F(testSlices, fwhm3)
 }
 
 
+TEST_F(testSlices, gaussian_fit1)
+{
+    auto slice = Slices(N_slices, 0, 0, 0, Slices::cuts_unit_t::s,
+                        Slices::fit_t::gaussian);
+    string params = TEST_FILES "/Slices/gaussian_fit1/";
+    auto epsilon = 1e-8;
+    f_vector_t v;
+
+    slice.track();
+    slice.gaussian_fit();
+    // std::cout << "bl_gauss: " << slice.bl_gauss << "\n";
+    // std::cout << "bp_gauss: " << slice.bp_gauss << "\n";
+    util::read_vector_from_file(v, params + "bp_gauss.txt");
+    ASSERT_EQ(v.size(), 1);
+    EXPECT_NEAR(v[0], slice.bp_gauss,
+                epsilon * max(abs(v[0]), abs(slice.bp_gauss)))
+            << "Testing failed on slice.bp_gauss\n";
+
+
+    util::read_vector_from_file(v, params + "bl_gauss.txt");
+    ASSERT_EQ(v.size(), 1);
+    EXPECT_NEAR(v[0], slice.bl_gauss,
+                epsilon * max(abs(v[0]), abs(slice.bl_gauss)))
+            << "Testing failed on slice.bl_fwhm\n";
+
+}
+
+
+TEST_F(testSlices, gaussian_fit2)
+{
+    auto slice = Slices(N_slices, 0, 0, 0, Slices::cuts_unit_t::s,
+                        Slices::fit_t::gaussian);
+    string params = TEST_FILES "/Slices/gaussian_fit2/";
+    auto epsilon = 1e-8;
+    f_vector_t v;
+
+    slice.track();
+    slice.gaussian_fit();
+    slice.gaussian_fit();
+    // std::cout << "bl_gauss: " << slice.bl_gauss << "\n";
+    // std::cout << "bp_gauss: " << slice.bp_gauss << "\n";
+    util::read_vector_from_file(v, params + "bp_gauss.txt");
+    ASSERT_EQ(v.size(), 1);
+    EXPECT_NEAR(v[0], slice.bp_gauss,
+                epsilon * max(abs(v[0]), abs(slice.bp_gauss)))
+            << "Testing failed on slice.bp_gauss\n";
+
+
+    util::read_vector_from_file(v, params + "bl_gauss.txt");
+    ASSERT_EQ(v.size(), 1);
+    EXPECT_NEAR(v[0], slice.bl_gauss,
+                epsilon * max(abs(v[0]), abs(slice.bl_gauss)))
+            << "Testing failed on slice.bl_fwhm\n";
+
+}
+
+// TEST_F(testSlices, gaussian_fit3)
+// {
+//     auto slice = Slices(N_slices, 0, 0, 0, Slices::cuts_unit_t::s,
+//                         Slices::fit_t::gaussian);
+//     string params = TEST_FILES "/Slices/gaussian_fit3/";
+//     auto epsilon = 1e-6;
+//     f_vector_t v;
+
+//     slice.bp_gauss = 100e-9;
+//     slice.bl_gauss = 150e-8;
+//     slice.track();
+//     slice.gaussian_fit();
+//     // std::cout << "bl_gauss: " << slice.bl_gauss << "\n";
+//     // std::cout << "bp_gauss: " << slice.bp_gauss << "\n";
+//     util::read_vector_from_file(v, params + "bp_gauss.txt");
+//     ASSERT_EQ(v.size(), 1);
+//     EXPECT_NEAR(v[0], slice.bp_gauss,
+//                 epsilon * max(abs(v[0]), abs(slice.bp_gauss)))
+//             << "Testing failed on slice.bp_gauss\n";
+
+
+//     util::read_vector_from_file(v, params + "bl_gauss.txt");
+//     ASSERT_EQ(v.size(), 1);
+//     EXPECT_NEAR(v[0], slice.bl_gauss,
+//                 epsilon * max(abs(v[0]), abs(slice.bl_gauss)))
+//             << "Testing failed on slice.bl_fwhm\n";
+
+// }
+
+
 int main(int ac, char *av[])
 {
     python::initialize();

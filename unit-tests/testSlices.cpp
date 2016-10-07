@@ -402,6 +402,17 @@ TEST_F(testSlices, beam_profile_derivative3)
 
 }
 
+TEST_F(testSlices, beam_profile_derivative_deathtest1)
+{
+    auto Slice = new Slices(N_slices);
+    auto epsilon = 1e-8;
+    f_vector_t x, derivative;
+    ASSERT_DEATH(Slice->beam_profile_derivative(x, derivative, "blabla"),
+                 "Option for derivative is not recognized.\n");
+    delete Slice;
+
+}
+
 
 
 TEST_F(testSlices, rms1)
@@ -606,6 +617,14 @@ TEST_F(testSlices, gaussian_fit2)
 
 }
 
+TEST_F(testSlices, gaussian_fit_deathtest1)
+{
+    auto slice = Slices(N_slices, 0, 0, 0, Slices::cuts_unit_t::s,
+                        Slices::fit_t::gaussian);
+    slice.n_macroparticles.clear();
+    ASSERT_DEATH(slice.gaussian_fit(), "[gaussian_fit]\\s*");
+}
+
 
 TEST_F(testSlices, chebyshev1)
 {
@@ -793,6 +812,97 @@ TEST_F(testSlices, chebyshev4)
 
 }
 
+TEST_F(testSlices, chebyshev_deathtest1)
+{
+    auto slice = Slices(N_slices);
+    auto epsilon = 1e-8;
+    f_vector_t v;
+
+    slice.track();
+    map<string, string> filter_option = {
+        {"type", "chebyshev"},
+        {"pass_frequency", "0.1"},
+        {"stop_frequency", "1.1"},
+        {"gain_pass", "30"},
+        {"gain_stop", "35"},
+        {"transfer_function_plot", "false"}
+    };
+    int nCoeff;
+    f_vector_t transferFreq;
+    complex_vector_t transferGain;
+
+    ASSERT_DEATH(slice.beam_profile_filter_chebyshev(filter_option,
+                 nCoeff, transferFreq, transferGain),
+                 "[beam_profile_filter_chebyshev] \\s*");
+
+}
+
+
+TEST_F(testSlices, chebyshev_deathtest2)
+{
+    auto slice = Slices(N_slices);
+    auto epsilon = 1e-8;
+    f_vector_t v;
+
+    slice.track();
+    map<string, string> filter_option = {
+        {"type", "chebyshev"},
+        {"pass_frequency", "0.1"},
+        {"stop_frequency", "1.1"},
+        {"gain_pass", "30"},
+        {"gain_stop", "35"},
+        {"transfer_function_plot", "true"}
+    };
+    int nCoeff;
+    f_vector_t a;
+    f_vector_t b;
+
+    ASSERT_DEATH(slice.beam_profile_filter_chebyshev(filter_option,
+                 nCoeff, a, b),
+                 "[beam_profile_filter_chebyshev] \\s*");
+
+}
+
+
+TEST_F(testSlices, chebyshev_deathtest3)
+{
+    auto slice = Slices(N_slices);
+    auto epsilon = 1e-8;
+    f_vector_t v;
+
+    slice.track();
+    map<string, string> filter_option = {
+        {"type", "chebyshev"},
+    };
+    int nCoeff;
+    f_vector_t a;
+    f_vector_t b;
+
+    ASSERT_DEATH(slice.beam_profile_filter_chebyshev(filter_option,
+                 nCoeff, a, b),
+                 "[beam_profile_filter_chebyshev] \\s*");
+
+}
+
+TEST_F(testSlices, chebyshev_deathtest4)
+{
+    auto slice = Slices(N_slices);
+    auto epsilon = 1e-8;
+    f_vector_t v;
+
+    slice.track();
+    map<string, string> filter_option = {
+        {"type", "chebyshev"},
+    };
+    int nCoeff;
+    f_vector_t a;
+    complex_vector_t b;
+
+    ASSERT_DEATH(slice.beam_profile_filter_chebyshev(filter_option,
+                 nCoeff, a, b),
+                 "[beam_profile_filter_chebyshev] \\s*");
+
+}
 
 // TEST_F(testSlices, gaussian_fit3)
 // {

@@ -425,7 +425,8 @@ void Slices::beam_profile_derivative(f_vector_t &x,
                            res, derivative.front(), derivative.back());
         derivative = res;
     } else {
-        std::cerr << "Optioin for derivative is not recognized.\n";
+        std::cerr << "Option for derivative is not recognized.\n";
+        exit(-1);
     }
 
 }
@@ -502,7 +503,9 @@ void Slices::beam_profile_filter_chebyshev(std::map<std::string, std::string>
     auto npArray = (PyArrayObject *) ret;
     int len = PyArray_SHAPE(npArray)[0];
     ftype *res = (ftype *) PyArray_DATA(npArray);
+
     nCoefficients = res[0];
+    assert(len == 3 + 2 * nCoefficients);
 
     b = f_vector_t(&res[1], &res[1 + 1 + nCoefficients]);
     a = f_vector_t(&res[2 + nCoefficients], &res[3 + 2 * nCoefficients]);
@@ -545,10 +548,7 @@ void Slices::beam_profile_filter_chebyshev(std::map<std::string, std::string>
     int len = PyArray_SHAPE(npArray)[0];
     ftype *res = (ftype *) PyArray_DATA(npArray);
 
-    if (len != 1 + 3 * n_slices) {
-        std::cerr << "[beam_profile_filter_chebyshev] Unexpected result length\n";
-        exit(-1);
-    }
+    assert(len == 1 + 3 * n_slices);
 
     nCoefficients = res[0];
     transferFreq = f_vector_t(&res[1], &res[1 + n_slices]);

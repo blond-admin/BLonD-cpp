@@ -334,6 +334,7 @@ def beam_profile_filter_chebyshev(n_macroparticles, resolution,
     # Compute the coefficients a Chebyshev Type II digital filter
     b, a = cheby2(nCoefficients, gainStop, wn, btype='low')
 
+    # NOTE 2 lines of code have been commented out!!
     # Apply the filter forward and backwards to cancel the group delay
     # macroparticles = filtfilt(b, a, noisyProfile)
     # macroparticles = np.ascontiguousarray(macroparticles)

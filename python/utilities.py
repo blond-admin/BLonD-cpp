@@ -279,8 +279,8 @@ def minmax_location(x, f):
 
 
 def gauss(x, *p):
-        A, x0, sx = p
-        return A*np.exp(-(x-x0)**2/2./sx**2)
+    A, x0, sx = p
+    return A*np.exp(-(x-x0)**2/2./sx**2)
 
 
 def curve_fit(bin_centers, n_macroparticles, p0):
@@ -288,8 +288,103 @@ def curve_fit(bin_centers, n_macroparticles, p0):
     # n_macroparticles = np.array(n_macroparticles, dtype=float)
     # print "bin_centers", bin_centers
     # print "n_macroparticles", n_macroparticles
-    # print "p0", p0    
+    # print "p0", p0
     result = curve_fit(gauss, bin_centers, n_macroparticles, p0)[0]
     # print result[1]
     # print result[2]
     return result
+
+
+def beam_profile_filter_chebyshev(n_macroparticles, resolution,
+                                  n_slices, filter_option):
+    '''
+    *This routine is filtering the beam profile with a type II Chebyshev
+    filter. The input is a library having the following structure and
+    informations:*
+
+    filter_option = {'type':'chebyshev', 'pass_frequency':pass_frequency,
+                     'stop_frequency':stop_frequency,'gain_pass':gain_pass,
+                     'gain_stop':gain_stop}
+
+    *The function returns nCoefficients, the number of coefficients used
+    in the filter. You can also add the following option to plot and return
+    the filter transfer function:*
+
+    filter_option = {..., 'transfer_function_plot':True}
+    '''
+    import matplotlib as mpl
+    mpl.use('Agg')
+    import matplotlib.pyplot as plt
+    # import os
+    from scipy.signal import cheb2ord, cheby2, filtfilt, freqz
+    from numpy.fft import fftfreq, fft
+
+    noisyProfile = np.array(n_macroparticles, dtype=float)
+
+    freqSampling = 1 / resolution
+    nyqFreq = freqSampling / 2.
+
+    frequencyPass = float(filter_option['pass_frequency']) / nyqFreq
+    frequencyStop = float(filter_option['stop_frequency']) / nyqFreq
+    gainPass = float(filter_option['gain_pass'])
+    gainStop = float(filter_option['gain_stop'])
+    # Compute the lowest order for a Chebyshev Type II digital filter
+    nCoefficients, wn = cheb2ord(
+        frequencyPass, frequencyStop, gainPass, gainStop)
+    # Compute the coefficients a Chebyshev Type II digital filter
+    b, a = cheby2(nCoefficients, gainStop, wn, btype='low')
+
+    # Apply the filter forward and backwards to cancel the group delay
+    macroparticles = filtfilt(b, a, noisyProfile)
+    macroparticles = np.ascontiguousarray(macroparticles)
+    # print "n_macroparticles: ", macroparticles
+
+    if 'transfer_function_plot' in filter_option and \
+            filter_option['transfer_function_plot'].lower() == "true":
+                # Plot the filter transfer function
+        w, transferGain = freqz(b, a=a, worN=n_slices)
+        transferFreq = w / np.pi * nyqFreq
+        group_delay = - \
+            np.diff(-np.unwrap(-np.angle(transferGain))) / - \
+            np.diff(w*freqSampling)
+
+        plt.figure()
+        ax1 = plt.subplot(311)
+        plt.plot(transferFreq, 20 * np.log10(abs(transferGain)))
+        plt.ylabel('Magnitude [dB]')
+        plt.subplot(312, sharex=ax1)
+        plt.plot(transferFreq, np.unwrap(-np.angle(transferGain)))
+        plt.ylabel('Phase [rad]')
+        plt.subplot(313, sharex=ax1)
+        plt.plot(transferFreq[:-1], group_delay)
+        plt.ylabel('Group delay [s]')
+        plt.xlabel('Frequency [Hz]')
+
+        plt.savefig("filter_transfer_function.png")
+        plt.clf()
+
+        # Plot the bunch spectrum and the filter transfer function
+        plt.figure()
+
+        plt.plot(np.fft.fftfreq(n_slices, resolution),
+                 20 * np.log10(np.abs(np.fft.fft(noisyProfile))))
+        plt.xlabel('Frequency [Hz]')
+        plt.twinx()
+        plt.plot(transferFreq, 20 * np.log10(abs(transferGain)), 'r')
+        plt.xlim(0, plt.xlim()[1])
+
+        plt.savefig("bunch_spectrum_filter_tranfer_function.png")
+        plt.clf()
+
+        res = np.array([nCoefficients], dtype=float)
+        res = np.append(res,
+                        [transferFreq, transferGain.real, transferGain.imag])
+        # print n_slices
+        # print res.shape
+        return res
+    else:
+        # print "I am about to return"
+        res = np.array([nCoefficients], dtype=float)
+        res = np.append(res, [b, a])
+        # print res
+        return res

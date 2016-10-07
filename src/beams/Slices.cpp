@@ -4,17 +4,11 @@
 *  Created on: Mar 22, 2016
 *      Author: kiliakis
 */
-
-// #include <algorithm>
 #include <blond/beams/Slices.h>
 #include <blond/globals.h>
 #include <blond/math_functions.h>
 #include <blond/fft.h>
 #include <blond/python.h>
-
-
-//#include <gsl/gsl_multifit_nlin.h>
-//#include <gsl/gsl_vector.h>
 
 Slices::Slices(uint n_slices, int n_sigma, ftype cut_left, ftype cut_right,
                cuts_unit_t cuts_unit, fit_t fit_option,
@@ -30,8 +24,12 @@ Slices::Slices(uint n_slices, int n_sigma, ftype cut_left, ftype cut_right,
     this->fFloatMacroparticles.resize(n_slices, 0.0);
     this->edges.resize(n_slices + 1, 0.0);
     this->bin_centers.resize(n_slices, 0.0);
-
     set_cuts();
+
+    if (fit_option == gaussian) {
+        bl_gauss = 0.0;
+        bp_gauss = 0.0;
+    }
 
     if (direct_slicing) track();
 }
@@ -116,11 +114,7 @@ ftype Slices::convert_coordinates(const ftype cut,
         return cut;
     else  /*if (type == rad)*/
         return cut / RfP->omega_RF[RfP->idx][RfP->counter];
-    /*else {
-        dprintf("WARNING: Type was supposed to be either s or rad\n");
-        return 0.0;
-    }
-    */
+
 }
 
 void Slices::track()
@@ -336,11 +330,7 @@ void Slices::fwhm(const ftype shift)
     // dprintf("taux1, taux2 = %d, %d\n", taux1, taux2);
     ftype t1, t2;
 
-    // maybe we could specify what kind of exceptions may occur here
-    // numerical (divide by zero) or index out of bounds
-
     if (taux1 < n_slices && taux2 < n_slices - 1 && taux2 >= 0) {
-        // try {
         t1 = bin_centers[taux1] -
              (n_macroparticles[taux1] - half_max) /
              (n_macroparticles[taux1] - n_macroparticles[prev1]) *
@@ -352,10 +342,6 @@ void Slices::fwhm(const ftype shift)
              timeResolution;
         bl_fwhm = 4 * (t2 - t1) / cfwhm;
         bp_fwhm = (t1 + t2) / 2;
-        // } catch (...) {
-        //     bl_fwhm = nan("");
-        //     bp_fwhm = nan("");
-        // }
     } else {
         bl_fwhm = nan("");
         bp_fwhm = nan("");
@@ -480,14 +466,98 @@ f_vector_t Slices::gradient(f_vector_t &x, ftype dist)
     return f_vector_t(&res[0], &res[len]);
 }
 
+// NOTE: if you specify transfer_function_plot == "true" then
+// b, a = cheby2(nCoefficients, ...)
+// this function must not be called with transfer_function_plot == "true" !!
+void Slices::beam_profile_filter_chebyshev(std::map<std::string, std::string>
+        filter_option, int &nCoefficients, f_vector_t &b, f_vector_t &a)
+{
+    python::import();
+    auto pFunc = python::import("utilities", "beam_profile_filter_chebyshev");
+    auto pNMacroparticles = python::convert_int_array(n_macroparticles.data(),
+                            n_macroparticles.size());
+    auto pResolution = python::convert_double(bin_centers[1] - bin_centers[0]);
+    auto pNSlices = python::convert_int(n_slices);
 
-void Slices::beam_profile_filter_chebyshev() {}
+    if (filter_option.find("transfer_function_plot") != filter_option.end()
+            && filter_option["transfer_function_plot"] == "true") {
+        std::cerr << "[beam_profile_filter_chebyshev] A complex vector must\n"
+                  << "be pased as the last argument in order to call this\n"
+                  << "function with transfer_function_plot ==true\n";
+        exit(-1);
+    }
 
-// ftype Slices::gauss(const ftype x, const ftype x0, const ftype sx,
-//                     const ftype A)
-// {
-//     return A * exp(-(x - x0) * (x - x0) / 2.0 / (sx * sx));
-// }
+    auto pFilterOption = python::convert_dictionary(filter_option);
+
+    auto ret = PyObject_CallFunctionObjArgs(pFunc, pNMacroparticles,
+                                            pResolution, pNSlices,
+                                            pFilterOption, NULL);
+
+    if (!ret) {
+        std::cerr << "[beam_profile_filter_chebyshev] An error occured "
+                  << "while running a python function\n";
+        exit(-1);
+    }
+
+    auto npArray = (PyArrayObject *) ret;
+    int len = PyArray_SHAPE(npArray)[0];
+    ftype *res = (ftype *) PyArray_DATA(npArray);
+    nCoefficients = res[0];
+
+    b = f_vector_t(&res[1], &res[1 + 1 + nCoefficients]);
+    a = f_vector_t(&res[2 + nCoefficients], &res[3 + 2 * nCoefficients]);
+}
+
+// NOTE
+// this function must be called with transfer_function_plot == "true" !!
+// if not then an error will happen
+void Slices::beam_profile_filter_chebyshev(std::map<std::string, std::string>
+        filter_option, int &nCoefficients,
+        f_vector_t &transferFreq, complex_vector_t &transferGain)
+{
+    python::import();
+    auto pFunc = python::import("utilities", "beam_profile_filter_chebyshev");
+    auto pNMacroparticles = python::convert_int_array(n_macroparticles.data(),
+                            n_macroparticles.size());
+    auto pResolution = python::convert_double(bin_centers[1] - bin_centers[0]);
+    auto pNSlices = python::convert_int(n_slices);
+
+    if (filter_option.find("transfer_function_plot") == filter_option.end()
+            || filter_option["transfer_function_plot"] != "true") {
+        std::cerr << "[beam_profile_filter_chebyshev] A double vector must\n"
+                  << "be pased as the last argument in order to call this\n"
+                  << "function without transfer_function_plot == true\n";
+        exit(-1);
+    }
+    auto pFilterOption = python::convert_dictionary(filter_option);
+
+    auto ret = PyObject_CallFunctionObjArgs(pFunc, pNMacroparticles,
+                                            pResolution, pNSlices,
+                                            pFilterOption, NULL);
+
+    if (!ret) {
+        std::cerr << "[beam_profile_filter_chebyshev] An error occured "
+                  << "while running a python function\n";
+        exit(-1);
+    }
+
+    auto npArray = (PyArrayObject *) ret;
+    int len = PyArray_SHAPE(npArray)[0];
+    ftype *res = (ftype *) PyArray_DATA(npArray);
+
+    if (len != 1 + 3 * n_slices) {
+        std::cerr << "[beam_profile_filter_chebyshev] Unexpected result length\n";
+        exit(-1);
+    }
+
+    nCoefficients = res[0];
+    transferFreq = f_vector_t(&res[1], &res[1 + n_slices]);
+
+    for (int i = 1 + n_slices; i < 1 + 2 * n_slices; i++) {
+        transferGain.push_back({res[i], res[i + n_slices]});
+    }
+}
+
 
 void Slices::gaussian_fit()
 {

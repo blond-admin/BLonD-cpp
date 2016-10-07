@@ -606,6 +606,194 @@ TEST_F(testSlices, gaussian_fit2)
 
 }
 
+
+TEST_F(testSlices, chebyshev1)
+{
+    auto slice = Slices(N_slices);
+    string params = TEST_FILES "/Slices/chebyshev1/";
+    auto epsilon = 1e-8;
+    f_vector_t v;
+
+    slice.track();
+    map<string, string> filter_option = {
+        {"type", "chebyshev"},
+        {"pass_frequency", "0.2"},
+        {"stop_frequency", "0.3"},
+        {"gain_pass", "3"},
+        {"gain_stop", "60"}
+    };
+    int nCoeff;
+    f_vector_t a, b;
+    slice.beam_profile_filter_chebyshev(filter_option, nCoeff, b, a);
+
+    util::read_vector_from_file(v, params + "n_coefficients.txt");
+    ASSERT_EQ(v.size(), 1);
+    ASSERT_EQ(v[0], nCoeff) << "Testing failed on nCoeff\n";
+
+
+    util::read_vector_from_file(v, params + "a.txt");
+    ASSERT_EQ(v.size(), a.size());
+    for (uint i = 0; i < v.size(); ++i) {
+        double ref = v[i];
+        double real = a[i];
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
+                << "Testing of a failed on i " << i << '\n';
+    }
+
+    util::read_vector_from_file(v, params + "b.txt");
+    ASSERT_EQ(v.size(), b.size());
+    for (uint i = 0; i < v.size(); ++i) {
+        double ref = v[i];
+        double real = b[i];
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
+                << "Testing of b failed on i " << i << '\n';
+    }
+
+}
+
+
+TEST_F(testSlices, chebyshev2)
+{
+    auto slice = Slices(N_slices);
+    string params = TEST_FILES "/Slices/chebyshev2/";
+    auto epsilon = 1e-8;
+    f_vector_t v;
+
+    slice.track();
+    map<string, string> filter_option = {
+        {"type", "chebyshev"},
+        {"pass_frequency", "0.6"},
+        {"stop_frequency", "0.2"},
+        {"gain_pass", "2"},
+        {"gain_stop", "40"}
+    };
+    int nCoeff;
+    f_vector_t a, b;
+    slice.beam_profile_filter_chebyshev(filter_option, nCoeff, b, a);
+
+    util::read_vector_from_file(v, params + "n_coefficients.txt");
+    ASSERT_EQ(v.size(), 1);
+    ASSERT_EQ(v[0], nCoeff) << "Testing failed on nCoeff\n";
+
+
+    util::read_vector_from_file(v, params + "a.txt");
+    ASSERT_EQ(v.size(), a.size());
+    for (uint i = 0; i < v.size(); ++i) {
+        double ref = v[i];
+        double real = a[i];
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
+                << "Testing of a failed on i " << i << '\n';
+    }
+
+    util::read_vector_from_file(v, params + "b.txt");
+    ASSERT_EQ(v.size(), b.size());
+    for (uint i = 0; i < v.size(); ++i) {
+        double ref = v[i];
+        double real = b[i];
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
+                << "Testing of b failed on i " << i << '\n';
+    }
+
+}
+
+
+TEST_F(testSlices, chebyshev3)
+{
+    auto slice = Slices(N_slices);
+    string params = TEST_FILES "/Slices/chebyshev3/";
+    auto epsilon = 1e-8;
+    f_vector_t v;
+
+    slice.track();
+    map<string, string> filter_option = {
+        {"type", "chebyshev"},
+        {"pass_frequency", "0.1"},
+        {"stop_frequency", "0.4"},
+        {"gain_pass", "3"},
+        {"gain_stop", "50"},
+        {"transfer_function_plot", "true"}
+    };
+    int nCoeff;
+    f_vector_t transferFreq;
+    complex_vector_t transferGain;
+    slice.beam_profile_filter_chebyshev(filter_option,
+                                        nCoeff, transferFreq,
+                                        transferGain);
+
+    util::read_vector_from_file(v, params + "n_coefficients.txt");
+    ASSERT_EQ(v.size(), 1);
+    ASSERT_EQ(v[0], nCoeff) << "Testing failed on nCoeff\n";
+
+
+    util::read_vector_from_file(v, params + "transferFreq.txt");
+    ASSERT_EQ(v.size(), transferFreq.size());
+    for (uint i = 0; i < v.size(); ++i) {
+        double ref = v[i];
+        double real = transferFreq[i];
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
+                << "Testing of transferFreq failed on i " << i << '\n';
+    }
+
+    util::read_vector_from_file(v, params + "transferGain.txt");
+    ASSERT_EQ(v.size(), transferGain.size());
+    for (uint i = 0; i < v.size(); ++i) {
+        double ref = v[i];
+        double real = abs(transferGain[i]);
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
+                << "Testing of transferGain failed on i " << i << '\n';
+    }
+
+}
+
+TEST_F(testSlices, chebyshev4)
+{
+    auto slice = Slices(N_slices);
+    string params = TEST_FILES "/Slices/chebyshev4/";
+    auto epsilon = 1e-8;
+    f_vector_t v;
+
+    slice.track();
+    map<string, string> filter_option = {
+        {"type", "chebyshev"},
+        {"pass_frequency", "0.1"},
+        {"stop_frequency", "1.1"},
+        {"gain_pass", "30"},
+        {"gain_stop", "35"},
+        {"transfer_function_plot", "true"}
+    };
+    int nCoeff;
+    f_vector_t transferFreq;
+    complex_vector_t transferGain;
+    slice.beam_profile_filter_chebyshev(filter_option,
+                                        nCoeff, transferFreq,
+                                        transferGain);
+
+    util::read_vector_from_file(v, params + "n_coefficients.txt");
+    ASSERT_EQ(v.size(), 1);
+    ASSERT_EQ(v[0], nCoeff) << "Testing failed on nCoeff\n";
+
+
+    util::read_vector_from_file(v, params + "transferFreq.txt");
+    ASSERT_EQ(v.size(), transferFreq.size());
+    for (uint i = 0; i < v.size(); ++i) {
+        double ref = v[i];
+        double real = transferFreq[i];
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
+                << "Testing of transferFreq failed on i " << i << '\n';
+    }
+
+    util::read_vector_from_file(v, params + "transferGain.txt");
+    ASSERT_EQ(v.size(), transferGain.size());
+    for (uint i = 0; i < v.size(); ++i) {
+        double ref = v[i];
+        double real = abs(transferGain[i]);
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
+                << "Testing of transferGain failed on i " << i << '\n';
+    }
+
+}
+
+
 // TEST_F(testSlices, gaussian_fit3)
 // {
 //     auto slice = Slices(N_slices, 0, 0, 0, Slices::cuts_unit_t::s,

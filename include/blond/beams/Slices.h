@@ -10,6 +10,7 @@
 
 #include <blond/configuration.h>
 #include <blond/utilities.h>
+#include <map>
 
 const ftype cfwhm = 2 * sqrt(2 * log(2));
 
@@ -39,8 +40,8 @@ public:
     fit_t fit_option;
     complex_vector_t fBeamSpectrum;
     f_vector_t fBeamSpectrumFreq;
-    ftype bl_gauss = 0;
-    ftype bp_gauss = 0;
+    ftype bl_gauss;
+    ftype bp_gauss;
 
     Slices(uint _n_slices, int _n_sigma = 0, ftype cut_left = 0,
            ftype cut_right = 0, cuts_unit_t cuts_unit = s,
@@ -54,7 +55,18 @@ public:
     void beam_profile_derivative(f_vector_t &x,
                                  f_vector_t &derivative,
                                  std::string mode = "gradient");
-    void beam_profile_filter_chebyshev();
+    
+    void beam_profile_filter_chebyshev(std::map<std::string, std::string>
+                                       filter_option,
+                                       int &nCoefficients,
+                                       f_vector_t &b,
+                                       f_vector_t &a);
+
+    void beam_profile_filter_chebyshev(std::map<std::string, std::string>
+                                       filter_option,
+                                       int &nCoefficients,
+                                       f_vector_t &transferFreq,
+                                       complex_vector_t &transferGain);
     void set_cuts();
     void sort_particles();
     ftype convert_coordinates(ftype cut, cuts_unit_t type);
@@ -70,11 +82,8 @@ public:
     void track_cuts();
     void slice_constant_space_histogram_smooth();
     void rms();
-    // ftype gauss(const ftype x, const ftype x0, const ftype sx, const ftype A);
-
-    // not for now
     void gaussian_fit();
-    // not for now
+
     void fwhm_multibunch();
     // when intensity effects
 };

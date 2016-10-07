@@ -278,7 +278,6 @@ void Slices::slice_constant_space_histogram_smooth()
 
 void Slices::rms()
 {
-
     /*
     * Computation of the RMS bunch length and position from the line density
     (bunch length = 4sigma).*
@@ -308,6 +307,7 @@ void Slices::rms()
     bl_rms = 4 * std::sqrt(temp);
 }
 
+
 void Slices::fwhm(const ftype shift)
 {
 
@@ -315,20 +315,23 @@ void Slices::fwhm(const ftype shift)
     * Computation of the bunch length and position from the FWHM
     assuming Gaussian line density.*
     */
-    uint max_i = mymath::max(n_macroparticles.data(), n_slices, 1);
-    ftype half_max = shift + 0.5 * (n_macroparticles[max_i] - shift);
+    int max = *std::max_element(n_macroparticles.begin(),
+                                n_macroparticles.end());
+    ftype half_max = shift + 0.5 * (max - shift);
     ftype timeResolution = bin_centers[1] - bin_centers[0];
 
     // First aproximation for the half maximum values
+    int taux1, taux2;
 
     int i = 0;
-    while (n_macroparticles[i] < half_max && i < (int)n_slices)
-        i++;
-    int taux1 = i;
+    while (i < n_slices && n_macroparticles[i] < half_max) i++;
+    taux1 = i;
+    // prev1 is one before taux1, if taux1 is 0, then prev1 is the last
+    int prev1 = taux1 > 0 ? taux1 - 1 : n_slices - 1;
+
     i = n_slices - 1;
-    while (i >= 0 && n_macroparticles[i] < half_max)
-        i--;
-    int taux2 = i;
+    while (i >= 0 && n_macroparticles[i] < half_max) i--;
+    taux2 = i;
 
     // dprintf("taux1, taux2 = %d, %d\n", taux1, taux2);
     ftype t1, t2;
@@ -336,33 +339,24 @@ void Slices::fwhm(const ftype shift)
     // maybe we could specify what kind of exceptions may occur here
     // numerical (divide by zero) or index out of bounds
 
-    // TODO something weird is happening here
-    // Python throws an exception only if you access an element after the end of
-    // the array
-    // but not if you access element before the start of an array
-    // (in that case it takes the last element of the array)
-    // Cpp does not throw an exception on eiter occassion
-    // The right condition is the following in comments
-    if (taux1 > 0 && taux2 < (int)n_slices - 1) {
-        // if (taux2 < n_slices - 1) {
-        try {
-            t1 = bin_centers[taux1] -
-                 (n_macroparticles[taux1] - half_max) /
-                 (n_macroparticles[taux1] - n_macroparticles[taux1 - 1]) *
-                 timeResolution;
+    if (taux1 < n_slices && taux2 < n_slices - 1 && taux2 >= 0) {
+        // try {
+        t1 = bin_centers[taux1] -
+             (n_macroparticles[taux1] - half_max) /
+             (n_macroparticles[taux1] - n_macroparticles[prev1]) *
+             timeResolution;
 
-            t2 = bin_centers[taux2] +
-                 (n_macroparticles[taux2] - half_max) /
-                 (n_macroparticles[taux2] - n_macroparticles[taux2 + 1]) *
-                 timeResolution;
-            bl_fwhm = 4 * (t2 - t1) / cfwhm;
-            bp_fwhm = (t1 + t2) / 2;
-        } catch (...) {
-            bl_fwhm = nan("");
-            bp_fwhm = nan("");
-        }
+        t2 = bin_centers[taux2] +
+             (n_macroparticles[taux2] - half_max) /
+             (n_macroparticles[taux2] - n_macroparticles[taux2 + 1]) *
+             timeResolution;
+        bl_fwhm = 4 * (t2 - t1) / cfwhm;
+        bp_fwhm = (t1 + t2) / 2;
+        // } catch (...) {
+        //     bl_fwhm = nan("");
+        //     bp_fwhm = nan("");
+        // }
     } else {
-        // catch (...) {
         bl_fwhm = nan("");
         bp_fwhm = nan("");
     }

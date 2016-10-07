@@ -413,7 +413,7 @@ TEST_F(testSlices, rms1)
 
     slice.track();
     slice.rms();
-    
+
     util::read_vector_from_file(v, params + "bp_rms.txt");
     ASSERT_EQ(v.size(), 1);
     EXPECT_NEAR(v[0], slice.bp_rms,
@@ -461,6 +461,93 @@ TEST_F(testSlices, rms2)
 
 }
 
+
+TEST_F(testSlices, fwhm1)
+{
+    auto slice = Slices(N_slices);
+    string params = TEST_FILES "/Slices/fwhm1/";
+    auto epsilon = 1e-8;
+    f_vector_t v;
+
+    slice.track();
+    slice.fwhm();
+
+    util::read_vector_from_file(v, params + "bp_fwhm.txt");
+    ASSERT_EQ(v.size(), 1);
+    EXPECT_NEAR(v[0], slice.bp_fwhm,
+                epsilon * max(abs(v[0]), abs(slice.bp_fwhm)))
+            << "Testing failed on slice.bp_fwhm\n";
+
+
+    util::read_vector_from_file(v, params + "bl_fwhm.txt");
+    ASSERT_EQ(v.size(), 1);
+    EXPECT_NEAR(v[0], slice.bl_fwhm,
+                epsilon * max(abs(v[0]), abs(slice.bl_fwhm)))
+            << "Testing failed on slice.bl_fwhm\n";
+
+}
+
+
+TEST_F(testSlices, fwhm2)
+{
+    auto Beam = Context::Beam;
+    string params = TEST_FILES "/Slices/fwhm2/";
+    auto epsilon = 1e-8;
+    f_vector_t v;
+
+    auto cut_left = Beam->dt.front();
+    auto cut_right = Beam->dt.back();
+    if (cut_left > cut_right) swap(cut_left, cut_right);
+
+    auto slice = Slices(N_slices, 0, cut_left, cut_right);
+
+    slice.track();
+    slice.fwhm(10.);
+    util::read_vector_from_file(v, params + "bp_fwhm.txt");
+    ASSERT_EQ(v.size(), 1);
+    EXPECT_NEAR(v[0], slice.bp_fwhm,
+                epsilon * max(abs(v[0]), abs(slice.bp_fwhm)))
+            << "Testing failed on slice.bp_fwhm\n";
+
+
+    util::read_vector_from_file(v, params + "bl_fwhm.txt");
+    ASSERT_EQ(v.size(), 1);
+    EXPECT_NEAR(v[0], slice.bl_fwhm,
+                epsilon * max(abs(v[0]), abs(slice.bl_fwhm)))
+            << "Testing failed on slice.bl_fwhm\n";
+
+}
+
+
+TEST_F(testSlices, fwhm3)
+{
+    auto Beam = Context::Beam;
+    string params = TEST_FILES "/Slices/fwhm3/";
+    auto epsilon = 1e-8;
+    f_vector_t v;
+
+    auto cut_left = Beam->dt.front();
+    auto cut_right = Beam->dt.back();
+    if (cut_left > cut_right) swap(cut_left, cut_right);
+
+    auto slice = Slices(N_slices, 0, cut_left, cut_right);
+
+    slice.track();
+    slice.fwhm(0.1);
+    util::read_vector_from_file(v, params + "bp_fwhm.txt");
+    ASSERT_EQ(v.size(), 1);
+    EXPECT_NEAR(v[0], slice.bp_fwhm,
+                epsilon * max(abs(v[0]), abs(slice.bp_fwhm)))
+            << "Testing failed on slice.bp_fwhm\n";
+
+
+    util::read_vector_from_file(v, params + "bl_fwhm.txt");
+    ASSERT_EQ(v.size(), 1);
+    EXPECT_NEAR(v[0], slice.bl_fwhm,
+                epsilon * max(abs(v[0]), abs(slice.bl_fwhm)))
+            << "Testing failed on slice.bl_fwhm\n";
+
+}
 
 
 int main(int ac, char *av[])

@@ -362,33 +362,33 @@ void Slices::fwhm(const ftype shift)
     }
 }
 
-ftype Slices::fast_fwhm()
-{
+// ftype Slices::fast_fwhm()
+// {
 
-    /*
-    * Computation of the bunch length and position from the FWHM
-    assuming Gaussian line density.*
-    height = np.max(self.n_macroparticles)
-    index = np.where(self.n_macroparticles > height/2.)[0]
-    return cfwhm*(Slices.bin_centers[index[-1]] - Slices.bin_centers[index[0]])
-    */
-    auto Beam = Context::Beam;
+//     /*
+//     * Computation of the bunch length and position from the FWHM
+//     assuming Gaussian line density.*
+//     height = np.max(self.n_macroparticles)
+//     index = np.where(self.n_macroparticles > height/2.)[0]
+//     return cfwhm*(Slices.bin_centers[index[-1]] - Slices.bin_centers[index[0]])
+//     */
+//     auto Beam = Context::Beam;
 
-    uint max_i =
-        mymath::max(n_macroparticles.data(), Beam->n_macroparticles, 1);
-    ftype half_max = 0.5 * n_macroparticles[max_i];
+//     uint max_i =
+//         mymath::max(n_macroparticles.data(), Beam->n_macroparticles, 1);
+//     ftype half_max = 0.5 * n_macroparticles[max_i];
 
-    int i = 0;
-    while (n_macroparticles[i] < half_max && i < (int)n_slices)
-        i++;
-    int taux1 = i;
-    i = n_slices - 1;
-    while (i >= 0 && n_macroparticles[i] < half_max)
-        i--;
-    int taux2 = i;
-    // update bp
-    return cfwhm * (bin_centers[taux2] - bin_centers[taux1]);
-}
+//     int i = 0;
+//     while (n_macroparticles[i] < half_max && i < (int)n_slices)
+//         i++;
+//     int taux1 = i;
+//     i = n_slices - 1;
+//     while (i >= 0 && n_macroparticles[i] < half_max)
+//         i--;
+//     int taux2 = i;
+//     // update bp
+//     return cfwhm * (bin_centers[taux2] - bin_centers[taux1]);
+// }
 
 void Slices::fwhm_multibunch() {}
 

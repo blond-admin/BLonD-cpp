@@ -48,7 +48,7 @@ public:
 
     ~Slices();
     void track();
-    ftype fast_fwhm();
+    // ftype fast_fwhm();
     void fwhm(const ftype shift = 0);
     void beam_spectrum_generation(uint n, bool onlyRFFT = false);
     void beam_profile_derivative(f_vector_t &x,

@@ -335,8 +335,8 @@ def beam_profile_filter_chebyshev(n_macroparticles, resolution,
     b, a = cheby2(nCoefficients, gainStop, wn, btype='low')
 
     # Apply the filter forward and backwards to cancel the group delay
-    macroparticles = filtfilt(b, a, noisyProfile)
-    macroparticles = np.ascontiguousarray(macroparticles)
+    # macroparticles = filtfilt(b, a, noisyProfile)
+    # macroparticles = np.ascontiguousarray(macroparticles)
     # print "n_macroparticles: ", macroparticles
 
     if 'transfer_function_plot' in filter_option and \

@@ -2,7 +2,7 @@ var searchData=
 [
   ['beam_5fphase',['beam_phase',['../d6/d87/classPhaseLoop.html#aa62e59a49e478864890f339e62b3b428',1,'PhaseLoop']]],
   ['beam_5fprofile_5fderivative',['beam_profile_derivative',['../dc/d45/classSlices.html#ada42a57f8bea7bb582076bfb6f9f1812',1,'Slices']]],
-  ['beam_5fprofile_5ffilter_5fchebyshev',['beam_profile_filter_chebyshev',['../dc/d45/classSlices.html#a5477a5433df9334bdc8218fdbae0f845',1,'Slices']]],
+  ['beam_5fprofile_5ffilter_5fchebyshev',['beam_profile_filter_chebyshev',['../dc/d45/classSlices.html#a39a24f6986bcf7f9c99cea7cacd72310',1,'Slices::beam_profile_filter_chebyshev(std::map&lt; std::string, std::string &gt; filter_option, int &amp;nCoefficients, f_vector_t &amp;b, f_vector_t &amp;a)'],['../dc/d45/classSlices.html#aeeb11bf2c1ef373e0869892ba9e16680',1,'Slices::beam_profile_filter_chebyshev(std::map&lt; std::string, std::string &gt; filter_option, int &amp;nCoefficients, f_vector_t &amp;transferFreq, complex_vector_t &amp;transferGain)']]],
   ['beam_5fspectrum_5fgeneration',['beam_spectrum_generation',['../dc/d45/classSlices.html#a77b0f27dab45e9f789d5725b1d660673',1,'Slices']]],
   ['beams',['Beams',['../d9/d7c/classBeams.html#ac7fd9f17f15c75dd99678899c797e2cc',1,'Beams']]],
   ['begin',['begin',['../d4/d19/classmymath_1_1Ham.html#a0e2f07884b3a24179a69015096f36f63',1,'mymath::Ham']]],

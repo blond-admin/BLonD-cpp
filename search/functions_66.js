@@ -5,7 +5,6 @@ var searchData=
   ['fast_5fexpf',['fast_expf',['../d5/d7b/namespacevdt.html#a780ce9076bbef3b8a091f585dcd48a0e',1,'vdt']]],
   ['fast_5fexpfv',['fast_expfv',['../d5/d7b/namespacevdt.html#a27956e41d121b687ab254acec05c2fd7',1,'vdt']]],
   ['fast_5fexpv',['fast_expv',['../d5/d7b/namespacevdt.html#a1ff20b6e0febd21955a9f0a793e260b8',1,'vdt']]],
-  ['fast_5ffwhm',['fast_fwhm',['../dc/d45/classSlices.html#a8febd9b69ec99aab1ca8dd7b752f016b',1,'Slices']]],
   ['fast_5fsin',['fast_sin',['../df/d6d/namespacemymath.html#ad1aa822800d7c0b68cec8efe86a34602',1,'mymath::fast_sin()'],['../d5/d7b/namespacevdt.html#a0013dcb44ade5e87e083c6a0daddcfd9',1,'vdt::fast_sin()']]],
   ['fast_5fsincos',['fast_sincos',['../d5/d7b/namespacevdt.html#a1993fb5f0f92028ffbf6e853790a0161',1,'vdt']]],
   ['fast_5fsincos_5fm45_5f45',['fast_sincos_m45_45',['../d1/d47/namespacevdt_1_1details.html#aefa743c10ceb855329b7005d9f353a5d',1,'vdt::details']]],

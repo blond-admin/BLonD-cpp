@@ -14,7 +14,6 @@ var classSlices =
     [ "beam_profile_filter_chebyshev", "dc/d45/classSlices.html#a5477a5433df9334bdc8218fdbae0f845", null ],
     [ "beam_spectrum_generation", "dc/d45/classSlices.html#a77b0f27dab45e9f789d5725b1d660673", null ],
     [ "convert_coordinates", "dc/d45/classSlices.html#add9ca31477380ea55e59027058eafb0e", null ],
-    [ "fast_fwhm", "dc/d45/classSlices.html#a8febd9b69ec99aab1ca8dd7b752f016b", null ],
     [ "fwhm", "dc/d45/classSlices.html#a903c240e86c17b66bd755905b151bb5a", null ],
     [ "fwhm_multibunch", "dc/d45/classSlices.html#a5399cd83d3aab78955ade64d6068cf9b", null ],
     [ "gauss", "dc/d45/classSlices.html#aeed331c21465b7fbd0d3b8888d6a4192", null ],

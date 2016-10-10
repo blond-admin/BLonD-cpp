@@ -304,16 +304,20 @@ else
       ./configure --enable-unicode=ucs4 \
                   --with-threads \
                   --enable-shared \
-                  --prefix="$(pwd)" &>> $log
+                  --prefix="$INSTALL" &>> $log
       make &>> $log
       make install &>> $log
+
 
       # export PATH="${INSTALL}/bin:$PATH"
       cd ${BLOND_HOME}
 
       if [ -e ${INSTALL}/include/python2.7/Python.h ] && [ -e ${INSTALL}/lib/python2.7/config/libpython2.7.a ]; then
          echo -e "---- Python has been installed successfully\n\n"
-         PYTHON="${INSTALL}/Python-2.7.12/bin/python"
+         PYTHON="${INSTALL}/bin/python"
+         export LD_LIBRARY_PATH="${INSTALL}/lib:$LD_LIBRARY_PATH"
+         wget https://bootstrap.pypa.io/get-pip.py -O${EXTERNAL}/tmp/get-pip.py &> $log
+         $PYTHON ${EXTERNAL}/tmp/get-pip.py
       else
          echo -e "\n\n---- Python has failed to install successfully"
          echo -e "---- You will have to manually install this library"
@@ -333,7 +337,7 @@ fi
 # -----------------------
 # Python external modules installation
 # -----------------------
-PIP_INSTALLED=`echo $?`
+PIP_INSTALLED=$(${PYTHON} -m pip -V | echo $?)
 if [ "$PIP_INSTALLED" == "1" ]; then
    echo -e "\n\n---- PIP is needed in order to install required python modules"
    echo -e "---- If you are on Fedora/CentOS/RHEL try: yum install python-pip"

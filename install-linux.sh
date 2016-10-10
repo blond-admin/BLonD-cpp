@@ -1,5 +1,13 @@
 #!/bin/bash
 
+verlte() {
+    [  "$1" = "`echo -e "$1\n$2" | sort -V | head -n1`" ]
+}
+
+verlt() {
+    [ "$1" = "$2" ] && return 1 || verlte $1 $2
+}
+
 echo -e "Installing necessary libraries...\n"
 
 BLOND_HOME="$(pwd)"
@@ -262,9 +270,15 @@ cd ${BLOND_HOME}
 # -------------------
 # Python installation
 # -------------------
-# PY_VERSION=$(which python &>/dev/null && python --version 2>&1 || false)
-PY_VERSION=$(which python 2>/dev/null)
-if [ -z ${PY_VERSION} ]; then
+PY_VERSION=$(python --version 2>&1 | awk '{print $2}')
+PY_VERSION=$(verlt ${PY_VERSION} "2.7" && echo "less" || echo "greater")
+
+if [ "${PY_VERSION}" = "greater" ]; then
+   echo -e "---- Detected python version is greater than 2.7"
+   echo -e "---- skipping python installation"
+   PYTHON="python"
+
+else
 
    if [ -e ${INSTALL}/include/python2.7/Python.h ] && [ -e ${INSTALL}/lib/python2.7/config/libpython2.7.a ]; then
       echo -e "\n\n---- Looks like Python2.7 is already installed,"
@@ -308,9 +322,6 @@ if [ -z ${PY_VERSION} ]; then
 
       #echo -e "---- Installing of Python2.7 is completed\n\n"
    fi
-
-else
-   PYTHON="python"
 fi
 
 

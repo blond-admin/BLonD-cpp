@@ -299,8 +299,8 @@ else
    if [ "${INSTALL_PYTHON}" = "true" ] ; then
       echo -e "\n\n---- Installing Python2.7\n\n"
       wget https://www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz -O${EXTERNAL}/tmp/Python-2.7.12.tgz
-      tar -xzvf ${EXTERNAL}/tmp/Python-2.7.12.tgz -C${EXTERNAL}/ &>> $log
-      cd ${EXTERNAL}/Python-2.7.12
+      tar -xzvf ${EXTERNAL}/tmp/Python-2.7.12.tgz -C${EXTERNAL}/tmp/ &>> $log
+      cd ${EXTERNAL}/tmp/Python-2.7.12
       ./configure --enable-unicode=ucs4 \
                   --with-threads \
                   --enable-shared \
@@ -308,8 +308,6 @@ else
       make &>> $log
       make install &>> $log
 
-
-      # export PATH="${INSTALL}/bin:$PATH"
       cd ${BLOND_HOME}
 
       if [ -e ${INSTALL}/include/python2.7/Python.h ] && [ -e ${INSTALL}/lib/python2.7/config/libpython2.7.a ]; then
@@ -324,7 +322,6 @@ else
          echo -e "---- into directory ${BLOND_HOME}/external/install\n\n"
       fi
 
-      #echo -e "---- Installing of Python2.7 is completed\n\n"
    fi
 fi
 

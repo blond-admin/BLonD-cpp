@@ -46,8 +46,9 @@ class testLHCNoiseFB : public ::testing::Test {
 
         f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 
-        Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
-                                            momentumVec, proton);
+        Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
+                                            alpha_order, momentumVec,
+                                            GeneralParameters::particle_t::proton);
 
         Context::Beam = new Beams(N_p, N_b);
 
@@ -90,8 +91,9 @@ class testLHCNoiseFBMultiBunch : public ::testing::Test {
 
         f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 
-        Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
-                                            momentumVec, proton);
+        Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
+                                            alpha_order, momentumVec,
+                                            GeneralParameters::particle_t::proton);
 
         Context::Beam = new Beams(N_p, N_b);
 

@@ -12,13 +12,8 @@
 #include <blond/impedances/Intensity.h>
 #include <vector>
 
-enum time_or_freq { time_domain, freq_domain };
 
-typedef enum freq_res_option_t {
-    round_option,
-    ceil_option,
-    floor_option
-} freq_res_option_t;
+
 
 void linear_interp_kick(const ftype *__restrict beam_dt,
                         ftype *__restrict beam_dE,
@@ -42,6 +37,8 @@ public:
 
 class API InducedVoltageTime : public InducedVoltage {
 public:
+    enum time_or_freq { time_domain, freq_domain };
+
     std::vector<Intensity *> fWakeSourceList;
     std::vector<ftype> fTimeArray;
     std::vector<ftype> fTotalWake;
@@ -61,6 +58,11 @@ public:
 
 class API InducedVoltageFreq : public InducedVoltage {
 public:
+    enum freq_res_option_t {
+        round_option,
+        ceil_option,
+        floor_option
+    };
     // Impedance sources inputed as a list (eg: list of BBResonators objects)*
     std::vector<Intensity *> fImpedanceSourceList;
 

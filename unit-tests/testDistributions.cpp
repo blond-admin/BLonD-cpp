@@ -53,8 +53,9 @@ protected:
 
         f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 
-        Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
-                                            momentumVec, proton);
+        Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
+                                            alpha_order, momentumVec,
+                                            GeneralParameters::particle_t::proton);
 
         Context::Beam = new Beams(N_p, N_b);
 
@@ -88,7 +89,7 @@ TEST_F(testDistributions, matched_from_line_density1)
     auto epsilon = 1e-8;
     auto params = std::string(TEST_FILES "/Distributions/line_density1/");
 
-    auto long_tracker = new RingAndRfSection(RfP, simple);
+    auto long_tracker = new RingAndRfSection(RfP);
     vector<RingAndRfSection *> trackerList{long_tracker};
     auto fullRing = new FullRingAndRf(trackerList);
 
@@ -133,7 +134,7 @@ TEST_F(testDistributions, matched_from_line_density2)
     auto epsilon = 1e-8;
     auto params = std::string(TEST_FILES "/Distributions/line_density2/");
 
-    auto long_tracker = new RingAndRfSection(RfP, simple);
+    auto long_tracker = new RingAndRfSection(RfP);
     vector<RingAndRfSection *> trackerList{long_tracker, long_tracker};
     auto fullRing = new FullRingAndRf(trackerList);
 
@@ -178,7 +179,7 @@ TEST_F(testDistributions, matched_from_distribution_density1)
     auto epsilon = 1e-8;
     auto params = std::string(TEST_FILES "/Distributions/distribution_density1/");
 
-    auto long_tracker = new RingAndRfSection(RfP, simple);
+    auto long_tracker = new RingAndRfSection(RfP);
     vector<RingAndRfSection *> trackerList{long_tracker};
     auto fullRing = new FullRingAndRf(trackerList);
 
@@ -223,7 +224,7 @@ TEST_F(testDistributions, matched_from_distribution_density2)
     auto epsilon = 1e-8;
     auto params = std::string(TEST_FILES "/Distributions/distribution_density2/");
 
-    auto long_tracker = new RingAndRfSection(RfP, simple);
+    auto long_tracker = new RingAndRfSection(RfP);
     vector<RingAndRfSection *> trackerList{long_tracker};
     auto fullRing = new FullRingAndRf(trackerList);
 
@@ -289,7 +290,7 @@ protected:
     virtual void SetUp()
     {
         omp_set_num_threads(1);
-        
+
         f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1));
         for (auto &v : momentumVec)
             mymath::linspace(v.data(), p_i, p_f, N_t + 1);
@@ -304,8 +305,9 @@ protected:
 
         f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 
-        Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
-                                            momentumVec, proton);
+        Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
+                                            alpha_order, momentumVec,
+                                            GeneralParameters::particle_t::proton);
 
         Context::Beam = new Beams(N_p, N_b);
 
@@ -351,7 +353,7 @@ protected:
     virtual void SetUp()
     {
         omp_set_num_threads(1);
-        
+
         f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1, p_i));
 
         f_vector_2d_t alphaVec(n_sections, f_vector_t(alpha_order + 1, alpha));
@@ -364,8 +366,9 @@ protected:
 
         f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 
-        Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
-                                            momentumVec, proton);
+        Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
+                                            alpha_order, momentumVec,
+                                            GeneralParameters::particle_t::proton);
 
         Context::Beam = new Beams(N_p, N_b);
 

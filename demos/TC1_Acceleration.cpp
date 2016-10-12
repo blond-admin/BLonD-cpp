@@ -76,8 +76,9 @@ int main(int argc, char **argv)
 
     f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 
-    auto GP = Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
-            momentumVec, proton);
+    auto GP = Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
+            alpha_order, momentumVec,
+            GeneralParameters::particle_t::proton);
 
     auto Beam = Context::Beam = new Beams(N_p, N_b);
 

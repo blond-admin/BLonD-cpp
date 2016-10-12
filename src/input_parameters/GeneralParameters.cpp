@@ -10,11 +10,12 @@
 #include <numeric>
 
 GeneralParameters::GeneralParameters(
-    const uint _n_turns, f_vector_t& _ring_length, f_vector_2d_t& _alpha,
-    const uint _alpha_order, f_vector_2d_t& _momentum,
-    const particle_type _particle, ftype user_mass, ftype user_charge,
-    const particle_type _particle2, ftype user_mass_2, ftype user_charge_2,
-    const uint number_of_sections) {
+    const int _n_turns, f_vector_t &_ring_length, f_vector_2d_t &_alpha,
+    const int _alpha_order, f_vector_2d_t &_momentum,
+    const particle_t _particle, ftype user_mass, ftype user_charge,
+    const particle_t _particle2, ftype user_mass_2, ftype user_charge_2,
+    const int number_of_sections)
+{
 
     this->particle = _particle;
     this->particle_2 = _particle2;
@@ -72,8 +73,8 @@ GeneralParameters::GeneralParameters(
 
     const ftype masssq = mass * mass;
 
-    for (uint i = 0; i < n_sections; ++i) {
-        for (uint j = 0; j < n_turns + 1; ++j) {
+    for (int i = 0; i < n_sections; ++i) {
+        for (int j = 0; j < n_turns + 1; ++j) {
             const ftype momentumsq = momentum[i][j] * momentum[i][j];
             this->beta[i][j] = std::sqrt(1 / (1 + (masssq / momentumsq)));
             this->gamma[i][j] = std::sqrt(1 + (momentumsq / masssq));
@@ -84,21 +85,21 @@ GeneralParameters::GeneralParameters(
 
     t_rev.resize(n_turns + 1, 0);
 
-    for (uint i = 0; i < n_sections; ++i)
-        for (uint j = 0; j < n_turns + 1; ++j)
+    for (int i = 0; i < n_sections; ++i)
+        for (int j = 0; j < n_turns + 1; ++j)
             t_rev[j] += ring_length[i] / (beta[i][j] * constant::c);
 
     cycle_time.resize(n_turns);
     cycle_time[0] = 0;
-    for (uint i = 1; i < n_turns; ++i)
+    for (int i = 1; i < n_turns; ++i)
         cycle_time[i] = t_rev[i] + cycle_time[i - 1];
 
     f_rev.resize(n_turns + 1);
-    for (uint i = 0; i < n_turns + 1; ++i)
+    for (int i = 0; i < n_turns + 1; ++i)
         f_rev[i] = 1 / t_rev[i];
 
     omega_rev.resize(n_turns + 1);
-    for (uint i = 0; i < n_turns + 1; ++i)
+    for (int i = 0; i < n_turns + 1; ++i)
         omega_rev[i] = 2 * constant::pi * f_rev[i];
 
     if (alpha_order > 3) {
@@ -115,7 +116,8 @@ GeneralParameters::GeneralParameters(
 
 GeneralParameters::~GeneralParameters() {}
 
-void GeneralParameters::eta_generation() {
+void GeneralParameters::eta_generation()
+{
     _eta0();
     if (alpha_order > 0)
         _eta1();
@@ -127,27 +129,30 @@ void GeneralParameters::eta_generation() {
             "order");
 }
 
-void GeneralParameters::_eta0() {
+void GeneralParameters::_eta0()
+{
     // eta_0 = new ftype[n_sections * (n_turns + 1)];
-    for (uint i = 0; i < n_sections; ++i)
-        for (uint j = 0; j < n_turns + 1; ++j)
+    for (int i = 0; i < n_sections; ++i)
+        for (int j = 0; j < n_turns + 1; ++j)
             eta_0[i][j] = alpha[i][0] - 1 / (gamma[i][j] * gamma[i][j]);
     // dprintf("eta_0[0] = %lf\n", eta_0[0]);
 }
 
-void GeneralParameters::_eta1() {
+void GeneralParameters::_eta1()
+{
     // eta_1 = new ftype[n_sections * (n_turns + 1)];
-    for (uint i = 0; i < n_sections; ++i)
-        for (uint j = 0; j < n_turns + 1; ++j)
+    for (int i = 0; i < n_sections; ++i)
+        for (int j = 0; j < n_turns + 1; ++j)
             eta_1[i][j] =
                 3 * beta[i][j] * beta[i][j] / (2 * gamma[i][j] * gamma[i][j]) +
                 alpha[i][1] - alpha[i][0] * eta_0[i][j];
 }
 
-void GeneralParameters::_eta2() {
+void GeneralParameters::_eta2()
+{
     // eta_2 = new ftype[n_sections * (n_turns + 1)];
-    for (uint i = 0; i < n_sections; ++i)
-        for (uint j = 0; j < n_turns + 1; ++j) {
+    for (int i = 0; i < n_sections; ++i)
+        for (int j = 0; j < n_turns + 1; ++j) {
             const ftype betasq = beta[i][j] * beta[i][j];
             ftype gammasq = gamma[i][j] * gamma[i][j];
             eta_1[i][j] = -betasq * (5 * betasq - 1) / (2 * gammasq) +

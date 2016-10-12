@@ -14,11 +14,12 @@
 #include <blond/llrf/PhaseLoop.h>
 #include <blond/utilities.h>
 
-enum solver_type { simple, full };
 
 class API RingAndRfSection {
 
 public:
+    enum solver_type { simple, full };
+
     RfParameters *fRfP;
 
     ftype elapsed_time;

@@ -66,8 +66,9 @@ int main(int argc, char **argv)
 
     f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 
-    Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
-                                        momentumVec, proton);
+    Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
+                                        alpha_order, momentumVec,
+                                        GeneralParameters::particle_t::proton);
 
     Context::Beam = new Beams(N_p, N_b);
 
@@ -84,7 +85,8 @@ int main(int argc, char **argv)
         new PSB(f_vector_t(N_t, 1.0 / 25e-6), f_vector_t{0, 0}, 10e-6, 7);
 
     auto long_tracker =
-        new RingAndRfSection(Context::RfP, simple, NULL, NULL, false);
+        new RingAndRfSection(Context::RfP, RingAndRfSection::simple,
+                             NULL, NULL, false);
 
     for (auto &v : Context::Beam->dE)
         v += 90.0e3;

@@ -62,9 +62,9 @@ protected:
 
         f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 
-        Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
-                                            momentumVec, proton);
-
+        Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
+                                            alpha_order, momentumVec,
+                                            GeneralParameters::particle_t::proton);
         Context::Beam = new Beams(N_p, N_b);
 
         Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
@@ -295,7 +295,8 @@ TEST_F(testInducedVoltage, convolution1)
 
     std::vector<Intensity *> wakeSourceList({resonator});
     auto indVoltTime =
-        new InducedVoltageTime(wakeSourceList, time_or_freq::time_domain);
+        new InducedVoltageTime(wakeSourceList,
+                               InducedVoltageTime::time_or_freq::time_domain);
     f_vector_t res = indVoltTime->induced_voltage_generation();
 
     std::string params = std::string(TEST_FILES "/Impedances/") +

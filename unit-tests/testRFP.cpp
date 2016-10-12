@@ -11,12 +11,13 @@ const std::string params = TEST_FILES "/RFP/RFP_params/";
 
 class testRFP : public ::testing::Test {
 
-  protected:
-    virtual void SetUp() {
+protected:
+    virtual void SetUp()
+    {
         omp_set_num_threads(1);
-        
+
         f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1));
-        for (auto& v : momentumVec)
+        for (auto &v : momentumVec)
             mymath::linspace(v.data(), p_i, p_f, N_t + 1);
 
         // f_vector_2d_t alphaVec(alpha_order + 1, f_vector_t(n_sections,
@@ -31,15 +32,17 @@ class testRFP : public ::testing::Test {
 
         f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 
-        Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
-                                            momentumVec, proton);
+        Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
+                                            alpha_order, momentumVec,
+                                            GeneralParameters::particle_t::proton);
 
         Context::Beam = new Beams(N_p, N_b);
 
         Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
     }
 
-    virtual void TearDown() {
+    virtual void TearDown()
+    {
         // Code here will be called immediately after each test
         // (right before the destructor).
         delete Context::GP;
@@ -47,7 +50,7 @@ class testRFP : public ::testing::Test {
         delete Context::RfP;
     }
 
-  private:
+private:
     const long long N_b = 1e9;  // Intensity
     // const ftype tau_0 = 0.4e-9; // Initial bunch length, 4 sigma [s]
 
@@ -70,7 +73,8 @@ class testRFP : public ::testing::Test {
     // const int N_slices = 10;
 };
 
-TEST_F(testRFP, test_length_ratio) {
+TEST_F(testRFP, test_length_ratio)
+{
     std::vector<ftype> v;
     util::read_vector_from_file(v, params + "length_ratio");
     // std::cout << v[0];
@@ -79,7 +83,8 @@ TEST_F(testRFP, test_length_ratio) {
     ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
-TEST_F(testRFP, test_E_increment) {
+TEST_F(testRFP, test_E_increment)
+{
     std::vector<ftype> v;
     util::read_vector_from_file(v, params + "E_increment");
     // std::cout << v.size() << std::endl;
@@ -90,7 +95,8 @@ TEST_F(testRFP, test_E_increment) {
     }
 }
 
-TEST_F(testRFP, test_phi_s) {
+TEST_F(testRFP, test_phi_s)
+{
     std::vector<ftype> v;
     util::read_vector_from_file(v, params + "phi_s");
     // std::cout << v.size() << std::endl;
@@ -101,7 +107,8 @@ TEST_F(testRFP, test_phi_s) {
     }
 }
 
-TEST_F(testRFP, test_Qs) {
+TEST_F(testRFP, test_Qs)
+{
     std::vector<ftype> v;
     util::read_vector_from_file(v, params + "Qs");
     // std::cout << v.size() << std::endl;
@@ -112,7 +119,8 @@ TEST_F(testRFP, test_Qs) {
     }
 }
 
-TEST_F(testRFP, test_omega_s0) {
+TEST_F(testRFP, test_omega_s0)
+{
     std::vector<ftype> v;
     util::read_vector_from_file(v, params + "omega_s0");
     // std::cout << v.size() << std::endl;
@@ -123,7 +131,8 @@ TEST_F(testRFP, test_omega_s0) {
     }
 }
 
-TEST_F(testRFP, test_omega_RF_d) {
+TEST_F(testRFP, test_omega_RF_d)
+{
     std::vector<ftype> v;
     util::read_vector_from_file(v, params + "omega_RF_d[0]");
     // std::cout << v.size() << std::endl;
@@ -134,7 +143,8 @@ TEST_F(testRFP, test_omega_RF_d) {
     }
 }
 
-TEST_F(testRFP, test_omega_RF) {
+TEST_F(testRFP, test_omega_RF)
+{
     std::vector<ftype> v;
     util::read_vector_from_file(v, params + "omega_RF[0]");
     // std::cout << v.size() << std::endl;
@@ -145,7 +155,8 @@ TEST_F(testRFP, test_omega_RF) {
     }
 }
 
-TEST_F(testRFP, test_t_RF) {
+TEST_F(testRFP, test_t_RF)
+{
     std::vector<ftype> v;
     util::read_vector_from_file(v, params + "t_RF");
     // std::cout << v.size() << std::endl;
@@ -156,7 +167,8 @@ TEST_F(testRFP, test_t_RF) {
     }
 }
 
-int main(int ac, char* av[]) {
+int main(int ac, char *av[])
+{
     ::testing::InitGoogleTest(&ac, av);
     return RUN_ALL_TESTS();
 }

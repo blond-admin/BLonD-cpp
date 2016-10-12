@@ -42,11 +42,12 @@ const std::string datafiles = DEMO_FILES "/LHC_restart/";
 // const int size = 14e6;
 const int from_line = 0;
 
-void parse_args(int argc, char** argv);
+void parse_args(int argc, char **argv);
 
 // Simulation setup
 // -------------------------------------------------------------
-int main(int argc, char** argv) {
+int main(int argc, char **argv)
+{
     parse_args(argc, argv);
     // Environmental variables
     /*
@@ -105,8 +106,9 @@ int main(int argc, char** argv) {
 
     f_vector_t CVec(n_sections, C);
 
-    Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
-                                        momentumVec, proton);
+    Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
+                                        alpha_order, momentumVec,
+                                        GeneralParameters::particle_t::proton);
     auto GP = Context::GP;
 
     printf("General parameters set...\n");
@@ -143,7 +145,7 @@ int main(int argc, char** argv) {
 
     f_vector_t PL_gainVec(N_t + 1, PL_gain);
 
-    LHC* PL = new LHC(PL_gainVec, SL_gain);
+    LHC *PL = new LHC(PL_gainVec, SL_gain);
 
     printf("\tPL gain is %.4e 1/s for initial turn T0 = %.4e s\n", PL->gain[0],
            GP->t_rev[0]);
@@ -154,8 +156,8 @@ int main(int argc, char** argv) {
     printf("\tSL t_i = %.4f t_f = %.4f\n", PL->lhc_t[0], PL->lhc_t[N_t]);
 
     // Injecting noise in the cavity, PL on
-    RingAndRfSection* long_tracker =
-        new RingAndRfSection(Context::RfP, simple, PL);
+    RingAndRfSection *long_tracker =
+        new RingAndRfSection(Context::RfP, RingAndRfSection::simple, PL);
     printf("PL, SL, and tracker set...\n");
 
     double slice_time = 0, track_time = 0;
@@ -214,7 +216,8 @@ int main(int argc, char** argv) {
     printf("Done!\n");
 }
 
-void parse_args(int argc, char** argv) {
+void parse_args(int argc, char **argv)
+{
     using namespace std;
     using namespace option;
 
@@ -229,24 +232,39 @@ void parse_args(int argc, char** argv) {
     };
 
     const option::Descriptor usage[] = {
-        {UNKNOWN, 0, "", "", Arg::None, "USAGE: ./LHC_restart [options]\n\n"
-                                        "Options:"},
-        {HELP, 0, "h", "help", Arg::None,
-         "  --help,              -h        Print usage and exit."},
-        {N_TURNS, 0, "t", "turns", util::Arg::Numeric,
-         "  --turns=<num>,       -t <num>  Number of turns (default: 1M)"},
-        {N_PARTICLES, 0, "p", "particles", util::Arg::Numeric,
-         "  --particles=<num>,   -p <num>  Number of particles (default: "
-         "100k)"},
-        {N_SLICES, 0, "s", "slices", util::Arg::Numeric,
-         "  --slices=<num>,      -s <num>  Number of slices (default: 151)"},
-        {N_THREADS, 0, "m", "threads", util::Arg::Numeric,
-         "  --threads=<num>,     -m <num>  Number of threads (default: 1)"},
-        {UNKNOWN, 0, "", "", Arg::None,
-         "\nExamples:\n"
-         "\t./LHC_restart\n"
-         "\t./LHC_restart -t 1000000 -p 100000 -m 4\n"},
-        {0, 0, 0, 0, 0, 0}};
+        {
+            UNKNOWN, 0, "", "", Arg::None, "USAGE: ./LHC_restart [options]\n\n"
+            "Options:"
+        },
+        {
+            HELP, 0, "h", "help", Arg::None,
+            "  --help,              -h        Print usage and exit."
+        },
+        {
+            N_TURNS, 0, "t", "turns", util::Arg::Numeric,
+            "  --turns=<num>,       -t <num>  Number of turns (default: 1M)"
+        },
+        {
+            N_PARTICLES, 0, "p", "particles", util::Arg::Numeric,
+            "  --particles=<num>,   -p <num>  Number of particles (default: "
+            "100k)"
+        },
+        {
+            N_SLICES, 0, "s", "slices", util::Arg::Numeric,
+            "  --slices=<num>,      -s <num>  Number of slices (default: 151)"
+        },
+        {
+            N_THREADS, 0, "m", "threads", util::Arg::Numeric,
+            "  --threads=<num>,     -m <num>  Number of threads (default: 1)"
+        },
+        {
+            UNKNOWN, 0, "", "", Arg::None,
+            "\nExamples:\n"
+            "\t./LHC_restart\n"
+            "\t./LHC_restart -t 1000000 -p 100000 -m 4\n"
+        },
+        {0, 0, 0, 0, 0, 0}
+    };
 
     argc -= (argc > 0);
     argv += (argc > 0); // skip program name argv[0] if present
@@ -261,31 +279,31 @@ void parse_args(int argc, char** argv) {
     }
 
     for (int i = 0; i < parse.optionsCount(); ++i) {
-        Option& opt = buffer[i];
+        Option &opt = buffer[i];
         // fprintf(stdout, "Argument #%d is ", i);
         switch (opt.index()) {
-        case HELP:
-        // not possible, because handled further above and exits the program
-        case N_TURNS:
-            N_t = atoi(opt.arg);
-            // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
-            break;
-        case N_THREADS:
-            Context::n_threads = atoi(opt.arg);
-            // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
-            break;
-        case N_SLICES:
-            N_slices = atoi(opt.arg);
-            // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
-            break;
-        case N_PARTICLES:
-            N_p = atoi(opt.arg);
-            // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
-            break;
-        case UNKNOWN:
-            // not possible because Arg::Unknown returns ARG_ILLEGAL
-            // which aborts the parse with an error
-            break;
+            case HELP:
+            // not possible, because handled further above and exits the program
+            case N_TURNS:
+                N_t = atoi(opt.arg);
+                // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
+                break;
+            case N_THREADS:
+                Context::n_threads = atoi(opt.arg);
+                // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
+                break;
+            case N_SLICES:
+                N_slices = atoi(opt.arg);
+                // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
+                break;
+            case N_PARTICLES:
+                N_p = atoi(opt.arg);
+                // fprintf(stdout, "--numeric with argument '%s'\n", opt.arg);
+                break;
+            case UNKNOWN:
+                // not possible because Arg::Unknown returns ARG_ILLEGAL
+                // which aborts the parse with an error
+                break;
         }
     }
 }

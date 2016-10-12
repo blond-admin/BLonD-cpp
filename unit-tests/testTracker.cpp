@@ -49,8 +49,9 @@ protected:
 
         f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 
-        Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
-                                            momentumVec, proton);
+        Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
+                                            alpha_order, momentumVec,
+                                            GeneralParameters::particle_t::proton);
 
         Context::Beam = new Beams(N_p, N_b);
 
@@ -326,8 +327,9 @@ protected:
 
         f_vector_2d_t dphiVec(n_rf, f_vector_t(N_t + 1, dphi));
 
-        Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
-                                            momentumVec, proton);
+        Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
+                                            alpha_order, momentumVec,
+                                            GeneralParameters::particle_t::proton);
 
         Context::Beam = new Beams(N_p, N_b);
 
@@ -409,7 +411,7 @@ protected:
     virtual void SetUp()
     {
         omp_set_num_threads(1);
-        
+
         f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1));
         for (auto &v : momentumVec)
             mymath::linspace(v.data(), p_i, p_f, N_t + 1);
@@ -424,8 +426,9 @@ protected:
 
         f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 
-        Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
-                                            momentumVec, proton);
+        Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
+                                            alpha_order, momentumVec,
+                                            GeneralParameters::particle_t::proton);
 
         Context::Beam = new Beams(N_p, N_b);
 
@@ -456,7 +459,7 @@ TEST_F(testTrackerPeriodicity, set_periodicity1)
     // auto epsilon = 1e-8;
     auto params = std::string(TEST_FILES "/Tracker/periodicity/set_periodicity1/");
 
-    auto long_tracker = new RingAndRfSection(Context::RfP, simple,
+    auto long_tracker = new RingAndRfSection(Context::RfP, RingAndRfSection::simple,
             NULL, NULL, true, 0.0);
 
     auto mean = mymath::mean(Beam->dt.data(), Beam->dt.size());
@@ -500,7 +503,7 @@ TEST_F(testTrackerPeriodicity, track1)
     auto mean = mymath::mean(Beam->dt.data(), Beam->dt.size());
     Context::GP->t_rev[Context::RfP->counter + 1] = mean;
 
-    auto long_tracker = new RingAndRfSection(Context::RfP, simple,
+    auto long_tracker = new RingAndRfSection(Context::RfP, RingAndRfSection::simple,
             NULL, NULL, true, 0.0);
 
 
@@ -542,7 +545,7 @@ TEST_F(testTrackerPeriodicity, track2)
     int size = GP->t_rev.size();
     GP->t_rev = f_vector_t(size, mean);
 
-    auto long_tracker = new RingAndRfSection(Context::RfP, simple,
+    auto long_tracker = new RingAndRfSection(Context::RfP, RingAndRfSection::simple,
             NULL, NULL, true, 0.0);
 
 

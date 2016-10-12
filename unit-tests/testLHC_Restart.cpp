@@ -14,19 +14,20 @@
 // const ftype epsilon = 1e-3;
 const std::string params = TEST_FILES "/PL/LHC_restart_params/";
 
-LHC* PL;
-RingAndRfSection* long_tracker;
+LHC *PL;
+RingAndRfSection *long_tracker;
 
 class testLHC_Restart : public ::testing::Test {
 
-  protected:
+protected:
     const int N_p = 100000; // Macro-particles
     // const ftype tau_0 = 0.4e-9;          // Initial bunch length, 4 sigma [s]
     const uint N_t = 1000000; // Number of turns to track; full ramp: 8700001
 
     const int N_slices = 151;
 
-    virtual void SetUp() {
+    virtual void SetUp()
+    {
         // printf("ok here\n");
         omp_set_num_threads(1);
 
@@ -54,8 +55,9 @@ class testLHC_Restart : public ::testing::Test {
 
         f_vector_t CVec(n_sections, C);
 
-        Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
-                                            momentumVec, proton);
+        Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
+                                            alpha_order, momentumVec,
+                                            GeneralParameters::particle_t::proton);
         auto GP = Context::GP;
         // Define rf_params
         f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
@@ -88,10 +90,12 @@ class testLHC_Restart : public ::testing::Test {
 
         PL = new LHC(PL_gainVec, SL_gain);
 
-        long_tracker = new RingAndRfSection(Context::RfP, simple, PL);
+        long_tracker = new RingAndRfSection(Context::RfP,
+                                            RingAndRfSection::simple, PL);
     }
 
-    virtual void TearDown() {
+    virtual void TearDown()
+    {
         // Code here will be called immediately after each test
         // (right before the destructor).
         delete Context::GP;
@@ -102,7 +106,7 @@ class testLHC_Restart : public ::testing::Test {
         delete long_tracker;
     }
 
-  private:
+private:
     // Machine and RF parameters
     const float C = 26658.883;                  // Machine circumference [m]
     const int h = 35640;                        // Harmonic number
@@ -122,7 +126,8 @@ class testLHC_Restart : public ::testing::Test {
     const int from_line = 0;
 };
 
-TEST_F(testLHC_Restart, dphi_RF_and_dphi) {
+TEST_F(testLHC_Restart, dphi_RF_and_dphi)
+{
     auto RfP = Context::RfP;
     auto Beam = Context::Beam;
     auto Slice = Context::Slice;
@@ -158,7 +163,7 @@ TEST_F(testLHC_Restart, dphi_RF_and_dphi) {
         ftype ref = v[i];
         ftype real = real1[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of dphi_RF failed on i " << i << std::endl;
+                << "Testing of dphi_RF failed on i " << i << std::endl;
     }
 
     epsilon = 1e-3;
@@ -170,7 +175,7 @@ TEST_F(testLHC_Restart, dphi_RF_and_dphi) {
         ftype ref = v[i];
         ftype real = real2[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of dphi failed on i " << i << std::endl;
+                << "Testing of dphi failed on i " << i << std::endl;
     }
 
     epsilon = 5e-1;
@@ -182,7 +187,7 @@ TEST_F(testLHC_Restart, dphi_RF_and_dphi) {
         ftype ref = v[i];
         ftype real = Beam->dE[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of dE failed on i " << i << std::endl;
+                << "Testing of dE failed on i " << i << std::endl;
     }
 
     epsilon = 1e-6;
@@ -194,7 +199,7 @@ TEST_F(testLHC_Restart, dphi_RF_and_dphi) {
         ftype ref = v[i];
         ftype real = Beam->dt[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of dt failed on i " << i << std::endl;
+                << "Testing of dt failed on i " << i << std::endl;
     }
 
     epsilon = 1e-8;
@@ -206,11 +211,12 @@ TEST_F(testLHC_Restart, dphi_RF_and_dphi) {
         ftype ref = v[i];
         ftype real = Slice->n_macroparticles[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of n_macroparticles failed on i " << i << std::endl;
+                << "Testing of n_macroparticles failed on i " << i << std::endl;
     }
 }
 
-int main(int ac, char* av[]) {
+int main(int ac, char *av[])
+{
     ::testing::InitGoogleTest(&ac, av);
     return RUN_ALL_TESTS();
 }

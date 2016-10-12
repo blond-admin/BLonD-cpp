@@ -53,8 +53,9 @@ protected:
 
         f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 
-        Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
-                                            momentumVec, proton);
+        Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
+                                            alpha_order, momentumVec,
+                                            GeneralParameters::particle_t::proton);
 
         Context::Beam = new Beams(N_p, N_b);
 
@@ -148,7 +149,7 @@ TEST_F(testInducedVoltageFreq, constructor2)
     std::vector<Intensity *> ImpSourceList({resonator});
 
     auto indVoltFreq =
-        new InducedVoltageFreq(ImpSourceList, 1e5, round_option, 100);
+        new InducedVoltageFreq(ImpSourceList, 1e5, InducedVoltageFreq::round_option, 100);
 
     auto params = std::string(TEST_FILES "/Impedances/") +
                   "InducedVoltage/InducedVoltageFreq/constructor2/";

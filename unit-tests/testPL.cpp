@@ -11,15 +11,16 @@
 const ftype epsilon = 1e-7;
 const std::string params = TEST_FILES "/PL/PL_params/";
 
-LHC* PL;
-RingAndRfSection* long_tracker;
+LHC *PL;
+RingAndRfSection *long_tracker;
 
 class testPL : public ::testing::Test {
 
-  protected:
+protected:
     // const ftype tau_0 = 0.4e-9;          // Initial bunch length, 4 sigma [s]
 
-    virtual void SetUp() {
+    virtual void SetUp()
+    {
         omp_set_num_threads(1);
 
         f_vector_2d_t momentumVec(1, f_vector_t());
@@ -46,8 +47,9 @@ class testPL : public ::testing::Test {
 
         f_vector_t CVec(n_sections, C);
 
-        Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
-                                            momentumVec, proton);
+        Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
+                                            alpha_order, momentumVec,
+                                            GeneralParameters::particle_t::proton);
         auto GP = Context::GP;
         f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 
@@ -78,10 +80,13 @@ class testPL : public ::testing::Test {
         PL = new LHC(PL_gainVec, SL_gain);
 
         // Injecting noise in the cavity, PL on
-        long_tracker = new RingAndRfSection(Context::RfP, simple, PL);
+        long_tracker = new RingAndRfSection(Context::RfP,
+                                            RingAndRfSection::simple,
+                                            PL);
     }
 
-    virtual void TearDown() {
+    virtual void TearDown()
+    {
         // Code here will be called immediately after each test
         // (right before the destructor).
         delete Context::GP;
@@ -92,7 +97,7 @@ class testPL : public ::testing::Test {
         delete long_tracker;
     }
 
-  private:
+private:
     // Machine and RF parameters
     const float C = 26658.883;                  // Machine circumference [m]
     const int h = 35640;                        // Harmonic number
@@ -117,9 +122,10 @@ class testPL : public ::testing::Test {
 
 class testPL2 : public ::testing::Test {
 
-    virtual void SetUp() {
+    virtual void SetUp()
+    {
         omp_set_num_threads(1);
-        
+
         f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1, p_i));
 
         f_vector_2d_t alphaVec(n_sections, f_vector_t(alpha_order + 1, alpha));
@@ -132,8 +138,9 @@ class testPL2 : public ::testing::Test {
 
         f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 
-        Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
-                                            momentumVec, proton);
+        Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
+                                            alpha_order, momentumVec,
+                                            GeneralParameters::particle_t::proton);
 
         Context::Beam = new Beams(N_p, N_b);
 
@@ -145,7 +152,8 @@ class testPL2 : public ::testing::Test {
                                     Slices::cuts_unit_t::rad);
     }
 
-    virtual void TearDown() {
+    virtual void TearDown()
+    {
         // Code here will be called immediately after each test
         // (right before the destructor).
         delete Context::GP;
@@ -155,7 +163,7 @@ class testPL2 : public ::testing::Test {
         // delete long_tracker;
     }
 
-  protected:
+protected:
     // Bunch parameters
     const uint N_b = 0; // Intensity
 
@@ -179,7 +187,8 @@ class testPL2 : public ::testing::Test {
     uint N_slices = 200; // = (2^8)
 };
 
-TEST_F(testPL2, radial_difference1) {
+TEST_F(testPL2, radial_difference1)
+{
     longitudinal_bigaussian(1e-9, 10e6, 42, false);
     auto long_tracker = RingAndRfSection();
 
@@ -213,12 +222,13 @@ TEST_F(testPL2, radial_difference1) {
     real = mymath::standard_deviation(drho.data(), drho.size());
 
     ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-        << "Testing of drho_std failed\n";
+            << "Testing of drho_std failed\n";
 
     delete sps;
 }
 
-TEST_F(testPL2, radial_steering_from_freq1) {
+TEST_F(testPL2, radial_steering_from_freq1)
+{
     auto RfP = Context::RfP;
     longitudinal_bigaussian(100e-9, 1e6, 1, false);
     auto long_tracker = RingAndRfSection();
@@ -251,7 +261,7 @@ TEST_F(testPL2, radial_steering_from_freq1) {
         auto real = RfP->omega_RF[0][i];
         // std::cout << real << "\n";
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of RfP->omega_RF failed on i " << i << std::endl;
+                << "Testing of RfP->omega_RF failed on i " << i << std::endl;
     }
 
     v.clear();
@@ -267,8 +277,8 @@ TEST_F(testPL2, radial_steering_from_freq1) {
         // std::cout << real << "\n";
 
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of RfP->dphi_RF_steering failed on i " << i
-            << std::endl;
+                << "Testing of RfP->dphi_RF_steering failed on i " << i
+                << std::endl;
     }
 
     v.clear();
@@ -284,7 +294,7 @@ TEST_F(testPL2, radial_steering_from_freq1) {
         // std::cout << real << "\n";
 
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of RfP->phi_RF failed on i " << i << std::endl;
+                << "Testing of RfP->phi_RF failed on i " << i << std::endl;
     }
 
     v.clear();
@@ -292,7 +302,8 @@ TEST_F(testPL2, radial_steering_from_freq1) {
     delete sps;
 }
 
-TEST_F(testPL, lhc_a) {
+TEST_F(testPL, lhc_a)
+{
 
     std::vector<ftype> v;
     util::read_vector_from_file(v, params + "lhc_a");
@@ -310,7 +321,8 @@ TEST_F(testPL, lhc_a) {
     // printf("ok here\n");
 }
 
-TEST_F(testPL, lhc_t) {
+TEST_F(testPL, lhc_t)
+{
 
     std::vector<ftype> v;
     util::read_vector_from_file(v, params + "lhc_t");
@@ -325,7 +337,8 @@ TEST_F(testPL, lhc_t) {
     }
 }
 
-TEST_F(testPL, phi_beam) {
+TEST_F(testPL, phi_beam)
+{
     Context::Slice->track();
     PL->beam_phase();
 
@@ -336,7 +349,8 @@ TEST_F(testPL, phi_beam) {
     ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
-TEST_F(testPL, dphi) {
+TEST_F(testPL, dphi)
+{
     Context::Slice->track();
     PL->beam_phase();
     PL->phase_difference();
@@ -348,7 +362,8 @@ TEST_F(testPL, dphi) {
     ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
-TEST_F(testPL, domega_RF) {
+TEST_F(testPL, domega_RF)
+{
     Context::Slice->track();
     PL->beam_phase();
     PL->phase_difference();
@@ -360,7 +375,8 @@ TEST_F(testPL, domega_RF) {
     ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
-TEST_F(testPL, lhc_y) {
+TEST_F(testPL, lhc_y)
+{
     Context::Slice->track();
     PL->beam_phase();
     PL->phase_difference();
@@ -372,7 +388,8 @@ TEST_F(testPL, lhc_y) {
     ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
-TEST_F(testPL, omega_RF) {
+TEST_F(testPL, omega_RF)
+{
     auto RfP = Context::RfP;
     Context::Slice->track();
 
@@ -389,7 +406,8 @@ TEST_F(testPL, omega_RF) {
     ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
-TEST_F(testPL, dphi_RF) {
+TEST_F(testPL, dphi_RF)
+{
     Context::Slice->track();
     PL->beam_phase();
     PL->phase_difference();
@@ -403,7 +421,8 @@ TEST_F(testPL, dphi_RF) {
     ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
-TEST_F(testPL, phi_RF) {
+TEST_F(testPL, phi_RF)
+{
     auto RfP = Context::RfP;
 
     Context::Slice->track();
@@ -421,7 +440,8 @@ TEST_F(testPL, phi_RF) {
     ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
-int main(int ac, char* av[]) {
+int main(int ac, char *av[])
+{
     ::testing::InitGoogleTest(&ac, av);
     return RUN_ALL_TESTS();
 }

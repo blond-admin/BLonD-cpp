@@ -86,8 +86,9 @@ int main(int argc, char **argv)
 
     f_vector_t CVec(n_sections, C);
 
-    auto GP = Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
-            momentumVec, proton);
+    auto GP = Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
+            alpha_order, momentumVec,
+            GeneralParameters::particle_t::proton);
 
     cout << "General parameters set...\n";
     // Define rf_params
@@ -106,9 +107,9 @@ int main(int argc, char **argv)
                                 "initial_coords.dat");
     int k = 0;
     for (unsigned int i = 0; i < v2.size(); i += 3) {
-        Context::Beam->dt[k] = v2[i];     // [s]
-        Context::Beam->dE[k] = v2[i + 1]; // [eV]
-        Context::Beam->id[k] = v2[i + 2];
+        Beam->dt[k] = v2[i];     // [s]
+        Beam->dE[k] = v2[i + 1]; // [eV]
+        Beam->id[k] = v2[i + 2];
         k++;
     }
 
@@ -131,7 +132,7 @@ int main(int argc, char **argv)
     cout << "Phase noise feedback set...\n";
 
     // Define phase loop and frequency loop gain
-    ftype PL_gain = 1 / (5 * Context::GP->t_rev[0]);
+    ftype PL_gain = 1 / (5 * GP->t_rev[0]);
     ftype SL_gain = PL_gain / 10;
 
     f_vector_t PL_gainVec(N_t + 1, PL_gain);
@@ -139,15 +140,15 @@ int main(int argc, char **argv)
     auto PL = new LHC(PL_gainVec, SL_gain, 0, phaseNoise, noiseFB);
 
     printf("\tPL gain is %.4e 1/s for initial turn T0 = %.4e s\n", PL->gain[0],
-           Context::GP->t_rev[0]);
+           GP->t_rev[0]);
     printf("\tSL gain is %.4e turns\n", PL->gain2);
     printf("\tOmega_s0 = %.4e s at flat bottom, %.4e s at flat top\n",
-           Context::RfP->omega_s0[0], Context::RfP->omega_s0[N_t]);
+           RfP->omega_s0[0], RfP->omega_s0[N_t]);
     printf("\tSL a_i = %.4f a_f = %.4f\n", PL->lhc_a[0], PL->lhc_a[N_t]);
     printf("\tSL t_i = %.4f t_f = %.4f\n", PL->lhc_t[0], PL->lhc_t[N_t]);
 
     // Injecting noise in the cavity, PL on
-    auto long_tracker = new RingAndRfSection(Context::RfP, simple, PL);
+    auto long_tracker = new RingAndRfSection(RfP, RingAndRfSection::simple, PL);
 
 
     printf("PL, SL, and tracker set...\n");
@@ -178,7 +179,7 @@ int main(int argc, char **argv)
                     + "threads.h5";
     auto monitor = new BunchMonitor(GP, RfP, Beam, h5file,
                                     dt_save, Slice, PL, noiseFB);
-    
+
     // monitor->fCompressionLevel = 0;
     // double slice_time = 0, track_time = 0;
     double turn_time = 0.0;

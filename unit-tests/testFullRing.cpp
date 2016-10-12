@@ -54,8 +54,9 @@ protected:
 
         f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 
-        Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
-                                            momentumVec, proton);
+        Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
+                                            alpha_order, momentumVec,
+                                            GeneralParameters::particle_t::proton);
 
         Context::Beam = new Beams(N_p, N_b);
 
@@ -92,7 +93,7 @@ TEST_F(testFullRing, constructor1)
     
     longitudinal_bigaussian(200e-9, 1e6, -1, false);
 
-    auto long_tracker = new RingAndRfSection(RfP, simple);
+    auto long_tracker = new RingAndRfSection(RfP);
     std::vector<RingAndRfSection *> trackerList{long_tracker, long_tracker};
     auto fullRing = new FullRingAndRf(trackerList);
 
@@ -121,7 +122,7 @@ TEST_F(testFullRing, track1)
 
     longitudinal_bigaussian(200e-9, 1e6, -1, false);
 
-    auto long_tracker = new RingAndRfSection(RfP, simple);
+    auto long_tracker = new RingAndRfSection(RfP);
     std::vector<RingAndRfSection *> trackerList{long_tracker, long_tracker};
     auto fullRing = new FullRingAndRf(trackerList);
 
@@ -194,7 +195,7 @@ TEST_F(testFullRing, potential_well_generation1)
     auto params = std::string(TEST_FILES "/FullRing/potential_well_generation1/");
     auto epsilon = 1e-8;
 
-    auto long_tracker = new RingAndRfSection(RfP, simple);
+    auto long_tracker = new RingAndRfSection(RfP);
     std::vector<RingAndRfSection *> trackerList{long_tracker};
     auto fullRing = new FullRingAndRf(trackerList);
 
@@ -231,7 +232,7 @@ TEST_F(testFullRing, potential_well_generation2)
     auto params = std::string(TEST_FILES "/FullRing/potential_well_generation2/");
     auto epsilon = 1e-8;
 
-    auto long_tracker = new RingAndRfSection(RfP, simple);
+    auto long_tracker = new RingAndRfSection(RfP);
     std::vector<RingAndRfSection *> trackerList{long_tracker, long_tracker};
     auto fullRing = new FullRingAndRf(trackerList);
 

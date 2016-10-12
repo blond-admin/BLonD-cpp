@@ -22,8 +22,9 @@ protected:
 
         f_vector_t CVec(n_sections, C);
 
-        Context::GP = new GeneralParameters(N_t, CVec, alphaVec, alpha_order,
-                                            momentumVec, proton);
+        Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
+                                            alpha_order, momentumVec,
+                                            GeneralParameters::particle_t::proton);
     }
 
     virtual void TearDown()

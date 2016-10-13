@@ -82,7 +82,276 @@ protected:
     }
 };
 
-TEST_F(testDistributions, matched_from_line_density1)
+TEST(testDistributions, line_density_function1)
+{
+    auto epsilon = 1e-8;
+    auto params = std::string(TEST_FILES "/Distributions/line_density_function1/");
+
+    int size = 100;
+    f_vector_t coord_array(size);
+    for (int i = 0; i < size; i++) {
+        coord_array[i] = cos(i);
+    }
+
+    string dist_type = "waterbag";
+    double bunch_length = 1.5;
+    auto ret = line_density_function(coord_array, dist_type, bunch_length);
+
+    f_vector_t v;
+    util::read_vector_from_file(v, params + "density.txt");
+
+    ASSERT_EQ(v.size(), ret.size());
+    for (uint i = 0; i < v.size(); ++i) {
+        auto ref = v[i];
+        auto real = ret[i];
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
+                << "Testing of density failed on i " << i << endl;
+    }
+
+
+}
+
+
+TEST(testDistributions, line_density_function2)
+{
+    auto epsilon = 1e-8;
+    auto params = std::string(TEST_FILES "/Distributions/line_density_function2/");
+    int size = 100;
+
+    f_vector_t coord_array(size);
+    for (int i = 0; i < size; i++) {
+        coord_array[i] = cos(i);
+    }
+
+    string dist_type = "binomial";
+    double bunch_length = 1.;
+    auto ret = line_density_function(coord_array, dist_type, bunch_length,
+                                     0.5, 0.6);
+    f_vector_t v;
+    util::read_vector_from_file(v, params + "density.txt");
+
+    ASSERT_EQ(v.size(), ret.size());
+    for (uint i = 0; i < v.size(); ++i) {
+        auto ref = v[i];
+        auto real = ret[i];
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
+                << "Testing of density failed on i " << i << endl;
+    }
+
+}
+
+TEST(testDistributions, line_density_function3)
+{
+    auto epsilon = 1e-8;
+    auto params = std::string(TEST_FILES "/Distributions/line_density_function3/");
+    int size = 100;
+
+    f_vector_t coord_array(size);
+    for (int i = 0; i < size; i++) {
+        coord_array[i] = cos(i);
+    }
+
+    string dist_type = "parabolic_line";
+    double bunch_length = 2.;
+    auto ret = line_density_function(coord_array, dist_type, bunch_length);
+    f_vector_t v;
+    util::read_vector_from_file(v, params + "density.txt");
+
+    ASSERT_EQ(v.size(), ret.size());
+    for (uint i = 0; i < v.size(); ++i) {
+        auto ref = v[i];
+        auto real = ret[i];
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
+                << "Testing of density failed on i " << i << endl;
+    }
+
+}
+
+TEST(testDistributions, line_density_function4)
+{
+    auto epsilon = 1e-8;
+    auto params = std::string(TEST_FILES "/Distributions/line_density_function4/");
+    int size = 100;
+
+    f_vector_t coord_array(size);
+    for (int i = 0; i < size; i++) {
+        coord_array[i] = cos(i);
+    }
+
+    string dist_type = "gaussian";
+    double bunch_length = 1.2;
+    auto ret = line_density_function(coord_array, dist_type, bunch_length, 1.);
+    f_vector_t v;
+    util::read_vector_from_file(v, params + "density.txt");
+
+    ASSERT_EQ(v.size(), ret.size());
+    for (uint i = 0; i < v.size(); ++i) {
+        auto ref = v[i];
+        auto real = ret[i];
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
+                << "Testing of density failed on i " << i << endl;
+    }
+
+}
+
+
+TEST(testDistributions, line_density_function5)
+{
+    auto epsilon = 1e-8;
+    auto params = std::string(TEST_FILES "/Distributions/line_density_function5/");
+    int size = 100;
+
+    f_vector_t coord_array(size);
+    for (int i = 0; i < size; i++) {
+        coord_array[i] = cos(i);
+    }
+
+    string dist_type = "cosine_squared";
+    double bunch_length = 1.2;
+    auto ret = line_density_function(coord_array, dist_type, bunch_length, 1.);
+    f_vector_t v;
+    util::read_vector_from_file(v, params + "density.txt");
+
+    ASSERT_EQ(v.size(), ret.size());
+    for (uint i = 0; i < v.size(); ++i) {
+        auto ref = v[i];
+        auto real = ret[i];
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
+                << "Testing of density failed on i " << i << endl;
+    }
+
+}
+
+TEST(testDistributions, line_density_function_deathtest1)
+{
+    f_vector_t x;
+    ASSERT_DEATH(line_density_function(x, "blabla", 0.),
+                 "[line_density_function]\\s*");
+}
+
+
+TEST(testDistributions, distribution_density_function_deathtest1)
+{
+    f_vector_t x;
+    ASSERT_DEATH(distribution_density_function(x, "blabla", 0.),
+                 "[distribution_density_function]\\s*");
+}
+
+
+TEST(testDistributions, distribution_density_function1)
+{
+    auto epsilon = 1e-8;
+    auto params = std::string(TEST_FILES "/Distributions/distribution_density_function1/");
+    int size = 100;
+
+    f_vector_t coord_array(size);
+    for (int i = 0; i < size; i++) {
+        coord_array[i] = cos(i);
+    }
+
+    string dist_type = "binomial";
+    double bunch_length = 2.;
+    auto ret = distribution_density_function(coord_array, dist_type, bunch_length, 0.7);
+    f_vector_t v;
+    util::read_vector_from_file(v, params + "density.txt");
+
+    ASSERT_EQ(v.size(), ret.size());
+    for (uint i = 0; i < v.size(); ++i) {
+        auto ref = v[i];
+        auto real = ret[i];
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
+                << "Testing of density failed on i " << i << endl;
+    }
+
+}
+
+
+TEST(testDistributions, distribution_density_function2)
+{
+    auto epsilon = 1e-8;
+    auto params = std::string(TEST_FILES "/Distributions/distribution_density_function2/");
+    int size = 100;
+
+    f_vector_t coord_array(size);
+    for (int i = 0; i < size; i++) {
+        coord_array[i] = cos(i);
+    }
+
+    string dist_type = "waterbag";
+    double bunch_length = 2.;
+    auto ret = distribution_density_function(coord_array, dist_type, bunch_length);
+    f_vector_t v;
+    util::read_vector_from_file(v, params + "density.txt");
+
+    ASSERT_EQ(v.size(), ret.size());
+    for (uint i = 0; i < v.size(); ++i) {
+        auto ref = v[i];
+        auto real = ret[i];
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
+                << "Testing of density failed on i " << i << endl;
+    }
+
+}
+
+TEST(testDistributions, distribution_density_function3)
+{
+    auto epsilon = 1e-8;
+    auto params = std::string(TEST_FILES "/Distributions/distribution_density_function3/");
+    int size = 100;
+
+    f_vector_t coord_array(size);
+    for (int i = 0; i < size; i++) {
+        coord_array[i] = cos(i);
+    }
+
+    string dist_type = "parabolic_line";
+    double bunch_length = 2.;
+    auto ret = distribution_density_function(coord_array, dist_type, bunch_length, 1.1);
+    f_vector_t v;
+    util::read_vector_from_file(v, params + "density.txt");
+
+    ASSERT_EQ(v.size(), ret.size());
+    for (uint i = 0; i < v.size(); ++i) {
+        auto ref = v[i];
+        auto real = ret[i];
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
+                << "Testing of density failed on i " << i << endl;
+    }
+
+}
+
+
+TEST(testDistributions, distribution_density_function4)
+{
+    auto epsilon = 1e-8;
+    auto params = std::string(TEST_FILES "/Distributions/distribution_density_function4/");
+    int size = 100;
+
+    f_vector_t coord_array(size);
+    for (int i = 0; i < size; i++) {
+        coord_array[i] = cos(i);
+    }
+
+    string dist_type = "gaussian";
+    double bunch_length = 3.;
+    auto ret = distribution_density_function(coord_array, dist_type, bunch_length);
+    f_vector_t v;
+    util::read_vector_from_file(v, params + "density.txt");
+
+    ASSERT_EQ(v.size(), ret.size());
+    for (uint i = 0; i < v.size(); ++i) {
+        auto ref = v[i];
+        auto real = ret[i];
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
+                << "Testing of density failed on i " << i << endl;
+    }
+
+}
+
+
+
+
+TEST_F(testDistributions, DISABLED_matched_from_line_density1)
 {
     auto RfP = Context::RfP;
     auto beam = Context::Beam;
@@ -127,7 +396,7 @@ TEST_F(testDistributions, matched_from_line_density1)
 
 
 
-TEST_F(testDistributions, matched_from_line_density2)
+TEST_F(testDistributions, DISABLED_matched_from_line_density2)
 {
     auto RfP = Context::RfP;
     auto beam = Context::Beam;
@@ -172,7 +441,7 @@ TEST_F(testDistributions, matched_from_line_density2)
 }
 
 
-TEST_F(testDistributions, matched_from_distribution_density1)
+TEST_F(testDistributions, DISABLED_matched_from_distribution_density1)
 {
     auto RfP = Context::RfP;
     auto beam = Context::Beam;
@@ -217,7 +486,7 @@ TEST_F(testDistributions, matched_from_distribution_density1)
 }
 
 
-TEST_F(testDistributions, matched_from_distribution_density2)
+TEST_F(testDistributions, DISABLED_matched_from_distribution_density2)
 {
     auto RfP = Context::RfP;
     auto beam = Context::Beam;

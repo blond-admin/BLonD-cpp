@@ -45,7 +45,7 @@ RfParameters::RfParameters(uint n_rf, f_vector_2d_t harmonic,
 
     // TODO: check with multi Rf
     E_increment.resize(GP->n_turns);
-    for (uint j = 0; j < GP->n_turns; ++j) {
+    for (int j = 0; j < GP->n_turns; ++j) {
         E_increment[j] = energy(j + 1) - energy(j);
     }
 
@@ -53,14 +53,14 @@ RfParameters::RfParameters(uint n_rf, f_vector_2d_t harmonic,
     calc_phi_s(phi_s.data(), this, accelerating_systems);
 
     this->Qs.resize(GP->n_turns + 1);
-    for (uint i = 0; i < GP->n_turns + 1; ++i)
+    for (int i = 0; i < GP->n_turns + 1; ++i)
         Qs[i] = std::sqrt(harmonic[idx][i] * GP->charge * voltage[idx][i] *
                           std::fabs(eta_0(i) * cos(phi_s[i])) /
                           (2 * constant::pi * beta(i) *
                            beta(i) * energy(i)));
 
     this->omega_s0.resize(GP->n_turns + 1);
-    for (uint i = 0; i < (GP->n_turns + 1); ++i)
+    for (int i = 0; i < (GP->n_turns + 1); ++i)
         this->omega_s0[i] = Qs[i] * GP->omega_rev[i];
 
     this->omega_RF_d.resize(n_rf, f_vector_t(GP->n_turns + 1));
@@ -72,7 +72,7 @@ RfParameters::RfParameters(uint n_rf, f_vector_2d_t harmonic,
     // printf("ring_circumference = %.12lf\n", GP->ring_circumference);
 
     for (uint i = 0; i < n_rf; ++i)
-        for (uint j = 0; j < GP->n_turns + 1; ++j)
+        for (int j = 0; j < GP->n_turns + 1; ++j)
             omega_RF_d[i][j] = 2 * constant::pi * beta(j) * constant::c *
                                harmonic[i][j] / GP->ring_circumference;
     // printf("omega_RF_d = %.12lf\n", omega_RF_d[0][0]);
@@ -87,7 +87,7 @@ RfParameters::RfParameters(uint n_rf, f_vector_2d_t harmonic,
     this->dphi_RF.resize(n_rf, 0);
     this->dphi_RF_steering.resize(n_rf, 0);
     t_RF.resize(GP->n_turns + 1);
-    for (uint i = 0; i < GP->n_turns + 1; ++i)
+    for (int i = 0; i < GP->n_turns + 1; ++i)
         t_RF[i] = 2 * constant::pi / omega_RF[idx][i];
 }
 
@@ -161,27 +161,27 @@ void calc_phi_s(ftype *out, RfParameters *rfp,
     if (acc_sys == RfParameters::accelerating_systems_t::as_single) {
 
         ftype *denergy = new ftype[n_turns + 1];
-        for (uint j = 0; j < n_turns; ++j)
+        for (int j = 0; j < n_turns; ++j)
             denergy[j] = rfp->E_increment[j];
         denergy[n_turns] = rfp->E_increment[n_turns - 1];
 
         ftype *acceleration_ratio = new ftype[n_turns + 1];
-        for (uint i = 0; i < n_turns + 1; ++i)
+        for (int i = 0; i < n_turns + 1; ++i)
             acceleration_ratio[i] =
                 denergy[i] / (GP->charge * rfp->voltage[rfp->idx][i]);
 
-        for (uint i = 0; i < n_turns + 1; ++i)
+        for (int i = 0; i < n_turns + 1; ++i)
             if (acceleration_ratio[i] > 1 || acceleration_ratio[i] < -1)
                 dprintf("Warning!!! Acceleration is not possible (momentum "
                         "increment "
                         "is too big or voltage too low) at index %d\n",
                         i);
 
-        for (uint i = 0; i < n_turns + 1; ++i)
+        for (int i = 0; i < n_turns + 1; ++i)
             out[i] = asin(acceleration_ratio[i]);
 
         // ftype *eta0_middle_points = new ftype[n_turns +1];
-        for (uint i = 0; i < n_turns; ++i) {
+        for (int i = 0; i < n_turns; ++i) {
             ftype middle = (rfp->eta_0(i) + rfp->eta_0(i + 1)) / 2;
             if (middle > 0)
                 out[i] = constant::pi - out[i];
@@ -208,7 +208,7 @@ void calc_phi_s(ftype *out, RfParameters *rfp,
 
         f_vector_t transition_phase_offset(n_turns + 1);
         // = new ftype[n_turns + 1];
-        for (uint i = 0; i < n_turns + 1; ++i) {
+        for (int i = 0; i < n_turns + 1; ++i) {
             out[i] = 0;
             if (rfp->eta_0(i) > 0)
                 transition_phase_offset[i] = constant::pi;
@@ -219,7 +219,7 @@ void calc_phi_s(ftype *out, RfParameters *rfp,
         mymath::linspace(phase_array.data(), -constant::pi * 1.2,
                          constant::pi * 1.2, 1000);
 
-        for (uint i = 0; i < n_turns; ++i) {
+        for (int i = 0; i < n_turns; ++i) {
             f_vector_t totalRF(1000, 0); // = { };
             for (uint j = 0; j < n_rf; ++j) {
                 ftype min = rfp->harmonic[0][i];
@@ -228,7 +228,7 @@ void calc_phi_s(ftype *out, RfParameters *rfp,
                 // ftype min = rfp->harmonic[mymath::min(rfp->harmonic, n_rf,
                 // n_turns +
                 // 1)];
-                for (uint k = 0; k < 1000; ++k) {
+                for (int k = 0; k < 1000; ++k) {
                     totalRF[k] +=
                         rfp->voltage[j][i + 1] *
                         std::sin((rfp->harmonic[j][i + 1] / min) *
@@ -242,7 +242,7 @@ void calc_phi_s(ftype *out, RfParameters *rfp,
 
             ftype potential_well[1000] = {0};
             ftype *f = new ftype[1000];
-            for (uint k = 0; k < 1000; ++k) {
+            for (int k = 0; k < 1000; ++k) {
                 f[k] = totalRF[k] - rfp->E_increment[i] / GP->charge;
             }
 
@@ -253,12 +253,12 @@ void calc_phi_s(ftype *out, RfParameters *rfp,
             auto trap =
                 mymath::cum_trapezoid(f, phase_array[1] - phase_array[0], 1000);
 
-            for (uint k = 0; k < 1000; ++k) {
+            for (int k = 0; k < 1000; ++k) {
                 potential_well[k] = transition_factor * trap[k];
             }
             // dump(potential_well, 10, "potential_well\n");
 
-            // TODO why mean here? line BLonD-minimal::rf_parameter.py:334
+            // TODO is this correct? line BLonD-minimal::rf_parameter.py:334
             out[i + 1] = phase_array[mymath::min(potential_well, 1000, 1)] +
                          transition_phase_offset[i + 1];
         }
@@ -286,10 +286,10 @@ void calc_phi_s(ftype *out, RfParameters *rfp,
     // TODO why n_turns and not n_turns+1?
 
     if (rfp->eta_0(0) > 0) {
-        for (uint i = 0; i < n_turns; ++i)
+        for (int i = 0; i < n_turns; ++i)
             out[i] = constant::pi;
     } else {
-        for (uint i = 0; i < n_turns; ++i)
+        for (int i = 0; i < n_turns; ++i)
             out[i] = 0;
     }
 }

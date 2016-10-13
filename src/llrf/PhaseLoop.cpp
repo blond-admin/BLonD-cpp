@@ -124,7 +124,7 @@ void PhaseLoop::radial_difference() {
     uint n = 0;
     ftype sum = 0;
     // ftype array[GP->n_turns];
-    for (uint i = 0; i < GP->n_turns; ++i) {
+    for (int i = 0; i < GP->n_turns; ++i) {
         if (Beam->dt[i] > Slice->bin_centers.front() &&
             Beam->dt[i] < Slice->bin_centers.back()) {
             sum += Beam->dE[i];
@@ -188,10 +188,10 @@ LHC::LHC(f_vector_t PL_gain, ftype SL_gain, ftype window_coefficient,
     this->lhc_t.resize(GP->n_turns + 1, 0);
 
     if (gain2 != 0) {
-        for (uint i = 0; i < GP->n_turns + 1; ++i) {
+        for (int i = 0; i < GP->n_turns + 1; ++i) {
             lhc_a[i] = 5.25 - RfP->omega_s0[i] / (constant::pi * 40);
         }
-        for (uint i = 0; i < GP->n_turns + 1; ++i) {
+        for (int i = 0; i < GP->n_turns + 1; ++i) {
             lhc_t[i] = (2 * constant::pi * RfP->Qs[i] * sqrt(lhc_a[i])) /
                        sqrt(1 +
                             gain[i] / gain2 *

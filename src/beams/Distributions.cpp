@@ -5,27 +5,110 @@
  *      Author: kiliakis
  */
 #include <blond/beams/Distributions.h>
-#include <blond/configuration.h>
-#include <blond/constants.h>
-#include <blond/utilities.h>
-#include <blond/globals.h>
+#include <string>
 #include <iostream>
-#include <blond/trackers/Tracker.h>
-#include <map>
 
 using namespace std;
 
-void matched_from_line_density(FullRingAndRf *full_ring,
+void matched_from_line_density(Beams *beam,
+                               FullRingAndRf *full_ring,
                                map<string, string> line_density_opt,
-                               string main_harmonic,
+                               FullRingAndRf::main_harmonic_t main_harmonic_option,
+                               TotalInducedVoltage *totVolt,
                                string plot,
                                string figdir,
                                string half_option,
-                               map<string, string> extraVoltageDict,
+                               map<string, f_vector_t> extraVoltageDict,
                                int n_iterations_input,
                                int seed
                               )
 {
+    // NOTE seed random engine
+    // not setting line_density_opt["exponent"] to null
+    auto GP = Context::GP;
+    double slippage_factor = GP->eta_0[0][0];
+    double eom_factor_dE = abs(slippage_factor) / (2 * GP->beta[0][0]
+                           * GP->beta[0][0] * GP->energy[0][0]);
+
+    double eom_factor_potential = mymath::sign(slippage_factor)
+                                  * GP->charge / GP->t_rev[0];
+    int n_points_potential = 1e4;
+    full_ring->potential_well_generation(0, n_points_potential,
+                                         main_harmonic_option,
+                                         0.4);
+
+    auto potential_well_array = full_ring->fPotentialWell;
+    auto time_coord_array = full_ring->fPotentialWellCoordinates;
+
+    f_vector_t extra_potential;
+    int n_points_line_den = 0;
+    f_vector_t line_density;
+
+    if (!extraVoltageDict.empty()) {
+        auto &extra_voltage_time_input = extraVoltageDict["time_array"];
+        auto &extra_voltage_input = extraVoltageDict["voltage_array"];
+        auto extra_potential_input = mymath::cum_trapezoid(
+                                         extra_voltage_input.data(),
+                                         extra_voltage_input[1] - extra_voltage_input[0],
+                                         extra_voltage_input.size()
+                                     );
+        extra_potential_input.insert(extra_potential_input.begin(), 0);
+        for (auto &e : extra_potential_input)
+            e *= - eom_factor_potential;
+        mymath::lin_interp(time_coord_array, extra_voltage_time_input,
+                           extra_potential_input, extra_potential);
+    }
+    if (line_density_opt.find("type") == line_density_opt.end()) {
+        cerr << "[matched_from_line_density] The input for the"
+             << "matched_from_line_density function was not recognized\n";
+        exit(-1);
+    }
+
+    if (line_density_opt["type"] != "user_input") {
+        n_points_line_den = 1e4;
+        f_vector_t time_line_den(n_points_line_den);
+
+        mymath::linspace(time_line_den.data(), time_coord_array.front(),
+                         time_coord_array.back(), n_points_line_den);
+        auto line_den_resolution = time_line_den[1] - time_line_den[0];
+
+        line_density = line_density_function(time_line_den,
+                                             line_density_opt["type"],
+                                             stod(line_density_opt["bunch_length"]),
+                                             (time_coord_array.front() - time_coord_array.back()) / 2.,
+                                             stod(line_density_opt["exponent"]));
+
+        auto min = *min_element(line_density.begin(), line_density.end());
+        for (auto &l : line_density) l -= min;
+        const auto sum = accumulate(line_density.begin(), line_density.end(), 0.);
+        for (auto &l : line_density) l = l / sum * beam->n_macroparticles;
+
+    } else { // (line_density_opt["type"] == "user_input") {
+        auto time_line_den = util::string_to_double_vector(
+                                 line_density_opt["time_line_den"]);
+        n_points_line_den = time_line_den.size();
+        auto line_den_resolution = time_line_den[1] - time_line_den[0];
+
+        line_density = util::string_to_double_vector(
+                           line_density_opt["line_density"]);
+
+        auto min = *min_element(line_density.begin(), line_density.end());
+        for (auto &l : line_density) l -= min;
+        const auto sum = accumulate(line_density.begin(), line_density.end(), 0.);
+        for (auto &l : line_density) l = l / sum * beam->n_macroparticles;
+
+    }
+
+    f_vector_t induced_potential_final;
+    int n_iterations = 1;
+
+    if (totVolt != nullptr) {
+
+        auto induced_voltage_object = *totVolt;
+        auto slices = Slices(n_points_line_den);
+        // slices.n_macroparticles = line_density;
+
+    }
 
 }
 

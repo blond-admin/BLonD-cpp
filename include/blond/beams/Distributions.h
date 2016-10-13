@@ -11,22 +11,27 @@
 #include <blond/configuration.h>
 #include <blond/constants.h>
 #include <blond/utilities.h>
-#include <blond/globals.h>
 #include <blond/python.h>
+#include <blond/globals.h>
+#include <blond/math_functions.h>
+#include <blond/beams/Beams.h>
 #include <blond/trackers/Tracker.h>
+#include <blond/impedances/InducedVoltage.h>
 #include <map>
-#include <random>
 
 
 
-void matched_from_line_density(FullRingAndRf *full_ring,
+void matched_from_line_density(Beams *beam,
+                               FullRingAndRf *full_ring,
                                std::map<std::string, std::string> line_density_opt,
-                               std::string main_harmonic = "lowest_freq",
+                               FullRingAndRf::main_harmonic_t main_harmonic_option =
+                                   FullRingAndRf::lowest_freq,
+                               TotalInducedVoltage *totVolt = nullptr,
                                std::string plot = "",
                                std::string figdir = "fig",
                                std::string half_option = "first",
-                               std::map<std::string, std::string> extraVoltageDict =
-                                   std::map<std::string, std::string>(),
+                               std::map<std::string, f_vector_t> extraVoltageDict =
+                                   std::map<std::string, f_vector_t>(),
                                int n_iterations_input = 100,
                                int seed = 0
                               );

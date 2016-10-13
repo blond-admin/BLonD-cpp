@@ -58,6 +58,24 @@
 
 namespace util {
 
+    static inline f_vector_t string_to_double_vector(std::string &numbers)
+    {
+        f_vector_t res;
+        std::istringstream iss(numbers);
+        std::copy(std::istream_iterator<double>(iss),
+                  std::istream_iterator<double>(),
+                  std::back_inserter(res));
+        return res;
+    }
+
+    static inline std::string double_vector_to_string(f_vector_t &numbers)
+    {
+        std::ostringstream oss;
+        for (auto &n : numbers)
+            oss << n << " ";
+        return oss.str();
+    }
+
     static inline size_t getFileSize(const std::string &file)
     {
         struct stat st;

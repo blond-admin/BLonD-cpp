@@ -19,11 +19,11 @@ using namespace std;
 class testPlotImpedance : public ::testing::Test {
 
 protected:
-    const long long int N_b = 1e10; // Intensity
+    const long long N_b = 1e10; // Intensity
     const double tau_0 = 2e-9;  // Initial bunch length, 4 sigma [s]
     const double C = 6911.56;   // Machine circumference [m]
     const double p_i = 25.92e9; // Synchronous momentum [eV/c]
-    const long long h = 4620;  // Harmonic number
+    const double h = 4620;  // Harmonic number
     const double V = 0.9e6;     // RF voltage [V]
     const double dphi = 0;      // Phase modulation/offset
     const double gamma_t = 1 / std::sqrt(0.00192); // Transition gamma
@@ -65,9 +65,9 @@ protected:
 
         auto GP = Context::GP;
         auto Beam = Context::Beam = new Beams(GP, N_p, N_b);
-        
+
         auto RfP = Context::RfP = new RfParameters(GP, n_sections, hVec,
-                                        voltageVec, dphiVec);
+                voltageVec, dphiVec);
 
 
         longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
@@ -111,7 +111,7 @@ TEST_F(testPlotImpedance, plot_impedance_vs_frequency1)
     auto slice = Context::Slice;
 
     std::vector<Intensity *> ImpSourceList({resonator});
-    auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
+    auto indVoltFreq = new InducedVoltageFreq(slice, ImpSourceList, 1e5);
 
     ASSERT_EQ(plot_impedance_vs_frequency(0, indVoltFreq, slice), 1);
 
@@ -134,7 +134,7 @@ TEST_F(testPlotImpedance, plot_impedance_vs_frequency2)
                                      resonator->fWake);
 
     std::vector<Intensity *> ImpSourceList({resonator});
-    auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
+    auto indVoltFreq = new InducedVoltageFreq(slice, ImpSourceList, 1e5);
 
     ASSERT_EQ(plot_impedance_vs_frequency(0, indVoltFreq, slice, "sum",
                                           "no_spectrum", "freq_table"), 1);
@@ -147,12 +147,13 @@ TEST_F(testPlotImpedance, plot_impedance_vs_frequency2)
 TEST_F(testPlotImpedance, plot_induced_voltage_vs_bin_centers)
 {
     auto slice = Context::Slice;
+    auto beam = Context::Beam;
 
     std::vector<Intensity *> wakeSourceList({resonator});
-    auto indVoltTime = new InducedVoltageTime(wakeSourceList);
+    auto indVoltTime = new InducedVoltageTime(slice, wakeSourceList);
     std::vector<InducedVoltage *> indVoltList({indVoltTime});
-    auto totVol = new TotalInducedVoltage(indVoltList);
-    totVol->track();
+    auto totVol = new TotalInducedVoltage(beam, slice, indVoltList);
+    totVol->track(beam);
 
     ASSERT_EQ(plot_induced_voltage_vs_bin_centers(0, totVol, slice), 1);
 

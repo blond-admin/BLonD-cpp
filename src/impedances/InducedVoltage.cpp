@@ -35,13 +35,13 @@ void linear_interp_kick(
     }
 }
 
-InducedVoltageTime::InducedVoltageTime(std::vector<Intensity *> &WakeSourceList,
+InducedVoltageTime::InducedVoltageTime(Slices *slices,
+                                       std::vector<Intensity *> &WakeSourceList,
                                        time_or_freq TimeOrFreq)
 {
     // Induced voltage derived from the sum of
     // several wake fields (time domain).*
-    auto Slice = Context::Slice;
-
+    fSlices = slices;
     // *Wake sources inputed as a list (eg: list of BBResonators objects)*
     fWakeSourceList = WakeSourceList;
 
@@ -55,13 +55,13 @@ InducedVoltageTime::InducedVoltageTime(std::vector<Intensity *> &WakeSourceList,
     fInducedVoltage = f_vector_t();
 
     // Pre-processing the wakes
-    fTimeArray.resize(Slice->n_slices);
+    fTimeArray.resize(fSlices->n_slices);
     for (uint i = 0; i < fTimeArray.size(); ++i) {
-        fTimeArray[i] = Slice->bin_centers[i] - Slice->bin_centers[0];
+        fTimeArray[i] = fSlices->bin_centers[i] - fSlices->bin_centers[0];
     }
     sum_wakes(fTimeArray);
 
-    fCut = fTimeArray.size() + Slice->n_slices - 1;
+    fCut = fTimeArray.size() + fSlices->n_slices - 1;
     fShape = mymath::next_regular(fCut);
 
     fTimeOrFreq = TimeOrFreq;
@@ -69,21 +69,17 @@ InducedVoltageTime::InducedVoltageTime(std::vector<Intensity *> &WakeSourceList,
 
 InducedVoltageTime::~InducedVoltageTime() { fft::destroy_plans(); }
 
-inline void InducedVoltageTime::track()
+inline void InducedVoltageTime::track(Beams *beam)
 {
-    auto GP = Context::GP;
-    auto Beam = Context::Beam;
-    auto Slice = Context::Slice;
-
     // Tracking Method
-    f_vector_t v = this->induced_voltage_generation();
+    f_vector_t v = this->induced_voltage_generation(beam);
 
     std::transform(v.begin(), v.end(), v.begin(),
-                   std::bind1st(std::multiplies<double>(), GP->charge));
+                   std::bind1st(std::multiplies<double>(), beam->charge));
 
-    linear_interp_kick(Beam->dt.data(), Beam->dE.data(), v.data(),
-                       Slice->bin_centers.data(), Slice->n_slices,
-                       Beam->n_macroparticles);
+    linear_interp_kick(beam->dt.data(), beam->dE.data(), v.data(),
+                       fSlices->bin_centers.data(), fSlices->n_slices,
+                       beam->n_macroparticles);
 }
 
 void InducedVoltageTime::sum_wakes(f_vector_t &TimeArray)
@@ -98,39 +94,37 @@ void InducedVoltageTime::sum_wakes(f_vector_t &TimeArray)
     }
 }
 
-void InducedVoltageTime::reprocess()
+void InducedVoltageTime::reprocess(Slices *newSlices)
 {
     // *Reprocess the wake contributions with respect to the new_slicing.*
     // WARNING As Slice is a global variable,
     // users will have to change this variable and call reprocess()
 
-    auto Slice = Context::Slice;
-    fTimeArray.resize(Slice->n_slices);
+    fSlices = newSlices;
+    fTimeArray.resize(fSlices->n_slices);
     for (uint i = 0; i < fTimeArray.size(); ++i) {
-        fTimeArray[i] = Slice->bin_centers[i] - Slice->bin_centers[0];
+        fTimeArray[i] = fSlices->bin_centers[i] - fSlices->bin_centers[0];
     }
     sum_wakes(fTimeArray);
 
-    fCut = fTimeArray.size() + Slice->n_slices - 1;
+    fCut = fTimeArray.size() + fSlices->n_slices - 1;
     fShape = mymath::next_regular(fCut);
 }
 
-f_vector_t InducedVoltageTime::induced_voltage_generation(uint length)
+f_vector_t InducedVoltageTime::induced_voltage_generation(Beams *beam,
+        uint length)
 {
 
     // Method to calculate the induced voltage from wakes with convolution.*
-    auto GP = Context::GP;
-    auto Beam = Context::Beam;
-    auto Slice = Context::Slice;
     f_vector_t inducedVoltage;
 
-    const double factor = -GP->charge * constant::e * Beam->intensity
-                         / Beam->n_macroparticles;
+    const double factor = -beam->charge * constant::e * beam->intensity
+                          / beam->n_macroparticles;
 
     if (fTimeOrFreq == freq_domain) {
-        f_vector_t in1(Slice->n_slices);
-        std::copy(Slice->n_macroparticles.begin(),
-                  Slice->n_macroparticles.end(), in1.begin());
+        f_vector_t in1(fSlices->n_slices);
+        std::copy(fSlices->n_macroparticles.begin(),
+                  fSlices->n_macroparticles.end(), in1.begin());
 
         f_vector_t in2 = fTotalWake;
 
@@ -141,9 +135,9 @@ f_vector_t InducedVoltageTime::induced_voltage_generation(uint length)
                        std::bind1st(std::multiplies<double>(), factor));
 
     } else if (fTimeOrFreq == time_domain) {
-        f_vector_t temp(Slice->n_slices);
-        std::copy(Slice->n_macroparticles.begin(),
-                  Slice->n_macroparticles.end(), temp.begin());
+        f_vector_t temp(fSlices->n_slices);
+        std::copy(fSlices->n_macroparticles.begin(),
+                  fSlices->n_macroparticles.end(), temp.begin());
 
         inducedVoltage.resize(fTotalWake.size() + temp.size() - 1);
 
@@ -159,36 +153,37 @@ f_vector_t InducedVoltageTime::induced_voltage_generation(uint length)
         exit(-1);
     }
 
-    inducedVoltage.resize((uint)Slice->n_slices);
+    inducedVoltage.resize((uint)fSlices->n_slices);
     fInducedVoltage = inducedVoltage;
 
     if (length > 0)
-        inducedVoltage.resize(std::min((uint)Slice->n_slices, length), 0);
+        inducedVoltage.resize(std::min((uint)fSlices->n_slices, length), 0);
 
     return inducedVoltage;
 }
 
-InducedVoltageFreq::InducedVoltageFreq(
-    std::vector<Intensity *> &impedanceSourceList, double freqResolutionInput,
-    freq_res_option_t freq_res_option, uint NTurnsMem,
-    bool recalculationImpedance, bool saveIndividualVoltages)
+InducedVoltageFreq::InducedVoltageFreq(Slices *slices,
+                                       std::vector<Intensity *> &impedanceSourceList,
+                                       double freqResolutionInput,
+                                       freq_res_option_t freq_res_option,
+                                       uint NTurnsMem,
+                                       bool recalculationImpedance,
+                                       bool saveIndividualVoltages)
 {
-    auto Slice = Context::Slice;
-
     fNTurnsMem = NTurnsMem;
-
+    fSlices = slices;
     fImpedanceSourceList = impedanceSourceList;
     fFreqResolutionInput = freqResolutionInput;
 
     // *Length of one slice.*
-    auto timeResolution = (Slice->bin_centers[1] - Slice->bin_centers[0]);
+    auto timeResolution = (fSlices->bin_centers[1] - fSlices->bin_centers[0]);
     fRecalculationImpedance = recalculationImpedance;
     fFreqResOption = freq_res_option;
 
     if (fNTurnsMem == 0) {
 
         if (fFreqResolutionInput == 0) {
-            fNFFTSampling = Slice->n_slices;
+            fNFFTSampling = fSlices->n_slices;
         } else {
             int a;
             double b = 1 / (fFreqResolutionInput * timeResolution);
@@ -209,7 +204,7 @@ InducedVoltageFreq::InducedVoltageFreq(
             }
             fNFFTSampling = mymath::next_regular(a);
 
-            if (fNFFTSampling < (uint)Slice->n_slices) {
+            if ((int) fNFFTSampling < fSlices->n_slices) {
                 std::cerr << "The input frequency resolution step is too big, "
                           "and the whole\n"
                           << "bunch is not sliced... The number of sampling "
@@ -219,7 +214,7 @@ InducedVoltageFreq::InducedVoltageFreq(
                           << "you might consider changing the input in order "
                           "to have\n"
                           << "a finer resolution\n";
-                fNFFTSampling = mymath::next_regular(Slice->n_slices);
+                fNFFTSampling = mymath::next_regular(fSlices->n_slices);
             }
         }
 
@@ -237,7 +232,7 @@ InducedVoltageFreq::InducedVoltageFreq(
             fMatrixSaveIndividualImpedances =
                 complex_vector_t(length * fFreqArray.size(), 0);
             fMatrixSaveIndividualVoltages =
-                f_vector_t(length * Slice->n_slices, 0);
+                f_vector_t(length * fSlices->n_slices, 0);
             for (uint i = 0; i < length; ++i) {
                 const uint row_width =
                     fImpedanceSourceList[i]->fImpedance.size();
@@ -250,19 +245,19 @@ InducedVoltageFreq::InducedVoltageFreq(
 
     } else {
         fNTurnsMem = NTurnsMem;
-        fLenArrayMem = (fNTurnsMem + 1) * Slice->n_slices;
-        fLenArrayMemExt = (fNTurnsMem + 2) * Slice->n_slices;
+        fLenArrayMem = (fNTurnsMem + 1) * fSlices->n_slices;
+        fLenArrayMemExt = (fNTurnsMem + 2) * fSlices->n_slices;
         fNPointsFFT = mymath::next_regular(fLenArrayMemExt);
         fFreqArrayMem = fft::rfftfreq(fNPointsFFT, timeResolution);
         fTotalImpedanceMem =
             complex_vector_t(fFreqArrayMem.size(), complex_t(0, 0));
 
-        fTimeArrayMem.reserve((fNTurnsMem + 1) * Slice->n_slices);
-        const double factor = Slice->edges.back() - Slice->edges.front();
+        fTimeArrayMem.reserve((fNTurnsMem + 1) * fSlices->n_slices);
+        const double factor = fSlices->edges.back() - fSlices->edges.front();
 
         for (uint i = 0; i < fNTurnsMem + 1; ++i) {
-            for (uint j = 0; j < (uint)Slice->n_slices; ++j) {
-                fTimeArrayMem.push_back(Slice->bin_centers[j] + factor * i);
+            for (int j = 0; j < fSlices->n_slices; ++j) {
+                fTimeArrayMem.push_back(fSlices->bin_centers[j] + factor * i);
             }
         }
 
@@ -277,21 +272,18 @@ InducedVoltageFreq::InducedVoltageFreq(
 
 InducedVoltageFreq::~InducedVoltageFreq() { fft::destroy_plans(); }
 
-void InducedVoltageFreq::track()
+void InducedVoltageFreq::track(Beams *beam)
 {
     // Tracking Method
-    auto GP = Context::GP;
-    auto Beam = Context::Beam;
-    auto Slice = Context::Slice;
 
-    induced_voltage_generation();
+    induced_voltage_generation(beam);
     auto v = fInducedVoltage;
     std::transform(v.begin(), v.end(), v.begin(),
-                   std::bind1st(std::multiplies<double>(), GP->charge));
+                   std::bind1st(std::multiplies<double>(), beam->charge));
 
-    linear_interp_kick(Beam->dt.data(), Beam->dE.data(), v.data(),
-                       Slice->bin_centers.data(), Slice->n_slices,
-                       Beam->n_macroparticles);
+    linear_interp_kick(beam->dt.data(), beam->dE.data(), v.data(),
+                       fSlices->bin_centers.data(), fSlices->n_slices,
+                       beam->n_macroparticles);
 }
 
 void InducedVoltageFreq::sum_impedances(f_vector_t &freq_array)
@@ -307,12 +299,13 @@ void InducedVoltageFreq::sum_impedances(f_vector_t &freq_array)
     }
 }
 
-void InducedVoltageFreq::reprocess()
+void InducedVoltageFreq::reprocess(Slices *newSlices)
 {
-    auto Slice = Context::Slice;
-    auto timeResolution = (Slice->bin_centers[1] - Slice->bin_centers[0]);
+    fSlices = newSlices;
+
+    auto timeResolution = (fSlices->bin_centers[1] - fSlices->bin_centers[0]);
     if (fFreqResolutionInput == 0) {
-        fNFFTSampling = Slice->n_slices;
+        fNFFTSampling = fSlices->n_slices;
     } else {
         int a;
         double b = 1 / (fFreqResolutionInput * timeResolution);
@@ -333,7 +326,7 @@ void InducedVoltageFreq::reprocess()
         }
         fNFFTSampling = mymath::next_regular(a);
 
-        if (fNFFTSampling < (uint)Slice->n_slices) {
+        if ((int) fNFFTSampling < fSlices->n_slices) {
             std::cerr
                     << "The input frequency resolution step is too big, and the "
                     "whole\n"
@@ -342,65 +335,63 @@ void InducedVoltageFreq::reprocess()
                     << "FFT is corrected in order to sample the whole bunch (and\n"
                     << "you might consider changing the input in order to have\n"
                     << "a finer resolution\n";
-            fNFFTSampling = mymath::next_regular(Slice->n_slices);
+            fNFFTSampling = mymath::next_regular(fSlices->n_slices);
         }
     }
 
     fFreqResolution = 1 / (fNFFTSampling * timeResolution);
 
-    Slice->beam_spectrum_generation(fNFFTSampling, true);
-    fFreqArray = Slice->fBeamSpectrumFreq;
+    fSlices->beam_spectrum_generation(fNFFTSampling, true);
+    fFreqArray = fSlices->fBeamSpectrumFreq;
 
     fTotalImpedance.clear();
     sum_impedances(fFreqArray);
 }
 
-f_vector_t InducedVoltageFreq::induced_voltage_generation(uint length)
+f_vector_t InducedVoltageFreq::induced_voltage_generation(Beams *beam,
+        uint length)
 {
     //    Method to calculate the induced voltage from the inverse FFT of the
     //    impedance times the spectrum (fourier convolution).
-    auto GP = Context::GP;
-    auto Beam = Context::Beam;
-    auto Slice = Context::Slice;
 
     if (fRecalculationImpedance)
         sum_impedances(fFreqArray);
 
-    Slice->beam_spectrum_generation(fNFFTSampling);
+    fSlices->beam_spectrum_generation(fNFFTSampling);
     // std::cout << "fNFFTSampling : " << fNFFTSampling << "\n";
     const auto n = fImpedanceSourceList.size();
-    const auto factor = -GP->charge * constant::e * Beam->ratio *
-                        Slice->fBeamSpectrumFreq[1] * 2 *
-                        (Slice->fBeamSpectrum.size() - 1);
+    const auto factor = -beam->charge * constant::e * beam->ratio *
+                        fSlices->fBeamSpectrumFreq[1] * 2 *
+                        (fSlices->fBeamSpectrum.size() - 1);
 
     if (fSaveIndividualVoltages) {
 
         for (uint i = 0; i < n; ++i) {
             f_vector_t res;
-            complex_vector_t in(Slice->fBeamSpectrum.size());
+            complex_vector_t in(fSlices->fBeamSpectrum.size());
 
             for (uint j = 0; j < in.size(); ++j) {
                 in[j] = fMatrixSaveIndividualImpedances[j * n + i] *
-                        Slice->fBeamSpectrum[j];
+                        fSlices->fBeamSpectrum[j];
             }
 
             fft::irfft(in, res, 0, Context::n_threads);
 
-            assert((int)res.size() >= Slice->n_slices);
+            assert((int)res.size() >= fSlices->n_slices);
 
-            res.resize(Slice->n_slices);
+            res.resize(fSlices->n_slices);
 
             std::transform(res.begin(), res.end(), res.begin(),
                            std::bind1st(std::multiplies<double>(), factor));
 
-            for (uint j = 0; j < (uint)Slice->n_slices; ++j) {
+            for (int j = 0; j < fSlices->n_slices; ++j) {
                 fMatrixSaveIndividualVoltages[j * n + i] = res[j];
             }
         }
 
         fInducedVoltage.clear();
-        fInducedVoltage.resize(Slice->fBeamSpectrum.size());
-        for (uint i = 0; i < Slice->fBeamSpectrum.size(); ++i) {
+        fInducedVoltage.resize(fSlices->fBeamSpectrum.size());
+        for (uint i = 0; i < fSlices->fBeamSpectrum.size(); ++i) {
             double sum = 0.0;
             for (uint j = 0; j < n; ++j) {
                 sum += fMatrixSaveIndividualVoltages[i * n + j];
@@ -412,17 +403,17 @@ f_vector_t InducedVoltageFreq::induced_voltage_generation(uint length)
 
     } else {
         f_vector_t res;
-        complex_vector_t in(Slice->fBeamSpectrum.size());
+        complex_vector_t in(fSlices->fBeamSpectrum.size());
         for (uint j = 0; j < in.size(); ++j) {
-            in[j] = fTotalImpedance[j] * Slice->fBeamSpectrum[j];
+            in[j] = fTotalImpedance[j] * fSlices->fBeamSpectrum[j];
         }
 
         fft::irfft(in, res, 0, Context::n_threads);
         // std::cout << "res size : " << res.size() << std::endl;
         // std::cout << "n_slices : " << Slice->n_slices << std::endl;
-        assert((int)res.size() >= Slice->n_slices);
+        assert((int)res.size() >= fSlices->n_slices);
 
-        res.resize((uint)Slice->n_slices);
+        res.resize(fSlices->n_slices);
 
         std::transform(res.begin(), res.end(), res.begin(),
                        std::bind1st(std::multiplies<double>(), factor));
@@ -440,53 +431,55 @@ f_vector_t InducedVoltageFreq::induced_voltage_generation(uint length)
     }
 }
 
-TotalInducedVoltage::TotalInducedVoltage(
-    std::vector<InducedVoltage *> &InducedVoltageList, uint NTurnsMemory,
-    f_vector_t RevTimeArray)
+TotalInducedVoltage::TotalInducedVoltage(Beams *beam, Slices *slices,
+        std::vector<InducedVoltage *> &InducedVoltageList, uint NTurnsMemory,
+        f_vector_t RevTimeArray)
 {
+    fBeam = beam;
+    fSlices = slices;
     fInducedVoltageList = InducedVoltageList;
     fNTurnsMemory = NTurnsMemory;
     fInducedVoltage = f_vector_t();
-    fTimeArray = Context::Slice->bin_centers;
+    fTimeArray = fSlices->bin_centers;
 }
 
 TotalInducedVoltage::~TotalInducedVoltage() { fft::destroy_plans(); }
 
-void TotalInducedVoltage::track()
+// NOTE continue here
+void TotalInducedVoltage::track(Beams *beam)
 {
-    auto GP = Context::GP;
-    auto Beam = Context::Beam;
-    auto Slice = Context::Slice;
 
-    this->induced_voltage_sum();
+    this->induced_voltage_sum(beam);
     auto v = this->fInducedVoltage;
 
     std::transform(v.begin(), v.end(), v.begin(),
-                   std::bind1st(std::multiplies<double>(), GP->charge));
+                   std::bind1st(std::multiplies<double>(), beam->charge));
 
-    linear_interp_kick(Beam->dt.data(), Beam->dE.data(), v.data(),
-                       Slice->bin_centers.data(), Slice->n_slices,
-                       Beam->n_macroparticles);
+    linear_interp_kick(beam->dt.data(), beam->dE.data(), v.data(),
+                       fSlices->bin_centers.data(), fSlices->n_slices,
+                       beam->n_macroparticles);
 }
 
 void TotalInducedVoltage::track_memory() {}
 
-void TotalInducedVoltage::track_ghosts_particles() {}
+void TotalInducedVoltage::track_ghosts_particles(Beams *ghostBeam) {}
 
-void TotalInducedVoltage::reprocess()
+void TotalInducedVoltage::reprocess(Slices *newSlices)
 {
+    fSlices = newSlices;
+
     for (auto &v : fInducedVoltageList)
-        v->reprocess();
+        v->reprocess(newSlices);
 }
 
-f_vector_t TotalInducedVoltage::induced_voltage_sum(uint length)
+f_vector_t TotalInducedVoltage::induced_voltage_sum(Beams *beam, uint length)
 {
     // Method to sum all the induced voltages in one single array.
     f_vector_t tempIndVolt;
     f_vector_t extIndVolt;
 
     for (auto &v : fInducedVoltageList) {
-        auto a = v->induced_voltage_generation(length);
+        auto a = v->induced_voltage_generation(beam, length);
 
         if (length > 0) {
             extIndVolt.resize(a.size(), 0);

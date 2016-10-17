@@ -9,10 +9,9 @@
 #define IMPEDANCES_INDUCEDVOLTAGE_H_
 
 #include <blond/configuration.h>
+#include <blond/beams/Beams.h>
 #include <blond/impedances/Intensity.h>
 #include <vector>
-
-
 
 
 void linear_interp_kick(const double *__restrict beam_dt,
@@ -25,13 +24,15 @@ void linear_interp_kick(const double *__restrict beam_dt,
 
 class API InducedVoltage {
 public:
-    std::vector<double> fInducedVoltage;
+    f_vector_t fInducedVoltage;
+    Slices *fSlices;
 
     InducedVoltage() {};
 
-    virtual void track() = 0;
-    virtual void reprocess() = 0;
-    virtual std::vector<double> induced_voltage_generation(uint length = 0) = 0;
+    virtual void track(Beams *beam) = 0;
+    virtual void reprocess(Slices *slices) = 0;
+    virtual f_vector_t induced_voltage_generation(Beams *beam,
+            uint length = 0) = 0;
     virtual ~InducedVoltage() {};
 };
 
@@ -40,17 +41,18 @@ public:
     enum time_or_freq { time_domain, freq_domain };
 
     std::vector<Intensity *> fWakeSourceList;
-    std::vector<double> fTimeArray;
-    std::vector<double> fTotalWake;
+    f_vector_t fTimeArray;
+    f_vector_t fTotalWake;
     uint fCut;
     uint fShape;
     time_or_freq fTimeOrFreq;
 
-    void track();
-    void sum_wakes(std::vector<double> &v);
-    void reprocess();
-    std::vector<double> induced_voltage_generation(uint length = 0);
-    InducedVoltageTime(std::vector<Intensity *> &WakeSourceList,
+    void track(Beams *beam);
+    void sum_wakes(f_vector_t &v);
+    void reprocess(Slices *newSlices);
+    f_vector_t induced_voltage_generation(Beams *beam, uint length = 0);
+    InducedVoltageTime(Slices *slices,
+                       std::vector<Intensity *> &WakeSourceList,
                        time_or_freq TimeOrFreq = freq_domain);
 
     ~InducedVoltageTime();
@@ -99,44 +101,48 @@ public:
     // *Induced voltage from the sum of the wake sources in [V]*
     // f_vector_t fInducedVoltage;
 
-    void track();
+    void track(Beams *beam);
     void sum_impedances(f_vector_t &);
 
     // Reprocess the impedance contributions with respect to the new_slicing.
-    void reprocess();
-    std::vector<double> induced_voltage_generation(uint length = 0);
-    InducedVoltageFreq(
-        std::vector<Intensity *> &impedanceSourceList,
-        double freqResolutionInput = 0.0,
-        freq_res_option_t freq_res_option = freq_res_option_t::round_option,
-        uint NTurnsMem = 0, bool recalculationImpedance = false,
-        bool saveIndividualVoltages = false);
+    void reprocess(Slices *newSlices);
+    f_vector_t induced_voltage_generation(Beams *beam, uint length = 0);
+    InducedVoltageFreq(Slices *slices,
+                       std::vector<Intensity *> &impedanceSourceList,
+                       double freqResolutionInput = 0.0,
+                       freq_res_option_t freq_res_option = freq_res_option_t::round_option,
+                       uint NTurnsMem = 0, bool recalculationImpedance = false,
+                       bool saveIndividualVoltages = false);
     ~InducedVoltageFreq();
 };
 
 class API TotalInducedVoltage : public InducedVoltage {
 public:
     std::vector<InducedVoltage *> fInducedVoltageList;
-    std::vector<double> fTimeArray;
-    std::vector<double> fRevTimeArray;
+    f_vector_t fTimeArray;
+    f_vector_t fRevTimeArray;
     uint fCounterTurn = 0;
     uint fNTurnsMemory;
     bool fInductiveImpedanceOn = false;
 
-    void track();
-    void track_memory();
-    void track_ghosts_particles();
-    std::vector<double> induced_voltage_sum(uint length = 0);
-    void reprocess();
+    Beams *fBeam;
 
-    std::vector<double> induced_voltage_generation(uint length = 0)
+    void track(Beams *beam);
+    void track_memory();
+    void track_ghosts_particles(Beams *ghostBeam);
+    f_vector_t induced_voltage_sum(Beams *beam, uint length = 0);
+    void reprocess(Slices *newSlices);
+
+    f_vector_t induced_voltage_generation(Beams *beam, uint length = 0)
     {
-        return std::vector<double>();
+        return f_vector_t();
     };
 
-    TotalInducedVoltage(std::vector<InducedVoltage *> &InducedVoltageList,
+    TotalInducedVoltage(Beams *beam,
+                        Slices *slices,
+                        std::vector<InducedVoltage *> &InducedVoltageList,
                         uint NTurnsMemory = 0,
-                        std::vector<double> RevTimeArray = std::vector<double>());
+                        f_vector_t RevTimeArray = f_vector_t());
 
     ~TotalInducedVoltage();
 };

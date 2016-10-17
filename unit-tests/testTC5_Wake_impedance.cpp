@@ -18,11 +18,11 @@ class testTC5 : public ::testing::Test {
 
 protected:
 
-    const long long int N_b = 1e10; // Intensity
+    const long long N_b = 1e10; // Intensity
     const double tau_0 = 2e-9;  // Initial bunch length, 4 sigma [s]
     const double C = 6911.56;   // Machine circumference [m]
     const double p_i = 25.92e9; // Synchronous momentum [eV/c]
-    const long long h = 4620;  // Harmonic number
+    const double h = 4620;  // Harmonic number
     const double V = 0.9e6;     // RF voltage [V]
     const double dphi = 0;      // Phase modulation/offset
     const double gamma_t = 1 / std::sqrt(0.00192); // Transition gamma
@@ -113,12 +113,12 @@ TEST_F(testTC5, timeTrack)
 
     auto long_tracker = new RingAndRfSection();
     std::vector<Intensity *> wakeSourceList({resonator});
-    auto indVoltTime = new InducedVoltageTime(wakeSourceList);
+    auto indVoltTime = new InducedVoltageTime(Slice, wakeSourceList);
     std::vector<InducedVoltage *> indVoltList({indVoltTime});
-    auto totVol = new TotalInducedVoltage(indVoltList);
+    auto totVol = new TotalInducedVoltage(Beam, Slice, indVoltList);
 
     for (uint i = 0; i < N_t; ++i) {
-        totVol->track();
+        totVol->track(Beam);
         long_tracker->track();
         Slice->track();
     }
@@ -168,12 +168,12 @@ TEST_F(testTC5, freqTrack)
 
     auto long_tracker = new RingAndRfSection();
     std::vector<Intensity *> ImpSourceList({resonator});
-    auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
+    auto indVoltFreq = new InducedVoltageFreq(Slice, ImpSourceList, 1e5);
     std::vector<InducedVoltage *> indVoltList({indVoltFreq});
-    auto totVol = new TotalInducedVoltage(indVoltList);
+    auto totVol = new TotalInducedVoltage(Beam, Slice, indVoltList);
 
     for (uint i = 0; i < N_t; ++i) {
-        totVol->track();
+        totVol->track(Beam);
         long_tracker->track();
         Slice->track();
     }

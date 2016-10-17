@@ -118,7 +118,7 @@ namespace python {
     static inline PyArrayObject *convert_double_2d_array(f_vector_2d_t &v)
     {
         int dims[2] = {v.size(), v.front().size()};
-        auto array = new ftype[dims[0] * dims[1]];
+        auto array = new double[dims[0] * dims[1]];
         int count = 0;
         for (const auto &row : v) {
             assert(row.size() == dims[1]);

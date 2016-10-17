@@ -12,16 +12,16 @@ class testMonitors : public ::testing::Test {
 
 protected:
     const long long N_b = 1e9;      // Intensity
-    const ftype tau_0 = 0.4e-9;     // Initial bunch length, 4 sigma [s]
+    const double tau_0 = 0.4e-9;     // Initial bunch length, 4 sigma [s]
     // Machine and RF parameters
-    const ftype C = 26658.883;       // Machine circumference [m]
-    const long long p_i = 450e9;     // Synchronous momentum [eV/c]
-    const ftype p_f = 460.005e9;     // Synchronous momentum, final
+    const double C = 26658.883;       // Machine circumference [m]
+    const double p_i = 450e9;     // Synchronous momentum [eV/c]
+    const double p_f = 460.005e9;     // Synchronous momentum, final
     const long long h = 35640;       // Harmonic number
-    const ftype V = 6e6;             // RF voltage [V]
-    const ftype dphi = 0;            // Phase modulation/offset
-    const ftype gamma_t = 55.759505; // Transition gamma
-    const ftype alpha =
+    const double V = 6e6;             // RF voltage [V]
+    const double dphi = 0;            // Phase modulation/offset
+    const double gamma_t = 55.759505; // Transition gamma
+    const double alpha =
         1.0 / gamma_t / gamma_t;     // First order mom. comp. factor
     const int alpha_order = 1;
     const int n_sections = 1;
@@ -52,9 +52,14 @@ protected:
                                             alpha_order, momentumVec,
                                             GeneralParameters::particle_t::proton);
 
-        Context::Beam = new Beams(N_p, N_b);
+        // Context::Beam = new Beams(N_p, N_b);
 
-        Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+        auto GP = Context::GP;
+        auto Beam = Context::Beam = new Beams(GP, N_p, N_b);
+
+        Context::RfP = new RfParameters(GP, n_sections, hVec,
+                                        voltageVec, dphiVec);
+
 
     }
 
@@ -71,13 +76,16 @@ protected:
 
 TEST_F(testMonitors, SlicesMonitor1)
 {
-    std::string params =
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+
+    string params =
         TEST_FILES "/Monitors/SlicesMonitor1/";
     auto filename = "n_macroparticles.h5";
-    std::remove(filename);
+    remove(filename);
 
     longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
-    auto slice = Slices(N_slices);
+    auto slice = Slices(RfP, Beam, N_slices);
     auto slicesMonitor = SlicesMonitor(filename, N_t / dt_save + 1, &slice);
     auto tracker = RingAndRfSection();
 
@@ -103,7 +111,7 @@ TEST_F(testMonitors, SlicesMonitor1)
                 << "Testing of n_macroparticles failed on i " << i << '\n';
     free(real);
     free(ref);
-    std::remove(filename);
+    remove(filename);
 }
 
 
@@ -112,14 +120,14 @@ TEST_F(testMonitors, BunchMonitor1)
     auto GP = Context::GP;
     auto RfP = Context::RfP;
     auto beam = Context::Beam;
-    auto epsilon = 1e-6;
-    std::string params =
+    auto epsilon = 1e-7;
+    string params =
         TEST_FILES "/Monitors/BunchMonitor1/";
     auto filename = "bunch.h5";
-    std::remove(filename);
+    remove(filename);
 
     longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
-    auto slice = Slices(N_slices);
+    auto slice = Slices(RfP, beam, N_slices);
     auto bunchmonitor = BunchMonitor(GP, RfP, beam, filename, 100);
     auto tracker = RingAndRfSection();
 
@@ -157,7 +165,7 @@ TEST_F(testMonitors, BunchMonitor1)
     ASSERT_EQ(dimsCpp[0], dimsPy[0]);
     for (uint i = 0; i < dimsCpp[0]; ++i)
         ASSERT_NEAR(ref[i], realD[i], epsilon *
-                    std::max(std::abs(ref[i]), std::abs(realD[i])))
+                    max(abs(ref[i]), abs(realD[i])))
                 << "Testing of mean_dt failed on i " << i << '\n';
     free(realD); free(ref);
 
@@ -169,9 +177,10 @@ TEST_F(testMonitors, BunchMonitor1)
                             "Beam/mean_dE",
                             "float", dimsPy);
     ASSERT_EQ(dimsCpp[0], dimsPy[0]);
+
     for (uint i = 0; i < dimsCpp[0]; ++i)
         ASSERT_NEAR(ref[i], realD[i], epsilon *
-                    std::max(std::abs(ref[i]), std::abs(realD[i])))
+                    max(abs(ref[i]), abs(realD[i])))
                 << "Testing of mean_dE failed on i " << i << '\n';
     free(realD); free(ref);
 
@@ -185,7 +194,7 @@ TEST_F(testMonitors, BunchMonitor1)
     ASSERT_EQ(dimsCpp[0], dimsPy[0]);
     for (uint i = 0; i < dimsCpp[0]; ++i)
         ASSERT_NEAR(ref[i], realD[i], epsilon *
-                    std::max(std::abs(ref[i]), std::abs(realD[i])))
+                    max(abs(ref[i]), abs(realD[i])))
                 << "Testing of sigma_dt failed on i " << i << '\n';
     free(realD); free(ref);
 
@@ -198,7 +207,7 @@ TEST_F(testMonitors, BunchMonitor1)
     ASSERT_EQ(dimsCpp[0], dimsPy[0]);
     for (uint i = 0; i < dimsCpp[0]; ++i)
         ASSERT_NEAR(ref[i], realD[i], epsilon *
-                    std::max(std::abs(ref[i]), std::abs(realD[i])))
+                    max(abs(ref[i]), abs(realD[i])))
                 << "Testing of sigma_dE failed on i " << i << '\n';
     free(realD); free(ref);
 
@@ -211,12 +220,12 @@ TEST_F(testMonitors, BunchMonitor1)
     ASSERT_EQ(dimsCpp[0], dimsPy[0]);
     for (uint i = 0; i < dimsCpp[0]; ++i)
         ASSERT_NEAR(ref[i], realD[i], epsilon *
-                    std::max(std::abs(ref[i]), std::abs(realD[i])))
+                    max(abs(ref[i]), abs(realD[i])))
                 << "Testing of epsn_rms_l failed on i " << i << '\n';
     free(realD); free(ref);
 
 
-    std::remove(filename);
+    remove(filename);
 }
 
 
@@ -226,14 +235,14 @@ TEST_F(testMonitors, BunchMonitor2)
     auto GP = Context::GP;
     auto RfP = Context::RfP;
     auto beam = Context::Beam;
-    auto epsilon = 1e-6;
-    std::string params =
+    auto epsilon = 1e-7;
+    string params =
         TEST_FILES "/Monitors/BunchMonitor2/";
     auto filename = "bunch.h5";
-    std::remove(filename);
+    remove(filename);
 
     longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
-    auto slice = Slices(N_slices);
+    auto slice = Slices(RfP, beam, N_slices);
     auto PL_gain = 1.0 / (5 * GP->t_rev[0]);
     auto SL_gain = PL_gain / 10.0;
     f_vector_t PL_gainVec(N_t + 1 , PL_gain);
@@ -245,7 +254,7 @@ TEST_F(testMonitors, BunchMonitor2)
     for (int i = 0; i < N_t; i++) {
         tracker.track();
         slice.track();
-        // std::cout << "round " << i << "\n";
+        // cout << "round " << i << "\n";
         bunchmonitor.track();
     }
     bunchmonitor.track();
@@ -264,7 +273,7 @@ TEST_F(testMonitors, BunchMonitor2)
 
     for (uint i = 0; i < dimsCpp[0]; i++)
         ASSERT_NEAR(refD[i], realD[i], epsilon *
-                    std::max(std::abs(refD[i]), std::abs(realD[i])))
+                    max(abs(refD[i]), abs(realD[i])))
                 << "Testing of PL_omegaRF failed on i " << i << '\n';
 
     free(refD); free(realD);
@@ -278,7 +287,7 @@ TEST_F(testMonitors, BunchMonitor2)
     ASSERT_EQ(dimsCpp[0], dimsPy[0]);
     for (uint i = 0; i < dimsCpp[0]; ++i)
         ASSERT_NEAR(ref[i], real[i], epsilon *
-                    std::max(std::abs(ref[i]), std::abs(real[i])))
+                    max(abs(ref[i]), abs(real[i])))
                 << "Testing of PL_phiRF failed on i " << i << '\n';
     free(real); free(ref);
 
@@ -292,7 +301,7 @@ TEST_F(testMonitors, BunchMonitor2)
     ASSERT_EQ(dimsCpp[0], dimsPy[0]);
     for (uint i = 0; i < dimsCpp[0]; ++i)
         ASSERT_NEAR(ref[i], real[i], epsilon *
-                    std::max(std::abs(ref[i]), std::abs(real[i])))
+                    max(abs(ref[i]), abs(real[i])))
                 << "Testing of PL_bunch_phase failed on i " << i << '\n';
     free(real); free(ref);
 
@@ -306,7 +315,7 @@ TEST_F(testMonitors, BunchMonitor2)
     ASSERT_EQ(dimsCpp[0], dimsPy[0]);
     for (uint i = 0; i < dimsCpp[0]; ++i)
         ASSERT_NEAR(ref[i], real[i], epsilon *
-                    std::max(std::abs(ref[i]), std::abs(real[i])))
+                    max(abs(ref[i]), abs(real[i])))
                 << "Testing of PL_phase_corr failed on i " << i << '\n';
     free(real); free(ref);
 
@@ -319,7 +328,7 @@ TEST_F(testMonitors, BunchMonitor2)
     ASSERT_EQ(dimsCpp[0], dimsPy[0]);
     for (uint i = 0; i < dimsCpp[0]; ++i)
         ASSERT_NEAR(ref[i], real[i], epsilon *
-                    std::max(std::abs(ref[i]), std::abs(real[i])))
+                    max(abs(ref[i]), abs(real[i])))
                 << "Testing of PL_omegaRF_corr failed on i " << i << '\n';
     free(real); free(ref);
 
@@ -332,7 +341,7 @@ TEST_F(testMonitors, BunchMonitor2)
     ASSERT_EQ(dimsCpp[0], dimsPy[0]);
     for (uint i = 0; i < dimsCpp[0]; ++i)
         ASSERT_NEAR(ref[i], real[i], epsilon *
-                    std::max(std::abs(ref[i]), std::abs(real[i])))
+                    max(abs(ref[i]), abs(real[i])))
                 << "Testing of SL_dphiRF failed on i " << i << '\n';
     free(real); free(ref);
 
@@ -346,11 +355,11 @@ TEST_F(testMonitors, BunchMonitor2)
     ASSERT_EQ(dimsCpp[0], dimsPy[0]);
     for (uint i = 0; i < dimsCpp[0]; ++i)
         ASSERT_NEAR(ref[i], real[i], epsilon *
-                    std::max(std::abs(ref[i]), std::abs(real[i])))
+                    max(abs(ref[i]), abs(real[i])))
                 << "Testing of RL_drho failed on i " << i << '\n';
     free(real); free(ref);
 
-    std::remove(filename);
+    remove(filename);
 }
 
 
@@ -360,15 +369,15 @@ TEST_F(testMonitors, BunchMonitor3)
     auto GP = Context::GP;
     auto RfP = Context::RfP;
     auto beam = Context::Beam;
-    auto epsilon = 1e-6;
-    std::string params =
+    auto epsilon = 1e-7;
+    string params =
         TEST_FILES "/Monitors/BunchMonitor3/";
     auto filename = "bunch.h5";
 
-    std::remove(filename);
+    remove(filename);
 
     longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
-    auto slice = Slices(N_slices);
+    auto slice = Slices(RfP, beam, N_slices);
     auto PL_gain = 1.0 / (5 * GP->t_rev[0]);
     auto SL_gain = PL_gain / 10.0;
     f_vector_t PL_gainVec(N_t + 1 , PL_gain);
@@ -400,7 +409,7 @@ TEST_F(testMonitors, BunchMonitor3)
     ASSERT_EQ(dimsCpp[0], dimsPy[0]);
     for (uint i = 0; i < dimsCpp[0]; i++)
         ASSERT_NEAR(ref[i], real[i], epsilon *
-                    std::max(std::abs(ref[i]), std::abs(real[i])))
+                    max(abs(ref[i]), abs(real[i])))
                 << "Testing of LHC_noise_FB_factor failed on i " << i << '\n';
 
     free(ref); free(real);
@@ -415,7 +424,7 @@ TEST_F(testMonitors, BunchMonitor3)
     ASSERT_EQ(dimsCpp[0], dimsPy[0]);
     for (uint i = 0; i < dimsCpp[0]; ++i)
         ASSERT_NEAR(ref[i], real[i], epsilon *
-                    std::max(std::abs(ref[i]), std::abs(real[i])))
+                    max(abs(ref[i]), abs(real[i])))
                 << "Testing of LHC_noise_FB_bl failed on i " << i << '\n';
     free(real); free(ref);
 
@@ -431,12 +440,12 @@ TEST_F(testMonitors, BunchMonitor3)
 
     // for (uint i = 0; i < dimsCpp2[0] * dimsCpp2[1]; i++)
     //     ASSERT_NEAR(ref[i], real[i], epsilon *
-    //                 std::max((float)std::abs(ref[i]), std::abs(real[i])))
+    //                 max((float)abs(ref[i]), abs(real[i])))
     //             << "Testing of LHC_noise_FB_bl_bbb failed on i " << i << '\n';
 
 
     // free(real); free(ref);
-    std::remove(filename);
+    remove(filename);
 }
 
 int main(int ac, char *av[])

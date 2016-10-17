@@ -11,16 +11,16 @@
 
 // Bunch parameters
 const long long int N_b = 1e9; // Intensity
-const ftype tau_0 = 0.4e-9;              // Initial bunch length, 4 sigma [s]
+const double tau_0 = 0.4e-9;              // Initial bunch length, 4 sigma [s]
 
 // Machine and RF parameters
-const ftype C = 25558.883;                   // Machine circumference [m]
-const ftype p_i = 450e9;                     // Synchronous momentum [eV/c]
+const double C = 25558.883;                   // Machine circumference [m]
+const double p_i = 450e9;                     // Synchronous momentum [eV/c]
 const long long h = 35640;                   // Harmonic number
-const ftype V = 6e6;                         // RF voltage [V]
-const ftype dphi = 0;                        // Phase modulation/offset
-const ftype gamma_t = 55.759505;             // Transition gamma
-const ftype alpha = 1.0 / gamma_t / gamma_t; // First order mom. comp. factor
+const double V = 6e6;                         // RF voltage [V]
+const double dphi = 0;                        // Phase modulation/offset
+const double gamma_t = 55.759505;             // Transition gamma
+const double alpha = 1.0 / gamma_t / gamma_t; // First order mom. comp. factor
 const int alpha_order = 1;
 const int n_sections = 1;
 // Tracking details
@@ -46,7 +46,7 @@ class testPhaseNoise : public ::testing::Test {
 TEST_F(testPhaseNoise, spectrum_to_phase_noise_real1)
 {
 
-   auto freqV = mymath::arange<ftype>(0.0, 100.0, 2.0);
+   auto freqV = mymath::arange<double>(0.0, 100.0, 2.0);
    f_vector_t spectrumV(10, 10.0);
    spectrumV.resize(50, 0);
 
@@ -128,7 +128,7 @@ TEST_F(testPhaseNoise, spectrum_to_phase_noise_real1)
 TEST_F(testPhaseNoise, spectrum_to_phase_noise_complex1)
 {
 
-   auto freqV = mymath::arange<ftype>(0.0, 1000.0, 1.0);
+   auto freqV = mymath::arange<double>(0.0, 1000.0, 1.0);
    f_vector_t spectrumV(50, 0.5);
    spectrumV.resize(freqV.size(), 0);
 

@@ -117,13 +117,17 @@ int main(int argc, char **argv)
 
     f_vector_2d_t hVec(n_sections, f_vector_t(N_t + 1, h));
 
-    Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+    Context::RfP = new RfParameters(GP, n_sections, hVec,
+                                    voltageVec, dphiVec);
+
     auto RfP = Context::RfP;
 
     printf("RF parameters set...\n");
 
     // Define beam and distribution: Load matched, filamented distribution
-    Context::Beam = new Beams(N_p, N_b);
+    // Context::Beam = new Beams(N_p, N_b);
+    Context::Beam = new Beams(GP, N_p, N_b);
+
     auto Beam = Context::Beam;
     f_vector_t v2;
     util::read_vector_from_file(v2, datafiles + "coords_13000001.dat");
@@ -135,7 +139,7 @@ int main(int argc, char **argv)
         k++;
     }
 
-    Context::Slice = new Slices(N_slices, 0, -0.5e-9, 3e-9);
+    Context::Slice = new Slices(RfP, Beam, N_slices, 0, -0.5e-9, 3e-9);
     auto Slice = Context::Slice;
 
     printf("Beam generated, slices set...\n");
@@ -156,8 +160,7 @@ int main(int argc, char **argv)
     printf("\tSL t_i = %.4f t_f = %.4f\n", PL->lhc_t[0], PL->lhc_t[N_t]);
 
     // Injecting noise in the cavity, PL on
-    RingAndRfSection *long_tracker =
-        new RingAndRfSection(Context::RfP, RingAndRfSection::simple, PL);
+    auto long_tracker = new RingAndRfSection(RfP, Beam, RingAndRfSection::simple, PL);
     printf("PL, SL, and tracker set...\n");
 
     double slice_time = 0, track_time = 0;
@@ -189,7 +192,7 @@ int main(int argc, char **argv)
         long_tracker->track();
         track_time += util::time_elapsed(begin_t);
 
-        printf("   RF phase %.6e rad\n", RfP->dphi_RF[0]);
+        printf("   RF phase %.6e rad\n", RfP->dphi_rf[0]);
         printf("   PL phase correction %.6e rad\n", PL->dphi);
         // RfP->counter++;
     }

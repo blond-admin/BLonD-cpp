@@ -73,18 +73,20 @@ int main(int argc, char **argv)
     f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 
     auto GP = Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
-                                        alpha_order, momentumVec,
-                                        GeneralParameters::particle_t::proton);
+            alpha_order, momentumVec,
+            GeneralParameters::particle_t::proton);
 
-    auto Beam = Context::Beam = new Beams(N_p, N_b);
+    auto Beam = Context::Beam = new Beams(GP, N_p, N_b);
 
-    auto RfP = Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+    auto RfP = Context::RfP = new RfParameters(GP, n_sections, hVec,
+            voltageVec, dphiVec);
+
 
     // auto long_tracker = new RingAndRfSection();
 
     longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
 
-    auto Slice = Context::Slice = new Slices(N_slices);
+    auto Slice = Context::Slice = new Slices(RfP, Beam, N_slices);
 
     // plot_long_phase_space(GP, RfP, Beam, 5e-7, 1.2e-6, -3e5, 3e5, "s", 1, true);
     Slice->track();

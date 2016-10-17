@@ -26,8 +26,8 @@ public:
     };
 
     uint fCorr;
-    ftype fFMin, fFMax;
-    ftype fAi;
+    double fFMin, fFMax;
+    double fAi;
     int fSeed1, fSeed2;
     predistortion_t fPredistortion;
     uint fNTurns;
@@ -40,7 +40,7 @@ public:
                                  transform_t transform
                                  = transform_t::transform_none);
 
-    f_vector_t spectrum_generation(int k, int nt, ftype df, ftype ampl,
+    f_vector_t spectrum_generation(int k, int nt, double df, double ampl,
                                    f_vector_t freq,
                                    predistortion_t predistortion);
 
@@ -55,8 +55,8 @@ public:
     uint fNt;
 
     LHCFlatSpectrum(uint time_points, uint corr_time = 10000,
-                    ftype fmin = 0.8571, ftype fmax = 1.1,
-                    ftype initial_amplitude = 1e-6, int seed1 = 1234,
+                    double fmin = 0.8571, double fmax = 1.1,
+                    double initial_amplitude = 1e-6, int seed1 = 1234,
                     int seed2 = 7564,
                     predistortion_t predistortion
                     = predistortion_t::predistortion_none);
@@ -69,12 +69,12 @@ private:
 public:
     enum rescale_ampl_t { with_sync_freq, no_scaling };
 
-    ftype fDeltaF;
+    double fDeltaF;
     rescale_ampl_t fRescaleAmpl;
 
-    PSBPhaseNoiseInjection(ftype delta_f = 1.0, uint corr_time = 10000,
-                           ftype fmin = 0.8571,
-                           ftype fmax = 1.1, ftype initial_amplitude = 1e-6,
+    PSBPhaseNoiseInjection(double delta_f = 1.0, uint corr_time = 10000,
+                           double fmin = 0.8571,
+                           double fmax = 1.1, double initial_amplitude = 1e-6,
                            int seed1 = 1234, int seed2 = 7564,
                            predistortion_t predistortion = predistortion_t::predistortion_none,
                            rescale_ampl_t rescale_ampl = rescale_ampl_t::with_sync_freq);

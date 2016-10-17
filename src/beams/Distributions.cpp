@@ -105,7 +105,7 @@ void matched_from_line_density(Beams *beam,
     if (totVolt != nullptr) {
 
         auto induced_voltage_object = *totVolt;
-        auto slices = Slices(n_points_line_den);
+        auto slices = Slices(Context::RfP, beam, n_points_line_den);
         // slices.n_macroparticles = line_density;
 
     }
@@ -271,18 +271,18 @@ void longitudinal_bigaussian(ftype sigma_dt, ftype sigma_dE,
              << "is not yet implemented\n";
     }
 
-    uint counter = RfP->counter;
+    int counter = RfP->counter;
     ftype harmonic = RfP->harmonic[0][counter];
     ftype energy = GP->energy[0][counter];
     ftype beta = GP->beta[0][counter];
-    ftype omega_RF = RfP->omega_RF[0][counter];
+    ftype omega_rf = RfP->omega_rf[0][counter];
     ftype phi_s = RfP->phi_s[counter];
-    ftype phi_RF = RfP->phi_RF[0][counter];
-    ftype eta0 = RfP->eta_0(counter);
+    ftype phi_rf = RfP->phi_rf[0][counter];
+    ftype eta0 = RfP->eta_0[counter];
 
     if (sigma_dE == 0) {
         auto voltage = GP->charge * RfP->voltage[0][counter];
-        auto phi_b = omega_RF * sigma_dt + phi_s;
+        auto phi_b = omega_rf * sigma_dt + phi_s;
         sigma_dE =
             sqrt(voltage * energy * beta * beta *
                  (cos(phi_b) - cos(phi_s) + (phi_b - phi_s) * sin(phi_s)) /
@@ -295,26 +295,26 @@ void longitudinal_bigaussian(ftype sigma_dt, ftype sigma_dE,
     if (seed < 0) {
         f_vector_t random;
         util::read_vector_from_file(random, TEST_FILES "/normal_distribution.dat");
-        for (uint i = 0; i < Beam->n_macroparticles; ++i) {
+        for (int i = 0; i < Beam->n_macroparticles; ++i) {
             ftype r = random[i % random.size()];
             if (eta0 > 0)
                 Beam->dt[i] = sigma_dt * r
-                              + (phi_s - phi_RF) / omega_RF;
+                              + (phi_s - phi_rf) / omega_rf;
             else
                 Beam->dt[i] = sigma_dt * r
-                              + (phi_s - phi_RF - constant::pi) / omega_RF;
+                              + (phi_s - phi_rf - constant::pi) / omega_rf;
             Beam->dE[i] = sigma_dE * r;
         }
     } else {
         default_random_engine generator(seed);
         normal_distribution<ftype> distribution(0.0, 1.0);
-        for (uint i = 0; i < Beam->n_macroparticles; ++i) {
+        for (int i = 0; i < Beam->n_macroparticles; ++i) {
             ftype r = distribution(generator);
             if (eta0 > 0)
-                Beam->dt[i] = sigma_dt * r + (phi_s - phi_RF) / omega_RF;
+                Beam->dt[i] = sigma_dt * r + (phi_s - phi_rf) / omega_rf;
             else
                 Beam->dt[i] =
-                    sigma_dt * r + (phi_s - phi_RF - constant::pi) / omega_RF;
+                    sigma_dt * r + (phi_s - phi_rf - constant::pi) / omega_rf;
             r = distribution(generator);
             Beam->dE[i] = sigma_dE * r;
         }

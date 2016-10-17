@@ -25,20 +25,20 @@
 
 class API LHCNoiseFB {
   private:
-    static const ftype cfwhm;
+    static const double cfwhm;
 
   public:
     // Phase noise scaling factor. Initially 0
-    ftype fX;
+    double fX;
 
     // Target bunch length [s], 4-sigma value.
-    ftype fBlTarg;
+    double fBlTarg;
 
     // Measured bunch length [s], FWHM.
-    ftype fBlMeas;
+    double fBlMeas;
 
     // Feedback recursion scaling factor.*
-    ftype fA;
+    double fA;
 
     // Update feedback every n_update turns.*
     uint fNUpdate;
@@ -56,12 +56,12 @@ class API LHCNoiseFB {
 
     std::function<void()> fFwhm;
 
-    LHCNoiseFB(ftype bl_target, ftype gain = 0.1e9, ftype factor = 0.93,
-               ftype update_frequency = 22500, bool variable_gain = true,
+    LHCNoiseFB(double bl_target, double gain = 0.1e9, double factor = 0.93,
+               double update_frequency = 22500, bool variable_gain = true,
                f_vector_t bunch_pattern = f_vector_t());
     ~LHCNoiseFB();
     void track();
-    ftype fwhm_interpolation(uint_vector_t index, ftype half_height);
+    double fwhm_interpolation(uint_vector_t index, double half_height);
     void fwhm_single_bunch();
     void fwhm_multi_bunch();
 };

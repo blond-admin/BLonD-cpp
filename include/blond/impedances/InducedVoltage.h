@@ -15,23 +15,23 @@
 
 
 
-void linear_interp_kick(const ftype *__restrict beam_dt,
-                        ftype *__restrict beam_dE,
-                        const ftype *__restrict voltage_array,
-                        const ftype *__restrict bin_centers,
+void linear_interp_kick(const double *__restrict beam_dt,
+                        double *__restrict beam_dE,
+                        const double *__restrict voltage_array,
+                        const double *__restrict bin_centers,
                         const int n_slices,
                         const int n_macroparticles);
 
 
 class API InducedVoltage {
 public:
-    std::vector<ftype> fInducedVoltage;
+    std::vector<double> fInducedVoltage;
 
     InducedVoltage() {};
 
     virtual void track() = 0;
     virtual void reprocess() = 0;
-    virtual std::vector<ftype> induced_voltage_generation(uint length = 0) = 0;
+    virtual std::vector<double> induced_voltage_generation(uint length = 0) = 0;
     virtual ~InducedVoltage() {};
 };
 
@@ -40,16 +40,16 @@ public:
     enum time_or_freq { time_domain, freq_domain };
 
     std::vector<Intensity *> fWakeSourceList;
-    std::vector<ftype> fTimeArray;
-    std::vector<ftype> fTotalWake;
+    std::vector<double> fTimeArray;
+    std::vector<double> fTotalWake;
     uint fCut;
     uint fShape;
     time_or_freq fTimeOrFreq;
 
     void track();
-    void sum_wakes(std::vector<ftype> &v);
+    void sum_wakes(std::vector<double> &v);
     void reprocess();
-    std::vector<ftype> induced_voltage_generation(uint length = 0);
+    std::vector<double> induced_voltage_generation(uint length = 0);
     InducedVoltageTime(std::vector<Intensity *> &WakeSourceList,
                        time_or_freq TimeOrFreq = freq_domain);
 
@@ -69,7 +69,7 @@ public:
     // *Input frequency resolution in [Hz], the beam profile sampling for the
     // spectrum
     // will be adapted according to the freq_res_option.*
-    ftype fFreqResolutionInput;
+    double fFreqResolutionInput;
 
     // Number of turns to be considered as memory for induced voltage
     // calculation.*
@@ -78,7 +78,7 @@ public:
     bool fSaveIndividualVoltages;
     // *Real frequency resolution in [Hz], according to the obtained
     // n_fft_sampling.*
-    ftype fFreqResolution;
+    double fFreqResolution;
     // *Frequency array of the impedance in [Hz]*
     f_vector_t fFreqArray;
     uint fNFFTSampling;
@@ -104,10 +104,10 @@ public:
 
     // Reprocess the impedance contributions with respect to the new_slicing.
     void reprocess();
-    std::vector<ftype> induced_voltage_generation(uint length = 0);
+    std::vector<double> induced_voltage_generation(uint length = 0);
     InducedVoltageFreq(
         std::vector<Intensity *> &impedanceSourceList,
-        ftype freqResolutionInput = 0.0,
+        double freqResolutionInput = 0.0,
         freq_res_option_t freq_res_option = freq_res_option_t::round_option,
         uint NTurnsMem = 0, bool recalculationImpedance = false,
         bool saveIndividualVoltages = false);
@@ -117,8 +117,8 @@ public:
 class API TotalInducedVoltage : public InducedVoltage {
 public:
     std::vector<InducedVoltage *> fInducedVoltageList;
-    std::vector<ftype> fTimeArray;
-    std::vector<ftype> fRevTimeArray;
+    std::vector<double> fTimeArray;
+    std::vector<double> fRevTimeArray;
     uint fCounterTurn = 0;
     uint fNTurnsMemory;
     bool fInductiveImpedanceOn = false;
@@ -126,17 +126,17 @@ public:
     void track();
     void track_memory();
     void track_ghosts_particles();
-    std::vector<ftype> induced_voltage_sum(uint length = 0);
+    std::vector<double> induced_voltage_sum(uint length = 0);
     void reprocess();
 
-    std::vector<ftype> induced_voltage_generation(uint length = 0)
+    std::vector<double> induced_voltage_generation(uint length = 0)
     {
-        return std::vector<ftype>();
+        return std::vector<double>();
     };
 
     TotalInducedVoltage(std::vector<InducedVoltage *> &InducedVoltageList,
                         uint NTurnsMemory = 0,
-                        std::vector<ftype> RevTimeArray = std::vector<ftype>());
+                        std::vector<double> RevTimeArray = std::vector<double>());
 
     ~TotalInducedVoltage();
 };

@@ -10,10 +10,13 @@
 #include <blond/fft.h>
 #include <blond/python.h>
 
-Slices::Slices(uint n_slices, int n_sigma, ftype cut_left, ftype cut_right,
+Slices::Slices(RfParameters *RfP, Beams *Beam, int n_slices,
+               int n_sigma, double cut_left, double cut_right,
                cuts_unit_t cuts_unit, fit_t fit_option,
                bool direct_slicing)
 {
+    beam = Beam;
+    rfp = RfP;
     this->n_slices = n_slices;
     this->cut_left = cut_left;
     this->cut_right = cut_right;
@@ -21,7 +24,6 @@ Slices::Slices(uint n_slices, int n_sigma, ftype cut_left, ftype cut_right,
     this->fit_option = fit_option;
     this->n_sigma = n_sigma;
     this->n_macroparticles.resize(n_slices, 0);
-    this->fFloatMacroparticles.resize(n_slices, 0.0);
     this->edges.resize(n_slices + 1, 0.0);
     this->bin_centers.resize(n_slices, 0.0);
     set_cuts();
@@ -38,7 +40,6 @@ Slices::~Slices() { fft::destroy_plans(); }
 
 void Slices::set_cuts()
 {
-    auto Beam = Context::Beam;
     /*
     *Method to set the self.cut_left and self.cut_right properties. This is
     done as a pre-processing if the mode is set to 'const_space', for
@@ -53,13 +54,13 @@ void Slices::set_cuts()
         if (n_sigma == 0) {
             sort_particles();
             cut_left =
-                Beam->dt.front() - 0.05 * (Beam->dt.back() - Beam->dt.front());
+                beam->dt.front() - 0.05 * (beam->dt.back() - beam->dt.front());
             cut_right =
-                Beam->dt.back() + 0.05 * (Beam->dt.back() - Beam->dt.front());
+                beam->dt.back() + 0.05 * (beam->dt.back() - beam->dt.front());
         } else {
-            ftype mean_coords = mymath::mean(Beam->dt.data(), Beam->dt.size());
-            ftype sigma_coords = mymath::standard_deviation(
-                                     Beam->dt.data(), Beam->dt.size(), mean_coords);
+            double mean_coords = mymath::mean(beam->dt.data(), beam->dt.size());
+            double sigma_coords = mymath::standard_deviation(
+                                      beam->dt.data(), beam->dt.size(), mean_coords);
             cut_left = mean_coords - n_sigma * sigma_coords / 2;
             cut_right = mean_coords + n_sigma * sigma_coords / 2;
         }
@@ -79,10 +80,9 @@ void Slices::sort_particles()
     *Sort the particles with respect to their position.*
     */
 
-    auto Beam = Context::Beam;
     struct API particle {
-        ftype dE;
-        ftype dt;
+        double dE;
+        double dt;
         int id;
         bool operator<(const particle &other) const
         {
@@ -90,30 +90,29 @@ void Slices::sort_particles()
         }
     };
 
-    std::vector<particle> particles(Beam->dE.size());
+    std::vector<particle> particles(beam->dE.size());
     for (uint i = 0; i < particles.size(); i++)
-        particles[i] = {Beam->dE[i], Beam->dt[i], Beam->id[i]};
+        particles[i] = {beam->dE[i], beam->dt[i], beam->id[i]};
 
     std::sort(particles.begin(), particles.end());
 
     for (uint i = 0; i < particles.size(); i++) {
-        Beam->dE[i] = particles[i].dE;
-        Beam->dt[i] = particles[i].dt;
-        Beam->id[i] = particles[i].id;
+        beam->dE[i] = particles[i].dE;
+        beam->dt[i] = particles[i].dt;
+        beam->id[i] = particles[i].id;
     }
 }
 
-ftype Slices::convert_coordinates(const ftype cut,
-                                  const cuts_unit_t type)
+double Slices::convert_coordinates(const double cut,
+                                   const cuts_unit_t type)
 {
-    auto RfP = Context::RfP;
     /*
     *Method to convert a value from one input_unit_type to 's'.*
     */
     if (type == s)
         return cut;
     else  /*if (type == rad)*/
-        return cut / RfP->omega_RF[RfP->idx][RfP->counter];
+        return cut / rfp->omega_rf[0][rfp->counter];
 
 }
 
@@ -134,24 +133,22 @@ void Slices::slice_constant_space_histogram()
     *This method is faster than the classic slice_constant_space method
     for high number of particles (~1e6).*
     */
-    auto Beam = Context::Beam;
 
-    histogram(Beam->dt.data(), n_macroparticles.data(), cut_left, cut_right,
-              n_slices, Beam->n_macroparticles);
+    histogram(beam->dt.data(), n_macroparticles.data(), cut_left, cut_right,
+              n_slices, beam->n_macroparticles);
 }
 
-void Slices::histogram(const ftype *__restrict input,
-                       int *__restrict output,
-                       const ftype cut_left,
-                       const ftype cut_right,
+void Slices::histogram(const double *__restrict input,
+                       double *__restrict output,
+                       const double cut_left,
+                       const double cut_right,
                        const int n_slices,
                        const int n_macroparticles)
 {
 
-    const ftype inv_bin_width = n_slices / (cut_right - cut_left);
-    // const ftype range = cut_right - cut_left;
+    const double inv_bin_width = n_slices / (cut_right - cut_left);
     // histogram is faster with ints
-    typedef int hist_t;
+    typedef double hist_t;
     hist_t *h;
     #pragma omp parallel
     {
@@ -165,10 +162,10 @@ void Slices::histogram(const ftype *__restrict input,
         #pragma omp single
         h = (hist_t *)calloc(threads * n_slices, sizeof(hist_t));
 
-        int *h_row = &h[row];
+        hist_t *h_row = &h[row];
 
         for (int i = start; i < end; ++i) {
-            const ftype a = input[i];
+            const double a = input[i];
             if (a < cut_left || a > cut_right) continue;
             const int ffbin = (int)((a - cut_left) * inv_bin_width);
             h_row[ffbin]++;
@@ -181,7 +178,7 @@ void Slices::histogram(const ftype *__restrict input,
 
         for (int i = start; i < end; i++)
             output[i] = 0;
-        // memset(&output[start], 0, (end-start) * sizeof(ftype));
+        // memset(&output[start], 0, (end-start) * sizeof(double));
 
         for (int i = 0; i < threads; ++i) {
             const int r = i * n_slices;
@@ -202,9 +199,8 @@ void Slices::track_cuts()
     Requires Beam statistics!
     Method to be refined!*
     */
-    auto Beam = Context::Beam;
 
-    ftype delta = Beam->mean_dt - 0.5 * (cut_left + cut_right);
+    double delta = beam->mean_dt - 0.5 * (cut_left + cut_right);
     cut_left += delta;
     cut_right += delta;
     for (int i = 0; i < n_slices + 1; ++i) {
@@ -215,24 +211,24 @@ void Slices::track_cuts()
     }
 }
 
-void Slices::smooth_histogram(const ftype *__restrict input,
-                              ftype *__restrict output,
-                              const ftype cut_left,
-                              const ftype cut_right,
+void Slices::smooth_histogram(const double *__restrict input,
+                              double *__restrict output,
+                              const double cut_left,
+                              const double cut_right,
                               const int n_slices,
                               const int n_macroparticles)
 {
 
     int i;
-    ftype a;
-    ftype fbin;
-    ftype ratioffbin;
-    ftype ratiofffbin;
-    ftype distToCenter;
+    double a;
+    double fbin;
+    double ratioffbin;
+    double ratiofffbin;
+    double distToCenter;
     int ffbin = 0;
     int fffbin = 0;
-    const ftype inv_bin_width = n_slices / (cut_right - cut_left);
-    const ftype bin_width = (cut_right - cut_left) / n_slices;
+    const double inv_bin_width = n_slices / (cut_right - cut_left);
+    const double bin_width = (cut_right - cut_left) / n_slices;
 
     for (i = 0; i < n_slices; i++) {
         output[i] = 0;
@@ -245,7 +241,7 @@ void Slices::smooth_histogram(const ftype *__restrict input,
             continue;
         fbin = (a - cut_left) * inv_bin_width;
         ffbin = (int)(fbin);
-        distToCenter = fbin - (ftype)(ffbin);
+        distToCenter = fbin - (double)(ffbin);
         if (distToCenter > 0.5)
             fffbin = (int)(fbin + 1.0);
         ratioffbin = 1.5 - distToCenter;
@@ -264,10 +260,8 @@ void Slices::slice_constant_space_histogram_smooth()
     /*
     At the moment 4x slower than slice_constant_space_histogram but smoother.
     */
-    auto Beam = Context::Beam;
-
-    smooth_histogram(Beam->dt.data(), fFloatMacroparticles.data(), cut_left,
-                     cut_right, n_slices, Beam->n_macroparticles);
+    smooth_histogram(beam->dt.data(), n_macroparticles.data(), cut_left,
+                     cut_right, n_slices, beam->n_macroparticles);
 }
 
 void Slices::rms()
@@ -276,10 +270,8 @@ void Slices::rms()
     * Computation of the RMS bunch length and position from the line density
     (bunch length = 4sigma).*
     */
-    auto Beam = Context::Beam;
-
-    f_vector_t lineDenNormalized(n_slices); // = new ftype[n_slices];
-    f_vector_t array(n_slices);             // = new ftype[n_slices];
+    f_vector_t lineDenNormalized(n_slices); // = new double[n_slices];
+    f_vector_t array(n_slices);             // = new double[n_slices];
 
     const auto timeResolution = bin_centers[1] - bin_centers[0];
     const auto trap = mymath::trapezoid(n_macroparticles.data(),
@@ -302,7 +294,7 @@ void Slices::rms()
 }
 
 
-void Slices::fwhm(const ftype shift)
+void Slices::fwhm(const double shift)
 {
 
     /*
@@ -311,8 +303,8 @@ void Slices::fwhm(const ftype shift)
     */
     int max = *std::max_element(n_macroparticles.begin(),
                                 n_macroparticles.end());
-    ftype half_max = shift + 0.5 * (max - shift);
-    ftype timeResolution = bin_centers[1] - bin_centers[0];
+    double half_max = shift + 0.5 * (max - shift);
+    double timeResolution = bin_centers[1] - bin_centers[0];
 
     // First aproximation for the half maximum values
     int taux1, taux2;
@@ -328,7 +320,7 @@ void Slices::fwhm(const ftype shift)
     taux2 = i;
 
     // dprintf("taux1, taux2 = %d, %d\n", taux1, taux2);
-    ftype t1, t2;
+    double t1, t2;
 
     if (taux1 < n_slices && taux2 < n_slices - 1 && taux2 >= 0) {
         t1 = bin_centers[taux1] -
@@ -348,7 +340,7 @@ void Slices::fwhm(const ftype shift)
     }
 }
 
-// ftype Slices::fast_fwhm()
+// double Slices::fast_fwhm()
 // {
 
 //     /*
@@ -362,7 +354,7 @@ void Slices::fwhm(const ftype shift)
 
 //     uint max_i =
 //         mymath::max(n_macroparticles.data(), Beam->n_macroparticles, 1);
-//     ftype half_max = 0.5 * n_macroparticles[max_i];
+//     double half_max = 0.5 * n_macroparticles[max_i];
 
 //     int i = 0;
 //     while (n_macroparticles[i] < half_max && i < (int)n_slices)
@@ -378,7 +370,7 @@ void Slices::fwhm(const ftype shift)
 
 void Slices::fwhm_multibunch() {}
 
-void Slices::beam_spectrum_generation(uint n, bool onlyRFFT)
+void Slices::beam_spectrum_generation(int n, bool onlyRFFT)
 {
 
     fBeamSpectrumFreq = fft::rfftfreq(n, bin_centers[1] - bin_centers[0]);
@@ -446,13 +438,13 @@ f_vector_t Slices::gaussian_filter1d(f_vector_t &x, int sigma,
     assert(ret);
     auto npArray = (PyArrayObject *)(ret);
     int len = PyArray_SHAPE(npArray)[0];
-    ftype *res = (ftype *) PyArray_DATA(npArray);
+    double *res = (double *) PyArray_DATA(npArray);
 
     return f_vector_t(&res[0], &res[len]);
 }
 
 
-f_vector_t Slices::gradient(f_vector_t &x, ftype dist)
+f_vector_t Slices::gradient(f_vector_t &x, double dist)
 {
     python::import();
     auto pFunc = python::import("utilities", "gradient");
@@ -463,7 +455,7 @@ f_vector_t Slices::gradient(f_vector_t &x, ftype dist)
 
     auto npArray = (PyArrayObject *)(ret);
     int len = PyArray_SHAPE(npArray)[0];
-    ftype *res = (ftype *) PyArray_DATA(npArray);
+    double *res = (double *) PyArray_DATA(npArray);
     return f_vector_t(&res[0], &res[len]);
 }
 
@@ -475,7 +467,7 @@ void Slices::beam_profile_filter_chebyshev(std::map<std::string, std::string>
 {
     python::import();
     auto pFunc = python::import("utilities", "beam_profile_filter_chebyshev");
-    auto pNMacroparticles = python::convert_int_array(n_macroparticles.data(),
+    auto pNMacroparticles = python::convert_double_array(n_macroparticles.data(),
                             n_macroparticles.size());
     auto pResolution = python::convert_double(bin_centers[1] - bin_centers[0]);
     auto pNSlices = python::convert_int(n_slices);
@@ -502,7 +494,7 @@ void Slices::beam_profile_filter_chebyshev(std::map<std::string, std::string>
 
     auto npArray = (PyArrayObject *) ret;
     int len = PyArray_SHAPE(npArray)[0];
-    ftype *res = (ftype *) PyArray_DATA(npArray);
+    double *res = (double *) PyArray_DATA(npArray);
 
     nCoefficients = res[0];
     assert(len == 3 + 2 * nCoefficients);
@@ -520,7 +512,7 @@ void Slices::beam_profile_filter_chebyshev(std::map<std::string, std::string>
 {
     python::import();
     auto pFunc = python::import("utilities", "beam_profile_filter_chebyshev");
-    auto pNMacroparticles = python::convert_int_array(n_macroparticles.data(),
+    auto pNMacroparticles = python::convert_double_array(n_macroparticles.data(),
                             n_macroparticles.size());
     auto pResolution = python::convert_double(bin_centers[1] - bin_centers[0]);
     auto pNSlices = python::convert_int(n_slices);
@@ -546,7 +538,7 @@ void Slices::beam_profile_filter_chebyshev(std::map<std::string, std::string>
 
     auto npArray = (PyArrayObject *) ret;
     int len = PyArray_SHAPE(npArray)[0];
-    ftype *res = (ftype *) PyArray_DATA(npArray);
+    double *res = (double *) PyArray_DATA(npArray);
 
     assert(len == 1 + 3 * n_slices);
 
@@ -561,16 +553,14 @@ void Slices::beam_profile_filter_chebyshev(std::map<std::string, std::string>
 
 void Slices::gaussian_fit()
 {
-    auto Beam = Context::Beam;
     f_vector_t p0;
     double max = *std::max_element(n_macroparticles.begin(),
                                    n_macroparticles.end());
-    // std::cout.precision(12);
-    // std::cout << "max: " << max << "\n";
+
     if (bl_gauss == 0 && bp_gauss == 0) {
         p0 = {max,
-              mymath::mean(Beam->dt.data(), Beam->dt.size()),
-              mymath::standard_deviation(Beam->dt.data(), Beam->dt.size())
+              mymath::mean(beam->dt.data(), beam->dt.size()),
+              mymath::standard_deviation(beam->dt.data(), beam->dt.size())
              };
     } else {
         p0 = {max,
@@ -578,13 +568,12 @@ void Slices::gaussian_fit()
               bl_gauss / 4
              };
     }
-    // util::dump(p0, "p0\n");
 
     python::import();
     auto pFunc = python::import("utilities", "curve_fit");
     auto pBinCenters = python::convert_double_array(bin_centers.data(),
                        bin_centers.size());
-    auto pNMacroparticles = python::convert_int_array(n_macroparticles.data(),
+    auto pNMacroparticles = python::convert_double_array(n_macroparticles.data(),
                             n_macroparticles.size());
     auto pP0 = python::convert_double_array(p0.data(), p0.size());
     auto ret = PyObject_CallFunctionObjArgs(pFunc, pBinCenters,
@@ -597,9 +586,7 @@ void Slices::gaussian_fit()
 
     auto npArray = (PyArrayObject *) ret;
     int len = PyArray_SHAPE(npArray)[0];
-    ftype *pfit_gauss = (ftype *) PyArray_DATA(npArray);
-    // std::cout << "pfit_gauss[1]: " <<pfit_gauss[1] << "\n";
-    // std::cout << "pfit_gauss[2]: " <<pfit_gauss[2] << "\n";
+    double *pfit_gauss = (double *) PyArray_DATA(npArray);
     bl_gauss = 4 * std::abs(pfit_gauss[2]);
     bp_gauss = std::abs(pfit_gauss[1]);
 

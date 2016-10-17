@@ -12,16 +12,16 @@ class testTracker : public ::testing::Test {
 
 protected:
     const long long N_b = 1e9;  // Intensity
-    const ftype tau_0 = 0.4e-9; // Initial bunch length, 4 sigma [s]
+    const double tau_0 = 0.4e-9; // Initial bunch length, 4 sigma [s]
     // Machine and RF parameters
-    const ftype C = 26658.883;       // Machine circumference [m]
-    const long long p_i = 450e9;     // Synchronous momentum [eV/c]
-    const ftype p_f = 460.005e9;     // Synchronous momentum, final
+    const double C = 26658.883;       // Machine circumference [m]
+    const double p_i = 450e9;     // Synchronous momentum [eV/c]
+    const double p_f = 460.005e9;     // Synchronous momentum, final
     const long long h = 35640;       // Harmonic number
-    const ftype V = 6e6;             // RF voltage [V]
-    const ftype dphi = 0;            // Phase modulation/offset
-    const ftype gamma_t = 55.759505; // Transition gamma
-    const ftype alpha =
+    const double V = 6e6;             // RF voltage [V]
+    const double dphi = 0;            // Phase modulation/offset
+    const double gamma_t = 55.759505; // Transition gamma
+    const double alpha =
         1.0 / gamma_t / gamma_t; // First order mom. comp. factor
     const int alpha_order = 1;
     const int n_sections = 1;
@@ -53,13 +53,18 @@ protected:
                                             alpha_order, momentumVec,
                                             GeneralParameters::particle_t::proton);
 
-        Context::Beam = new Beams(N_p, N_b);
+        // auto Beam = Context::Beam = new Beams(N_p, N_b);
 
-        Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+        auto GP = Context::GP;
+        auto Beam = Context::Beam = new Beams(GP, N_p, N_b);
+
+        auto RfP = Context::RfP = new RfParameters(GP, n_sections, hVec,
+                                        voltageVec, dphiVec);
+
 
         longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
 
-        Context::Slice = new Slices(N_slices);
+        Context::Slice = new Slices(RfP, Beam, N_slices);
     }
 
     virtual void TearDown()
@@ -284,16 +289,16 @@ class testTrackerMultiRf : public ::testing::Test {
 
 protected:
     const long long N_b = 1e9;  // Intensity
-    const ftype tau_0 = 0.4e-9; // Initial bunch length, 4 sigma [s]
+    const double tau_0 = 0.4e-9; // Initial bunch length, 4 sigma [s]
     // Machine and RF parameters
-    const ftype C = 26658.883;       // Machine circumference [m]
-    const long long p_i = 450e9;     // Synchronous momentum [eV/c]
-    const ftype p_f = 460.005e9;     // Synchronous momentum, final
+    const double C = 26658.883;       // Machine circumference [m]
+    const double p_i = 450e9;     // Synchronous momentum [eV/c]
+    const double p_f = 460.005e9;     // Synchronous momentum, final
     const long long h = 35640;       // Harmonic number
-    const ftype V = 6e6;             // RF voltage [V]
-    const ftype dphi = 0;            // Phase modulation/offset
-    const ftype gamma_t = 55.759505; // Transition gamma
-    const ftype alpha =
+    const double V = 6e6;             // RF voltage [V]
+    const double dphi = 0;            // Phase modulation/offset
+    const double gamma_t = 55.759505; // Transition gamma
+    const double alpha =
         1.0 / gamma_t / gamma_t; // First order mom. comp. factor
     const int alpha_order = 1;
     const int n_sections = 1;
@@ -330,14 +335,17 @@ protected:
         Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
                                             alpha_order, momentumVec,
                                             GeneralParameters::particle_t::proton);
+        auto GP = Context::GP;
 
-        Context::Beam = new Beams(N_p, N_b);
+        Context::Beam = new Beams(GP, N_p, N_b);
+        auto Beam = Context::Beam;
 
-        Context::RfP = new RfParameters(n_rf, hVec, voltageVec, dphiVec);
+        Context::RfP = new RfParameters(GP, n_rf, hVec, voltageVec, dphiVec);
+        auto RfP = Context::RfP;
 
         longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
 
-        Context::Slice = new Slices(N_slices);
+        Context::Slice = new Slices(RfP, Beam, N_slices);
     }
 
     virtual void TearDown()
@@ -388,16 +396,16 @@ class testTrackerPeriodicity : public ::testing::Test {
 protected:
 
     const long long N_b = 1e9;  // Intensity
-    const ftype tau_0 = 1e-9; // Initial bunch length, 4 sigma [s]
+    const double tau_0 = 1e-9; // Initial bunch length, 4 sigma [s]
     // Machine and RF parameters
-    const ftype C = 26658.883;       // Machine circumference [m]
-    const long long p_i = 455e9;     // Synchronous momentum [eV/c]
-    const ftype p_f = 460.005e9;     // Synchronous momentum, final
+    const double C = 26658.883;       // Machine circumference [m]
+    const double p_i = 455e9;     // Synchronous momentum [eV/c]
+    const double p_f = 460.005e9;     // Synchronous momentum, final
     const long long h = 35640;       // Harmonic number
-    const ftype V = 10e6;             // RF voltage [V]
-    const ftype dphi = 0;            // Phase modulation/offset
-    const ftype gamma_t = 55.759505; // Transition gamma
-    const ftype alpha =
+    const double V = 10e6;             // RF voltage [V]
+    const double dphi = 0;            // Phase modulation/offset
+    const double gamma_t = 55.759505; // Transition gamma
+    const double alpha =
         1.0 / gamma_t / gamma_t; // First order mom. comp. factor
     const int alpha_order = 1;
     const int n_sections = 1;
@@ -430,13 +438,17 @@ protected:
                                             alpha_order, momentumVec,
                                             GeneralParameters::particle_t::proton);
 
-        Context::Beam = new Beams(N_p, N_b);
+        auto GP = Context::GP;
 
-        Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+        auto Beam = Context::Beam = new Beams(GP, N_p, N_b);
+
+        Context::RfP = new RfParameters(GP, n_sections, hVec,
+                                        voltageVec, dphiVec);
+
 
         longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
 
-        // Context::Slice = new Slices(N_slices);
+        // Context::Slice = new Slices(RfP, Beam, N_slices);
     }
 
     virtual void TearDown()
@@ -459,8 +471,8 @@ TEST_F(testTrackerPeriodicity, set_periodicity1)
     // auto epsilon = 1e-8;
     auto params = std::string(TEST_FILES "/Tracker/periodicity/set_periodicity1/");
 
-    auto long_tracker = new RingAndRfSection(Context::RfP, RingAndRfSection::simple,
-            NULL, NULL, true, 0.0);
+    auto long_tracker = new RingAndRfSection(Context::RfP, Beam,
+            RingAndRfSection::simple, NULL, NULL, true, 0.0);
 
     auto mean = mymath::mean(Beam->dt.data(), Beam->dt.size());
     Context::GP->t_rev[Context::RfP->counter + 1] = mean;
@@ -503,8 +515,8 @@ TEST_F(testTrackerPeriodicity, track1)
     auto mean = mymath::mean(Beam->dt.data(), Beam->dt.size());
     Context::GP->t_rev[Context::RfP->counter + 1] = mean;
 
-    auto long_tracker = new RingAndRfSection(Context::RfP, RingAndRfSection::simple,
-            NULL, NULL, true, 0.0);
+    auto long_tracker = new RingAndRfSection(Context::RfP, Beam,
+            RingAndRfSection::simple, NULL, NULL, true, 0.0);
 
 
     long_tracker->track();
@@ -545,8 +557,8 @@ TEST_F(testTrackerPeriodicity, track2)
     int size = GP->t_rev.size();
     GP->t_rev = f_vector_t(size, mean);
 
-    auto long_tracker = new RingAndRfSection(Context::RfP, RingAndRfSection::simple,
-            NULL, NULL, true, 0.0);
+    auto long_tracker = new RingAndRfSection(Context::RfP, Beam,
+            RingAndRfSection::simple, NULL, NULL, true, 0.0);
 
 
     for (int i = 0; i < N_t; i++) long_tracker->track();

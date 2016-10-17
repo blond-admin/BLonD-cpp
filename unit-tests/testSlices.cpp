@@ -11,16 +11,16 @@ class testSlices : public ::testing::Test {
 
 protected:
     const long long N_b = 1e8;  // Intensity
-    const ftype tau_0 = 1e-8; // Initial bunch length, 4 sigma [s]
+    const double tau_0 = 1e-8; // Initial bunch length, 4 sigma [s]
 // Machine and RF parameters
-    const ftype C = 26658.883;       // Machine circumference [m]
-    const long long p_i = 450e9;     // Synchronous momentum [eV/c]
-    const ftype p_f = 455e9;     // Synchronous momentum, final
+    const double C = 26658.883;       // Machine circumference [m]
+    const double p_i = 450e9;     // Synchronous momentum [eV/c]
+    const double p_f = 455e9;     // Synchronous momentum, final
     const long long h = 35640;       // Harmonic number
-    const ftype V = 7e6;             // RF voltage [V]
-    const ftype dphi = 0;            // Phase modulation/offset
-    const ftype gamma_t = 55.759505; // Transition gamma
-    const ftype alpha =
+    const double V = 7e6;             // RF voltage [V]
+    const double dphi = 0;            // Phase modulation/offset
+    const double gamma_t = 55.759505; // Transition gamma
+    const double alpha =
         1.0 / gamma_t / gamma_t; // First order mom. comp. factor
     const int alpha_order = 1;
     const int n_sections = 1;
@@ -51,9 +51,14 @@ protected:
                                             alpha_order, momentumVec,
                                             GeneralParameters::particle_t::proton);
 
-        Context::Beam = new Beams(N_p, N_b);
+        // Context::Beam = new Beams(N_p, N_b);
 
-        Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+        auto GP = Context::GP;
+        auto Beam = Context::Beam = new Beams(GP, N_p, N_b);
+
+        Context::RfP = new RfParameters(GP, n_sections, hVec,
+                                        voltageVec, dphiVec);
+
 
         longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
 
@@ -75,7 +80,10 @@ protected:
 
 TEST_F(testSlices, set_cuts1)
 {
-    auto Slice = new Slices(N_slices);
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+
+    auto Slice = new Slices(RfP, Beam, N_slices);
 
     string params = TEST_FILES "/Slices/set_cuts1/";
     auto epsilon = 1e-8;
@@ -95,8 +103,8 @@ TEST_F(testSlices, set_cuts1)
 
     util::read_vector_from_file(v, params + "bin_centers.txt");
     for (uint i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = Slice->bin_centers[i];
+        double ref = v[i];
+        double real = Slice->bin_centers[i];
         ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
                 << "Testing of bin_centers failed on i " << i << '\n';
     }
@@ -106,7 +114,10 @@ TEST_F(testSlices, set_cuts1)
 
 TEST_F(testSlices, set_cuts2)
 {
-    auto Slice = new Slices(N_slices, 10);
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+
+    auto Slice = new Slices(RfP, Beam, N_slices, 10);
 
     string params = TEST_FILES "/Slices/set_cuts2/";
     auto epsilon = 1e-8;
@@ -126,8 +137,8 @@ TEST_F(testSlices, set_cuts2)
 
     util::read_vector_from_file(v, params + "bin_centers.txt");
     for (uint i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = Slice->bin_centers[i];
+        double ref = v[i];
+        double real = Slice->bin_centers[i];
         ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
                 << "Testing of bin_centers failed on i " << i << '\n';
     }
@@ -138,7 +149,10 @@ TEST_F(testSlices, set_cuts2)
 
 TEST_F(testSlices, set_cuts3)
 {
-    auto Slice = new Slices(N_slices, 0, -1e-8, 1e8);
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+
+    auto Slice = new Slices(RfP, Beam, N_slices, 0, -1e-8, 1e8);
 
     string params = TEST_FILES "/Slices/set_cuts3/";
     auto epsilon = 1e-8;
@@ -158,8 +172,8 @@ TEST_F(testSlices, set_cuts3)
 
     util::read_vector_from_file(v, params + "bin_centers.txt");
     for (uint i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = Slice->bin_centers[i];
+        double ref = v[i];
+        double real = Slice->bin_centers[i];
         ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
                 << "Testing of bin_centers failed on i " << i << '\n';
     }
@@ -170,9 +184,12 @@ TEST_F(testSlices, set_cuts3)
 
 TEST_F(testSlices, sort_particles1)
 {
-    auto Slice = new Slices(N_slices);
-
+    auto RfP = Context::RfP;
     auto Beam = Context::Beam;
+
+    auto Slice = new Slices(RfP, Beam, N_slices);
+
+
     string params = TEST_FILES "/Slices/sort_particles1/";
     auto epsilon = 1e-7;
 
@@ -213,7 +230,10 @@ TEST_F(testSlices, sort_particles1)
 
 TEST_F(testSlices, convert_coordinates1)
 {
-    auto slice = Slices(N_slices);
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+
+    auto slice = Slices(RfP, Beam, N_slices);
     auto ret = slice.convert_coordinates(1.0, Slices::cuts_unit_t::s);
     ASSERT_DOUBLE_EQ(1.0, ret);
 }
@@ -222,7 +242,8 @@ TEST_F(testSlices, convert_coordinates1)
 TEST_F(testSlices, convert_coordinates2)
 {
     auto RfP = Context::RfP;
-    auto slice = Slices(N_slices);
+    auto Beam = Context::Beam;
+    auto slice = Slices(RfP, Beam, N_slices);
     auto a = slice.convert_coordinates(1.0, Slices::cuts_unit_t::rad);
     auto b = slice.convert_coordinates(2.0, Slices::cuts_unit_t::rad);
     ASSERT_DOUBLE_EQ(1.0 / 2.0, a / b);
@@ -231,11 +252,14 @@ TEST_F(testSlices, convert_coordinates2)
 
 TEST_F(testSlices, smooth_histogram1)
 {
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+
     auto epsilon = 1e-8;
     string params = TEST_FILES "/Slices/smooth_histogram1/";
     f_vector_t v;
 
-    auto slice = Slices(N_slices);
+    auto slice = Slices(RfP, Beam, N_slices);
     slice.slice_constant_space_histogram_smooth();
 
     util::read_vector_from_file(v, params + "n_macroparticles.txt");
@@ -244,7 +268,7 @@ TEST_F(testSlices, smooth_histogram1)
 
     for (uint i = 0; i < v.size(); ++i) {
         double ref = v[i];
-        double real = slice.fFloatMacroparticles[i];
+        double real = slice.n_macroparticles[i];
         ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
                 << "Testing of n_macroparticles failed on i " << i << '\n';
     }
@@ -255,6 +279,7 @@ TEST_F(testSlices, smooth_histogram1)
 TEST_F(testSlices, smooth_histogram2)
 {
     auto epsilon = 1e-8;
+    auto RfP = Context::RfP;
     auto Beam = Context::Beam;
     string params = TEST_FILES "/Slices/smooth_histogram2/";
     f_vector_t v;
@@ -263,7 +288,7 @@ TEST_F(testSlices, smooth_histogram2)
     auto cut_right = Beam->dt.back();
     if (cut_left > cut_right) swap(cut_left, cut_right);
 
-    auto slice = Slices(N_slices, 0, cut_left, cut_right);
+    auto slice = Slices(RfP, Beam, N_slices, 0, cut_left, cut_right);
     slice.slice_constant_space_histogram_smooth();
 
     util::read_vector_from_file(v, params + "n_macroparticles.txt");
@@ -272,7 +297,7 @@ TEST_F(testSlices, smooth_histogram2)
 
     for (uint i = 0; i < v.size(); ++i) {
         double ref = v[i];
-        double real = slice.fFloatMacroparticles[i];
+        double real = slice.n_macroparticles[i];
         ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
                 << "Testing of n_macroparticles failed on i " << i << '\n';
     }
@@ -281,7 +306,10 @@ TEST_F(testSlices, smooth_histogram2)
 
 TEST_F(testSlices, track1)
 {
-    auto Slice = new Slices(N_slices);
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+
+    auto Slice = new Slices(RfP, Beam, N_slices);
 
     string params = TEST_FILES "/Slices/track1/";
     auto epsilon = 1e-8;
@@ -303,7 +331,10 @@ TEST_F(testSlices, track1)
 
 TEST_F(testSlices, beam_profile_derivative1)
 {
-    auto Slice = new Slices(N_slices);
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+
+    auto Slice = new Slices(RfP, Beam, N_slices);
     string params = TEST_FILES "/Slices/beam_profile_derivative1/";
     auto epsilon = 1e-8;
     f_vector_t v;
@@ -336,7 +367,10 @@ TEST_F(testSlices, beam_profile_derivative1)
 
 TEST_F(testSlices, beam_profile_derivative2)
 {
-    auto Slice = new Slices(N_slices);
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+
+    auto Slice = new Slices(RfP, Beam, N_slices);
     string params = TEST_FILES "/Slices/beam_profile_derivative2/";
     auto epsilon = 1e-8;
     f_vector_t v;
@@ -370,7 +404,10 @@ TEST_F(testSlices, beam_profile_derivative2)
 
 TEST_F(testSlices, beam_profile_derivative3)
 {
-    auto Slice = new Slices(N_slices);
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+
+    auto Slice = new Slices(RfP, Beam, N_slices);
     string params = TEST_FILES "/Slices/beam_profile_derivative3/";
     auto epsilon = 1e-8;
     f_vector_t v;
@@ -388,7 +425,7 @@ TEST_F(testSlices, beam_profile_derivative3)
     }
 
     util::read_vector_from_file(v, params + "derivative.txt");
-    ftype max = *max_element(v.begin(), v.end(), [](ftype i, ftype j) {
+    double max = *max_element(v.begin(), v.end(), [](double i, double j) {
         return fabs(i) < fabs(j);
     });
     max = abs(max);
@@ -405,7 +442,10 @@ TEST_F(testSlices, beam_profile_derivative3)
 
 TEST_F(testSlices, beam_profile_derivative_deathtest1)
 {
-    auto Slice = new Slices(N_slices);
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+
+    auto Slice = new Slices(RfP, Beam, N_slices);
     auto epsilon = 1e-8;
     f_vector_t x, derivative;
     ASSERT_DEATH(Slice->beam_profile_derivative(x, derivative, "blabla"),
@@ -418,7 +458,10 @@ TEST_F(testSlices, beam_profile_derivative_deathtest1)
 
 TEST_F(testSlices, rms1)
 {
-    auto slice = Slices(N_slices);
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+
+    auto slice = Slices(RfP, Beam, N_slices);
     string params = TEST_FILES "/Slices/rms1/";
     auto epsilon = 1e-8;
     f_vector_t v;
@@ -444,6 +487,7 @@ TEST_F(testSlices, rms1)
 
 TEST_F(testSlices, rms2)
 {
+    auto RfP = Context::RfP;
     auto Beam = Context::Beam;
     string params = TEST_FILES "/Slices/rms2/";
     auto epsilon = 1e-8;
@@ -453,7 +497,7 @@ TEST_F(testSlices, rms2)
     auto cut_right = Beam->dt.back();
     if (cut_left > cut_right) swap(cut_left, cut_right);
 
-    auto slice = Slices(N_slices, 0, cut_left, cut_right);
+    auto slice = Slices(RfP, Beam, N_slices, 0, cut_left, cut_right);
 
     slice.track();
     slice.rms();
@@ -476,7 +520,10 @@ TEST_F(testSlices, rms2)
 
 TEST_F(testSlices, fwhm1)
 {
-    auto slice = Slices(N_slices);
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+
+    auto slice = Slices(RfP, Beam, N_slices);
     string params = TEST_FILES "/Slices/fwhm1/";
     auto epsilon = 1e-8;
     f_vector_t v;
@@ -502,6 +549,7 @@ TEST_F(testSlices, fwhm1)
 
 TEST_F(testSlices, fwhm2)
 {
+    auto RfP = Context::RfP;
     auto Beam = Context::Beam;
     string params = TEST_FILES "/Slices/fwhm2/";
     auto epsilon = 1e-8;
@@ -511,7 +559,7 @@ TEST_F(testSlices, fwhm2)
     auto cut_right = Beam->dt.back();
     if (cut_left > cut_right) swap(cut_left, cut_right);
 
-    auto slice = Slices(N_slices, 0, cut_left, cut_right);
+    auto slice = Slices(RfP, Beam, N_slices, 0, cut_left, cut_right);
 
     slice.track();
     slice.fwhm(10.);
@@ -533,7 +581,9 @@ TEST_F(testSlices, fwhm2)
 
 TEST_F(testSlices, fwhm3)
 {
+    auto RfP = Context::RfP;
     auto Beam = Context::Beam;
+
     string params = TEST_FILES "/Slices/fwhm3/";
     auto epsilon = 1e-8;
     f_vector_t v;
@@ -542,7 +592,7 @@ TEST_F(testSlices, fwhm3)
     auto cut_right = Beam->dt.back();
     if (cut_left > cut_right) swap(cut_left, cut_right);
 
-    auto slice = Slices(N_slices, 0, cut_left, cut_right);
+    auto slice = Slices(RfP, Beam, N_slices, 0, cut_left, cut_right);
 
     slice.track();
     slice.fwhm(0.1);
@@ -564,7 +614,10 @@ TEST_F(testSlices, fwhm3)
 
 TEST_F(testSlices, gaussian_fit1)
 {
-    auto slice = Slices(N_slices, 0, 0, 0, Slices::cuts_unit_t::s,
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+
+    auto slice = Slices(RfP, Beam, N_slices, 0, 0, 0, Slices::cuts_unit_t::s,
                         Slices::fit_t::gaussian);
     string params = TEST_FILES "/Slices/gaussian_fit1/";
     auto epsilon = 1e-8;
@@ -592,7 +645,10 @@ TEST_F(testSlices, gaussian_fit1)
 
 TEST_F(testSlices, gaussian_fit2)
 {
-    auto slice = Slices(N_slices, 0, 0, 0, Slices::cuts_unit_t::s,
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+
+    auto slice = Slices(RfP, Beam, N_slices, 0, 0, 0, Slices::cuts_unit_t::s,
                         Slices::fit_t::gaussian);
     string params = TEST_FILES "/Slices/gaussian_fit2/";
     auto epsilon = 1e-8;
@@ -620,7 +676,10 @@ TEST_F(testSlices, gaussian_fit2)
 
 TEST_F(testSlices, gaussian_fit_deathtest1)
 {
-    auto slice = Slices(N_slices, 0, 0, 0, Slices::cuts_unit_t::s,
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+
+    auto slice = Slices(RfP, Beam, N_slices, 0, 0, 0, Slices::cuts_unit_t::s,
                         Slices::fit_t::gaussian);
     slice.n_macroparticles.clear();
     ASSERT_DEATH(slice.gaussian_fit(), "[gaussian_fit]\\s*");
@@ -629,7 +688,10 @@ TEST_F(testSlices, gaussian_fit_deathtest1)
 
 TEST_F(testSlices, chebyshev1)
 {
-    auto slice = Slices(N_slices);
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+
+    auto slice = Slices(RfP, Beam, N_slices);
     string params = TEST_FILES "/Slices/chebyshev1/";
     auto epsilon = 1e-8;
     f_vector_t v;
@@ -674,7 +736,10 @@ TEST_F(testSlices, chebyshev1)
 
 TEST_F(testSlices, chebyshev2)
 {
-    auto slice = Slices(N_slices);
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+
+    auto slice = Slices(RfP, Beam, N_slices);
     string params = TEST_FILES "/Slices/chebyshev2/";
     auto epsilon = 1e-8;
     f_vector_t v;
@@ -719,7 +784,10 @@ TEST_F(testSlices, chebyshev2)
 
 TEST_F(testSlices, chebyshev3)
 {
-    auto slice = Slices(N_slices);
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+
+    auto slice = Slices(RfP, Beam, N_slices);
     string params = TEST_FILES "/Slices/chebyshev3/";
     auto epsilon = 1e-8;
     f_vector_t v;
@@ -767,7 +835,10 @@ TEST_F(testSlices, chebyshev3)
 
 TEST_F(testSlices, chebyshev4)
 {
-    auto slice = Slices(N_slices);
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+
+    auto slice = Slices(RfP, Beam, N_slices);
     string params = TEST_FILES "/Slices/chebyshev4/";
     auto epsilon = 1e-8;
     f_vector_t v;
@@ -815,7 +886,10 @@ TEST_F(testSlices, chebyshev4)
 
 TEST_F(testSlices, chebyshev_deathtest1)
 {
-    auto slice = Slices(N_slices);
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+
+    auto slice = Slices(RfP, Beam, N_slices);
     auto epsilon = 1e-8;
     f_vector_t v;
 
@@ -841,7 +915,10 @@ TEST_F(testSlices, chebyshev_deathtest1)
 
 TEST_F(testSlices, chebyshev_deathtest2)
 {
-    auto slice = Slices(N_slices);
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+
+    auto slice = Slices(RfP, Beam, N_slices);
     auto epsilon = 1e-8;
     f_vector_t v;
 
@@ -867,7 +944,10 @@ TEST_F(testSlices, chebyshev_deathtest2)
 
 TEST_F(testSlices, chebyshev_deathtest3)
 {
-    auto slice = Slices(N_slices);
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+
+    auto slice = Slices(RfP, Beam, N_slices);
     auto epsilon = 1e-8;
     f_vector_t v;
 
@@ -887,7 +967,9 @@ TEST_F(testSlices, chebyshev_deathtest3)
 
 TEST_F(testSlices, chebyshev_deathtest4)
 {
-    auto slice = Slices(N_slices);
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+    auto slice = Slices(RfP, Beam, N_slices);
     auto epsilon = 1e-8;
     f_vector_t v;
 
@@ -907,7 +989,7 @@ TEST_F(testSlices, chebyshev_deathtest4)
 
 // TEST_F(testSlices, gaussian_fit3)
 // {
-//     auto slice = Slices(N_slices, 0, 0, 0, Slices::cuts_unit_t::s,
+//     auto slice = Slices(RfP, Beam, N_slices, 0, 0, 0, Slices::cuts_unit_t::s,
 //                         Slices::fit_t::gaussian);
 //     string params = TEST_FILES "/Slices/gaussian_fit3/";
 //     auto epsilon = 1e-6;

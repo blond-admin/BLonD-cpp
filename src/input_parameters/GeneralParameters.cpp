@@ -131,16 +131,13 @@ void GeneralParameters::eta_generation()
 
 void GeneralParameters::_eta0()
 {
-    // eta_0 = new ftype[n_sections * (n_turns + 1)];
     for (int i = 0; i < n_sections; ++i)
         for (int j = 0; j < n_turns + 1; ++j)
             eta_0[i][j] = alpha[i][0] - 1 / (gamma[i][j] * gamma[i][j]);
-    // dprintf("eta_0[0] = %lf\n", eta_0[0]);
 }
 
 void GeneralParameters::_eta1()
 {
-    // eta_1 = new ftype[n_sections * (n_turns + 1)];
     for (int i = 0; i < n_sections; ++i)
         for (int j = 0; j < n_turns + 1; ++j)
             eta_1[i][j] =
@@ -150,7 +147,6 @@ void GeneralParameters::_eta1()
 
 void GeneralParameters::_eta2()
 {
-    // eta_2 = new ftype[n_sections * (n_turns + 1)];
     for (int i = 0; i < n_sections; ++i)
         for (int j = 0; j < n_turns + 1; ++j) {
             const ftype betasq = beta[i][j] * beta[i][j];

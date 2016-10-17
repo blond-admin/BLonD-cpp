@@ -13,14 +13,14 @@
 const uint N_b = 0; // Intensity
 
 // Machine and RF parameters
-const ftype radius = 25;
-const ftype C = 2 * constant::pi * radius;   // Machine circumference [m]
-const ftype p_i = 310891054.809;             // Synchronous momentum [eV/c]
+const double radius = 25;
+const double C = 2 * constant::pi * radius;   // Machine circumference [m]
+const double p_i = 310891054.809;             // Synchronous momentum [eV/c]
 const uint h = 1;                            // Harmonic number
-const ftype V = 8000;                        // RF voltage [V]
-const ftype dphi = -constant::pi;            // Phase modulation/offset
-const ftype gamma_t = 4.076750841;           // Transition gamma
-const ftype alpha = 1.0 / gamma_t / gamma_t; // First order mom. comp. factor
+const double V = 8000;                        // RF voltage [V]
+const double dphi = -constant::pi;            // Phase modulation/offset
+const double gamma_t = 4.076750841;           // Transition gamma
+const double alpha = 1.0 / gamma_t / gamma_t; // First order mom. comp. factor
 const uint alpha_order = 1;
 const uint n_sections = 1;
 // Tracking details
@@ -54,13 +54,18 @@ class testPLPSB : public ::testing::Test {
                                             alpha_order, momentumVec,
                                             GeneralParameters::particle_t::proton);
 
-        Context::Beam = new Beams(N_p, N_b);
+        // Context::Beam = new Beams(N_p, N_b);
 
-        Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+        auto GP = Context::GP;
+        auto Beam = Context::Beam = new Beams(GP, N_p, N_b);
+        
+        auto RfP = Context::RfP = new RfParameters(GP, n_sections, hVec,
+                                        voltageVec, dphiVec);
+
 
         // long_tracker = new RingAndRfSection();
 
-        Context::Slice = new Slices(N_slices, 0, -constant::pi, constant::pi,
+        Context::Slice = new Slices(RfP, Beam, N_slices, 0, -constant::pi, constant::pi,
                                     Slices::cuts_unit_t::rad);
     }
 
@@ -132,7 +137,7 @@ TEST_F(testPLPSB, track1) {
         new PSB(f_vector_t(N_t, 1.0 / 25e-6), f_vector_t{0, 0}, 10e-6, 7);
 
     Context::Slice->track();
-    f_vector_t dphi_av, t_accum, domega_PL, drho, domega_RL, domega_RF;
+    f_vector_t dphi_av, t_accum, domega_PL, drho, domega_RL, domega_rf;
 
     for (uint i = 0; i < 500; ++i) {
         psb->track();
@@ -141,7 +146,7 @@ TEST_F(testPLPSB, track1) {
         domega_PL.push_back(psb->domega_PL);
         drho.push_back(psb->drho);
         domega_RL.push_back(psb->domega_RL);
-        domega_RF.push_back(psb->domega_RF);
+        domega_rf.push_back(psb->domega_rf);
         Context::RfP->counter++;
     }
 
@@ -232,7 +237,7 @@ TEST_F(testPLPSB, track1) {
     util::read_vector_from_file(v, params + "domega_RF_mean.txt");
     epsilon = 1e-2;
     ref = v[0];
-    real = mymath::mean(domega_RF.data(), domega_RF.size());
+    real = mymath::mean(domega_rf.data(), domega_rf.size());
     ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
         << "Testing of domega_RF_mean failed\n";
 
@@ -240,7 +245,7 @@ TEST_F(testPLPSB, track1) {
     util::read_vector_from_file(v, params + "domega_RF_std.txt");
     epsilon = 1e-2;
     ref = v[0];
-    real = mymath::standard_deviation(domega_RF.data(), domega_RF.size());
+    real = mymath::standard_deviation(domega_rf.data(), domega_rf.size());
     ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
         << "Testing of domega_RF_std failed\n";
 

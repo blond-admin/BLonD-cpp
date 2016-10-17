@@ -39,8 +39,8 @@ TEST(testIRFFT, rfft_even) {
     auto epsilon = 1e-8;
 
     for (uint i = 0; i < out3.size(); ++i) {
-        ftype ref = out3[i].real();
-        ftype real = out4[i];
+        double ref = out3[i].real();
+        double real = out4[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
             << "Testing of out4 failed on i " << i << std::endl;
     }
@@ -85,8 +85,8 @@ TEST(testIRFFT, rfft_odd) {
     auto epsilon = 1e-8;
 
     for (uint i = 0; i < out3.size(); ++i) {
-        ftype ref = out3[i].real();
-        ftype real = out4[i];
+        double ref = out3[i].real();
+        double real = out4[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
             << "Testing of out4 failed on i " << i << std::endl;
     }
@@ -108,20 +108,20 @@ TEST(testIRFFT, irfft_big) {
 
     fft::irfft(in2, out);
 
-    std::vector<ftype> v;
+    std::vector<double> v;
 
     util::read_vector_from_file(v, params + "irfft1.txt");
 
     ASSERT_EQ(v.size(), out.size());
 
-    ftype max = *max_element(out.begin(), out.end(), [](ftype i, ftype j) {
+    double max = *max_element(out.begin(), out.end(), [](double i, double j) {
         return fabs(i) < fabs(j);
     });
-    ftype epsilon = 1e-9 * max;
+    double epsilon = 1e-9 * max;
 
     for (unsigned int i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = out[i];
+        double ref = v[i];
+        double real = out[i];
 
         ASSERT_NEAR(ref, real, epsilon) << "Testing of irfft failed on i " << i
                                         << std::endl;
@@ -145,20 +145,20 @@ TEST(testIRFFT, irfft_big2) {
 
     fft::irfft(in, out);
 
-    std::vector<ftype> v;
+    std::vector<double> v;
 
     util::read_vector_from_file(v, params + "irfft2.txt");
 
     ASSERT_EQ(v.size(), out.size());
 
-    ftype max = *max_element(out.begin(), out.end(), [](ftype i, ftype j) {
+    double max = *max_element(out.begin(), out.end(), [](double i, double j) {
         return fabs(i) < fabs(j);
     });
-    ftype epsilon = 1e-9 * max;
+    double epsilon = 1e-9 * max;
 
     for (unsigned int i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = out[i];
+        double ref = v[i];
+        double real = out[i];
 
         ASSERT_NEAR(ref, real, epsilon) << "Testing of irfft failed on i " << i
                                         << std::endl;
@@ -182,20 +182,20 @@ TEST(testIRFFT, irfft_test) {
 
     fft::irfft(in, out);
 
-    std::vector<ftype> v;
+    std::vector<double> v;
 
     util::read_vector_from_file(v, params + "irfft2.txt");
 
     ASSERT_EQ(v.size(), out.size());
 
-    ftype max = *max_element(out.begin(), out.end(), [](ftype i, ftype j) {
+    double max = *max_element(out.begin(), out.end(), [](double i, double j) {
         return fabs(i) < fabs(j);
     });
-    ftype epsilon = 1e-9 * max;
+    double epsilon = 1e-9 * max;
 
     for (unsigned int i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = out[i];
+        double ref = v[i];
+        double real = out[i];
 
         ASSERT_NEAR(ref, real, epsilon) << "Testing of irfft failed on i " << i
                                         << std::endl;
@@ -205,9 +205,9 @@ TEST(testIRFFT, irfft_test) {
 
 TEST(testRFFT, rfft1) {
     std::string params = TEST_FILES "/MyMath/fft/";
-    ftype epsilon = 1e-8;
+    double epsilon = 1e-8;
 
-    std::vector<ftype> v, in;
+    std::vector<double> v, in;
     std::vector<complex_t> out;
     in.resize(256);
     mymath::linspace(in.data(), 0.f, 100.f, in.size());
@@ -220,8 +220,8 @@ TEST(testRFFT, rfft1) {
     epsilon = 1e-8;
 
     for (unsigned int i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = out[i].real();
+        double ref = v[i];
+        double real = out[i].real();
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
             << "Testing of out.real() failed on i " << i << std::endl;
     }
@@ -234,8 +234,8 @@ TEST(testRFFT, rfft1) {
     epsilon = 1e-8;
 
     for (unsigned int i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = out[i].imag();
+        double ref = v[i];
+        double real = out[i].imag();
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
             << "Testing of out.imag() failed on i " << i << std::endl;
     }
@@ -245,9 +245,9 @@ TEST(testRFFT, rfft1) {
 
 TEST(testRFFT, rfft2) {
     std::string params = TEST_FILES "/MyMath/fft/";
-    ftype epsilon = 1e-8;
+    double epsilon = 1e-8;
 
-    std::vector<ftype> v, in;
+    std::vector<double> v, in;
     std::vector<complex_t> out;
 
     in.resize(256);
@@ -261,8 +261,8 @@ TEST(testRFFT, rfft2) {
     epsilon = 1e-8;
 
     for (unsigned int i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = out[i].real();
+        double ref = v[i];
+        double real = out[i].real();
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
             << "Testing of out.real() failed on i " << i << std::endl;
     }
@@ -275,8 +275,8 @@ TEST(testRFFT, rfft2) {
     epsilon = 1e-8;
 
     for (unsigned int i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = out[i].imag();
+        double ref = v[i];
+        double real = out[i].imag();
         // printf("%+.8e\n",real);
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
             << "Testing of out.imag() failed on i " << i << std::endl;
@@ -287,9 +287,9 @@ TEST(testRFFT, rfft2) {
 
 TEST(testRFFT, irfft) {
     std::string params = TEST_FILES "/MyMath/fft/";
-    ftype epsilon = 1e-8;
+    double epsilon = 1e-8;
 
-    std::vector<ftype> v, a, b;
+    std::vector<double> v, a, b;
     // std::vector<complex_t> outA, outB;
     a.resize(256);
     b.resize(256);
@@ -329,8 +329,8 @@ TEST(testRFFT, irfft) {
     // !!!!
     int j = 0;
     for (unsigned int i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = az[i].real();
+        double ref = v[i];
+        double real = az[i].real();
         // ASSERT_NEAR(ref, real, epsilon /** std::max(fabs(ref), fabs(real))*/)
         if (std::max(fabs(ref), fabs(real)) < 1e-8) {
             /*
@@ -356,68 +356,68 @@ TEST(testRFFT, irfft) {
 }
 
 TEST(testRFFTFREQ, even_no_spacing) {
-    ftype epsilon;
+    double epsilon;
 
-    std::vector<ftype> real, res;
+    std::vector<double> real, res;
     real = fft::rfftfreq(10);
     res = {0, 0.1, 0.2, 0.3, 0.4, 0.5};
 
     ASSERT_EQ(real.size(), res.size());
     epsilon = 1e-7;
     for (unsigned int i = 0; i < res.size(); ++i) {
-        ftype ref = res[i];
-        ftype real2 = real[i];
+        double ref = res[i];
+        double real2 = real[i];
         ASSERT_NEAR(ref, real2, epsilon * std::max(fabs(ref), fabs(real2)))
             << "Testing of rfftfreq failed on i " << i << std::endl;
     }
 }
 
 TEST(testRFFTFREQ, odd_no_spacing) {
-    ftype epsilon;
+    double epsilon;
 
-    std::vector<ftype> real, res;
+    std::vector<double> real, res;
     real = fft::rfftfreq(11);
     res = {0, 0.09090909, 0.18181818, 0.27272727, 0.36363636, 0.45454545};
 
     ASSERT_EQ(real.size(), res.size());
     epsilon = 1e-7;
     for (unsigned int i = 0; i < res.size(); ++i) {
-        ftype ref = res[i];
-        ftype real2 = real[i];
+        double ref = res[i];
+        double real2 = real[i];
         ASSERT_NEAR(ref, real2, epsilon * std::max(fabs(ref), fabs(real2)))
             << "Testing of rfftfreq failed on i " << i << std::endl;
     }
 }
 
 TEST(testRFFTFREQ, even_spacing) {
-    ftype epsilon;
+    double epsilon;
 
-    std::vector<ftype> real, res;
+    std::vector<double> real, res;
     real = fft::rfftfreq(10, 1.5);
     res = {0, 0.066666667, 0.133333333, 0.2, 0.26666666667, 0.3333333};
 
     ASSERT_EQ(real.size(), res.size());
     epsilon = 1e-7;
     for (unsigned int i = 0; i < res.size(); ++i) {
-        ftype ref = res[i];
-        ftype real2 = real[i];
+        double ref = res[i];
+        double real2 = real[i];
         ASSERT_NEAR(ref, real2, epsilon * std::max(fabs(ref), fabs(real2)))
             << "Testing of rfftfreq failed on i " << i << std::endl;
     }
 }
 
 TEST(testRFFTFREQ, odd_spacing) {
-    ftype epsilon;
+    double epsilon;
 
-    std::vector<ftype> real, res;
+    std::vector<double> real, res;
     real = fft::rfftfreq(11, 2.5);
     res = {0, 0.03636364, 0.07272727, 0.10909091, 0.14545455, 0.18181818};
 
     ASSERT_EQ(real.size(), res.size());
     epsilon = 1e-7;
     for (unsigned int i = 0; i < res.size(); ++i) {
-        ftype ref = res[i];
-        ftype real2 = real[i];
+        double ref = res[i];
+        double real2 = real[i];
         ASSERT_NEAR(ref, real2, epsilon * std::max(fabs(ref), fabs(real2)))
             << "Testing of rfftfreq failed on i " << i << std::endl;
     }

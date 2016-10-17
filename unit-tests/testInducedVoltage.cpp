@@ -21,18 +21,18 @@ protected:
     // --------------------------------------------------------
     // Bunch parameters
     const long long N_b = 1e10; // Intensity
-    const ftype tau_0 = 2e-9; // Initial bunch length, 4 sigma [s]
+    const double tau_0 = 2e-9; // Initial bunch length, 4 sigma [s]
     // const particle_type particle = proton;
     // Machine and RF parameters
-    const ftype C = 6911.56;   // Machine circumference [m]
-    const ftype p_i = 25.92e9; // Synchronous momentum [eV/c]
-    // const ftype p_f = 460.005e9;                  // Synchronous momentum,
+    const double C = 6911.56;   // Machine circumference [m]
+    const double p_i = 25.92e9; // Synchronous momentum [eV/c]
+    // const double p_f = 460.005e9;                  // Synchronous momentum,
     // final
     const long h = 4620;                     // Harmonic number
-    const ftype V = 0.9e6;                        // RF voltage [V]
-    const ftype dphi = 0;                         // Phase modulation/offset
-    const ftype gamma_t = 1 / std::sqrt(0.00192); // Transition gamma
-    const ftype alpha =
+    const double V = 0.9e6;                        // RF voltage [V]
+    const double dphi = 0;                         // Phase modulation/offset
+    const double gamma_t = 1 / std::sqrt(0.00192); // Transition gamma
+    const double alpha =
         1.0 / gamma_t / gamma_t; // First order mom. comp. factor
     const int alpha_order = 1;
     const int n_sections = 1;
@@ -65,14 +65,19 @@ protected:
         Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
                                             alpha_order, momentumVec,
                                             GeneralParameters::particle_t::proton);
-        Context::Beam = new Beams(N_p, N_b);
+        // Context::Beam = new Beams(N_p, N_b);
 
-        Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+        auto GP = Context::GP;
+        auto Beam = Context::Beam = new Beams(GP, N_p, N_b);
+        
+        auto RfP = Context::RfP = new RfParameters(GP, n_sections, hVec,
+                                        voltageVec, dphiVec);
+
 
 
         longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
 
-        Context::Slice = new Slices(N_slices, 0, 0, 2 * constant::pi,
+        Context::Slice = new Slices(RfP, Beam, N_slices, 0, 0, 2 * constant::pi,
                                     Slices::cuts_unit_t::rad);
 
         f_vector_t v;
@@ -112,7 +117,7 @@ class testTotalInducedVoltage : public testInducedVoltage {};
 
 TEST_F(testInducedVoltage, constructor1)
 {
-    ftype epsilon = 1e-8;
+    double epsilon = 1e-8;
     std::vector<Intensity *> wakeSourceList({resonator});
     auto indVoltTime = new InducedVoltageTime(wakeSourceList);
 
@@ -125,8 +130,8 @@ TEST_F(testInducedVoltage, constructor1)
     ASSERT_EQ(v.size(), indVoltTime->fTimeArray.size());
 
     for (uint i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = indVoltTime->fTimeArray[i];
+        double ref = v[i];
+        double real = indVoltTime->fTimeArray[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
                 << "Testing of indVoltTime->fTimeArray failed on i " << i
                 << std::endl;
@@ -136,8 +141,8 @@ TEST_F(testInducedVoltage, constructor1)
     ASSERT_EQ(v.size(), indVoltTime->fTotalWake.size());
 
     for (uint i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = indVoltTime->fTotalWake[i];
+        double ref = v[i];
+        double real = indVoltTime->fTotalWake[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
                 << "Testing of indVoltTime->fTotalWake failed on i " << i
                 << std::endl;
@@ -176,11 +181,11 @@ TEST_F(testInducedVoltage, reprocess1)
 
     ASSERT_EQ(v.size(), indVoltTime->fTimeArray.size());
 
-    ftype epsilon = 1e-8;
+    double epsilon = 1e-8;
 
     for (uint i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = indVoltTime->fTimeArray[i];
+        double ref = v[i];
+        double real = indVoltTime->fTimeArray[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
                 << "Testing of indVoltTime->fTimeArray failed on i " << i
                 << std::endl;
@@ -191,8 +196,8 @@ TEST_F(testInducedVoltage, reprocess1)
 
     epsilon = 1e-8;
     for (uint i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = indVoltTime->fTotalWake[i];
+        double ref = v[i];
+        double real = indVoltTime->fTotalWake[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
                 << "Testing of indVoltTime->fTotalWake failed on i " << i
                 << std::endl;
@@ -237,13 +242,13 @@ TEST_F(testInducedVoltage, generation1)
 
     ASSERT_EQ(v.size(), res.size());
 
-    ftype max = *max_element(res.begin(), res.end(), [](ftype i, ftype j) {
+    double max = *max_element(res.begin(), res.end(), [](double i, double j) {
         return std::abs(i) < std::abs(j);
     });
     max = std::abs(max);
     for (uint i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = res[i];
+        double ref = v[i];
+        double real = res[i];
 
         ASSERT_NEAR(ref, real, epsilon * max)
                 << "Testing of indVoltTime->fInducedVoltage failed on i " << i
@@ -271,14 +276,14 @@ TEST_F(testInducedVoltage, generation2)
 
     ASSERT_EQ(v.size(), res.size());
 
-    ftype max = *max_element(res.begin(), res.end(), [](ftype i, ftype j) {
+    double max = *max_element(res.begin(), res.end(), [](double i, double j) {
         return std::abs(i) < std::abs(j);
     });
     max = std::abs(max);
 
     for (uint i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = res[i];
+        double ref = v[i];
+        double real = res[i];
         ASSERT_NEAR(ref, real, epsilon * max)
                 << "Testing of indVoltTime->fInducedVoltage failed on i " << i
                 << std::endl;
@@ -307,14 +312,14 @@ TEST_F(testInducedVoltage, convolution1)
 
     ASSERT_EQ(v.size(), res.size());
 
-    ftype max = *max_element(res.begin(), res.end(), [](ftype i, ftype j) {
+    double max = *max_element(res.begin(), res.end(), [](double i, double j) {
         return std::abs(i) < std::abs(j);
     });
     max = std::abs(max);
 
     for (uint i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = res[i];
+        double ref = v[i];
+        double real = res[i];
         ASSERT_NEAR(ref, real, epsilon * max)
                 << "Testing of indVoltTime->fInducedVoltage failed on i " << i
                 << std::endl;
@@ -342,8 +347,8 @@ TEST_F(testInducedVoltage, track1)
     ASSERT_EQ(v.size(), Beam->dE.size());
 
     for (uint i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = Beam->dE[i];
+        double ref = v[i];
+        double real = Beam->dE[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
                 << "Testing of Beam->dE failed on i " << i << std::endl;
     }
@@ -372,14 +377,14 @@ TEST_F(testTotalInducedVoltage, sum1)
     util::read_vector_from_file(v, params + "extIndVolt.txt");
     ASSERT_EQ(v.size(), res.size());
 
-    ftype max = *max_element(res.begin(), res.end(), [](ftype i, ftype j) {
+    double max = *max_element(res.begin(), res.end(), [](double i, double j) {
         return std::abs(i) < std::abs(j);
     });
     max = std::abs(max);
     // warning checking only the first 100 elems
     for (uint i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = res[i];
+        double ref = v[i];
+        double real = res[i];
 
         ASSERT_NEAR(ref, real, epsilon * max)
                 << "Testing of extIndVolt failed on i "
@@ -393,12 +398,12 @@ TEST_F(testTotalInducedVoltage, sum1)
     ASSERT_EQ(v.size(), res.size());
 
     max = *max_element(res.begin(), res.end(),
-    [](ftype i, ftype j) { return std::abs(i) < std::abs(j); });
+    [](double i, double j) { return std::abs(i) < std::abs(j); });
     max = std::abs(max);
     // warning checking only the first 100 elems
     for (uint i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = res[i];
+        double ref = v[i];
+        double real = res[i];
 
         ASSERT_NEAR(ref, real, epsilon * max)
                 << "Testing of fInducedVoltage failed on i " << i << std::endl;
@@ -430,14 +435,14 @@ TEST_F(testTotalInducedVoltage, sum2)
     util::read_vector_from_file(v, params + "extIndVolt.txt");
     ASSERT_EQ(v.size(), res.size());
 
-    ftype max = *max_element(res.begin(), res.end(), [](ftype i, ftype j) {
+    double max = *max_element(res.begin(), res.end(), [](double i, double j) {
         return std::abs(i) < std::abs(j);
     });
     max = std::abs(max);
     // warning checking only the first 100 elems
     for (uint i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = res[i];
+        double ref = v[i];
+        double real = res[i];
 
         ASSERT_NEAR(ref, real, epsilon * max)
                 << "Testing of extIndVolt failed on i "
@@ -451,11 +456,11 @@ TEST_F(testTotalInducedVoltage, sum2)
     ASSERT_EQ(v.size(), res.size());
 
     max = *max_element(res.begin(), res.end(),
-    [](ftype i, ftype j) { return std::abs(i) < std::abs(j); });
+    [](double i, double j) { return std::abs(i) < std::abs(j); });
     max = std::abs(max);
     for (uint i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = res[i];
+        double ref = v[i];
+        double real = res[i];
 
         ASSERT_NEAR(ref, real, epsilon * max)
                 << "Testing of fInducedVoltage failed on i " << i << std::endl;
@@ -490,8 +495,8 @@ TEST_F(testTotalInducedVoltage, track1)
     util::read_vector_from_file(v, params + "dE.txt");
     ASSERT_EQ(v.size(), Beam->dE.size());
     for (uint i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = Beam->dE[i];
+        double ref = v[i];
+        double real = Beam->dE[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
                 << "Testing of Beam->dE failed on i " << i << std::endl;
     }
@@ -522,8 +527,8 @@ TEST_F(testTotalInducedVoltage, track2)
     util::read_vector_from_file(v, params + "dE.txt");
     ASSERT_EQ(v.size(), Beam->dE.size());
     for (uint i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = Beam->dE[i];
+        double ref = v[i];
+        double real = Beam->dE[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
                 << "Testing of Beam->dE failed on i " << i << std::endl;
     }

@@ -51,7 +51,7 @@ namespace fft {
 
 
 
-    static inline void real_to_complex(const std::vector<ftype> &in,
+    static inline void real_to_complex(const std::vector<double> &in,
                                        std::vector<complex_t> &out)
     {
         assert(out.empty());
@@ -60,7 +60,7 @@ namespace fft {
             out.push_back(complex_t(real, 0));
     }
 
-    static inline void pack_to_complex(const std::vector<ftype> &in,
+    static inline void pack_to_complex(const std::vector<double> &in,
                                        std::vector<complex_t> &out)
     {
         assert(out.empty());
@@ -71,7 +71,7 @@ namespace fft {
     }
 
     static inline void complex_to_real(const std::vector<complex_t> &in,
-                                       std::vector<ftype> &out)
+                                       std::vector<double> &out)
     {
         assert(out.empty());
         out.reserve(in.size());
@@ -80,7 +80,7 @@ namespace fft {
     }
 
     static inline void unpack_complex(const std::vector<complex_t> &in,
-                                      std::vector<ftype> &out)
+                                      std::vector<double> &out)
     {
         assert(out.empty());
         out.reserve(2 * in.size());
@@ -111,7 +111,7 @@ namespace fft {
         return fftw_plan_dft_1d(n, a, b, sign, flag);
     }
 
-    static inline fftw_plan init_rfft(const int n, ftype *in, complex_t *out,
+    static inline fftw_plan init_rfft(const int n, double *in, complex_t *out,
                                       const unsigned flag = FFTW_ESTIMATE,
                                       const int threads = 1)
 
@@ -129,7 +129,7 @@ namespace fft {
         return fftw_plan_dft_r2c_1d(n, in, b, flag);
     }
 
-    static inline fftw_plan init_irfft(const int n, complex_t *in, ftype *out,
+    static inline fftw_plan init_irfft(const int n, complex_t *in, double *out,
                                        const unsigned flag = FFTW_ESTIMATE,
                                        const int threads = 1)
     {
@@ -204,7 +204,7 @@ namespace fft {
                 plan.out = out;
 
             } else if (type == RFFT) {
-                ftype *in = (ftype *)fftw_malloc(sizeof(ftype) * n);
+                double *in = (double *)fftw_malloc(sizeof(double) * n);
                 fftw_complex *out = (fftw_complex *)fftw_malloc(
                                         sizeof(fftw_complex) * (n / 2 + 1));
                 auto p = init_rfft(n, in, reinterpret_cast<complex_t *>(out),
@@ -215,7 +215,7 @@ namespace fft {
                 plan.out = out;
 
             } else if (type == IRFFT) {
-                ftype *out = (ftype *)fftw_malloc(sizeof(ftype) * n);
+                double *out = (double *)fftw_malloc(sizeof(double) * n);
                 fftw_complex *in = (fftw_complex *)fftw_malloc(
                                        sizeof(fftw_complex) * (n / 2 + 1));
                 auto p = init_irfft(n, reinterpret_cast<complex_t *>(in), out,
@@ -254,7 +254,7 @@ namespace fft {
         out.resize(n / 2 + 1);
 
         auto plan = fft::find_plan(n, RFFT, threads, planV);
-        auto from = (ftype *)plan.in;
+        auto from = (double *)plan.in;
         auto to = (complex_t *)plan.out;
 
         std::copy(in.begin(), in.end(), from);
@@ -325,24 +325,24 @@ namespace fft {
 
         auto plan = fft::find_plan(n, IRFFT, threads, planV);
         auto from = (complex_t *)plan.in;
-        auto to = (ftype *)plan.out;
+        auto to = (double *)plan.out;
 
         std::copy(in.begin(), in.end(), from);
 
         run_fft(plan.p);
 
         std::transform(&to[0], &to[n], out.begin(),
-                       std::bind2nd(std::divides<ftype>(), n));
+                       std::bind2nd(std::divides<double>(), n));
     }
 
     // Same as python's numpy.fft.rfftfreq
     // @ n: window length
     // @ d (optional) : Sample spacing
     // @return: A vector of length (n div 2) + 1 of the sample frequencies
-    static inline f_vector_t rfftfreq(const uint n, const ftype d = 1.0)
+    static inline f_vector_t rfftfreq(const uint n, const double d = 1.0)
     {
         f_vector_t v(n / 2 + 1);
-        const ftype factor = 1.0 / (d * n);
+        const double factor = 1.0 / (d * n);
         #pragma omp parallel for
         for (int i = 0; i < (int)v.size(); ++i) {
             v[i] = i * factor;

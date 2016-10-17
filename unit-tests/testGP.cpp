@@ -36,11 +36,11 @@ protected:
 
 private:
     // Machine and RF parameters
-    const ftype C = 26658.883;       // Machine circumference [m]
-    const long long p_i = 450e9;     // Synchronous momentum [eV/c]
-    const ftype p_f = 460.005e9;     // Synchronous momentum, final
-    const ftype gamma_t = 55.759505; // Transition gamma
-    const ftype alpha =
+    const double C = 26658.883;       // Machine circumference [m]
+    const double p_i = 450e9;     // Synchronous momentum [eV/c]
+    const double p_f = 460.005e9;     // Synchronous momentum, final
+    const double gamma_t = 55.759505; // Transition gamma
+    const double alpha =
         1.0 / gamma_t / gamma_t; // First order mom. comp. factor
     const int alpha_order = 1;
     const int n_sections = 1;
@@ -53,96 +53,96 @@ private:
 
 TEST_F(testGP, test_charge)
 {
-    const ftype epsilon = 1e-8;
+    const double epsilon = 1e-8;
 
     string GP_params = TEST_FILES "/GP/GP_params/";
-    vector<ftype> v;
+    vector<double> v;
     util::read_vector_from_file(v, GP_params + "charge");
     // cout << v[0];
-    ftype ref = v[0];
-    ftype real = Context::GP->charge;
+    double ref = v[0];
+    double real = Context::GP->charge;
     ASSERT_NEAR(ref, real, epsilon * max(std::abs(ref), std::abs(real)));
 }
 
 TEST_F(testGP, test_mass)
 {
-    const ftype epsilon = 1e-8;
+    const double epsilon = 1e-8;
     string GP_params = TEST_FILES "/GP/GP_params/";
-    vector<ftype> v;
+    vector<double> v;
     util::read_vector_from_file(v, GP_params + "mass");
     // cout << v[0];
-    ftype ref = v[0];
-    ftype real = Context::GP->mass;
+    double ref = v[0];
+    double real = Context::GP->mass;
     ASSERT_NEAR(ref, real, epsilon * max(std::abs(ref), std::abs(real)));
 }
 
 TEST_F(testGP, test_ring_radius)
 {
-    const ftype epsilon = 1e-8;
+    const double epsilon = 1e-8;
     string GP_params = TEST_FILES "/GP/GP_params/";
-    vector<ftype> v;
+    vector<double> v;
     util::read_vector_from_file(v, GP_params + "ring_radius");
     // cout << v[0];
-    ftype ref = v[0];
-    ftype real = Context::GP->ring_radius;
+    double ref = v[0];
+    double real = Context::GP->ring_radius;
     ASSERT_NEAR(ref, real, epsilon * max(std::abs(ref), std::abs(real)));
 }
 
 TEST_F(testGP, test_t_rev)
 {
-    const ftype epsilon = 1e-8;
+    const double epsilon = 1e-8;
     string GP_params = TEST_FILES "/GP/GP_params/";
-    vector<ftype> v;
+    vector<double> v;
     util::read_vector_from_file(v, GP_params + "t_rev");
     // cout << v.size() << endl;
     // ASSERT_EQ(v.size(), GP->n_turns+1 );
     for (unsigned int i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = Context::GP->t_rev[i];
+        double ref = v[i];
+        double real = Context::GP->t_rev[i];
         ASSERT_NEAR(ref, real, epsilon * max(std::abs(ref), std::abs(real)));
     }
 }
 
 TEST_F(testGP, test_cycle_time)
 {
-    const ftype epsilon = 1e-8;
+    const double epsilon = 1e-8;
     string GP_params = TEST_FILES "/GP/GP_params/";
-    vector<ftype> v;
+    vector<double> v;
     util::read_vector_from_file(v, GP_params + "cycle_time");
     // ASSERT_EQ(v.size(), GP->n_turns+1);
     for (unsigned int i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = Context::GP->cycle_time[i];
+        double ref = v[i];
+        double real = Context::GP->cycle_time[i];
         ASSERT_NEAR(ref, real, epsilon * max(std::abs(ref), std::abs(real)));
     }
 }
 
 TEST_F(testGP, test_omega_rev)
 {
-    const ftype epsilon = 1e-8;
+    const double epsilon = 1e-8;
     string GP_params = TEST_FILES "/GP/GP_params/";
-    vector<ftype> v;
+    vector<double> v;
     util::read_vector_from_file(v, GP_params + "omega_rev");
     // cout << v.size() << endl;
     // ASSERT_EQ(v.size(), GP->n_turns+1);
     for (unsigned int i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = Context::GP->omega_rev[i];
+        double ref = v[i];
+        double real = Context::GP->omega_rev[i];
         ASSERT_NEAR(ref, real, epsilon * max(std::abs(ref), std::abs(real)));
     }
 }
 
 TEST_F(testGP, test_eta_0)
 {
-    const ftype epsilon = 1e-8;
+    const double epsilon = 1e-8;
     string GP_params = TEST_FILES "/GP/GP_params/";
-    vector<ftype> v;
+    vector<double> v;
     util::read_vector_from_file(v, GP_params + "eta_0[0]");
     // cout << v.size() << endl;
     // ASSERT_EQ(v.size(), GP->n_turns +1);
     for (unsigned int i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = Context::GP->eta_0[0][i];
+        double ref = v[i];
+        double real = Context::GP->eta_0[0][i];
         ASSERT_NEAR(ref, real, epsilon * max(std::abs(ref), std::abs(real)));
     }
 }

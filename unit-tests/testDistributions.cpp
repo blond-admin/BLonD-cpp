@@ -15,14 +15,14 @@ protected:
     const long long N_b = 0; // Intensity
 
     // Machine and RF parameters
-    const ftype radius = 25;
-    const ftype C = 2 * constant::pi * radius; // Machine circumference [m]
-    const ftype p_i = 310891054.809;           // Synchronous momentum [eV/c]
+    const double radius = 25;
+    const double C = 2 * constant::pi * radius; // Machine circumference [m]
+    const double p_i = 310891054.809;           // Synchronous momentum [eV/c]
     const uint h = 1;                          // Harmonic number
-    const ftype V = 8000;                      // RF voltage [V]
-    const ftype dphi = -constant::pi;          // Phase modulation/offset
-    const ftype gamma_t = 4.076750841;         // Transition gamma
-    const ftype alpha =
+    const double V = 8000;                      // RF voltage [V]
+    const double dphi = -constant::pi;          // Phase modulation/offset
+    const double gamma_t = 4.076750841;         // Transition gamma
+    const double alpha =
         1.0 / gamma_t / gamma_t; // First order mom. comp. factor
     const uint alpha_order = 1;
     const uint n_sections = 1;
@@ -57,9 +57,14 @@ protected:
                                             alpha_order, momentumVec,
                                             GeneralParameters::particle_t::proton);
 
-        Context::Beam = new Beams(N_p, N_b);
+        // auto Beam = Context::Beam = new Beams(N_p, N_b);
 
-        Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+        auto GP = Context::GP;
+        auto Beam = Context::Beam = new Beams(GP, N_p, N_b);
+
+        auto RfP = Context::RfP = new RfParameters(GP, n_sections, hVec,
+                                        voltageVec, dphiVec);
+
 
         // RfP1 = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
         // RfP2 = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
@@ -537,16 +542,16 @@ class testBigaussian : public ::testing::Test {
 
 protected:
     const long long N_b = 1e9;  // Intensity
-    const ftype tau_0 = 0.4e-9; // Initial bunch length, 4 sigma [s]
+    const double tau_0 = 0.4e-9; // Initial bunch length, 4 sigma [s]
     // Machine and RF parameters
-    const ftype C = 26658.883;       // Machine circumference [m]
-    const long long p_i = 450e9;     // Synchronous momentum [eV/c]
-    const ftype p_f = 460.005e9;     // Synchronous momentum, final
+    const double C = 26658.883;       // Machine circumference [m]
+    const double p_i = 450e9;     // Synchronous momentum [eV/c]
+    const double p_f = 460.005e9;     // Synchronous momentum, final
     const long long h = 35640;       // Harmonic number
-    const ftype V = 6e6;             // RF voltage [V]
-    const ftype dphi = 0;            // Phase modulation/offset
-    const ftype gamma_t = 55.759505; // Transition gamma
-    const ftype alpha =
+    const double V = 6e6;             // RF voltage [V]
+    const double dphi = 0;            // Phase modulation/offset
+    const double gamma_t = 55.759505; // Transition gamma
+    const double alpha =
         1.0 / gamma_t / gamma_t; // First order mom. comp. factor
     const int alpha_order = 1;
     const int n_sections = 1;
@@ -578,9 +583,14 @@ protected:
                                             alpha_order, momentumVec,
                                             GeneralParameters::particle_t::proton);
 
-        Context::Beam = new Beams(N_p, N_b);
+        // Context::Beam = new Beams(N_p, N_b);
 
-        Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+        auto GP = Context::GP;
+        auto Beam = Context::Beam = new Beams(GP, N_p, N_b);
+
+        auto RfP = Context::RfP = new RfParameters(GP, n_sections, hVec,
+                                        voltageVec, dphiVec);
+
     }
 
     virtual void TearDown()
@@ -601,14 +611,14 @@ protected:
     const uint N_b = 0; // Intensity
 
     // Machine and RF parameters
-    const ftype radius = 25;
-    const ftype C = 2 * constant::pi * radius; // Machine circumference [m]
-    const ftype p_i = 310891054.809;           // Synchronous momentum [eV/c]
+    const double radius = 25;
+    const double C = 2 * constant::pi * radius; // Machine circumference [m]
+    const double p_i = 310891054.809;           // Synchronous momentum [eV/c]
     const uint h = 1;                          // Harmonic number
-    const ftype V = 8000;                      // RF voltage [V]
-    const ftype dphi = -constant::pi;          // Phase modulation/offset
-    const ftype gamma_t = 4.076750841;         // Transition gamma
-    const ftype alpha =
+    const double V = 8000;                      // RF voltage [V]
+    const double dphi = -constant::pi;          // Phase modulation/offset
+    const double gamma_t = 4.076750841;         // Transition gamma
+    const double alpha =
         1.0 / gamma_t / gamma_t; // First order mom. comp. factor
     const uint alpha_order = 1;
     const uint n_sections = 1;
@@ -639,9 +649,14 @@ protected:
                                             alpha_order, momentumVec,
                                             GeneralParameters::particle_t::proton);
 
-        Context::Beam = new Beams(N_p, N_b);
+        // Context::Beam = new Beams(N_p, N_b);
 
-        Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+        auto GP = Context::GP;
+        auto Beam = Context::Beam = new Beams(GP, N_p, N_b);
+        
+        auto RfP = Context::RfP = new RfParameters(GP, n_sections, hVec,
+                                        voltageVec, dphiVec);
+
     }
 
     virtual void TearDown()
@@ -728,8 +743,8 @@ TEST_F(testBigaussian, dt1)
     f_vector_t v;
     util::read_vector_from_file(v, params + "dt.txt");
     for (uint i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = Beam->dt[i];
+        double ref = v[i];
+        double real = Beam->dt[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
                 << "Testing of dt failed on i " << i << '\n';
 

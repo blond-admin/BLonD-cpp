@@ -269,14 +269,14 @@ void BunchMonitor::init_data(int dimension)
         dataset = fH5Group->createDataSet("PL_omegaRF",
                                           PredType::NATIVE_DOUBLE,
                                           dataspace, plist);
-        doubleV[0] = fRfP->omega_RF[0][0];
+        doubleV[0] = fRfP->omega_rf[0][0];
         dataset.write(doubleV.data(), PredType::NATIVE_DOUBLE);
 
 
         dataset = fH5Group->createDataSet("PL_phiRF",
                                           NATIVE_REAL_T,
                                           dataspace, plist);
-        realV[0] = fRfP->phi_RF[0][0];
+        realV[0] = fRfP->phi_rf[0][0];
         dataset.write(realV.data(), NATIVE_REAL_T);
 
 
@@ -297,14 +297,14 @@ void BunchMonitor::init_data(int dimension)
         dataset = fH5Group->createDataSet("PL_omegaRF_corr",
                                           NATIVE_REAL_T,
                                           dataspace, plist);
-        realV[0] = fPL->domega_RF;
+        realV[0] = fPL->domega_rf;
         dataset.write(realV.data(), NATIVE_REAL_T);
 
 
         dataset = fH5Group->createDataSet("SL_dphiRF",
                                           NATIVE_REAL_T,
                                           dataspace, plist);
-        realV[0] = fRfP->dphi_RF[0];
+        realV[0] = fRfP->dphi_rf[0];
         dataset.write(realV.data(), NATIVE_REAL_T);
 
 
@@ -560,12 +560,12 @@ void BunchMonitor::write_buffer()
         b_bl_gauss[i] = fSlices->bl_gauss;
 
     if (fPL != NULL) {
-        b_PL_omegaRF[i] = fRfP->omega_RF[0][fITurn];
-        b_PL_phiRF[i] = fRfP->phi_RF[0][fITurn];
+        b_PL_omegaRF[i] = fRfP->omega_rf[0][fITurn];
+        b_PL_phiRF[i] = fRfP->phi_rf[0][fITurn];
         b_PL_bunch_phase[i] = fPL->phi_beam;
         b_PL_phase_corr[i] = fPL->dphi;
-        b_PL_omegaRF_corr[i] = fPL->domega_RF;
-        b_SL_dphiRF[i] = fRfP->dphi_RF[0];
+        b_PL_omegaRF_corr[i] = fPL->domega_rf;
+        b_SL_dphiRF[i] = fRfP->dphi_rf[0];
         b_RL_drho[i] = fPL->drho;
     }
 

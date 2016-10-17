@@ -13,11 +13,11 @@
 
 
 std::vector<int> is_in_separatrix(const GeneralParameters *GP,
-                                   const RfParameters *RfP,
-                                   const Beams *Beam,
-                                   const f_vector_t &dt,
-                                   const f_vector_t &dE,
-                                   f_vector_t total_voltage)
+                                  const RfParameters *RfP,
+                                  const Beams *Beam,
+                                  const f_vector_t &dt,
+                                  const f_vector_t &dE,
+                                  f_vector_t total_voltage)
 {
     /*
     Condition for being inside the separatrix.
@@ -35,11 +35,11 @@ std::vector<int> is_in_separatrix(const GeneralParameters *GP,
                   << "the first harmonic only!\n";
 
     const int counter = RfP->counter;
-    const ftype dt_sep = (constant::pi - RfP->phi_s[counter]
-                          - RfP->phi_RF[0][counter])
-                         / RfP->omega_RF[0][counter];
+    const double dt_sep = (constant::pi - RfP->phi_s[counter]
+                           - RfP->phi_rf[0][counter])
+                          / RfP->omega_rf[0][counter];
 
-    const ftype Hsep = std::abs(hamiltonian(GP, RfP, Beam, dt_sep, 0.0));
+    const double Hsep = std::abs(hamiltonian(GP, RfP, Beam, dt_sep, 0.0));
 
     auto temp = hamiltonian(GP, RfP, Beam, dt.data(),
                             dE.data(), dt.size(),
@@ -48,7 +48,7 @@ std::vector<int> is_in_separatrix(const GeneralParameters *GP,
     // vector<bool> is not thread safe!!
     std::vector<int> isin(temp.size());
     const int size = isin.size();
-    
+
     #pragma omp parallel for
     for (int i = 0; i < size; i++)
         isin[i] = std::abs(temp[i]) < Hsep;
@@ -62,8 +62,8 @@ std::vector<int> is_in_separatrix(const GeneralParameters *GP,
 f_vector_t hamiltonian(const GeneralParameters *GP,
                        const RfParameters *RfP,
                        const Beams *Beam,
-                       const ftype *__restrict dt,
-                       const ftype *__restrict dE,
+                       const double *__restrict dt,
+                       const double *__restrict dE,
                        const int size,
                        const f_vector_t total_voltage)
 {
@@ -75,8 +75,8 @@ f_vector_t hamiltonian(const GeneralParameters *GP,
                   << "the first harmonic only!\n";
 
     const int counter = RfP->counter;
-    const ftype h0 = RfP->harmonic[0][counter];
-    ftype v0;
+    const double h0 = RfP->harmonic[0][counter];
+    double v0;
 
     if (total_voltage.empty())
         v0 = RfP->voltage[0][counter] * GP->charge;
@@ -84,17 +84,17 @@ f_vector_t hamiltonian(const GeneralParameters *GP,
         v0 = total_voltage[counter] * GP->charge;
 
     // TODO it should be dE instead of 0.0
-    const ftype c1 = RfP->eta_tracking(Beam, counter, 0.0)
-                     * constant::pi * constant::c
-                     / (GP->ring_circumference * RfP->beta(counter) *
-                        RfP->energy(counter));
+    const double c1 = RfP->eta_tracking(Beam, counter, 0.0)
+                      * constant::pi * constant::c
+                      / (GP->ring_circumference * RfP->beta[counter] *
+                         RfP->energy[counter]);
 
-    const ftype c2 = constant::c * RfP->beta(counter) * v0
-                     / (h0 * GP->ring_circumference);
-    const ftype phi_s = RfP->phi_s[counter];
+    const double c2 = constant::c * RfP->beta[counter] * v0
+                      / (h0 * GP->ring_circumference);
+    const double phi_s = RfP->phi_s[counter];
 
-    const ftype omega_rf0 = RfP->omega_RF[0][counter];
-    const ftype phi_rf0 = RfP->phi_RF[0][counter];
+    const double omega_rf0 = RfP->omega_rf[0][counter];
+    const double phi_rf0 = RfP->phi_rf[0][counter];
 
     f_vector_t phi_b(size, phi_rf0);
 
@@ -102,7 +102,7 @@ f_vector_t hamiltonian(const GeneralParameters *GP,
     for (int i = 0; i < size; i++)
         phi_b[i] += omega_rf0 * dt[i];
 
-    const ftype eta0 = RfP->eta_0(counter);
+    const double eta0 = RfP->eta_0[counter];
 
     if (eta0 < 0)
         #pragma omp parallel for
@@ -113,8 +113,8 @@ f_vector_t hamiltonian(const GeneralParameters *GP,
         for (int i = 0; i < size; i++)
             phi_b[i] = phase_modulo_above_transition(phi_b[i]);
 
-    const ftype cos_phi_s = mymath::fast_cos(phi_s);
-    const ftype sin_phi_s = mymath::fast_sin(phi_s);
+    const double cos_phi_s = mymath::fast_cos(phi_s);
+    const double sin_phi_s = mymath::fast_sin(phi_s);
 
     // auto f1 = [ = ](double phib, double de) {
     //     return c1 * de * de + c2
@@ -133,12 +133,12 @@ f_vector_t hamiltonian(const GeneralParameters *GP,
 }
 
 
-ftype hamiltonian(const GeneralParameters *GP,
-                  const RfParameters *RfP,
-                  const Beams *Beam,
-                  const ftype dt,
-                  const ftype dE,
-                  const f_vector_t total_voltage)
+double hamiltonian(const GeneralParameters *GP,
+                   const RfParameters *RfP,
+                   const Beams *Beam,
+                   const double dt,
+                   const double dE,
+                   const f_vector_t total_voltage)
 {
     if (GP->n_sections > 1)
         std::cerr << "WARNING: The Hamiltonian is not yet properly computed"
@@ -148,8 +148,8 @@ ftype hamiltonian(const GeneralParameters *GP,
                   << "the first harmonic only!\n";
 
     const int counter = RfP->counter;
-    const ftype h0 = RfP->harmonic[0][counter];
-    ftype v0;
+    const double h0 = RfP->harmonic[0][counter];
+    double v0;
 
     if (total_voltage.empty())
         v0 = RfP->voltage[0][counter];
@@ -157,17 +157,17 @@ ftype hamiltonian(const GeneralParameters *GP,
         v0 = total_voltage[counter];
     v0 *= GP->charge;
 
-    const ftype c1 = RfP->eta_tracking(Beam, counter, dE)
-                     * constant::pi * constant::c
-                     / (GP->ring_circumference * RfP->beta(counter) *
-                        RfP->energy(counter));
+    const double c1 = RfP->eta_tracking(Beam, counter, dE)
+                      * constant::pi * constant::c
+                      / (GP->ring_circumference * RfP->beta[counter] *
+                         RfP->energy[counter]);
 
-    const ftype c2 = constant::c * RfP->beta(counter) * v0
-                     / (h0 * GP->ring_circumference);
+    const double c2 = constant::c * RfP->beta[counter] * v0
+                      / (h0 * GP->ring_circumference);
 
-    const ftype phi_s = RfP->phi_s[counter];
-    ftype phi_b = RfP->omega_RF[0][counter] * dt + RfP->phi_RF[0][counter];
-    const ftype eta0 = RfP->eta_0(counter);
+    const double phi_s = RfP->phi_s[counter];
+    double phi_b = RfP->omega_rf[0][counter] * dt + RfP->phi_rf[0][counter];
+    const double eta0 = RfP->eta_0[counter];
 
     if (eta0 < 0)
         phi_b = phase_modulo_below_transition(phi_b);

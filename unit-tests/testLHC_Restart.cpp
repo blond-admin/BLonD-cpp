@@ -11,7 +11,7 @@
 #include <blond/utilities.h>
 #include <gtest/gtest.h>
 
-// const ftype epsilon = 1e-3;
+// const double epsilon = 1e-3;
 const std::string params = TEST_FILES "/PL/LHC_restart_params/";
 
 LHC *PL;
@@ -21,7 +21,7 @@ class testLHC_Restart : public ::testing::Test {
 
 protected:
     const int N_p = 100000; // Macro-particles
-    // const ftype tau_0 = 0.4e-9;          // Initial bunch length, 4 sigma [s]
+    // const double tau_0 = 0.4e-9;          // Initial bunch length, 4 sigma [s]
     const uint N_t = 1000000; // Number of turns to track; full ramp: 8700001
 
     const int N_slices = 151;
@@ -59,17 +59,21 @@ protected:
                                             alpha_order, momentumVec,
                                             GeneralParameters::particle_t::proton);
         auto GP = Context::GP;
+
         // Define rf_params
         f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 
         f_vector_2d_t hVec(n_sections, f_vector_t(N_t + 1, h));
 
-        Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+        auto RfP = Context::RfP = new RfParameters(GP, n_sections, hVec,
+                voltageVec, dphiVec);
+
 
         // Define beam and distribution: Load matched, filamented distribution
-        Context::Beam = new Beams(N_p, N_b);
-        auto Beam = Context::Beam;
-        std::vector<ftype> v2;
+        // Context::Beam = new Beams(N_p, N_b);
+        auto Beam = Context::Beam = new Beams(GP, N_p, N_b);
+
+        std::vector<double> v2;
         util::read_vector_from_file(v2, datafiles + "coords_13000001.dat");
 
         int k = 0;
@@ -80,17 +84,17 @@ protected:
             k++;
         }
 
-        Context::Slice = new Slices(N_slices, 0, -0.5e-9, 3e-9);
+        Context::Slice = new Slices(RfP, Beam, N_slices, 0, -0.5e-9, 3e-9);
 
         // Define phase loop and frequency loop gain
-        ftype PL_gain = 1 / (5 * GP->t_rev[0]);
-        ftype SL_gain = PL_gain / 10;
+        double PL_gain = 1 / (5 * GP->t_rev[0]);
+        double SL_gain = PL_gain / 10;
 
         f_vector_t PL_gainVec(N_t + 1, PL_gain);
 
         PL = new LHC(PL_gainVec, SL_gain);
 
-        long_tracker = new RingAndRfSection(Context::RfP,
+        long_tracker = new RingAndRfSection(Context::RfP, Beam,
                                             RingAndRfSection::simple, PL);
     }
 
@@ -148,7 +152,7 @@ TEST_F(testLHC_Restart, dphi_RF_and_dphi)
         // printf("   Beam energy %.6e eV\n", GP->energy[0]);
         // printf("   RF phase %.6e rad\n", RfP->dphi_RF[0]);
         // printf("   PL phase correction %.6e rad\n", PL->dphi);
-        real1.push_back(RfP->dphi_RF[0]);
+        real1.push_back(RfP->dphi_rf[0]);
         real2.push_back(PL->dphi);
     }
 
@@ -157,11 +161,11 @@ TEST_F(testLHC_Restart, dphi_RF_and_dphi)
     util::read_vector_from_file(v, params + "dphi_RF[0]");
 
     ASSERT_EQ(v.size(), real1.size());
-    ftype epsilon = 1e-6;
+    double epsilon = 1e-6;
     for (unsigned int i = 0; i < v.size(); ++i) {
         // printf("%d\n", i);
-        ftype ref = v[i];
-        ftype real = real1[i];
+        double ref = v[i];
+        double real = real1[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
                 << "Testing of dphi_RF failed on i " << i << std::endl;
     }
@@ -172,8 +176,8 @@ TEST_F(testLHC_Restart, dphi_RF_and_dphi)
     ASSERT_EQ(v.size(), real2.size());
     for (unsigned int i = 0; i < v.size(); ++i) {
         // printf("%d\n", i);
-        ftype ref = v[i];
-        ftype real = real2[i];
+        double ref = v[i];
+        double real = real2[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
                 << "Testing of dphi failed on i " << i << std::endl;
     }
@@ -184,8 +188,8 @@ TEST_F(testLHC_Restart, dphi_RF_and_dphi)
     ASSERT_EQ(v.size(), Beam->n_macroparticles);
     for (unsigned int i = 0; i < v.size(); ++i) {
         // printf("%d\n", i);
-        ftype ref = v[i];
-        ftype real = Beam->dE[i];
+        double ref = v[i];
+        double real = Beam->dE[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
                 << "Testing of dE failed on i " << i << std::endl;
     }
@@ -196,8 +200,8 @@ TEST_F(testLHC_Restart, dphi_RF_and_dphi)
     ASSERT_EQ(v.size(), Beam->n_macroparticles);
     for (unsigned int i = 0; i < v.size(); ++i) {
         // printf("%d\n", i);
-        ftype ref = v[i];
-        ftype real = Beam->dt[i];
+        double ref = v[i];
+        double real = Beam->dt[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
                 << "Testing of dt failed on i " << i << std::endl;
     }
@@ -208,8 +212,8 @@ TEST_F(testLHC_Restart, dphi_RF_and_dphi)
     ASSERT_EQ(v.size(), Slice->n_slices);
     for (unsigned int i = 0; i < v.size(); ++i) {
         // printf("%d\n", i);
-        ftype ref = v[i];
-        ftype real = Slice->n_macroparticles[i];
+        double ref = v[i];
+        double real = Slice->n_macroparticles[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
                 << "Testing of n_macroparticles failed on i " << i << std::endl;
     }

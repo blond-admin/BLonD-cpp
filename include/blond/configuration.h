@@ -13,8 +13,8 @@
 
 typedef double ftype;
 typedef unsigned int uint;
-typedef std::complex<ftype> complex_t;
-typedef std::vector<ftype> f_vector_t;
+typedef std::complex<double> complex_t;
+typedef std::vector<double> f_vector_t;
 typedef std::vector<int> int_vector_t;
 typedef std::vector<uint> uint_vector_t;
 typedef std::vector<complex_t> complex_vector_t;

@@ -3,11 +3,11 @@
 #include <blond/monitors/Monitors.h>
 
 int plot_long_phase_space(GeneralParameters *GP, RfParameters *RfP,
-                           Beams *Beam, double xmin, double xmax,
-                           double ymin, double ymax, std::string xunit,
-                           int sampling, bool separatrix_plot,
-                           bool histograms_plot, std::string dirname,
-                           int alpha)
+                          Beams *Beam, double xmin, double xmax,
+                          double ymin, double ymax, std::string xunit,
+                          int sampling, bool separatrix_plot,
+                          bool histograms_plot, std::string dirname,
+                          int alpha)
 {
     // python::initialize();
     python::import();
@@ -16,8 +16,8 @@ int plot_long_phase_space(GeneralParameters *GP, RfParameters *RfP,
 
     uint turn = RfP->counter;
     auto pRfPCounter = python::convert_int(turn);
-    auto pRfPOmegaRf0 = python::convert_double(RfP->omega_RF[0][turn]);
-    auto pRfPPhiRf0 = python::convert_double(RfP->phi_RF[0][turn]);
+    auto pRfPOmegaRf0 = python::convert_double(RfP->omega_rf[0][turn]);
+    auto pRfPPhiRf0 = python::convert_double(RfP->phi_rf[0][turn]);
     auto pBeamDE = python::convert_double_array(Beam->dE.data(), Beam->dE.size());
     auto pBeamDt = python::convert_double_array(Beam->dt.data(), Beam->dt.size());
     auto pBeamId = python::convert_int_array(Beam->id.data(), Beam->id.size());
@@ -43,16 +43,16 @@ int plot_long_phase_space(GeneralParameters *GP, RfParameters *RfP,
         auto pRfPVoltage = python::convert_double_array(temp.data(), temp.size());
 
         temp.clear();
-        for (auto &row : RfP->omega_RF) temp.push_back(row[turn]);
+        for (auto &row : RfP->omega_rf) temp.push_back(row[turn]);
         auto pRfPOmegaRf = python::convert_double_array(temp.data(), temp.size());
 
         temp.clear();
-        for (auto &row : RfP->phi_RF) temp.push_back(row[turn]);
+        for (auto &row : RfP->phi_rf) temp.push_back(row[turn]);
         auto pRfPPhiRf = python::convert_double_array(temp.data(), temp.size());
 
-        auto pRfPEta0 = python::convert_double(RfP->eta_0(turn));
-        auto pRfPBeta = python::convert_double(RfP->beta(turn));
-        auto pRfPEnergy = python::convert_double(RfP->energy(turn));
+        auto pRfPEta0 = python::convert_double(RfP->eta_0[turn]);
+        auto pRfPBeta = python::convert_double(RfP->beta[turn]);
+        auto pRfPEnergy = python::convert_double(RfP->energy[turn]);
         auto pRfPNRf = python::convert_int(RfP->n_rf);
         auto pRfPHarmonic = python::convert_double(RfP->harmonic[0][turn]);
         auto pRfPPhiS = python::convert_double(RfP->phi_s[turn]);
@@ -106,7 +106,7 @@ int plot_long_phase_space(GeneralParameters *GP, RfParameters *RfP,
 
 
 int plot_bunch_length_evol(RfParameters *RfP, std::string h5data,
-                            int output_freq, std::string dirname)
+                           int output_freq, std::string dirname)
 {
 
     python::import();
@@ -132,7 +132,7 @@ int plot_bunch_length_evol(RfParameters *RfP, std::string h5data,
 
 // NOTE removed unused variable Slice
 int plot_bunch_length_evol_gaussian(RfParameters *RfP, std::string h5data,
-                                     int output_freq, std::string dirname)
+                                    int output_freq, std::string dirname)
 {
 
     python::import();
@@ -159,8 +159,8 @@ int plot_bunch_length_evol_gaussian(RfParameters *RfP, std::string h5data,
 
 
 int plot_position_evol(RfParameters *RfP, std::string h5data,
-                        int output_freq, std::string style,
-                        std::string dirname)
+                       int output_freq, std::string style,
+                       std::string dirname)
 {
 
     python::import();
@@ -187,8 +187,8 @@ int plot_position_evol(RfParameters *RfP, std::string h5data,
 
 
 int plot_energy_evol(RfParameters *RfP, std::string h5data,
-                      int output_freq, std::string style,
-                      std::string dirname)
+                     int output_freq, std::string style,
+                     std::string dirname)
 {
     python::import();
 
@@ -213,8 +213,8 @@ int plot_energy_evol(RfParameters *RfP, std::string h5data,
 }
 
 int plot_transmitted_particles(RfParameters *RfP, std::string h5data,
-                                int output_freq, std::string style,
-                                std::string dirname)
+                               int output_freq, std::string style,
+                               std::string dirname)
 {
     python::import();
 

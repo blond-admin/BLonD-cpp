@@ -31,11 +31,11 @@ void Resonators::wake_calc(const f_vector_t& NewTimeArray) {
     // util::dump(&fWake[0], 10, "start wake ");
 
     for (uint i = 0; i < fNResonators; ++i) {
-        ftype alpha = fOmegaR[i] / (2 * fQ[i]);
-        ftype omega_bar = std::sqrt(fOmegaR[i] * fOmegaR[i] - alpha * alpha);
+        double alpha = fOmegaR[i] / (2 * fQ[i]);
+        double omega_bar = std::sqrt(fOmegaR[i] * fOmegaR[i] - alpha * alpha);
 
         for (uint j = 0; j < fWake.size(); ++j) {
-            ftype temp = fTimeArray[j];
+            double temp = fTimeArray[j];
             // util::dump(&temp, 1, "temp ");
             int sign = (temp > 0) - (temp < 0);
             fWake[j] += (sign + 1) * fRS[i] * alpha * std::exp(-alpha * temp) *

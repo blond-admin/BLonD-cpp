@@ -19,14 +19,14 @@ class testInducedVoltageFreq : public ::testing::Test {
 
 protected:
     const long long int N_b = 1e10; // Intensity
-    const ftype tau_0 = 2e-9;  // Initial bunch length, 4 sigma [s]
-    const ftype C = 6911.56;   // Machine circumference [m]
-    const ftype p_i = 25.92e9; // Synchronous momentum [eV/c]
+    const double tau_0 = 2e-9;  // Initial bunch length, 4 sigma [s]
+    const double C = 6911.56;   // Machine circumference [m]
+    const double p_i = 25.92e9; // Synchronous momentum [eV/c]
     const long long h = 4620;  // Harmonic number
-    const ftype V = 0.9e6;     // RF voltage [V]
-    const ftype dphi = 0;      // Phase modulation/offset
-    const ftype gamma_t = 1 / std::sqrt(0.00192); // Transition gamma
-    const ftype alpha =
+    const double V = 0.9e6;     // RF voltage [V]
+    const double dphi = 0;      // Phase modulation/offset
+    const double gamma_t = 1 / std::sqrt(0.00192); // Transition gamma
+    const double alpha =
         1.0 / gamma_t / gamma_t; // First order mom. comp. factor
     const int alpha_order = 1;
     const int n_sections = 1;
@@ -57,13 +57,18 @@ protected:
                                             alpha_order, momentumVec,
                                             GeneralParameters::particle_t::proton);
 
-        Context::Beam = new Beams(N_p, N_b);
+        // Context::Beam = new Beams(N_p, N_b);
 
-        Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+        auto GP = Context::GP;
+        auto Beam = Context::Beam = new Beams(GP, N_p, N_b);
+        
+        auto RfP = Context::RfP = new RfParameters(GP, n_sections, hVec,
+                                        voltageVec, dphiVec);
+
 
         longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
 
-        Context::Slice = new Slices(N_slices, 0, 0, 2 * constant::pi,
+        Context::Slice = new Slices(RfP, Beam, N_slices, 0, 0, 2 * constant::pi,
                                     Slices::cuts_unit_t::rad);
 
         f_vector_t v;
@@ -366,7 +371,7 @@ TEST_F(testInducedVoltageFreq, induced_voltage_generation1)
 
     for (uint i = 0; i < v.size(); ++i) {
         auto ref = v[i];
-        ftype real = indVoltFreq->fInducedVoltage[i];
+        double real = indVoltFreq->fInducedVoltage[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
                 << "Testing of indVoltFreq->fInducedVoltage failed on i " << i
                 << std::endl;
@@ -397,7 +402,7 @@ TEST_F(testInducedVoltageFreq, induced_voltage_generation2)
 
     for (uint i = 0; i < v.size(); ++i) {
         auto ref = v[i];
-        ftype real = res[i];
+        double real = res[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
                 << "Testing of indVoltFreq->fInducedVoltage failed on i " << i
                 << std::endl;
@@ -428,7 +433,7 @@ TEST_F(testInducedVoltageFreq, track1)
 
     for (uint i = 0; i < v.size(); ++i) {
         auto ref = v[i];
-        ftype real = Context::Beam->dE[i];
+        double real = Context::Beam->dE[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
                 << "Testing of Beam->dE failed on i " << i << std::endl;
     }
@@ -462,7 +467,7 @@ TEST_F(testInducedVoltageFreq, track2)
     auto epsilon = 1e-8;
     for (uint i = 0; i < v.size(); ++i) {
         auto ref = v[i];
-        ftype real = Context::Beam->dE[i];
+        double real = Context::Beam->dE[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
                 << "Testing of Beam->dE failed on i " << i << std::endl;
     }

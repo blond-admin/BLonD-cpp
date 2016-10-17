@@ -96,11 +96,13 @@ int main(int argc, char **argv)
 
     f_vector_2d_t hVec(n_sections, f_vector_t(N_t + 1, h));
 
-    auto RfP = Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+    auto RfP = Context::RfP = new RfParameters(GP, n_sections, hVec,
+            voltageVec, dphiVec);
+
     cout << "RF parameters set...\n";
 
     // Define beam and distribution: Load matched, filamented distribution
-    auto Beam = Context::Beam = new Beams(N_p, N_b);
+    auto Beam = Context::Beam = new Beams(GP, N_p, N_b);
     f_vector_t v2;
     util::read_vector_from_file(v2, "/afs/cern.ch/work/k/kiliakis/testcases/"
                                 "htimko/LHC/re_3b_extremes_batch/out/"
@@ -113,7 +115,7 @@ int main(int argc, char **argv)
         k++;
     }
 
-    auto Slice = Context::Slice = new Slices(N_slices, 0, -1.0e-9, 54.0e-9);
+    auto Slice = Context::Slice = new Slices(RfP, Beam, N_slices, 0, -1.0e-9, 54.0e-9);
     cout << "Beam generated, slices set...\n";
 
     // auto phaseNoise = new LHCFlatSpectrum(f_vector_t(10, 0), f_vector_t(10,
@@ -148,7 +150,7 @@ int main(int argc, char **argv)
     printf("\tSL t_i = %.4f t_f = %.4f\n", PL->lhc_t[0], PL->lhc_t[N_t]);
 
     // Injecting noise in the cavity, PL on
-    auto long_tracker = new RingAndRfSection(RfP, RingAndRfSection::simple, PL);
+    auto long_tracker = new RingAndRfSection(RfP, Beam, RingAndRfSection::simple, PL);
 
 
     printf("PL, SL, and tracker set...\n");
@@ -244,13 +246,13 @@ int main(int argc, char **argv)
             printf("   Mean Separatrix track time %.4e\n", separatrixTime / (i + 1));
             printf("   Mean Monitor track time %.4e\n", monitorTime / (i + 1));
             printf("   RF tracker counter is %d\n", RfP->counter);
-            printf("   Beam momentum %0.6e eV\n", RfP->momentum(RfP->counter));
-            printf("   Beam gamma %4.3f\n", RfP->gamma(RfP->counter));
-            printf("   Beam beta %.8f\n", RfP->beta(RfP->counter));
-            printf("   Beam energy %.6e eV\n", RfP->energy(RfP->counter));
-            printf("   Design RF revolution frequency %.10e Hz\n", RfP->omega_RF_d[0][i]);
-            printf("   RF revolution frequency %.10e Hz\n", RfP->omega_RF[0][i]);
-            printf("   RF phase %.4f rad\n", RfP->phi_RF[0][i]);
+            printf("   Beam momentum %0.6e eV\n", RfP->momentum[RfP->counter]);
+            printf("   Beam gamma %4.3f\n", RfP->gamma[RfP->counter]);
+            printf("   Beam beta %.8f\n", RfP->beta[RfP->counter]);
+            printf("   Beam energy %.6e eV\n", RfP->energy[RfP->counter]);
+            printf("   Design RF revolution frequency %.10e Hz\n", RfP->omega_rf_d[0][i]);
+            printf("   RF revolution frequency %.10e Hz\n", RfP->omega_rf[0][i]);
+            printf("   RF phase %.4f rad\n", RfP->phi_rf[0][i]);
             printf("   Beam phase %.4f rad\n", PL->phi_beam);
             printf("   Phase noise %.4f rad\n", noiseFB->fX * phaseNoise->fDphi[i]);
             printf("   PL phase error %.4f rad\n", PL->RFnoise->fDphi[i]);

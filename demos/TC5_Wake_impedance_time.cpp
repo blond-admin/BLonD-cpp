@@ -78,15 +78,20 @@ int main(int argc, char **argv)
                                         alpha_order, momentumVec,
                                         GeneralParameters::particle_t::proton);
 
-    Context::Beam = new Beams(N_p, N_b);
+    // Context::Beam = new Beams(N_p, N_b);
 
-    Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+    auto GP = Context::GP;
+    auto Beam = Context::Beam = new Beams(GP, N_p, N_b);
 
-    RingAndRfSection *long_tracker = new RingAndRfSection();
+    auto RfP = Context::RfP = new RfParameters(GP, n_sections, hVec,
+            voltageVec, dphiVec);
+
+
+    auto long_tracker = new RingAndRfSection();
 
     longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
 
-    Context::Slice = new Slices(N_slices, 0, 0, 2 * constant::pi,
+    Context::Slice = new Slices(RfP, Beam, N_slices, 0, 0, 2 * constant::pi,
                                 Slices::cuts_unit_t::rad);
     // util::dump(Slice->bin_centers, 10, "bin_centers\n");
 

@@ -16,10 +16,10 @@
 #include <blond/llrf/LHCNoiseFB.h>
 #include <blond/math_functions.h>
 
-const ftype LHCNoiseFB::cfwhm = std::sqrt(2.0 / std::log(2.0));
+const double LHCNoiseFB::cfwhm = std::sqrt(2.0 / std::log(2.0));
 
-LHCNoiseFB::LHCNoiseFB(ftype bl_target, ftype gain, ftype factor,
-                       ftype update_frequency, bool variable_gain,
+LHCNoiseFB::LHCNoiseFB(double bl_target, double gain, double factor,
+                       double update_frequency, bool variable_gain,
                        f_vector_t bunch_pattern) {
     fX = 0.0;
     fBlTarg = bl_target;
@@ -78,7 +78,7 @@ void LHCNoiseFB::track() {
 }
 
 // TODO check the conditions in this function
-ftype LHCNoiseFB::fwhm_interpolation(uint_vector_t index, ftype half_height) {
+double LHCNoiseFB::fwhm_interpolation(uint_vector_t index, double half_height) {
     auto Slice = Context::Slice;
     const auto time_resolution = Slice->bin_centers[1] - Slice->bin_centers[0];
 
@@ -130,7 +130,7 @@ void LHCNoiseFB::fwhm_single_bunch() {
 
     // Single-bunch FWHM bunch length calculation with interpolation.
     auto i = mymath::max(Slice->n_macroparticles.data(), Slice->n_slices);
-    ftype half_height = Slice->n_macroparticles[i] / 2;
+    double half_height = Slice->n_macroparticles[i] / 2;
 
     uint_vector_t index;
 
@@ -156,18 +156,18 @@ void LHCNoiseFB::fwhm_multi_bunch() {
     auto RfP = Context::RfP;
 
     // Find correct RF buckets
-    auto phi_RF = RfP->phi_RF[0][RfP->counter];
-    auto omega_RF = RfP->omega_RF[0][RfP->counter];
-    // std::cout << phi_RF << "\n";
-    // std::cout << omega_RF << "\n";
+    auto phi_rf = RfP->phi_rf[0][RfP->counter];
+    auto omega_rf = RfP->omega_rf[0][RfP->counter];
+    // std::cout << phi_rf << "\n";
+    // std::cout << omega_rf << "\n";
     f_vector_t bucket_min(fBunchPattern.size());
     for (uint i = 0; i < bucket_min.size(); ++i)
         bucket_min[i] =
-            (phi_RF + 2 * constant::pi * fBunchPattern[i]) / omega_RF;
+            (phi_rf + 2 * constant::pi * fBunchPattern[i]) / omega_rf;
 
     f_vector_t bucket_max(bucket_min.size());
     for (uint i = 0; i < bucket_min.size(); ++i)
-        bucket_max[i] = bucket_min[i] + 2 * constant::pi / omega_RF;
+        bucket_max[i] = bucket_min[i] + 2 * constant::pi / omega_rf;
 
     // Bunch-by-bunch FWHM bunch length
     for (uint i = 0; i < fBunchPattern.size(); ++i) {
@@ -178,7 +178,7 @@ void LHCNoiseFB::fwhm_multi_bunch() {
                 bind.push_back(j);
         }
 
-        ftype hheight = 0;
+        double hheight = 0;
         for (const auto& j : bind) {
             if (Slice->n_macroparticles[j] > hheight)
                 hheight = Slice->n_macroparticles[j];

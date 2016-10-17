@@ -8,7 +8,7 @@
 #include <blond/utilities.h>
 #include <gtest/gtest.h>
 
-const ftype epsilon = 1e-7;
+const double epsilon = 1e-7;
 const std::string params = TEST_FILES "/PL/PL_params/";
 
 LHC *PL;
@@ -17,7 +17,7 @@ RingAndRfSection *long_tracker;
 class testPL : public ::testing::Test {
 
 protected:
-    // const ftype tau_0 = 0.4e-9;          // Initial bunch length, 4 sigma [s]
+    // const double tau_0 = 0.4e-9;          // Initial bunch length, 4 sigma [s]
 
     virtual void SetUp()
     {
@@ -37,7 +37,7 @@ protected:
             momentumVec[0].push_back(6.5e12);
         }
         assert(momentumVec[0].size() == N_t + 1);
-        // ftype *V_array = new ftype[N_t + 1];
+        // double *V_array = new double[N_t + 1];
         f_vector_2d_t voltageVec(1, f_vector_t(N_t + 1));
         mymath::linspace(voltageVec[0].data(), 6e6, 10e6, 13563374, 13e6);
         std::fill_n(&voltageVec[0][563374], 436627, 10e6);
@@ -55,10 +55,14 @@ protected:
 
         f_vector_2d_t hVec(n_sections, f_vector_t(N_t + 1, h));
 
-        Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+        auto RfP = Context::RfP = new RfParameters(GP, n_sections, hVec,
+                voltageVec, dphiVec);
+
 
         // Define beam and distribution: Load matched, filamented distribution
-        Context::Beam = new Beams(N_p, N_b);
+        // Context::Beam = new Beams(N_p, N_b);
+        Context::Beam = new Beams(GP, N_p, N_b);
+
         auto Beam = Context::Beam;
         f_vector_t v2;
         util::read_vector_from_file(v2, datafiles + "coords_13000001.dat");
@@ -70,19 +74,18 @@ protected:
             k++;
         }
 
-        Context::Slice = new Slices(N_slices, 0, -0.5e-9, 3e-9);
+        Context::Slice = new Slices(RfP, Beam, N_slices, 0, -0.5e-9, 3e-9);
         // Define phase loop and frequency loop gain
-        ftype PL_gain = 1 / (5 * GP->t_rev[0]);
-        ftype SL_gain = PL_gain / 10;
+        double PL_gain = 1 / (5 * GP->t_rev[0]);
+        double SL_gain = PL_gain / 10;
 
         f_vector_t PL_gainVec(N_t + 1, PL_gain);
 
         PL = new LHC(PL_gainVec, SL_gain);
 
         // Injecting noise in the cavity, PL on
-        long_tracker = new RingAndRfSection(Context::RfP,
-                                            RingAndRfSection::simple,
-                                            PL);
+        long_tracker = new RingAndRfSection(Context::RfP, Beam,
+                                            RingAndRfSection::simple, PL);
     }
 
     virtual void TearDown()
@@ -111,7 +114,7 @@ private:
     const int alpha_order = 1;
     const int n_sections = 1;
     const uint N_t = 1000000; // Number of turns to track; full ramp: 8700001
-    // const ftype bl_target = 1.25e-9; // 4 sigma r.m.s. target bunch length in [s]
+    // const double bl_target = 1.25e-9; // 4 sigma r.m.s. target bunch length in [s]
 
     const int N_slices = 151;
 
@@ -142,13 +145,16 @@ class testPL2 : public ::testing::Test {
                                             alpha_order, momentumVec,
                                             GeneralParameters::particle_t::proton);
 
-        Context::Beam = new Beams(N_p, N_b);
 
-        Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+        auto GP = Context::GP;
 
-        // long_tracker = new RingAndRfSection();
+        auto Beam = Context::Beam = new Beams(GP, N_p, N_b);
 
-        Context::Slice = new Slices(N_slices, 0, -constant::pi, constant::pi,
+        auto RfP = Context::RfP = new RfParameters(GP, n_sections, hVec,
+                voltageVec, dphiVec);
+
+
+        Context::Slice = new Slices(RfP, Beam, N_slices, 0, -constant::pi, constant::pi,
                                     Slices::cuts_unit_t::rad);
     }
 
@@ -168,14 +174,14 @@ protected:
     const uint N_b = 0; // Intensity
 
     // Machine and RF parameters
-    const ftype radius = 25;
-    const ftype C = 2 * constant::pi * radius; // Machine circumference [m]
-    const ftype p_i = 310891054.809;           // Synchronous momentum [eV/c]
+    const double radius = 25;
+    const double C = 2 * constant::pi * radius; // Machine circumference [m]
+    const double p_i = 310891054.809;           // Synchronous momentum [eV/c]
     const uint h = 1;                          // Harmonic number
-    const ftype V = 8000;                      // RF voltage [V]
-    const ftype dphi = -constant::pi;          // Phase modulation/offset
-    const ftype gamma_t = 4.076750841;         // Transition gamma
-    const ftype alpha =
+    const double V = 8000;                      // RF voltage [V]
+    const double dphi = -constant::pi;          // Phase modulation/offset
+    const double gamma_t = 4.076750841;         // Transition gamma
+    const double alpha =
         1.0 / gamma_t / gamma_t; // First order mom. comp. factor
     const uint alpha_order = 1;
     const uint n_sections = 1;
@@ -243,7 +249,7 @@ TEST_F(testPL2, radial_steering_from_freq1)
     N_t = 100;
 
     for (uint i = 0; i < N_t + 1; ++i)
-        RfP->omega_RF[0][i] = std::sqrt(i);
+        RfP->omega_rf[0][i] = std::sqrt(i);
 
     for (uint i = 0; i < N_t; ++i) {
         sps->radial_steering_from_freq();
@@ -258,7 +264,7 @@ TEST_F(testPL2, radial_steering_from_freq1)
     auto epsilon = 1e-8;
     for (unsigned int i = 0; i < v.size(); ++i) {
         auto ref = v[i];
-        auto real = RfP->omega_RF[0][i];
+        auto real = RfP->omega_rf[0][i];
         // std::cout << real << "\n";
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
                 << "Testing of RfP->omega_RF failed on i " << i << std::endl;
@@ -268,12 +274,12 @@ TEST_F(testPL2, radial_steering_from_freq1)
 
     util::read_vector_from_file(v, params + "dphi_RF_steering.txt");
 
-    ASSERT_EQ(v.size(), RfP->dphi_RF_steering.size());
+    ASSERT_EQ(v.size(), RfP->dphi_rf_steering.size());
 
     epsilon = 1e-8;
     for (unsigned int i = 0; i < v.size(); ++i) {
         auto ref = v[i];
-        auto real = RfP->dphi_RF_steering[i];
+        auto real = RfP->dphi_rf_steering[i];
         // std::cout << real << "\n";
 
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
@@ -290,7 +296,7 @@ TEST_F(testPL2, radial_steering_from_freq1)
     epsilon = 1e-8;
     for (unsigned int i = 0; i < v.size(); ++i) {
         auto ref = v[i];
-        auto real = RfP->phi_RF[0][i];
+        auto real = RfP->phi_rf[0][i];
         // std::cout << real << "\n";
 
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
@@ -305,7 +311,7 @@ TEST_F(testPL2, radial_steering_from_freq1)
 TEST_F(testPL, lhc_a)
 {
 
-    std::vector<ftype> v;
+    std::vector<double> v;
     util::read_vector_from_file(v, params + "lhc_a");
     // Only check 1 out of 10 elements
     // otherwise refernece file too big
@@ -313,8 +319,8 @@ TEST_F(testPL, lhc_a)
     for (unsigned int i = 0; i < v.size(); ++i) {
         // printf("ok here \n");
 
-        ftype ref = v[i];
-        ftype real = PL->lhc_a[i * 10];
+        double ref = v[i];
+        double real = PL->lhc_a[i * 10];
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
     }
 
@@ -324,15 +330,15 @@ TEST_F(testPL, lhc_a)
 TEST_F(testPL, lhc_t)
 {
 
-    std::vector<ftype> v;
+    std::vector<double> v;
     util::read_vector_from_file(v, params + "lhc_t");
     // Only check 1 out of 10 elements
     // otherwise refernece file too big
     ASSERT_EQ(v.size(), Context::GP->n_turns / 10 + 1);
     for (unsigned int i = 0; i < v.size(); ++i) {
         // printf("%d\n", i);
-        ftype ref = v[i];
-        ftype real = PL->lhc_t[i * 10];
+        double ref = v[i];
+        double real = PL->lhc_t[i * 10];
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
     }
 }
@@ -342,10 +348,10 @@ TEST_F(testPL, phi_beam)
     Context::Slice->track();
     PL->beam_phase();
 
-    std::vector<ftype> v;
+    std::vector<double> v;
     util::read_vector_from_file(v, params + "phi_beam");
-    ftype ref = v[0];
-    ftype real = PL->phi_beam;
+    double ref = v[0];
+    double real = PL->phi_beam;
     ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
@@ -355,10 +361,10 @@ TEST_F(testPL, dphi)
     PL->beam_phase();
     PL->phase_difference();
 
-    std::vector<ftype> v;
+    std::vector<double> v;
     util::read_vector_from_file(v, params + "dphi");
-    ftype ref = v[0];
-    ftype real = PL->dphi;
+    double ref = v[0];
+    double real = PL->dphi;
     ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
@@ -368,10 +374,10 @@ TEST_F(testPL, domega_RF)
     PL->beam_phase();
     PL->phase_difference();
     long_tracker->track();
-    std::vector<ftype> v;
+    std::vector<double> v;
     util::read_vector_from_file(v, params + "domega_RF");
-    ftype ref = v[0];
-    ftype real = PL->domega_RF;
+    double ref = v[0];
+    double real = PL->domega_rf;
     ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
@@ -381,10 +387,10 @@ TEST_F(testPL, lhc_y)
     PL->beam_phase();
     PL->phase_difference();
     long_tracker->track();
-    std::vector<ftype> v;
+    std::vector<double> v;
     util::read_vector_from_file(v, params + "lhc_y");
-    ftype ref = v[0];
-    ftype real = PL->lhc_y;
+    double ref = v[0];
+    double real = PL->lhc_y;
     ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
@@ -399,10 +405,10 @@ TEST_F(testPL, omega_RF)
     // RfP->counter++;
     int counter = RfP->counter;
 
-    std::vector<ftype> v;
+    std::vector<double> v;
     util::read_vector_from_file(v, params + "omega_RF");
-    ftype ref = v[0];
-    ftype real = RfP->omega_RF[0][counter];
+    double ref = v[0];
+    double real = RfP->omega_rf[0][counter];
     ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
@@ -414,10 +420,10 @@ TEST_F(testPL, dphi_RF)
     long_tracker->track();
     // RfP->counter++;
 
-    std::vector<ftype> v;
+    std::vector<double> v;
     util::read_vector_from_file(v, params + "dphi_RF");
-    ftype ref = v[0];
-    ftype real = Context::RfP->dphi_RF[0];
+    double ref = v[0];
+    double real = Context::RfP->dphi_rf[0];
     ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 
@@ -433,10 +439,10 @@ TEST_F(testPL, phi_RF)
 
     int counter = RfP->counter;
 
-    std::vector<ftype> v;
+    std::vector<double> v;
     util::read_vector_from_file(v, params + "phi_RF");
-    ftype ref = v[0];
-    ftype real = RfP->phi_RF[0][counter];
+    double ref = v[0];
+    double real = RfP->phi_rf[0][counter];
     ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
 }
 

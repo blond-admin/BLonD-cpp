@@ -7,24 +7,26 @@
 #include <blond/utilities.h>
 #include <gtest/gtest.h>
 
+using namespace std;
+
 class testTC1 : public ::testing::Test {
 
 protected:
     // Machine and RF parameters
-    const ftype C = 26658.883;       // Machine circumference [m]
-    const long long p_i = 450e9;     // Synchronous momentum [eV/c]
-    const ftype p_f = 460.005e9;     // Synchronous momentum, final
-    const long long h = 35640;       // Harmonic number
-    const ftype V = 6e6;             // RF voltage [V]
-    const ftype dphi = 0;            // Phase modulation/offset
-    const ftype gamma_t = 55.759505; // Transition gamma
-    const ftype alpha =
+    const double C = 26658.883;       // Machine circumference [m]
+    const double p_i = 450e9;     // Synchronous momentum [eV/c]
+    const double p_f = 460.005e9;     // Synchronous momentum, final
+    const double h = 35640;       // Harmonic number
+    const double V = 6e6;             // RF voltage [V]
+    const double dphi = 0;            // Phase modulation/offset
+    const double gamma_t = 55.759505; // Transition gamma
+    const double alpha =
         1.0 / gamma_t / gamma_t; // First order mom. comp. factor
     const int alpha_order = 1;
     const int n_sections = 1;
     // Tracking details
     const long long N_b = 1e9;  // Intensity
-    const ftype tau_0 = 0.4e-9; // Initial bunch length, 4 sigma [s]
+    const double tau_0 = 0.4e-9; // Initial bunch length, 4 sigma [s]
 
     const int N_t = 2000; // Number of turns to track
     const int N_p = 10000;  // Macro-particles
@@ -54,9 +56,14 @@ protected:
                                             alpha_order, momentumVec,
                                             GeneralParameters::particle_t::proton);
 
-        Context::Beam = new Beams(N_p, N_b);
+        // Context::Beam = new Beams(N_p, N_b);
 
-        Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+        auto GP = Context::GP;
+        auto Beam = Context::Beam = new Beams(GP, N_p, N_b);
+
+        Context::RfP = new RfParameters(GP, n_sections, hVec,
+                                        voltageVec, dphiVec);
+
 
 
         // Context::Slice = new Slices(N_slices);
@@ -76,13 +83,15 @@ protected:
 
 TEST_F(testTC1, phaseSpace1)
 {
+    auto Beam = Context::Beam;
+    auto RfP = Context::RfP;
+
     longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
     auto epsilon = 1e-6;
     omp_set_num_threads(Context::n_threads);
-    std::string params = TEST_FILES "/TC1_final/phaseSpace1/";
+    string params = TEST_FILES "/TC1_final/phaseSpace1/";
 
-    auto Beam = Context::Beam;
-    auto slices = new Slices(N_slices);
+    auto slices = new Slices(RfP, Beam, N_slices);
 
     auto long_tracker = new RingAndRfSection();
     for (int i = 0; i < N_t; ++i) {
@@ -96,7 +105,7 @@ TEST_F(testTC1, phaseSpace1)
     for (uint i = 0; i < v.size(); ++i) {
         auto ref = v[i];
         auto real = Beam->dE[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
                 << "Testing of dE failed on i " << i << '\n';
 
     }
@@ -107,7 +116,7 @@ TEST_F(testTC1, phaseSpace1)
     for (uint i = 0; i < v.size(); ++i) {
         auto ref = v[i];
         auto real = Beam->dt[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
                 << "Testing of dt failed on i " << i << '\n';
 
     }
@@ -129,15 +138,16 @@ TEST_F(testTC1, phaseSpace1)
 
 TEST_F(testTC1, phaseSpace2)
 {
+    auto Beam = Context::Beam;
+    auto RfP = Context::RfP;
     longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
     auto epsilon = 1e-6;
 
     Context::n_threads = 3;
-    auto slices = new Slices(N_slices);
+    auto slices = new Slices(RfP, Beam, N_slices);
     omp_set_num_threads(Context::n_threads);
-    std::string params = TEST_FILES "/TC1_final/phaseSpace1/";
+    string params = TEST_FILES "/TC1_final/phaseSpace1/";
 
-    auto Beam = Context::Beam;
     auto long_tracker = new RingAndRfSection();
     for (int i = 0; i < N_t; ++i) {
         long_tracker->track();
@@ -150,7 +160,7 @@ TEST_F(testTC1, phaseSpace2)
     for (uint i = 0; i < v.size(); ++i) {
         auto ref = v[i];
         auto real = Beam->dE[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
                 << "Testing of dE failed on i " << i << '\n';
 
     }
@@ -161,7 +171,7 @@ TEST_F(testTC1, phaseSpace2)
     for (uint i = 0; i < v.size(); ++i) {
         auto ref = v[i];
         auto real = Beam->dt[i];
-        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
                 << "Testing of dt failed on i " << i << '\n';
 
     }

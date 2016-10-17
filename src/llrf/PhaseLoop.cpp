@@ -9,10 +9,11 @@
 #include <blond/llrf/PhaseLoop.h>
 #include <blond/math_functions.h>
 
-PhaseLoop::PhaseLoop(f_vector_t PL_gain, ftype window_coefficient, uint _delay,
-                     PhaseNoise* phaseNoise, LHCNoiseFB* LHCNoiseFB) {}
+PhaseLoop::PhaseLoop(f_vector_t PL_gain, double window_coefficient, uint _delay,
+                     PhaseNoise *phaseNoise, LHCNoiseFB *LHCNoiseFB) {}
 
-void PhaseLoop::beam_phase() {
+void PhaseLoop::beam_phase()
+{
     /*
      *Beam phase measured at the main RF frequency and phase. The beam is
      convolved with the window function of the band-pass filter of the
@@ -26,34 +27,34 @@ void PhaseLoop::beam_phase() {
     auto RfP = Context::RfP;
     auto Slice = Context::Slice;
 
-    ftype omega_RF = RfP->omega_RF[RfP->idx][RfP->counter];
-    ftype phi_RF = RfP->phi_RF[RfP->idx][RfP->counter];
+    double omega_rf = RfP->omega_rf[RfP->section_index][RfP->counter];
+    double phi_rf = RfP->phi_rf[RfP->section_index][RfP->counter];
     // Convolve with window function
     //
-    ftype* base = new ftype[Slice->n_slices];
-    ftype* array = new ftype[Slice->n_slices];
+    double *base = new double[Slice->n_slices];
+    double *array = new double[Slice->n_slices];
 
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int i = 0; i < (int)Slice->n_slices; ++i) {
-        const ftype a = alpha * Slice->bin_centers[i];
+        const double a = alpha * Slice->bin_centers[i];
         base[i] = std::exp(a) * Slice->n_macroparticles[i];
     }
 
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int i = 0; i < (int)Slice->n_slices; ++i) {
-        const ftype a = omega_RF * Slice->bin_centers[i] + phi_RF;
+        const double a = omega_rf * Slice->bin_centers[i] + phi_rf;
         array[i] = base[i] * std::sin(a);
     }
-    ftype scoeff =
+    double scoeff =
         mymath::trapezoid(array, Slice->bin_centers.data(), Slice->n_slices);
 
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int i = 0; i < (int)Slice->n_slices; ++i) {
-        const ftype a = omega_RF * Slice->bin_centers[i] + phi_RF;
+        const double a = omega_rf * Slice->bin_centers[i] + phi_rf;
         array[i] = base[i] * std::cos(a);
     }
 
-    ftype ccoeff =
+    double ccoeff =
         mymath::trapezoid(array, Slice->bin_centers.data(), Slice->n_slices);
 
     phi_beam = std::atan(scoeff / ccoeff) + constant::pi;
@@ -62,14 +63,15 @@ void PhaseLoop::beam_phase() {
     delete[] array;
 }
 
-void PhaseLoop::phase_difference() {
+void PhaseLoop::phase_difference()
+{
     /*
      Phase difference between beam and RF phase of the main RF system.
      Optional: add RF phase noise through dphi directly.*
      */
     auto RfP = Context::RfP;
     // Correct for design stable phase
-    uint counter = RfP->counter;
+    int counter = RfP->counter;
     dphi = phi_beam - RfP->phi_s[counter];
     // Possibility to add RF phase noise through the PL
     if (RFnoise != NULL) {
@@ -81,39 +83,41 @@ void PhaseLoop::phase_difference() {
     }
 }
 
-void PhaseLoop::radial_steering_from_freq() {
+void PhaseLoop::radial_steering_from_freq()
+{
     // Frequency and phase change for the current turn due to the
     // radial steering program.
     auto RfP = Context::RfP;
     auto GP = Context::GP;
-    const uint counter = RfP->counter;
+    const int counter = RfP->counter;
 
-    const auto radial_steering_domega_RF =
-        -RfP->omega_RF_d[0][counter] * RfP->eta_0(counter) / GP->alpha[0][0] *
+    const auto radial_steering_domega_rf =
+        -RfP->omega_rf_d[0][counter] * RfP->eta_0[counter] / GP->alpha[0][0] *
         reference / GP->ring_radius;
 
-    for (uint i = 0; i < RfP->n_rf; ++i) {
-        RfP->omega_RF[i][counter] += radial_steering_domega_RF *
+    for (int i = 0; i < RfP->n_rf; ++i) {
+        RfP->omega_rf[i][counter] += radial_steering_domega_rf *
                                      RfP->harmonic[i][counter] /
                                      RfP->harmonic[0][counter];
     }
 
     // Update the RF phase of all systems for the next turn
     // Accumulated phase offset due to PL in each RF system
-    for (uint i = 0; i < RfP->n_rf; ++i) {
-        RfP->dphi_RF_steering[i] +=
+    for (int i = 0; i < RfP->n_rf; ++i) {
+        RfP->dphi_rf_steering[i] +=
             2 * constant::pi * RfP->harmonic[i][counter] *
-            (RfP->omega_RF[i][counter] - RfP->omega_RF_d[i][counter]) /
-            RfP->omega_RF_d[i][counter];
+            (RfP->omega_rf[i][counter] - RfP->omega_rf_d[i][counter]) /
+            RfP->omega_rf_d[i][counter];
     }
 
     // Total phase offset
-    for (uint i = 0; i < RfP->n_rf; ++i) {
-        RfP->phi_RF[i][counter] += RfP->dphi_RF_steering[i];
+    for (int i = 0; i < RfP->n_rf; ++i) {
+        RfP->phi_rf[i][counter] += RfP->dphi_rf_steering[i];
     }
 }
 
-void PhaseLoop::radial_difference() {
+void PhaseLoop::radial_difference()
+{
     auto GP = Context::GP;
     auto RfP = Context::RfP;
     auto Slice = Context::Slice;
@@ -122,11 +126,11 @@ void PhaseLoop::radial_difference() {
     // Radial difference between beam and design orbit.*
     uint counter = RfP->counter;
     uint n = 0;
-    ftype sum = 0;
-    // ftype array[GP->n_turns];
+    double sum = 0;
+    // double array[GP->n_turns];
     for (int i = 0; i < GP->n_turns; ++i) {
         if (Beam->dt[i] > Slice->bin_centers.front() &&
-            Beam->dt[i] < Slice->bin_centers.back()) {
+                Beam->dt[i] < Slice->bin_centers.back()) {
             sum += Beam->dE[i];
             n++;
         }
@@ -139,7 +143,8 @@ void PhaseLoop::radial_difference() {
     // std::cout << "drho : " << drho << "\n";
 }
 
-void PhaseLoop::default_track() {
+void PhaseLoop::default_track()
+{
     /*
      Calculate PL correction on main RF frequency depending on machine.
      Update the RF phase and frequency of the next turn for all systems.
@@ -149,28 +154,29 @@ void PhaseLoop::default_track() {
     uint counter = RfP->counter + 1;
     // uint turns = GP->n_turns;
     // Update the RF frequency of all systems for the next turn
-    for (uint i = 0; i < RfP->n_rf; ++i) {
-        RfP->omega_RF[i][counter] +=
-            domega_RF * RfP->harmonic[i][counter] / RfP->harmonic[0][counter];
+    for (int i = 0; i < RfP->n_rf; ++i) {
+        RfP->omega_rf[i][counter] +=
+            domega_rf * RfP->harmonic[i][counter] / RfP->harmonic[0][counter];
     }
 
     // Update the RF phase of all systems for the next turn
     // Accumulated phase offset due to PL in each RF system
-    for (uint i = 0; i < RfP->n_rf; ++i) {
-        RfP->dphi_RF[i] +=
+    for (int i = 0; i < RfP->n_rf; ++i) {
+        RfP->dphi_rf[i] +=
             2 * constant::pi * RfP->harmonic[i][counter] *
-            (RfP->omega_RF[i][counter] - RfP->omega_RF_d[i][counter]) /
-            RfP->omega_RF_d[i][counter];
+            (RfP->omega_rf[i][counter] - RfP->omega_rf_d[i][counter]) /
+            RfP->omega_rf_d[i][counter];
     }
 
     // Total phase offset
-    for (uint i = 0; i < RfP->n_rf; ++i) {
-        RfP->phi_RF[i][counter] += RfP->dphi_RF[i];
+    for (int i = 0; i < RfP->n_rf; ++i) {
+        RfP->phi_rf[i][counter] += RfP->dphi_rf[i];
     }
 }
 
-LHC::LHC(f_vector_t PL_gain, ftype SL_gain, ftype window_coefficient,
-         PhaseNoise* phaseNoise, LHCNoiseFB* LHCNoiseFB, uint _delay) {
+LHC::LHC(f_vector_t PL_gain, double SL_gain, double window_coefficient,
+         PhaseNoise *phaseNoise, LHCNoiseFB *LHCNoiseFB, uint _delay)
+{
     auto GP = Context::GP;
     auto RfP = Context::RfP;
 
@@ -195,14 +201,15 @@ LHC::LHC(f_vector_t PL_gain, ftype SL_gain, ftype window_coefficient,
             lhc_t[i] = (2 * constant::pi * RfP->Qs[i] * sqrt(lhc_a[i])) /
                        sqrt(1 +
                             gain[i] / gain2 *
-                                sqrt((1 + 1 / lhc_a[i]) / (1 + lhc_a[i])));
+                            sqrt((1 + 1 / lhc_a[i]) / (1 + lhc_a[i])));
         }
     }
 }
 
 LHC::~LHC() {}
 
-void LHC::track() {
+void LHC::track()
+{
     /*
      Calculation of the LHC RF frequency correction from the phase difference
      between beam and RF (actual synchronous phase). The transfer function is
@@ -236,26 +243,27 @@ void LHC::track() {
     auto RfP = Context::RfP;
 
     uint counter = RfP->counter;
-    ftype dphi_RF = RfP->dphi_RF[0];
+    double dphi_rf = RfP->dphi_rf[0];
 
     beam_phase();
     phase_difference();
 
     // Frequency correction from phase loop and synchro loop
 
-    domega_RF = -gain[counter] * dphi -
-                gain2 * (lhc_y + lhc_a[counter] * (dphi_RF + reference));
+    domega_rf = -gain[counter] * dphi -
+                gain2 * (lhc_y + lhc_a[counter] * (dphi_rf + reference));
 
     // Update recursion variable
     lhc_y = (1 - lhc_t[counter]) * lhc_y +
-            (1 - lhc_a[counter]) * lhc_t[counter] * (dphi_RF + reference);
+            (1 - lhc_a[counter]) * lhc_t[counter] * (dphi_rf + reference);
 
     default_track();
 }
 
-PSB::PSB(f_vector_t PL_gain, f_vector_t _RL_gain, ftype _PL_period,
-         ftype _RL_period, f_vector_t coefficients, ftype window_coefficient,
-         PhaseNoise* phaseNoise, LHCNoiseFB* LHCNoiseFB, uint _delay) {
+PSB::PSB(f_vector_t PL_gain, f_vector_t _RL_gain, double _PL_period,
+         double _RL_period, f_vector_t coefficients, double window_coefficient,
+         PhaseNoise *phaseNoise, LHCNoiseFB *LHCNoiseFB, uint _delay)
+{
 
     // General Initializations
     this->delay = _delay;
@@ -266,7 +274,7 @@ PSB::PSB(f_vector_t PL_gain, f_vector_t _RL_gain, ftype _PL_period,
     // End of general initializations
 
     // figure out what to do with these pairs
-    this->gain2.resize(2); // = new ftype[2];
+    this->gain2.resize(2); // = new double[2];
     this->dt.resize(2);    // = new uint[2];
 
     if (_RL_gain.empty()) {
@@ -311,7 +319,8 @@ PSB::PSB(f_vector_t PL_gain, f_vector_t _RL_gain, ftype _PL_period,
 
 PSB::~PSB() {}
 
-void PSB::track() {
+void PSB::track()
+{
     /*
      Calculation of the PSB RF frequency correction from the phase difference
      between beam and RF (actual synchronous phase). The transfer function is
@@ -351,11 +360,11 @@ void PSB::track() {
         // Add correction from radial loop
         if (PL_counter % static_cast<int>(dt[1]) == 0) {
 
-            drho = (RfP->omega_RF[0][counter] - RfP->omega_RF_d[0][counter]) /
-                       (RfP->omega_RF_d[0][counter] *
-                        (1 / (GP->alpha[0][0] * RfP->gamma(counter) *
-                              RfP->gamma(counter)) -
-                         1)) +
+            drho = (RfP->omega_rf[0][counter] - RfP->omega_rf_d[0][counter]) /
+                   (RfP->omega_rf_d[0][counter] *
+                    (1 / (GP->alpha[0][0] * RfP->gamma[counter] *
+                          RfP->gamma[counter]) -
+                     1)) +
                    reference;
 
             domega_RL = domega_RL - gain2[0] * (drho - drho_prev) -
@@ -369,12 +378,13 @@ void PSB::track() {
         PL_counter++;
     }
     // Apply frequency correction
-    domega_RF = domega_PL + domega_RL;
+    domega_rf = domega_PL + domega_RL;
 
     default_track();
 }
 
-void PSB::precalculate_time() {
+void PSB::precalculate_time()
+{
     /*
      For machines like the PSB, where the PL acts only in certain time
      intervals, pre-calculate on which turns to act.
@@ -398,8 +408,9 @@ void PSB::precalculate_time() {
     }
 }
 
-LHC_F::LHC_F(ftype PL_gain, ftype window_coefficient, ftype FL_gain,
-             PhaseNoise* phaseNoise, LHCNoiseFB* LHCNoiseFB, uint delay) {
+LHC_F::LHC_F(double PL_gain, double window_coefficient, double FL_gain,
+             PhaseNoise *phaseNoise, LHCNoiseFB *LHCNoiseFB, uint delay)
+{
     this->gain = PL_gain;
     this->alpha = window_coefficient;
     this->delay = delay;
@@ -411,7 +422,8 @@ LHC_F::LHC_F(ftype PL_gain, ftype window_coefficient, ftype FL_gain,
 
 LHC_F::~LHC_F() {}
 
-void LHC_F::track() {
+void LHC_F::track()
+{
     auto RfP = Context::RfP;
 
     uint counter = RfP->counter;
@@ -421,16 +433,17 @@ void LHC_F::track() {
 
     // Frequency correction from phase loop and frequency loop
     const auto factor =
-        RfP->omega_RF[0][counter] - RfP->omega_RF_d[0][counter] + reference;
+        RfP->omega_rf[0][counter] - RfP->omega_rf_d[0][counter] + reference;
     // for (int i = 0; i < (int)gain.size(); ++i) {
-    domega_RF = -gain * dphi - gain2 * factor;
+    domega_rf = -gain * dphi - gain2 * factor;
     // }
 
     default_track();
 }
 
-SPS_RL::SPS_RL(ftype PL_gain, ftype window_coefficient, ftype RL_gain,
-               PhaseNoise* phaseNoise, LHCNoiseFB* LHCNoiseFB, uint delay) {
+SPS_RL::SPS_RL(double PL_gain, double window_coefficient, double RL_gain,
+               PhaseNoise *phaseNoise, LHCNoiseFB *LHCNoiseFB, uint delay)
+{
     this->gain = PL_gain;
     this->alpha = window_coefficient;
     this->delay = delay;
@@ -442,7 +455,8 @@ SPS_RL::SPS_RL(ftype PL_gain, ftype window_coefficient, ftype RL_gain,
 SPS_RL::~SPS_RL() {}
 
 // TODO Test this function
-void SPS_RL::track() {
+void SPS_RL::track()
+{
     auto GP = Context::GP;
     auto RfP = Context::RfP;
 
@@ -456,11 +470,11 @@ void SPS_RL::track() {
     radial_difference();
 
     // Frequency correction from phase loop and radial loop
-    const auto factor = mymath::sign(RfP->eta_0(counter)) * (reference - drho) /
+    const auto factor = RfP->sign_eta_0[counter] * (reference - drho) /
                         GP->ring_radius;
 
     // for (int i = 0; i < (int)gain.size(); ++i) {
-    domega_RF = -gain * dphi - gain2 * factor;
+    domega_rf = -gain * dphi - gain2 * factor;
     // }
 
     default_track();

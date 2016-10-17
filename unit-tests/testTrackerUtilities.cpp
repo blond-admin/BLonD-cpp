@@ -14,15 +14,15 @@ class testTrackerUtilities : public ::testing::Test {
 
 protected:
     // Machine and RF parameters
-    const ftype C = 26658.883;                  // Machine circumference [m]
+    const double C = 26658.883;                  // Machine circumference [m]
     const int h = 35640;                        // Harmonic number
-    const ftype dphi = 0.;                      // Phase modulation/offset
-    const ftype gamma_t = 55.759505;            // Transition gamma
-    const ftype alpha = 1. / gamma_t / gamma_t; // First order mom. comp. factor
-    const ftype bl_target = 1.25e-9;            // 4 sigma r.m.s. target bunch length in [s]
-    const ftype p_s = 450.e9;
-    const ftype V = 6e6;
-    const ftype tau_0 = 0.4e-9;
+    const double dphi = 0.;                      // Phase modulation/offset
+    const double gamma_t = 55.759505;            // Transition gamma
+    const double alpha = 1. / gamma_t / gamma_t; // First order mom. comp. factor
+    const double bl_target = 1.25e-9;            // 4 sigma r.m.s. target bunch length in [s]
+    const double p_s = 450.e9;
+    const double V = 6e6;
+    const double tau_0 = 0.4e-9;
     // Tracking details
     const long long N_b = 1e9;                  // Intensity
     const int alpha_order = 1;
@@ -54,9 +54,14 @@ protected:
                                             alpha_order, momentumVec,
                                             GeneralParameters::particle_t::proton);
 
-        Context::Beam = new Beams(N_p, N_b);
+        // Context::Beam = new Beams(N_p, N_b);
 
-        Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+        auto GP = Context::GP;
+        auto Beam = Context::Beam = new Beams(GP, N_p, N_b);
+        
+        Context::RfP = new RfParameters(GP, n_sections, hVec,
+                                        voltageVec, dphiVec);
+
 
         longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
     }

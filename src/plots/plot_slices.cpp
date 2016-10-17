@@ -13,7 +13,7 @@ int plot_beam_profile(Slices *Slices,
 
     auto pBinCenters = python::convert_double_array(Slices->bin_centers.data(),
                        Slices->bin_centers.size());
-    auto pNMacropaticles = python::convert_int_array(Slices->n_macroparticles.data(),
+    auto pNMacropaticles = python::convert_double_array(Slices->n_macroparticles.data(),
                            Slices->n_macroparticles.size());
     auto pCounter = python::convert_int(counter);
     auto pStyle = python::convert_string(style);
@@ -42,11 +42,6 @@ int plot_beam_profile_derivative(Slices *Slices,
     for (uint i = 0; i < modes.size(); i++)
         Slices->beam_profile_derivative(x[i], derivative[i], modes[i]);
 
-    // for (auto &r : x){
-    //     std::cout << "new row\n";
-    //     for (auto &i : r)
-    //         std::cout << i << "\n";
-    // }
     auto pX = python::convert_double_2d_array(x);
     auto pDerivative = python::convert_double_2d_array(derivative);
 

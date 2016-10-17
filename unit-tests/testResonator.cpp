@@ -16,17 +16,17 @@ const std::string datafiles = DEMO_FILES "/TC5_Wake_impedance/";
 // --------------------------------------------------------
 // Bunch parameters
 const long long N_b = 1e10; // Intensity
-const ftype tau_0 = 2e-9;  // Initial bunch length, 4 sigma [s]
+const double tau_0 = 2e-9;  // Initial bunch length, 4 sigma [s]
 // const particle_type particle = proton;
 // Machine and RF parameters
-const ftype C = 6911.56;   // Machine circumference [m]
-const ftype p_i = 25.92e9; // Synchronous momentum [eV/c]
-// const ftype p_f = 460.005e9;                  // Synchronous momentum, final
+const double C = 6911.56;   // Machine circumference [m]
+const double p_i = 25.92e9; // Synchronous momentum [eV/c]
+// const double p_f = 460.005e9;                  // Synchronous momentum, final
 const long long h = 4620;                     // Harmonic number
-const ftype V = 0.9e6;                        // RF voltage [V]
-const ftype dphi = 0;                         // Phase modulation/offset
-const ftype gamma_t = 1 / std::sqrt(0.00192); // Transition gamma
-const ftype alpha = 1.0 / gamma_t / gamma_t;  // First order mom. comp. factor
+const double V = 0.9e6;                        // RF voltage [V]
+const double dphi = 0;                         // Phase modulation/offset
+const double gamma_t = 1 / std::sqrt(0.00192); // Transition gamma
+const double alpha = 1.0 / gamma_t / gamma_t;  // First order mom. comp. factor
 const int alpha_order = 1;
 const int n_sections = 1;
 // Tracking details
@@ -63,23 +63,28 @@ protected:
                                             alpha_order, momentumVec,
                                             GeneralParameters::particle_t::proton);
 
-        Context::Beam = new Beams(N_p, N_b);
+        // Context::Beam = new Beams(N_p, N_b);
 
-        Context::RfP = new RfParameters(n_sections, hVec, voltageVec, dphiVec);
+        auto GP = Context::GP;
+        auto Beam = Context::Beam = new Beams(GP, N_p, N_b);
+
+        auto RfP = Context::RfP = new RfParameters(GP, n_sections, hVec,
+                voltageVec, dphiVec);
+
 
         // RingAndRfSection *long_tracker = new RingAndRfSection();
 
         longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
 
-        Context::Slice = new Slices(N_slices, 0, 0, 2 * constant::pi,
-                                    Slices::cuts_unit_t::rad);
+        Context::Slice = new Slices(RfP, Beam, N_slices, 0, 0,
+                                    2 * constant::pi, Slices::cuts_unit_t::rad);
         // util::dump(Slice->bin_centers, 10, "bin_centers\n");
 
-        std::vector<ftype> v;
+        std::vector<double> v;
         util::read_vector_from_file(v, datafiles + "TC5_new_HQ_table.dat");
         assert(v.size() % 3 == 0);
 
-        std::vector<ftype> R_shunt, f_res, Q_factor;
+        std::vector<double> R_shunt, f_res, Q_factor;
 
         R_shunt.reserve(v.size() / 3);
         f_res.reserve(v.size() / 3);
@@ -111,16 +116,16 @@ TEST_F(testResonator, initializations)
 {
     std::string params = TEST_FILES "/Impedances/Intensity/";
 
-    std::vector<ftype> v;
+    std::vector<double> v;
     util::read_vector_from_file(v, params + "R_shunt.txt");
 
     ASSERT_EQ(v.size(), resonator->fRS.size());
 
-    ftype epsilon = 1e-8;
+    double epsilon = 1e-8;
 
     for (unsigned int i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = resonator->fRS[i];
+        double ref = v[i];
+        double real = resonator->fRS[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
                 << "Testing of fRS failed on i " << i << std::endl;
     }
@@ -131,8 +136,8 @@ TEST_F(testResonator, initializations)
 
     epsilon = 1e-8;
     for (unsigned int i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = resonator->fQ[i];
+        double ref = v[i];
+        double real = resonator->fQ[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
                 << "Testing of fQ failed on i " << i << std::endl;
     }
@@ -143,8 +148,8 @@ TEST_F(testResonator, initializations)
 
     epsilon = 1e-8;
     for (unsigned int i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = resonator->fFrequencyR[i];
+        double ref = v[i];
+        double real = resonator->fFrequencyR[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
                 << "Testing of fFrequencyR failed on i " << i << std::endl;
     }
@@ -155,8 +160,8 @@ TEST_F(testResonator, initializations)
 
     epsilon = 1e-8;
     for (unsigned int i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = resonator->fOmegaR[i];
+        double ref = v[i];
+        double real = resonator->fOmegaR[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
                 << "Testing of fOmegaR failed on i " << i << std::endl;
     }
@@ -168,10 +173,10 @@ TEST_F(testResonator, wake_calc)
     auto Slice = Context::Slice;
     std::string params = TEST_FILES "/Impedances/Intensity/";
 
-    std::vector<ftype> v;
+    std::vector<double> v;
     util::read_vector_from_file(v, params + "Wake.txt");
 
-    std::vector<ftype> timeArray;
+    std::vector<double> timeArray;
     timeArray.reserve(N_slices);
     for (int i = 0; i < N_slices; ++i) {
         timeArray.push_back(Slice->bin_centers[i] - Slice->bin_centers[0]);
@@ -181,11 +186,11 @@ TEST_F(testResonator, wake_calc)
 
     ASSERT_EQ(v.size(), resonator->fWake.size());
 
-    ftype epsilon = 1e-8;
+    double epsilon = 1e-8;
 
     for (unsigned int i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = resonator->fWake[i];
+        double ref = v[i];
+        double real = resonator->fWake[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
                 << "Testing of fWake failed on i " << i << std::endl;
     }
@@ -198,10 +203,10 @@ TEST_F(testResonator, imped_calc)
 
     std::string params = TEST_FILES "/Impedances/Intensity/";
 
-    std::vector<ftype> v;
+    std::vector<double> v;
     util::read_vector_from_file(v, params + "Impedance.txt");
 
-    std::vector<ftype> timeArray;
+    std::vector<double> timeArray;
     timeArray.reserve(N_slices);
     for (int i = 0; i < N_slices; ++i) {
         timeArray.push_back((Slice->bin_centers[i] - Slice->bin_centers[0]) *
@@ -215,11 +220,11 @@ TEST_F(testResonator, imped_calc)
 
     ASSERT_EQ(v.size(), resonator->fImpedance.size());
 
-    ftype epsilon = 1e-6;
+    double epsilon = 1e-6;
 
     for (unsigned int i = 0; i < v.size(); ++i) {
-        ftype ref = v[i];
-        ftype real = std::abs((complex_t)resonator->fImpedance[i]);
+        double ref = v[i];
+        double real = std::abs((complex_t)resonator->fImpedance[i]);
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
                 << "Testing of fImpedance failed on i " << i << std::endl;
     }

@@ -15,13 +15,13 @@
 #include <blond/constants.h>
 
 
-static inline ftype phase_modulo_above_transition(const ftype phi)
+static inline double phase_modulo_above_transition(const double phi)
 {
     return phi - 2.0 * constant::pi * std::floor(phi / (2.0 * constant::pi));
 }
 
 
-static inline ftype phase_modulo_below_transition(const ftype phi)
+static inline double phase_modulo_below_transition(const double phi)
 {
     return phi - 2.0 * constant::pi *
            (std::floor(phi / (2.0 * constant::pi) + 0.5));
@@ -37,16 +37,16 @@ std::vector<int> is_in_separatrix(const GeneralParameters *GP,
 f_vector_t hamiltonian(const GeneralParameters *GP,
                        const RfParameters *RfP,
                        const Beams *Beam,
-                       const ftype *__restrict dt,
-                       const ftype *__restrict dE,
+                       const double *__restrict dt,
+                       const double *__restrict dE,
                        const int size,
                        const f_vector_t total_voltage = {});
 
-ftype hamiltonian(const GeneralParameters *GP,
+double hamiltonian(const GeneralParameters *GP,
                   const RfParameters *RfP,
                   const Beams *Beam,
-                  const ftype dt,
-                  const ftype dE,
+                  const double dt,
+                  const double dE,
                   const f_vector_t total_voltage = {});
 
 #endif /* TRACKERS_UTILITIES_H_ */

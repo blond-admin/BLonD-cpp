@@ -140,10 +140,10 @@ namespace util {
 
     // sort an array with regards to another array
     struct API MyComparator {
-        ftype* a;
-        MyComparator(ftype* _a) : a(_a) {}
+        double* a;
+        MyComparator(double* _a) : a(_a) {}
 
-        bool operator()(ftype i1, ftype i2) { return i1 < i2; }
+        bool operator()(double i1, double i2) { return i1 < i2; }
     };
     */
 

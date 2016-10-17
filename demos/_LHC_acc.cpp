@@ -24,7 +24,7 @@ int N_p = 600000;                           // Macro-particles
 
 // Machine and RF parameters
 const double C = 26658.883;                  // Machine circumference [m]
-const int h = 35640;                        // Harmonic number
+const double h = 35640;                        // Harmonic number
 const double dphi = 0.;                      // Phase modulation/offset
 const double gamma_t = 55.759505;            // Transition gamma
 const double alpha = 1. / gamma_t / gamma_t; // First order mom. comp. factor
@@ -33,8 +33,8 @@ int alpha_order = 1;
 int n_sections = 1;
 
 // Tracking details
-uint N_t = 9000001;       // Number of turns to track; full ramp: 8700001
-ftype bl_target = 0.9e-9; // 4 sigma r.m.s. target bunch length in [s]
+int N_t = 9000001;       // Number of turns to track; full ramp: 8700001
+double bl_target = 0.9e-9; // 4 sigma r.m.s. target bunch length in [s]
 
 int N_slices = 2200;
 
@@ -134,8 +134,8 @@ int main(int argc, char **argv)
     cout << "Phase noise feedback set...\n";
 
     // Define phase loop and frequency loop gain
-    ftype PL_gain = 1 / (5 * GP->t_rev[0]);
-    ftype SL_gain = PL_gain / 10;
+    double PL_gain = 1 / (5 * GP->t_rev[0]);
+    double SL_gain = PL_gain / 10;
 
     f_vector_t PL_gainVec(N_t + 1, PL_gain);
 
@@ -171,10 +171,10 @@ int main(int argc, char **argv)
     auto ZTable = new InputTable(freq, ReZ, ImZ);
     vector<Intensity *> ZTableV{ZTable};
 
-    auto indVoltage = new InducedVoltageFreq(ZTableV, 1.0e7);
+    auto indVoltage = new InducedVoltageFreq(Slice, ZTableV, 1.0e7);
     vector<InducedVoltage *> indVoltageV{indVoltage};
 
-    auto totVoltage = new TotalInducedVoltage(indVoltageV);
+    auto totVoltage = new TotalInducedVoltage(Beam, Slice, indVoltageV);
 
     string h5file = "output_data-"
                     + to_string(Context::n_threads)
@@ -189,9 +189,9 @@ int main(int argc, char **argv)
     timespec begin_t;
     printf("Map set\n");
 
-    printf("Initial mean bunch position %.4e s\n", Context::Beam->mean_dt);
+    printf("Initial mean bunch position %.4e s\n", Beam->mean_dt);
     printf("Initial four-times r.m.s. bunch length %.4e s\n",
-           4. * Context::Beam->sigma_dt);
+           4. * Beam->sigma_dt);
     // print("Initial Gaussian bunch length %.4e ns" %slices.bl_gauss
 
     printf("Ready for tracking!\n");
@@ -204,12 +204,12 @@ int main(int argc, char **argv)
     auto monitorTime = 0.0;
     timespec start;
 
-    for (uint i = 0; i < N_t; ++i) {
+    for (int i = 0; i < N_t; ++i) {
 
         util::get_time(begin_t);
 
         util::get_time(start);
-        totVoltage->track();
+        totVoltage->track(Beam);
         totVoltageTime += util::time_elapsed(start);
 
         // if (i % 10 == 0) {
@@ -219,7 +219,7 @@ int main(int argc, char **argv)
         // }
 
         util::get_time(start);
-        Context::Slice->track();
+        Slice->track();
         sliceTime += util::time_elapsed(start);
 
         util::get_time(start);

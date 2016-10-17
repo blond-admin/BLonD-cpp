@@ -15,33 +15,34 @@
 #include <blond/utilities.h>
 #include <stdio.h>
 #include <blond/impedances/InducedVoltage.h>
-// #include <complex>
 
-const std::string datafiles = DEMO_FILES "/TC5_Wake_impedance/";
+using namespace std;
+
+const string datafiles = DEMO_FILES "/TC5_Wake_impedance/";
 
 // Simulation parameters
 // --------------------------------------------------------
 // Bunch parameters
-const long long int N_b = 1e10; // Intensity
-const ftype tau_0 = 2e-9;                 // Initial bunch length, 4 sigma [s]
+const long long N_b = 1e10; // Intensity
+const double tau_0 = 2e-9;                 // Initial bunch length, 4 sigma [s]
 // const particle_type particle = proton;
 // Machine and RF parameters
-const ftype C = 6911.56;   // Machine circumference [m]
-const ftype p_i = 25.92e9; // Synchronous momentum [eV/c]
-// const ftype p_f = 460.005e9;                  // Synchronous momentum, final
-const long long h = 4620;                     // Harmonic number
-const ftype V = 0.9e6;                        // RF voltage [V]
-const ftype dphi = 0;                         // Phase modulation/offset
-const ftype gamma_t = 1 / std::sqrt(0.00192); // Transition gamma
-const ftype alpha = 1.0 / gamma_t / gamma_t;  // First order mom. comp. factor
+const double C = 6911.56;   // Machine circumference [m]
+const double p_i = 25.92e9; // Synchronous momentum [eV/c]
+// const double p_f = 460.005e9;                  // Synchronous momentum, final
+const double h = 4620;                     // Harmonic number
+const double V = 0.9e6;                        // RF voltage [V]
+const double dphi = 0;                         // Phase modulation/offset
+const double gamma_t = 1 / sqrt(0.00192); // Transition gamma
+const double alpha = 1.0 / gamma_t / gamma_t;  // First order mom. comp. factor
 const int alpha_order = 1;
 const int n_sections = 1;
 // Tracking details
 
-unsigned N_t = 1000;    // Number of turns to track
-unsigned N_p = 5000000; // Macro-particles
+int N_t = 1000;    // Number of turns to track
+int N_p = 5000000; // Macro-particles
 
-unsigned N_slices = 1 << 8; // = (2^8)
+int N_slices = 1 << 8; // = (2^8)
 
 void parse_args(int argc, char **argv);
 
@@ -92,15 +93,15 @@ int main(int argc, char **argv)
 
     longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
 
-    Context::Slice = new Slices(RfP, Beam, N_slices, 0, 0, 2 * constant::pi,
-                                Slices::cuts_unit_t::rad);
+    auto Slice = Context::Slice = new Slices(RfP, Beam, N_slices,
+            0, 0, 2 * constant::pi, Slices::cuts_unit_t::rad);
     // util::dump(Slice->bin_centers, 10, "bin_centers\n");
 
-    std::vector<ftype> v;
+    f_vector_t v;
     util::read_vector_from_file(v, datafiles + "TC5_new_HQ_table.dat");
     assert(v.size() % 3 == 0);
 
-    std::vector<ftype> R_shunt, f_res, Q_factor;
+    f_vector_t R_shunt, f_res, Q_factor;
 
     R_shunt.reserve(v.size() / 3);
     f_res.reserve(v.size() / 3);
@@ -112,20 +113,20 @@ int main(int argc, char **argv)
         R_shunt.push_back(v[i + 2] * 1e6);
     }
 
-    Resonators *resonator = new Resonators(R_shunt, f_res, Q_factor);
+    auto resonator = new Resonators(R_shunt, f_res, Q_factor);
 
-    std::vector<Intensity *> wakeSourceList({resonator});
-    InducedVoltageTime *indVoltTime =
-        new InducedVoltageTime(wakeSourceList, InducedVoltageTime::freq_domain);
-    std::vector<InducedVoltage *> indVoltList({indVoltTime});
+    vector<Intensity *> wakeSourceList({resonator});
+    auto indVoltTime = new InducedVoltageTime(Slice, wakeSourceList,
+            InducedVoltageTime::freq_domain);
+    vector<InducedVoltage *> indVoltList({indVoltTime});
 
-    TotalInducedVoltage *totVol = new TotalInducedVoltage(indVoltList);
+    auto totVol = new TotalInducedVoltage(Beam, Slice, indVoltList);
 
     auto indTrack = 0.0, longTrack = 0.0, sliceTrack = 0.0;
     for (unsigned i = 0; i < N_t; ++i) {
 
         util::get_time(begin);
-        totVol->track();
+        totVol->track(Beam);
         // util::print_time_elapsed("Induced Voltage Track", begin);
         indTrack += util::time_elapsed(begin);
 
@@ -135,30 +136,30 @@ int main(int argc, char **argv)
         longTrack += util::time_elapsed(begin);
 
         util::get_time(begin);
-        Context::Slice->track();
+        Slice->track();
         sliceTrack += util::time_elapsed(begin);
 
         // util::print_time_elapsed("Slice Track", begin);
     }
 
-    std::cout << std::scientific;
-    std::cout << "Average Turn Time : "
-              << (indTrack + longTrack + sliceTrack) / N_t << std::endl;
-    std::cout << "Average Induced Voltage Track Time : " << indTrack / N_t
-              << std::endl;
-    std::cout << "Average Tracker Track Time : " << longTrack / N_t
-              << std::endl;
-    std::cout << "Average Slice Track Time : " << sliceTrack / N_t << std::endl;
+    cout << scientific;
+    cout << "Average Turn Time : "
+         << (indTrack + longTrack + sliceTrack) / N_t << endl;
+    cout << "Average Induced Voltage Track Time : " << indTrack / N_t
+         << endl;
+    cout << "Average Tracker Track Time : " << longTrack / N_t
+         << endl;
+    cout << "Average Slice Track Time : " << sliceTrack / N_t << endl;
 
     // util::dump(Beam->dE, 10, "dE\n");
     // util::dump(Beam->dt, 10, "dt\n");
     // util::dump(Slice->n_macroparticles, 10, "n_macroparticles\n");
 
-    delete Context::Slice;
+    delete Slice;
     delete long_tracker;
-    delete Context::RfP;
-    delete Context::GP;
-    delete Context::Beam;
+    delete RfP;
+    delete GP;
+    delete Beam;
     delete resonator;
     delete indVoltTime;
     delete totVol;

@@ -14,26 +14,28 @@
 // Simulation parameters
 // --------------------------------------------------------
 
+using namespace std;
+
 // Bunch parameters
 const long long N_b = 0; // Intensity
 
 // Machine and RF parameters
-const ftype radius = 25;
-const ftype C = 2 * constant::pi * radius;   // Machine circumference [m]
-const ftype p_i = 310891054.809;             // Synchronous momentum [eV/c]
-const uint h = 1;                            // Harmonic number
-const ftype V = 8000;                        // RF voltage [V]
-const ftype dphi = -constant::pi;            // Phase modulation/offset
-const ftype gamma_t = 4.076750841;           // Transition gamma
-const ftype alpha = 1.0 / gamma_t / gamma_t; // First order mom. comp. factor
-const uint alpha_order = 1;
-const uint n_sections = 1;
+const double radius = 25;
+const double C = 2 * constant::pi * radius;   // Machine circumference [m]
+const double p_i = 310891054.809;             // Synchronous momentum [eV/c]
+const double h = 1;                            // Harmonic number
+const double V = 8000;                        // RF voltage [V]
+const double dphi = -constant::pi;            // Phase modulation/offset
+const double gamma_t = 4.076750841;           // Transition gamma
+const double alpha = 1.0 / gamma_t / gamma_t; // First order mom. comp. factor
+const int alpha_order = 1;
+const int n_sections = 1;
 // Tracking details
 
-uint N_t = 500;    // Number of turns to track
-uint N_p = 100000; // Macro-particles
+int N_t = 500;    // Number of turns to track
+int N_p = 100000; // Macro-particles
 
-uint N_slices = 200; // = (2^8)
+int N_slices = 200; // = (2^8)
 
 void parse_args(int argc, char **argv);
 
@@ -103,7 +105,7 @@ int main(int argc, char **argv)
     double slice_time = 0.0;
     double pl_time = 0.0;
 
-    for (uint i = 0; i < N_t; ++i) {
+    for (int i = 0; i < N_t; ++i) {
 
         util::get_time(begin);
         psb->track();
@@ -118,13 +120,13 @@ int main(int argc, char **argv)
         slice_time += util::time_elapsed(begin);
     }
 
-    std::cout << std::scientific;
-    std::cout << "Average Turn Time : "
-              << (track_time + slice_time + pl_time) / N_t << std::endl;
-    std::cout << "Average Tracker Track Time : " << track_time / N_t
-              << std::endl;
-    std::cout << "Average PhaseLoop Time : " << pl_time / N_t << std::endl;
-    std::cout << "Average Slice Track Time : " << slice_time / N_t << std::endl;
+    cout << scientific;
+    cout << "Average Turn Time : "
+         << (track_time + slice_time + pl_time) / N_t << endl;
+    cout << "Average Tracker Track Time : " << track_time / N_t
+         << endl;
+    cout << "Average PhaseLoop Time : " << pl_time / N_t << endl;
+    cout << "Average Slice Track Time : " << slice_time / N_t << endl;
 
     // util::dump(Beam->dE, "dE\n", 10);
     // util::dump(Beam->dt, "dt\n", 10);

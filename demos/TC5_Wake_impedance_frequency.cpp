@@ -24,26 +24,26 @@ const string datafiles = DEMO_FILES "/TC5_Wake_impedance/";
 // Simulation parameters
 // --------------------------------------------------------
 // Bunch parameters
-const long long int N_b = 1e10; // Intensity
-const ftype tau_0 = 2e-9;                 // Initial bunch length, 4 sigma [s]
+const long long N_b = 1e10; // Intensity
+const double tau_0 = 2e-9;                 // Initial bunch length, 4 sigma [s]
 // const particle_type particle = proton;
 // Machine and RF parameters
-const ftype C = 6911.56;   // Machine circumference [m]
-const ftype p_i = 25.92e9; // Synchronous momentum [eV/c]
-// const ftype p_f = 460.005e9;                  // Synchronous momentum, final
-const long long h = 4620;                     // Harmonic number
-const ftype V = 0.9e6;                        // RF voltage [V]
-const ftype dphi = 0;                         // Phase modulation/offset
-const ftype gamma_t = 1 / std::sqrt(0.00192); // Transition gamma
-const ftype alpha = 1.0 / gamma_t / gamma_t;  // First order mom. comp. factor
+const double C = 6911.56;   // Machine circumference [m]
+const double p_i = 25.92e9; // Synchronous momentum [eV/c]
+// const double p_f = 460.005e9;                  // Synchronous momentum, final
+const double h = 4620;                     // Harmonic number
+const double V = 0.9e6;                        // RF voltage [V]
+const double dphi = 0;                         // Phase modulation/offset
+const double gamma_t = 1 / sqrt(0.00192); // Transition gamma
+const double alpha = 1.0 / gamma_t / gamma_t;  // First order mom. comp. factor
 const int alpha_order = 1;
 const int n_sections = 1;
 // Tracking details
 
-long N_t = 1000;    // Number of turns to track
-long N_p = 5000000; // Macro-particles
+int N_t = 1000;    // Number of turns to track
+int N_p = 5000000; // Macro-particles
 
-long N_slices = 1 << 8; // = (2^8)
+int N_slices = 1 << 8; // = (2^8)
 
 void parse_args(int argc, char **argv);
 
@@ -119,18 +119,18 @@ int main(int argc, char **argv)
 
     auto resonator = new Resonators(R_shunt, f_res, Q_factor);
 
-    std::vector<Intensity *> ImpSourceList({resonator});
-    auto indVoltFreq = new InducedVoltageFreq(ImpSourceList, 1e5);
+    vector<Intensity *> ImpSourceList({resonator});
+    auto indVoltFreq = new InducedVoltageFreq(Slice, ImpSourceList, 1e5);
 
-    std::vector<InducedVoltage *> indVoltList({indVoltFreq});
+    vector<InducedVoltage *> indVoltList({indVoltFreq});
 
-    auto totVol = new TotalInducedVoltage(indVoltList);
+    auto totVol = new TotalInducedVoltage(Beam, Slice, indVoltList);
 
     auto indTrack = 0.0, longTrack = 0.0, sliceTrack = 0.0;
-    for (unsigned i = 0; i < N_t; ++i) {
+    for (int i = 0; i < N_t; ++i) {
 
         util::get_time(begin);
-        totVol->track();
+        totVol->track(Beam);
         indTrack += util::time_elapsed(begin);
         // util::print_time_elapsed("Induced Voltage Track", begin);
 

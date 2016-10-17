@@ -28,7 +28,7 @@ protected:
     const double p_i = 25.92e9; // Synchronous momentum [eV/c]
     // const double p_f = 460.005e9;                  // Synchronous momentum,
     // final
-    const long h = 4620;                     // Harmonic number
+    const double h = 4620;                     // Harmonic number
     const double V = 0.9e6;                        // RF voltage [V]
     const double dphi = 0;                         // Phase modulation/offset
     const double gamma_t = 1 / std::sqrt(0.00192); // Transition gamma
@@ -69,9 +69,9 @@ protected:
 
         auto GP = Context::GP;
         auto Beam = Context::Beam = new Beams(GP, N_p, N_b);
-        
+
         auto RfP = Context::RfP = new RfParameters(GP, n_sections, hVec,
-                                        voltageVec, dphiVec);
+                voltageVec, dphiVec);
 
 
 
@@ -118,8 +118,9 @@ class testTotalInducedVoltage : public testInducedVoltage {};
 TEST_F(testInducedVoltage, constructor1)
 {
     double epsilon = 1e-8;
+    auto slices = Context::Slice;
     std::vector<Intensity *> wakeSourceList({resonator});
-    auto indVoltTime = new InducedVoltageTime(wakeSourceList);
+    auto indVoltTime = new InducedVoltageTime(slices, wakeSourceList);
 
     auto params = std::string(TEST_FILES "/Impedances/") +
                   "InducedVoltage/InducedVoltageTime/constructor1/";
@@ -162,16 +163,18 @@ TEST_F(testInducedVoltage, constructor1)
 
 TEST_F(testInducedVoltage, reprocess1)
 {
+    auto slices = Context::Slice;
+    auto beam = Context::Beam;
+    double epsilon = 1e-8;
 
     std::vector<Intensity *> wakeSourceList({resonator});
-    auto indVoltTime = new InducedVoltageTime(wakeSourceList);
-    auto Slice = Context::Slice;
-    Slice->track();
+    auto indVoltTime = new InducedVoltageTime(slices, wakeSourceList);
+    slices->track();
 
-    for (int i = 0; i < Slice->n_slices; i++)
-        Slice->bin_centers[i] *= 1.1;
+    for (int i = 0; i < slices->n_slices; i++)
+        slices->bin_centers[i] *= 1.1;
 
-    indVoltTime->reprocess();
+    indVoltTime->reprocess(slices);
 
     std::string params = std::string(TEST_FILES "/Impedances/") +
                          "InducedVoltage/InducedVoltageTime/reprocess1/";
@@ -181,7 +184,6 @@ TEST_F(testInducedVoltage, reprocess1)
 
     ASSERT_EQ(v.size(), indVoltTime->fTimeArray.size());
 
-    double epsilon = 1e-8;
 
     for (uint i = 0; i < v.size(); ++i) {
         double ref = v[i];
@@ -226,13 +228,16 @@ TEST_F(testInducedVoltage, reprocess1)
 
 TEST_F(testInducedVoltage, generation1)
 {
-    Context::Slice->track();
+    auto slices = Context::Slice;
+    auto beam = Context::Beam;
+
+    slices->track();
     auto epsilon = 1e-8;
 
 
     std::vector<Intensity *> wakeSourceList({resonator});
-    auto indVoltTime = new InducedVoltageTime(wakeSourceList);
-    f_vector_t res = indVoltTime->induced_voltage_generation();
+    auto indVoltTime = new InducedVoltageTime(slices, wakeSourceList);
+    f_vector_t res = indVoltTime->induced_voltage_generation(beam);
 
     std::string params = std::string(TEST_FILES "/Impedances/") +
                          "InducedVoltage/InducedVoltageTime/generation1/";
@@ -261,12 +266,15 @@ TEST_F(testInducedVoltage, generation1)
 
 TEST_F(testInducedVoltage, generation2)
 {
-    Context::Slice->track();
+    auto slices = Context::Slice;
+    auto beam = Context::Beam;
+
+    slices->track();
     auto epsilon = 1e-7;
 
     std::vector<Intensity *> wakeSourceList({resonator});
-    auto indVoltTime = new InducedVoltageTime(wakeSourceList);
-    f_vector_t res = indVoltTime->induced_voltage_generation(100);
+    auto indVoltTime = new InducedVoltageTime(slices, wakeSourceList);
+    f_vector_t res = indVoltTime->induced_voltage_generation(beam, 100);
 
     std::string params = std::string(TEST_FILES "/Impedances/") +
                          "InducedVoltage/InducedVoltageTime/generation2/";
@@ -295,14 +303,17 @@ TEST_F(testInducedVoltage, generation2)
 
 TEST_F(testInducedVoltage, convolution1)
 {
-    Context::Slice->track();
+    auto slices = Context::Slice;
+    auto beam = Context::Beam;
+
+    slices->track();
     auto epsilon = 1e-8;
 
     std::vector<Intensity *> wakeSourceList({resonator});
     auto indVoltTime =
-        new InducedVoltageTime(wakeSourceList,
+        new InducedVoltageTime(slices, wakeSourceList,
                                InducedVoltageTime::time_or_freq::time_domain);
-    f_vector_t res = indVoltTime->induced_voltage_generation();
+    f_vector_t res = indVoltTime->induced_voltage_generation(beam);
 
     std::string params = std::string(TEST_FILES "/Impedances/") +
                          "InducedVoltage/InducedVoltageTime/convolution1/";
@@ -331,26 +342,28 @@ TEST_F(testInducedVoltage, convolution1)
 
 TEST_F(testInducedVoltage, track1)
 {
+    auto slices = Context::Slice;
+    auto beam = Context::Beam;
+
     std::string params = std::string(TEST_FILES "/Impedances/") +
                          "InducedVoltage/InducedVoltageTime/track1/";
     auto epsilon = 1e-8;
 
-    auto Beam = Context::Beam;
-    Context::Slice->track();
+    slices->track();
 
     std::vector<Intensity *> wakeSourceList({resonator});
-    auto indVoltTime = new InducedVoltageTime(wakeSourceList);
-    indVoltTime->track();
+    auto indVoltTime = new InducedVoltageTime(slices, wakeSourceList);
+    indVoltTime->track(beam);
 
     f_vector_t v;
     util::read_vector_from_file(v, params + "dE.txt");
-    ASSERT_EQ(v.size(), Beam->dE.size());
+    ASSERT_EQ(v.size(), beam->dE.size());
 
     for (uint i = 0; i < v.size(); ++i) {
         double ref = v[i];
-        double real = Beam->dE[i];
+        double real = beam->dE[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
-                << "Testing of Beam->dE failed on i " << i << std::endl;
+                << "Testing of beam->dE failed on i " << i << std::endl;
     }
 
     delete indVoltTime;
@@ -359,19 +372,20 @@ TEST_F(testInducedVoltage, track1)
 
 TEST_F(testTotalInducedVoltage, sum1)
 {
-
+    auto slices = Context::Slice;
+    auto beam = Context::Beam;
     auto epsilon = 1e-8;
     auto params = std::string(TEST_FILES "/Impedances/") +
                   "InducedVoltage/TotalInducedVoltage/sum1/";
 
-    Context::Slice->track();
+    slices->track();
 
     std::vector<Intensity *> wakeSourceList({resonator});
-    auto indVoltTime = new InducedVoltageTime(wakeSourceList);
+    auto indVoltTime = new InducedVoltageTime(slices, wakeSourceList);
     std::vector<InducedVoltage *> indVoltList({indVoltTime});
-    auto totVol = new TotalInducedVoltage(indVoltList);
+    auto totVol = new TotalInducedVoltage(beam, slices, indVoltList);
 
-    f_vector_t res = totVol->induced_voltage_sum(200);
+    f_vector_t res = totVol->induced_voltage_sum(beam, 200);
 
     f_vector_t v;
     util::read_vector_from_file(v, params + "extIndVolt.txt");
@@ -416,20 +430,21 @@ TEST_F(testTotalInducedVoltage, sum1)
 
 TEST_F(testTotalInducedVoltage, sum2)
 {
-
+    auto slices = Context::Slice;
+    auto beam = Context::Beam;
     auto epsilon = 1e-8;
     auto params = std::string(TEST_FILES "/Impedances/") +
                   "InducedVoltage/TotalInducedVoltage/sum2/";
 
-    Context::Slice->track();
+    slices->track();
 
     std::vector<Intensity *> wakeSourceList({resonator});
-    auto indVoltTime1 = new InducedVoltageTime(wakeSourceList);
-    auto indVoltTime2 = new InducedVoltageTime(wakeSourceList);
+    auto indVoltTime1 = new InducedVoltageTime(slices, wakeSourceList);
+    auto indVoltTime2 = new InducedVoltageTime(slices, wakeSourceList);
     std::vector<InducedVoltage *> indVoltList({indVoltTime1, indVoltTime2});
-    auto totVol = new TotalInducedVoltage(indVoltList);
+    auto totVol = new TotalInducedVoltage(beam, slices, indVoltList);
 
-    f_vector_t res = totVol->induced_voltage_sum(200);
+    f_vector_t res = totVol->induced_voltage_sum(beam, 200);
 
     f_vector_t v;
     util::read_vector_from_file(v, params + "extIndVolt.txt");
@@ -477,28 +492,30 @@ TEST_F(testTotalInducedVoltage, sum2)
 
 TEST_F(testTotalInducedVoltage, track1)
 {
+    auto slices = Context::Slice;
+    auto beam = Context::Beam;
+
     auto epsilon = 1e-8;
     auto params = std::string(TEST_FILES "/Impedances/") +
                   "InducedVoltage/TotalInducedVoltage/track1/";
 
-    auto Beam = Context::Beam;
 
     std::vector<Intensity *> wakeSourceList({resonator});
-    auto indVoltTime = new InducedVoltageTime(wakeSourceList);
+    auto indVoltTime = new InducedVoltageTime(slices, wakeSourceList);
     std::vector<InducedVoltage *> indVoltList({indVoltTime});
 
-    auto totVol = new TotalInducedVoltage(indVoltList);
+    auto totVol = new TotalInducedVoltage(beam, slices, indVoltList);
 
-    for (int i = 0; i < 1000; i++) totVol->track();
+    for (int i = 0; i < 1000; i++) totVol->track(beam);
 
     f_vector_t v;
     util::read_vector_from_file(v, params + "dE.txt");
-    ASSERT_EQ(v.size(), Beam->dE.size());
+    ASSERT_EQ(v.size(), beam->dE.size());
     for (uint i = 0; i < v.size(); ++i) {
         double ref = v[i];
-        double real = Beam->dE[i];
+        double real = beam->dE[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
-                << "Testing of Beam->dE failed on i " << i << std::endl;
+                << "Testing of beam->dE failed on i " << i << std::endl;
     }
 
     delete indVoltTime;
@@ -508,29 +525,31 @@ TEST_F(testTotalInducedVoltage, track1)
 
 TEST_F(testTotalInducedVoltage, track2)
 {
+    auto slices = Context::Slice;
+    auto beam = Context::Beam;
+
     auto epsilon = 1e-8;
     auto params = std::string(TEST_FILES "/Impedances/") +
                   "InducedVoltage/TotalInducedVoltage/track2/";
 
-    auto Beam = Context::Beam;
 
     std::vector<Intensity *> wakeSourceList({resonator});
-    auto indVoltTime = new InducedVoltageTime(wakeSourceList);
-    auto indVoltTime2 = new InducedVoltageTime(wakeSourceList);
+    auto indVoltTime = new InducedVoltageTime(slices, wakeSourceList);
+    auto indVoltTime2 = new InducedVoltageTime(slices, wakeSourceList);
     std::vector<InducedVoltage *> indVoltList({indVoltTime, indVoltTime2});
 
-    auto totVol = new TotalInducedVoltage(indVoltList);
+    auto totVol = new TotalInducedVoltage(beam, slices, indVoltList);
 
-    for (int i = 0; i < 100; i++) totVol->track();
+    for (int i = 0; i < 100; i++) totVol->track(beam);
 
     f_vector_t v;
     util::read_vector_from_file(v, params + "dE.txt");
-    ASSERT_EQ(v.size(), Beam->dE.size());
+    ASSERT_EQ(v.size(), beam->dE.size());
     for (uint i = 0; i < v.size(); ++i) {
         double ref = v[i];
-        double real = Beam->dE[i];
+        double real = beam->dE[i];
         ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
-                << "Testing of Beam->dE failed on i " << i << std::endl;
+                << "Testing of beam->dE failed on i " << i << std::endl;
     }
 
     delete indVoltTime;

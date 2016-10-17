@@ -25,13 +25,13 @@ void matched_from_line_density(Beams *beam,
 {
     // NOTE seed random engine
     // not setting line_density_opt["exponent"] to null
-    auto GP = Context::GP;
-    double slippage_factor = GP->eta_0[0][0];
-    double eom_factor_dE = abs(slippage_factor) / (2 * GP->beta[0][0]
-                           * GP->beta[0][0] * GP->energy[0][0]);
+    // auto GP = Context::GP;
+    double slippage_factor = full_ring->fRingList[0].eta_0[0];
+    double eom_factor_dE = abs(slippage_factor) / (2 * beam->beta
+                           * beam->beta * beam->energy);
 
     double eom_factor_potential = mymath::sign(slippage_factor)
-                                  * GP->charge / GP->t_rev[0];
+                                  * beam->charge / full_ring->fRingList[0].t_rev[0];
     int n_points_potential = 1e4;
     full_ring->potential_well_generation(0, n_points_potential,
                                          main_harmonic_option,

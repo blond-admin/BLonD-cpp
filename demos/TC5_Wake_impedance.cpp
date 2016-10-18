@@ -123,7 +123,7 @@ int main(int argc, char **argv)
     auto totVol = new TotalInducedVoltage(Beam, Slice, indVoltList);
 
     auto indTrack = 0.0, longTrack = 0.0, sliceTrack = 0.0;
-    for (unsigned i = 0; i < N_t; ++i) {
+    for (int i = 0; i < N_t; ++i) {
 
         util::get_time(begin);
         totVol->track(Beam);

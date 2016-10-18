@@ -195,6 +195,22 @@ namespace mymath {
         return psum;
     }
 
+    template<typename T>
+    static inline f_vector_t cum_trapezoid(const std::vector<T> &f,
+                                           const T deltaX)
+    {
+        return cum_trapezoid<T>(f.data(), deltaX, f.size());
+    }
+
+    template<typename T>
+    static inline f_vector_t cum_trapezoid(const std::vector<T> &f,
+                                           const T deltaX,
+                                           const T initial)
+    {
+        return cum_trapezoid<T>(f.data(), deltaX, initial, f.size());
+    }
+
+
     template <typename T>
     static inline double trapezoid(T *f, const double *deltaX, const int nsub)
     {
@@ -274,6 +290,17 @@ namespace mymath {
                 a[i - keep_from] = start + i * step;
             // value += step;
         }
+    }
+
+    static inline f_vector_t linspace(const double start, const double end,
+                                      const int n)
+    {
+        const double step = (end - start) / (n - 1);
+        f_vector_t res;
+        res.reserve(n);
+        for (int i = 0; i < n; i++)
+            res.push_back(start + i * step);
+        return res;
     }
 
     template <typename T>

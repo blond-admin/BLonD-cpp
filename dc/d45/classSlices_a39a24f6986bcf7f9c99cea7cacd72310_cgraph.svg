@@ -11,9 +11,9 @@
 <polygon fill="white" stroke="white" points="-4,5 -4,-198 279,-198 279,5 -4,5"/>
 <!-- Node1 -->
 <g id="node1" class="node"><title>Node1</title>
-<polygon fill="#bfbfbf" stroke="black" points="0.5,-86 0.5,-120 105.5,-120 105.5,-86 0.5,-86"/>
-<text text-anchor="start" x="8.5" y="-107" font-family="Helvetica,sans-Serif" font-size="10.00">Slices::beam_profile</text>
-<text text-anchor="middle" x="53" y="-94" font-family="Helvetica,sans-Serif" font-size="10.00">_filter_chebyshev</text>
+<polygon fill="#bfbfbf" stroke="black" points="0.5,-80 0.5,-114 105.5,-114 105.5,-80 0.5,-80"/>
+<text text-anchor="start" x="8.5" y="-101" font-family="Helvetica,sans-Serif" font-size="10.00">Slices::beam_profile</text>
+<text text-anchor="middle" x="53" y="-88" font-family="Helvetica,sans-Serif" font-size="10.00">_filter_chebyshev</text>
 </g>
 <!-- Node2 -->
 <g id="node3" class="node"><title>Node2</title>
@@ -24,8 +24,8 @@
 </g>
 <!-- Node1&#45;&gt;Node2 -->
 <g id="edge2" class="edge"><title>Node1&#45;&gt;Node2</title>
-<path fill="none" stroke="midnightblue" d="M74.5648,-120.244C91.9354,-133.448 117.428,-151.321 142,-163 146.679,-165.224 151.661,-167.267 156.711,-169.128"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="155.848,-172.532 166.443,-172.479 158.127,-165.914 155.848,-172.532"/>
+<path fill="none" stroke="midnightblue" d="M71.8605,-114.031C89.0535,-128.781 115.709,-149.772 142,-163 146.318,-165.173 150.916,-167.158 155.598,-168.96"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="154.669,-172.344 165.263,-172.404 157.018,-165.75 154.669,-172.344"/>
 </g>
 <!-- Node3 -->
 <g id="node5" class="node"><title>Node3</title>
@@ -36,33 +36,33 @@
 </g>
 <!-- Node1&#45;&gt;Node3 -->
 <g id="edge4" class="edge"><title>Node1&#45;&gt;Node3</title>
-<path fill="none" stroke="midnightblue" d="M105.909,-116.654C122.468,-120.927 140.697,-125.632 157.114,-129.868"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="156.512,-133.327 167.07,-132.437 158.261,-126.55 156.512,-133.327"/>
+<path fill="none" stroke="midnightblue" d="M105.909,-112.702C124.237,-118.141 144.611,-124.188 162.309,-129.44"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="161.801,-132.94 172.384,-132.43 163.793,-126.229 161.801,-132.94"/>
 </g>
 <!-- Node4 -->
 <g id="node7" class="node"><title>Node4</title>
-<a xlink:href="../../de/d4a/namespacepython.html#adb27db8de2c6c5b4f381fadcc86a4939" target="_top" xlink:title="python::convert_int">
-<polygon fill="white" stroke="black" points="158,-92.5 158,-113.5 258,-113.5 258,-92.5 158,-92.5"/>
-<text text-anchor="middle" x="208" y="-100.5" font-family="Helvetica,sans-Serif" font-size="10.00">python::convert_int</text>
+<a xlink:href="../../de/d4a/namespacepython.html#a38f56692b4793b00b074fc192783947e" target="_top" xlink:title="python::convert_double\l_array">
+<polygon fill="white" stroke="black" points="149,-80 149,-114 267,-114 267,-80 149,-80"/>
+<text text-anchor="start" x="157" y="-101" font-family="Helvetica,sans-Serif" font-size="10.00">python::convert_double</text>
+<text text-anchor="middle" x="208" y="-88" font-family="Helvetica,sans-Serif" font-size="10.00">_array</text>
 </a>
 </g>
 <!-- Node1&#45;&gt;Node4 -->
 <g id="edge6" class="edge"><title>Node1&#45;&gt;Node4</title>
-<path fill="none" stroke="midnightblue" d="M105.909,-103C119.327,-103 133.842,-103 147.6,-103"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="147.944,-106.5 157.943,-103 147.943,-99.5001 147.944,-106.5"/>
+<path fill="none" stroke="midnightblue" d="M105.909,-97C116.518,-97 127.812,-97 138.877,-97"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="138.947,-100.5 148.947,-97 138.947,-93.5001 138.947,-100.5"/>
 </g>
 <!-- Node5 -->
 <g id="node9" class="node"><title>Node5</title>
-<a xlink:href="../../de/d4a/namespacepython.html#aba320bc348e153e5057cb5a4add54102" target="_top" xlink:title="python::convert_int\l_array">
-<polygon fill="white" stroke="black" points="158,-40 158,-74 258,-74 258,-40 158,-40"/>
-<text text-anchor="start" x="166" y="-61" font-family="Helvetica,sans-Serif" font-size="10.00">python::convert_int</text>
-<text text-anchor="middle" x="208" y="-48" font-family="Helvetica,sans-Serif" font-size="10.00">_array</text>
+<a xlink:href="../../de/d4a/namespacepython.html#adb27db8de2c6c5b4f381fadcc86a4939" target="_top" xlink:title="python::convert_int">
+<polygon fill="white" stroke="black" points="158,-40.5 158,-61.5 258,-61.5 258,-40.5 158,-40.5"/>
+<text text-anchor="middle" x="208" y="-48.5" font-family="Helvetica,sans-Serif" font-size="10.00">python::convert_int</text>
 </a>
 </g>
 <!-- Node1&#45;&gt;Node5 -->
 <g id="edge8" class="edge"><title>Node1&#45;&gt;Node5</title>
-<path fill="none" stroke="midnightblue" d="M105.909,-87.2981C119.458,-83.2769 134.127,-78.9237 148.005,-74.805"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="149.353,-78.056 157.943,-71.8555 147.361,-71.3453 149.353,-78.056"/>
+<path fill="none" stroke="midnightblue" d="M105.909,-81.2981C124.237,-75.8588 144.611,-69.8121 162.309,-64.56"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="163.793,-67.7705 172.384,-61.57 161.801,-61.0598 163.793,-67.7705"/>
 </g>
 <!-- Node6 -->
 <g id="node11" class="node"><title>Node6</title>
@@ -73,8 +73,8 @@
 </g>
 <!-- Node1&#45;&gt;Node6 -->
 <g id="edge10" class="edge"><title>Node1&#45;&gt;Node6</title>
-<path fill="none" stroke="midnightblue" d="M69.943,-85.8877C86.8537,-69.6819 114.252,-45.7013 142,-31 147.219,-28.235 152.877,-25.793 158.611,-23.6522"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="159.952,-26.8924 168.269,-20.3298 157.675,-20.273 159.952,-26.8924"/>
+<path fill="none" stroke="midnightblue" d="M71.8605,-79.9693C89.0535,-65.2194 115.709,-44.2284 142,-31 147.276,-28.3455 152.969,-25.9714 158.723,-23.8682"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="160.056,-27.1118 168.4,-20.5828 157.806,-20.4834 160.056,-27.1118"/>
 </g>
 </g>
 </svg>

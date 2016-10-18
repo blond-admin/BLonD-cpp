@@ -32,7 +32,7 @@
         </defs>
 
 <script type="text/javascript">
-var viewWidth = 715;
+var viewWidth = 780;
 var viewHeight = 764;
 var sectionId = 'dynsection-1';
 </script>
@@ -40,250 +40,250 @@ var sectionId = 'dynsection-1';
 <svg id="graph" class="graph">
 <g id="viewport">
 <title>PhaseLoop</title>
-<polygon fill="white" stroke="white" points="-4,5 -4,-760 711.622,-760 711.622,5 -4,5"/>
+<polygon fill="white" stroke="white" points="-4,5 -4,-760 777,-760 777,5 -4,5"/>
 <!-- Node1 -->
 <g id="node1" class="node"><title>Node1</title>
-<polygon fill="#bfbfbf" stroke="black" points="239.122,-0.5 239.122,-167.5 380.122,-167.5 380.122,-0.5 239.122,-0.5"/>
-<text text-anchor="middle" x="309.622" y="-154.5" font-family="Helvetica,sans-Serif" font-size="10.00">PhaseLoop</text>
-<polyline fill="none" stroke="black" points="239.122,-146.5 380.122,-146.5 "/>
-<text text-anchor="middle" x="309.622" y="-133.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="239.122,-125.5 380.122,-125.5 "/>
-<text text-anchor="start" x="247.122" y="-112.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ PhaseLoop()</text>
-<text text-anchor="start" x="247.122" y="-99.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ PhaseLoop()</text>
-<text text-anchor="start" x="247.122" y="-86.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~PhaseLoop()</text>
-<text text-anchor="start" x="247.122" y="-73.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ beam_phase()</text>
-<text text-anchor="start" x="247.122" y="-60.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ default_track()</text>
-<text text-anchor="start" x="247.122" y="-47.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ phase_difference()</text>
-<text text-anchor="start" x="247.122" y="-34.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ radial_difference()</text>
-<text text-anchor="start" x="247.122" y="-21.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ radial_steering_from_freq()</text>
-<text text-anchor="start" x="247.122" y="-8.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ track()</text>
+<polygon fill="#bfbfbf" stroke="black" points="264.5,-0.5 264.5,-167.5 405.5,-167.5 405.5,-0.5 264.5,-0.5"/>
+<text text-anchor="middle" x="335" y="-154.5" font-family="Helvetica,sans-Serif" font-size="10.00">PhaseLoop</text>
+<polyline fill="none" stroke="black" points="264.5,-146.5 405.5,-146.5 "/>
+<text text-anchor="middle" x="335" y="-133.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="264.5,-125.5 405.5,-125.5 "/>
+<text text-anchor="start" x="272.5" y="-112.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ PhaseLoop()</text>
+<text text-anchor="start" x="272.5" y="-99.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ PhaseLoop()</text>
+<text text-anchor="start" x="272.5" y="-86.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~PhaseLoop()</text>
+<text text-anchor="start" x="272.5" y="-73.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ beam_phase()</text>
+<text text-anchor="start" x="272.5" y="-60.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ default_track()</text>
+<text text-anchor="start" x="272.5" y="-47.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ phase_difference()</text>
+<text text-anchor="start" x="272.5" y="-34.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ radial_difference()</text>
+<text text-anchor="start" x="272.5" y="-21.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ radial_steering_from_freq()</text>
+<text text-anchor="start" x="272.5" y="-8.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ track()</text>
 </g>
 <!-- Node2 -->
 <g id="node2" class="node"><title>Node2</title>
 <a xlink:href="../../d8/d2b/classLHCNoiseFB.html" target="_top" xlink:title="{LHCNoiseFB\n||+ LHCNoiseFB()\l+ ~LHCNoiseFB()\l+ fwhm_interpolation()\l+ fwhm_multi_bunch()\l+ fwhm_single_bunch()\l+ track()\l}">
-<polygon fill="white" stroke="black" points="181.622,-219 181.622,-347 299.622,-347 299.622,-219 181.622,-219"/>
-<text text-anchor="middle" x="240.622" y="-334" font-family="Helvetica,sans-Serif" font-size="10.00">LHCNoiseFB</text>
-<polyline fill="none" stroke="black" points="181.622,-326 299.622,-326 "/>
-<text text-anchor="middle" x="240.622" y="-313" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="181.622,-305 299.622,-305 "/>
-<text text-anchor="start" x="189.622" y="-292" font-family="Helvetica,sans-Serif" font-size="10.00">+ LHCNoiseFB()</text>
-<text text-anchor="start" x="189.622" y="-279" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~LHCNoiseFB()</text>
-<text text-anchor="start" x="189.622" y="-266" font-family="Helvetica,sans-Serif" font-size="10.00">+ fwhm_interpolation()</text>
-<text text-anchor="start" x="189.622" y="-253" font-family="Helvetica,sans-Serif" font-size="10.00">+ fwhm_multi_bunch()</text>
-<text text-anchor="start" x="189.622" y="-240" font-family="Helvetica,sans-Serif" font-size="10.00">+ fwhm_single_bunch()</text>
-<text text-anchor="start" x="189.622" y="-227" font-family="Helvetica,sans-Serif" font-size="10.00">+ track()</text>
+<polygon fill="white" stroke="black" points="166,-219 166,-347 284,-347 284,-219 166,-219"/>
+<text text-anchor="middle" x="225" y="-334" font-family="Helvetica,sans-Serif" font-size="10.00">LHCNoiseFB</text>
+<polyline fill="none" stroke="black" points="166,-326 284,-326 "/>
+<text text-anchor="middle" x="225" y="-313" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="166,-305 284,-305 "/>
+<text text-anchor="start" x="174" y="-292" font-family="Helvetica,sans-Serif" font-size="10.00">+ LHCNoiseFB()</text>
+<text text-anchor="start" x="174" y="-279" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~LHCNoiseFB()</text>
+<text text-anchor="start" x="174" y="-266" font-family="Helvetica,sans-Serif" font-size="10.00">+ fwhm_interpolation()</text>
+<text text-anchor="start" x="174" y="-253" font-family="Helvetica,sans-Serif" font-size="10.00">+ fwhm_multi_bunch()</text>
+<text text-anchor="start" x="174" y="-240" font-family="Helvetica,sans-Serif" font-size="10.00">+ fwhm_single_bunch()</text>
+<text text-anchor="start" x="174" y="-227" font-family="Helvetica,sans-Serif" font-size="10.00">+ track()</text>
 </a>
 </g>
 <!-- Node2&#45;&gt;Node1 -->
 <g id="edge2" class="edge"><title>Node2&#45;&gt;Node1</title>
-<path fill="none" stroke="#404040" d="M262.834,-218.94C267.266,-206.157 272.01,-192.477 276.713,-178.911"/>
-<polygon fill="none" stroke="#404040" points="276.716,-178.903 274.903,-171.923 280.648,-167.565 282.461,-174.544 276.716,-178.903"/>
-<text text-anchor="middle" x="296.622" y="-190.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +noiseFB</text>
+<path fill="none" stroke="#404040" d="M260.41,-218.94C267.617,-205.902 275.34,-191.93 282.986,-178.098"/>
+<polygon fill="none" stroke="#404040" points="283.003,-178.067 282.405,-170.881 288.808,-167.565 289.406,-174.751 283.003,-178.067"/>
+<text text-anchor="middle" x="299" y="-190.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +noiseFB</text>
 </g>
 <!-- Node3 -->
 <g id="node4" class="node"><title>Node3</title>
-<polygon fill="white" stroke="#bfbfbf" points="118.622,-463.5 118.622,-526.5 208.622,-526.5 208.622,-463.5 118.622,-463.5"/>
-<text text-anchor="middle" x="163.622" y="-513.5" font-family="Helvetica,sans-Serif" font-size="10.00">function&lt; void()&gt;</text>
-<polyline fill="none" stroke="#bfbfbf" points="118.622,-505.5 208.622,-505.5 "/>
-<text text-anchor="middle" x="163.622" y="-492.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#bfbfbf" points="118.622,-484.5 208.622,-484.5 "/>
-<text text-anchor="middle" x="163.622" y="-471.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polygon fill="white" stroke="#bfbfbf" points="82,-463.5 82,-526.5 172,-526.5 172,-463.5 82,-463.5"/>
+<text text-anchor="middle" x="127" y="-513.5" font-family="Helvetica,sans-Serif" font-size="10.00">function&lt; void()&gt;</text>
+<polyline fill="none" stroke="#bfbfbf" points="82,-505.5 172,-505.5 "/>
+<text text-anchor="middle" x="127" y="-492.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="#bfbfbf" points="82,-484.5 172,-484.5 "/>
+<text text-anchor="middle" x="127" y="-471.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </g>
 <!-- Node3&#45;&gt;Node2 -->
 <g id="edge4" class="edge"><title>Node3&#45;&gt;Node2</title>
-<path fill="none" stroke="#404040" d="M164.99,-463.239C167.024,-436.49 172.078,-397.64 184.622,-366 185.676,-363.341 186.826,-360.682 188.055,-358.032"/>
-<polygon fill="none" stroke="#404040" points="188.104,-357.936 187.237,-350.777 193.511,-347.223 194.378,-354.382 188.104,-357.936"/>
-<text text-anchor="middle" x="204.622" y="-402.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +fFwhm</text>
+<path fill="none" stroke="#404040" d="M127.456,-463.249C128.975,-436.158 133.919,-396.813 149,-366 151.722,-360.439 154.934,-354.983 158.474,-349.692"/>
+<polygon fill="none" stroke="#404040" points="158.631,-349.473 158.89,-342.266 165.642,-339.733 165.383,-346.94 158.631,-349.473"/>
+<text text-anchor="middle" x="169" y="-402.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +fFwhm</text>
 </g>
 <!-- Node4 -->
 <g id="node6" class="node"><title>Node4</title>
-<polygon fill="white" stroke="#bfbfbf" points="277.122,-578.5 277.122,-641.5 322.122,-641.5 322.122,-578.5 277.122,-578.5"/>
-<text text-anchor="middle" x="299.622" y="-628.5" font-family="Helvetica,sans-Serif" font-size="10.00">double</text>
-<polyline fill="none" stroke="#bfbfbf" points="277.122,-620.5 322.122,-620.5 "/>
-<text text-anchor="middle" x="299.622" y="-607.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#bfbfbf" points="277.122,-599.5 322.122,-599.5 "/>
-<text text-anchor="middle" x="299.622" y="-586.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polygon fill="white" stroke="#bfbfbf" points="441.5,-578.5 441.5,-641.5 486.5,-641.5 486.5,-578.5 441.5,-578.5"/>
+<text text-anchor="middle" x="464" y="-628.5" font-family="Helvetica,sans-Serif" font-size="10.00">double</text>
+<polyline fill="none" stroke="#bfbfbf" points="441.5,-620.5 486.5,-620.5 "/>
+<text text-anchor="middle" x="464" y="-607.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="#bfbfbf" points="441.5,-599.5 486.5,-599.5 "/>
+<text text-anchor="middle" x="464" y="-586.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </g>
 <!-- Node4&#45;&gt;Node1 -->
 <g id="edge20" class="edge"><title>Node4&#45;&gt;Node1</title>
-<path fill="none" stroke="#404040" d="M276.819,-607.962C230.328,-602.701 123.435,-584.818 57.6223,-528 1.23577,-479.319 -14.6584,-434.497 14.6223,-366 57.8886,-264.785 157.287,-182.561 228.754,-133.554"/>
-<polygon fill="none" stroke="#404040" points="229.145,-133.289 231.874,-126.614 239.085,-126.566 236.356,-133.24 229.145,-133.289"/>
-<text text-anchor="middle" x="44.6223" y="-435" font-family="Helvetica,sans-Serif" font-size="10.00"> +alpha</text>
-<text text-anchor="middle" x="44.6223" y="-422" font-family="Helvetica,sans-Serif" font-size="10.00">+domega_RF</text>
-<text text-anchor="middle" x="44.6223" y="-409" font-family="Helvetica,sans-Serif" font-size="10.00">+dphi</text>
-<text text-anchor="middle" x="44.6223" y="-396" font-family="Helvetica,sans-Serif" font-size="10.00">+drho</text>
-<text text-anchor="middle" x="44.6223" y="-383" font-family="Helvetica,sans-Serif" font-size="10.00">+phi_beam</text>
-<text text-anchor="middle" x="44.6223" y="-370" font-family="Helvetica,sans-Serif" font-size="10.00">+reference</text>
+<path fill="none" stroke="#404040" d="M486.814,-604.913C538.856,-592.83 663.866,-560.945 690,-528 734.831,-471.485 723.106,-434.337 700,-366 656.498,-237.339 510.427,-155.38 416.79,-114.714"/>
+<polygon fill="none" stroke="#404040" points="416.679,-114.667 409.591,-115.993 405.641,-109.959 412.729,-108.634 416.679,-114.667"/>
+<text text-anchor="middle" x="746" y="-435" font-family="Helvetica,sans-Serif" font-size="10.00"> +alpha</text>
+<text text-anchor="middle" x="746" y="-422" font-family="Helvetica,sans-Serif" font-size="10.00">+domega_rf</text>
+<text text-anchor="middle" x="746" y="-409" font-family="Helvetica,sans-Serif" font-size="10.00">+dphi</text>
+<text text-anchor="middle" x="746" y="-396" font-family="Helvetica,sans-Serif" font-size="10.00">+drho</text>
+<text text-anchor="middle" x="746" y="-383" font-family="Helvetica,sans-Serif" font-size="10.00">+phi_beam</text>
+<text text-anchor="middle" x="746" y="-370" font-family="Helvetica,sans-Serif" font-size="10.00">+reference</text>
 </g>
 <!-- Node4&#45;&gt;Node2 -->
 <g id="edge6" class="edge"><title>Node4&#45;&gt;Node2</title>
-<path fill="none" stroke="#404040" d="M277.405,-578.41C268.322,-563.769 258.757,-545.716 253.622,-528 237.689,-473.031 234.9,-408.273 235.847,-359.143"/>
-<polygon fill="none" stroke="#404040" points="235.851,-359.001 232.008,-352.899 236.162,-347.005 240.005,-353.107 235.851,-359.001"/>
-<text text-anchor="middle" x="276.622" y="-518.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +fBlMeas</text>
-<text text-anchor="middle" x="276.622" y="-505.5" font-family="Helvetica,sans-Serif" font-size="10.00">+fBlTarg</text>
-<text text-anchor="middle" x="276.622" y="-492.5" font-family="Helvetica,sans-Serif" font-size="10.00">+fA</text>
-<text text-anchor="middle" x="276.622" y="-479.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;cfwhm</text>
-<text text-anchor="middle" x="276.622" y="-466.5" font-family="Helvetica,sans-Serif" font-size="10.00">+fX</text>
+<path fill="none" stroke="#404040" d="M445.227,-578.35C437.335,-563.551 428.87,-545.388 424,-528 404.498,-458.372 450.995,-424.863 409,-366 382.66,-329.079 335.926,-308.276 296.151,-296.73"/>
+<polygon fill="none" stroke="#404040" points="295.908,-296.664 289.067,-298.944 284.331,-293.506 291.172,-291.226 295.908,-296.664"/>
+<text text-anchor="middle" x="447" y="-518.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +fBlMeas</text>
+<text text-anchor="middle" x="447" y="-505.5" font-family="Helvetica,sans-Serif" font-size="10.00">+fBlTarg</text>
+<text text-anchor="middle" x="447" y="-492.5" font-family="Helvetica,sans-Serif" font-size="10.00">+fA</text>
+<text text-anchor="middle" x="447" y="-479.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;cfwhm</text>
+<text text-anchor="middle" x="447" y="-466.5" font-family="Helvetica,sans-Serif" font-size="10.00">+fX</text>
 </g>
-<!-- Node6 -->
-<g id="node10" class="node"><title>Node6</title>
-<polygon fill="white" stroke="#bfbfbf" points="382.122,-463.5 382.122,-526.5 485.122,-526.5 485.122,-463.5 382.122,-463.5"/>
-<text text-anchor="middle" x="433.622" y="-513.5" font-family="Helvetica,sans-Serif" font-size="10.00">std::vector&lt; ftype &gt;</text>
-<polyline fill="none" stroke="#bfbfbf" points="382.122,-505.5 485.122,-505.5 "/>
-<text text-anchor="middle" x="433.622" y="-492.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#bfbfbf" points="382.122,-484.5 485.122,-484.5 "/>
-<text text-anchor="middle" x="433.622" y="-471.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<!-- Node7 -->
+<g id="node12" class="node"><title>Node7</title>
+<polygon fill="white" stroke="#bfbfbf" points="254,-463.5 254,-526.5 364,-526.5 364,-463.5 254,-463.5"/>
+<text text-anchor="middle" x="309" y="-513.5" font-family="Helvetica,sans-Serif" font-size="10.00">std::vector&lt; double &gt;</text>
+<polyline fill="none" stroke="#bfbfbf" points="254,-505.5 364,-505.5 "/>
+<text text-anchor="middle" x="309" y="-492.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="#bfbfbf" points="254,-484.5 364,-484.5 "/>
+<text text-anchor="middle" x="309" y="-471.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </g>
-<!-- Node4&#45;&gt;Node6 -->
-<g id="edge12" class="edge"><title>Node4&#45;&gt;Node6</title>
-<path fill="none" stroke="#404040" d="M322.354,-590.492C340.19,-575.184 365.603,-553.374 387.641,-534.462"/>
-<polygon fill="none" stroke="#404040" points="387.741,-534.376 389.689,-527.433 396.847,-526.561 394.899,-533.504 387.741,-534.376"/>
-<text text-anchor="middle" x="396.122" y="-550.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +elements</text>
+<!-- Node4&#45;&gt;Node7 -->
+<g id="edge14" class="edge"><title>Node4&#45;&gt;Node7</title>
+<path fill="none" stroke="#404040" d="M441.217,-602.497C418.937,-594.407 384.832,-579.951 360,-560 351.551,-553.212 343.646,-544.768 336.701,-536.237"/>
+<polygon fill="none" stroke="#404040" points="336.63,-536.145 329.795,-533.845 329.289,-526.652 336.123,-528.952 336.63,-536.145"/>
+<text text-anchor="middle" x="384.5" y="-550.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +elements</text>
 </g>
 <!-- Node10 -->
 <g id="node21" class="node"><title>Node10</title>
 <a xlink:href="../../da/dd4/classPhaseNoise.html" target="_top" xlink:title="{PhaseNoise\n||+ PhaseNoise()\l+ ~PhaseNoise()\l+ generate()\l+ spectrum_generation()\l+ spectrum_to_phase_noise()\l}">
-<polygon fill="white" stroke="black" points="443.622,-225.5 443.622,-340.5 589.622,-340.5 589.622,-225.5 443.622,-225.5"/>
-<text text-anchor="middle" x="516.622" y="-327.5" font-family="Helvetica,sans-Serif" font-size="10.00">PhaseNoise</text>
-<polyline fill="none" stroke="black" points="443.622,-319.5 589.622,-319.5 "/>
-<text text-anchor="middle" x="516.622" y="-306.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="443.622,-298.5 589.622,-298.5 "/>
-<text text-anchor="start" x="451.622" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ PhaseNoise()</text>
-<text text-anchor="start" x="451.622" y="-272.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~PhaseNoise()</text>
-<text text-anchor="start" x="451.622" y="-259.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ generate()</text>
-<text text-anchor="start" x="451.622" y="-246.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ spectrum_generation()</text>
-<text text-anchor="start" x="451.622" y="-233.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ spectrum_to_phase_noise()</text>
+<polygon fill="white" stroke="black" points="432,-225.5 432,-340.5 578,-340.5 578,-225.5 432,-225.5"/>
+<text text-anchor="middle" x="505" y="-327.5" font-family="Helvetica,sans-Serif" font-size="10.00">PhaseNoise</text>
+<polyline fill="none" stroke="black" points="432,-319.5 578,-319.5 "/>
+<text text-anchor="middle" x="505" y="-306.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="432,-298.5 578,-298.5 "/>
+<text text-anchor="start" x="440" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ PhaseNoise()</text>
+<text text-anchor="start" x="440" y="-272.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~PhaseNoise()</text>
+<text text-anchor="start" x="440" y="-259.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ generate()</text>
+<text text-anchor="start" x="440" y="-246.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ spectrum_generation()</text>
+<text text-anchor="start" x="440" y="-233.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ spectrum_to_phase_noise()</text>
 </a>
 </g>
 <!-- Node4&#45;&gt;Node10 -->
 <g id="edge28" class="edge"><title>Node4&#45;&gt;Node10</title>
-<path fill="none" stroke="#404040" d="M322.288,-605.099C376.037,-593.046 509.014,-560.566 539.622,-528 589.427,-475.009 580.828,-436.406 562.622,-366 561.427,-361.377 559.912,-356.737 558.167,-352.143"/>
-<polygon fill="none" stroke="#404040" points="558.068,-351.909 552.049,-347.937 553.4,-340.854 559.419,-344.825 558.068,-351.909"/>
-<text text-anchor="middle" x="591.622" y="-505.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +fFMin</text>
-<text text-anchor="middle" x="591.622" y="-492.5" font-family="Helvetica,sans-Serif" font-size="10.00">+fFMax</text>
-<text text-anchor="middle" x="591.622" y="-479.5" font-family="Helvetica,sans-Serif" font-size="10.00">+fAi</text>
+<path fill="none" stroke="#404040" d="M467.969,-578.349C474.462,-526.561 487.507,-422.518 496.249,-352.795"/>
+<polygon fill="none" stroke="#404040" points="496.282,-352.533 493.059,-346.082 497.775,-340.627 500.997,-347.078 496.282,-352.533"/>
+<text text-anchor="middle" x="499" y="-505.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +fFMin</text>
+<text text-anchor="middle" x="499" y="-492.5" font-family="Helvetica,sans-Serif" font-size="10.00">+fFMax</text>
+<text text-anchor="middle" x="499" y="-479.5" font-family="Helvetica,sans-Serif" font-size="10.00">+fAi</text>
 </g>
 <!-- Node5 -->
 <g id="node8" class="node"><title>Node5</title>
-<polygon fill="white" stroke="#bfbfbf" points="66.1223,-463.5 66.1223,-526.5 101.122,-526.5 101.122,-463.5 66.1223,-463.5"/>
-<text text-anchor="middle" x="83.6223" y="-513.5" font-family="Helvetica,sans-Serif" font-size="10.00">bool</text>
-<polyline fill="none" stroke="#bfbfbf" points="66.1223,-505.5 101.122,-505.5 "/>
-<text text-anchor="middle" x="83.6223" y="-492.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#bfbfbf" points="66.1223,-484.5 101.122,-484.5 "/>
-<text text-anchor="middle" x="83.6223" y="-471.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polygon fill="white" stroke="#bfbfbf" points="189.5,-463.5 189.5,-526.5 224.5,-526.5 224.5,-463.5 189.5,-463.5"/>
+<text text-anchor="middle" x="207" y="-513.5" font-family="Helvetica,sans-Serif" font-size="10.00">bool</text>
+<polyline fill="none" stroke="#bfbfbf" points="189.5,-505.5 224.5,-505.5 "/>
+<text text-anchor="middle" x="207" y="-492.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="#bfbfbf" points="189.5,-484.5 224.5,-484.5 "/>
+<text text-anchor="middle" x="207" y="-471.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </g>
 <!-- Node5&#45;&gt;Node2 -->
 <g id="edge8" class="edge"><title>Node5&#45;&gt;Node2</title>
-<path fill="none" stroke="#404040" d="M78.8669,-463.483C76.3457,-435.629 76.9377,-395.033 95.6223,-366 113.014,-338.976 142.511,-319.797 170.377,-306.734"/>
-<polygon fill="none" stroke="#404040" points="170.392,-306.728 174.249,-300.635 181.356,-301.852 177.5,-307.945 170.392,-306.728"/>
-<text text-anchor="middle" x="129.622" y="-402.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +fVariableGain</text>
+<path fill="none" stroke="#404040" d="M199.082,-463.339C197.799,-456.975 196.672,-450.305 196,-444 192.325,-409.529 190.201,-400.178 196,-366 196.393,-363.686 196.843,-361.351 197.342,-359.005"/>
+<polygon fill="none" stroke="#404040" points="197.368,-358.898 194.902,-352.122 200.208,-347.239 202.674,-354.016 197.368,-358.898"/>
+<text text-anchor="middle" x="230" y="-402.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +fVariableGain</text>
+</g>
+<!-- Node6 -->
+<g id="node10" class="node"><title>Node6</title>
+<polygon fill="white" stroke="#bfbfbf" points="0,-463.5 0,-526.5 56,-526.5 56,-463.5 0,-463.5"/>
+<text text-anchor="middle" x="28" y="-513.5" font-family="Helvetica,sans-Serif" font-size="10.00">unsigned</text>
+<polyline fill="none" stroke="#bfbfbf" points="0,-505.5 56,-505.5 "/>
+<text text-anchor="middle" x="28" y="-492.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="#bfbfbf" points="0,-484.5 56,-484.5 "/>
+<text text-anchor="middle" x="28" y="-471.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+</g>
+<!-- Node6&#45;&gt;Node1 -->
+<g id="edge22" class="edge"><title>Node6&#45;&gt;Node1</title>
+<path fill="none" stroke="#404040" d="M26.5681,-463.246C26.2822,-436.672 28.0155,-398.064 38,-366 60.6187,-293.364 71.2763,-272.844 124,-218 161.151,-179.355 211.579,-146.804 253.82,-123.464"/>
+<polygon fill="none" stroke="#404040" points="253.826,-123.461 257.188,-117.082 264.37,-117.731 261.008,-124.111 253.826,-123.461"/>
+<text text-anchor="middle" x="140.5" y="-280.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +delay</text>
 </g>
 <!-- Node6&#45;&gt;Node2 -->
 <g id="edge10" class="edge"><title>Node6&#45;&gt;Node2</title>
-<path fill="none" stroke="#404040" d="M397.846,-463.488C391.506,-457.279 385.165,-450.627 379.622,-444 353.05,-412.228 355.205,-397.763 328.622,-366 322.462,-358.639 315.697,-351.262 308.738,-344.107"/>
-<polygon fill="none" stroke="#404040" points="308.32,-343.687 301.252,-342.257 299.853,-335.183 306.921,-336.612 308.32,-343.687"/>
-<text text-anchor="middle" x="414.122" y="-415.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +fBlMeasBBB</text>
-<text text-anchor="middle" x="414.122" y="-402.5" font-family="Helvetica,sans-Serif" font-size="10.00">+fBunchPattern</text>
-<text text-anchor="middle" x="414.122" y="-389.5" font-family="Helvetica,sans-Serif" font-size="10.00">+fG</text>
+<path fill="none" stroke="#404040" d="M32.7277,-463.434C38.3598,-435.165 50.1837,-393.969 74,-366 95.4017,-340.866 126.41,-321.978 154.767,-308.622"/>
+<polygon fill="none" stroke="#404040" points="154.956,-308.536 158.775,-302.42 165.89,-303.593 162.071,-309.71 154.956,-308.536"/>
+<text text-anchor="middle" x="100" y="-402.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +fNUpdate</text>
 </g>
-<!-- Node6&#45;&gt;Node10 -->
-<g id="edge32" class="edge"><title>Node6&#45;&gt;Node10</title>
-<path fill="none" stroke="#404040" d="M445.378,-463.369C455.166,-437.2 469.562,-399.092 482.622,-366 484.455,-361.356 486.362,-356.573 488.296,-351.759"/>
-<polygon fill="none" stroke="#404040" points="488.341,-351.648 486.879,-344.586 492.835,-340.521 494.297,-347.583 488.341,-351.648"/>
-<text text-anchor="middle" x="497.622" y="-409" font-family="Helvetica,sans-Serif" font-size="10.00"> +fFs</text>
-<text text-anchor="middle" x="497.622" y="-396" font-family="Helvetica,sans-Serif" font-size="10.00">+fDphi</text>
+<!-- Node7&#45;&gt;Node2 -->
+<g id="edge12" class="edge"><title>Node7&#45;&gt;Node2</title>
+<path fill="none" stroke="#404040" d="M294.671,-463.407C291.981,-457.037 289.296,-450.348 287,-444 274.709,-410.012 276.834,-399.787 264,-366 263.058,-363.521 262.074,-361.013 261.057,-358.491"/>
+<polygon fill="none" stroke="#404040" points="261.042,-358.455 255.038,-354.461 256.415,-347.383 262.419,-351.376 261.042,-358.455"/>
+<text text-anchor="middle" x="321.5" y="-415.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +fBlMeasBBB</text>
+<text text-anchor="middle" x="321.5" y="-402.5" font-family="Helvetica,sans-Serif" font-size="10.00">+fBunchPattern</text>
+<text text-anchor="middle" x="321.5" y="-389.5" font-family="Helvetica,sans-Serif" font-size="10.00">+fG</text>
 </g>
-<!-- Node7 -->
-<g id="node13" class="node"><title>Node7</title>
-<a xlink:title="STL class.">
-<polygon fill="white" stroke="#bfbfbf" points="566.122,-578.5 566.122,-641.5 653.122,-641.5 653.122,-578.5 566.122,-578.5"/>
-<text text-anchor="middle" x="609.622" y="-628.5" font-family="Helvetica,sans-Serif" font-size="10.00">std::vector&lt; T &gt;</text>
-<polyline fill="none" stroke="#bfbfbf" points="566.122,-620.5 653.122,-620.5 "/>
-<text text-anchor="middle" x="609.622" y="-607.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#bfbfbf" points="566.122,-599.5 653.122,-599.5 "/>
-<text text-anchor="middle" x="609.622" y="-586.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-</a>
-</g>
-<!-- Node7&#45;&gt;Node6 -->
-<g id="edge14" class="edge"><title>Node7&#45;&gt;Node6</title>
-<path fill="none" stroke="orange" d="M557.506,-575.947C533.564,-560.303 505.345,-541.864 481.891,-526.54"/>
-<polygon fill="orange" stroke="orange" points="555.831,-579.033 566.117,-581.573 559.66,-573.173 555.831,-579.033"/>
-<text text-anchor="middle" x="553.122" y="-550.5" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; ftype &gt;</text>
+<!-- Node7&#45;&gt;Node10 -->
+<g id="edge32" class="edge"><title>Node7&#45;&gt;Node10</title>
+<path fill="none" stroke="#404040" d="M338.343,-463.261C366.026,-433.319 408.396,-387.49 443.486,-349.535"/>
+<polygon fill="none" stroke="#404040" points="443.627,-349.383 444.764,-342.261 451.774,-340.571 450.638,-347.692 443.627,-349.383"/>
+<text text-anchor="middle" x="439" y="-409" font-family="Helvetica,sans-Serif" font-size="10.00"> +fFs</text>
+<text text-anchor="middle" x="439" y="-396" font-family="Helvetica,sans-Serif" font-size="10.00">+fDphi</text>
 </g>
 <!-- Node8 -->
 <g id="node15" class="node"><title>Node8</title>
-<polygon fill="white" stroke="#bfbfbf" points="595.122,-692.5 595.122,-755.5 624.122,-755.5 624.122,-692.5 595.122,-692.5"/>
-<text text-anchor="middle" x="609.622" y="-742.5" font-family="Helvetica,sans-Serif" font-size="10.00">T</text>
-<polyline fill="none" stroke="#bfbfbf" points="595.122,-734.5 624.122,-734.5 "/>
-<text text-anchor="middle" x="609.622" y="-721.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#bfbfbf" points="595.122,-713.5 624.122,-713.5 "/>
-<text text-anchor="middle" x="609.622" y="-700.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<a xlink:title="STL class.">
+<polygon fill="white" stroke="#bfbfbf" points="242.5,-578.5 242.5,-641.5 329.5,-641.5 329.5,-578.5 242.5,-578.5"/>
+<text text-anchor="middle" x="286" y="-628.5" font-family="Helvetica,sans-Serif" font-size="10.00">std::vector&lt; T &gt;</text>
+<polyline fill="none" stroke="#bfbfbf" points="242.5,-620.5 329.5,-620.5 "/>
+<text text-anchor="middle" x="286" y="-607.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="#bfbfbf" points="242.5,-599.5 329.5,-599.5 "/>
+<text text-anchor="middle" x="286" y="-586.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+</a>
 </g>
 <!-- Node8&#45;&gt;Node7 -->
 <g id="edge16" class="edge"><title>Node8&#45;&gt;Node7</title>
-<path fill="none" stroke="#404040" d="M609.622,-692.245C609.622,-680.386 609.622,-666.7 609.622,-653.938"/>
-<polygon fill="none" stroke="#404040" points="609.622,-653.585 605.622,-647.585 609.622,-641.585 613.622,-647.585 609.622,-653.585"/>
-<text text-anchor="middle" x="634.122" y="-664.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +elements</text>
+<path fill="none" stroke="orange" d="M284.291,-568.418C284.649,-560.898 285.461,-553.171 287,-546 288.376,-539.589 290.573,-532.985 293.059,-526.744"/>
+<polygon fill="orange" stroke="orange" points="280.791,-568.395 284.06,-578.473 287.789,-568.556 280.791,-568.395"/>
+<text text-anchor="middle" x="312" y="-550.5" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; double &gt;</text>
 </g>
 <!-- Node9 -->
 <g id="node17" class="node"><title>Node9</title>
-<polygon fill="white" stroke="#bfbfbf" points="308.622,-463.5 308.622,-526.5 364.622,-526.5 364.622,-463.5 308.622,-463.5"/>
-<text text-anchor="middle" x="336.622" y="-513.5" font-family="Helvetica,sans-Serif" font-size="10.00">unsigned</text>
-<polyline fill="none" stroke="#bfbfbf" points="308.622,-505.5 364.622,-505.5 "/>
-<text text-anchor="middle" x="336.622" y="-492.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#bfbfbf" points="308.622,-484.5 364.622,-484.5 "/>
-<text text-anchor="middle" x="336.622" y="-471.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polygon fill="white" stroke="#bfbfbf" points="271.5,-692.5 271.5,-755.5 300.5,-755.5 300.5,-692.5 271.5,-692.5"/>
+<text text-anchor="middle" x="286" y="-742.5" font-family="Helvetica,sans-Serif" font-size="10.00">T</text>
+<polyline fill="none" stroke="#bfbfbf" points="271.5,-734.5 300.5,-734.5 "/>
+<text text-anchor="middle" x="286" y="-721.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="#bfbfbf" points="271.5,-713.5 300.5,-713.5 "/>
+<text text-anchor="middle" x="286" y="-700.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </g>
-<!-- Node9&#45;&gt;Node1 -->
-<g id="edge22" class="edge"><title>Node9&#45;&gt;Node1</title>
-<path fill="none" stroke="#404040" d="M336.275,-463.353C335.441,-407.331 332.665,-287.077 323.622,-186 323.439,-183.95 323.244,-181.878 323.038,-179.79"/>
-<polygon fill="none" stroke="#404040" points="323.022,-179.634 318.411,-174.089 321.757,-167.701 326.367,-173.246 323.022,-179.634"/>
-<text text-anchor="middle" x="350.122" y="-280.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +delay</text>
-</g>
-<!-- Node9&#45;&gt;Node2 -->
-<g id="edge18" class="edge"><title>Node9&#45;&gt;Node2</title>
-<path fill="none" stroke="#404040" d="M308.402,-472.859C291.54,-459.572 273.255,-445.039 272.622,-444 263.77,-429.467 256.214,-393.458 250.67,-359.172"/>
-<polygon fill="none" stroke="#404040" points="250.645,-359.011 245.767,-353.7 248.794,-347.155 253.672,-352.466 250.645,-359.011"/>
-<text text-anchor="middle" x="298.622" y="-402.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +fNUpdate</text>
+<!-- Node9&#45;&gt;Node8 -->
+<g id="edge18" class="edge"><title>Node9&#45;&gt;Node8</title>
+<path fill="none" stroke="#404040" d="M286,-692.245C286,-680.386 286,-666.7 286,-653.938"/>
+<polygon fill="none" stroke="#404040" points="286,-653.585 282,-647.585 286,-641.585 290,-647.585 286,-653.585"/>
+<text text-anchor="middle" x="310.5" y="-664.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +elements</text>
 </g>
 <!-- Node10&#45;&gt;Node1 -->
 <g id="edge24" class="edge"><title>Node10&#45;&gt;Node1</title>
-<path fill="none" stroke="#404040" d="M456.749,-225.441C435.667,-205.173 411.629,-182.064 389.18,-160.483"/>
-<polygon fill="none" stroke="#404040" points="388.986,-160.297 381.888,-159.022 380.335,-151.98 387.433,-153.255 388.986,-160.297"/>
-<text text-anchor="middle" x="447.622" y="-190.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +RFnoise</text>
+<path fill="none" stroke="#404040" d="M455.829,-225.441C442.591,-209.944 427.933,-192.786 413.525,-175.921"/>
+<polygon fill="none" stroke="#404040" points="413.351,-175.717 406.413,-173.753 405.557,-166.593 412.496,-168.557 413.351,-175.717"/>
+<text text-anchor="middle" x="453" y="-190.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +RFnoise</text>
 </g>
 <!-- Node11 -->
 <g id="node23" class="node"><title>Node11</title>
-<polygon fill="white" stroke="#bfbfbf" points="628.622,-463.5 628.622,-526.5 706.622,-526.5 706.622,-463.5 628.622,-463.5"/>
-<text text-anchor="middle" x="667.622" y="-513.5" font-family="Helvetica,sans-Serif" font-size="10.00">predistortion_t</text>
-<polyline fill="none" stroke="#bfbfbf" points="628.622,-505.5 706.622,-505.5 "/>
-<text text-anchor="middle" x="667.622" y="-492.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#bfbfbf" points="628.622,-484.5 706.622,-484.5 "/>
-<text text-anchor="middle" x="667.622" y="-471.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polygon fill="white" stroke="#bfbfbf" points="557,-463.5 557,-526.5 635,-526.5 635,-463.5 557,-463.5"/>
+<text text-anchor="middle" x="596" y="-513.5" font-family="Helvetica,sans-Serif" font-size="10.00">predistortion_t</text>
+<polyline fill="none" stroke="#bfbfbf" points="557,-505.5 635,-505.5 "/>
+<text text-anchor="middle" x="596" y="-492.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="#bfbfbf" points="557,-484.5 635,-484.5 "/>
+<text text-anchor="middle" x="596" y="-471.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </g>
 <!-- Node11&#45;&gt;Node10 -->
 <g id="edge26" class="edge"><title>Node11&#45;&gt;Node10</title>
-<path fill="none" stroke="#404040" d="M651.003,-463.455C636.378,-436.667 613.848,-397.645 590.622,-366 586.767,-360.747 582.642,-355.437 578.386,-350.176"/>
-<polygon fill="none" stroke="#404040" points="578.263,-350.026 571.356,-347.954 570.612,-340.781 577.519,-342.854 578.263,-350.026"/>
-<text text-anchor="middle" x="671.122" y="-402.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +fPredistortion</text>
+<path fill="none" stroke="#404040" d="M575.535,-463.416C571.809,-457.104 568.119,-450.433 565,-444 550.817,-414.748 537.836,-381.223 527.604,-352.365"/>
+<polygon fill="none" stroke="#404040" points="527.495,-352.053 521.739,-347.71 523.535,-340.726 529.291,-345.07 527.495,-352.053"/>
+<text text-anchor="middle" x="598.5" y="-402.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +fPredistortion</text>
 </g>
 <!-- Node12 -->
 <g id="node26" class="node"><title>Node12</title>
-<polygon fill="white" stroke="#bfbfbf" points="502.122,-463.5 502.122,-526.5 531.122,-526.5 531.122,-463.5 502.122,-463.5"/>
-<text text-anchor="middle" x="516.622" y="-513.5" font-family="Helvetica,sans-Serif" font-size="10.00">int</text>
-<polyline fill="none" stroke="#bfbfbf" points="502.122,-505.5 531.122,-505.5 "/>
-<text text-anchor="middle" x="516.622" y="-492.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="#bfbfbf" points="502.122,-484.5 531.122,-484.5 "/>
-<text text-anchor="middle" x="516.622" y="-471.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polygon fill="white" stroke="#bfbfbf" points="652.5,-463.5 652.5,-526.5 681.5,-526.5 681.5,-463.5 652.5,-463.5"/>
+<text text-anchor="middle" x="667" y="-513.5" font-family="Helvetica,sans-Serif" font-size="10.00">int</text>
+<polyline fill="none" stroke="#bfbfbf" points="652.5,-505.5 681.5,-505.5 "/>
+<text text-anchor="middle" x="667" y="-492.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="#bfbfbf" points="652.5,-484.5 681.5,-484.5 "/>
+<text text-anchor="middle" x="667" y="-471.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </g>
 <!-- Node12&#45;&gt;Node10 -->
 <g id="edge30" class="edge"><title>Node12&#45;&gt;Node10</title>
-<path fill="none" stroke="#404040" d="M516.622,-463.261C516.622,-434.204 516.622,-390.183 516.622,-352.918"/>
-<polygon fill="none" stroke="#404040" points="516.622,-352.571 512.622,-346.571 516.622,-340.571 520.622,-346.571 516.622,-352.571"/>
-<text text-anchor="middle" x="539.122" y="-422" font-family="Helvetica,sans-Serif" font-size="10.00"> +fNTurns</text>
-<text text-anchor="middle" x="539.122" y="-409" font-family="Helvetica,sans-Serif" font-size="10.00">+fCorr</text>
-<text text-anchor="middle" x="539.122" y="-396" font-family="Helvetica,sans-Serif" font-size="10.00">+fSeed1</text>
-<text text-anchor="middle" x="539.122" y="-383" font-family="Helvetica,sans-Serif" font-size="10.00">+fSeed2</text>
+<path fill="none" stroke="#404040" d="M659.693,-463.494C651.25,-427.928 637.781,-373.955 632,-366 620.395,-350.031 604.7,-336.299 588.305,-324.862"/>
+<polygon fill="none" stroke="#404040" points="588.031,-324.679 580.82,-324.69 578.036,-318.038 585.247,-318.027 588.031,-324.679"/>
+<text text-anchor="middle" x="676.5" y="-422" font-family="Helvetica,sans-Serif" font-size="10.00"> +fNTurns</text>
+<text text-anchor="middle" x="676.5" y="-409" font-family="Helvetica,sans-Serif" font-size="10.00">+fCorr</text>
+<text text-anchor="middle" x="676.5" y="-396" font-family="Helvetica,sans-Serif" font-size="10.00">+fSeed1</text>
+<text text-anchor="middle" x="676.5" y="-383" font-family="Helvetica,sans-Serif" font-size="10.00">+fSeed2</text>
 </g>
 </g>
 </svg>

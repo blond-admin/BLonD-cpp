@@ -133,36 +133,36 @@ $(document).ready(function(){initNavTree('d5/dfa/InducedVoltage_8cpp.html','../.
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a3466d4b57e8c5a8ad6b18c33131351fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dfa/InducedVoltage_8cpp.html#a3466d4b57e8c5a8ad6b18c33131351fc">linear_interp_kick</a> (const <a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *__restrict beam_dt, <a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *__restrict beam_dE, const <a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *__restrict voltage_array, const <a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *__restrict bin_centers, const int n_slices, const int n_macroparticles)</td></tr>
-<tr class="separator:a3466d4b57e8c5a8ad6b18c33131351fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6da1ba29a56d8d339eba7ec147ae5b72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dfa/InducedVoltage_8cpp.html#a6da1ba29a56d8d339eba7ec147ae5b72">linear_interp_kick</a> (const double *__restrict beam_dt, double *__restrict beam_dE, const double *__restrict voltage_array, const double *__restrict bin_centers, const int n_slices, const int n_macroparticles)</td></tr>
+<tr class="separator:a6da1ba29a56d8d339eba7ec147ae5b72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a3466d4b57e8c5a8ad6b18c33131351fc"></a>
+<a class="anchor" id="a6da1ba29a56d8d339eba7ec147ae5b72"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void linear_interp_kick </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *__restrict&#160;</td>
+          <td class="paramtype">const double *__restrict&#160;</td>
           <td class="paramname"><em>beam_dt</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *__restrict&#160;</td>
+          <td class="paramtype">double *__restrict&#160;</td>
           <td class="paramname"><em>beam_dE</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *__restrict&#160;</td>
+          <td class="paramtype">const double *__restrict&#160;</td>
           <td class="paramname"><em>voltage_array</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *__restrict&#160;</td>
+          <td class="paramtype">const double *__restrict&#160;</td>
           <td class="paramname"><em>bin_centers</em>, </td>
         </tr>
         <tr>
@@ -187,18 +187,18 @@ Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00010">10</a> of file <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html">InducedVoltage.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00072">InducedVoltageTime::track()</a>, <a class="el" href="../../d2/d6f/Tracker_8cpp_source.html#l00133">RingAndRfSection::track()</a>, <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00280">InducedVoltageFreq::track()</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00455">TotalInducedVoltage::track()</a>.</p>
+<p>Referenced by <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00072">InducedVoltageTime::track()</a>, <a class="el" href="../../d2/d6f/Tracker_8cpp_source.html#l00090">RingAndRfSection::track()</a>, <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00275">InducedVoltageFreq::track()</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00449">TotalInducedVoltage::track()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> binFirst = bin_centers[0];</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> binLast = bin_centers[n_slices - 1];</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> inv_bin_width = (n_slices - 1) / (binLast - binFirst);</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">double</span> binFirst = bin_centers[0];</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">double</span> binLast = bin_centers[n_slices - 1];</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">double</span> inv_bin_width = (n_slices - 1) / (binLast - binFirst);</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">    #pragma omp parallel for</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n_macroparticles; ++i) {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> a = beam_dt[i];</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">double</span> a = beam_dt[i];</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">int</span> ffbin = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>((a - binFirst) * inv_bin_width);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> voltageKick =</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">double</span> voltageKick =</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            ((a &lt; binFirst) || (a &gt; binLast))</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            ? 0.0</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            : voltage_array[ffbin] +</div>
@@ -214,7 +214,7 @@ Functions</h2></td></tr>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../d5/dfa/InducedVoltage_8cpp_a3466d4b57e8c5a8ad6b18c33131351fc_icgraph.svg" width="350" height="248"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d5/dfa/InducedVoltage_8cpp_a6da1ba29a56d8d339eba7ec147ae5b72_icgraph.svg" width="350" height="248"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </p>
@@ -227,7 +227,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_2b12189b1b38a5891fb7949d75362c72.html">src</a></li><li class="navelem"><a class="el" href="../../dir_326b8f99b5c2d2d05116bdfd6b773fd9.html">impedances</a></li><li class="navelem"><a class="el" href="../../d5/dfa/InducedVoltage_8cpp.html">InducedVoltage.cpp</a></li>
-    <li class="footer">Generated on Tue Oct 11 2016 17:19:35 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Tue Oct 18 2016 10:44:45 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

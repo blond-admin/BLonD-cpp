@@ -134,9 +134,9 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a9564dccf78dd581dff25efe2a03cd3d8"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de0/namespacefft.html#a9564dccf78dd581dff25efe2a03cd3d8">complex_to_real</a> (const std::vector&lt; <a class="el" href="../../d2/d2c/configuration_8h.html#a25493212503aadaaf268ef40744bb67f">complex_t</a> &gt; &amp;in, std::vector&lt; <a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> &gt; &amp;out)</td></tr>
-<tr class="separator:a9564dccf78dd581dff25efe2a03cd3d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acfc0c7a2bf86a2515926f3b0284732c8"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de0/namespacefft.html#acfc0c7a2bf86a2515926f3b0284732c8">convolution_with_ffts</a> (<a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> signal, <a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> kernel, <a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> &amp;res)</td></tr>
+<tr class="memitem:a3af1a25f3041bf2882e2b8859b08a861"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de0/namespacefft.html#a3af1a25f3041bf2882e2b8859b08a861">complex_to_real</a> (const std::vector&lt; <a class="el" href="../../d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2">complex_t</a> &gt; &amp;in, std::vector&lt; double &gt; &amp;out)</td></tr>
+<tr class="separator:a3af1a25f3041bf2882e2b8859b08a861"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfc0c7a2bf86a2515926f3b0284732c8"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de0/namespacefft.html#acfc0c7a2bf86a2515926f3b0284732c8">convolution_with_ffts</a> (<a class="el" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> signal, <a class="el" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> kernel, <a class="el" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;res)</td></tr>
 <tr class="separator:acfc0c7a2bf86a2515926f3b0284732c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adbd82fccb9e02c65511781361a4f21f0"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de0/namespacefft.html#adbd82fccb9e02c65511781361a4f21f0">destroy_fft</a> (fftw_plan &amp;p)</td></tr>
 <tr class="separator:adbd82fccb9e02c65511781361a4f21f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -148,26 +148,26 @@ Functions</h2></td></tr>
 <tr class="separator:af7197252dd2a265bd53282a343582d02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf17de86632e9d1624635de461dbcd4f"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de0/namespacefft.html#abf17de86632e9d1624635de461dbcd4f">ifft</a> (<a class="el" href="../../d2/d2c/configuration_8h.html#a875b9fae4b39f3f3a363bd3732836b71">complex_vector_t</a> &amp;in, <a class="el" href="../../d2/d2c/configuration_8h.html#a875b9fae4b39f3f3a363bd3732836b71">complex_vector_t</a> &amp;out, <a class="el" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> n=0, const <a class="el" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> threads=1)</td></tr>
 <tr class="separator:abf17de86632e9d1624635de461dbcd4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb6f84e834ac2b3b2b1da535a152bcbb"><td class="memItemLeft" align="right" valign="top">static fftw_plan&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de0/namespacefft.html#abb6f84e834ac2b3b2b1da535a152bcbb">init_fft</a> (const int n, <a class="el" href="../../d2/d2c/configuration_8h.html#a25493212503aadaaf268ef40744bb67f">complex_t</a> *in, <a class="el" href="../../d2/d2c/configuration_8h.html#a25493212503aadaaf268ef40744bb67f">complex_t</a> *out, const int sign=FFTW_FORWARD, const unsigned flag=FFTW_ESTIMATE, const int threads=1)</td></tr>
+<tr class="memitem:abb6f84e834ac2b3b2b1da535a152bcbb"><td class="memItemLeft" align="right" valign="top">static fftw_plan&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de0/namespacefft.html#abb6f84e834ac2b3b2b1da535a152bcbb">init_fft</a> (const int n, <a class="el" href="../../d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2">complex_t</a> *in, <a class="el" href="../../d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2">complex_t</a> *out, const int sign=FFTW_FORWARD, const unsigned flag=FFTW_ESTIMATE, const int threads=1)</td></tr>
 <tr class="separator:abb6f84e834ac2b3b2b1da535a152bcbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a88d4a20e5d9813ff03802c42ff5b944c"><td class="memItemLeft" align="right" valign="top">static fftw_plan&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de0/namespacefft.html#a88d4a20e5d9813ff03802c42ff5b944c">init_irfft</a> (const int n, <a class="el" href="../../d2/d2c/configuration_8h.html#a25493212503aadaaf268ef40744bb67f">complex_t</a> *in, <a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *out, const unsigned flag=FFTW_ESTIMATE, const int threads=1)</td></tr>
-<tr class="separator:a88d4a20e5d9813ff03802c42ff5b944c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aabee360fd4b67414d2f0edca8253ecf2"><td class="memItemLeft" align="right" valign="top">static fftw_plan&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de0/namespacefft.html#aabee360fd4b67414d2f0edca8253ecf2">init_rfft</a> (const int n, <a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *in, <a class="el" href="../../d2/d2c/configuration_8h.html#a25493212503aadaaf268ef40744bb67f">complex_t</a> *out, const unsigned flag=FFTW_ESTIMATE, const int threads=1)</td></tr>
-<tr class="separator:aabee360fd4b67414d2f0edca8253ecf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7870786fb204fa75feedfb6eeadbd788"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de0/namespacefft.html#a7870786fb204fa75feedfb6eeadbd788">irfft</a> (<a class="el" href="../../d2/d2c/configuration_8h.html#a875b9fae4b39f3f3a363bd3732836b71">complex_vector_t</a> in, <a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> &amp;out, <a class="el" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> n=0, const <a class="el" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> threads=1)</td></tr>
+<tr class="memitem:ab6d7e93ba5e86251017f8f72a84ab3b0"><td class="memItemLeft" align="right" valign="top">static fftw_plan&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de0/namespacefft.html#ab6d7e93ba5e86251017f8f72a84ab3b0">init_irfft</a> (const int n, <a class="el" href="../../d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2">complex_t</a> *in, double *out, const unsigned flag=FFTW_ESTIMATE, const int threads=1)</td></tr>
+<tr class="separator:ab6d7e93ba5e86251017f8f72a84ab3b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7856d4e781deb223b6ff7cde32ac5fa"><td class="memItemLeft" align="right" valign="top">static fftw_plan&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de0/namespacefft.html#af7856d4e781deb223b6ff7cde32ac5fa">init_rfft</a> (const int n, double *in, <a class="el" href="../../d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2">complex_t</a> *out, const unsigned flag=FFTW_ESTIMATE, const int threads=1)</td></tr>
+<tr class="separator:af7856d4e781deb223b6ff7cde32ac5fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7870786fb204fa75feedfb6eeadbd788"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de0/namespacefft.html#a7870786fb204fa75feedfb6eeadbd788">irfft</a> (<a class="el" href="../../d2/d2c/configuration_8h.html#a875b9fae4b39f3f3a363bd3732836b71">complex_vector_t</a> in, <a class="el" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;out, <a class="el" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> n=0, const <a class="el" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> threads=1)</td></tr>
 <tr class="separator:a7870786fb204fa75feedfb6eeadbd788"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc5228325f1da3d745518f7312906eb4"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de0/namespacefft.html#abc5228325f1da3d745518f7312906eb4">pack_to_complex</a> (const std::vector&lt; <a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> &gt; &amp;in, std::vector&lt; <a class="el" href="../../d2/d2c/configuration_8h.html#a25493212503aadaaf268ef40744bb67f">complex_t</a> &gt; &amp;out)</td></tr>
-<tr class="separator:abc5228325f1da3d745518f7312906eb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13d49a00f74e4de5b7a0082bdc64fea9"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de0/namespacefft.html#a13d49a00f74e4de5b7a0082bdc64fea9">real_to_complex</a> (const std::vector&lt; <a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> &gt; &amp;in, std::vector&lt; <a class="el" href="../../d2/d2c/configuration_8h.html#a25493212503aadaaf268ef40744bb67f">complex_t</a> &gt; &amp;out)</td></tr>
-<tr class="separator:a13d49a00f74e4de5b7a0082bdc64fea9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a789573d204d06c288f6b74c45cd92137"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de0/namespacefft.html#a789573d204d06c288f6b74c45cd92137">rfft</a> (<a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> &amp;in, <a class="el" href="../../d2/d2c/configuration_8h.html#a875b9fae4b39f3f3a363bd3732836b71">complex_vector_t</a> &amp;out, <a class="el" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> n=0, const <a class="el" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> threads=1)</td></tr>
+<tr class="memitem:a9746e9c567a5bc3a70f7877637e58457"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de0/namespacefft.html#a9746e9c567a5bc3a70f7877637e58457">pack_to_complex</a> (const std::vector&lt; double &gt; &amp;in, std::vector&lt; <a class="el" href="../../d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2">complex_t</a> &gt; &amp;out)</td></tr>
+<tr class="separator:a9746e9c567a5bc3a70f7877637e58457"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee5012d20f905143a7d6739a0340eaf1"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de0/namespacefft.html#aee5012d20f905143a7d6739a0340eaf1">real_to_complex</a> (const std::vector&lt; double &gt; &amp;in, std::vector&lt; <a class="el" href="../../d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2">complex_t</a> &gt; &amp;out)</td></tr>
+<tr class="separator:aee5012d20f905143a7d6739a0340eaf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a789573d204d06c288f6b74c45cd92137"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de0/namespacefft.html#a789573d204d06c288f6b74c45cd92137">rfft</a> (<a class="el" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;in, <a class="el" href="../../d2/d2c/configuration_8h.html#a875b9fae4b39f3f3a363bd3732836b71">complex_vector_t</a> &amp;out, <a class="el" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> n=0, const <a class="el" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> threads=1)</td></tr>
 <tr class="separator:a789573d204d06c288f6b74c45cd92137"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a033d2ce3e0176d2afede62d2bc1e9163"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de0/namespacefft.html#a033d2ce3e0176d2afede62d2bc1e9163">rfftfreq</a> (const <a class="el" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> n, const <a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> d=1.0)</td></tr>
-<tr class="separator:a033d2ce3e0176d2afede62d2bc1e9163"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a011fc652588e7ee1e8872f8b8b675d6e"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de0/namespacefft.html#a011fc652588e7ee1e8872f8b8b675d6e">rfftfreq</a> (const <a class="el" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> n, const double d=1.0)</td></tr>
+<tr class="separator:a011fc652588e7ee1e8872f8b8b675d6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a032995ee545c6cd17120d4478fcb25b5"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de0/namespacefft.html#a032995ee545c6cd17120d4478fcb25b5">run_fft</a> (const fftw_plan &amp;p)</td></tr>
 <tr class="separator:a032995ee545c6cd17120d4478fcb25b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a050049726fdc7c2d3ad088a30f8466f0"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de0/namespacefft.html#a050049726fdc7c2d3ad088a30f8466f0">unpack_complex</a> (const std::vector&lt; <a class="el" href="../../d2/d2c/configuration_8h.html#a25493212503aadaaf268ef40744bb67f">complex_t</a> &gt; &amp;in, std::vector&lt; <a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> &gt; &amp;out)</td></tr>
-<tr class="separator:a050049726fdc7c2d3ad088a30f8466f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61835ed456fa854f127ee9426a2a86cd"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/de0/namespacefft.html#a61835ed456fa854f127ee9426a2a86cd">unpack_complex</a> (const std::vector&lt; <a class="el" href="../../d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2">complex_t</a> &gt; &amp;in, std::vector&lt; double &gt; &amp;out)</td></tr>
+<tr class="separator:a61835ed456fa854f127ee9426a2a86cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -204,7 +204,7 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a9564dccf78dd581dff25efe2a03cd3d8"></a>
+<a class="anchor" id="a3af1a25f3041bf2882e2b8859b08a861"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -214,13 +214,13 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">static void fft::complex_to_real </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d2/d2c/configuration_8h.html#a25493212503aadaaf268ef40744bb67f">complex_t</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2">complex_t</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>in</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">std::vector&lt; double &gt; &amp;&#160;</td>
           <td class="paramname"><em>out</em>&#160;</td>
         </tr>
         <tr>
@@ -256,19 +256,19 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">static void fft::convolution_with_ffts </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a>&#160;</td>
           <td class="paramname"><em>signal</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a>&#160;</td>
           <td class="paramname"><em>kernel</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;&#160;</td>
           <td class="paramname"><em>res</em>&#160;</td>
         </tr>
         <tr>
@@ -288,7 +288,7 @@ Variables</h2></td></tr>
 
 <p>References <a class="el" href="../../d7/d76/fft_8h_source.html#l00319">irfft()</a>, <a class="el" href="../../d1/db0/openmp_8h_source.html#l00018">omp_get_max_threads()</a>, and <a class="el" href="../../d7/d76/fft_8h_source.html#l00246">rfft()</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00118">InducedVoltageTime::induced_voltage_generation()</a>.</p>
+<p>Referenced by <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00114">InducedVoltageTime::induced_voltage_generation()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;    {</div>
 <div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a875b9fae4b39f3f3a363bd3732836b71">complex_vector_t</a> v1; <span class="comment">//(signal.size());</span></div>
 <div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a875b9fae4b39f3f3a363bd3732836b71">complex_vector_t</a> v2; <span class="comment">//(kernel.size());</span></div>
@@ -378,7 +378,7 @@ Variables</h2></td></tr>
 
 <p>References <a class="el" href="../../d7/d76/fft_8h_source.html#l00050">planV</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00278">InducedVoltageFreq::~InducedVoltageFreq()</a>, <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00070">InducedVoltageTime::~InducedVoltageTime()</a>, <a class="el" href="../../db/d82/PhaseNoise_8cpp_source.html#l00377">LHCFlatSpectrum::~LHCFlatSpectrum()</a>, <a class="el" href="../../db/d82/PhaseNoise_8cpp_source.html#l00273">PSBPhaseNoiseInjection::~PSBPhaseNoiseInjection()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00037">Slices::~Slices()</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00453">TotalInducedVoltage::~TotalInducedVoltage()</a>.</p>
+<p>Referenced by <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00273">InducedVoltageFreq::~InducedVoltageFreq()</a>, <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00070">InducedVoltageTime::~InducedVoltageTime()</a>, <a class="el" href="../../db/d82/PhaseNoise_8cpp_source.html#l00376">LHCFlatSpectrum::~LHCFlatSpectrum()</a>, <a class="el" href="../../db/d82/PhaseNoise_8cpp_source.html#l00273">PSBPhaseNoiseInjection::~PSBPhaseNoiseInjection()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00039">Slices::~Slices()</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00446">TotalInducedVoltage::~TotalInducedVoltage()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    {</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        <span class="comment">// std::cout&lt;&lt;&quot;planV size = &quot; &lt;&lt; planV.size()&lt;&lt;&quot;\n&quot;;</span></div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;i : <a class="code" href="../../d8/de0/namespacefft.html#a8fc3251bf2569d17dafebf18890da294">planV</a>) {</div>
@@ -457,8 +457,8 @@ Variables</h2></td></tr>
 <div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;        out.resize(n);</div>
 <div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;</div>
 <div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;        <span class="keyword">auto</span> plan = <a class="code" href="../../d8/de0/namespacefft.html#af7197252dd2a265bd53282a343582d02">fft::find_plan</a>(n, <a class="code" href="../../d8/de0/namespacefft.html#a1aaf2c8a8ef62200a1813b59306aaee0a5b21e148dcd2f0ea11b3357f94ec1bbc">FFT</a>, threads, <a class="code" href="../../d8/de0/namespacefft.html#a8fc3251bf2569d17dafebf18890da294">planV</a>);</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;        <span class="keyword">auto</span> from = (<a class="code" href="../../d2/d2c/configuration_8h.html#a25493212503aadaaf268ef40744bb67f">complex_t</a> *)plan.in;</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;        <span class="keyword">auto</span> to = (<a class="code" href="../../d2/d2c/configuration_8h.html#a25493212503aadaaf268ef40744bb67f">complex_t</a> *)plan.out;</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;        <span class="keyword">auto</span> from = (<a class="code" href="../../d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2">complex_t</a> *)plan.in;</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;        <span class="keyword">auto</span> to = (<a class="code" href="../../d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2">complex_t</a> *)plan.out;</div>
 <div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;</div>
 <div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;        std::copy(in.begin(), in.end(), from);</div>
 <div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;</div>
@@ -577,10 +577,10 @@ Variables</h2></td></tr>
 <div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;                plan.out = out;</div>
 <div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;</div>
 <div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (type == <a class="code" href="../../d8/de0/namespacefft.html#a1aaf2c8a8ef62200a1813b59306aaee0a57ef828fbd2211a76965d5dca018db74">RFFT</a>) {</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;                <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *in = (<a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *)fftw_malloc(<span class="keyword">sizeof</span>(<a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a>) * n);</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;                <span class="keywordtype">double</span> *in = (<span class="keywordtype">double</span> *)fftw_malloc(<span class="keyword">sizeof</span>(<span class="keywordtype">double</span>) * n);</div>
 <div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;                fftw_complex *out = (fftw_complex *)fftw_malloc(</div>
 <div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;                                        <span class="keyword">sizeof</span>(fftw_complex) * (n / 2 + 1));</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;                <span class="keyword">auto</span> p = <a class="code" href="../../d8/de0/namespacefft.html#aabee360fd4b67414d2f0edca8253ecf2">init_rfft</a>(n, in, reinterpret_cast&lt;complex_t *&gt;(out),</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;                <span class="keyword">auto</span> p = <a class="code" href="../../d8/de0/namespacefft.html#af7856d4e781deb223b6ff7cde32ac5fa">init_rfft</a>(n, in, reinterpret_cast&lt;complex_t *&gt;(out),</div>
 <div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;                                   flag, threads);</div>
 <div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;                <span class="comment">// std::cout &lt;&lt; &quot;threads : &quot; &lt;&lt; threads &lt;&lt; &quot;\n&quot;;</span></div>
 <div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;                plan.p = p;</div>
@@ -588,10 +588,10 @@ Variables</h2></td></tr>
 <div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;                plan.out = out;</div>
 <div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;</div>
 <div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (type == <a class="code" href="../../d8/de0/namespacefft.html#a1aaf2c8a8ef62200a1813b59306aaee0a7d2abe7561d48226bb8c7bafe9aef828">IRFFT</a>) {</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;                <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *out = (<a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *)fftw_malloc(<span class="keyword">sizeof</span>(<a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a>) * n);</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;                <span class="keywordtype">double</span> *out = (<span class="keywordtype">double</span> *)fftw_malloc(<span class="keyword">sizeof</span>(<span class="keywordtype">double</span>) * n);</div>
 <div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;                fftw_complex *in = (fftw_complex *)fftw_malloc(</div>
 <div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;                                       <span class="keyword">sizeof</span>(fftw_complex) * (n / 2 + 1));</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;                <span class="keyword">auto</span> p = <a class="code" href="../../d8/de0/namespacefft.html#a88d4a20e5d9813ff03802c42ff5b944c">init_irfft</a>(n, reinterpret_cast&lt;complex_t *&gt;(in), out,</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;                <span class="keyword">auto</span> p = <a class="code" href="../../d8/de0/namespacefft.html#ab6d7e93ba5e86251017f8f72a84ab3b0">init_irfft</a>(n, reinterpret_cast&lt;complex_t *&gt;(in), out,</div>
 <div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;                                    flag, threads);</div>
 <div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;                plan.p = p;</div>
 <div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;                plan.in = in;</div>
@@ -626,7 +626,7 @@ Variables</h2></td></tr>
 <div id="dynsection-6-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-6-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../d8/de0/namespacefft_af7197252dd2a265bd53282a343582d02_icgraph.svg" width="100%" height="510"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../d8/de0/namespacefft_af7197252dd2a265bd53282a343582d02_icgraph.svg" width="100%" height="538"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 </p>
@@ -689,8 +689,8 @@ Variables</h2></td></tr>
 <div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;        out.resize(n);</div>
 <div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;</div>
 <div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;        <span class="keyword">auto</span> plan = <a class="code" href="../../d8/de0/namespacefft.html#af7197252dd2a265bd53282a343582d02">fft::find_plan</a>(n, <a class="code" href="../../d8/de0/namespacefft.html#a1aaf2c8a8ef62200a1813b59306aaee0a4c3229f1fd0dabaa06e98a32cb705347">IFFT</a>, threads, <a class="code" href="../../d8/de0/namespacefft.html#a8fc3251bf2569d17dafebf18890da294">planV</a>);</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;        <span class="keyword">auto</span> from = (<a class="code" href="../../d2/d2c/configuration_8h.html#a25493212503aadaaf268ef40744bb67f">complex_t</a> *)plan.in;</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;        <span class="keyword">auto</span> to = (<a class="code" href="../../d2/d2c/configuration_8h.html#a25493212503aadaaf268ef40744bb67f">complex_t</a> *)plan.out;</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;        <span class="keyword">auto</span> from = (<a class="code" href="../../d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2">complex_t</a> *)plan.in;</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;        <span class="keyword">auto</span> to = (<a class="code" href="../../d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2">complex_t</a> *)plan.out;</div>
 <div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;        std::copy(in.begin(), in.end(), from);</div>
 <div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;</div>
 <div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;        <a class="code" href="../../d8/de0/namespacefft.html#a032995ee545c6cd17120d4478fcb25b5">run_fft</a>(plan.p);</div>
@@ -737,13 +737,13 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d2/d2c/configuration_8h.html#a25493212503aadaaf268ef40744bb67f">complex_t</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2">complex_t</a> *&#160;</td>
           <td class="paramname"><em>in</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d2/d2c/configuration_8h.html#a25493212503aadaaf268ef40744bb67f">complex_t</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2">complex_t</a> *&#160;</td>
           <td class="paramname"><em>out</em>, </td>
         </tr>
         <tr>
@@ -779,7 +779,7 @@ Variables</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d7/d76/fft_8h_source.html#l00094">94</a> of file <a class="el" href="../../d7/d76/fft_8h_source.html">fft.h</a>.</p>
 
-<p>References <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00311">mymath::sign()</a>.</p>
+<p>References <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00348">mymath::sign()</a>.</p>
 
 <p>Referenced by <a class="el" href="../../d7/d76/fft_8h_source.html#l00166">find_plan()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    {</div>
@@ -795,7 +795,7 @@ Variables</h2></td></tr>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="preprocessor"></span>        fftw_complex *a, *b;</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        a = <span class="keyword">reinterpret_cast&lt;</span>fftw_complex *<span class="keyword">&gt;</span>(in);</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        b = <span class="keyword">reinterpret_cast&lt;</span>fftw_complex *<span class="keyword">&gt;</span>(out);</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keywordflow">return</span> fftw_plan_dft_1d(n, a, b, <a class="code" href="../../df/d6d/namespacemymath.html#ad7df5693cd882f31037d7533f5f77bbe">sign</a>, flag);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keywordflow">return</span> fftw_plan_dft_1d(n, a, b, <a class="code" href="../../df/d6d/namespacemymath.html#a31743e3fc7ec3ccb0df630d0cad57959">sign</a>, flag);</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    }</div>
 </div><!-- fragment -->
 <p><div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -813,14 +813,14 @@ Variables</h2></td></tr>
 <div id="dynsection-10-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-10-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../d8/de0/namespacefft_abb6f84e834ac2b3b2b1da535a152bcbb_icgraph.svg" width="100%" height="510"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../d8/de0/namespacefft_abb6f84e834ac2b3b2b1da535a152bcbb_icgraph.svg" width="100%" height="538"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 </p>
 
 </div>
 </div>
-<a class="anchor" id="a88d4a20e5d9813ff03802c42ff5b944c"></a>
+<a class="anchor" id="ab6d7e93ba5e86251017f8f72a84ab3b0"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -836,13 +836,13 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d2/d2c/configuration_8h.html#a25493212503aadaaf268ef40744bb67f">complex_t</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2">complex_t</a> *&#160;</td>
           <td class="paramname"><em>in</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *&#160;</td>
+          <td class="paramtype">double *&#160;</td>
           <td class="paramname"><em>out</em>, </td>
         </tr>
         <tr>
@@ -892,14 +892,14 @@ Variables</h2></td></tr>
 <div id="dynsection-11-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-11-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../d8/de0/namespacefft_a88d4a20e5d9813ff03802c42ff5b944c_icgraph.svg" width="100%" height="510"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../d8/de0/namespacefft_ab6d7e93ba5e86251017f8f72a84ab3b0_icgraph.svg" width="100%" height="538"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 </p>
 
 </div>
 </div>
-<a class="anchor" id="aabee360fd4b67414d2f0edca8253ecf2"></a>
+<a class="anchor" id="af7856d4e781deb223b6ff7cde32ac5fa"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -915,13 +915,13 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *&#160;</td>
+          <td class="paramtype">double *&#160;</td>
           <td class="paramname"><em>in</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d2/d2c/configuration_8h.html#a25493212503aadaaf268ef40744bb67f">complex_t</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2">complex_t</a> *&#160;</td>
           <td class="paramname"><em>out</em>, </td>
         </tr>
         <tr>
@@ -971,7 +971,7 @@ Variables</h2></td></tr>
 <div id="dynsection-12-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-12-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../d8/de0/namespacefft_aabee360fd4b67414d2f0edca8253ecf2_icgraph.svg" width="100%" height="510"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../d8/de0/namespacefft_af7856d4e781deb223b6ff7cde32ac5fa_icgraph.svg" width="100%" height="538"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 </p>
@@ -994,7 +994,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;&#160;</td>
           <td class="paramname"><em>out</em>, </td>
         </tr>
         <tr>
@@ -1026,22 +1026,22 @@ Variables</h2></td></tr>
 
 <p>References <a class="el" href="../../d7/d76/fft_8h_source.html#l00166">find_plan()</a>, <a class="el" href="../../d7/d76/fft_8h_source.html#l00040">IRFFT</a>, <a class="el" href="../../d7/d76/fft_8h_source.html#l00050">planV</a>, and <a class="el" href="../../d7/d76/fft_8h_source.html#l00149">run_fft()</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d7/d76/fft_8h_source.html#l00354">convolution_with_ffts()</a>, <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00358">InducedVoltageFreq::induced_voltage_generation()</a>, and <a class="el" href="../../db/d82/PhaseNoise_8cpp_source.html#l00017">PhaseNoise::spectrum_to_phase_noise()</a>.</p>
+<p>Referenced by <a class="el" href="../../d7/d76/fft_8h_source.html#l00354">convolution_with_ffts()</a>, <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00351">InducedVoltageFreq::induced_voltage_generation()</a>, and <a class="el" href="../../db/d82/PhaseNoise_8cpp_source.html#l00017">PhaseNoise::spectrum_to_phase_noise()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    {</div>
 <div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;        n = (n == 0) ? 2 * (in.size() - 1) : n;</div>
 <div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;        <span class="comment">// std::cout &lt;&lt; &quot;out size will be &quot; &lt;&lt; n &lt;&lt; &quot;\n&quot;;</span></div>
 <div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;        out.resize(n);</div>
 <div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;</div>
 <div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;        <span class="keyword">auto</span> plan = <a class="code" href="../../d8/de0/namespacefft.html#af7197252dd2a265bd53282a343582d02">fft::find_plan</a>(n, <a class="code" href="../../d8/de0/namespacefft.html#a1aaf2c8a8ef62200a1813b59306aaee0a7d2abe7561d48226bb8c7bafe9aef828">IRFFT</a>, threads, <a class="code" href="../../d8/de0/namespacefft.html#a8fc3251bf2569d17dafebf18890da294">planV</a>);</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;        <span class="keyword">auto</span> from = (<a class="code" href="../../d2/d2c/configuration_8h.html#a25493212503aadaaf268ef40744bb67f">complex_t</a> *)plan.in;</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;        <span class="keyword">auto</span> to = (<a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *)plan.out;</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;        <span class="keyword">auto</span> from = (<a class="code" href="../../d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2">complex_t</a> *)plan.in;</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;        <span class="keyword">auto</span> to = (<span class="keywordtype">double</span> *)plan.out;</div>
 <div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;</div>
 <div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;        std::copy(in.begin(), in.end(), from);</div>
 <div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;</div>
 <div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;        <a class="code" href="../../d8/de0/namespacefft.html#a032995ee545c6cd17120d4478fcb25b5">run_fft</a>(plan.p);</div>
 <div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;</div>
 <div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;        std::transform(&amp;to[0], &amp;to[n], out.begin(),</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;                       std::bind2nd(std::divides&lt;ftype&gt;(), n));</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;                       std::bind2nd(std::divides&lt;double&gt;(), n));</div>
 <div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    }</div>
 </div><!-- fragment -->
 <p><div id="dynsection-13" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -1066,7 +1066,7 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="abc5228325f1da3d745518f7312906eb4"></a>
+<a class="anchor" id="a9746e9c567a5bc3a70f7877637e58457"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1076,13 +1076,13 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">static void fft::pack_to_complex </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; double &gt; &amp;&#160;</td>
           <td class="paramname"><em>in</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="../../d2/d2c/configuration_8h.html#a25493212503aadaaf268ef40744bb67f">complex_t</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="../../d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2">complex_t</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>out</em>&#160;</td>
         </tr>
         <tr>
@@ -1104,12 +1104,12 @@ Variables</h2></td></tr>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        assert(in.size() % 2 == 0);</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        out.reserve(in.size() / 2);</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; in.size(); i += 2)</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            out.push_back(<a class="code" href="../../d2/d2c/configuration_8h.html#a25493212503aadaaf268ef40744bb67f">complex_t</a>(in[i], in[i + 1]));</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            out.push_back(<a class="code" href="../../d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2">complex_t</a>(in[i], in[i + 1]));</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
-<a class="anchor" id="a13d49a00f74e4de5b7a0082bdc64fea9"></a>
+<a class="anchor" id="aee5012d20f905143a7d6739a0340eaf1"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1119,13 +1119,13 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">static void fft::real_to_complex </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; double &gt; &amp;&#160;</td>
           <td class="paramname"><em>in</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="../../d2/d2c/configuration_8h.html#a25493212503aadaaf268ef40744bb67f">complex_t</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="../../d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2">complex_t</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>out</em>&#160;</td>
         </tr>
         <tr>
@@ -1146,7 +1146,7 @@ Variables</h2></td></tr>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        assert(out.empty());</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        out.reserve(in.size());</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;real : in)</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            out.push_back(<a class="code" href="../../d2/d2c/configuration_8h.html#a25493212503aadaaf268ef40744bb67f">complex_t</a>(real, 0));</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            out.push_back(<a class="code" href="../../d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2">complex_t</a>(real, 0));</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
@@ -1161,7 +1161,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">static void fft::rfft </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;&#160;</td>
           <td class="paramname"><em>in</em>, </td>
         </tr>
         <tr>
@@ -1199,7 +1199,7 @@ Variables</h2></td></tr>
 
 <p>References <a class="el" href="../../d7/d76/fft_8h_source.html#l00166">find_plan()</a>, <a class="el" href="../../d7/d76/fft_8h_source.html#l00050">planV</a>, <a class="el" href="../../d7/d76/fft_8h_source.html#l00040">RFFT</a>, and <a class="el" href="../../d7/d76/fft_8h_source.html#l00149">run_fft()</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00381">Slices::beam_spectrum_generation()</a>, <a class="el" href="../../d7/d76/fft_8h_source.html#l00354">convolution_with_ffts()</a>, and <a class="el" href="../../db/d82/PhaseNoise_8cpp_source.html#l00017">PhaseNoise::spectrum_to_phase_noise()</a>.</p>
+<p>Referenced by <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00373">Slices::beam_spectrum_generation()</a>, <a class="el" href="../../d7/d76/fft_8h_source.html#l00354">convolution_with_ffts()</a>, and <a class="el" href="../../db/d82/PhaseNoise_8cpp_source.html#l00017">PhaseNoise::spectrum_to_phase_noise()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    {</div>
 <div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        <span class="keywordflow">if</span> (n == 0)</div>
 <div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;            n = in.size();</div>
@@ -1209,8 +1209,8 @@ Variables</h2></td></tr>
 <div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;        out.resize(n / 2 + 1);</div>
 <div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;</div>
 <div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;        <span class="keyword">auto</span> plan = <a class="code" href="../../d8/de0/namespacefft.html#af7197252dd2a265bd53282a343582d02">fft::find_plan</a>(n, <a class="code" href="../../d8/de0/namespacefft.html#a1aaf2c8a8ef62200a1813b59306aaee0a57ef828fbd2211a76965d5dca018db74">RFFT</a>, threads, <a class="code" href="../../d8/de0/namespacefft.html#a8fc3251bf2569d17dafebf18890da294">planV</a>);</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;        <span class="keyword">auto</span> from = (<a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *)plan.in;</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;        <span class="keyword">auto</span> to = (<a class="code" href="../../d2/d2c/configuration_8h.html#a25493212503aadaaf268ef40744bb67f">complex_t</a> *)plan.out;</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;        <span class="keyword">auto</span> from = (<span class="keywordtype">double</span> *)plan.in;</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;        <span class="keyword">auto</span> to = (<a class="code" href="../../d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2">complex_t</a> *)plan.out;</div>
 <div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;</div>
 <div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;        std::copy(in.begin(), in.end(), from);</div>
 <div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;</div>
@@ -1234,14 +1234,14 @@ Variables</h2></td></tr>
 <div id="dynsection-16-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-16-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../d8/de0/namespacefft_a789573d204d06c288f6b74c45cd92137_icgraph.svg" width="100%" height="480"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../d8/de0/namespacefft_a789573d204d06c288f6b74c45cd92137_icgraph.svg" width="100%" height="538"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 </p>
 
 </div>
 </div>
-<a class="anchor" id="a033d2ce3e0176d2afede62d2bc1e9163"></a>
+<a class="anchor" id="a011fc652588e7ee1e8872f8b8b675d6e"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1249,7 +1249,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> fft::rfftfreq </td>
+          <td class="memname">static <a class="el" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> fft::rfftfreq </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a>&#160;</td>
           <td class="paramname"><em>n</em>, </td>
@@ -1257,7 +1257,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a>&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>d</em> = <code>1.0</code>&#160;</td>
         </tr>
         <tr>
@@ -1275,10 +1275,10 @@ Variables</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d7/d76/fft_8h_source.html#l00342">342</a> of file <a class="el" href="../../d7/d76/fft_8h_source.html">fft.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00381">Slices::beam_spectrum_generation()</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00171">InducedVoltageFreq::InducedVoltageFreq()</a>.</p>
+<p>Referenced by <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00373">Slices::beam_spectrum_generation()</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00165">InducedVoltageFreq::InducedVoltageFreq()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;    {</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> v(n / 2 + 1);</div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;        <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> factor = 1.0 / (d * n);</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> v(n / 2 + 1);</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">double</span> factor = 1.0 / (d * n);</div>
 <div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;<span class="preprocessor">        #pragma omp parallel for</span></div>
 <div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;<span class="preprocessor"></span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; (int)v.size(); ++i) {</div>
 <div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;            v[i] = i * factor;</div>
@@ -1291,7 +1291,7 @@ Variables</h2></td></tr>
 <div id="dynsection-17-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-17-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../d8/de0/namespacefft_a033d2ce3e0176d2afede62d2bc1e9163_icgraph.svg" width="299" height="126"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../d8/de0/namespacefft_a011fc652588e7ee1e8872f8b8b675d6e_icgraph.svg" width="100%" height="420"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 </p>
@@ -1330,14 +1330,14 @@ Variables</h2></td></tr>
 <div id="dynsection-18-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-18-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../d8/de0/namespacefft_a032995ee545c6cd17120d4478fcb25b5_icgraph.svg" width="100%" height="510"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../d8/de0/namespacefft_a032995ee545c6cd17120d4478fcb25b5_icgraph.svg" width="100%" height="538"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 </p>
 
 </div>
 </div>
-<a class="anchor" id="a050049726fdc7c2d3ad088a30f8466f0"></a>
+<a class="anchor" id="a61835ed456fa854f127ee9426a2a86cd"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1347,13 +1347,13 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">static void fft::unpack_complex </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d2/d2c/configuration_8h.html#a25493212503aadaaf268ef40744bb67f">complex_t</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2">complex_t</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>in</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">std::vector&lt; double &gt; &amp;&#160;</td>
           <td class="paramname"><em>out</em>&#160;</td>
         </tr>
         <tr>
@@ -1428,7 +1428,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../d8/de0/namespacefft.html">fft</a></li>
-    <li class="footer">Generated on Tue Oct 11 2016 17:19:36 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Tue Oct 18 2016 10:44:45 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

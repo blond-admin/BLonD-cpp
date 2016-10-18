@@ -232,7 +232,7 @@ $(document).ready(function(){initNavTree('d1/da8/python_8h_source.html','../../'
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="comment">    static inline PyArrayObject *convert_double_2d_array(f_vector_2d_t &amp;v)</span></div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="comment">    {</span></div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="comment">        int dims[2] = {v.size(), v.front().size()};</span></div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="comment">        auto array = new ftype[dims[0] * dims[1]];</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="comment">        auto array = new double[dims[0] * dims[1]];</span></div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="comment">        int count = 0;</span></div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="comment">        for (const auto &amp;row : v) {</span></div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment">            assert(row.size() == dims[1]);</span></div>
@@ -313,7 +313,7 @@ $(document).ready(function(){initNavTree('d1/da8/python_8h_source.html','../../'
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_6b634e43e772001122993837e1d7e1c5.html">include</a></li><li class="navelem"><a class="el" href="../../dir_4a4b9f9a898a71f152a99978051a04a6.html">blond</a></li><li class="navelem"><a class="el" href="../../d1/da8/python_8h.html">python.h</a></li>
-    <li class="footer">Generated on Tue Oct 11 2016 17:19:35 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Tue Oct 18 2016 10:44:45 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

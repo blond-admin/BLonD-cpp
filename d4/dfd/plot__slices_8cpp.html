@@ -176,7 +176,7 @@ Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d4/dfd/plot__slices_8cpp_source.html#l00005">5</a> of file <a class="el" href="../../d4/dfd/plot__slices_8cpp_source.html">plot_slices.cpp</a>.</p>
 
-<p>References <a class="el" href="../../dc/df2/Slices_8h_source.html#l00039">Slices::bin_centers</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00096">python::convert_double_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00064">python::convert_int()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00086">python::convert_int_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00071">python::convert_string()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00028">python::import()</a>, and <a class="el" href="../../dc/df2/Slices_8h_source.html#l00036">Slices::n_macroparticles</a>.</p>
+<p>References <a class="el" href="../../dc/df2/Slices_8h_source.html#l00044">Slices::bin_centers</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00096">python::convert_double_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00064">python::convert_int()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00071">python::convert_string()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00028">python::import()</a>, and <a class="el" href="../../dc/df2/Slices_8h_source.html#l00042">Slices::n_macroparticles</a>.</p>
 <div class="fragment"><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="comment">// python::initialize();</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>();</div>
@@ -184,8 +184,8 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keyword">auto</span> pBinCenters = <a class="code" href="../../de/d4a/namespacepython.html#a38f56692b4793b00b074fc192783947e">python::convert_double_array</a>(Slices-&gt;<a class="code" href="../../dc/d45/classSlices.html#a20fe6ad5ead7011307efdd5a81392366">bin_centers</a>.data(),</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                       Slices-&gt;<a class="code" href="../../dc/d45/classSlices.html#a20fe6ad5ead7011307efdd5a81392366">bin_centers</a>.size());</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">auto</span> pNMacropaticles = <a class="code" href="../../de/d4a/namespacepython.html#aba320bc348e153e5057cb5a4add54102">python::convert_int_array</a>(Slices-&gt;<a class="code" href="../../dc/d45/classSlices.html#a463a0439b51fc502a49415aca6982755">n_macroparticles</a>.data(),</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;                           Slices-&gt;<a class="code" href="../../dc/d45/classSlices.html#a463a0439b51fc502a49415aca6982755">n_macroparticles</a>.size());</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">auto</span> pNMacropaticles = <a class="code" href="../../de/d4a/namespacepython.html#a38f56692b4793b00b074fc192783947e">python::convert_double_array</a>(Slices-&gt;<a class="code" href="../../dc/d45/classSlices.html#a6da6cf87cacb679fc1c9100a21cd3add">n_macroparticles</a>.data(),</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;                           Slices-&gt;<a class="code" href="../../dc/d45/classSlices.html#a6da6cf87cacb679fc1c9100a21cd3add">n_macroparticles</a>.size());</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">auto</span> pCounter = <a class="code" href="../../de/d4a/namespacepython.html#adb27db8de2c6c5b4f381fadcc86a4939">python::convert_int</a>(counter);</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">auto</span> pStyle = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(style);</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">auto</span> pDirname = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(dirname);</div>
@@ -202,7 +202,7 @@ Functions</h2></td></tr>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../d4/dfd/plot__slices_8cpp_a43d17a220d6ee73c507d596b0f0d6ae6_cgraph.svg" width="342" height="286"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d4/dfd/plot__slices_8cpp_a43d17a220d6ee73c507d596b0f0d6ae6_cgraph.svg" width="342" height="216"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </p>
@@ -253,34 +253,29 @@ Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d4/dfd/plot__slices_8cpp_source.html#l00030">30</a> of file <a class="el" href="../../d4/dfd/plot__slices_8cpp_source.html">plot_slices.cpp</a>.</p>
 
-<p>References <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00392">Slices::beam_profile_derivative()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00135">python::convert_double_2d_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00064">python::convert_int()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00071">python::convert_string()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00106">python::convert_string_array()</a>, and <a class="el" href="../../d1/da8/python_8h_source.html#l00028">python::import()</a>.</p>
+<p>References <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00384">Slices::beam_profile_derivative()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00135">python::convert_double_2d_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00064">python::convert_int()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00071">python::convert_string()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00106">python::convert_string_array()</a>, and <a class="el" href="../../d1/da8/python_8h_source.html#l00028">python::import()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;{</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>();</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">auto</span> pFunc = <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>(<span class="stringliteral">&quot;plot_slices&quot;</span>, <span class="stringliteral">&quot;plot_beam_profile_derivative&quot;</span>);</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a578604c41b2b32700ab03fc63ec857eb">f_vector_2d_t</a> x(modes.size(), <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a>());</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a578604c41b2b32700ab03fc63ec857eb">f_vector_2d_t</a> derivative(modes.size(), <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a>());</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a578604c41b2b32700ab03fc63ec857eb">f_vector_2d_t</a> x(modes.size(), <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a>());</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a578604c41b2b32700ab03fc63ec857eb">f_vector_2d_t</a> derivative(modes.size(), <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a>());</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; modes.size(); i++)</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        Slices-&gt;<a class="code" href="../../dc/d45/classSlices.html#ada42a57f8bea7bb582076bfb6f9f1812">beam_profile_derivative</a>(x[i], derivative[i], modes[i]);</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="comment">// for (auto &amp;r : x){</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="comment">//     std::cout &lt;&lt; &quot;new row\n&quot;;</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="comment">//     for (auto &amp;i : r)</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="comment">//         std::cout &lt;&lt; i &lt;&lt; &quot;\n&quot;;</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="comment">// }</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">auto</span> pX = <a class="code" href="../../de/d4a/namespacepython.html#aded750ac9f79158f844ee939da42f420">python::convert_double_2d_array</a>(x);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">auto</span> pDerivative = <a class="code" href="../../de/d4a/namespacepython.html#aded750ac9f79158f844ee939da42f420">python::convert_double_2d_array</a>(derivative);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">auto</span> pX = <a class="code" href="../../de/d4a/namespacepython.html#aded750ac9f79158f844ee939da42f420">python::convert_double_2d_array</a>(x);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">auto</span> pDerivative = <a class="code" href="../../de/d4a/namespacepython.html#aded750ac9f79158f844ee939da42f420">python::convert_double_2d_array</a>(derivative);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">auto</span> pModes = <a class="code" href="../../de/d4a/namespacepython.html#aae3649b0cfb7cc13494115b355f2f15c">python::convert_string_array</a>(modes.data(), modes.size());</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">auto</span> pCounter = <a class="code" href="../../de/d4a/namespacepython.html#adb27db8de2c6c5b4f381fadcc86a4939">python::convert_int</a>(counter);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">auto</span> pStyle = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(style);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">auto</span> pDirname = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(dirname);</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">auto</span> pModes = <a class="code" href="../../de/d4a/namespacepython.html#aae3649b0cfb7cc13494115b355f2f15c">python::convert_string_array</a>(modes.data(), modes.size());</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">auto</span> pCounter = <a class="code" href="../../de/d4a/namespacepython.html#adb27db8de2c6c5b4f381fadcc86a4939">python::convert_int</a>(counter);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">auto</span> pStyle = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(style);</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">auto</span> pDirname = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(dirname);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">auto</span> ret = PyObject_CallFunctionObjArgs(pFunc, pX, pDerivative, pCounter,</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                                            pStyle, pDirname, pModes, NULL);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordflow">return</span> ret != <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">auto</span> ret = PyObject_CallFunctionObjArgs(pFunc, pX, pDerivative, pCounter,</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                                            pStyle, pDirname, pModes, NULL);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">return</span> ret != <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
 </div><!-- fragment -->
 <p><div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
@@ -330,32 +325,32 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d4/dfd/plot__slices_8cpp_source.html#l00063">63</a> of file <a class="el" href="../../d4/dfd/plot__slices_8cpp_source.html">plot_slices.cpp</a>.</p>
+<p>Definition at line <a class="el" href="../../d4/dfd/plot__slices_8cpp_source.html#l00058">58</a> of file <a class="el" href="../../d4/dfd/plot__slices_8cpp_source.html">plot_slices.cpp</a>.</p>
 
-<p>References <a class="el" href="../../d1/da8/python_8h_source.html#l00161">python::convert_complex_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00096">python::convert_double_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00064">python::convert_int()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00071">python::convert_string()</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00041">Slices::fBeamSpectrum</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00042">Slices::fBeamSpectrumFreq</a>, and <a class="el" href="../../d1/da8/python_8h_source.html#l00028">python::import()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;{</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>();</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">auto</span> pFunc = <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>(<span class="stringliteral">&quot;plot_slices&quot;</span>, <span class="stringliteral">&quot;plot_beam_spectrum&quot;</span>);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keyword">auto</span> pBeamSpectrumFreq = <a class="code" href="../../de/d4a/namespacepython.html#a38f56692b4793b00b074fc192783947e">python::convert_double_array</a>(</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                                 Slices-&gt;<a class="code" href="../../dc/d45/classSlices.html#a2c292b1090ee232f4d7e3b4bd43e500a">fBeamSpectrumFreq</a>.data(),</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                                 Slices-&gt;<a class="code" href="../../dc/d45/classSlices.html#a2c292b1090ee232f4d7e3b4bd43e500a">fBeamSpectrumFreq</a>.size());</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keyword">auto</span> pBeamSpectrum = <a class="code" href="../../de/d4a/namespacepython.html#ac861e0dca45fa6613832b68878c13528">python::convert_complex_array</a>(</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                             Slices-&gt;<a class="code" href="../../dc/d45/classSlices.html#a33f3014f3986c7ee8b4580ca74aaab72">fBeamSpectrum</a>.data(),</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                             Slices-&gt;<a class="code" href="../../dc/d45/classSlices.html#a33f3014f3986c7ee8b4580ca74aaab72">fBeamSpectrum</a>.size());</div>
+<p>References <a class="el" href="../../d1/da8/python_8h_source.html#l00161">python::convert_complex_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00096">python::convert_double_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00064">python::convert_int()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00071">python::convert_string()</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00046">Slices::fBeamSpectrum</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00047">Slices::fBeamSpectrumFreq</a>, and <a class="el" href="../../d1/da8/python_8h_source.html#l00028">python::import()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;{</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>();</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keyword">auto</span> pFunc = <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>(<span class="stringliteral">&quot;plot_slices&quot;</span>, <span class="stringliteral">&quot;plot_beam_spectrum&quot;</span>);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">auto</span> pBeamSpectrumFreq = <a class="code" href="../../de/d4a/namespacepython.html#a38f56692b4793b00b074fc192783947e">python::convert_double_array</a>(</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                                 Slices-&gt;<a class="code" href="../../dc/d45/classSlices.html#a2c292b1090ee232f4d7e3b4bd43e500a">fBeamSpectrumFreq</a>.data(),</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                                 Slices-&gt;<a class="code" href="../../dc/d45/classSlices.html#a2c292b1090ee232f4d7e3b4bd43e500a">fBeamSpectrumFreq</a>.size());</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">auto</span> pBeamSpectrum = <a class="code" href="../../de/d4a/namespacepython.html#ac861e0dca45fa6613832b68878c13528">python::convert_complex_array</a>(</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                             Slices-&gt;<a class="code" href="../../dc/d45/classSlices.html#a33f3014f3986c7ee8b4580ca74aaab72">fBeamSpectrum</a>.data(),</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                             Slices-&gt;<a class="code" href="../../dc/d45/classSlices.html#a33f3014f3986c7ee8b4580ca74aaab72">fBeamSpectrum</a>.size());</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keyword">auto</span> pCounter = <a class="code" href="../../de/d4a/namespacepython.html#adb27db8de2c6c5b4f381fadcc86a4939">python::convert_int</a>(counter);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">auto</span> pStyle = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(style);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">auto</span> pDirname = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(dirname);</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keyword">auto</span> pCounter = <a class="code" href="../../de/d4a/namespacepython.html#adb27db8de2c6c5b4f381fadcc86a4939">python::convert_int</a>(counter);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">auto</span> pStyle = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(style);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">auto</span> pDirname = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(dirname);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">auto</span> ret = PyObject_CallFunctionObjArgs(pFunc, pBeamSpectrumFreq,</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                                            pBeamSpectrum, pCounter, pStyle,</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                                            pDirname, NULL);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordflow">return</span> ret != <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">auto</span> ret = PyObject_CallFunctionObjArgs(pFunc, pBeamSpectrumFreq,</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                                            pBeamSpectrum, pCounter, pStyle,</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                                            pDirname, NULL);</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordflow">return</span> ret != <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;}</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;}</div>
 </div><!-- fragment -->
 <p><div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
@@ -375,7 +370,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_2b12189b1b38a5891fb7949d75362c72.html">src</a></li><li class="navelem"><a class="el" href="../../dir_c38ecdaba2cf8d1fb8e1bbe1cf356d5a.html">plots</a></li><li class="navelem"><a class="el" href="../../d4/dfd/plot__slices_8cpp.html">plot_slices.cpp</a></li>
-    <li class="footer">Generated on Tue Oct 11 2016 17:19:36 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Tue Oct 18 2016 10:44:45 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

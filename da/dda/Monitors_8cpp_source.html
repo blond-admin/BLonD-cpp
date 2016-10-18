@@ -264,7 +264,7 @@ $(document).ready(function(){initNavTree('da/dda/Monitors_8cpp_source.html','../
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;                           <span class="keywordtype">int</span> compression_level)</div>
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;{</div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    fFileName = filename;</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    fNTurns = GP-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#aa393ee4bd6784a8ef1e74227ee1f313b">n_turns</a>;</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    fNTurns = GP-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a3172f667299d54f46f2eae03baf8fefc">n_turns</a>;</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    fITurn = 0;</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    fBufferTime = buffer_time == 0 ? fNTurns : buffer_time;</div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    fRfP = RfP;</div>
@@ -383,14 +383,14 @@ $(document).ready(function(){initNavTree('da/dda/Monitors_8cpp_source.html','../
 <div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;        dataset = fH5Group-&gt;createDataSet(<span class="stringliteral">&quot;PL_omegaRF&quot;</span>,</div>
 <div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;                                          PredType::NATIVE_DOUBLE,</div>
 <div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;                                          dataspace, plist);</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;        doubleV[0] = fRfP-&gt;omega_RF[0][0];</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;        doubleV[0] = fRfP-&gt;omega_rf[0][0];</div>
 <div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;        dataset.write(doubleV.data(), PredType::NATIVE_DOUBLE);</div>
 <div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;</div>
 <div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;</div>
 <div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;        dataset = fH5Group-&gt;createDataSet(<span class="stringliteral">&quot;PL_phiRF&quot;</span>,</div>
 <div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;                                          NATIVE_REAL_T,</div>
 <div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;                                          dataspace, plist);</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;        realV[0] = fRfP-&gt;phi_RF[0][0];</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;        realV[0] = fRfP-&gt;phi_rf[0][0];</div>
 <div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;        dataset.write(realV.data(), NATIVE_REAL_T);</div>
 <div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;</div>
 <div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;</div>
@@ -411,14 +411,14 @@ $(document).ready(function(){initNavTree('da/dda/Monitors_8cpp_source.html','../
 <div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;        dataset = fH5Group-&gt;createDataSet(<span class="stringliteral">&quot;PL_omegaRF_corr&quot;</span>,</div>
 <div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;                                          NATIVE_REAL_T,</div>
 <div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;                                          dataspace, plist);</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;        realV[0] = fPL-&gt;domega_RF;</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;        realV[0] = fPL-&gt;domega_rf;</div>
 <div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;        dataset.write(realV.data(), NATIVE_REAL_T);</div>
 <div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;</div>
 <div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;</div>
 <div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;        dataset = fH5Group-&gt;createDataSet(<span class="stringliteral">&quot;SL_dphiRF&quot;</span>,</div>
 <div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;                                          NATIVE_REAL_T,</div>
 <div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;                                          dataspace, plist);</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;        realV[0] = fRfP-&gt;dphi_RF[0];</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;        realV[0] = fRfP-&gt;dphi_rf[0];</div>
 <div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;        dataset.write(realV.data(), NATIVE_REAL_T);</div>
 <div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;</div>
 <div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;</div>
@@ -674,12 +674,12 @@ $(document).ready(function(){initNavTree('da/dda/Monitors_8cpp_source.html','../
 <div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160;        b_bl_gauss[i] = fSlices-&gt;bl_gauss;</div>
 <div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;</div>
 <div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160;    <span class="keywordflow">if</span> (fPL != NULL) {</div>
-<div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160;        b_PL_omegaRF[i] = fRfP-&gt;omega_RF[0][fITurn];</div>
-<div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160;        b_PL_phiRF[i] = fRfP-&gt;phi_RF[0][fITurn];</div>
+<div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160;        b_PL_omegaRF[i] = fRfP-&gt;omega_rf[0][fITurn];</div>
+<div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160;        b_PL_phiRF[i] = fRfP-&gt;phi_rf[0][fITurn];</div>
 <div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;        b_PL_bunch_phase[i] = fPL-&gt;phi_beam;</div>
 <div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160;        b_PL_phase_corr[i] = fPL-&gt;dphi;</div>
-<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;        b_PL_omegaRF_corr[i] = fPL-&gt;domega_RF;</div>
-<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160;        b_SL_dphiRF[i] = fRfP-&gt;dphi_RF[0];</div>
+<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;        b_PL_omegaRF_corr[i] = fPL-&gt;domega_rf;</div>
+<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160;        b_SL_dphiRF[i] = fRfP-&gt;dphi_rf[0];</div>
 <div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;        b_RL_drho[i] = fPL-&gt;drho;</div>
 <div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;    }</div>
 <div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;</div>
@@ -705,7 +705,7 @@ $(document).ready(function(){initNavTree('da/dda/Monitors_8cpp_source.html','../
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_2b12189b1b38a5891fb7949d75362c72.html">src</a></li><li class="navelem"><a class="el" href="../../dir_db673008428b52b7e7a829a085c7bf4f.html">monitors</a></li><li class="navelem"><a class="el" href="../../da/dda/Monitors_8cpp.html">Monitors.cpp</a></li>
-    <li class="footer">Generated on Tue Oct 11 2016 17:19:35 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Tue Oct 18 2016 10:44:44 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

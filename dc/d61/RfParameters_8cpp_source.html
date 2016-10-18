@@ -119,301 +119,186 @@ $(document).ready(function(){initNavTree('dc/d61/RfParameters_8cpp_source.html',
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> *      Author: kiliakis</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> */</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../d2/d6f/constants_8h.html">blond/constants.h</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../d5/d87/globals_8h.html">blond/globals.h</a>&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../d5/d87/globals_8h.html">blond/globals.h</a>&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../d6/db7/RfParameters_8h.html">blond/input_parameters/RfParameters.h</a>&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../d2/de2/math__functions_8h.html">blond/math_functions.h</a>&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> :How to use RF programs:</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"></span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> - For 1 RF system and constant values of V, h or phi, just input the single</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> value</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> - For 1 RF system and varying values of V, h or phi, input an array of n_turns</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> values</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> - For several RF systems and constant values of V, h or phi, input lists of</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> single values</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> - For several RF systems and varying values of V, h or phi, input lists of</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> arrays of n_turns values</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="code" href="../../da/d49/classRfParameters.html#a52dd5384f6f923f5950f7473fe1aa5ca">   27</a></span>&#160;<a class="code" href="../../da/d49/classRfParameters.html#a52dd5384f6f923f5950f7473fe1aa5ca">RfParameters::RfParameters</a>(<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> n_rf, <a class="code" href="../../d2/d2c/configuration_8h.html#a578604c41b2b32700ab03fc63ec857eb">f_vector_2d_t</a> harmonic,</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                           <a class="code" href="../../d2/d2c/configuration_8h.html#a578604c41b2b32700ab03fc63ec857eb">f_vector_2d_t</a> voltage, <a class="code" href="../../d2/d2c/configuration_8h.html#a578604c41b2b32700ab03fc63ec857eb">f_vector_2d_t</a> phi_offset,</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                           <a class="code" href="../../d2/d2c/configuration_8h.html#a578604c41b2b32700ab03fc63ec857eb">f_vector_2d_t</a> phi_noise, <a class="code" href="../../d2/d2c/configuration_8h.html#a578604c41b2b32700ab03fc63ec857eb">f_vector_2d_t</a> omega_rf,</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                           <a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> section_index,</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                           <a class="code" href="../../da/d49/classRfParameters.html#ac7abb30e54aa2eac2617fcf098843da6">accelerating_systems_t</a> accelerating_systems)</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;{</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">auto</span> GP = <a class="code" href="../../d6/d7a/structContext.html#a0a2469a256c098797644d0ec49a8e430">Context::GP</a>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    this-&gt;<a class="code" href="../../da/d49/classRfParameters.html#ac415e919886aab0e5cba52fb3c3d4740">counter</a> = 0;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    this-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a5f8ecdb5c300db60e0bb4b74e2711338">idx</a> = section_index - 1;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    this-&gt;n_rf = <a class="code" href="../../da/d49/classRfParameters.html#a08b9bc81dedcac7e68baf31560363a58">n_rf</a>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    this-&gt;harmonic = <a class="code" href="../../da/d49/classRfParameters.html#a8221a6edc51203d7f1bf373e79c42373">harmonic</a>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    this-&gt;voltage = <a class="code" href="../../da/d49/classRfParameters.html#a439542a6e0c0d5bd0778acda2b75da13">voltage</a>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    this-&gt;phi_offset = <a class="code" href="../../da/d49/classRfParameters.html#a19f52eeaf1ec7c6ed064347b674a39ac">phi_offset</a>;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    this-&gt;<a class="code" href="../../da/d49/classRfParameters.html#ae59e1274703908f1ef1fe61fb171e9ac">section_length</a> = GP-&gt;ring_length[<a class="code" href="../../da/d49/classRfParameters.html#a5f8ecdb5c300db60e0bb4b74e2711338">idx</a>];</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    this-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a705bff1c9a19b185aa30388495b645dc">length_ratio</a> = <a class="code" href="../../da/d49/classRfParameters.html#ae59e1274703908f1ef1fe61fb171e9ac">section_length</a> / GP-&gt;ring_circumference;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    this-&gt;phi_noise = <a class="code" href="../../da/d49/classRfParameters.html#ac624694344840f3b7637d52d6932c81a">phi_noise</a>;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="comment">// TODO: check with multi Rf</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="../../da/d49/classRfParameters.html#a66530c1f1510aa495c8277bf26a25eab">E_increment</a>.resize(GP-&gt;n_turns);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> j = 0; j &lt; GP-&gt;n_turns; ++j) {</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <a class="code" href="../../da/d49/classRfParameters.html#a66530c1f1510aa495c8277bf26a25eab">E_increment</a>[j] = <a class="code" href="../../da/d49/classRfParameters.html#a755e2835ebc2eab23c273ceeb662cea0">energy</a>(j + 1) - <a class="code" href="../../da/d49/classRfParameters.html#a755e2835ebc2eab23c273ceeb662cea0">energy</a>(j);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    }</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <a class="code" href="../../da/d49/classRfParameters.html#a7c2f76b32a2594bc7f6830dd77e71085">phi_s</a>.resize(GP-&gt;n_turns + 1);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="../../dc/d61/RfParameters_8cpp.html#af77eb76b07eb5bd88beb9af81a365ae4">calc_phi_s</a>(<a class="code" href="../../da/d49/classRfParameters.html#a7c2f76b32a2594bc7f6830dd77e71085">phi_s</a>.data(), <span class="keyword">this</span>, accelerating_systems);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    this-&gt;<a class="code" href="../../da/d49/classRfParameters.html#aca5bdbae4a7d4c85682c468172414647">Qs</a>.resize(GP-&gt;n_turns + 1);</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; GP-&gt;n_turns + 1; ++i)</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <a class="code" href="../../da/d49/classRfParameters.html#aca5bdbae4a7d4c85682c468172414647">Qs</a>[i] = std::sqrt(harmonic[<a class="code" href="../../da/d49/classRfParameters.html#a5f8ecdb5c300db60e0bb4b74e2711338">idx</a>][i] * GP-&gt;charge * voltage[<a class="code" href="../../da/d49/classRfParameters.html#a5f8ecdb5c300db60e0bb4b74e2711338">idx</a>][i] *</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                          std::fabs(<a class="code" href="../../da/d49/classRfParameters.html#a7166ec3f2397ce1afc561e07a1754f52">eta_0</a>(i) * cos(<a class="code" href="../../da/d49/classRfParameters.html#a7c2f76b32a2594bc7f6830dd77e71085">phi_s</a>[i])) /</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                          (2 * <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a> * <a class="code" href="../../da/d49/classRfParameters.html#a18cc55dde4c1cfc84c2604b1eda15a01">beta</a>(i) *</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                           <a class="code" href="../../da/d49/classRfParameters.html#a18cc55dde4c1cfc84c2604b1eda15a01">beta</a>(i) * <a class="code" href="../../da/d49/classRfParameters.html#a755e2835ebc2eab23c273ceeb662cea0">energy</a>(i)));</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../d6/db7/RfParameters_8h.html">blond/input_parameters/RfParameters.h</a>&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> :How to use RF programs:</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> - For 1 RF system and constant values of V, h or phi, just input the single</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> value</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> - For 1 RF system and varying values of V, h or phi, input an array of n_turns</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> values</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> - For several RF systems and constant values of V, h or phi, input lists of</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> single values</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> - For several RF systems and varying values of V, h or phi, input lists of</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> arrays of n_turns values</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="code" href="../../da/d49/classRfParameters.html#a4b2692022b8cb71a3475e964fcc0c474">   25</a></span>&#160;<span class="keywordtype">double</span> <a class="code" href="../../da/d49/classRfParameters.html#a4b2692022b8cb71a3475e964fcc0c474">RfParameters::eta_tracking</a>(<span class="keyword">const</span> <a class="code" href="../../d9/d7c/classBeams.html">Beams</a> *beam, <span class="keyword">const</span> <span class="keywordtype">int</span> counter,</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;                                  <span class="keyword">const</span> <span class="keywordtype">double</span> dE)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordtype">double</span> eta = 0;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../da/d49/classRfParameters.html#a3ad4de6375c2102677356fc3121f106b">alpha_order</a> == 1)</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        eta = <a class="code" href="../../da/d49/classRfParameters.html#af5385ffb55da4c9d906f57f53275461f">eta_0</a>[<a class="code" href="../../da/d49/classRfParameters.html#a8f098f7bc761b681be6690902c72d8bf">counter</a>];</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordtype">double</span> delta =</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            dE / ((beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#a22d47e4bdb53b2e8f020071c582068d3">beta</a>) * (beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#a22d47e4bdb53b2e8f020071c582068d3">beta</a>) * beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#ae1fe9d93b120b850007fd23af2bc45d9">energy</a>);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        eta += <a class="code" href="../../da/d49/classRfParameters.html#af5385ffb55da4c9d906f57f53275461f">eta_0</a>[<a class="code" href="../../da/d49/classRfParameters.html#a8f098f7bc761b681be6690902c72d8bf">counter</a>] * 1;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="../../da/d49/classRfParameters.html#a3ad4de6375c2102677356fc3121f106b">alpha_order</a> &gt; 0)</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            eta += <a class="code" href="../../da/d49/classRfParameters.html#a85e7135ca39f2b49feb7c3e17b912891">eta_1</a>[<a class="code" href="../../da/d49/classRfParameters.html#a8f098f7bc761b681be6690902c72d8bf">counter</a>] * delta;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="../../da/d49/classRfParameters.html#a3ad4de6375c2102677356fc3121f106b">alpha_order</a> &gt; 1)</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            eta += <a class="code" href="../../da/d49/classRfParameters.html#a992cf6c270176d05a76b4d256443c8d3">eta_2</a>[<a class="code" href="../../da/d49/classRfParameters.html#a8f098f7bc761b681be6690902c72d8bf">counter</a>] * delta * delta;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="../../da/d49/classRfParameters.html#a3ad4de6375c2102677356fc3121f106b">alpha_order</a> &gt; 2)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            std::cerr &lt;&lt; <span class="stringliteral">&quot;WARNING: Momentum compaction factor is implemented&quot;</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                      &lt;&lt; <span class="stringliteral">&quot;only up to 2nd order\n&quot;</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    }</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">return</span> eta;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="code" href="../../da/d49/classRfParameters.html#a89b4a71d7f56a66f1a35586adc06b760">   49</a></span>&#160;<a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> <a class="code" href="../../da/d49/classRfParameters.html#a89b4a71d7f56a66f1a35586adc06b760">RfParameters::calc_phi_s</a>(<a class="code" href="../../da/d49/classRfParameters.html">RfParameters</a> *rfp,</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                                    <a class="code" href="../../da/d49/classRfParameters.html#a36bb3c512f736dd25895f68bffc26ef4">acc_sys_t</a> acc_sys)</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;{</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="comment">/*</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">     | *The synchronous phase calculated from the rate of momentum change.*</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">     | *Below transition, for decelerating bucket: phi_s is in (-Pi/2,0)*</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">     | *Below transition, for accelerating bucket: phi_s is in (0,Pi/2)*</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">     | *Above transition, for accelerating bucket: phi_s is in (Pi/2,Pi)*</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">     | *Above transition, for decelerating bucket: phi_s is in (Pi,3Pi/2)*</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">     | *The synchronous phase is calculated at a certain moment.*</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">     | *Uses beta, energy averaged over the turn.*</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">     */</span></div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    this-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a46cdb432a905e5f864225130d02c4df8">omega_s0</a>.resize(GP-&gt;n_turns + 1);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; (GP-&gt;n_turns + 1); ++i)</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        this-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a46cdb432a905e5f864225130d02c4df8">omega_s0</a>[i] = <a class="code" href="../../da/d49/classRfParameters.html#aca5bdbae4a7d4c85682c468172414647">Qs</a>[i] * GP-&gt;omega_rev[i];</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    this-&gt;omega_RF_d.resize(n_rf, <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a>(GP-&gt;n_turns + 1));</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="comment">// printf(&quot;beta(0) = %.12lf\n&quot;, beta(0));</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="comment">// printf(&quot;pi = %.12lf\n&quot;, constant::pi);</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="comment">// printf(&quot;c = %.12lf\n&quot;, constant::c);</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="comment">// printf(&quot;harmonic = %.12lf\n&quot;, harmonic[0][0]);</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="comment">// printf(&quot;ring_circumference = %.12lf\n&quot;, GP-&gt;ring_circumference);</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; <a class="code" href="../../da/d49/classRfParameters.html#a08b9bc81dedcac7e68baf31560363a58">n_rf</a>; ++i)</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> j = 0; j &lt; GP-&gt;n_turns + 1; ++j)</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            <a class="code" href="../../da/d49/classRfParameters.html#af34fe3bad4a01687a0f42549c0ad4dc2">omega_RF_d</a>[i][j] = 2 * <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a> * <a class="code" href="../../da/d49/classRfParameters.html#a18cc55dde4c1cfc84c2604b1eda15a01">beta</a>(j) * <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">constant::c</a> *</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                               harmonic[i][j] / GP-&gt;ring_circumference;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="comment">// printf(&quot;omega_RF_d = %.12lf\n&quot;, omega_RF_d[0][0]);</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordflow">if</span> (omega_rf.empty()) {</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <a class="code" href="../../da/d49/classRfParameters.html#a7ee0ce84ec7437b3cec7f3cb901c0187">omega_RF</a> = <a class="code" href="../../da/d49/classRfParameters.html#af34fe3bad4a01687a0f42549c0ad4dc2">omega_RF_d</a>;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        this-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a7ee0ce84ec7437b3cec7f3cb901c0187">omega_RF</a> = omega_rf;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    }</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <a class="code" href="../../da/d49/classRfParameters.html#ad5e71c7254b877ac7f83f5b8efad0c93">phi_RF</a> = <a class="code" href="../../da/d49/classRfParameters.html#a19f52eeaf1ec7c6ed064347b674a39ac">phi_offset</a>;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    this-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a77fc0f36a0a1cb33011faa9871bddbd9">dphi_RF</a>.resize(n_rf, 0);</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    this-&gt;<a class="code" href="../../da/d49/classRfParameters.html#ae617f527c3553500fdd2ba6b5c3e7cf3">dphi_RF_steering</a>.resize(n_rf, 0);</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <a class="code" href="../../da/d49/classRfParameters.html#a658f3684bf92ab9c668af498d66dfda0">t_RF</a>.resize(GP-&gt;n_turns + 1);</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; GP-&gt;n_turns + 1; ++i)</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <a class="code" href="../../da/d49/classRfParameters.html#a658f3684bf92ab9c668af498d66dfda0">t_RF</a>[i] = 2 * <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a> / <a class="code" href="../../da/d49/classRfParameters.html#a7ee0ce84ec7437b3cec7f3cb901c0187">omega_RF</a>[<a class="code" href="../../da/d49/classRfParameters.html#a5f8ecdb5c300db60e0bb4b74e2711338">idx</a>][i];</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;}</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
-<div class="line"><a name="l00094"></a><span class="lineno"><a class="code" href="../../da/d49/classRfParameters.html#a6424978e623d1842c44c659bff989284">   94</a></span>&#160;<a class="code" href="../../da/d49/classRfParameters.html#a6424978e623d1842c44c659bff989284">RfParameters::~RfParameters</a>() {}</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
-<div class="line"><a name="l00096"></a><span class="lineno"><a class="code" href="../../da/d49/classRfParameters.html#aa006029417d26dd656276464d55d6c21">   96</a></span>&#160;<a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> <a class="code" href="../../da/d49/classRfParameters.html#aa006029417d26dd656276464d55d6c21">RfParameters::eta_tracking</a>(<span class="keyword">const</span> <a class="code" href="../../d9/d7c/classBeams.html">Beams</a> *beam, <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> counter,</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                                 <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> dE)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keyword">auto</span> GP = <a class="code" href="../../d6/d7a/structContext.html#a0a2469a256c098797644d0ec49a8e430">Context::GP</a>;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> eta = 0;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordflow">if</span> (GP-&gt;alpha_order == 1)</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        eta = <a class="code" href="../../da/d49/classRfParameters.html#a7166ec3f2397ce1afc561e07a1754f52">eta_0</a>(counter);</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> delta =</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            dE / ((GP-&gt;beta[0][0]) * (GP-&gt;beta[0][0]) * GP-&gt;energy[0][0]);</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        eta += <a class="code" href="../../da/d49/classRfParameters.html#a7166ec3f2397ce1afc561e07a1754f52">eta_0</a>(counter) * 1;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keywordflow">if</span> (GP-&gt;alpha_order &gt; 0)</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            eta += <a class="code" href="../../da/d49/classRfParameters.html#a03d3c7b94c697880f9c69d91bfa57ca1">eta_1</a>(counter) * delta;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="keywordflow">if</span> (GP-&gt;alpha_order &gt; 1)</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            eta += <a class="code" href="../../da/d49/classRfParameters.html#aa242ab141b80403e51ec73b1152e6d96">eta_2</a>(counter) * delta * delta;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keywordflow">if</span> (GP-&gt;alpha_order &gt; 2)</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            <a class="code" href="../../de/df0/utilities_8h.html#a0fb7bf82c787085c8b1ef0ad7d028424">dprintf</a>(</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                <span class="stringliteral">&quot;WARNING: Momentum compaction factor is implemented only up to &quot;</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                <span class="stringliteral">&quot;2nd order&quot;</span>);</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    }</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordflow">return</span> eta;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;}</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;</div>
-<div class="line"><a name="l00120"></a><span class="lineno"><a class="code" href="../../da/d49/classRfParameters.html#a7166ec3f2397ce1afc561e07a1754f52">  120</a></span>&#160;<a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> <a class="code" href="../../da/d49/classRfParameters.html#a7166ec3f2397ce1afc561e07a1754f52">RfParameters::eta_0</a>(<span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="../../d6/d7a/structContext.html#a0a2469a256c098797644d0ec49a8e430">Context::GP</a>-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a4f2ff9253bfc21543e7c3834bb64fbb1">eta_0</a>[<a class="code" href="../../da/d49/classRfParameters.html#a5f8ecdb5c300db60e0bb4b74e2711338">idx</a>][i]; }</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;</div>
-<div class="line"><a name="l00122"></a><span class="lineno"><a class="code" href="../../da/d49/classRfParameters.html#a03d3c7b94c697880f9c69d91bfa57ca1">  122</a></span>&#160;<a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> <a class="code" href="../../da/d49/classRfParameters.html#a03d3c7b94c697880f9c69d91bfa57ca1">RfParameters::eta_1</a>(<span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="../../d6/d7a/structContext.html#a0a2469a256c098797644d0ec49a8e430">Context::GP</a>-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#ae5a391e9d2480823637b97043b9563cd">eta_1</a>[<a class="code" href="../../da/d49/classRfParameters.html#a5f8ecdb5c300db60e0bb4b74e2711338">idx</a>][i]; }</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;</div>
-<div class="line"><a name="l00124"></a><span class="lineno"><a class="code" href="../../da/d49/classRfParameters.html#aa242ab141b80403e51ec73b1152e6d96">  124</a></span>&#160;<a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> <a class="code" href="../../da/d49/classRfParameters.html#aa242ab141b80403e51ec73b1152e6d96">RfParameters::eta_2</a>(<span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="../../d6/d7a/structContext.html#a0a2469a256c098797644d0ec49a8e430">Context::GP</a>-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a04ef9d9a2aa02253b6a7e68ea8d1a97c">eta_2</a>[<a class="code" href="../../da/d49/classRfParameters.html#a5f8ecdb5c300db60e0bb4b74e2711338">idx</a>][i]; }</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;</div>
-<div class="line"><a name="l00126"></a><span class="lineno"><a class="code" href="../../da/d49/classRfParameters.html#a18cc55dde4c1cfc84c2604b1eda15a01">  126</a></span>&#160;<a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> <a class="code" href="../../da/d49/classRfParameters.html#a18cc55dde4c1cfc84c2604b1eda15a01">RfParameters::beta</a>(<span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="../../d6/d7a/structContext.html#a0a2469a256c098797644d0ec49a8e430">Context::GP</a>-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a1dfbb2b28b96314abba548b4a750fce8">beta</a>[<a class="code" href="../../da/d49/classRfParameters.html#a5f8ecdb5c300db60e0bb4b74e2711338">idx</a>][i]; }</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;</div>
-<div class="line"><a name="l00128"></a><span class="lineno"><a class="code" href="../../da/d49/classRfParameters.html#a505dc94c4723566796d1535d72b429ba">  128</a></span>&#160;<a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> <a class="code" href="../../da/d49/classRfParameters.html#a505dc94c4723566796d1535d72b429ba">RfParameters::gamma</a>(<span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="../../d6/d7a/structContext.html#a0a2469a256c098797644d0ec49a8e430">Context::GP</a>-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a9f4d8b1a9de704f5477f27c2aeebbab1">gamma</a>[<a class="code" href="../../da/d49/classRfParameters.html#a5f8ecdb5c300db60e0bb4b74e2711338">idx</a>][i]; }</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;</div>
-<div class="line"><a name="l00130"></a><span class="lineno"><a class="code" href="../../da/d49/classRfParameters.html#a755e2835ebc2eab23c273ceeb662cea0">  130</a></span>&#160;<a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> <a class="code" href="../../da/d49/classRfParameters.html#a755e2835ebc2eab23c273ceeb662cea0">RfParameters::energy</a>(<span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="../../d6/d7a/structContext.html#a0a2469a256c098797644d0ec49a8e430">Context::GP</a>-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#ad95d8eaac393bbb3210b8cf10ab0a20a">energy</a>[<a class="code" href="../../da/d49/classRfParameters.html#a5f8ecdb5c300db60e0bb4b74e2711338">idx</a>][i]; }</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;</div>
-<div class="line"><a name="l00132"></a><span class="lineno"><a class="code" href="../../da/d49/classRfParameters.html#afb02a001f99f87b1953daaf2af12512d">  132</a></span>&#160;<a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> <a class="code" href="../../da/d49/classRfParameters.html#afb02a001f99f87b1953daaf2af12512d">RfParameters::momentum</a>(<span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i)<span class="keyword"> const </span>{<span class="keywordflow">return</span> <a class="code" href="../../d6/d7a/structContext.html#a0a2469a256c098797644d0ec49a8e430">Context::GP</a>-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#aea11b2e34e53638809f9764489230dbf">momentum</a>[<a class="code" href="../../da/d49/classRfParameters.html#a5f8ecdb5c300db60e0bb4b74e2711338">idx</a>][i];}</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;</div>
-<div class="line"><a name="l00134"></a><span class="lineno"><a class="code" href="../../da/d49/classRfParameters.html#ae8a2bfb2ac202e7a3ee40a37b182bc2c">  134</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../da/d49/classRfParameters.html#ae8a2bfb2ac202e7a3ee40a37b182bc2c">RfParameters::sign_eta_0</a>(<span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../da/d49/classRfParameters.html#a7166ec3f2397ce1afc561e07a1754f52">eta_0</a>(i) &gt; 0)</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        <span class="keywordflow">return</span> 1;</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="../../da/d49/classRfParameters.html#a7166ec3f2397ce1afc561e07a1754f52">eta_0</a>(i) == 0)</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        <span class="keywordflow">return</span> -1;</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;}</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;</div>
-<div class="line"><a name="l00144"></a><span class="lineno"><a class="code" href="../../d6/db7/RfParameters_8h.html#a9b0a0b6ba8dfcfaaf01c436e35731750">  144</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../dc/d61/RfParameters_8cpp.html#af77eb76b07eb5bd88beb9af81a365ae4">calc_phi_s</a>(<a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *out, <a class="code" href="../../da/d49/classRfParameters.html">RfParameters</a> *rfp,</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;                <a class="code" href="../../da/d49/classRfParameters.html#ac7abb30e54aa2eac2617fcf098843da6">RfParameters::accelerating_systems_t</a> acc_sys)</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;{</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="comment">/*</span></div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="comment">     | *The synchronous phase calculated from the rate of momentum change.*</span></div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="comment">     | *Below transition, for decelerating bucket: phi_s is in (-Pi/2,0)*</span></div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="comment">     | *Below transition, for accelerating bucket: phi_s is in (0,Pi/2)*</span></div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="comment">     | *Above transition, for accelerating bucket: phi_s is in (Pi/2,Pi)*</span></div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="comment">     | *Above transition, for decelerating bucket: phi_s is in (Pi,3Pi/2)*</span></div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="comment">     | *The synchronous phase is calculated at a certain moment.*</span></div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="comment">     | *Uses beta, energy averaged over the turn.*</span></div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keyword">auto</span> GP = <a class="code" href="../../d6/d7a/structContext.html#a0a2469a256c098797644d0ec49a8e430">Context::GP</a>;</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keyword">auto</span> n_turns = GP-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#aa393ee4bd6784a8ef1e74227ee1f313b">n_turns</a>;</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keyword">auto</span> n_rf = rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a08b9bc81dedcac7e68baf31560363a58">n_rf</a>;</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="comment">// ftype eta0 = rf_params-&gt;eta0;</span></div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keywordflow">if</span> (acc_sys == RfParameters::accelerating_systems_t::as_single) {</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *denergy = <span class="keyword">new</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a>[n_turns + 1];</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> j = 0; j &lt; n_turns; ++j)</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;            denergy[j] = rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a66530c1f1510aa495c8277bf26a25eab">E_increment</a>[j];</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        denergy[n_turns] = rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a66530c1f1510aa495c8277bf26a25eab">E_increment</a>[n_turns - 1];</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *acceleration_ratio = <span class="keyword">new</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a>[n_turns + 1];</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        for (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; n_turns + 1; ++i)</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;            acceleration_ratio[i] =</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                denergy[i] / (GP-&gt;charge * rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a439542a6e0c0d5bd0778acda2b75da13">voltage</a>[rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a5f8ecdb5c300db60e0bb4b74e2711338">idx</a>][i]);</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; n_turns + 1; ++i)</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;            <span class="keywordflow">if</span> (acceleration_ratio[i] &gt; 1 || acceleration_ratio[i] &lt; -1)</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;                <a class="code" href="../../de/df0/utilities_8h.html#a0fb7bf82c787085c8b1ef0ad7d028424">dprintf</a>(<span class="stringliteral">&quot;Warning!!! Acceleration is not possible (momentum &quot;</span></div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;                        <span class="stringliteral">&quot;increment &quot;</span></div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;                        <span class="stringliteral">&quot;is too big or voltage too low) at index %d\n&quot;</span>,</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;                        i);</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; n_turns + 1; ++i)</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;            out[i] = asin(acceleration_ratio[i]);</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        <span class="comment">// ftype *eta0_middle_points = new ftype[n_turns +1];</span></div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; n_turns; ++i) {</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;            <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> middle = (rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a7166ec3f2397ce1afc561e07a1754f52">eta_0</a>(i) + rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a7166ec3f2397ce1afc561e07a1754f52">eta_0</a>(i + 1)) / 2;</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;            <span class="keywordflow">if</span> (middle &gt; 0)</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;                out[i] = <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a> - out[i];</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;            <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;                out[i] = <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a> + out[i];</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        }</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        <span class="keywordflow">if</span> (rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a7166ec3f2397ce1afc561e07a1754f52">eta_0</a>(n_turns) &gt; 0)</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;            out[n_turns] = <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a> - out[n_turns];</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;            out[n_turns] = <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a> + out[n_turns];</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        <span class="keyword">delete</span>[] denergy;</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;        <span class="keyword">delete</span>[] acceleration_ratio;</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (acc_sys == RfParameters::accelerating_systems_t::all) {</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        <span class="comment">/*</span></div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;<span class="comment">         In this case, all the RF systems are accelerating, phi_s is</span></div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;<span class="comment">         calculated accordingly with respect to the fundamental frequency (the</span></div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;<span class="comment">         minimum</span></div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;<span class="comment">         of the potential well is taken)</span></div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;<span class="comment">         */</span></div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> transition_phase_offset(n_turns + 1);</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;        <span class="comment">// = new ftype[n_turns + 1];</span></div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; n_turns + 1; ++i) {</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;            out[i] = 0;</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;            <span class="keywordflow">if</span> (rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a7166ec3f2397ce1afc561e07a1754f52">eta_0</a>(i) &gt; 0)</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;                transition_phase_offset[i] = <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a>;</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;            <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;                transition_phase_offset[i] = 0;</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;        }</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> phase_array(1000);</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;        <a class="code" href="../../df/d6d/namespacemymath.html#a45cee6943f76e1f289057abfa0c9c1fc">mymath::linspace</a>(phase_array.data(), -<a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a> * 1.2,</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;                         <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a> * 1.2, 1000);</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; n_turns; ++i) {</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;            <a class="code" href="../../d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace">f_vector_t</a> totalRF(1000, 0); <span class="comment">// = { };</span></div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> j = 0; j &lt; n_rf; ++j) {</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;                <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> <a class="code" href="../../df/d6d/namespacemymath.html#a5bcc40b5ebadd9d98f351775df65ec9f">min</a> = rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a8221a6edc51203d7f1bf373e79c42373">harmonic</a>[0][i];</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;                <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> k = 0; k &lt; n_rf; ++k)</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;                    min = <a class="code" href="../../df/d6d/namespacemymath.html#a5bcc40b5ebadd9d98f351775df65ec9f">std::min</a>(min, rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a8221a6edc51203d7f1bf373e79c42373">harmonic</a>[k][i]);</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;                <span class="comment">// ftype min = rfp-&gt;harmonic[mymath::min(rfp-&gt;harmonic, n_rf,</span></div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;                <span class="comment">// n_turns +</span></div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;                <span class="comment">// 1)];</span></div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;                <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> k = 0; k &lt; 1000; ++k) {</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;                    totalRF[k] +=</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;                        rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a439542a6e0c0d5bd0778acda2b75da13">voltage</a>[j][i + 1] *</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;                        std::sin((rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a8221a6edc51203d7f1bf373e79c42373">harmonic</a>[j][i + 1] / min) *</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;                                 (phase_array[k] +</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;                                  transition_phase_offset[i + 1]) +</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;                                 rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a19f52eeaf1ec7c6ed064347b674a39ac">phi_offset</a>[j][i + 1]);</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;                }</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;            }</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;            <a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> transition_factor = transition_phase_offset[i] == 0 ? +1 : -1;</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;            <span class="comment">// dump(totalRF, 10, &quot;totalRF\n&quot;);</span></div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;            <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> potential_well[1000] = {0};</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;            <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *f = <span class="keyword">new</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a>[1000];</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> k = 0; k &lt; 1000; ++k) {</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;                f[k] = totalRF[k] - rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a66530c1f1510aa495c8277bf26a25eab">E_increment</a>[i] / GP-&gt;charge;</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;            }</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;            <span class="comment">// dump(f, 10, &quot;f\n&quot;);</span></div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;            <span class="comment">// dprintf(&quot;dx %.12lf\n&quot;, phase_array[1] - phase_array[0]);</span></div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;            <span class="keyword">auto</span> trap =</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;                <a class="code" href="../../df/d6d/namespacemymath.html#a37e69ec6da5a044211b293b350ed0df5">mymath::cum_trapezoid</a>(f, phase_array[1] - phase_array[0], 1000);</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> k = 0; k &lt; 1000; ++k) {</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;                potential_well[k] = transition_factor * trap[k];</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;            }</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;            <span class="comment">// dump(potential_well, 10, &quot;potential_well\n&quot;);</span></div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;            <span class="comment">// TODO why mean here? line BLonD-minimal::rf_parameter.py:334</span></div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;            out[i + 1] = phase_array[<a class="code" href="../../df/d6d/namespacemymath.html#a5bcc40b5ebadd9d98f351775df65ec9f">mymath::min</a>(potential_well, 1000, 1)] +</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;                         transition_phase_offset[i + 1];</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;        }</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;        <span class="comment">// delete[] transition_phase_offset;</span></div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;        out[0] = out[1];</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;        <span class="comment">// dump(out, 10, &quot;out\n&quot;);</span></div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;        <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (acc_sys == RfParameters::accelerating_systems_t::first) {</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;        <span class="comment">/*</span></div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;<span class="comment">         Only the first RF system is accelerating, so we have to correct the</span></div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;<span class="comment">         phi_offset of the other rf_systems such that p_increment relates</span></div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;<span class="comment">         only to the first RF</span></div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;<span class="comment">         */</span></div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;        ;</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;        <a class="code" href="../../de/df0/utilities_8h.html#a0fb7bf82c787085c8b1ef0ad7d028424">dprintf</a>(</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;            <span class="stringliteral">&quot;Did not recognize the option accelerating_systems in calc_phi_s &quot;</span></div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;            <span class="stringliteral">&quot;function\n&quot;</span>);</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;        exit(-1);</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    }</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    <span class="comment">// TODO, how can we get here?</span></div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    <span class="comment">// TODO why n_turns and not n_turns+1?</span></div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    <span class="keywordflow">if</span> (rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a7166ec3f2397ce1afc561e07a1754f52">eta_0</a>(0) &gt; 0) {</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; n_turns; ++i)</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;            out[i] = <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a>;</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; n_turns; ++i)</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;            out[i] = 0;</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    }</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;}</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">auto</span> <a class="code" href="../../da/d49/classRfParameters.html#a456c0338247afdf1e70bd6754f2bbbe3">n_turns</a> = rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a456c0338247afdf1e70bd6754f2bbbe3">n_turns</a>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">auto</span> <a class="code" href="../../da/d49/classRfParameters.html#ab8af605062619c7682c292fbc86fab17">n_rf</a> = rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#ab8af605062619c7682c292fbc86fab17">n_rf</a>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="comment">// std::cout &lt;&lt; &quot;n_turns: &quot; &lt;&lt; n_turns &lt;&lt; &quot;\n&quot;;</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> out(<a class="code" href="../../da/d49/classRfParameters.html#a456c0338247afdf1e70bd6754f2bbbe3">n_turns</a> + 1);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="comment">// double eta0 = rf_params-&gt;eta0;</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">if</span> (acc_sys == RfParameters::acc_sys_t::as_single) {</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> denergy = rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a66530c1f1510aa495c8277bf26a25eab">E_increment</a>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        denergy.push_back(rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a66530c1f1510aa495c8277bf26a25eab">E_increment</a>.back());</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> acceleration_ratio(<a class="code" href="../../da/d49/classRfParameters.html#a456c0338247afdf1e70bd6754f2bbbe3">n_turns</a> + 1);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="../../da/d49/classRfParameters.html#a456c0338247afdf1e70bd6754f2bbbe3">n_turns</a> + 1; ++i)</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            acceleration_ratio[i] =</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                denergy[i] / (rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a1cf90d67f014a75c7e850e758cbe2e89">charge</a> * rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a439542a6e0c0d5bd0778acda2b75da13">voltage</a>[rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a6d1bd625d9436f56067ad1ca07b7ef31">section_index</a>][i]);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n_turns + 1; ++i)</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            <span class="keywordflow">if</span> (acceleration_ratio[i] &gt; 1 || acceleration_ratio[i] &lt; -1)</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                <a class="code" href="../../de/df0/utilities_8h.html#a0fb7bf82c787085c8b1ef0ad7d028424">dprintf</a>(<span class="stringliteral">&quot;Warning!!! Acceleration is not possible (momentum &quot;</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                        <span class="stringliteral">&quot;increment &quot;</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                        <span class="stringliteral">&quot;is too big or voltage too low) at index %d\n&quot;</span>,</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                        i);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n_turns + 1; ++i)</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            out[i] = asin(acceleration_ratio[i]);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="comment">// double *eta0_middle_points = new double[n_turns +1];</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="../../da/d49/classRfParameters.html#a456c0338247afdf1e70bd6754f2bbbe3">n_turns</a>; ++i) {</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            <span class="keywordtype">double</span> middle = (rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#af5385ffb55da4c9d906f57f53275461f">eta_0</a>[i] + rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#af5385ffb55da4c9d906f57f53275461f">eta_0</a>[i + 1]) / 2;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            <span class="keywordflow">if</span> (middle &gt; 0)</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                out[i] = <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a> - out[i];</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                out[i] = <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a> + out[i];</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        }</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="keywordflow">if</span> (rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#af5385ffb55da4c9d906f57f53275461f">eta_0</a>[n_turns] &gt; 0)</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            out[<a class="code" href="../../da/d49/classRfParameters.html#a456c0338247afdf1e70bd6754f2bbbe3">n_turns</a>] = <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a> - out[<a class="code" href="../../da/d49/classRfParameters.html#a456c0338247afdf1e70bd6754f2bbbe3">n_turns</a>];</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            out[<a class="code" href="../../da/d49/classRfParameters.html#a456c0338247afdf1e70bd6754f2bbbe3">n_turns</a>] = <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a> + out[<a class="code" href="../../da/d49/classRfParameters.html#a456c0338247afdf1e70bd6754f2bbbe3">n_turns</a>];</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordflow">return</span> out;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (acc_sys == RfParameters::acc_sys_t::all) {</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="comment">/*</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment">         In this case, all the rf systems are accelerating, phi_s is</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="comment">         calculated accordingly with respect to the fundamental frequency (the</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment">         minimum</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="comment">         of the potential well is taken)</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="comment">         */</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> transition_phase_offset(<a class="code" href="../../da/d49/classRfParameters.html#a456c0338247afdf1e70bd6754f2bbbe3">n_turns</a> + 1);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="../../da/d49/classRfParameters.html#a456c0338247afdf1e70bd6754f2bbbe3">n_turns</a> + 1; ++i) {</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            out[i] = 0;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            <span class="keywordflow">if</span> (rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#af5385ffb55da4c9d906f57f53275461f">eta_0</a>[i] &gt; 0)</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                transition_phase_offset[i] = <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a>;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                transition_phase_offset[i] = 0;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        }</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> phase_array(1000);</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <a class="code" href="../../df/d6d/namespacemymath.html#af1c2c7c1207d41744f71b0ecb4ebf67a">mymath::linspace</a>(phase_array.data(), -<a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a> * 1.2,</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                         <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a> * 1.2, 1000);</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="../../da/d49/classRfParameters.html#a456c0338247afdf1e70bd6754f2bbbe3">n_turns</a>; ++i) {</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> totalrf(1000, 0); <span class="comment">// = { };</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; <a class="code" href="../../da/d49/classRfParameters.html#ab8af605062619c7682c292fbc86fab17">n_rf</a>; ++j) {</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                <span class="keywordtype">double</span> <a class="code" href="../../df/d6d/namespacemymath.html#a5bcc40b5ebadd9d98f351775df65ec9f">min</a> = rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a8221a6edc51203d7f1bf373e79c42373">harmonic</a>[0][i];</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                <span class="keywordflow">for</span> (<span class="keywordtype">int</span> k = 0; k &lt; <a class="code" href="../../da/d49/classRfParameters.html#ab8af605062619c7682c292fbc86fab17">n_rf</a>; ++k)</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                    min = <a class="code" href="../../df/d6d/namespacemymath.html#a5bcc40b5ebadd9d98f351775df65ec9f">std::min</a>(min, rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a8221a6edc51203d7f1bf373e79c42373">harmonic</a>[k][i]);</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                <span class="keywordflow">for</span> (<span class="keywordtype">int</span> k = 0; k &lt; 1000; ++k) {</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                    totalrf[k] +=</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                        rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a439542a6e0c0d5bd0778acda2b75da13">voltage</a>[j][i + 1] *</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                        std::sin((rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a8221a6edc51203d7f1bf373e79c42373">harmonic</a>[j][i + 1] / min) *</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                                 (phase_array[k] +</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                                  transition_phase_offset[i + 1]) +</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;                                 rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a19f52eeaf1ec7c6ed064347b674a39ac">phi_offset</a>[j][i + 1]);</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;                }</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;            }</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;            <span class="keywordtype">int</span> transition_factor = transition_phase_offset[i] == 0 ? +1 : -1;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;            <span class="keywordtype">double</span> potential_well[1000] = {0};</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;            <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> f(1000);</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> k = 0; k &lt; 1000; ++k) {</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;                f[k] = totalrf[k] - rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a66530c1f1510aa495c8277bf26a25eab">E_increment</a>[i] / rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a1cf90d67f014a75c7e850e758cbe2e89">charge</a>;</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;            }</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;            <span class="keyword">auto</span> trap = <a class="code" href="../../df/d6d/namespacemymath.html#a37e69ec6da5a044211b293b350ed0df5">mymath::cum_trapezoid</a>(f.data(),</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;                                              phase_array[1] - phase_array[0],</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                                              1000);</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> k = 0; k &lt; 1000; ++k) {</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;                potential_well[k] = transition_factor * trap[k];</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;            }</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;            <span class="comment">// TODO is this correct? line BLonD-minimal::rf_parameter.py:334</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;            out[i + 1] = phase_array[<a class="code" href="../../df/d6d/namespacemymath.html#a5bcc40b5ebadd9d98f351775df65ec9f">mymath::min</a>(potential_well, 1000, 1)] +</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                         transition_phase_offset[i + 1];</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        }</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        out[0] = out[1];</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        <span class="keywordflow">return</span> out;</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (acc_sys == RfParameters::acc_sys_t::first) {</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        <span class="comment">/*</span></div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="comment">         Only the first rf system is accelerating, so we have to correct the</span></div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="comment">         phi_offset of the other rf_systems such that p_increment relates</span></div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="comment">         only to the first rf</span></div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="comment">         */</span></div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        ;</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        std::cerr &lt;&lt; <span class="stringliteral">&quot;Did not recognize the option accelerating_systems in calc_phi_s &quot;</span></div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                  &lt;&lt; <span class="stringliteral">&quot;function\n&quot;</span>;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        exit(-1);</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    }</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <span class="comment">// TODO why n_turns and not n_turns+1?</span></div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="keywordflow">if</span> (rfp-&gt;<a class="code" href="../../da/d49/classRfParameters.html#af5385ffb55da4c9d906f57f53275461f">eta_0</a>[0] &gt; 0.)</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        out.resize(<a class="code" href="../../da/d49/classRfParameters.html#a456c0338247afdf1e70bd6754f2bbbe3">n_turns</a>, <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a>);</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        out.resize(<a class="code" href="../../da/d49/classRfParameters.html#a456c0338247afdf1e70bd6754f2bbbe3">n_turns</a>, 0.);</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    <span class="keywordflow">return</span> out;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_2b12189b1b38a5891fb7949d75362c72.html">src</a></li><li class="navelem"><a class="el" href="../../dir_077c0f12c71f89edc969f08d86165fa7.html">input_parameters</a></li><li class="navelem"><a class="el" href="../../dc/d61/RfParameters_8cpp.html">RfParameters.cpp</a></li>
-    <li class="footer">Generated on Tue Oct 11 2016 17:19:35 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Tue Oct 18 2016 10:44:45 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

@@ -1,8 +1,8 @@
 var searchData=
 [
   ['omega_5frev',['omega_rev',['../d1/dfc/classGeneralParameters.html#aa150b8045dd161e6bcb6a94e49cf7714',1,'GeneralParameters']]],
-  ['omega_5frf',['omega_RF',['../da/d49/classRfParameters.html#a7ee0ce84ec7437b3cec7f3cb901c0187',1,'RfParameters']]],
-  ['omega_5frf_5fd',['omega_RF_d',['../da/d49/classRfParameters.html#af34fe3bad4a01687a0f42549c0ad4dc2',1,'RfParameters']]],
+  ['omega_5frf',['omega_rf',['../da/d49/classRfParameters.html#a35d8f5f983fdfee8695f48e846a81416',1,'RfParameters::omega_rf()'],['../de/da1/classRingAndRfSection.html#a62766b5a3af68ac17279aac3403f6b18',1,'RingAndRfSection::omega_rf()']]],
+  ['omega_5frf_5fd',['omega_rf_d',['../da/d49/classRfParameters.html#a9cd15f833b621510346e470a0712b281',1,'RfParameters']]],
   ['omega_5fs0',['omega_s0',['../da/d49/classRfParameters.html#a46cdb432a905e5f864225130d02c4df8',1,'RfParameters']]],
   ['on_5ftime',['on_time',['../d9/d59/classPSB.html#aa819118a263ed668d8ac399e5370994f',1,'PSB']]],
   ['oneopio4',['ONEOPIO4',['../d1/d47/namespacevdt_1_1details.html#a7755f26941d64e22d3084adbcf8c16d4',1,'vdt::details']]],

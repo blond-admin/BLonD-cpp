@@ -110,14 +110,13 @@ $(document).ready(function(){initNavTree('d9/dee/InducedVoltage_8h.html','../../
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
-<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">InducedVoltage.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="../../d2/d2c/configuration_8h_source.html">blond/configuration.h</a>&gt;</code><br/>
+<code>#include &lt;<a class="el" href="../../d7/d74/Beams_8h_source.html">blond/beams/Beams.h</a>&gt;</code><br/>
 <code>#include &lt;<a class="el" href="../../d6/d70/Intensity_8h_source.html">blond/impedances/Intensity.h</a>&gt;</code><br/>
 <code>#include &lt;vector&gt;</code><br/>
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -125,7 +124,7 @@ $(document).ready(function(){initNavTree('d9/dee/InducedVoltage_8h.html','../../
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../de/d7b/InducedVoltage_8h__incl.svg" width="100%" height="562"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../de/d7b/InducedVoltage_8h__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 </div><div class="textblock"><div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -133,7 +132,7 @@ $(document).ready(function(){initNavTree('d9/dee/InducedVoltage_8h.html','../../
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../d8/dbf/InducedVoltage_8h__dep__incl.svg" width="539" height="195"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d8/dbf/InducedVoltage_8h__dep__incl.svg" width="523" height="272"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </div>
@@ -150,117 +149,38 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dd7/classTotalInducedVoltage.html">TotalInducedVoltage</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a70a0ce2277e05d657cc517d4686703ff"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="../../d9/dee/InducedVoltage_8h.html#a8d8fddc44c99ddb5a314e2c0222999da">freq_res_option_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dee/InducedVoltage_8h.html#a70a0ce2277e05d657cc517d4686703ff">freq_res_option_t</a></td></tr>
-<tr class="separator:a70a0ce2277e05d657cc517d4686703ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:a8d8fddc44c99ddb5a314e2c0222999da"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dee/InducedVoltage_8h.html#a8d8fddc44c99ddb5a314e2c0222999da">freq_res_option_t</a> { <a class="el" href="../../d9/dee/InducedVoltage_8h.html#a8d8fddc44c99ddb5a314e2c0222999daaf6d875b45cd75aba8005b20ee4d84ae1">round_option</a>, 
-<a class="el" href="../../d9/dee/InducedVoltage_8h.html#a8d8fddc44c99ddb5a314e2c0222999daae82826f16c31b55bff80da89343c5b1b">ceil_option</a>, 
-<a class="el" href="../../d9/dee/InducedVoltage_8h.html#a8d8fddc44c99ddb5a314e2c0222999daaf544af3fae8b7ae8697b065ef3bb5893">floor_option</a>
- }</td></tr>
-<tr class="separator:a8d8fddc44c99ddb5a314e2c0222999da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe43045369f0313fc3091ae664db5dc8"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dee/InducedVoltage_8h.html#afe43045369f0313fc3091ae664db5dc8">time_or_freq</a> { <a class="el" href="../../d9/dee/InducedVoltage_8h.html#afe43045369f0313fc3091ae664db5dc8a0f7e2e8ad56d1a98dc82770d07e693c4">time_domain</a>, 
-<a class="el" href="../../d9/dee/InducedVoltage_8h.html#afe43045369f0313fc3091ae664db5dc8a3794772ea53090a09415f16d9dc71903">freq_domain</a>
- }</td></tr>
-<tr class="separator:afe43045369f0313fc3091ae664db5dc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a3466d4b57e8c5a8ad6b18c33131351fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dee/InducedVoltage_8h.html#a3466d4b57e8c5a8ad6b18c33131351fc">linear_interp_kick</a> (const <a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *__restrict beam_dt, <a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *__restrict beam_dE, const <a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *__restrict voltage_array, const <a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *__restrict bin_centers, const int n_slices, const int n_macroparticles)</td></tr>
-<tr class="separator:a3466d4b57e8c5a8ad6b18c33131351fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6da1ba29a56d8d339eba7ec147ae5b72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dee/InducedVoltage_8h.html#a6da1ba29a56d8d339eba7ec147ae5b72">linear_interp_kick</a> (const double *__restrict beam_dt, double *__restrict beam_dE, const double *__restrict voltage_array, const double *__restrict bin_centers, const int n_slices, const int n_macroparticles)</td></tr>
+<tr class="separator:a6da1ba29a56d8d339eba7ec147ae5b72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Typedef Documentation</h2>
-<a class="anchor" id="a70a0ce2277e05d657cc517d4686703ff"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef enum <a class="el" href="../../d9/dee/InducedVoltage_8h.html#a8d8fddc44c99ddb5a314e2c0222999da">freq_res_option_t</a>  <a class="el" href="../../d9/dee/InducedVoltage_8h.html#a8d8fddc44c99ddb5a314e2c0222999da">freq_res_option_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Enumeration Type Documentation</h2>
-<a class="anchor" id="a8d8fddc44c99ddb5a314e2c0222999da"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="../../d9/dee/InducedVoltage_8h.html#a8d8fddc44c99ddb5a314e2c0222999da">freq_res_option_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><em><a class="anchor" id="a8d8fddc44c99ddb5a314e2c0222999daaf6d875b45cd75aba8005b20ee4d84ae1"></a>round_option</em>&nbsp;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a8d8fddc44c99ddb5a314e2c0222999daae82826f16c31b55bff80da89343c5b1b"></a>ceil_option</em>&nbsp;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a8d8fddc44c99ddb5a314e2c0222999daaf544af3fae8b7ae8697b065ef3bb5893"></a>floor_option</em>&nbsp;</td><td class="fielddoc">
-</td></tr>
-</table>
-
-<p>Definition at line <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00017">17</a> of file <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html">InducedVoltage.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;                               {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <a class="code" href="../../d9/dee/InducedVoltage_8h.html#a8d8fddc44c99ddb5a314e2c0222999daaf6d875b45cd75aba8005b20ee4d84ae1">round_option</a>,</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <a class="code" href="../../d9/dee/InducedVoltage_8h.html#a8d8fddc44c99ddb5a314e2c0222999daae82826f16c31b55bff80da89343c5b1b">ceil_option</a>,</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="../../d9/dee/InducedVoltage_8h.html#a8d8fddc44c99ddb5a314e2c0222999daaf544af3fae8b7ae8697b065ef3bb5893">floor_option</a></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;} <a class="code" href="../../d9/dee/InducedVoltage_8h.html#a8d8fddc44c99ddb5a314e2c0222999da">freq_res_option_t</a>;</div>
-</div><!-- fragment -->
-</div>
-</div>
-<a class="anchor" id="afe43045369f0313fc3091ae664db5dc8"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="../../d9/dee/InducedVoltage_8h.html#afe43045369f0313fc3091ae664db5dc8">time_or_freq</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><em><a class="anchor" id="afe43045369f0313fc3091ae664db5dc8a0f7e2e8ad56d1a98dc82770d07e693c4"></a>time_domain</em>&nbsp;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="afe43045369f0313fc3091ae664db5dc8a3794772ea53090a09415f16d9dc71903"></a>freq_domain</em>&nbsp;</td><td class="fielddoc">
-</td></tr>
-</table>
-
-<p>Definition at line <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00015">15</a> of file <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html">InducedVoltage.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{ <a class="code" href="../../d9/dee/InducedVoltage_8h.html#afe43045369f0313fc3091ae664db5dc8a0f7e2e8ad56d1a98dc82770d07e693c4">time_domain</a>, <a class="code" href="../../d9/dee/InducedVoltage_8h.html#afe43045369f0313fc3091ae664db5dc8a3794772ea53090a09415f16d9dc71903">freq_domain</a> };</div>
-</div><!-- fragment -->
-</div>
-</div>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a3466d4b57e8c5a8ad6b18c33131351fc"></a>
+<a class="anchor" id="a6da1ba29a56d8d339eba7ec147ae5b72"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void linear_interp_kick </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *__restrict&#160;</td>
+          <td class="paramtype">const double *__restrict&#160;</td>
           <td class="paramname"><em>beam_dt</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *__restrict&#160;</td>
+          <td class="paramtype">double *__restrict&#160;</td>
           <td class="paramname"><em>beam_dE</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *__restrict&#160;</td>
+          <td class="paramtype">const double *__restrict&#160;</td>
           <td class="paramname"><em>voltage_array</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> *__restrict&#160;</td>
+          <td class="paramtype">const double *__restrict&#160;</td>
           <td class="paramname"><em>bin_centers</em>, </td>
         </tr>
         <tr>
@@ -285,18 +205,18 @@ Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00010">10</a> of file <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html">InducedVoltage.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00072">InducedVoltageTime::track()</a>, <a class="el" href="../../d2/d6f/Tracker_8cpp_source.html#l00133">RingAndRfSection::track()</a>, <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00280">InducedVoltageFreq::track()</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00455">TotalInducedVoltage::track()</a>.</p>
+<p>Referenced by <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00072">InducedVoltageTime::track()</a>, <a class="el" href="../../d2/d6f/Tracker_8cpp_source.html#l00090">RingAndRfSection::track()</a>, <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00275">InducedVoltageFreq::track()</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00449">TotalInducedVoltage::track()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> binFirst = bin_centers[0];</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> binLast = bin_centers[n_slices - 1];</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> inv_bin_width = (n_slices - 1) / (binLast - binFirst);</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">double</span> binFirst = bin_centers[0];</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">double</span> binLast = bin_centers[n_slices - 1];</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">double</span> inv_bin_width = (n_slices - 1) / (binLast - binFirst);</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">    #pragma omp parallel for</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n_macroparticles; ++i) {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> a = beam_dt[i];</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">double</span> a = beam_dt[i];</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">int</span> ffbin = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>((a - binFirst) * inv_bin_width);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> voltageKick =</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">double</span> voltageKick =</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            ((a &lt; binFirst) || (a &gt; binLast))</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            ? 0.0</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            : voltage_array[ffbin] +</div>
@@ -312,7 +232,7 @@ Functions</h2></td></tr>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../d9/dee/InducedVoltage_8h_a3466d4b57e8c5a8ad6b18c33131351fc_icgraph.svg" width="350" height="248"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d9/dee/InducedVoltage_8h_a6da1ba29a56d8d339eba7ec147ae5b72_icgraph.svg" width="350" height="248"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </p>
@@ -325,7 +245,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_6b634e43e772001122993837e1d7e1c5.html">include</a></li><li class="navelem"><a class="el" href="../../dir_4a4b9f9a898a71f152a99978051a04a6.html">blond</a></li><li class="navelem"><a class="el" href="../../dir_f27bc4dde0dbac1a1aead375e843bd78.html">impedances</a></li><li class="navelem"><a class="el" href="../../d9/dee/InducedVoltage_8h.html">InducedVoltage.h</a></li>
-    <li class="footer">Generated on Tue Oct 11 2016 17:19:35 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Tue Oct 18 2016 10:44:45 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

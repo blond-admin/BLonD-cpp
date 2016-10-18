@@ -1,12 +1,12 @@
 var searchData=
 [
-  ['gain',['gain',['../d1/dbd/classLHC.html#a3e84e410b50074448f13263096749e34',1,'LHC::gain()'],['../d9/d59/classPSB.html#ac7604afb5e7f80b463be56d2879b5171',1,'PSB::gain()'],['../d1/df5/classLHC__F.html#adbc02a05a1780de164d2c6bce53f958d',1,'LHC_F::gain()'],['../dc/d32/classSPS__RL.html#aa24d59f76bc7cb807bef4d00ca10e8d4',1,'SPS_RL::gain()']]],
-  ['gain2',['gain2',['../d1/dbd/classLHC.html#a03509870d558765b3e0dd82656eae1f5',1,'LHC::gain2()'],['../d9/d59/classPSB.html#a82eeef5ae0ab7383a32f770856c1cabf',1,'PSB::gain2()'],['../d1/df5/classLHC__F.html#a60aa77c031426061704d0fdaaea03e7c',1,'LHC_F::gain2()'],['../dc/d32/classSPS__RL.html#ac49d718ef8adc16427736af9325be1ae',1,'SPS_RL::gain2()']]],
-  ['gamma',['gamma',['../d1/dfc/classGeneralParameters.html#a9f4d8b1a9de704f5477f27c2aeebbab1',1,'GeneralParameters::gamma()'],['../da/d49/classRfParameters.html#a505dc94c4723566796d1535d72b429ba',1,'RfParameters::gamma()']]],
+  ['gain',['gain',['../d1/dbd/classLHC.html#a3e84e410b50074448f13263096749e34',1,'LHC::gain()'],['../d9/d59/classPSB.html#ac7604afb5e7f80b463be56d2879b5171',1,'PSB::gain()'],['../d1/df5/classLHC__F.html#a95fc3e67c4c745af3588477249c0fac4',1,'LHC_F::gain()'],['../dc/d32/classSPS__RL.html#a0b8eaab3522328cf936be08bba7f6c35',1,'SPS_RL::gain()']]],
+  ['gain2',['gain2',['../d1/dbd/classLHC.html#a0977b131089d4e91d3528a134df64735',1,'LHC::gain2()'],['../d9/d59/classPSB.html#a82eeef5ae0ab7383a32f770856c1cabf',1,'PSB::gain2()'],['../d1/df5/classLHC__F.html#a72cce207c513836ba9ce29aac3a9a0e5',1,'LHC_F::gain2()'],['../dc/d32/classSPS__RL.html#a683c4d3a8888c254d129588ba7fcb2c0',1,'SPS_RL::gain2()']]],
+  ['gamma',['gamma',['../d9/d7c/classBeams.html#ac527b6bc685afe1ebdfc063cc9913df9',1,'Beams::gamma()'],['../d1/dfc/classGeneralParameters.html#a9f4d8b1a9de704f5477f27c2aeebbab1',1,'GeneralParameters::gamma()'],['../da/d49/classRfParameters.html#a8651e41fd169135da88536f374d5be60',1,'RfParameters::gamma()']]],
   ['gaussian',['gaussian',['../dc/d45/classSlices.html#a145b60aa2ecd01f1a4524e49bead73f7a09d77ed8033240de4746dcd9cbc1c98d',1,'Slices']]],
   ['gaussian_5ffilter1d',['gaussian_filter1d',['../dc/d45/classSlices.html#ab1443b2ebec9ed465a8301be8e1c747f',1,'Slices']]],
   ['gaussian_5ffit',['gaussian_fit',['../dc/d45/classSlices.html#a31398a7ae3bf058bf358e38e61eb50c9',1,'Slices']]],
-  ['generalparameters',['GeneralParameters',['../d1/dfc/classGeneralParameters.html',1,'GeneralParameters'],['../d1/dfc/classGeneralParameters.html#abf8083d5389e551dc0c50c4949ed53f0',1,'GeneralParameters::GeneralParameters()']]],
+  ['generalparameters',['GeneralParameters',['../d1/dfc/classGeneralParameters.html',1,'GeneralParameters'],['../d1/dfc/classGeneralParameters.html#a2d197e5ffe7a280f010a128ee81634b9',1,'GeneralParameters::GeneralParameters()']]],
   ['generalparameters_2ecpp',['GeneralParameters.cpp',['../da/d56/GeneralParameters_8cpp.html',1,'']]],
   ['generalparameters_2eh',['GeneralParameters.h',['../d5/d34/GeneralParameters_8h.html',1,'']]],
   ['generate',['generate',['../da/dd4/classPhaseNoise.html#a6d049cf7ec73c74279bf79a65a2102b6',1,'PhaseNoise::generate()'],['../d5/d73/classLHCFlatSpectrum.html#a2c1a3a410f3213af74e4839aaa560e80',1,'LHCFlatSpectrum::generate()'],['../db/d7b/classPSBPhaseNoiseInjection.html#a0afaaacc5c71047473edfcf7613f6f6f',1,'PSBPhaseNoiseInjection::generate()']]],
@@ -22,5 +22,5 @@ var searchData=
   ['globals_2ecpp',['globals.cpp',['../da/d77/globals_8cpp.html',1,'']]],
   ['globals_2eh',['globals.h',['../d5/d87/globals_8h.html',1,'']]],
   ['gp',['GP',['../d6/d7a/structContext.html#a0a2469a256c098797644d0ec49a8e430',1,'Context']]],
-  ['gradient',['gradient',['../dc/d45/classSlices.html#ac11f46cb378680434a059361c5c5f0fe',1,'Slices']]]
+  ['gradient',['gradient',['../dc/d45/classSlices.html#abe64ffb4100f12aad3f2e97520a5ce4e',1,'Slices']]]
 ];

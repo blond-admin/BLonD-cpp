@@ -1,11 +1,11 @@
 var searchData=
 [
-  ['fast_5fcos',['fast_cos',['../df/d6d/namespacemymath.html#a7e61fb3b4b1b043286fb14b823e8a401',1,'mymath']]],
-  ['fast_5fexp',['fast_exp',['../d5/d7b/namespacevdt.html#a5a8d5eaec2a0588b2b67e06aa187bd71',1,'vdt::fast_exp()'],['../df/d6d/namespacemymath.html#a41a35baf58aec2d06361d94ef9b70cc6',1,'mymath::fast_exp()']]],
+  ['fast_5fcos',['fast_cos',['../df/d6d/namespacemymath.html#a56db34e8382851729defc7a3eb906220',1,'mymath']]],
+  ['fast_5fexp',['fast_exp',['../d5/d7b/namespacevdt.html#a5a8d5eaec2a0588b2b67e06aa187bd71',1,'vdt::fast_exp()'],['../df/d6d/namespacemymath.html#a26804041cdba7feaf8427bdec22ba173',1,'mymath::fast_exp()']]],
   ['fast_5fexpf',['fast_expf',['../d5/d7b/namespacevdt.html#a780ce9076bbef3b8a091f585dcd48a0e',1,'vdt']]],
   ['fast_5fexpfv',['fast_expfv',['../d5/d7b/namespacevdt.html#a27956e41d121b687ab254acec05c2fd7',1,'vdt']]],
   ['fast_5fexpv',['fast_expv',['../d5/d7b/namespacevdt.html#a1ff20b6e0febd21955a9f0a793e260b8',1,'vdt']]],
-  ['fast_5fsin',['fast_sin',['../df/d6d/namespacemymath.html#ad1aa822800d7c0b68cec8efe86a34602',1,'mymath::fast_sin()'],['../d5/d7b/namespacevdt.html#a0013dcb44ade5e87e083c6a0daddcfd9',1,'vdt::fast_sin()']]],
+  ['fast_5fsin',['fast_sin',['../df/d6d/namespacemymath.html#a38897799c9327d162f914bbb097fb8e3',1,'mymath::fast_sin()'],['../d5/d7b/namespacevdt.html#a0013dcb44ade5e87e083c6a0daddcfd9',1,'vdt::fast_sin()']]],
   ['fast_5fsincos',['fast_sincos',['../d5/d7b/namespacevdt.html#a1993fb5f0f92028ffbf6e853790a0161',1,'vdt']]],
   ['fast_5fsincos_5fm45_5f45',['fast_sincos_m45_45',['../d1/d47/namespacevdt_1_1details.html#aefa743c10ceb855329b7005d9f353a5d',1,'vdt::details']]],
   ['fast_5fsincosf',['fast_sincosf',['../d5/d7b/namespacevdt.html#a1f5fb6e7ea0d2a74f70eb7861cd46f67',1,'vdt']]],
@@ -23,8 +23,8 @@ var searchData=
   ['fpfloor',['fpfloor',['../d1/d47/namespacevdt_1_1details.html#aa6b6cf3665a8a7088fe3225a877a899a',1,'vdt::details::fpfloor(const double x)'],['../d1/d47/namespacevdt_1_1details.html#a8532012a2a07ccbf46b691ff8baeef95',1,'vdt::details::fpfloor(const float x)']]],
   ['fullringandrf',['FullRingAndRf',['../d6/d13/classFullRingAndRf.html#a76598d4ff0844df1493234a658660533',1,'FullRingAndRf']]],
   ['functionwriter',['FunctionWriter',['../df/dae/structoption_1_1PrintUsageImplementation_1_1FunctionWriter.html#adc6c3f7ba11b3cad65c018955bab47e5',1,'option::PrintUsageImplementation::FunctionWriter']]],
-  ['fwhm',['fwhm',['../dc/d45/classSlices.html#a903c240e86c17b66bd755905b151bb5a',1,'Slices']]],
-  ['fwhm_5finterpolation',['fwhm_interpolation',['../d8/d2b/classLHCNoiseFB.html#ae80df891fa97e43ec93229a6adbe9fb7',1,'LHCNoiseFB']]],
+  ['fwhm',['fwhm',['../dc/d45/classSlices.html#a4d24095d5416bcd2c43cbe421f6fb18f',1,'Slices']]],
+  ['fwhm_5finterpolation',['fwhm_interpolation',['../d8/d2b/classLHCNoiseFB.html#ab08738c2c4ca453ae8514067c5333ab9',1,'LHCNoiseFB']]],
   ['fwhm_5fmulti_5fbunch',['fwhm_multi_bunch',['../d8/d2b/classLHCNoiseFB.html#a1f4261d97326d23f1f980cd2adc3d2be',1,'LHCNoiseFB']]],
   ['fwhm_5fmultibunch',['fwhm_multibunch',['../dc/d45/classSlices.html#a5399cd83d3aab78955ade64d6068cf9b',1,'Slices']]],
   ['fwhm_5fsingle_5fbunch',['fwhm_single_bunch',['../d8/d2b/classLHCNoiseFB.html#a06601d6fb2617658517590f0c5ca9ff8',1,'LHCNoiseFB']]]

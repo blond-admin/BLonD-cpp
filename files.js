@@ -6,11 +6,14 @@ var files =
     ] ],
     [ "configuration.h", "d2/d2c/configuration_8h.html", "d2/d2c/configuration_8h" ],
     [ "constants.h", "d2/d6f/constants_8h.html", "d2/d6f/constants_8h" ],
+    [ "Distributions.cpp", "db/de1/Distributions_8cpp.html", "db/de1/Distributions_8cpp" ],
     [ "Distributions.h", "dc/d7d/Distributions_8h.html", "dc/d7d/Distributions_8h" ],
     [ "exp.h", "d8/dcd/exp_8h.html", "d8/dcd/exp_8h" ],
     [ "fft.h", "d7/d76/fft_8h.html", "d7/d76/fft_8h" ],
     [ "GeneralParameters.cpp", "da/d56/GeneralParameters_8cpp.html", null ],
-    [ "GeneralParameters.h", "d5/d34/GeneralParameters_8h.html", "d5/d34/GeneralParameters_8h" ],
+    [ "GeneralParameters.h", "d5/d34/GeneralParameters_8h.html", [
+      [ "GeneralParameters", "d1/dfc/classGeneralParameters.html", "d1/dfc/classGeneralParameters" ]
+    ] ],
     [ "globals.cpp", "da/d77/globals_8cpp.html", null ],
     [ "globals.h", "d5/d87/globals_8h.html", [
       [ "Context", "d6/d7a/structContext.html", "d6/d7a/structContext" ]
@@ -56,15 +59,22 @@ var files =
     [ "plot_parameters.h", "d8/d1b/plot__parameters_8h.html", "d8/d1b/plot__parameters_8h" ],
     [ "plot_slices.cpp", "d4/dfd/plot__slices_8cpp.html", "d4/dfd/plot__slices_8cpp" ],
     [ "plot_slices.h", "d2/d51/plot__slices_8h.html", "d2/d51/plot__slices_8h" ],
+    [ "preprocess.cpp", "d3/d12/preprocess_8cpp.html", "d3/d12/preprocess_8cpp" ],
+    [ "preprocess.h", "d4/db8/preprocess_8h.html", "d4/db8/preprocess_8h" ],
     [ "python.h", "d1/da8/python_8h.html", "d1/da8/python_8h" ],
-    [ "RfParameters.cpp", "dc/d61/RfParameters_8cpp.html", "dc/d61/RfParameters_8cpp" ],
-    [ "RfParameters.h", "d6/db7/RfParameters_8h.html", "d6/db7/RfParameters_8h" ],
+    [ "RfParameters.cpp", "dc/d61/RfParameters_8cpp.html", null ],
+    [ "RfParameters.h", "d6/db7/RfParameters_8h.html", [
+      [ "RfParameters", "da/d49/classRfParameters.html", "da/d49/classRfParameters" ]
+    ] ],
     [ "sin.h", "d1/d3d/sin_8h.html", "d1/d3d/sin_8h" ],
     [ "sincos.h", "dc/dfa/sincos_8h.html", "dc/dfa/sincos_8h" ],
     [ "Slices.cpp", "d7/d91/Slices_8cpp.html", null ],
     [ "Slices.h", "dc/df2/Slices_8h.html", "dc/df2/Slices_8h" ],
     [ "Tracker.cpp", "d2/d6f/Tracker_8cpp.html", null ],
-    [ "Tracker.h", "d2/d0e/Tracker_8h.html", "d2/d0e/Tracker_8h" ],
+    [ "Tracker.h", "d2/d0e/Tracker_8h.html", [
+      [ "FullRingAndRf", "d6/d13/classFullRingAndRf.html", "d6/d13/classFullRingAndRf" ],
+      [ "RingAndRfSection", "de/da1/classRingAndRfSection.html", "de/da1/classRingAndRfSection" ]
+    ] ],
     [ "utilities.cpp", "de/da5/utilities_8cpp.html", "de/da5/utilities_8cpp" ],
     [ "trackers/utilities.h", "de/d44/trackers_2utilities_8h.html", "de/d44/trackers_2utilities_8h" ],
     [ "utilities.h", "de/df0/utilities_8h.html", "de/df0/utilities_8h" ],

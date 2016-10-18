@@ -2,11 +2,11 @@ var configuration_8h =
 [
     [ "PRINT_RESULTS", "d2/d2c/configuration_8h.html#ad733c449d4055fd00765183476566700", null ],
     [ "TIMING", "d2/d2c/configuration_8h.html#a51b7a9c320bb9b58fc5632da0a44ab84", null ],
-    [ "complex_t", "d2/d2c/configuration_8h.html#a25493212503aadaaf268ef40744bb67f", null ],
+    [ "complex_t", "d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2", null ],
     [ "complex_vector_2d_t", "d2/d2c/configuration_8h.html#ae86482565aaac8d87f5e77634b36bb55", null ],
     [ "complex_vector_t", "d2/d2c/configuration_8h.html#a875b9fae4b39f3f3a363bd3732836b71", null ],
     [ "f_vector_2d_t", "d2/d2c/configuration_8h.html#a578604c41b2b32700ab03fc63ec857eb", null ],
-    [ "f_vector_t", "d2/d2c/configuration_8h.html#a8e81aff0c6ed859165a99e7685a6dace", null ],
+    [ "f_vector_t", "d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723", null ],
     [ "ftype", "d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b", null ],
     [ "int_vector_2d_t", "d2/d2c/configuration_8h.html#af07c3acdbc65dfe2f0cfcbb61fba2bb1", null ],
     [ "int_vector_t", "d2/d2c/configuration_8h.html#a793c26b686f40c50a951d01b70b08950", null ],

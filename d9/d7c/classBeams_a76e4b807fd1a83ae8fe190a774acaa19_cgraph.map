@@ -1,20 +1,15 @@
 <map id="Beams::losses_separatrix" name="Beams::losses_separatrix">
-<area shape="rect" id="node3" href="$de/da5/utilities_8cpp.html#ad87a0030d0468114d36ebfacc62acbe0" title="is_in_separatrix" alt="" coords="228,189,340,219"/>
-<area shape="rect" id="node5" href="$de/da5/utilities_8cpp.html#a065b0a231ff4a7264b3bf2672c4f50e6" title="hamiltonian" alt="" coords="389,189,477,219"/>
-<area shape="rect" id="node7" href="$da/d49/classRfParameters.html#a18cc55dde4c1cfc84c2604b1eda15a01" title="RfParameters::beta" alt="" coords="549,5,685,35"/>
-<area shape="rect" id="node9" href="$da/d49/classRfParameters.html#a755e2835ebc2eab23c273ceeb662cea0" title="RfParameters::energy" alt="" coords="543,59,692,88"/>
-<area shape="rect" id="node11" href="$da/d49/classRfParameters.html#a7166ec3f2397ce1afc561e07a1754f52" title="RfParameters::eta_0" alt="" coords="759,109,900,139"/>
-<area shape="rect" id="node13" href="$da/d49/classRfParameters.html#aa006029417d26dd656276464d55d6c21" title="RfParameters::eta_tracking" alt="" coords="527,163,708,192"/>
-<area shape="rect" id="node20" href="$df/d6d/namespacemymath.html#a7e61fb3b4b1b043286fb14b823e8a401" title="mymath::fast_cos" alt="" coords="555,216,680,245"/>
-<area shape="rect" id="node34" href="$df/d6d/namespacemymath.html#ad1aa822800d7c0b68cec8efe86a34602" title="mymath::fast_sin" alt="" coords="556,269,679,299"/>
-<area shape="rect" id="node37" href="$de/d44/trackers_2utilities_8h.html#a59ef9370e7083327654606faa67366c1" title="phase_modulo_above\l_transition" alt="" coords="544,322,691,369"/>
-<area shape="rect" id="node39" href="$de/d44/trackers_2utilities_8h.html#a7c9aa144919f9eaf5175d7432f40ee5b" title="phase_modulo_below\l_transition" alt="" coords="544,391,691,438"/>
-<area shape="rect" id="node16" href="$da/d49/classRfParameters.html#a03d3c7b94c697880f9c69d91bfa57ca1" title="RfParameters::eta_1" alt="" coords="759,163,900,192"/>
-<area shape="rect" id="node18" href="$da/d49/classRfParameters.html#aa242ab141b80403e51ec73b1152e6d96" title="RfParameters::eta_2" alt="" coords="759,216,900,245"/>
-<area shape="rect" id="node22" href="$d5/d7b/namespacevdt.html#a0013dcb44ade5e87e083c6a0daddcfd9" title="Double precision sine: just call sincos." alt="" coords="783,269,876,299"/>
-<area shape="rect" id="node24" href="$d5/d7b/namespacevdt.html#a1993fb5f0f92028ffbf6e853790a0161" title="Double precision sincos." alt="" coords="949,269,1064,299"/>
-<area shape="rect" id="node26" href="$d1/d47/namespacevdt_1_1details.html#a50fa4cb8145d71e1867a3d899452fbba" title="Reduce to 0 to 45." alt="" coords="1113,239,1303,268"/>
-<area shape="rect" id="node28" href="$d1/d47/namespacevdt_1_1details.html#aefa743c10ceb855329b7005d9f353a5d" title="Sincos only for &#45;45deg &lt; x &lt; 45deg." alt="" coords="1148,291,1268,338"/>
-<area shape="rect" id="node30" href="$d1/d47/namespacevdt_1_1details.html#a72ab4125be9fdc73004f1fcec303dea6" title="vdt::details::get_sin_px" alt="" coords="1355,273,1512,303"/>
-<area shape="rect" id="node32" href="$d1/d47/namespacevdt_1_1details.html#a2d78ddff70416636dcab4eabcab25c8f" title="vdt::details::get_cos_px" alt="" coords="1353,327,1513,356"/>
+<area shape="rect" id="node3" href="$de/da5/utilities_8cpp.html#ad87a0030d0468114d36ebfacc62acbe0" title="is_in_separatrix" alt="" coords="228,112,340,141"/>
+<area shape="rect" id="node5" href="$de/da5/utilities_8cpp.html#a22b3cea36e661181f590b17471e42f38" title="hamiltonian" alt="" coords="389,112,477,141"/>
+<area shape="rect" id="node7" href="$da/d49/classRfParameters.html#a4b2692022b8cb71a3475e964fcc0c474" title="RfParameters::eta_tracking" alt="" coords="527,5,708,35"/>
+<area shape="rect" id="node9" href="$df/d6d/namespacemymath.html#a56db34e8382851729defc7a3eb906220" title="mymath::fast_cos" alt="" coords="555,59,680,88"/>
+<area shape="rect" id="node23" href="$df/d6d/namespacemymath.html#a38897799c9327d162f914bbb097fb8e3" title="mymath::fast_sin" alt="" coords="556,112,679,141"/>
+<area shape="rect" id="node26" href="$de/d44/trackers_2utilities_8h.html#a138356080609cce92babac6fb4e12657" title="phase_modulo_above\l_transition" alt="" coords="544,165,691,211"/>
+<area shape="rect" id="node28" href="$de/d44/trackers_2utilities_8h.html#a9e21d0f7015cfb95d271ecb0d0531f13" title="phase_modulo_below\l_transition" alt="" coords="544,234,691,281"/>
+<area shape="rect" id="node11" href="$d5/d7b/namespacevdt.html#a0013dcb44ade5e87e083c6a0daddcfd9" title="Double precision sine: just call sincos." alt="" coords="759,85,852,115"/>
+<area shape="rect" id="node13" href="$d5/d7b/namespacevdt.html#a1993fb5f0f92028ffbf6e853790a0161" title="Double precision sincos." alt="" coords="901,85,1016,115"/>
+<area shape="rect" id="node15" href="$d1/d47/namespacevdt_1_1details.html#a50fa4cb8145d71e1867a3d899452fbba" title="Reduce to 0 to 45." alt="" coords="1065,55,1255,84"/>
+<area shape="rect" id="node17" href="$d1/d47/namespacevdt_1_1details.html#aefa743c10ceb855329b7005d9f353a5d" title="Sincos only for &#45;45deg &lt; x &lt; 45deg." alt="" coords="1100,107,1220,154"/>
+<area shape="rect" id="node19" href="$d1/d47/namespacevdt_1_1details.html#a72ab4125be9fdc73004f1fcec303dea6" title="vdt::details::get_sin_px" alt="" coords="1307,89,1464,119"/>
+<area shape="rect" id="node21" href="$d1/d47/namespacevdt_1_1details.html#a2d78ddff70416636dcab4eabcab25c8f" title="vdt::details::get_cos_px" alt="" coords="1305,143,1465,172"/>
 </map>

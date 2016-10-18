@@ -33,8 +33,6 @@ var NAVTREE =
         [ "Functions", "globals_func.html", null ],
         [ "Variables", "globals_vars.html", null ],
         [ "Typedefs", "globals_type.html", null ],
-        [ "Enumerations", "globals_enum.html", null ],
-        [ "Enumerator", "globals_eval.html", null ],
         [ "Macros", "globals_defs.html", null ]
       ] ]
     ] ]
@@ -44,10 +42,10 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d3/df3/classoption_1_1Option.html",
-"d8/d2b/classLHCNoiseFB.html#a229544c3640d963e8b7a93486c6077fb",
-"dc/d0f/Beams_8cpp.html",
-"de/df0/utilities_8h.html#ae6df7db5eaa417c9b0a25c9822f64b18"
+"d3/dda/plot__llrf_8h.html#a323326634be1c515da00ebd14f8ed8b3",
+"d7/d76/fft_8h.html#af7197252dd2a265bd53282a343582d02",
+"db/d7b/classPSBPhaseNoiseInjection.html#a4b0e66ef1359fece1906335f019aba10",
+"de/da1/classRingAndRfSection.html#ae5d72047a7422aabe43d335b1a302e50"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

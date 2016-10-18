@@ -1,12 +1,12 @@
 var searchData=
 [
-  ['calc_5fphi_5fs',['calc_phi_s',['../dc/d61/RfParameters_8cpp.html#af77eb76b07eb5bd88beb9af81a365ae4',1,'calc_phi_s(ftype *out, RfParameters *rfp, RfParameters::accelerating_systems_t acc_sys):&#160;RfParameters.cpp'],['../d6/db7/RfParameters_8h.html#a9b0a0b6ba8dfcfaaf01c436e35731750',1,'calc_phi_s(ftype *out, RfParameters *rfp, const RfParameters::accelerating_systems_t acc_sys=RfParameters::accelerating_systems_t::as_single):&#160;RfParameters.cpp']]],
+  ['calc_5fphi_5fs',['calc_phi_s',['../da/d49/classRfParameters.html#a89b4a71d7f56a66f1a35586adc06b760',1,'RfParameters']]],
   ['close',['close',['../de/d59/classSlicesMonitor.html#ad228876b9de204e6551bec2eef540c38',1,'SlicesMonitor::close()'],['../d2/d00/classBunchMonitor.html#a7f4c9f9dcd83fc0ad60775c031138e76',1,'BunchMonitor::close()']]],
   ['column',['column',['../de/dc9/classoption_1_1PrintUsageImplementation_1_1LinePartIterator.html#afa41382acabcd37ca70f7e8b9994b8c0',1,'option::PrintUsageImplementation::LinePartIterator']]],
-  ['complex_5fto_5freal',['complex_to_real',['../d8/de0/namespacefft.html#a9564dccf78dd581dff25efe2a03cd3d8',1,'fft']]],
+  ['complex_5fto_5freal',['complex_to_real',['../d8/de0/namespacefft.html#a3af1a25f3041bf2882e2b8859b08a861',1,'fft']]],
   ['convert_5fbool',['convert_bool',['../de/d4a/namespacepython.html#abf56eb1110be99d1157083e1536f3e5c',1,'python']]],
   ['convert_5fcomplex_5farray',['convert_complex_array',['../de/d4a/namespacepython.html#ac861e0dca45fa6613832b68878c13528',1,'python']]],
-  ['convert_5fcoordinates',['convert_coordinates',['../dc/d45/classSlices.html#add9ca31477380ea55e59027058eafb0e',1,'Slices']]],
+  ['convert_5fcoordinates',['convert_coordinates',['../dc/d45/classSlices.html#a93ce78a7a1413d0f2ca752dccf1dc0ea',1,'Slices']]],
   ['convert_5fdictionary',['convert_dictionary',['../de/d4a/namespacepython.html#a3ed6443d960779c5c83ac6f6a2ff95ee',1,'python']]],
   ['convert_5fdouble',['convert_double',['../de/d4a/namespacepython.html#a740e30ed26764f275117126a9547767c',1,'python']]],
   ['convert_5fdouble_5f2d_5farray',['convert_double_2d_array',['../de/d4a/namespacepython.html#aded750ac9f79158f844ee939da42f420',1,'python']]],
@@ -15,10 +15,10 @@ var searchData=
   ['convert_5fint_5farray',['convert_int_array',['../de/d4a/namespacepython.html#aba320bc348e153e5057cb5a4add54102',1,'python']]],
   ['convert_5fstring',['convert_string',['../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412',1,'python']]],
   ['convert_5fstring_5farray',['convert_string_array',['../de/d4a/namespacepython.html#aae3649b0cfb7cc13494115b355f2f15c',1,'python']]],
-  ['convolution',['convolution',['../df/d6d/namespacemymath.html#a34ffdf8691d17b0ceab32ea0ca68337d',1,'mymath']]],
+  ['convolution',['convolution',['../df/d6d/namespacemymath.html#a4879b7ef2a6df98ef0e863a110b2b1e2',1,'mymath']]],
   ['convolution_5fwith_5fffts',['convolution_with_ffts',['../d8/de0/namespacefft.html#acfc0c7a2bf86a2515926f3b0284732c8',1,'fft']]],
   ['count',['count',['../d3/df3/classoption_1_1Option.html#a8a632dcd89af60fe0806deb756c08f14',1,'option::Option']]],
   ['countoptionsaction',['CountOptionsAction',['../d8/de3/structoption_1_1Stats.html#a28ccea28ff81bf255bb43a2359a14d3e',1,'option::Stats']]],
   ['create_5fdata',['create_data',['../de/d59/classSlicesMonitor.html#a12bfa9050852e32241cf6ebd0573a9c5',1,'SlicesMonitor']]],
-  ['cum_5ftrapezoid',['cum_trapezoid',['../df/d6d/namespacemymath.html#a37e69ec6da5a044211b293b350ed0df5',1,'mymath::cum_trapezoid(const T *f, const T deltaX, const int nsub)'],['../df/d6d/namespacemymath.html#a035c965a877c6f3352f5702fe6ebcc3e',1,'mymath::cum_trapezoid(const T *f, const T deltaX, const T initial, const int nsub)']]]
+  ['cum_5ftrapezoid',['cum_trapezoid',['../df/d6d/namespacemymath.html#a37e69ec6da5a044211b293b350ed0df5',1,'mymath::cum_trapezoid(const T *f, const T deltaX, const int nsub)'],['../df/d6d/namespacemymath.html#a035c965a877c6f3352f5702fe6ebcc3e',1,'mymath::cum_trapezoid(const T *f, const T deltaX, const T initial, const int nsub)'],['../df/d6d/namespacemymath.html#af6c85cb0b110d32323444a740a487d8f',1,'mymath::cum_trapezoid(const std::vector&lt; T &gt; &amp;f, const T deltaX)'],['../df/d6d/namespacemymath.html#ab8b8b5ade7865cbd76b9acd19b80f6f6',1,'mymath::cum_trapezoid(const std::vector&lt; T &gt; &amp;f, const T deltaX, const T initial)']]]
 ];

@@ -329,7 +329,7 @@ Public Attributes</h2></td></tr>
 <div class="fragment"><div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;{</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keyword">auto</span> dataset = <a class="code" href="../../de/d59/classSlicesMonitor.html#ae833e09d0c80c799114c80caf2c17ed6">fGroup</a>-&gt;openDataSet(<span class="stringliteral">&quot;n_macroparticles&quot;</span>);</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    hsize_t offset[2], count[2], stride[2], block[2];</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> size = <a class="code" href="../../de/d59/classSlicesMonitor.html#aa9e638f8de13c51033b28bce37c826f5">fSlices</a>-&gt;<a class="code" href="../../dc/d45/classSlices.html#a463a0439b51fc502a49415aca6982755">n_macroparticles</a>.size();</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> size = <a class="code" href="../../de/d59/classSlicesMonitor.html#aa9e638f8de13c51033b28bce37c826f5">fSlices</a>-&gt;<a class="code" href="../../dc/d45/classSlices.html#a6da6cf87cacb679fc1c9100a21cd3add">n_macroparticles</a>.size();</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    count[0] = size;</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    count[1] = 1;</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    offset[0] = 0;</div>
@@ -342,7 +342,7 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keyword">auto</span> temp = <span class="keyword">new</span> <span class="keywordtype">int</span>[size][1];</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; size; i++)</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        temp[i][0] = <a class="code" href="../../de/d59/classSlicesMonitor.html#aa9e638f8de13c51033b28bce37c826f5">fSlices</a>-&gt;<a class="code" href="../../dc/d45/classSlices.html#a463a0439b51fc502a49415aca6982755">n_macroparticles</a>[i];</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        temp[i][0] = <a class="code" href="../../de/d59/classSlicesMonitor.html#aa9e638f8de13c51033b28bce37c826f5">fSlices</a>-&gt;<a class="code" href="../../dc/d45/classSlices.html#a6da6cf87cacb679fc1c9100a21cd3add">n_macroparticles</a>[i];</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    dataset.write(temp, PredType::NATIVE_INT, memspace, dataspace);</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keyword">delete</span>[] temp;</div>
@@ -456,7 +456,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../de/d59/classSlicesMonitor.html">SlicesMonitor</a></li>
-    <li class="footer">Generated on Tue Oct 11 2016 17:19:36 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Tue Oct 18 2016 10:44:45 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

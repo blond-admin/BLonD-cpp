@@ -5,6 +5,7 @@
  *      Author: kiliakis
  */
 #include <blond/beams/Distributions.h>
+#include <random>
 #include <string>
 #include <blond/python.h>
 #include <iostream>

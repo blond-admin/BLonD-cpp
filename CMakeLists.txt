@@ -1,7 +1,7 @@
 # usage: cmake -DCMAKE_BUILD_TYPE=Debug/Release ..
 
 # Requirements list
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 2.8.4)
 project(BLonD-minimal-cpp CXX)
 include(CheckCXXCompilerFlag)
 include(ExternalProject)
@@ -73,22 +73,31 @@ if (NOT COMPILER_HAS_CXX11)
     message(FATAL_ERROR "ERROR: Compiler is lacking support for c++11")
 endif ()
 
+
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
-    -fPIC \
-    -std=c++11 \
+    -std=gnu++11 \
     -Wall \
     -pedantic \
     -Wno-unused-variable")
 
+if(CYGWIN)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mcodel=large")
+else ()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+endif ()
+
+
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} \
-    -O0 \
-    -g \
+    -Og \
+    -g3 \
     -fno-omit-frame-pointer") #-fsanitize=address")
 
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} \
     -ffast-math \
-    -march=native \
-    -fopt-info-vec=report.txt")
+    -march=native")
+     # \
+    # -fopt-info-vec=report.txt")
 
 #CLANG and GCC specific
 if (CMAKE_CXX_COMPILER_ID MATCHES GNU)
@@ -198,15 +207,17 @@ link_directories(
 
 
 # main library
+list(APPEND PYTHON_LIB python2.7)
+list(APPEND HDF5_LIB hdf5 hdf5_cpp hdf5_hl hdf5_hl_cpp)
+list(APPEND REST_LIBS util dl)
 
 list(APPEND LIBRARIES
         ${FFTW_LIB}
-        python2.7
-        util
-        dl
-        hdf5_cpp
-        hdf5_hl
+        ${PYTHON_LIB}
+        ${HDF5_LIB}
+        ${REST_LIBS}
         )
+
 
 file(GLOB_RECURSE SOURCES
         "src/*"

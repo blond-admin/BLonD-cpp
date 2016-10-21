@@ -9,6 +9,7 @@ verlt() {
 }
 
 LIB="/lib"
+BIN="/bin"
 INCLUDE="/usr/include"
 BLOND_HOME="$(pwd)"
 EXTERNAL="${BLOND_HOME}/external"
@@ -22,14 +23,20 @@ echo > ${log}
 
 
 echo -e "---- BLonD++ on Windows auto-configuration script\n"
-
 echo -e "---- Start of Part1: Cygwin packages installation\n\n"
 
+echo -e "---- Installing apt-cyg package manager for Cygwin\n"
+wget rawgit.com/transcode-open/apt-cyg/master/apt-cyg -O${EXTERNAL}/tmp/apt-cyg
+install ${EXTERNAL}/tmp/apt-cyg ${BIN}
+echo -e "---- apt-cyg has been installed successfully\n\n"
+
+echo -e "---- Installing all the necessary packages\n"
+
+echo -e "---- This is going to take some time (15'-30') and some space (3-4GB)\n"
+apt-cyg install $(cat ${EXTERNAL}/cygwin-packages.txt)
+echo -e "---- Cygwin's packages has been installed successfully\n\n"
 
 echo -e "---- End of Part1: Cygwin packages installation\n\n"
-
-
-
 
 echo -e "---- Start of Part2: External depedencies installation\n\n"
 

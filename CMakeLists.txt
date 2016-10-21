@@ -82,7 +82,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
     -Wno-unused-variable")
 
 if(CYGWIN)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mcodel=large")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mcmodel=large")
 else ()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
 endif ()
@@ -154,7 +154,7 @@ if(FFTW_INCLUDES STREQUAL "FFTW_INCLUDES-NOTFOUND")
     message(FATAL_ERROR "ERROR: fftw3.h not found")
 endif()
 
-find_library(FFTW_LIB NAMES fftw fftw3 libfftw3 libfftw-3.3
+find_library(FFTW_LIB NAMES fftw fftw3 fftw3-3 fftw-3.3
     PATHS ${EXTERNAL_INSTALL_DIR}/lib
     NO_DEFAULT_PATH
     REQUIRED)
@@ -163,7 +163,7 @@ find_library(FFTW_LIB NAMES fftw fftw3 libfftw3 libfftw-3.3
 if (USE_FFTW_OMP)
     # message(STATUS "using omp version of fftw")
     find_library(FFTW_OMP_LIB 
-        NAMES fftw_omp fftw3_omp libfftw3_omp libfftw-3.3_omp
+        NAMES fftw_omp fftw3_omp fftw3_omp-3 fftw3-3_omp
         PATHS ${EXTERNAL_INSTALL_DIR}/lib
         NO_DEFAULT_PATH
         REQUIRED)

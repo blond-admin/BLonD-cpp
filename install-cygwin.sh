@@ -102,8 +102,8 @@ fi
 
 if [ "${INSTALL_FFTW}" = "true" ] ; then
     echo -e "\n\n---- Installing fftw3"
-    cp ${LIB}/libfftw3.dll.a ${INSTALL}/lib/
-    cp ${INCLUDE}/fftw3.h ${INSTALL}/include/
+    cp -l ${LIB}/libfftw3.dll.a ${INSTALL}/lib/
+    cp -l ${INCLUDE}/fftw3.h ${INSTALL}/include/
 
     if [ -e ${INSTALL}/include/fftw3.h ] && [ -e ${INSTALL}/lib/libfftw3.dll.a ]; then
         echo -e "---- fftw3 has been installed successfully\n\n"
@@ -152,13 +152,13 @@ fi
 
 if [ "${INSTALL_HDF5}" = "true" ]; then
     echo -e "\n\n---- Installing HDF5"
-    cp ${LIB}/libhdf5.dll.a ${INSTALL}/lib/
-    cp ${LIB}/libhdf5_cpp.dll.a ${INSTALL}/lib/
-    cp ${LIB}/libhdf5_hl.dll.a ${INSTALL}/lib/
-    cp ${LIB}/libhdf5_hl_cpp.dll.a ${INSTALL}/lib/
-    cp ${INCLUDE}/H5*.h ${INSTALL}/include/
-    cp ${INCLUDE}/hdf5.h ${INSTALL}/include/
-    cp ${INCLUDE}/hdf5_hl.h ${INSTALL}/include/
+    cp -l ${LIB}/libhdf5.dll.a ${INSTALL}/lib/
+    cp -l ${LIB}/libhdf5_cpp.dll.a ${INSTALL}/lib/
+    cp -l ${LIB}/libhdf5_hl.dll.a ${INSTALL}/lib/
+    cp -l ${LIB}/libhdf5_hl_cpp.dll.a ${INSTALL}/lib/
+    cp -l ${INCLUDE}/H5*.h ${INSTALL}/include/
+    cp -l ${INCLUDE}/hdf5.h ${INSTALL}/include/
+    cp -l ${INCLUDE}/hdf5_hl.h ${INSTALL}/include/
 
     if [ -e ${INSTALL}/include/hdf5.h ] && \
         [ -e ${INSTALL}/lib/libhdf5.dll.a ] && \
@@ -209,13 +209,13 @@ if [ "${INSTALL_GTEST}" = "true" ] ; then
 
     git clone --branch=master https://github.com/google/googletest.git ${EXTERNAL}/tmp/googletest
     cd ${EXTERNAL}/tmp/googletest/googletest
-    cp -r include/* "${INSTALL}/include/"
+    cp -rl include/* "${INSTALL}/include/"
     mkdir -p build &>> $log
     cd build
     cmake .. &>> $log
     make &>> $log
-    cp libgtest_main.a "${INSTALL}/lib/libgtest_main.a"
-    cp libgtest.a "${INSTALL}/lib/libgtest.dll.a"
+    cp -l libgtest_main.a "${INSTALL}/lib/libgtest_main.a"
+    cp -l libgtest.a "${INSTALL}/lib/libgtest.dll.a"
 
     cd ${BLOND_HOME}
 
@@ -299,9 +299,9 @@ fi
 
 if [ "${INSTALL_PYTHON}" = "true" ] ; then
     echo -e "\n\n---- Installing Python2.7\n\n"
-    cp ${LIB}/libpython2.7.dll.a ${INSTALL}/lib/
-    cp -r ${LIB}/python2.7 ${INSTALL}/lib
-    cp -r ${INCLUDE}/python2.7 ${INSTALL}/include
+    cp -l ${LIB}/libpython2.7.dll.a ${INSTALL}/lib/
+    cp -rl ${LIB}/python2.7 ${INSTALL}/lib
+    cp -rl ${INCLUDE}/python2.7 ${INSTALL}/include
 
     cd ${BLOND_HOME}
 

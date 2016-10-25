@@ -8,6 +8,8 @@ NOT Stable - Under heavy development
 [![Coverage Status](https://coveralls.io/repos/github/kiliakis/BLonD-cpp/badge.svg?branch=master)](https://coveralls.io/github/kiliakis/BLonD-cpp?branch=master)
 
 ## Requirements
+
+#### Linux
 * cmake version >= 2.8 [install](https://cmake.org/install/)
 * gcc version >= 4.8.0 [install](https://gcc.gnu.org/wiki/InstallingGCC)
 * System packages:
@@ -23,7 +25,13 @@ NOT Stable - Under heavy development
     * tcl
     * tkinter
 
-## Installation (Linux only)
+#### Windows
+* Windows version >= 7
+* cygwin x86_64 [install] (https://cygwin.com/install.html)
+
+## Installation
+
+#### Linux
 * clone the code into a directory (lets call it BLonD++/):
 ```bash  
 git clone --branch=master https://github.com/kiliakis/BLonD-minimal-cpp BLonD++
@@ -54,6 +62,27 @@ What was happening here:
   * To set data refrence files path's one can set `-DDATAFILES_DIR_DEMOS` and `-DDATAFILES_DIR_TESTS`.
 
 
+#### Windows
+* Download setup-x86_64.exe from cygwin installation page.
+* Run setup-x86_64.exe, follow the on-screen instructions.
+* In the "Select Packages" screen, the packages needed for a basic cygwin installation are already checked. Except from these, add:
+  * git (devel category, bin only)
+  * wget (web category, bin only)
+* launch a cygwin terminal
+* clone the code into a directory (lets call it BLonD++/):
+```bash  
+git clone --branch=master https://github.com/kiliakis/BLonD-minimal-cpp BLonD++
+```
+* To compile all dependencies and build blond library run the commands:
+```bash
+cd BLonD++  
+source install-cygwin.sh  
+mkdir build  
+cd build 
+cmake .. # Configuration
+cmake --build . # Compilation
+ctest -VV # Testing
+```
 
 ## Using system Libraries (advanced)
 **TODO**

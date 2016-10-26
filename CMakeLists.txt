@@ -2,7 +2,7 @@
 
 # Requirements list
 cmake_minimum_required(VERSION 2.8.4)
-project(BLonD-minimal-cpp CXX)
+project(BLonD++ CXX)
 include(CheckCXXCompilerFlag)
 include(ExternalProject)
 # include(ProcessorCount)
@@ -276,6 +276,7 @@ if (TEST_ENABLED)
         string(REPLACE "unit-tests/" "" testname ${testname})
         add_executable(${testname} ${src})
         target_link_libraries(${testname} ${LIBRARIES})
+        set_target_properties(${testname} PROPERTIES RUNTIME_OUTPUT_DIRECTORY tests)
         add_test(${testname} ${testname})
     endforeach ()
 

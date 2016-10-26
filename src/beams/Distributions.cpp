@@ -424,6 +424,111 @@ f_vector_t line_density_function(const f_vector_t &coord_array,
 }
 
 
+// TODO test this function
+void minmax_location(f_vector_t &x, f_vector_t &f,
+                     f_vector_t &min_x_position, f_vector_t &max_x_position,
+                     f_vector_t &min_values, f_vector_t &max_values)
+{
+    f_vector_t f_derivative;
+    adjacent_difference(f.begin(), f.end(), back_inserter(f_derivative));
+    f_derivative.erase(f_derivative.begin());
+
+    f_vector_t x_derivative;
+    for (uint i = 0; i < x.size() - 1; i++)
+        x_derivative.push_back(x[i] + (x[1] - x[0]) / 2);
+
+    f_vector_t f_derivative_second;
+    adjacent_difference(f_derivative.begin(), f_derivative.end(),
+                        back_inserter(f_derivative_second));
+    f_derivative_second.erase(f_derivative_second.begin());
+
+    f_derivative_second = mymath::lin_interp(x, x_derivative,
+                          f_derivative_second);
+
+    f_vector_t f_derivative_zeros;
+    for (uint i = 0; i < f_derivative.size() - 1; i++) {
+        if (f_derivative[i] == 0. || (f_derivative[i + 1] / f_derivative[i] < 0.))
+            f_derivative_zeros.push_back(i);
+    }
+    f_vector_t min_x_position;
+    f_vector_t max_x_position;
+
+    for (uint i = 0; i < f_derivative_zeros.size(); i++) {
+        if (f_derivative_second[f_derivative_zeros[i]] > 0) {
+            min_x_position.push_back(
+                (x[f_derivative_zeros[
+                       f_derivative_second[
+                           f_derivative_zeros[i]] + 1]]
+                 +
+                 x[f_derivative_zeros[
+                       f_derivative_second[
+                           f_derivative_zeros[i]]]]
+                ) / 2.);
+        } else {
+            max_x_position.push_back(
+                (x[f_derivative_zeros[
+                       f_derivative_second[
+                           f_derivative_zeros[i]] + 1]]
+                 +
+                 x[f_derivative_zeros[
+                       f_derivative_second[
+                           f_derivative_zeros[i]]]]
+                ) / 2.);
+        }
+    }
+
+    auto min_values = mymath::lin_interp(min_x_position, x, f);
+    auto max_values = mymath::lin_interp(max_x_position, x, f);
+
+}
+
+// TODO Continue here
+void potential_well_cut(f_vector_t &theta_coord_array,
+                        f_vector_t &potential_array,
+                        f_vector_t &thera_coord_sep,
+                        f_vector_t &potential_well_sep)
+{
+
+    f_vector_t min_theta_positions, max_theta_positions;
+    f_vector_t min_potential_values, max_potential_values;
+
+    minmax_location(theta_coord_array, potential_array,
+                    min_theta_positions, max_theta_positions,
+                    min_potential_values, max_potential_values);
+
+    int n_minima = min_theta_positions.size();
+    int n_maxima = max_theta_positions.size();
+
+    if (n_minima == 0) {
+        cerr << "[potential_well_cut] The potential well has no minima...\n";
+        exit(-1);
+    }
+    if (n_minima > n_maxima && n_maxima == 1) {
+        cerr << "[potential_well_cut] The potential well has more minima,\n"
+             << " and only one maximum\n";
+        exit(-1);
+    }
+    if (n_maxima == 0) {
+        cout << "[potential_well_cut] Warning: The maximum of the potential \n"
+             << "well could not be found... You may reconsider the options to \n"
+             << "calculate the potential well as the main harmonic is probably \n"
+             << "not the expected one. You may also increase the percentage of \n"
+             << "margin to compute the potentiel well.\n"
+             << "The full potential well will be taken\n";
+    } else if (n_maxima == 1) {
+        if (min_theta_positions[0] > max_theta_positions[0]) {
+
+        } else {
+
+        }
+    } else if (n_maxima == 2) {
+
+    } else {
+
+    }
+
+}
+
 
 void longitudinal_bigaussian(ftype sigma_dt, ftype sigma_dE,
                              int seed, bool reinsertion)

@@ -260,7 +260,7 @@ def minmax_location(x, f):
 
     f_derivative_second = np.diff(f_derivative)
     f_derivative_second = np.interp(x, x_derivative, f_derivative_second)
-
+    # print f_derivative
     warnings.filterwarnings("ignore")
     f_derivative_zeros = np.unique(np.append(
         np.where(f_derivative == 0), np.where(f_derivative[1:]/f_derivative[0:-1] < 0)))

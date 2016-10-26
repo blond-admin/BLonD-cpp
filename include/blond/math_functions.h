@@ -150,6 +150,15 @@ namespace mymath {
         lin_interp(x, xp, yp, y, left, right);
     }
 
+    static inline f_vector_t lin_interp(const f_vector_t &x,
+                                        const f_vector_t &xp,
+                                        const f_vector_t &yp)
+    {
+        f_vector_t res;
+        lin_interp(x, xp, yp, res);
+        return res;
+    }
+
     // Function to implement integration of f(x) over the interval
     // [a,b] using the trapezoid rule with nsub subdivisions.
     template <typename T>

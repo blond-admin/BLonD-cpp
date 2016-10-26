@@ -2,7 +2,7 @@
 
 # Requirements list
 cmake_minimum_required(VERSION 2.8.4)
-project(BLonD-minimal-cpp CXX)
+project(BLonD++ CXX)
 include(CheckCXXCompilerFlag)
 include(ExternalProject)
 # include(ProcessorCount)

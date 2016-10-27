@@ -57,5 +57,10 @@ f_vector_t line_density_function(const f_vector_t &coord_array,
                                  const double bunch_position = 0.,
                                  double exponent = 0.);
 
+void minmax_location(f_vector_t &x, f_vector_t &f,
+                     f_vector_t &min_x_position, f_vector_t &max_x_position,
+                     f_vector_t &min_values, f_vector_t &max_values);
+
+
 
 #endif /* BEAMS_DISTRIBUTIONS_H_ */

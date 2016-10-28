@@ -451,16 +451,11 @@ void minmax_location(f_vector_t &x, f_vector_t &f,
     f_derivative_second = mymath::lin_interp(x, x_derivative,
                           f_derivative_second);
 
-    // cout << accumulate(f_derivative_second.begin(), f_derivative_second.end(), 0.) << "\n";
-
     f_vector_t f_derivative_zeros;
     for (uint i = 0; i < f_derivative.size() - 1; i++) {
         if (f_derivative[i] == 0. || (f_derivative[i + 1] / f_derivative[i] < 0.))
             f_derivative_zeros.push_back(i);
     }
-    // cout << accumulate(f_derivative_zeros.begin(), f_derivative_zeros.end(), 0.) << "\n";
-    // util::dump(f_derivative_second, "f_derivative_second\n");
-    // for (uint i = 0; i < f_derivative_zeros.size(); i++) {
     for (const auto &i : f_derivative_zeros)
         if (f_derivative_second[i] > 0)
             min_x_position.push_back((x[i + 1] + x[i]) / 2.);
@@ -473,7 +468,6 @@ void minmax_location(f_vector_t &x, f_vector_t &f,
 
 }
 
-// TODO test this function
 void potential_well_cut(f_vector_t &theta_coord_array,
                         f_vector_t &potential_array,
                         f_vector_t &theta_coord_sep,
@@ -489,8 +483,9 @@ void potential_well_cut(f_vector_t &theta_coord_array,
 
     int n_minima = min_theta_positions.size();
     int n_maxima = max_theta_positions.size();
-
-    if (n_minima == 0) {
+    cout << "minima: " << n_minima << "\n";
+    cout << "maxima: " << n_maxima << "\n";
+    if (n_minima == 0) { // tested
         cerr << "[potential_well_cut] The potential well has no minima...\n";
         exit(-1);
     }
@@ -506,7 +501,7 @@ void potential_well_cut(f_vector_t &theta_coord_array,
              << "not the expected one. You may also increase the percentage of \n"
              << "margin to compute the potential well.\n"
              << "The full potential well will be taken\n";
-    } else if (n_maxima == 1) {
+    } else if (n_maxima == 1) { // tested
         if (min_theta_positions[0] > max_theta_positions[0]) {
             for (uint i = 0; i < potential_array.size(); ++i) {
                 if (potential_array[i] < max_potential_values[0]
@@ -516,10 +511,10 @@ void potential_well_cut(f_vector_t &theta_coord_array,
                 }
             }
             if (potential_array.back() < potential_array[0]) {
-                cerr << "The potential well is not well defined.\n"
+                cerr << "[potential_well_cut] The potential well is not well defined.\n"
                      << "You may reconsider the options to calculate \n"
                      << "the potential well as the main harmonic is \n"
-                     << "probably not the expected one.";
+                     << "probably not the expected one.\n";
                 exit(-1);
             }
         } else {
@@ -531,14 +526,14 @@ void potential_well_cut(f_vector_t &theta_coord_array,
                 }
             }
             if (potential_array.back() < potential_array[0]) {
-                cerr << "The potential well is not well defined.\n"
+                cerr << "[potential_well_cut] The potential well is not well defined.\n"
                      << "You may reconsider the options to calculate \n"
                      << "the potential well as the main harmonic is \n"
-                     << "probably not the expected one.";
+                     << "probably not the expected one.\n";
                 exit(-1);
             }
         }
-    } else if (n_maxima == 2) {
+    } else if (n_maxima == 2) { // tested
         auto lower_maximum_value = *min_element(max_potential_values.begin(),
                                                 max_potential_values.end());
         auto higher_maximum_value = *max_element(max_potential_values.begin(),
@@ -580,7 +575,7 @@ void potential_well_cut(f_vector_t &theta_coord_array,
             }
         }
 
-    } else {
+    } else { // tested
         auto left_max_theta = *min_element(max_theta_positions.begin(),
                                            max_theta_positions.end());
         auto right_max_theta = *max_element(max_theta_positions.begin(),

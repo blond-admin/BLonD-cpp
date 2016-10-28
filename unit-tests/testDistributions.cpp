@@ -397,7 +397,7 @@ TEST(testHelpers, minmax_location2)
     f_vector_t f(size);
 
     for (int i = 0; i < size; i++) f[i] = (i % 2) ? cos(i) : sin(i);
-    
+
     f_vector_t min_x_position, max_x_position;
     f_vector_t min_values, max_values;
 
@@ -418,6 +418,122 @@ TEST(testHelpers, minmax_location2)
     test_vector(v, max_values, "max_values", epsilon);
 
 }
+
+
+
+TEST(testHelpers, potential_well_cut1)
+{
+    auto epsilon = 1e-8;
+    auto params = string(TEST_FILES "/Distributions/potential_well_cut1/");
+    int size = 100;
+    f_vector_t theta_coord_array = mymath::linspace(0.0, size, size);
+    f_vector_t potential_array(size);
+
+    for (int i = 0; i < size; i++)
+        potential_array[i] = (i % 2) ? cos(i) : sin(i);
+
+    f_vector_t theta_coord_sep, potential_well_sep;
+    f_vector_t min_values, max_values;
+
+    potential_well_cut(theta_coord_array, potential_array,
+                       theta_coord_sep, potential_well_sep);
+
+    f_vector_t v;
+
+    util::read_vector_from_file(v, params + "theta_coord_sep.txt");
+    test_vector(v, theta_coord_sep, "theta_coord_sep", epsilon);
+
+    util::read_vector_from_file(v, params + "potential_well_sep.txt");
+    test_vector(v, potential_well_sep, "potential_well_sep", epsilon);
+
+}
+
+
+TEST(testHelpers, potential_well_cut_deathtest1)
+{
+    int size = 5;
+    f_vector_t theta_coord_array = mymath::linspace(0.0, size, size);
+    f_vector_t potential_array(size);
+
+    for (int i = 0; i < size; i++)
+        potential_array[i] = (i % 2) ? cos(i) : sin(i);
+
+    f_vector_t theta_coord_sep, potential_well_sep;
+    f_vector_t min_values, max_values;
+
+    ASSERT_DEATH(potential_well_cut(theta_coord_array, potential_array,
+                                    theta_coord_sep, potential_well_sep)
+                 , "[potential_well_cut]\\s+");
+
+}
+
+
+TEST(testHelpers, potential_well_cut_deathtest2)
+{
+    int size = 10;
+    f_vector_t theta_coord_array = mymath::linspace(0.0, size, size);
+    f_vector_t potential_array(size);
+
+    for (int i = 0; i < size; i++)
+        potential_array[i] = cos(i);
+
+    f_vector_t theta_coord_sep, potential_well_sep;
+    f_vector_t min_values, max_values;
+
+    ASSERT_DEATH(potential_well_cut(theta_coord_array, potential_array,
+                                    theta_coord_sep, potential_well_sep)
+                 , "[potential_well_cut]\\s+");
+
+}
+
+
+TEST(testHelpers, potential_well_cut2)
+{
+    auto epsilon = 1e-8;
+    auto params = string(TEST_FILES "/Distributions/potential_well_cut2/");
+    int size = 10;
+    f_vector_t theta_coord_array = mymath::linspace(0.0, size, size);
+    f_vector_t potential_array(size);
+
+    for (int i = 0; i < size; i++)
+        potential_array[i] = sin(i);
+
+    f_vector_t theta_coord_sep, potential_well_sep;
+    f_vector_t min_values, max_values;
+
+    potential_well_cut(theta_coord_array, potential_array,
+                       theta_coord_sep, potential_well_sep);
+
+    f_vector_t v;
+
+    util::read_vector_from_file(v, params + "theta_coord_sep.txt");
+    test_vector(v, theta_coord_sep, "theta_coord_sep", epsilon);
+
+    util::read_vector_from_file(v, params + "potential_well_sep.txt");
+    test_vector(v, potential_well_sep, "potential_well_sep", epsilon);
+
+}
+
+
+
+TEST(testHelpers, potential_well_cut_deathtest3)
+{
+    auto epsilon = 1e-8;
+    int size = 10;
+    f_vector_t theta_coord_array = mymath::linspace(0.0, size, size);
+    f_vector_t potential_array(size);
+
+    for (int i = 0; i < size; i++)
+        potential_array[i] = exp(i);
+
+    f_vector_t theta_coord_sep, potential_well_sep;
+    f_vector_t min_values, max_values;
+
+    ASSERT_DEATH(potential_well_cut(theta_coord_array, potential_array,
+                                    theta_coord_sep, potential_well_sep)
+                 , "[potential_well_cut]\\s+");
+}
+
 
 
 

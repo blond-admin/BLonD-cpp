@@ -109,6 +109,7 @@ namespace mymath {
         y.resize(x.size());
 
         const int N = x.size();
+        if (N == 0) return;
         // const uint M = xp.size();
         const auto max = xp.back();
         const auto min = xp.front();

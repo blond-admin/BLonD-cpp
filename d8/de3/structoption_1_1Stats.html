@@ -195,7 +195,7 @@ Private Attributes</h2></td></tr>
 <div class="textblock"><p>Determines the minimum lengths of the buffer and options arrays used for <a class="el" href="../../d6/d83/classoption_1_1Parser.html" title="Checks argument vectors for validity and parses them into data structures that are easier to work wit...">Parser</a>. </p>
 <p>Because <a class="el" href="../../d6/d83/classoption_1_1Parser.html" title="Checks argument vectors for validity and parses them into data structures that are easier to work wit...">Parser</a> doesn't use dynamic memory its output arrays have to be pre-allocated. If you don't want to use fixed size arrays (which may turn out too small, causing command line arguments to be dropped), you can use <a class="el" href="../../d8/de3/structoption_1_1Stats.html" title="Determines the minimum lengths of the buffer and options arrays used for Parser.">Stats</a> to determine the correct sizes. <a class="el" href="../../d8/de3/structoption_1_1Stats.html" title="Determines the minimum lengths of the buffer and options arrays used for Parser.">Stats</a> work cumulative. You can first pass in your default options and then the real options and afterwards the counts will reflect the union. </p>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01038">1038</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01044">1044</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a8660722c76e65d9328313fb360bdd282"></a>
 <div class="memitem">
@@ -220,9 +220,9 @@ Private Attributes</h2></td></tr>
 
 <p>Creates a <a class="el" href="../../d8/de3/structoption_1_1Stats.html" title="Determines the minimum lengths of the buffer and options arrays used for Parser.">Stats</a> object with counts set to 1 (for the sentinel element). </p>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01075">1075</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l01076"></a><span class="lineno"> 1076</span>&#160;            : <a class="code" href="../../d8/de3/structoption_1_1Stats.html#a2c9a7b4174f91ba8bcadaa9ad6f0db06" title="Number of elements needed for a buffer[] array to be used for parsing the same argument vectors that ...">buffer_max</a>(1), <a class="code" href="../../d8/de3/structoption_1_1Stats.html#a8121787feb1c7db84fca3ccb012b0473" title="Number of elements needed for an options[] array to be used for parsing the same argument vectors tha...">options_max</a>(1) <span class="comment">// 1 more than necessary as sentinel</span></div>
-<div class="line"><a name="l01077"></a><span class="lineno"> 1077</span>&#160;        {}</div>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01081">1081</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l01082"></a><span class="lineno"> 1082</span>&#160;            : <a class="code" href="../../d8/de3/structoption_1_1Stats.html#a2c9a7b4174f91ba8bcadaa9ad6f0db06" title="Number of elements needed for a buffer[] array to be used for parsing the same argument vectors that ...">buffer_max</a>(1), <a class="code" href="../../d8/de3/structoption_1_1Stats.html#a8121787feb1c7db84fca3ccb012b0473" title="Number of elements needed for an options[] array to be used for parsing the same argument vectors tha...">options_max</a>(1) <span class="comment">// 1 more than necessary as sentinel</span></div>
+<div class="line"><a name="l01083"></a><span class="lineno"> 1083</span>&#160;        {}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -285,11 +285,11 @@ Private Attributes</h2></td></tr>
 <p>Creates a new <a class="el" href="../../d8/de3/structoption_1_1Stats.html" title="Determines the minimum lengths of the buffer and options arrays used for Parser.">Stats</a> object and immediately updates it for the given <code>usage</code> and argument vector. You may pass 0 for <code>argc</code> and/or <code>argv</code>, if you just want to update <a class="el" href="../../d8/de3/structoption_1_1Stats.html#a8121787feb1c7db84fca3ccb012b0473">options_max</a>. </p>
 <dl class="section note"><dt>Note</dt><dd>The calls to <a class="el" href="../../d8/de3/structoption_1_1Stats.html" title="Determines the minimum lengths of the buffer and options arrays used for Parser.">Stats</a> methods must match the later calls to <a class="el" href="../../d6/d83/classoption_1_1Parser.html" title="Checks argument vectors for validity and parses them into data structures that are easier to work wit...">Parser</a> methods. See <a class="el" href="../../d6/d83/classoption_1_1Parser.html#a6e0b5778d1cfbd6cd51240e74d01e138" title="Parses the given argument vector.">Parser::parse()</a> for the meaning of the arguments. </dd></dl>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01090">1090</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l01093"></a><span class="lineno"> 1093</span>&#160;            : <a class="code" href="../../d8/de3/structoption_1_1Stats.html#a2c9a7b4174f91ba8bcadaa9ad6f0db06" title="Number of elements needed for a buffer[] array to be used for parsing the same argument vectors that ...">buffer_max</a>(1), <a class="code" href="../../d8/de3/structoption_1_1Stats.html#a8121787feb1c7db84fca3ccb012b0473" title="Number of elements needed for an options[] array to be used for parsing the same argument vectors tha...">options_max</a>(1) <span class="comment">// 1 more than necessary as sentinel</span></div>
-<div class="line"><a name="l01094"></a><span class="lineno"> 1094</span>&#160;        {</div>
-<div class="line"><a name="l01095"></a><span class="lineno"> 1095</span>&#160;            <a class="code" href="../../d8/de3/structoption_1_1Stats.html#aa77e2a8b1704527d2d087820f4456143" title="Updates this Stats object for the given usage and argument vector. You may pass 0 for argc and/or arg...">add</a>(gnu, usage, argc, argv, min_abbr_len, single_minus_longopt);</div>
-<div class="line"><a name="l01096"></a><span class="lineno"> 1096</span>&#160;        }</div>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01096">1096</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l01099"></a><span class="lineno"> 1099</span>&#160;            : <a class="code" href="../../d8/de3/structoption_1_1Stats.html#a2c9a7b4174f91ba8bcadaa9ad6f0db06" title="Number of elements needed for a buffer[] array to be used for parsing the same argument vectors that ...">buffer_max</a>(1), <a class="code" href="../../d8/de3/structoption_1_1Stats.html#a8121787feb1c7db84fca3ccb012b0473" title="Number of elements needed for an options[] array to be used for parsing the same argument vectors tha...">options_max</a>(1) <span class="comment">// 1 more than necessary as sentinel</span></div>
+<div class="line"><a name="l01100"></a><span class="lineno"> 1100</span>&#160;        {</div>
+<div class="line"><a name="l01101"></a><span class="lineno"> 1101</span>&#160;            <a class="code" href="../../d8/de3/structoption_1_1Stats.html#aa77e2a8b1704527d2d087820f4456143" title="Updates this Stats object for the given usage and argument vector. You may pass 0 for argc and/or arg...">add</a>(gnu, usage, argc, argv, min_abbr_len, single_minus_longopt);</div>
+<div class="line"><a name="l01102"></a><span class="lineno"> 1102</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -351,12 +351,12 @@ Private Attributes</h2></td></tr>
 
 <p><a class="el" href="../../d8/de3/structoption_1_1Stats.html" title="Determines the minimum lengths of the buffer and options arrays used for Parser.">Stats</a>(...) with non-const argv. </p>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01099">1099</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l01102"></a><span class="lineno"> 1102</span>&#160;            : <a class="code" href="../../d8/de3/structoption_1_1Stats.html#a2c9a7b4174f91ba8bcadaa9ad6f0db06" title="Number of elements needed for a buffer[] array to be used for parsing the same argument vectors that ...">buffer_max</a>(1), <a class="code" href="../../d8/de3/structoption_1_1Stats.html#a8121787feb1c7db84fca3ccb012b0473" title="Number of elements needed for an options[] array to be used for parsing the same argument vectors tha...">options_max</a>(1) <span class="comment">// 1 more than necessary as sentinel</span></div>
-<div class="line"><a name="l01103"></a><span class="lineno"> 1103</span>&#160;        {</div>
-<div class="line"><a name="l01104"></a><span class="lineno"> 1104</span>&#160;            <a class="code" href="../../d8/de3/structoption_1_1Stats.html#aa77e2a8b1704527d2d087820f4456143" title="Updates this Stats object for the given usage and argument vector. You may pass 0 for argc and/or arg...">add</a>(gnu, usage, argc, (<span class="keyword">const</span> <span class="keywordtype">char</span>**)argv, min_abbr_len,</div>
-<div class="line"><a name="l01105"></a><span class="lineno"> 1105</span>&#160;                single_minus_longopt);</div>
-<div class="line"><a name="l01106"></a><span class="lineno"> 1106</span>&#160;        }</div>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01105">1105</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l01108"></a><span class="lineno"> 1108</span>&#160;            : <a class="code" href="../../d8/de3/structoption_1_1Stats.html#a2c9a7b4174f91ba8bcadaa9ad6f0db06" title="Number of elements needed for a buffer[] array to be used for parsing the same argument vectors that ...">buffer_max</a>(1), <a class="code" href="../../d8/de3/structoption_1_1Stats.html#a8121787feb1c7db84fca3ccb012b0473" title="Number of elements needed for an options[] array to be used for parsing the same argument vectors tha...">options_max</a>(1) <span class="comment">// 1 more than necessary as sentinel</span></div>
+<div class="line"><a name="l01109"></a><span class="lineno"> 1109</span>&#160;        {</div>
+<div class="line"><a name="l01110"></a><span class="lineno"> 1110</span>&#160;            <a class="code" href="../../d8/de3/structoption_1_1Stats.html#aa77e2a8b1704527d2d087820f4456143" title="Updates this Stats object for the given usage and argument vector. You may pass 0 for argc and/or arg...">add</a>(gnu, usage, argc, (<span class="keyword">const</span> <span class="keywordtype">char</span>**)argv, min_abbr_len,</div>
+<div class="line"><a name="l01111"></a><span class="lineno"> 1111</span>&#160;                single_minus_longopt);</div>
+<div class="line"><a name="l01112"></a><span class="lineno"> 1112</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -412,11 +412,11 @@ Private Attributes</h2></td></tr>
 
 <p>POSIX <a class="el" href="../../d8/de3/structoption_1_1Stats.html" title="Determines the minimum lengths of the buffer and options arrays used for Parser.">Stats</a>(...) (gnu==false). </p>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01109">1109</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l01112"></a><span class="lineno"> 1112</span>&#160;            : <a class="code" href="../../d8/de3/structoption_1_1Stats.html#a2c9a7b4174f91ba8bcadaa9ad6f0db06" title="Number of elements needed for a buffer[] array to be used for parsing the same argument vectors that ...">buffer_max</a>(1), <a class="code" href="../../d8/de3/structoption_1_1Stats.html#a8121787feb1c7db84fca3ccb012b0473" title="Number of elements needed for an options[] array to be used for parsing the same argument vectors tha...">options_max</a>(1) <span class="comment">// 1 more than necessary as sentinel</span></div>
-<div class="line"><a name="l01113"></a><span class="lineno"> 1113</span>&#160;        {</div>
-<div class="line"><a name="l01114"></a><span class="lineno"> 1114</span>&#160;            <a class="code" href="../../d8/de3/structoption_1_1Stats.html#aa77e2a8b1704527d2d087820f4456143" title="Updates this Stats object for the given usage and argument vector. You may pass 0 for argc and/or arg...">add</a>(<span class="keyword">false</span>, usage, argc, argv, min_abbr_len, single_minus_longopt);</div>
-<div class="line"><a name="l01115"></a><span class="lineno"> 1115</span>&#160;        }</div>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01115">1115</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l01118"></a><span class="lineno"> 1118</span>&#160;            : <a class="code" href="../../d8/de3/structoption_1_1Stats.html#a2c9a7b4174f91ba8bcadaa9ad6f0db06" title="Number of elements needed for a buffer[] array to be used for parsing the same argument vectors that ...">buffer_max</a>(1), <a class="code" href="../../d8/de3/structoption_1_1Stats.html#a8121787feb1c7db84fca3ccb012b0473" title="Number of elements needed for an options[] array to be used for parsing the same argument vectors tha...">options_max</a>(1) <span class="comment">// 1 more than necessary as sentinel</span></div>
+<div class="line"><a name="l01119"></a><span class="lineno"> 1119</span>&#160;        {</div>
+<div class="line"><a name="l01120"></a><span class="lineno"> 1120</span>&#160;            <a class="code" href="../../d8/de3/structoption_1_1Stats.html#aa77e2a8b1704527d2d087820f4456143" title="Updates this Stats object for the given usage and argument vector. You may pass 0 for argc and/or arg...">add</a>(<span class="keyword">false</span>, usage, argc, argv, min_abbr_len, single_minus_longopt);</div>
+<div class="line"><a name="l01121"></a><span class="lineno"> 1121</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -472,12 +472,12 @@ Private Attributes</h2></td></tr>
 
 <p>POSIX <a class="el" href="../../d8/de3/structoption_1_1Stats.html" title="Determines the minimum lengths of the buffer and options arrays used for Parser.">Stats</a>(...) (gnu==false) with non-const argv. </p>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01118">1118</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l01121"></a><span class="lineno"> 1121</span>&#160;            : <a class="code" href="../../d8/de3/structoption_1_1Stats.html#a2c9a7b4174f91ba8bcadaa9ad6f0db06" title="Number of elements needed for a buffer[] array to be used for parsing the same argument vectors that ...">buffer_max</a>(1), <a class="code" href="../../d8/de3/structoption_1_1Stats.html#a8121787feb1c7db84fca3ccb012b0473" title="Number of elements needed for an options[] array to be used for parsing the same argument vectors tha...">options_max</a>(1) <span class="comment">// 1 more than necessary as sentinel</span></div>
-<div class="line"><a name="l01122"></a><span class="lineno"> 1122</span>&#160;        {</div>
-<div class="line"><a name="l01123"></a><span class="lineno"> 1123</span>&#160;            <a class="code" href="../../d8/de3/structoption_1_1Stats.html#aa77e2a8b1704527d2d087820f4456143" title="Updates this Stats object for the given usage and argument vector. You may pass 0 for argc and/or arg...">add</a>(<span class="keyword">false</span>, usage, argc, (<span class="keyword">const</span> <span class="keywordtype">char</span>**)argv, min_abbr_len,</div>
-<div class="line"><a name="l01124"></a><span class="lineno"> 1124</span>&#160;                single_minus_longopt);</div>
-<div class="line"><a name="l01125"></a><span class="lineno"> 1125</span>&#160;        }</div>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01124">1124</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l01127"></a><span class="lineno"> 1127</span>&#160;            : <a class="code" href="../../d8/de3/structoption_1_1Stats.html#a2c9a7b4174f91ba8bcadaa9ad6f0db06" title="Number of elements needed for a buffer[] array to be used for parsing the same argument vectors that ...">buffer_max</a>(1), <a class="code" href="../../d8/de3/structoption_1_1Stats.html#a8121787feb1c7db84fca3ccb012b0473" title="Number of elements needed for an options[] array to be used for parsing the same argument vectors tha...">options_max</a>(1) <span class="comment">// 1 more than necessary as sentinel</span></div>
+<div class="line"><a name="l01128"></a><span class="lineno"> 1128</span>&#160;        {</div>
+<div class="line"><a name="l01129"></a><span class="lineno"> 1129</span>&#160;            <a class="code" href="../../d8/de3/structoption_1_1Stats.html#aa77e2a8b1704527d2d087820f4456143" title="Updates this Stats object for the given usage and argument vector. You may pass 0 for argc and/or arg...">add</a>(<span class="keyword">false</span>, usage, argc, (<span class="keyword">const</span> <span class="keywordtype">char</span>**)argv, min_abbr_len,</div>
+<div class="line"><a name="l01130"></a><span class="lineno"> 1130</span>&#160;                single_minus_longopt);</div>
+<div class="line"><a name="l01131"></a><span class="lineno"> 1131</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -541,25 +541,25 @@ Private Attributes</h2></td></tr>
 <p>Updates this <a class="el" href="../../d8/de3/structoption_1_1Stats.html" title="Determines the minimum lengths of the buffer and options arrays used for Parser.">Stats</a> object for the given <code>usage</code> and argument vector. You may pass 0 for <code>argc</code> and/or <code>argv</code>, if you just want to update <a class="el" href="../../d8/de3/structoption_1_1Stats.html#a8121787feb1c7db84fca3ccb012b0473">options_max</a>. </p>
 <dl class="section note"><dt>Note</dt><dd>The calls to <a class="el" href="../../d8/de3/structoption_1_1Stats.html" title="Determines the minimum lengths of the buffer and options arrays used for Parser.">Stats</a> methods must match the later calls to <a class="el" href="../../d6/d83/classoption_1_1Parser.html" title="Checks argument vectors for validity and parses them into data structures that are easier to work wit...">Parser</a> methods. See <a class="el" href="../../d6/d83/classoption_1_1Parser.html#a6e0b5778d1cfbd6cd51240e74d01e138" title="Parses the given argument vector.">Parser::parse()</a> for the meaning of the arguments. </dd></dl>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01688">1688</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01694">1694</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 
-<p>References <a class="el" href="../../da/d69/optionparser_8h_source.html#l01051">buffer_max</a>, <a class="el" href="../../da/d69/optionparser_8h_source.html#l01167">CountOptionsAction</a>, <a class="el" href="../../da/d69/optionparser_8h_source.html#l00403">option::Descriptor::index</a>, <a class="el" href="../../da/d69/optionparser_8h_source.html#l01069">options_max</a>, and <a class="el" href="../../da/d69/optionparser_8h_source.html#l01707">option::Parser::workhorse()</a>.</p>
-<div class="fragment"><div class="line"><a name="l01690"></a><span class="lineno"> 1690</span>&#160;                                                      {</div>
-<div class="line"><a name="l01691"></a><span class="lineno"> 1691</span>&#160;        <span class="comment">// determine size of options array. This is the greatest index used in</span></div>
-<div class="line"><a name="l01692"></a><span class="lineno"> 1692</span>&#160;        <span class="comment">// the usage + 1</span></div>
-<div class="line"><a name="l01693"></a><span class="lineno"> 1693</span>&#160;        <span class="keywordtype">int</span> i = 0;</div>
-<div class="line"><a name="l01694"></a><span class="lineno"> 1694</span>&#160;        <span class="keywordflow">while</span> (usage[i].shortopt != 0) {</div>
-<div class="line"><a name="l01695"></a><span class="lineno"> 1695</span>&#160;            <span class="keywordflow">if</span> (usage[i].index + 1 &gt;= <a class="code" href="../../d8/de3/structoption_1_1Stats.html#a8121787feb1c7db84fca3ccb012b0473" title="Number of elements needed for an options[] array to be used for parsing the same argument vectors tha...">options_max</a>)</div>
-<div class="line"><a name="l01696"></a><span class="lineno"> 1696</span>&#160;                <a class="code" href="../../d8/de3/structoption_1_1Stats.html#a8121787feb1c7db84fca3ccb012b0473" title="Number of elements needed for an options[] array to be used for parsing the same argument vectors tha...">options_max</a> = (usage[i].index + 1) +</div>
-<div class="line"><a name="l01697"></a><span class="lineno"> 1697</span>&#160;                              1; <span class="comment">// 1 more than necessary as sentinel</span></div>
-<div class="line"><a name="l01698"></a><span class="lineno"> 1698</span>&#160;</div>
-<div class="line"><a name="l01699"></a><span class="lineno"> 1699</span>&#160;            ++i;</div>
-<div class="line"><a name="l01700"></a><span class="lineno"> 1700</span>&#160;        }</div>
-<div class="line"><a name="l01701"></a><span class="lineno"> 1701</span>&#160;</div>
-<div class="line"><a name="l01702"></a><span class="lineno"> 1702</span>&#160;        <a class="code" href="../../d8/de3/structoption_1_1Stats.html#a45ce34facb5c01feff85721248dc9b6c">CountOptionsAction</a> action(&amp;<a class="code" href="../../d8/de3/structoption_1_1Stats.html#a2c9a7b4174f91ba8bcadaa9ad6f0db06" title="Number of elements needed for a buffer[] array to be used for parsing the same argument vectors that ...">buffer_max</a>);</div>
-<div class="line"><a name="l01703"></a><span class="lineno"> 1703</span>&#160;        <a class="code" href="../../d6/d83/classoption_1_1Parser.html#ab8c03a700a6f350bba434b3482a6563b">Parser::workhorse</a>(gnu, usage, argc, argv, action, single_minus_longopt,</div>
-<div class="line"><a name="l01704"></a><span class="lineno"> 1704</span>&#160;                          <span class="keyword">false</span>, min_abbr_len);</div>
-<div class="line"><a name="l01705"></a><span class="lineno"> 1705</span>&#160;    }</div>
+<p>References <a class="el" href="../../da/d69/optionparser_8h_source.html#l01057">buffer_max</a>, <a class="el" href="../../da/d69/optionparser_8h_source.html#l01173">CountOptionsAction</a>, <a class="el" href="../../da/d69/optionparser_8h_source.html#l00409">option::Descriptor::index</a>, <a class="el" href="../../da/d69/optionparser_8h_source.html#l01075">options_max</a>, and <a class="el" href="../../da/d69/optionparser_8h_source.html#l01713">option::Parser::workhorse()</a>.</p>
+<div class="fragment"><div class="line"><a name="l01696"></a><span class="lineno"> 1696</span>&#160;                                                      {</div>
+<div class="line"><a name="l01697"></a><span class="lineno"> 1697</span>&#160;        <span class="comment">// determine size of options array. This is the greatest index used in</span></div>
+<div class="line"><a name="l01698"></a><span class="lineno"> 1698</span>&#160;        <span class="comment">// the usage + 1</span></div>
+<div class="line"><a name="l01699"></a><span class="lineno"> 1699</span>&#160;        <span class="keywordtype">int</span> i = 0;</div>
+<div class="line"><a name="l01700"></a><span class="lineno"> 1700</span>&#160;        <span class="keywordflow">while</span> (usage[i].shortopt != 0) {</div>
+<div class="line"><a name="l01701"></a><span class="lineno"> 1701</span>&#160;            <span class="keywordflow">if</span> (usage[i].index + 1 &gt;= <a class="code" href="../../d8/de3/structoption_1_1Stats.html#a8121787feb1c7db84fca3ccb012b0473" title="Number of elements needed for an options[] array to be used for parsing the same argument vectors tha...">options_max</a>)</div>
+<div class="line"><a name="l01702"></a><span class="lineno"> 1702</span>&#160;                <a class="code" href="../../d8/de3/structoption_1_1Stats.html#a8121787feb1c7db84fca3ccb012b0473" title="Number of elements needed for an options[] array to be used for parsing the same argument vectors tha...">options_max</a> = (usage[i].index + 1) +</div>
+<div class="line"><a name="l01703"></a><span class="lineno"> 1703</span>&#160;                              1; <span class="comment">// 1 more than necessary as sentinel</span></div>
+<div class="line"><a name="l01704"></a><span class="lineno"> 1704</span>&#160;</div>
+<div class="line"><a name="l01705"></a><span class="lineno"> 1705</span>&#160;            ++i;</div>
+<div class="line"><a name="l01706"></a><span class="lineno"> 1706</span>&#160;        }</div>
+<div class="line"><a name="l01707"></a><span class="lineno"> 1707</span>&#160;</div>
+<div class="line"><a name="l01708"></a><span class="lineno"> 1708</span>&#160;        <a class="code" href="../../d8/de3/structoption_1_1Stats.html#a45ce34facb5c01feff85721248dc9b6c">CountOptionsAction</a> action(&amp;<a class="code" href="../../d8/de3/structoption_1_1Stats.html#a2c9a7b4174f91ba8bcadaa9ad6f0db06" title="Number of elements needed for a buffer[] array to be used for parsing the same argument vectors that ...">buffer_max</a>);</div>
+<div class="line"><a name="l01709"></a><span class="lineno"> 1709</span>&#160;        <a class="code" href="../../d6/d83/classoption_1_1Parser.html#ab8c03a700a6f350bba434b3482a6563b">Parser::workhorse</a>(gnu, usage, argc, argv, action, single_minus_longopt,</div>
+<div class="line"><a name="l01710"></a><span class="lineno"> 1710</span>&#160;                          <span class="keyword">false</span>, min_abbr_len);</div>
+<div class="line"><a name="l01711"></a><span class="lineno"> 1711</span>&#160;    }</div>
 </div><!-- fragment -->
 <p><div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
@@ -631,11 +631,11 @@ Private Attributes</h2></td></tr>
 
 <p><a class="el" href="../../d8/de3/structoption_1_1Stats.html#aa77e2a8b1704527d2d087820f4456143" title="Updates this Stats object for the given usage and argument vector. You may pass 0 for argc and/or arg...">add()</a> with non-const argv. </p>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01144">1144</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l01146"></a><span class="lineno"> 1146</span>&#160;                                                    {</div>
-<div class="line"><a name="l01147"></a><span class="lineno"> 1147</span>&#160;            <a class="code" href="../../d8/de3/structoption_1_1Stats.html#aa77e2a8b1704527d2d087820f4456143" title="Updates this Stats object for the given usage and argument vector. You may pass 0 for argc and/or arg...">add</a>(gnu, usage, argc, (<span class="keyword">const</span> <span class="keywordtype">char</span>**)argv, min_abbr_len,</div>
-<div class="line"><a name="l01148"></a><span class="lineno"> 1148</span>&#160;                single_minus_longopt);</div>
-<div class="line"><a name="l01149"></a><span class="lineno"> 1149</span>&#160;        }</div>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01150">1150</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l01152"></a><span class="lineno"> 1152</span>&#160;                                                    {</div>
+<div class="line"><a name="l01153"></a><span class="lineno"> 1153</span>&#160;            <a class="code" href="../../d8/de3/structoption_1_1Stats.html#aa77e2a8b1704527d2d087820f4456143" title="Updates this Stats object for the given usage and argument vector. You may pass 0 for argc and/or arg...">add</a>(gnu, usage, argc, (<span class="keyword">const</span> <span class="keywordtype">char</span>**)argv, min_abbr_len,</div>
+<div class="line"><a name="l01154"></a><span class="lineno"> 1154</span>&#160;                single_minus_longopt);</div>
+<div class="line"><a name="l01155"></a><span class="lineno"> 1155</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -691,10 +691,10 @@ Private Attributes</h2></td></tr>
 
 <p>POSIX <a class="el" href="../../d8/de3/structoption_1_1Stats.html#aa77e2a8b1704527d2d087820f4456143" title="Updates this Stats object for the given usage and argument vector. You may pass 0 for argc and/or arg...">add()</a> (gnu==false). </p>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01152">1152</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l01154"></a><span class="lineno"> 1154</span>&#160;                                                    {</div>
-<div class="line"><a name="l01155"></a><span class="lineno"> 1155</span>&#160;            <a class="code" href="../../d8/de3/structoption_1_1Stats.html#aa77e2a8b1704527d2d087820f4456143" title="Updates this Stats object for the given usage and argument vector. You may pass 0 for argc and/or arg...">add</a>(<span class="keyword">false</span>, usage, argc, argv, min_abbr_len, single_minus_longopt);</div>
-<div class="line"><a name="l01156"></a><span class="lineno"> 1156</span>&#160;        }</div>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01158">1158</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l01160"></a><span class="lineno"> 1160</span>&#160;                                                    {</div>
+<div class="line"><a name="l01161"></a><span class="lineno"> 1161</span>&#160;            <a class="code" href="../../d8/de3/structoption_1_1Stats.html#aa77e2a8b1704527d2d087820f4456143" title="Updates this Stats object for the given usage and argument vector. You may pass 0 for argc and/or arg...">add</a>(<span class="keyword">false</span>, usage, argc, argv, min_abbr_len, single_minus_longopt);</div>
+<div class="line"><a name="l01162"></a><span class="lineno"> 1162</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -750,11 +750,11 @@ Private Attributes</h2></td></tr>
 
 <p>POSIX <a class="el" href="../../d8/de3/structoption_1_1Stats.html#aa77e2a8b1704527d2d087820f4456143" title="Updates this Stats object for the given usage and argument vector. You may pass 0 for argc and/or arg...">add()</a> (gnu==false) with non-const argv. </p>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01159">1159</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l01161"></a><span class="lineno"> 1161</span>&#160;                                                    {</div>
-<div class="line"><a name="l01162"></a><span class="lineno"> 1162</span>&#160;            <a class="code" href="../../d8/de3/structoption_1_1Stats.html#aa77e2a8b1704527d2d087820f4456143" title="Updates this Stats object for the given usage and argument vector. You may pass 0 for argc and/or arg...">add</a>(<span class="keyword">false</span>, usage, argc, (<span class="keyword">const</span> <span class="keywordtype">char</span>**)argv, min_abbr_len,</div>
-<div class="line"><a name="l01163"></a><span class="lineno"> 1163</span>&#160;                single_minus_longopt);</div>
-<div class="line"><a name="l01164"></a><span class="lineno"> 1164</span>&#160;        }</div>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01165">1165</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l01167"></a><span class="lineno"> 1167</span>&#160;                                                    {</div>
+<div class="line"><a name="l01168"></a><span class="lineno"> 1168</span>&#160;            <a class="code" href="../../d8/de3/structoption_1_1Stats.html#aa77e2a8b1704527d2d087820f4456143" title="Updates this Stats object for the given usage and argument vector. You may pass 0 for argc and/or arg...">add</a>(<span class="keyword">false</span>, usage, argc, (<span class="keyword">const</span> <span class="keywordtype">char</span>**)argv, min_abbr_len,</div>
+<div class="line"><a name="l01169"></a><span class="lineno"> 1169</span>&#160;                single_minus_longopt);</div>
+<div class="line"><a name="l01170"></a><span class="lineno"> 1170</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -781,8 +781,8 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Creates a new CountOptionsAction that will increase <code>*buffer_max_</code> for each parsed <a class="el" href="../../d3/df3/classoption_1_1Option.html" title="A parsed option from the command line together with its argument if it has one.">Option</a>. </p>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01601">1601</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l01601"></a><span class="lineno"> 1601</span>&#160;: <a class="code" href="../../d8/de3/structoption_1_1Stats.html#a2c9a7b4174f91ba8bcadaa9ad6f0db06" title="Number of elements needed for a buffer[] array to be used for parsing the same argument vectors that ...">buffer_max</a>(buffer_max_) {}</div>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01607">1607</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l01607"></a><span class="lineno"> 1607</span>&#160;: <a class="code" href="../../d8/de3/structoption_1_1Stats.html#a2c9a7b4174f91ba8bcadaa9ad6f0db06" title="Number of elements needed for a buffer[] array to be used for parsing the same argument vectors that ...">buffer_max</a>(buffer_max_) {}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -808,14 +808,14 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01603">1603</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l01603"></a><span class="lineno"> 1603</span>&#160;                              {</div>
-<div class="line"><a name="l01604"></a><span class="lineno"> 1604</span>&#160;            <span class="keywordflow">if</span> (*<a class="code" href="../../d8/de3/structoption_1_1Stats.html#a2c9a7b4174f91ba8bcadaa9ad6f0db06" title="Number of elements needed for a buffer[] array to be used for parsing the same argument vectors that ...">buffer_max</a> == 0x7fffffff)</div>
-<div class="line"><a name="l01605"></a><span class="lineno"> 1605</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">false</span>; <span class="comment">// overflow protection: don&#39;t accept number of</span></div>
-<div class="line"><a name="l01606"></a><span class="lineno"> 1606</span>&#160;                              <span class="comment">// options that doesn&#39;t fit signed int</span></div>
-<div class="line"><a name="l01607"></a><span class="lineno"> 1607</span>&#160;            ++*<a class="code" href="../../d8/de3/structoption_1_1Stats.html#a2c9a7b4174f91ba8bcadaa9ad6f0db06" title="Number of elements needed for a buffer[] array to be used for parsing the same argument vectors that ...">buffer_max</a>;</div>
-<div class="line"><a name="l01608"></a><span class="lineno"> 1608</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l01609"></a><span class="lineno"> 1609</span>&#160;        }</div>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01609">1609</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l01609"></a><span class="lineno"> 1609</span>&#160;                              {</div>
+<div class="line"><a name="l01610"></a><span class="lineno"> 1610</span>&#160;            <span class="keywordflow">if</span> (*<a class="code" href="../../d8/de3/structoption_1_1Stats.html#a2c9a7b4174f91ba8bcadaa9ad6f0db06" title="Number of elements needed for a buffer[] array to be used for parsing the same argument vectors that ...">buffer_max</a> == 0x7fffffff)</div>
+<div class="line"><a name="l01611"></a><span class="lineno"> 1611</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">false</span>; <span class="comment">// overflow protection: don&#39;t accept number of</span></div>
+<div class="line"><a name="l01612"></a><span class="lineno"> 1612</span>&#160;                              <span class="comment">// options that doesn&#39;t fit signed int</span></div>
+<div class="line"><a name="l01613"></a><span class="lineno"> 1613</span>&#160;            ++*<a class="code" href="../../d8/de3/structoption_1_1Stats.html#a2c9a7b4174f91ba8bcadaa9ad6f0db06" title="Number of elements needed for a buffer[] array to be used for parsing the same argument vectors that ...">buffer_max</a>;</div>
+<div class="line"><a name="l01614"></a><span class="lineno"> 1614</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l01615"></a><span class="lineno"> 1615</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -833,9 +833,9 @@ Private Attributes</h2></td></tr>
 <p>Number of elements needed for a <code>buffer</code>[] array to be used for <a class="el" href="../../d6/d83/classoption_1_1Parser.html#a6e0b5778d1cfbd6cd51240e74d01e138">parsing</a> the same argument vectors that were fed into this <a class="el" href="../../d8/de3/structoption_1_1Stats.html" title="Determines the minimum lengths of the buffer and options arrays used for Parser.">Stats</a> object. </p>
 <dl class="section note"><dt>Note</dt><dd>This number is always 1 greater than the actual number needed, to give you a sentinel element. </dd></dl>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01051">1051</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01057">1057</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d69/optionparser_8h_source.html#l01688">add()</a>.</p>
+<p>Referenced by <a class="el" href="../../da/d69/optionparser_8h_source.html#l01694">add()</a>.</p>
 
 </div>
 </div>
@@ -857,7 +857,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01593">1593</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01599">1599</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 
 </div>
 </div>
@@ -879,9 +879,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01167">1167</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01173">1173</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d69/optionparser_8h_source.html#l01688">add()</a>.</p>
+<p>Referenced by <a class="el" href="../../da/d69/optionparser_8h_source.html#l01694">add()</a>.</p>
 
 </div>
 </div>
@@ -902,9 +902,9 @@ Private Attributes</h2></td></tr>
 </ul>
 </dd></dl>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01069">1069</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01075">1075</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d69/optionparser_8h_source.html#l01688">add()</a>.</p>
+<p>Referenced by <a class="el" href="../../da/d69/optionparser_8h_source.html#l01694">add()</a>.</p>
 
 </div>
 </div>
@@ -914,7 +914,7 @@ Private Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../df/de0/namespaceoption.html">option</a></li><li class="navelem"><a class="el" href="../../d8/de3/structoption_1_1Stats.html">Stats</a></li>
-    <li class="footer">Generated on Wed Oct 26 2016 13:31:55 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Fri Oct 28 2016 13:28:09 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

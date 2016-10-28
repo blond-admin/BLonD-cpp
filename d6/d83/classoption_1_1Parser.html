@@ -257,7 +257,7 @@ Friends</h2></td></tr>
 <div class="line">  ...</div>
 </div><!-- fragment --> </dd></dl>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01190">1190</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01196">1196</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a895e9a1db19f1a026ee6a7412de17d04"></a>
 <div class="memitem">
@@ -282,8 +282,8 @@ Friends</h2></td></tr>
 
 <p>Creates a new <a class="el" href="../../d6/d83/classoption_1_1Parser.html" title="Checks argument vectors for validity and parses them into data structures that are easier to work wit...">Parser</a>. </p>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01199">1199</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l01199"></a><span class="lineno"> 1199</span>&#160;: <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a4e691e4afd841d7e29f26e77468f3260">op_count</a>(0), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3e17e9a2958006b81d99ed5981ed2b9e">nonop_count</a>(0), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#ab6df1186f1e85a80366573b3e0c7bbf6">nonop_args</a>(0), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#ac982fccc777759d1e699302a072d728c">err</a>(<span class="keyword">false</span>) {}</div>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01205">1205</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l01205"></a><span class="lineno"> 1205</span>&#160;: <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a4e691e4afd841d7e29f26e77468f3260">op_count</a>(0), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3e17e9a2958006b81d99ed5981ed2b9e">nonop_count</a>(0), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#ab6df1186f1e85a80366573b3e0c7bbf6">nonop_args</a>(0), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#ac982fccc777759d1e699302a072d728c">err</a>(<span class="keyword">false</span>) {}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -382,11 +382,11 @@ Friends</h2></td></tr>
 </dl>
 <dl class="section attention"><dt>Attention</dt><dd>Remember that <code>options</code> and <code>buffer</code> store <a class="el" href="../../d3/df3/classoption_1_1Option.html" title="A parsed option from the command line together with its argument if it has one.">Option</a> <em>objects</em>, not pointers. Therefore it is not possible for the same object to be in both arrays. For those options that are found in both <code>buffer</code>[] and <code>options</code>[] the respective objects are independent copies. And only the objects in <code>options</code>[] are properly linked via <a class="el" href="../../d3/df3/classoption_1_1Option.html#a59ae9aed505f4d410633bb36478a32be" title="Returns a pointer to the next element of the linked list or NULL if called on last().">Option::next()</a> and <a class="el" href="../../d3/df3/classoption_1_1Option.html#a4d12001a91b0b35cf47437d0c60d2b52" title="Returns a pointer to the previous element of the linked list or NULL if called on first()...">Option::prev()</a>. You can iterate over <code>buffer</code>[] to process all options in the order they appear in the argument vector, but if you want access to the other Options with the same <a class="el" href="../../dc/dfe/structoption_1_1Descriptor.html#a1fee8ac44f529c99ac2b1149b4c391b1" title="Index of this option&#39;s linked list in the array filled in by the parser.">Descriptor::index</a>, then you <em>must</em> access the linked list via <code>options</code>[]. You can get the linked list in options from a buffer object via something like <code>options</code>[buffer[i].index()]. </dd></dl>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01206">1206</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l01209"></a><span class="lineno"> 1209</span>&#160;            : <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a4e691e4afd841d7e29f26e77468f3260">op_count</a>(0), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3e17e9a2958006b81d99ed5981ed2b9e">nonop_count</a>(0), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#ab6df1186f1e85a80366573b3e0c7bbf6">nonop_args</a>(0), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#ac982fccc777759d1e699302a072d728c">err</a>(<span class="keyword">false</span>) {</div>
-<div class="line"><a name="l01210"></a><span class="lineno"> 1210</span>&#160;            <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a6e0b5778d1cfbd6cd51240e74d01e138" title="Parses the given argument vector.">parse</a>(gnu, usage, argc, argv, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3020e9c73856f71bbcd0c24bda2be88e">options</a>, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#aeca132c3b03ffb69cd276eb87960295f">buffer</a>, min_abbr_len,</div>
-<div class="line"><a name="l01211"></a><span class="lineno"> 1211</span>&#160;                  single_minus_longopt, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a64411429028fb6ab915f189eb9733a71">bufmax</a>);</div>
-<div class="line"><a name="l01212"></a><span class="lineno"> 1212</span>&#160;        }</div>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01212">1212</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l01215"></a><span class="lineno"> 1215</span>&#160;            : <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a4e691e4afd841d7e29f26e77468f3260">op_count</a>(0), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3e17e9a2958006b81d99ed5981ed2b9e">nonop_count</a>(0), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#ab6df1186f1e85a80366573b3e0c7bbf6">nonop_args</a>(0), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#ac982fccc777759d1e699302a072d728c">err</a>(<span class="keyword">false</span>) {</div>
+<div class="line"><a name="l01216"></a><span class="lineno"> 1216</span>&#160;            <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a6e0b5778d1cfbd6cd51240e74d01e138" title="Parses the given argument vector.">parse</a>(gnu, usage, argc, argv, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3020e9c73856f71bbcd0c24bda2be88e">options</a>, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#aeca132c3b03ffb69cd276eb87960295f">buffer</a>, min_abbr_len,</div>
+<div class="line"><a name="l01217"></a><span class="lineno"> 1217</span>&#160;                  single_minus_longopt, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a64411429028fb6ab915f189eb9733a71">bufmax</a>);</div>
+<div class="line"><a name="l01218"></a><span class="lineno"> 1218</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -466,11 +466,11 @@ Friends</h2></td></tr>
 
 <p><a class="el" href="../../d6/d83/classoption_1_1Parser.html" title="Checks argument vectors for validity and parses them into data structures that are easier to work wit...">Parser</a>(...) with non-const argv. </p>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01215">1215</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l01218"></a><span class="lineno"> 1218</span>&#160;            : <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a4e691e4afd841d7e29f26e77468f3260">op_count</a>(0), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3e17e9a2958006b81d99ed5981ed2b9e">nonop_count</a>(0), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#ab6df1186f1e85a80366573b3e0c7bbf6">nonop_args</a>(0), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#ac982fccc777759d1e699302a072d728c">err</a>(<span class="keyword">false</span>) {</div>
-<div class="line"><a name="l01219"></a><span class="lineno"> 1219</span>&#160;            <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a6e0b5778d1cfbd6cd51240e74d01e138" title="Parses the given argument vector.">parse</a>(gnu, usage, argc, (<span class="keyword">const</span> <span class="keywordtype">char</span>**)argv, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3020e9c73856f71bbcd0c24bda2be88e">options</a>, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#aeca132c3b03ffb69cd276eb87960295f">buffer</a>,</div>
-<div class="line"><a name="l01220"></a><span class="lineno"> 1220</span>&#160;                  min_abbr_len, single_minus_longopt, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a64411429028fb6ab915f189eb9733a71">bufmax</a>);</div>
-<div class="line"><a name="l01221"></a><span class="lineno"> 1221</span>&#160;        }</div>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01221">1221</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l01224"></a><span class="lineno"> 1224</span>&#160;            : <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a4e691e4afd841d7e29f26e77468f3260">op_count</a>(0), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3e17e9a2958006b81d99ed5981ed2b9e">nonop_count</a>(0), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#ab6df1186f1e85a80366573b3e0c7bbf6">nonop_args</a>(0), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#ac982fccc777759d1e699302a072d728c">err</a>(<span class="keyword">false</span>) {</div>
+<div class="line"><a name="l01225"></a><span class="lineno"> 1225</span>&#160;            <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a6e0b5778d1cfbd6cd51240e74d01e138" title="Parses the given argument vector.">parse</a>(gnu, usage, argc, (<span class="keyword">const</span> <span class="keywordtype">char</span>**)argv, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3020e9c73856f71bbcd0c24bda2be88e">options</a>, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#aeca132c3b03ffb69cd276eb87960295f">buffer</a>,</div>
+<div class="line"><a name="l01226"></a><span class="lineno"> 1226</span>&#160;                  min_abbr_len, single_minus_longopt, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a64411429028fb6ab915f189eb9733a71">bufmax</a>);</div>
+<div class="line"><a name="l01227"></a><span class="lineno"> 1227</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -544,11 +544,11 @@ Friends</h2></td></tr>
 
 <p>POSIX <a class="el" href="../../d6/d83/classoption_1_1Parser.html" title="Checks argument vectors for validity and parses them into data structures that are easier to work wit...">Parser</a>(...) (gnu==false). </p>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01224">1224</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l01227"></a><span class="lineno"> 1227</span>&#160;            : <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a4e691e4afd841d7e29f26e77468f3260">op_count</a>(0), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3e17e9a2958006b81d99ed5981ed2b9e">nonop_count</a>(0), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#ab6df1186f1e85a80366573b3e0c7bbf6">nonop_args</a>(0), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#ac982fccc777759d1e699302a072d728c">err</a>(<span class="keyword">false</span>) {</div>
-<div class="line"><a name="l01228"></a><span class="lineno"> 1228</span>&#160;            <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a6e0b5778d1cfbd6cd51240e74d01e138" title="Parses the given argument vector.">parse</a>(<span class="keyword">false</span>, usage, argc, argv, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3020e9c73856f71bbcd0c24bda2be88e">options</a>, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#aeca132c3b03ffb69cd276eb87960295f">buffer</a>, min_abbr_len,</div>
-<div class="line"><a name="l01229"></a><span class="lineno"> 1229</span>&#160;                  single_minus_longopt, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a64411429028fb6ab915f189eb9733a71">bufmax</a>);</div>
-<div class="line"><a name="l01230"></a><span class="lineno"> 1230</span>&#160;        }</div>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01230">1230</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l01233"></a><span class="lineno"> 1233</span>&#160;            : <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a4e691e4afd841d7e29f26e77468f3260">op_count</a>(0), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3e17e9a2958006b81d99ed5981ed2b9e">nonop_count</a>(0), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#ab6df1186f1e85a80366573b3e0c7bbf6">nonop_args</a>(0), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#ac982fccc777759d1e699302a072d728c">err</a>(<span class="keyword">false</span>) {</div>
+<div class="line"><a name="l01234"></a><span class="lineno"> 1234</span>&#160;            <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a6e0b5778d1cfbd6cd51240e74d01e138" title="Parses the given argument vector.">parse</a>(<span class="keyword">false</span>, usage, argc, argv, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3020e9c73856f71bbcd0c24bda2be88e">options</a>, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#aeca132c3b03ffb69cd276eb87960295f">buffer</a>, min_abbr_len,</div>
+<div class="line"><a name="l01235"></a><span class="lineno"> 1235</span>&#160;                  single_minus_longopt, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a64411429028fb6ab915f189eb9733a71">bufmax</a>);</div>
+<div class="line"><a name="l01236"></a><span class="lineno"> 1236</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -622,11 +622,11 @@ Friends</h2></td></tr>
 
 <p>POSIX <a class="el" href="../../d6/d83/classoption_1_1Parser.html" title="Checks argument vectors for validity and parses them into data structures that are easier to work wit...">Parser</a>(...) (gnu==false) with non-const argv. </p>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01233">1233</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l01236"></a><span class="lineno"> 1236</span>&#160;            : <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a4e691e4afd841d7e29f26e77468f3260">op_count</a>(0), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3e17e9a2958006b81d99ed5981ed2b9e">nonop_count</a>(0), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#ab6df1186f1e85a80366573b3e0c7bbf6">nonop_args</a>(0), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#ac982fccc777759d1e699302a072d728c">err</a>(<span class="keyword">false</span>) {</div>
-<div class="line"><a name="l01237"></a><span class="lineno"> 1237</span>&#160;            <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a6e0b5778d1cfbd6cd51240e74d01e138" title="Parses the given argument vector.">parse</a>(<span class="keyword">false</span>, usage, argc, (<span class="keyword">const</span> <span class="keywordtype">char</span>**)argv, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3020e9c73856f71bbcd0c24bda2be88e">options</a>, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#aeca132c3b03ffb69cd276eb87960295f">buffer</a>,</div>
-<div class="line"><a name="l01238"></a><span class="lineno"> 1238</span>&#160;                  min_abbr_len, single_minus_longopt, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a64411429028fb6ab915f189eb9733a71">bufmax</a>);</div>
-<div class="line"><a name="l01239"></a><span class="lineno"> 1239</span>&#160;        }</div>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01239">1239</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l01242"></a><span class="lineno"> 1242</span>&#160;            : <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a4e691e4afd841d7e29f26e77468f3260">op_count</a>(0), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3e17e9a2958006b81d99ed5981ed2b9e">nonop_count</a>(0), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#ab6df1186f1e85a80366573b3e0c7bbf6">nonop_args</a>(0), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#ac982fccc777759d1e699302a072d728c">err</a>(<span class="keyword">false</span>) {</div>
+<div class="line"><a name="l01243"></a><span class="lineno"> 1243</span>&#160;            <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a6e0b5778d1cfbd6cd51240e74d01e138" title="Parses the given argument vector.">parse</a>(<span class="keyword">false</span>, usage, argc, (<span class="keyword">const</span> <span class="keywordtype">char</span>**)argv, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3020e9c73856f71bbcd0c24bda2be88e">options</a>, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#aeca132c3b03ffb69cd276eb87960295f">buffer</a>,</div>
+<div class="line"><a name="l01244"></a><span class="lineno"> 1244</span>&#160;                  min_abbr_len, single_minus_longopt, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a64411429028fb6ab915f189eb9733a71">bufmax</a>);</div>
+<div class="line"><a name="l01245"></a><span class="lineno"> 1245</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -657,8 +657,8 @@ Friends</h2></td></tr>
 <div class="fragment"><div class="line"><span class="keywordflow">if</span> (<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a5799d3b9046c5326c757bcdacbb6c2ce">parser</a>.<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a2caa149140067b4d13e4d7a104bb3090" title="Returns true if an unrecoverable error occurred while parsing options.">error</a>() || <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3020e9c73856f71bbcd0c24bda2be88e">options</a>[UNKNOWN])</div>
 <div class="line">  exit(1);</div>
 </div><!-- fragment --> 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01445">1445</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l01445"></a><span class="lineno"> 1445</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="../../d6/d83/classoption_1_1Parser.html#ac982fccc777759d1e699302a072d728c">err</a>; }</div>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01451">1451</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l01451"></a><span class="lineno"> 1451</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="../../d6/d83/classoption_1_1Parser.html#ac982fccc777759d1e699302a072d728c">err</a>; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -704,12 +704,12 @@ Friends</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>false</code> iff a fatal error has occurred. </dd></dl>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01579">1579</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l01579"></a><span class="lineno"> 1579</span>&#160;                                                              {</div>
-<div class="line"><a name="l01580"></a><span class="lineno"> 1580</span>&#160;            (void)numargs;</div>
-<div class="line"><a name="l01581"></a><span class="lineno"> 1581</span>&#160;            (void)args;</div>
-<div class="line"><a name="l01582"></a><span class="lineno"> 1582</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l01583"></a><span class="lineno"> 1583</span>&#160;        }</div>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01585">1585</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l01585"></a><span class="lineno"> 1585</span>&#160;                                                              {</div>
+<div class="line"><a name="l01586"></a><span class="lineno"> 1586</span>&#160;            (void)numargs;</div>
+<div class="line"><a name="l01587"></a><span class="lineno"> 1587</span>&#160;            (void)args;</div>
+<div class="line"><a name="l01588"></a><span class="lineno"> 1588</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l01589"></a><span class="lineno"> 1589</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -745,18 +745,18 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01666">1666</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l01666"></a><span class="lineno"> 1666</span>&#160;                                                      {</div>
-<div class="line"><a name="l01667"></a><span class="lineno"> 1667</span>&#160;            <span class="comment">// only overwrite non-option argument list if there&#39;s at least 1</span></div>
-<div class="line"><a name="l01668"></a><span class="lineno"> 1668</span>&#160;            <span class="comment">// new non-option argument. Otherwise we keep the old list. This</span></div>
-<div class="line"><a name="l01669"></a><span class="lineno"> 1669</span>&#160;            <span class="comment">// makes it easy to use default non-option arguments.</span></div>
-<div class="line"><a name="l01670"></a><span class="lineno"> 1670</span>&#160;            <span class="keywordflow">if</span> (numargs &gt; 0) {</div>
-<div class="line"><a name="l01671"></a><span class="lineno"> 1671</span>&#160;                <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a5799d3b9046c5326c757bcdacbb6c2ce">parser</a>.<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3e17e9a2958006b81d99ed5981ed2b9e">nonop_count</a> = numargs;</div>
-<div class="line"><a name="l01672"></a><span class="lineno"> 1672</span>&#160;                <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a5799d3b9046c5326c757bcdacbb6c2ce">parser</a>.<a class="code" href="../../d6/d83/classoption_1_1Parser.html#ab6df1186f1e85a80366573b3e0c7bbf6">nonop_args</a> = args;</div>
-<div class="line"><a name="l01673"></a><span class="lineno"> 1673</span>&#160;            }</div>
-<div class="line"><a name="l01674"></a><span class="lineno"> 1674</span>&#160;</div>
-<div class="line"><a name="l01675"></a><span class="lineno"> 1675</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l01676"></a><span class="lineno"> 1676</span>&#160;        }</div>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01672">1672</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l01672"></a><span class="lineno"> 1672</span>&#160;                                                      {</div>
+<div class="line"><a name="l01673"></a><span class="lineno"> 1673</span>&#160;            <span class="comment">// only overwrite non-option argument list if there&#39;s at least 1</span></div>
+<div class="line"><a name="l01674"></a><span class="lineno"> 1674</span>&#160;            <span class="comment">// new non-option argument. Otherwise we keep the old list. This</span></div>
+<div class="line"><a name="l01675"></a><span class="lineno"> 1675</span>&#160;            <span class="comment">// makes it easy to use default non-option arguments.</span></div>
+<div class="line"><a name="l01676"></a><span class="lineno"> 1676</span>&#160;            <span class="keywordflow">if</span> (numargs &gt; 0) {</div>
+<div class="line"><a name="l01677"></a><span class="lineno"> 1677</span>&#160;                <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a5799d3b9046c5326c757bcdacbb6c2ce">parser</a>.<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3e17e9a2958006b81d99ed5981ed2b9e">nonop_count</a> = numargs;</div>
+<div class="line"><a name="l01678"></a><span class="lineno"> 1678</span>&#160;                <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a5799d3b9046c5326c757bcdacbb6c2ce">parser</a>.<a class="code" href="../../d6/d83/classoption_1_1Parser.html#ab6df1186f1e85a80366573b3e0c7bbf6">nonop_args</a> = args;</div>
+<div class="line"><a name="l01679"></a><span class="lineno"> 1679</span>&#160;            }</div>
+<div class="line"><a name="l01680"></a><span class="lineno"> 1680</span>&#160;</div>
+<div class="line"><a name="l01681"></a><span class="lineno"> 1681</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l01682"></a><span class="lineno"> 1682</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -792,14 +792,14 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01529">1529</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01535">1535</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d69/optionparser_8h_source.html#l01707">workhorse()</a>.</p>
-<div class="fragment"><div class="line"><a name="l01529"></a><span class="lineno"> 1529</span>&#160;                                                   {</div>
-<div class="line"><a name="l01530"></a><span class="lineno"> 1530</span>&#160;            <span class="keywordflow">while</span> (*st != 0 &amp;&amp; *st != ch)</div>
-<div class="line"><a name="l01531"></a><span class="lineno"> 1531</span>&#160;                ++st;</div>
-<div class="line"><a name="l01532"></a><span class="lineno"> 1532</span>&#160;            <span class="keywordflow">return</span> *st == ch;</div>
-<div class="line"><a name="l01533"></a><span class="lineno"> 1533</span>&#160;        }</div>
+<p>Referenced by <a class="el" href="../../da/d69/optionparser_8h_source.html#l01713">workhorse()</a>.</p>
+<div class="fragment"><div class="line"><a name="l01535"></a><span class="lineno"> 1535</span>&#160;                                                   {</div>
+<div class="line"><a name="l01536"></a><span class="lineno"> 1536</span>&#160;            <span class="keywordflow">while</span> (*st != 0 &amp;&amp; *st != ch)</div>
+<div class="line"><a name="l01537"></a><span class="lineno"> 1537</span>&#160;                ++st;</div>
+<div class="line"><a name="l01538"></a><span class="lineno"> 1538</span>&#160;            <span class="keywordflow">return</span> *st == ch;</div>
+<div class="line"><a name="l01539"></a><span class="lineno"> 1539</span>&#160;        }</div>
 </div><!-- fragment -->
 <p><div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
@@ -837,8 +837,8 @@ Friends</h2></td></tr>
 
 <p>Returns <b><code><a class="el" href="../../d6/d83/classoption_1_1Parser.html#a2c11b050f4248d71758dda52c5f9154d" title="Returns a pointer to an array of non-option arguments (only valid if nonOptionsCount() &gt;0 )...">nonOptions()</a>[i]</code></b> (<em>without</em> checking if i is in range!). </p>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01423">1423</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l01423"></a><span class="lineno"> 1423</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a2c11b050f4248d71758dda52c5f9154d" title="Returns a pointer to an array of non-option arguments (only valid if nonOptionsCount() &gt;0 )...">nonOptions</a>()[i]; }</div>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01429">1429</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l01429"></a><span class="lineno"> 1429</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a2c11b050f4248d71758dda52c5f9154d" title="Returns a pointer to an array of non-option arguments (only valid if nonOptionsCount() &gt;0 )...">nonOptions</a>()[i]; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -870,8 +870,8 @@ Friends</h2></td></tr>
 </ul>
 </dd></dl>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01417">1417</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l01417"></a><span class="lineno"> 1417</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="../../d6/d83/classoption_1_1Parser.html#ab6df1186f1e85a80366573b3e0c7bbf6">nonop_args</a>; }</div>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01423">1423</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l01423"></a><span class="lineno"> 1423</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="../../d6/d83/classoption_1_1Parser.html#ab6df1186f1e85a80366573b3e0c7bbf6">nonop_args</a>; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -899,8 +899,8 @@ Friends</h2></td></tr>
 <p>Returns the number of non-option arguments that remained at the end of the most recent <a class="el" href="../../d6/d83/classoption_1_1Parser.html#a6e0b5778d1cfbd6cd51240e74d01e138" title="Parses the given argument vector.">parse()</a> that actually encountered non-option arguments. </p>
 <dl class="section note"><dt>Note</dt><dd>A <a class="el" href="../../d6/d83/classoption_1_1Parser.html#a6e0b5778d1cfbd6cd51240e74d01e138" title="Parses the given argument vector.">parse()</a> that does not encounter non-option arguments will leave this value as well as <a class="el" href="../../d6/d83/classoption_1_1Parser.html#a2c11b050f4248d71758dda52c5f9154d" title="Returns a pointer to an array of non-option arguments (only valid if nonOptionsCount() &gt;0 )...">nonOptions()</a> undisturbed. This means you can feed the <a class="el" href="../../d6/d83/classoption_1_1Parser.html" title="Checks argument vectors for validity and parses them into data structures that are easier to work wit...">Parser</a> a default argument vector that contains non-option arguments (e.g. a default filename). Then you feed it the actual arguments from the user. If the user has supplied at least one non-option argument, all of the non-option arguments from the default disappear and are replaced by the user's non-option arguments. However, if the user does not supply any non-option arguments the defaults will still be in effect. </dd></dl>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01400">1400</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l01400"></a><span class="lineno"> 1400</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3e17e9a2958006b81d99ed5981ed2b9e">nonop_count</a>; }</div>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01406">1406</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l01406"></a><span class="lineno"> 1406</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3e17e9a2958006b81d99ed5981ed2b9e">nonop_count</a>; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -932,8 +932,8 @@ Friends</h2></td></tr>
 </ul>
 </dd></dl>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01376">1376</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l01376"></a><span class="lineno"> 1376</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a4e691e4afd841d7e29f26e77468f3260">op_count</a>; }</div>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01382">1382</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l01382"></a><span class="lineno"> 1382</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a4e691e4afd841d7e29f26e77468f3260">op_count</a>; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1032,14 +1032,14 @@ Friends</h2></td></tr>
 </dl>
 <dl class="section attention"><dt>Attention</dt><dd>Remember that <code>options</code> and <code>buffer</code> store <a class="el" href="../../d3/df3/classoption_1_1Option.html" title="A parsed option from the command line together with its argument if it has one.">Option</a> <em>objects</em>, not pointers. Therefore it is not possible for the same object to be in both arrays. For those options that are found in both <code>buffer</code>[] and <code>options</code>[] the respective objects are independent copies. And only the objects in <code>options</code>[] are properly linked via <a class="el" href="../../d3/df3/classoption_1_1Option.html#a59ae9aed505f4d410633bb36478a32be" title="Returns a pointer to the next element of the linked list or NULL if called on last().">Option::next()</a> and <a class="el" href="../../d3/df3/classoption_1_1Option.html#a4d12001a91b0b35cf47437d0c60d2b52" title="Returns a pointer to the previous element of the linked list or NULL if called on first()...">Option::prev()</a>. You can iterate over <code>buffer</code>[] to process all options in the order they appear in the argument vector, but if you want access to the other Options with the same <a class="el" href="../../dc/dfe/structoption_1_1Descriptor.html#a1fee8ac44f529c99ac2b1149b4c391b1" title="Index of this option&#39;s linked list in the array filled in by the parser.">Descriptor::index</a>, then you <em>must</em> access the linked list via <code>options</code>[]. You can get the linked list in options from a buffer object via something like <code>options</code>[buffer[i].index()]. </dd></dl>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01679">1679</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01685">1685</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 
-<p>References <a class="el" href="../../da/d69/optionparser_8h_source.html#l01194">err</a>, <a class="el" href="../../da/d69/optionparser_8h_source.html#l01450">StoreOptionAction</a>, and <a class="el" href="../../da/d69/optionparser_8h_source.html#l01707">workhorse()</a>.</p>
-<div class="fragment"><div class="line"><a name="l01682"></a><span class="lineno"> 1682</span>&#160;                                                                     {</div>
-<div class="line"><a name="l01683"></a><span class="lineno"> 1683</span>&#160;        <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a6412effab65b63a716bc42933b61d790">StoreOptionAction</a> action(*<span class="keyword">this</span>, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3020e9c73856f71bbcd0c24bda2be88e">options</a>, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#aeca132c3b03ffb69cd276eb87960295f">buffer</a>, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a64411429028fb6ab915f189eb9733a71">bufmax</a>);</div>
-<div class="line"><a name="l01684"></a><span class="lineno"> 1684</span>&#160;        <a class="code" href="../../d6/d83/classoption_1_1Parser.html#ac982fccc777759d1e699302a072d728c">err</a> = !<a class="code" href="../../d6/d83/classoption_1_1Parser.html#ab8c03a700a6f350bba434b3482a6563b">workhorse</a>(gnu, usage, argc, argv, action, single_minus_longopt,</div>
-<div class="line"><a name="l01685"></a><span class="lineno"> 1685</span>&#160;                         <span class="keyword">true</span>, min_abbr_len);</div>
-<div class="line"><a name="l01686"></a><span class="lineno"> 1686</span>&#160;    }</div>
+<p>References <a class="el" href="../../da/d69/optionparser_8h_source.html#l01200">err</a>, <a class="el" href="../../da/d69/optionparser_8h_source.html#l01456">StoreOptionAction</a>, and <a class="el" href="../../da/d69/optionparser_8h_source.html#l01713">workhorse()</a>.</p>
+<div class="fragment"><div class="line"><a name="l01688"></a><span class="lineno"> 1688</span>&#160;                                                                     {</div>
+<div class="line"><a name="l01689"></a><span class="lineno"> 1689</span>&#160;        <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a6412effab65b63a716bc42933b61d790">StoreOptionAction</a> action(*<span class="keyword">this</span>, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3020e9c73856f71bbcd0c24bda2be88e">options</a>, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#aeca132c3b03ffb69cd276eb87960295f">buffer</a>, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a64411429028fb6ab915f189eb9733a71">bufmax</a>);</div>
+<div class="line"><a name="l01690"></a><span class="lineno"> 1690</span>&#160;        <a class="code" href="../../d6/d83/classoption_1_1Parser.html#ac982fccc777759d1e699302a072d728c">err</a> = !<a class="code" href="../../d6/d83/classoption_1_1Parser.html#ab8c03a700a6f350bba434b3482a6563b">workhorse</a>(gnu, usage, argc, argv, action, single_minus_longopt,</div>
+<div class="line"><a name="l01691"></a><span class="lineno"> 1691</span>&#160;                         <span class="keyword">true</span>, min_abbr_len);</div>
+<div class="line"><a name="l01692"></a><span class="lineno"> 1692</span>&#160;    }</div>
 </div><!-- fragment -->
 <p><div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
@@ -1129,11 +1129,11 @@ Friends</h2></td></tr>
 
 <p><a class="el" href="../../d6/d83/classoption_1_1Parser.html#a6e0b5778d1cfbd6cd51240e74d01e138" title="Parses the given argument vector.">parse()</a> with non-const argv. </p>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01342">1342</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l01344"></a><span class="lineno"> 1344</span>&#160;                                                                       {</div>
-<div class="line"><a name="l01345"></a><span class="lineno"> 1345</span>&#160;            <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a6e0b5778d1cfbd6cd51240e74d01e138" title="Parses the given argument vector.">parse</a>(gnu, usage, argc, (<span class="keyword">const</span> <span class="keywordtype">char</span>**)argv, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3020e9c73856f71bbcd0c24bda2be88e">options</a>, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#aeca132c3b03ffb69cd276eb87960295f">buffer</a>,</div>
-<div class="line"><a name="l01346"></a><span class="lineno"> 1346</span>&#160;                  min_abbr_len, single_minus_longopt, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a64411429028fb6ab915f189eb9733a71">bufmax</a>);</div>
-<div class="line"><a name="l01347"></a><span class="lineno"> 1347</span>&#160;        }</div>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01348">1348</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l01350"></a><span class="lineno"> 1350</span>&#160;                                                                       {</div>
+<div class="line"><a name="l01351"></a><span class="lineno"> 1351</span>&#160;            <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a6e0b5778d1cfbd6cd51240e74d01e138" title="Parses the given argument vector.">parse</a>(gnu, usage, argc, (<span class="keyword">const</span> <span class="keywordtype">char</span>**)argv, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3020e9c73856f71bbcd0c24bda2be88e">options</a>, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#aeca132c3b03ffb69cd276eb87960295f">buffer</a>,</div>
+<div class="line"><a name="l01352"></a><span class="lineno"> 1352</span>&#160;                  min_abbr_len, single_minus_longopt, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a64411429028fb6ab915f189eb9733a71">bufmax</a>);</div>
+<div class="line"><a name="l01353"></a><span class="lineno"> 1353</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1207,11 +1207,11 @@ Friends</h2></td></tr>
 
 <p>POSIX <a class="el" href="../../d6/d83/classoption_1_1Parser.html#a6e0b5778d1cfbd6cd51240e74d01e138" title="Parses the given argument vector.">parse()</a> (gnu==false). </p>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01350">1350</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l01352"></a><span class="lineno"> 1352</span>&#160;                                                                       {</div>
-<div class="line"><a name="l01353"></a><span class="lineno"> 1353</span>&#160;            <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a6e0b5778d1cfbd6cd51240e74d01e138" title="Parses the given argument vector.">parse</a>(<span class="keyword">false</span>, usage, argc, argv, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3020e9c73856f71bbcd0c24bda2be88e">options</a>, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#aeca132c3b03ffb69cd276eb87960295f">buffer</a>, min_abbr_len,</div>
-<div class="line"><a name="l01354"></a><span class="lineno"> 1354</span>&#160;                  single_minus_longopt, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a64411429028fb6ab915f189eb9733a71">bufmax</a>);</div>
-<div class="line"><a name="l01355"></a><span class="lineno"> 1355</span>&#160;        }</div>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01356">1356</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l01358"></a><span class="lineno"> 1358</span>&#160;                                                                       {</div>
+<div class="line"><a name="l01359"></a><span class="lineno"> 1359</span>&#160;            <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a6e0b5778d1cfbd6cd51240e74d01e138" title="Parses the given argument vector.">parse</a>(<span class="keyword">false</span>, usage, argc, argv, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3020e9c73856f71bbcd0c24bda2be88e">options</a>, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#aeca132c3b03ffb69cd276eb87960295f">buffer</a>, min_abbr_len,</div>
+<div class="line"><a name="l01360"></a><span class="lineno"> 1360</span>&#160;                  single_minus_longopt, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a64411429028fb6ab915f189eb9733a71">bufmax</a>);</div>
+<div class="line"><a name="l01361"></a><span class="lineno"> 1361</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1285,11 +1285,11 @@ Friends</h2></td></tr>
 
 <p>POSIX <a class="el" href="../../d6/d83/classoption_1_1Parser.html#a6e0b5778d1cfbd6cd51240e74d01e138" title="Parses the given argument vector.">parse()</a> (gnu==false) with non-const argv. </p>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01358">1358</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l01360"></a><span class="lineno"> 1360</span>&#160;                                                                       {</div>
-<div class="line"><a name="l01361"></a><span class="lineno"> 1361</span>&#160;            <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a6e0b5778d1cfbd6cd51240e74d01e138" title="Parses the given argument vector.">parse</a>(<span class="keyword">false</span>, usage, argc, (<span class="keyword">const</span> <span class="keywordtype">char</span>**)argv, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3020e9c73856f71bbcd0c24bda2be88e">options</a>, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#aeca132c3b03ffb69cd276eb87960295f">buffer</a>,</div>
-<div class="line"><a name="l01362"></a><span class="lineno"> 1362</span>&#160;                  min_abbr_len, single_minus_longopt, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a64411429028fb6ab915f189eb9733a71">bufmax</a>);</div>
-<div class="line"><a name="l01363"></a><span class="lineno"> 1363</span>&#160;        }</div>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01364">1364</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l01366"></a><span class="lineno"> 1366</span>&#160;                                                                       {</div>
+<div class="line"><a name="l01367"></a><span class="lineno"> 1367</span>&#160;            <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a6e0b5778d1cfbd6cd51240e74d01e138" title="Parses the given argument vector.">parse</a>(<span class="keyword">false</span>, usage, argc, (<span class="keyword">const</span> <span class="keywordtype">char</span>**)argv, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3020e9c73856f71bbcd0c24bda2be88e">options</a>, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#aeca132c3b03ffb69cd276eb87960295f">buffer</a>,</div>
+<div class="line"><a name="l01368"></a><span class="lineno"> 1368</span>&#160;                  min_abbr_len, single_minus_longopt, <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a64411429028fb6ab915f189eb9733a71">bufmax</a>);</div>
+<div class="line"><a name="l01369"></a><span class="lineno"> 1369</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1318,8 +1318,8 @@ Friends</h2></td></tr>
 <p>Called by <a class="el" href="../../d6/d83/classoption_1_1Parser.html#ab8c03a700a6f350bba434b3482a6563b">Parser::workhorse()</a> for each <a class="el" href="../../d3/df3/classoption_1_1Option.html" title="A parsed option from the command line together with its argument if it has one.">Option</a> that has been successfully parsed (including unknown options if they have a <a class="el" href="../../dc/dfe/structoption_1_1Descriptor.html" title="Describes an option, its help text (usage) and how it should be parsed.">Descriptor</a> whose <a class="el" href="../../dc/dfe/structoption_1_1Descriptor.html#aa5d675dba0214a4abd73007ff163cc67" title="For each option that matches shortopt or longopt this function will be called to check a potential ar...">Descriptor::check_arg</a> does not return <a class="el" href="../../df/de0/namespaceoption.html#aee8c76a07877335762631491e7a5a1a9a9528e32563b795bd2930b12d0a5e382d">ARG_ILLEGAL</a>. </p>
 <p>Returns <code>false</code> iff a fatal error has occured and the parse should be aborted. </p>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01568">1568</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l01568"></a><span class="lineno"> 1568</span>&#160;{ <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01574">1574</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l01574"></a><span class="lineno"> 1574</span>&#160;{ <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1345,26 +1345,26 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01648">1648</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01654">1654</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 
-<p>References <a class="el" href="../../da/d69/optionparser_8h_source.html#l00563">option::Option::desc</a>, and <a class="el" href="../../da/d69/optionparser_8h_source.html#l00403">option::Descriptor::index</a>.</p>
-<div class="fragment"><div class="line"><a name="l01648"></a><span class="lineno"> 1648</span>&#160;                                     {</div>
-<div class="line"><a name="l01649"></a><span class="lineno"> 1649</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a64411429028fb6ab915f189eb9733a71">bufmax</a> &lt; 0 || <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a5799d3b9046c5326c757bcdacbb6c2ce">parser</a>.<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a4e691e4afd841d7e29f26e77468f3260">op_count</a> &lt; <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a64411429028fb6ab915f189eb9733a71">bufmax</a>) {</div>
-<div class="line"><a name="l01650"></a><span class="lineno"> 1650</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a5799d3b9046c5326c757bcdacbb6c2ce">parser</a>.<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a4e691e4afd841d7e29f26e77468f3260">op_count</a> == 0x7fffffff)</div>
-<div class="line"><a name="l01651"></a><span class="lineno"> 1651</span>&#160;                    <span class="keywordflow">return</span> <span class="keyword">false</span>; <span class="comment">// overflow protection: don&#39;t accept number of</span></div>
-<div class="line"><a name="l01652"></a><span class="lineno"> 1652</span>&#160;                                  <span class="comment">// options that doesn&#39;t fit signed int</span></div>
-<div class="line"><a name="l01653"></a><span class="lineno"> 1653</span>&#160;</div>
-<div class="line"><a name="l01654"></a><span class="lineno"> 1654</span>&#160;                <a class="code" href="../../d6/d83/classoption_1_1Parser.html#aeca132c3b03ffb69cd276eb87960295f">buffer</a>[<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a5799d3b9046c5326c757bcdacbb6c2ce">parser</a>.<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a4e691e4afd841d7e29f26e77468f3260">op_count</a>] = option;</div>
-<div class="line"><a name="l01655"></a><span class="lineno"> 1655</span>&#160;                <span class="keywordtype">int</span> idx = <a class="code" href="../../d6/d83/classoption_1_1Parser.html#aeca132c3b03ffb69cd276eb87960295f">buffer</a>[<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a5799d3b9046c5326c757bcdacbb6c2ce">parser</a>.<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a4e691e4afd841d7e29f26e77468f3260">op_count</a>].<a class="code" href="../../d3/df3/classoption_1_1Option.html#af8d664a7b5de1425008b1812a90a0c23" title="Pointer to this Option&#39;s Descriptor.">desc</a>-&gt;<a class="code" href="../../dc/dfe/structoption_1_1Descriptor.html#a1fee8ac44f529c99ac2b1149b4c391b1" title="Index of this option&#39;s linked list in the array filled in by the parser.">index</a>;</div>
-<div class="line"><a name="l01656"></a><span class="lineno"> 1656</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3020e9c73856f71bbcd0c24bda2be88e">options</a>[idx])</div>
-<div class="line"><a name="l01657"></a><span class="lineno"> 1657</span>&#160;                    <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3020e9c73856f71bbcd0c24bda2be88e">options</a>[idx].<a class="code" href="../../d3/df3/classoption_1_1Option.html#a59030822a1ec4e667e6c288d7e5ec961" title="Makes new_last the new last() by chaining it into the list after last().">append</a>(<a class="code" href="../../d6/d83/classoption_1_1Parser.html#aeca132c3b03ffb69cd276eb87960295f">buffer</a>[<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a5799d3b9046c5326c757bcdacbb6c2ce">parser</a>.<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a4e691e4afd841d7e29f26e77468f3260">op_count</a>]);</div>
-<div class="line"><a name="l01658"></a><span class="lineno"> 1658</span>&#160;                <span class="keywordflow">else</span></div>
-<div class="line"><a name="l01659"></a><span class="lineno"> 1659</span>&#160;                    <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3020e9c73856f71bbcd0c24bda2be88e">options</a>[idx] = <a class="code" href="../../d6/d83/classoption_1_1Parser.html#aeca132c3b03ffb69cd276eb87960295f">buffer</a>[<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a5799d3b9046c5326c757bcdacbb6c2ce">parser</a>.<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a4e691e4afd841d7e29f26e77468f3260">op_count</a>];</div>
-<div class="line"><a name="l01660"></a><span class="lineno"> 1660</span>&#160;                ++<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a5799d3b9046c5326c757bcdacbb6c2ce">parser</a>.<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a4e691e4afd841d7e29f26e77468f3260">op_count</a>;</div>
-<div class="line"><a name="l01661"></a><span class="lineno"> 1661</span>&#160;            }</div>
-<div class="line"><a name="l01662"></a><span class="lineno"> 1662</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>; <span class="comment">// NOTE: an option that is discarded because of a full</span></div>
-<div class="line"><a name="l01663"></a><span class="lineno"> 1663</span>&#160;                         <span class="comment">// buffer is not fatal</span></div>
-<div class="line"><a name="l01664"></a><span class="lineno"> 1664</span>&#160;        }</div>
+<p>References <a class="el" href="../../da/d69/optionparser_8h_source.html#l00569">option::Option::desc</a>, and <a class="el" href="../../da/d69/optionparser_8h_source.html#l00409">option::Descriptor::index</a>.</p>
+<div class="fragment"><div class="line"><a name="l01654"></a><span class="lineno"> 1654</span>&#160;                                     {</div>
+<div class="line"><a name="l01655"></a><span class="lineno"> 1655</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a64411429028fb6ab915f189eb9733a71">bufmax</a> &lt; 0 || <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a5799d3b9046c5326c757bcdacbb6c2ce">parser</a>.<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a4e691e4afd841d7e29f26e77468f3260">op_count</a> &lt; <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a64411429028fb6ab915f189eb9733a71">bufmax</a>) {</div>
+<div class="line"><a name="l01656"></a><span class="lineno"> 1656</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a5799d3b9046c5326c757bcdacbb6c2ce">parser</a>.<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a4e691e4afd841d7e29f26e77468f3260">op_count</a> == 0x7fffffff)</div>
+<div class="line"><a name="l01657"></a><span class="lineno"> 1657</span>&#160;                    <span class="keywordflow">return</span> <span class="keyword">false</span>; <span class="comment">// overflow protection: don&#39;t accept number of</span></div>
+<div class="line"><a name="l01658"></a><span class="lineno"> 1658</span>&#160;                                  <span class="comment">// options that doesn&#39;t fit signed int</span></div>
+<div class="line"><a name="l01659"></a><span class="lineno"> 1659</span>&#160;</div>
+<div class="line"><a name="l01660"></a><span class="lineno"> 1660</span>&#160;                <a class="code" href="../../d6/d83/classoption_1_1Parser.html#aeca132c3b03ffb69cd276eb87960295f">buffer</a>[<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a5799d3b9046c5326c757bcdacbb6c2ce">parser</a>.<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a4e691e4afd841d7e29f26e77468f3260">op_count</a>] = option;</div>
+<div class="line"><a name="l01661"></a><span class="lineno"> 1661</span>&#160;                <span class="keywordtype">int</span> idx = <a class="code" href="../../d6/d83/classoption_1_1Parser.html#aeca132c3b03ffb69cd276eb87960295f">buffer</a>[<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a5799d3b9046c5326c757bcdacbb6c2ce">parser</a>.<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a4e691e4afd841d7e29f26e77468f3260">op_count</a>].<a class="code" href="../../d3/df3/classoption_1_1Option.html#af8d664a7b5de1425008b1812a90a0c23" title="Pointer to this Option&#39;s Descriptor.">desc</a>-&gt;<a class="code" href="../../dc/dfe/structoption_1_1Descriptor.html#a1fee8ac44f529c99ac2b1149b4c391b1" title="Index of this option&#39;s linked list in the array filled in by the parser.">index</a>;</div>
+<div class="line"><a name="l01662"></a><span class="lineno"> 1662</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3020e9c73856f71bbcd0c24bda2be88e">options</a>[idx])</div>
+<div class="line"><a name="l01663"></a><span class="lineno"> 1663</span>&#160;                    <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3020e9c73856f71bbcd0c24bda2be88e">options</a>[idx].<a class="code" href="../../d3/df3/classoption_1_1Option.html#a59030822a1ec4e667e6c288d7e5ec961" title="Makes new_last the new last() by chaining it into the list after last().">append</a>(<a class="code" href="../../d6/d83/classoption_1_1Parser.html#aeca132c3b03ffb69cd276eb87960295f">buffer</a>[<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a5799d3b9046c5326c757bcdacbb6c2ce">parser</a>.<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a4e691e4afd841d7e29f26e77468f3260">op_count</a>]);</div>
+<div class="line"><a name="l01664"></a><span class="lineno"> 1664</span>&#160;                <span class="keywordflow">else</span></div>
+<div class="line"><a name="l01665"></a><span class="lineno"> 1665</span>&#160;                    <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3020e9c73856f71bbcd0c24bda2be88e">options</a>[idx] = <a class="code" href="../../d6/d83/classoption_1_1Parser.html#aeca132c3b03ffb69cd276eb87960295f">buffer</a>[<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a5799d3b9046c5326c757bcdacbb6c2ce">parser</a>.<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a4e691e4afd841d7e29f26e77468f3260">op_count</a>];</div>
+<div class="line"><a name="l01666"></a><span class="lineno"> 1666</span>&#160;                ++<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a5799d3b9046c5326c757bcdacbb6c2ce">parser</a>.<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a4e691e4afd841d7e29f26e77468f3260">op_count</a>;</div>
+<div class="line"><a name="l01667"></a><span class="lineno"> 1667</span>&#160;            }</div>
+<div class="line"><a name="l01668"></a><span class="lineno"> 1668</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>; <span class="comment">// NOTE: an option that is discarded because of a full</span></div>
+<div class="line"><a name="l01669"></a><span class="lineno"> 1669</span>&#160;                         <span class="comment">// buffer is not fatal</span></div>
+<div class="line"><a name="l01670"></a><span class="lineno"> 1670</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1400,16 +1400,16 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01541">1541</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01547">1547</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d69/optionparser_8h_source.html#l01707">workhorse()</a>.</p>
-<div class="fragment"><div class="line"><a name="l01541"></a><span class="lineno"> 1541</span>&#160;                                                        {</div>
-<div class="line"><a name="l01542"></a><span class="lineno"> 1542</span>&#160;            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &gt; -count; --i) {</div>
-<div class="line"><a name="l01543"></a><span class="lineno"> 1543</span>&#160;                <span class="keyword">const</span> <span class="keywordtype">char</span>* temp = args[i];</div>
-<div class="line"><a name="l01544"></a><span class="lineno"> 1544</span>&#160;                args[i] = args[i - 1];</div>
-<div class="line"><a name="l01545"></a><span class="lineno"> 1545</span>&#160;                args[i - 1] = temp;</div>
-<div class="line"><a name="l01546"></a><span class="lineno"> 1546</span>&#160;            }</div>
-<div class="line"><a name="l01547"></a><span class="lineno"> 1547</span>&#160;        }</div>
+<p>Referenced by <a class="el" href="../../da/d69/optionparser_8h_source.html#l01713">workhorse()</a>.</p>
+<div class="fragment"><div class="line"><a name="l01547"></a><span class="lineno"> 1547</span>&#160;                                                        {</div>
+<div class="line"><a name="l01548"></a><span class="lineno"> 1548</span>&#160;            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &gt; -count; --i) {</div>
+<div class="line"><a name="l01549"></a><span class="lineno"> 1549</span>&#160;                <span class="keyword">const</span> <span class="keywordtype">char</span>* temp = args[i];</div>
+<div class="line"><a name="l01550"></a><span class="lineno"> 1550</span>&#160;                args[i] = args[i - 1];</div>
+<div class="line"><a name="l01551"></a><span class="lineno"> 1551</span>&#160;                args[i - 1] = temp;</div>
+<div class="line"><a name="l01552"></a><span class="lineno"> 1552</span>&#160;            }</div>
+<div class="line"><a name="l01553"></a><span class="lineno"> 1553</span>&#160;        }</div>
 </div><!-- fragment -->
 <p><div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
@@ -1479,17 +1479,17 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01635">1635</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l01637"></a><span class="lineno"> 1637</span>&#160;            : <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a5799d3b9046c5326c757bcdacbb6c2ce">parser</a>(parser_), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3020e9c73856f71bbcd0c24bda2be88e">options</a>(options_), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#aeca132c3b03ffb69cd276eb87960295f">buffer</a>(buffer_),</div>
-<div class="line"><a name="l01638"></a><span class="lineno"> 1638</span>&#160;              <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a64411429028fb6ab915f189eb9733a71">bufmax</a>(bufmax_) {</div>
-<div class="line"><a name="l01639"></a><span class="lineno"> 1639</span>&#160;            <span class="comment">// find first empty slot in buffer (if any)</span></div>
-<div class="line"><a name="l01640"></a><span class="lineno"> 1640</span>&#160;            <span class="keywordtype">int</span> bufidx = 0;</div>
-<div class="line"><a name="l01641"></a><span class="lineno"> 1641</span>&#160;            <span class="keywordflow">while</span> ((<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a64411429028fb6ab915f189eb9733a71">bufmax</a> &lt; 0 || bufidx &lt; <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a64411429028fb6ab915f189eb9733a71">bufmax</a>) &amp;&amp; <a class="code" href="../../d6/d83/classoption_1_1Parser.html#aeca132c3b03ffb69cd276eb87960295f">buffer</a>[bufidx])</div>
-<div class="line"><a name="l01642"></a><span class="lineno"> 1642</span>&#160;                ++bufidx;</div>
-<div class="line"><a name="l01643"></a><span class="lineno"> 1643</span>&#160;</div>
-<div class="line"><a name="l01644"></a><span class="lineno"> 1644</span>&#160;            <span class="comment">// set parser&#39;s optionCount</span></div>
-<div class="line"><a name="l01645"></a><span class="lineno"> 1645</span>&#160;            <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a5799d3b9046c5326c757bcdacbb6c2ce">parser</a>.<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a4e691e4afd841d7e29f26e77468f3260">op_count</a> = bufidx;</div>
-<div class="line"><a name="l01646"></a><span class="lineno"> 1646</span>&#160;        }</div>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01641">1641</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l01643"></a><span class="lineno"> 1643</span>&#160;            : <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a5799d3b9046c5326c757bcdacbb6c2ce">parser</a>(parser_), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a3020e9c73856f71bbcd0c24bda2be88e">options</a>(options_), <a class="code" href="../../d6/d83/classoption_1_1Parser.html#aeca132c3b03ffb69cd276eb87960295f">buffer</a>(buffer_),</div>
+<div class="line"><a name="l01644"></a><span class="lineno"> 1644</span>&#160;              <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a64411429028fb6ab915f189eb9733a71">bufmax</a>(bufmax_) {</div>
+<div class="line"><a name="l01645"></a><span class="lineno"> 1645</span>&#160;            <span class="comment">// find first empty slot in buffer (if any)</span></div>
+<div class="line"><a name="l01646"></a><span class="lineno"> 1646</span>&#160;            <span class="keywordtype">int</span> bufidx = 0;</div>
+<div class="line"><a name="l01647"></a><span class="lineno"> 1647</span>&#160;            <span class="keywordflow">while</span> ((<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a64411429028fb6ab915f189eb9733a71">bufmax</a> &lt; 0 || bufidx &lt; <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a64411429028fb6ab915f189eb9733a71">bufmax</a>) &amp;&amp; <a class="code" href="../../d6/d83/classoption_1_1Parser.html#aeca132c3b03ffb69cd276eb87960295f">buffer</a>[bufidx])</div>
+<div class="line"><a name="l01648"></a><span class="lineno"> 1648</span>&#160;                ++bufidx;</div>
+<div class="line"><a name="l01649"></a><span class="lineno"> 1649</span>&#160;</div>
+<div class="line"><a name="l01650"></a><span class="lineno"> 1650</span>&#160;            <span class="comment">// set parser&#39;s optionCount</span></div>
+<div class="line"><a name="l01651"></a><span class="lineno"> 1651</span>&#160;            <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a5799d3b9046c5326c757bcdacbb6c2ce">parser</a>.<a class="code" href="../../d6/d83/classoption_1_1Parser.html#a4e691e4afd841d7e29f26e77468f3260">op_count</a> = bufidx;</div>
+<div class="line"><a name="l01652"></a><span class="lineno"> 1652</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1525,15 +1525,15 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01478">1478</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01484">1484</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d69/optionparser_8h_source.html#l01707">workhorse()</a>.</p>
-<div class="fragment"><div class="line"><a name="l01478"></a><span class="lineno"> 1478</span>&#160;                                                            {</div>
-<div class="line"><a name="l01479"></a><span class="lineno"> 1479</span>&#160;            <span class="keywordflow">while</span> (*st1 != 0)</div>
-<div class="line"><a name="l01480"></a><span class="lineno"> 1480</span>&#160;                <span class="keywordflow">if</span> (*st1++ != *st2++)</div>
-<div class="line"><a name="l01481"></a><span class="lineno"> 1481</span>&#160;                    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l01482"></a><span class="lineno"> 1482</span>&#160;            <span class="keywordflow">return</span> (*st2 == 0 || *st2 == <span class="charliteral">&#39;=&#39;</span>);</div>
-<div class="line"><a name="l01483"></a><span class="lineno"> 1483</span>&#160;        }</div>
+<p>Referenced by <a class="el" href="../../da/d69/optionparser_8h_source.html#l01713">workhorse()</a>.</p>
+<div class="fragment"><div class="line"><a name="l01484"></a><span class="lineno"> 1484</span>&#160;                                                            {</div>
+<div class="line"><a name="l01485"></a><span class="lineno"> 1485</span>&#160;            <span class="keywordflow">while</span> (*st1 != 0)</div>
+<div class="line"><a name="l01486"></a><span class="lineno"> 1486</span>&#160;                <span class="keywordflow">if</span> (*st1++ != *st2++)</div>
+<div class="line"><a name="l01487"></a><span class="lineno"> 1487</span>&#160;                    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l01488"></a><span class="lineno"> 1488</span>&#160;            <span class="keywordflow">return</span> (*st2 == 0 || *st2 == <span class="charliteral">&#39;=&#39;</span>);</div>
+<div class="line"><a name="l01489"></a><span class="lineno"> 1489</span>&#160;        }</div>
 </div><!-- fragment -->
 <p><div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
@@ -1585,19 +1585,19 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01511">1511</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01517">1517</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d69/optionparser_8h_source.html#l01707">workhorse()</a>.</p>
-<div class="fragment"><div class="line"><a name="l01511"></a><span class="lineno"> 1511</span>&#160;                                                                               {</div>
-<div class="line"><a name="l01512"></a><span class="lineno"> 1512</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">char</span>* st1start = st1;</div>
-<div class="line"><a name="l01513"></a><span class="lineno"> 1513</span>&#160;            <span class="keywordflow">while</span> (*st1 != 0 &amp;&amp; (*st1 == *st2)) {</div>
-<div class="line"><a name="l01514"></a><span class="lineno"> 1514</span>&#160;                ++st1;</div>
-<div class="line"><a name="l01515"></a><span class="lineno"> 1515</span>&#160;                ++st2;</div>
-<div class="line"><a name="l01516"></a><span class="lineno"> 1516</span>&#160;            }</div>
-<div class="line"><a name="l01517"></a><span class="lineno"> 1517</span>&#160;</div>
-<div class="line"><a name="l01518"></a><span class="lineno"> 1518</span>&#160;            <span class="keywordflow">return</span> (*st1 == 0 || (<a class="code" href="../../df/d6d/namespacemymath.html#a5bcc40b5ebadd9d98f351775df65ec9f">min</a> &gt; 0 &amp;&amp; (st1 - st1start) &gt;= <a class="code" href="../../df/d6d/namespacemymath.html#a5bcc40b5ebadd9d98f351775df65ec9f">min</a>)) &amp;&amp;</div>
-<div class="line"><a name="l01519"></a><span class="lineno"> 1519</span>&#160;                   (*st2 == 0 || *st2 == <span class="charliteral">&#39;=&#39;</span>);</div>
-<div class="line"><a name="l01520"></a><span class="lineno"> 1520</span>&#160;        }</div>
+<p>Referenced by <a class="el" href="../../da/d69/optionparser_8h_source.html#l01713">workhorse()</a>.</p>
+<div class="fragment"><div class="line"><a name="l01517"></a><span class="lineno"> 1517</span>&#160;                                                                               {</div>
+<div class="line"><a name="l01518"></a><span class="lineno"> 1518</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">char</span>* st1start = st1;</div>
+<div class="line"><a name="l01519"></a><span class="lineno"> 1519</span>&#160;            <span class="keywordflow">while</span> (*st1 != 0 &amp;&amp; (*st1 == *st2)) {</div>
+<div class="line"><a name="l01520"></a><span class="lineno"> 1520</span>&#160;                ++st1;</div>
+<div class="line"><a name="l01521"></a><span class="lineno"> 1521</span>&#160;                ++st2;</div>
+<div class="line"><a name="l01522"></a><span class="lineno"> 1522</span>&#160;            }</div>
+<div class="line"><a name="l01523"></a><span class="lineno"> 1523</span>&#160;</div>
+<div class="line"><a name="l01524"></a><span class="lineno"> 1524</span>&#160;            <span class="keywordflow">return</span> (*st1 == 0 || (<a class="code" href="../../df/d6d/namespacemymath.html#a5bcc40b5ebadd9d98f351775df65ec9f">min</a> &gt; 0 &amp;&amp; (st1 - st1start) &gt;= <a class="code" href="../../df/d6d/namespacemymath.html#a5bcc40b5ebadd9d98f351775df65ec9f">min</a>)) &amp;&amp;</div>
+<div class="line"><a name="l01525"></a><span class="lineno"> 1525</span>&#160;                   (*st2 == 0 || *st2 == <span class="charliteral">&#39;=&#39;</span>);</div>
+<div class="line"><a name="l01526"></a><span class="lineno"> 1526</span>&#160;        }</div>
 </div><!-- fragment -->
 <p><div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
@@ -1679,204 +1679,204 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01707">1707</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01713">1713</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 
-<p>References <a class="el" href="../../da/d69/optionparser_8h_source.html#l00593">option::Option::arg</a>, <a class="el" href="../../da/d69/optionparser_8h_source.html#l00308">option::ARG_IGNORE</a>, <a class="el" href="../../da/d69/optionparser_8h_source.html#l00310">option::ARG_ILLEGAL</a>, <a class="el" href="../../da/d69/optionparser_8h_source.html#l00303">option::ARG_NONE</a>, <a class="el" href="../../da/d69/optionparser_8h_source.html#l00305">option::ARG_OK</a>, <a class="el" href="../../da/d69/optionparser_8h_source.html#l00491">option::Descriptor::check_arg</a>, <a class="el" href="../../da/d69/optionparser_8h_source.html#l01529">instr()</a>, <a class="el" href="../../da/d69/optionparser_8h_source.html#l01541">shift()</a>, <a class="el" href="../../da/d69/optionparser_8h_source.html#l00429">option::Descriptor::shortopt</a>, <a class="el" href="../../da/d69/optionparser_8h_source.html#l01478">streq()</a>, and <a class="el" href="../../da/d69/optionparser_8h_source.html#l01511">streqabbr()</a>.</p>
+<p>References <a class="el" href="../../da/d69/optionparser_8h_source.html#l00599">option::Option::arg</a>, <a class="el" href="../../da/d69/optionparser_8h_source.html#l00314">option::ARG_IGNORE</a>, <a class="el" href="../../da/d69/optionparser_8h_source.html#l00316">option::ARG_ILLEGAL</a>, <a class="el" href="../../da/d69/optionparser_8h_source.html#l00309">option::ARG_NONE</a>, <a class="el" href="../../da/d69/optionparser_8h_source.html#l00311">option::ARG_OK</a>, <a class="el" href="../../da/d69/optionparser_8h_source.html#l00497">option::Descriptor::check_arg</a>, <a class="el" href="../../da/d69/optionparser_8h_source.html#l01535">instr()</a>, <a class="el" href="../../da/d69/optionparser_8h_source.html#l01547">shift()</a>, <a class="el" href="../../da/d69/optionparser_8h_source.html#l00435">option::Descriptor::shortopt</a>, <a class="el" href="../../da/d69/optionparser_8h_source.html#l01484">streq()</a>, and <a class="el" href="../../da/d69/optionparser_8h_source.html#l01517">streqabbr()</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d69/optionparser_8h_source.html#l01688">option::Stats::add()</a>, and <a class="el" href="../../da/d69/optionparser_8h_source.html#l01679">parse()</a>.</p>
-<div class="fragment"><div class="line"><a name="l01710"></a><span class="lineno"> 1710</span>&#160;                                                                       {</div>
-<div class="line"><a name="l01711"></a><span class="lineno"> 1711</span>&#160;        <span class="comment">// protect against NULL pointer</span></div>
-<div class="line"><a name="l01712"></a><span class="lineno"> 1712</span>&#160;        <span class="keywordflow">if</span> (args == 0)</div>
-<div class="line"><a name="l01713"></a><span class="lineno"> 1713</span>&#160;            numargs = 0;</div>
-<div class="line"><a name="l01714"></a><span class="lineno"> 1714</span>&#160;</div>
-<div class="line"><a name="l01715"></a><span class="lineno"> 1715</span>&#160;        <span class="keywordtype">int</span> nonops = 0;</div>
-<div class="line"><a name="l01716"></a><span class="lineno"> 1716</span>&#160;</div>
-<div class="line"><a name="l01717"></a><span class="lineno"> 1717</span>&#160;        <span class="keywordflow">while</span> (numargs != 0 &amp;&amp; *args != 0) {</div>
-<div class="line"><a name="l01718"></a><span class="lineno"> 1718</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">char</span>* param = *args; <span class="comment">// param can be --long-option, -srto or</span></div>
-<div class="line"><a name="l01719"></a><span class="lineno"> 1719</span>&#160;                                       <span class="comment">// non-option argument</span></div>
+<p>Referenced by <a class="el" href="../../da/d69/optionparser_8h_source.html#l01694">option::Stats::add()</a>, and <a class="el" href="../../da/d69/optionparser_8h_source.html#l01685">parse()</a>.</p>
+<div class="fragment"><div class="line"><a name="l01716"></a><span class="lineno"> 1716</span>&#160;                                                                       {</div>
+<div class="line"><a name="l01717"></a><span class="lineno"> 1717</span>&#160;        <span class="comment">// protect against NULL pointer</span></div>
+<div class="line"><a name="l01718"></a><span class="lineno"> 1718</span>&#160;        <span class="keywordflow">if</span> (args == 0)</div>
+<div class="line"><a name="l01719"></a><span class="lineno"> 1719</span>&#160;            numargs = 0;</div>
 <div class="line"><a name="l01720"></a><span class="lineno"> 1720</span>&#160;</div>
-<div class="line"><a name="l01721"></a><span class="lineno"> 1721</span>&#160;            <span class="comment">// in POSIX mode the first non-option argument terminates the option</span></div>
-<div class="line"><a name="l01722"></a><span class="lineno"> 1722</span>&#160;            <span class="comment">// list</span></div>
-<div class="line"><a name="l01723"></a><span class="lineno"> 1723</span>&#160;            <span class="comment">// a lone minus character is a non-option argument</span></div>
-<div class="line"><a name="l01724"></a><span class="lineno"> 1724</span>&#160;            <span class="keywordflow">if</span> (param[0] != <span class="charliteral">&#39;-&#39;</span> || param[1] == 0) {</div>
-<div class="line"><a name="l01725"></a><span class="lineno"> 1725</span>&#160;                <span class="keywordflow">if</span> (gnu) {</div>
-<div class="line"><a name="l01726"></a><span class="lineno"> 1726</span>&#160;                    ++nonops;</div>
-<div class="line"><a name="l01727"></a><span class="lineno"> 1727</span>&#160;                    ++args;</div>
-<div class="line"><a name="l01728"></a><span class="lineno"> 1728</span>&#160;                    <span class="keywordflow">if</span> (numargs &gt; 0)</div>
-<div class="line"><a name="l01729"></a><span class="lineno"> 1729</span>&#160;                        --numargs;</div>
-<div class="line"><a name="l01730"></a><span class="lineno"> 1730</span>&#160;                    <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l01731"></a><span class="lineno"> 1731</span>&#160;                } <span class="keywordflow">else</span></div>
-<div class="line"><a name="l01732"></a><span class="lineno"> 1732</span>&#160;                    <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l01733"></a><span class="lineno"> 1733</span>&#160;            }</div>
-<div class="line"><a name="l01734"></a><span class="lineno"> 1734</span>&#160;</div>
-<div class="line"><a name="l01735"></a><span class="lineno"> 1735</span>&#160;            <span class="comment">// -- terminates the option list. The -- itself is skipped.</span></div>
-<div class="line"><a name="l01736"></a><span class="lineno"> 1736</span>&#160;            <span class="keywordflow">if</span> (param[1] == <span class="charliteral">&#39;-&#39;</span> &amp;&amp; param[2] == 0) {</div>
-<div class="line"><a name="l01737"></a><span class="lineno"> 1737</span>&#160;                <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a50028a8c1f78607119e164ba8059018c">shift</a>(args, nonops);</div>
-<div class="line"><a name="l01738"></a><span class="lineno"> 1738</span>&#160;                ++args;</div>
-<div class="line"><a name="l01739"></a><span class="lineno"> 1739</span>&#160;                <span class="keywordflow">if</span> (numargs &gt; 0)</div>
-<div class="line"><a name="l01740"></a><span class="lineno"> 1740</span>&#160;                    --numargs;</div>
-<div class="line"><a name="l01741"></a><span class="lineno"> 1741</span>&#160;                <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l01742"></a><span class="lineno"> 1742</span>&#160;            }</div>
-<div class="line"><a name="l01743"></a><span class="lineno"> 1743</span>&#160;</div>
-<div class="line"><a name="l01744"></a><span class="lineno"> 1744</span>&#160;            <span class="keywordtype">bool</span> handle_short_options;</div>
-<div class="line"><a name="l01745"></a><span class="lineno"> 1745</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">char</span>* longopt_name;</div>
-<div class="line"><a name="l01746"></a><span class="lineno"> 1746</span>&#160;            <span class="keywordflow">if</span> (param[1] == <span class="charliteral">&#39;-&#39;</span>) { <span class="comment">// if --long-option</span></div>
-<div class="line"><a name="l01747"></a><span class="lineno"> 1747</span>&#160;                handle_short_options = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l01748"></a><span class="lineno"> 1748</span>&#160;                longopt_name = param + 2;</div>
-<div class="line"><a name="l01749"></a><span class="lineno"> 1749</span>&#160;            } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l01750"></a><span class="lineno"> 1750</span>&#160;                handle_short_options = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l01751"></a><span class="lineno"> 1751</span>&#160;                longopt_name = param + 1; <span class="comment">// for testing a potential</span></div>
-<div class="line"><a name="l01752"></a><span class="lineno"> 1752</span>&#160;                                          <span class="comment">// -long-option</span></div>
-<div class="line"><a name="l01753"></a><span class="lineno"> 1753</span>&#160;            }</div>
-<div class="line"><a name="l01754"></a><span class="lineno"> 1754</span>&#160;</div>
-<div class="line"><a name="l01755"></a><span class="lineno"> 1755</span>&#160;            <span class="keywordtype">bool</span> try_single_minus_longopt = single_minus_longopt;</div>
-<div class="line"><a name="l01756"></a><span class="lineno"> 1756</span>&#160;            <span class="keywordtype">bool</span> have_more_args =</div>
-<div class="line"><a name="l01757"></a><span class="lineno"> 1757</span>&#160;                (numargs &gt; 1 || numargs &lt; 0); <span class="comment">// is referencing argv[1] valid?</span></div>
-<div class="line"><a name="l01758"></a><span class="lineno"> 1758</span>&#160;</div>
-<div class="line"><a name="l01759"></a><span class="lineno"> 1759</span>&#160;            <span class="keywordflow">do</span> { <span class="comment">// loop over short options in group, for long options the body</span></div>
-<div class="line"><a name="l01760"></a><span class="lineno"> 1760</span>&#160;                 <span class="comment">// is executed only once</span></div>
-<div class="line"><a name="l01761"></a><span class="lineno"> 1761</span>&#160;                <span class="keywordtype">int</span> idx;</div>
-<div class="line"><a name="l01762"></a><span class="lineno"> 1762</span>&#160;</div>
-<div class="line"><a name="l01763"></a><span class="lineno"> 1763</span>&#160;                <span class="keyword">const</span> <span class="keywordtype">char</span>* optarg;</div>
+<div class="line"><a name="l01721"></a><span class="lineno"> 1721</span>&#160;        <span class="keywordtype">int</span> nonops = 0;</div>
+<div class="line"><a name="l01722"></a><span class="lineno"> 1722</span>&#160;</div>
+<div class="line"><a name="l01723"></a><span class="lineno"> 1723</span>&#160;        <span class="keywordflow">while</span> (numargs != 0 &amp;&amp; *args != 0) {</div>
+<div class="line"><a name="l01724"></a><span class="lineno"> 1724</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">char</span>* param = *args; <span class="comment">// param can be --long-option, -srto or</span></div>
+<div class="line"><a name="l01725"></a><span class="lineno"> 1725</span>&#160;                                       <span class="comment">// non-option argument</span></div>
+<div class="line"><a name="l01726"></a><span class="lineno"> 1726</span>&#160;</div>
+<div class="line"><a name="l01727"></a><span class="lineno"> 1727</span>&#160;            <span class="comment">// in POSIX mode the first non-option argument terminates the option</span></div>
+<div class="line"><a name="l01728"></a><span class="lineno"> 1728</span>&#160;            <span class="comment">// list</span></div>
+<div class="line"><a name="l01729"></a><span class="lineno"> 1729</span>&#160;            <span class="comment">// a lone minus character is a non-option argument</span></div>
+<div class="line"><a name="l01730"></a><span class="lineno"> 1730</span>&#160;            <span class="keywordflow">if</span> (param[0] != <span class="charliteral">&#39;-&#39;</span> || param[1] == 0) {</div>
+<div class="line"><a name="l01731"></a><span class="lineno"> 1731</span>&#160;                <span class="keywordflow">if</span> (gnu) {</div>
+<div class="line"><a name="l01732"></a><span class="lineno"> 1732</span>&#160;                    ++nonops;</div>
+<div class="line"><a name="l01733"></a><span class="lineno"> 1733</span>&#160;                    ++args;</div>
+<div class="line"><a name="l01734"></a><span class="lineno"> 1734</span>&#160;                    <span class="keywordflow">if</span> (numargs &gt; 0)</div>
+<div class="line"><a name="l01735"></a><span class="lineno"> 1735</span>&#160;                        --numargs;</div>
+<div class="line"><a name="l01736"></a><span class="lineno"> 1736</span>&#160;                    <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l01737"></a><span class="lineno"> 1737</span>&#160;                } <span class="keywordflow">else</span></div>
+<div class="line"><a name="l01738"></a><span class="lineno"> 1738</span>&#160;                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l01739"></a><span class="lineno"> 1739</span>&#160;            }</div>
+<div class="line"><a name="l01740"></a><span class="lineno"> 1740</span>&#160;</div>
+<div class="line"><a name="l01741"></a><span class="lineno"> 1741</span>&#160;            <span class="comment">// -- terminates the option list. The -- itself is skipped.</span></div>
+<div class="line"><a name="l01742"></a><span class="lineno"> 1742</span>&#160;            <span class="keywordflow">if</span> (param[1] == <span class="charliteral">&#39;-&#39;</span> &amp;&amp; param[2] == 0) {</div>
+<div class="line"><a name="l01743"></a><span class="lineno"> 1743</span>&#160;                <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a50028a8c1f78607119e164ba8059018c">shift</a>(args, nonops);</div>
+<div class="line"><a name="l01744"></a><span class="lineno"> 1744</span>&#160;                ++args;</div>
+<div class="line"><a name="l01745"></a><span class="lineno"> 1745</span>&#160;                <span class="keywordflow">if</span> (numargs &gt; 0)</div>
+<div class="line"><a name="l01746"></a><span class="lineno"> 1746</span>&#160;                    --numargs;</div>
+<div class="line"><a name="l01747"></a><span class="lineno"> 1747</span>&#160;                <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l01748"></a><span class="lineno"> 1748</span>&#160;            }</div>
+<div class="line"><a name="l01749"></a><span class="lineno"> 1749</span>&#160;</div>
+<div class="line"><a name="l01750"></a><span class="lineno"> 1750</span>&#160;            <span class="keywordtype">bool</span> handle_short_options;</div>
+<div class="line"><a name="l01751"></a><span class="lineno"> 1751</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">char</span>* longopt_name;</div>
+<div class="line"><a name="l01752"></a><span class="lineno"> 1752</span>&#160;            <span class="keywordflow">if</span> (param[1] == <span class="charliteral">&#39;-&#39;</span>) { <span class="comment">// if --long-option</span></div>
+<div class="line"><a name="l01753"></a><span class="lineno"> 1753</span>&#160;                handle_short_options = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l01754"></a><span class="lineno"> 1754</span>&#160;                longopt_name = param + 2;</div>
+<div class="line"><a name="l01755"></a><span class="lineno"> 1755</span>&#160;            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l01756"></a><span class="lineno"> 1756</span>&#160;                handle_short_options = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l01757"></a><span class="lineno"> 1757</span>&#160;                longopt_name = param + 1; <span class="comment">// for testing a potential</span></div>
+<div class="line"><a name="l01758"></a><span class="lineno"> 1758</span>&#160;                                          <span class="comment">// -long-option</span></div>
+<div class="line"><a name="l01759"></a><span class="lineno"> 1759</span>&#160;            }</div>
+<div class="line"><a name="l01760"></a><span class="lineno"> 1760</span>&#160;</div>
+<div class="line"><a name="l01761"></a><span class="lineno"> 1761</span>&#160;            <span class="keywordtype">bool</span> try_single_minus_longopt = single_minus_longopt;</div>
+<div class="line"><a name="l01762"></a><span class="lineno"> 1762</span>&#160;            <span class="keywordtype">bool</span> have_more_args =</div>
+<div class="line"><a name="l01763"></a><span class="lineno"> 1763</span>&#160;                (numargs &gt; 1 || numargs &lt; 0); <span class="comment">// is referencing argv[1] valid?</span></div>
 <div class="line"><a name="l01764"></a><span class="lineno"> 1764</span>&#160;</div>
-<div class="line"><a name="l01765"></a><span class="lineno"> 1765</span>&#160;                <span class="comment">/******************** long option **********************/</span></div>
-<div class="line"><a name="l01766"></a><span class="lineno"> 1766</span>&#160;                <span class="keywordflow">if</span> (handle_short_options == <span class="keyword">false</span> || try_single_minus_longopt) {</div>
-<div class="line"><a name="l01767"></a><span class="lineno"> 1767</span>&#160;                    idx = 0;</div>
-<div class="line"><a name="l01768"></a><span class="lineno"> 1768</span>&#160;                    <span class="keywordflow">while</span> (usage[idx].longopt != 0 &amp;&amp;</div>
-<div class="line"><a name="l01769"></a><span class="lineno"> 1769</span>&#160;                           !<a class="code" href="../../d6/d83/classoption_1_1Parser.html#ab1638764142e2789b552b8cc3196e365">streq</a>(usage[idx].longopt, longopt_name))</div>
-<div class="line"><a name="l01770"></a><span class="lineno"> 1770</span>&#160;                        ++idx;</div>
-<div class="line"><a name="l01771"></a><span class="lineno"> 1771</span>&#160;</div>
-<div class="line"><a name="l01772"></a><span class="lineno"> 1772</span>&#160;                    <span class="keywordflow">if</span> (usage[idx].longopt == 0 &amp;&amp;</div>
-<div class="line"><a name="l01773"></a><span class="lineno"> 1773</span>&#160;                        min_abbr_len &gt; 0) { <span class="comment">// if we should try to match</span></div>
-<div class="line"><a name="l01774"></a><span class="lineno"> 1774</span>&#160;                                            <span class="comment">// abbreviated long options</span></div>
-<div class="line"><a name="l01775"></a><span class="lineno"> 1775</span>&#160;                        <span class="keywordtype">int</span> i1 = 0;</div>
-<div class="line"><a name="l01776"></a><span class="lineno"> 1776</span>&#160;                        <span class="keywordflow">while</span> (usage[i1].longopt != 0 &amp;&amp;</div>
-<div class="line"><a name="l01777"></a><span class="lineno"> 1777</span>&#160;                               !<a class="code" href="../../d6/d83/classoption_1_1Parser.html#abcdbe5be641eb3586a0602a4189dc913">streqabbr</a>(usage[i1].longopt, longopt_name,</div>
-<div class="line"><a name="l01778"></a><span class="lineno"> 1778</span>&#160;                                          min_abbr_len))</div>
-<div class="line"><a name="l01779"></a><span class="lineno"> 1779</span>&#160;                            ++i1;</div>
-<div class="line"><a name="l01780"></a><span class="lineno"> 1780</span>&#160;                        <span class="keywordflow">if</span> (usage[i1].longopt != 0) {</div>
-<div class="line"><a name="l01781"></a><span class="lineno"> 1781</span>&#160;                            <span class="comment">// now test if the match is unambiguous by checking</span></div>
-<div class="line"><a name="l01782"></a><span class="lineno"> 1782</span>&#160;                            <span class="comment">// for another match</span></div>
-<div class="line"><a name="l01783"></a><span class="lineno"> 1783</span>&#160;                            <span class="keywordtype">int</span> i2 = i1 + 1;</div>
-<div class="line"><a name="l01784"></a><span class="lineno"> 1784</span>&#160;                            <span class="keywordflow">while</span> (usage[i2].longopt != 0 &amp;&amp;</div>
-<div class="line"><a name="l01785"></a><span class="lineno"> 1785</span>&#160;                                   !<a class="code" href="../../d6/d83/classoption_1_1Parser.html#abcdbe5be641eb3586a0602a4189dc913">streqabbr</a>(usage[i2].longopt, longopt_name,</div>
-<div class="line"><a name="l01786"></a><span class="lineno"> 1786</span>&#160;                                              min_abbr_len))</div>
-<div class="line"><a name="l01787"></a><span class="lineno"> 1787</span>&#160;                                ++i2;</div>
-<div class="line"><a name="l01788"></a><span class="lineno"> 1788</span>&#160;</div>
-<div class="line"><a name="l01789"></a><span class="lineno"> 1789</span>&#160;                            <span class="keywordflow">if</span> (usage[i2].longopt == 0) <span class="comment">// if there was no</span></div>
-<div class="line"><a name="l01790"></a><span class="lineno"> 1790</span>&#160;                                                        <span class="comment">// second match it&#39;s</span></div>
-<div class="line"><a name="l01791"></a><span class="lineno"> 1791</span>&#160;                                                        <span class="comment">// unambiguous, so</span></div>
-<div class="line"><a name="l01792"></a><span class="lineno"> 1792</span>&#160;                                                        <span class="comment">// accept i1 as idx</span></div>
-<div class="line"><a name="l01793"></a><span class="lineno"> 1793</span>&#160;                                idx = i1;</div>
-<div class="line"><a name="l01794"></a><span class="lineno"> 1794</span>&#160;                        }</div>
-<div class="line"><a name="l01795"></a><span class="lineno"> 1795</span>&#160;                    }</div>
-<div class="line"><a name="l01796"></a><span class="lineno"> 1796</span>&#160;</div>
-<div class="line"><a name="l01797"></a><span class="lineno"> 1797</span>&#160;                    <span class="comment">// if we found something, disable handle_short_options (only</span></div>
-<div class="line"><a name="l01798"></a><span class="lineno"> 1798</span>&#160;                    <span class="comment">// relevant if single_minus_longopt)</span></div>
-<div class="line"><a name="l01799"></a><span class="lineno"> 1799</span>&#160;                    <span class="keywordflow">if</span> (usage[idx].longopt != 0)</div>
-<div class="line"><a name="l01800"></a><span class="lineno"> 1800</span>&#160;                        handle_short_options = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l01801"></a><span class="lineno"> 1801</span>&#160;</div>
-<div class="line"><a name="l01802"></a><span class="lineno"> 1802</span>&#160;                    try_single_minus_longopt = <span class="keyword">false</span>; <span class="comment">// prevent looking for</span></div>
-<div class="line"><a name="l01803"></a><span class="lineno"> 1803</span>&#160;                                                      <span class="comment">// longopt in the middle</span></div>
-<div class="line"><a name="l01804"></a><span class="lineno"> 1804</span>&#160;                                                      <span class="comment">// of shortopt group</span></div>
-<div class="line"><a name="l01805"></a><span class="lineno"> 1805</span>&#160;</div>
-<div class="line"><a name="l01806"></a><span class="lineno"> 1806</span>&#160;                    optarg = longopt_name;</div>
-<div class="line"><a name="l01807"></a><span class="lineno"> 1807</span>&#160;                    <span class="keywordflow">while</span> (*optarg != 0 &amp;&amp; *optarg != <span class="charliteral">&#39;=&#39;</span>)</div>
-<div class="line"><a name="l01808"></a><span class="lineno"> 1808</span>&#160;                        ++optarg;</div>
-<div class="line"><a name="l01809"></a><span class="lineno"> 1809</span>&#160;                    <span class="keywordflow">if</span> (*optarg == <span class="charliteral">&#39;=&#39;</span>) <span class="comment">// attached argument</span></div>
-<div class="line"><a name="l01810"></a><span class="lineno"> 1810</span>&#160;                        ++optarg;</div>
-<div class="line"><a name="l01811"></a><span class="lineno"> 1811</span>&#160;                    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l01812"></a><span class="lineno"> 1812</span>&#160;                        <span class="comment">// possibly detached argument</span></div>
-<div class="line"><a name="l01813"></a><span class="lineno"> 1813</span>&#160;                        optarg = (have_more_args ? args[1] : 0);</div>
-<div class="line"><a name="l01814"></a><span class="lineno"> 1814</span>&#160;                }</div>
-<div class="line"><a name="l01815"></a><span class="lineno"> 1815</span>&#160;</div>
-<div class="line"><a name="l01816"></a><span class="lineno"> 1816</span>&#160;                <span class="comment">/************************ short option</span></div>
-<div class="line"><a name="l01817"></a><span class="lineno"> 1817</span>&#160;<span class="comment">                * ***********************************/</span></div>
-<div class="line"><a name="l01818"></a><span class="lineno"> 1818</span>&#160;                <span class="keywordflow">if</span> (handle_short_options) {</div>
-<div class="line"><a name="l01819"></a><span class="lineno"> 1819</span>&#160;                    <span class="keywordflow">if</span> (*++param == 0) <span class="comment">// point at the 1st/next option character</span></div>
-<div class="line"><a name="l01820"></a><span class="lineno"> 1820</span>&#160;                        <span class="keywordflow">break</span>;         <span class="comment">// end of short option group</span></div>
+<div class="line"><a name="l01765"></a><span class="lineno"> 1765</span>&#160;            <span class="keywordflow">do</span> { <span class="comment">// loop over short options in group, for long options the body</span></div>
+<div class="line"><a name="l01766"></a><span class="lineno"> 1766</span>&#160;                 <span class="comment">// is executed only once</span></div>
+<div class="line"><a name="l01767"></a><span class="lineno"> 1767</span>&#160;                <span class="keywordtype">int</span> idx;</div>
+<div class="line"><a name="l01768"></a><span class="lineno"> 1768</span>&#160;</div>
+<div class="line"><a name="l01769"></a><span class="lineno"> 1769</span>&#160;                <span class="keyword">const</span> <span class="keywordtype">char</span>* optarg;</div>
+<div class="line"><a name="l01770"></a><span class="lineno"> 1770</span>&#160;</div>
+<div class="line"><a name="l01771"></a><span class="lineno"> 1771</span>&#160;                <span class="comment">/******************** long option **********************/</span></div>
+<div class="line"><a name="l01772"></a><span class="lineno"> 1772</span>&#160;                <span class="keywordflow">if</span> (handle_short_options == <span class="keyword">false</span> || try_single_minus_longopt) {</div>
+<div class="line"><a name="l01773"></a><span class="lineno"> 1773</span>&#160;                    idx = 0;</div>
+<div class="line"><a name="l01774"></a><span class="lineno"> 1774</span>&#160;                    <span class="keywordflow">while</span> (usage[idx].longopt != 0 &amp;&amp;</div>
+<div class="line"><a name="l01775"></a><span class="lineno"> 1775</span>&#160;                           !<a class="code" href="../../d6/d83/classoption_1_1Parser.html#ab1638764142e2789b552b8cc3196e365">streq</a>(usage[idx].longopt, longopt_name))</div>
+<div class="line"><a name="l01776"></a><span class="lineno"> 1776</span>&#160;                        ++idx;</div>
+<div class="line"><a name="l01777"></a><span class="lineno"> 1777</span>&#160;</div>
+<div class="line"><a name="l01778"></a><span class="lineno"> 1778</span>&#160;                    <span class="keywordflow">if</span> (usage[idx].longopt == 0 &amp;&amp;</div>
+<div class="line"><a name="l01779"></a><span class="lineno"> 1779</span>&#160;                        min_abbr_len &gt; 0) { <span class="comment">// if we should try to match</span></div>
+<div class="line"><a name="l01780"></a><span class="lineno"> 1780</span>&#160;                                            <span class="comment">// abbreviated long options</span></div>
+<div class="line"><a name="l01781"></a><span class="lineno"> 1781</span>&#160;                        <span class="keywordtype">int</span> i1 = 0;</div>
+<div class="line"><a name="l01782"></a><span class="lineno"> 1782</span>&#160;                        <span class="keywordflow">while</span> (usage[i1].longopt != 0 &amp;&amp;</div>
+<div class="line"><a name="l01783"></a><span class="lineno"> 1783</span>&#160;                               !<a class="code" href="../../d6/d83/classoption_1_1Parser.html#abcdbe5be641eb3586a0602a4189dc913">streqabbr</a>(usage[i1].longopt, longopt_name,</div>
+<div class="line"><a name="l01784"></a><span class="lineno"> 1784</span>&#160;                                          min_abbr_len))</div>
+<div class="line"><a name="l01785"></a><span class="lineno"> 1785</span>&#160;                            ++i1;</div>
+<div class="line"><a name="l01786"></a><span class="lineno"> 1786</span>&#160;                        <span class="keywordflow">if</span> (usage[i1].longopt != 0) {</div>
+<div class="line"><a name="l01787"></a><span class="lineno"> 1787</span>&#160;                            <span class="comment">// now test if the match is unambiguous by checking</span></div>
+<div class="line"><a name="l01788"></a><span class="lineno"> 1788</span>&#160;                            <span class="comment">// for another match</span></div>
+<div class="line"><a name="l01789"></a><span class="lineno"> 1789</span>&#160;                            <span class="keywordtype">int</span> i2 = i1 + 1;</div>
+<div class="line"><a name="l01790"></a><span class="lineno"> 1790</span>&#160;                            <span class="keywordflow">while</span> (usage[i2].longopt != 0 &amp;&amp;</div>
+<div class="line"><a name="l01791"></a><span class="lineno"> 1791</span>&#160;                                   !<a class="code" href="../../d6/d83/classoption_1_1Parser.html#abcdbe5be641eb3586a0602a4189dc913">streqabbr</a>(usage[i2].longopt, longopt_name,</div>
+<div class="line"><a name="l01792"></a><span class="lineno"> 1792</span>&#160;                                              min_abbr_len))</div>
+<div class="line"><a name="l01793"></a><span class="lineno"> 1793</span>&#160;                                ++i2;</div>
+<div class="line"><a name="l01794"></a><span class="lineno"> 1794</span>&#160;</div>
+<div class="line"><a name="l01795"></a><span class="lineno"> 1795</span>&#160;                            <span class="keywordflow">if</span> (usage[i2].longopt == 0) <span class="comment">// if there was no</span></div>
+<div class="line"><a name="l01796"></a><span class="lineno"> 1796</span>&#160;                                                        <span class="comment">// second match it&#39;s</span></div>
+<div class="line"><a name="l01797"></a><span class="lineno"> 1797</span>&#160;                                                        <span class="comment">// unambiguous, so</span></div>
+<div class="line"><a name="l01798"></a><span class="lineno"> 1798</span>&#160;                                                        <span class="comment">// accept i1 as idx</span></div>
+<div class="line"><a name="l01799"></a><span class="lineno"> 1799</span>&#160;                                idx = i1;</div>
+<div class="line"><a name="l01800"></a><span class="lineno"> 1800</span>&#160;                        }</div>
+<div class="line"><a name="l01801"></a><span class="lineno"> 1801</span>&#160;                    }</div>
+<div class="line"><a name="l01802"></a><span class="lineno"> 1802</span>&#160;</div>
+<div class="line"><a name="l01803"></a><span class="lineno"> 1803</span>&#160;                    <span class="comment">// if we found something, disable handle_short_options (only</span></div>
+<div class="line"><a name="l01804"></a><span class="lineno"> 1804</span>&#160;                    <span class="comment">// relevant if single_minus_longopt)</span></div>
+<div class="line"><a name="l01805"></a><span class="lineno"> 1805</span>&#160;                    <span class="keywordflow">if</span> (usage[idx].longopt != 0)</div>
+<div class="line"><a name="l01806"></a><span class="lineno"> 1806</span>&#160;                        handle_short_options = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l01807"></a><span class="lineno"> 1807</span>&#160;</div>
+<div class="line"><a name="l01808"></a><span class="lineno"> 1808</span>&#160;                    try_single_minus_longopt = <span class="keyword">false</span>; <span class="comment">// prevent looking for</span></div>
+<div class="line"><a name="l01809"></a><span class="lineno"> 1809</span>&#160;                                                      <span class="comment">// longopt in the middle</span></div>
+<div class="line"><a name="l01810"></a><span class="lineno"> 1810</span>&#160;                                                      <span class="comment">// of shortopt group</span></div>
+<div class="line"><a name="l01811"></a><span class="lineno"> 1811</span>&#160;</div>
+<div class="line"><a name="l01812"></a><span class="lineno"> 1812</span>&#160;                    optarg = longopt_name;</div>
+<div class="line"><a name="l01813"></a><span class="lineno"> 1813</span>&#160;                    <span class="keywordflow">while</span> (*optarg != 0 &amp;&amp; *optarg != <span class="charliteral">&#39;=&#39;</span>)</div>
+<div class="line"><a name="l01814"></a><span class="lineno"> 1814</span>&#160;                        ++optarg;</div>
+<div class="line"><a name="l01815"></a><span class="lineno"> 1815</span>&#160;                    <span class="keywordflow">if</span> (*optarg == <span class="charliteral">&#39;=&#39;</span>) <span class="comment">// attached argument</span></div>
+<div class="line"><a name="l01816"></a><span class="lineno"> 1816</span>&#160;                        ++optarg;</div>
+<div class="line"><a name="l01817"></a><span class="lineno"> 1817</span>&#160;                    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l01818"></a><span class="lineno"> 1818</span>&#160;                        <span class="comment">// possibly detached argument</span></div>
+<div class="line"><a name="l01819"></a><span class="lineno"> 1819</span>&#160;                        optarg = (have_more_args ? args[1] : 0);</div>
+<div class="line"><a name="l01820"></a><span class="lineno"> 1820</span>&#160;                }</div>
 <div class="line"><a name="l01821"></a><span class="lineno"> 1821</span>&#160;</div>
-<div class="line"><a name="l01822"></a><span class="lineno"> 1822</span>&#160;                    idx = 0;</div>
-<div class="line"><a name="l01823"></a><span class="lineno"> 1823</span>&#160;                    <span class="keywordflow">while</span> (usage[idx].shortopt != 0 &amp;&amp;</div>
-<div class="line"><a name="l01824"></a><span class="lineno"> 1824</span>&#160;                           !<a class="code" href="../../d6/d83/classoption_1_1Parser.html#aadfd08a040c5eac5bc09356071a28e49">instr</a>(*param, usage[idx].shortopt))</div>
-<div class="line"><a name="l01825"></a><span class="lineno"> 1825</span>&#160;                        ++idx;</div>
-<div class="line"><a name="l01826"></a><span class="lineno"> 1826</span>&#160;</div>
-<div class="line"><a name="l01827"></a><span class="lineno"> 1827</span>&#160;                    <span class="keywordflow">if</span> (param[1] == 0) <span class="comment">// if the potential argument is separate</span></div>
-<div class="line"><a name="l01828"></a><span class="lineno"> 1828</span>&#160;                        optarg = (have_more_args ? args[1] : 0);</div>
-<div class="line"><a name="l01829"></a><span class="lineno"> 1829</span>&#160;                    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l01830"></a><span class="lineno"> 1830</span>&#160;                        <span class="comment">// if the potential argument is attached</span></div>
-<div class="line"><a name="l01831"></a><span class="lineno"> 1831</span>&#160;                        optarg = param + 1;</div>
-<div class="line"><a name="l01832"></a><span class="lineno"> 1832</span>&#160;                }</div>
-<div class="line"><a name="l01833"></a><span class="lineno"> 1833</span>&#160;</div>
-<div class="line"><a name="l01834"></a><span class="lineno"> 1834</span>&#160;                <span class="keyword">const</span> Descriptor* descriptor = &amp;usage[idx];</div>
-<div class="line"><a name="l01835"></a><span class="lineno"> 1835</span>&#160;</div>
-<div class="line"><a name="l01836"></a><span class="lineno"> 1836</span>&#160;                <span class="keywordflow">if</span> (descriptor-&gt;shortopt ==</div>
-<div class="line"><a name="l01837"></a><span class="lineno"> 1837</span>&#160;                    0) { <span class="comment">/**************  unknown option ********************/</span></div>
-<div class="line"><a name="l01838"></a><span class="lineno"> 1838</span>&#160;                    <span class="comment">// look for dummy entry (shortopt == &quot;&quot; and longopt == &quot;&quot;)</span></div>
-<div class="line"><a name="l01839"></a><span class="lineno"> 1839</span>&#160;                    <span class="comment">// to use as Descriptor for unknown options</span></div>
-<div class="line"><a name="l01840"></a><span class="lineno"> 1840</span>&#160;                    idx = 0;</div>
-<div class="line"><a name="l01841"></a><span class="lineno"> 1841</span>&#160;                    <span class="keywordflow">while</span> (usage[idx].shortopt != 0 &amp;&amp;</div>
-<div class="line"><a name="l01842"></a><span class="lineno"> 1842</span>&#160;                           (usage[idx].shortopt[0] != 0 ||</div>
-<div class="line"><a name="l01843"></a><span class="lineno"> 1843</span>&#160;                            usage[idx].longopt[0] != 0))</div>
-<div class="line"><a name="l01844"></a><span class="lineno"> 1844</span>&#160;                        ++idx;</div>
-<div class="line"><a name="l01845"></a><span class="lineno"> 1845</span>&#160;                    descriptor = (usage[idx].shortopt == 0 ? 0 : &amp;usage[idx]);</div>
-<div class="line"><a name="l01846"></a><span class="lineno"> 1846</span>&#160;                }</div>
-<div class="line"><a name="l01847"></a><span class="lineno"> 1847</span>&#160;</div>
-<div class="line"><a name="l01848"></a><span class="lineno"> 1848</span>&#160;                <span class="keywordflow">if</span> (descriptor != 0) {</div>
-<div class="line"><a name="l01849"></a><span class="lineno"> 1849</span>&#160;                    <a class="code" href="../../df/de0/namespaceoption.html#ac99aa12c5d9d6590e19cb78212eb6d63">Option</a> option(descriptor, param, optarg);</div>
-<div class="line"><a name="l01850"></a><span class="lineno"> 1850</span>&#160;                    <span class="keywordflow">switch</span> (descriptor-&gt;check_arg(option, print_errors)) {</div>
-<div class="line"><a name="l01851"></a><span class="lineno"> 1851</span>&#160;                    <span class="keywordflow">case</span> <a class="code" href="../../df/de0/namespaceoption.html#aee8c76a07877335762631491e7a5a1a9a9528e32563b795bd2930b12d0a5e382d" title="The argument is not acceptable and that&#39;s fatal.">ARG_ILLEGAL</a>:</div>
-<div class="line"><a name="l01852"></a><span class="lineno"> 1852</span>&#160;                        <span class="keywordflow">return</span> <span class="keyword">false</span>; <span class="comment">// fatal</span></div>
-<div class="line"><a name="l01853"></a><span class="lineno"> 1853</span>&#160;                    <span class="keywordflow">case</span> <a class="code" href="../../df/de0/namespaceoption.html#aee8c76a07877335762631491e7a5a1a9a445e08cb1747e5a22929e7ef2da43b55" title="The argument is acceptable for the option.">ARG_OK</a>:</div>
-<div class="line"><a name="l01854"></a><span class="lineno"> 1854</span>&#160;                        <span class="comment">// skip one element of the argument vector, if it&#39;s a</span></div>
-<div class="line"><a name="l01855"></a><span class="lineno"> 1855</span>&#160;                        <span class="comment">// separated argument</span></div>
-<div class="line"><a name="l01856"></a><span class="lineno"> 1856</span>&#160;                        <span class="keywordflow">if</span> (optarg != 0 &amp;&amp; have_more_args &amp;&amp;</div>
-<div class="line"><a name="l01857"></a><span class="lineno"> 1857</span>&#160;                            optarg == args[1]) {</div>
-<div class="line"><a name="l01858"></a><span class="lineno"> 1858</span>&#160;                            <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a50028a8c1f78607119e164ba8059018c">shift</a>(args, nonops);</div>
-<div class="line"><a name="l01859"></a><span class="lineno"> 1859</span>&#160;                            <span class="keywordflow">if</span> (numargs &gt; 0)</div>
-<div class="line"><a name="l01860"></a><span class="lineno"> 1860</span>&#160;                                --numargs;</div>
-<div class="line"><a name="l01861"></a><span class="lineno"> 1861</span>&#160;                            ++args;</div>
-<div class="line"><a name="l01862"></a><span class="lineno"> 1862</span>&#160;                        }</div>
-<div class="line"><a name="l01863"></a><span class="lineno"> 1863</span>&#160;</div>
-<div class="line"><a name="l01864"></a><span class="lineno"> 1864</span>&#160;                        <span class="comment">// No further short options are possible after an</span></div>
-<div class="line"><a name="l01865"></a><span class="lineno"> 1865</span>&#160;                        <span class="comment">// argument</span></div>
-<div class="line"><a name="l01866"></a><span class="lineno"> 1866</span>&#160;                        handle_short_options = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l01867"></a><span class="lineno"> 1867</span>&#160;</div>
-<div class="line"><a name="l01868"></a><span class="lineno"> 1868</span>&#160;                        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l01869"></a><span class="lineno"> 1869</span>&#160;                    <span class="keywordflow">case</span> <a class="code" href="../../df/de0/namespaceoption.html#aee8c76a07877335762631491e7a5a1a9a83e0837c79c957525918111d33cab3a9" title="The argument is not acceptable but that&#39;s non-fatal because the option&#39;s argument is optional...">ARG_IGNORE</a>:</div>
-<div class="line"><a name="l01870"></a><span class="lineno"> 1870</span>&#160;                    <span class="keywordflow">case</span> <a class="code" href="../../df/de0/namespaceoption.html#aee8c76a07877335762631491e7a5a1a9a353903b042e8eb0aa2f60c0043a58a7e" title="The option does not take an argument.">ARG_NONE</a>:</div>
-<div class="line"><a name="l01871"></a><span class="lineno"> 1871</span>&#160;                        option.arg = 0;</div>
-<div class="line"><a name="l01872"></a><span class="lineno"> 1872</span>&#160;                        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l01873"></a><span class="lineno"> 1873</span>&#160;                    }</div>
-<div class="line"><a name="l01874"></a><span class="lineno"> 1874</span>&#160;</div>
-<div class="line"><a name="l01875"></a><span class="lineno"> 1875</span>&#160;                    <span class="keywordflow">if</span> (!action.perform(option))</div>
-<div class="line"><a name="l01876"></a><span class="lineno"> 1876</span>&#160;                        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l01877"></a><span class="lineno"> 1877</span>&#160;                }</div>
-<div class="line"><a name="l01878"></a><span class="lineno"> 1878</span>&#160;</div>
-<div class="line"><a name="l01879"></a><span class="lineno"> 1879</span>&#160;            } <span class="keywordflow">while</span> (handle_short_options);</div>
+<div class="line"><a name="l01822"></a><span class="lineno"> 1822</span>&#160;                <span class="comment">/************************ short option</span></div>
+<div class="line"><a name="l01823"></a><span class="lineno"> 1823</span>&#160;<span class="comment">                * ***********************************/</span></div>
+<div class="line"><a name="l01824"></a><span class="lineno"> 1824</span>&#160;                <span class="keywordflow">if</span> (handle_short_options) {</div>
+<div class="line"><a name="l01825"></a><span class="lineno"> 1825</span>&#160;                    <span class="keywordflow">if</span> (*++param == 0) <span class="comment">// point at the 1st/next option character</span></div>
+<div class="line"><a name="l01826"></a><span class="lineno"> 1826</span>&#160;                        <span class="keywordflow">break</span>;         <span class="comment">// end of short option group</span></div>
+<div class="line"><a name="l01827"></a><span class="lineno"> 1827</span>&#160;</div>
+<div class="line"><a name="l01828"></a><span class="lineno"> 1828</span>&#160;                    idx = 0;</div>
+<div class="line"><a name="l01829"></a><span class="lineno"> 1829</span>&#160;                    <span class="keywordflow">while</span> (usage[idx].shortopt != 0 &amp;&amp;</div>
+<div class="line"><a name="l01830"></a><span class="lineno"> 1830</span>&#160;                           !<a class="code" href="../../d6/d83/classoption_1_1Parser.html#aadfd08a040c5eac5bc09356071a28e49">instr</a>(*param, usage[idx].shortopt))</div>
+<div class="line"><a name="l01831"></a><span class="lineno"> 1831</span>&#160;                        ++idx;</div>
+<div class="line"><a name="l01832"></a><span class="lineno"> 1832</span>&#160;</div>
+<div class="line"><a name="l01833"></a><span class="lineno"> 1833</span>&#160;                    <span class="keywordflow">if</span> (param[1] == 0) <span class="comment">// if the potential argument is separate</span></div>
+<div class="line"><a name="l01834"></a><span class="lineno"> 1834</span>&#160;                        optarg = (have_more_args ? args[1] : 0);</div>
+<div class="line"><a name="l01835"></a><span class="lineno"> 1835</span>&#160;                    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l01836"></a><span class="lineno"> 1836</span>&#160;                        <span class="comment">// if the potential argument is attached</span></div>
+<div class="line"><a name="l01837"></a><span class="lineno"> 1837</span>&#160;                        optarg = param + 1;</div>
+<div class="line"><a name="l01838"></a><span class="lineno"> 1838</span>&#160;                }</div>
+<div class="line"><a name="l01839"></a><span class="lineno"> 1839</span>&#160;</div>
+<div class="line"><a name="l01840"></a><span class="lineno"> 1840</span>&#160;                <span class="keyword">const</span> Descriptor* descriptor = &amp;usage[idx];</div>
+<div class="line"><a name="l01841"></a><span class="lineno"> 1841</span>&#160;</div>
+<div class="line"><a name="l01842"></a><span class="lineno"> 1842</span>&#160;                <span class="keywordflow">if</span> (descriptor-&gt;shortopt ==</div>
+<div class="line"><a name="l01843"></a><span class="lineno"> 1843</span>&#160;                    0) { <span class="comment">/**************  unknown option ********************/</span></div>
+<div class="line"><a name="l01844"></a><span class="lineno"> 1844</span>&#160;                    <span class="comment">// look for dummy entry (shortopt == &quot;&quot; and longopt == &quot;&quot;)</span></div>
+<div class="line"><a name="l01845"></a><span class="lineno"> 1845</span>&#160;                    <span class="comment">// to use as Descriptor for unknown options</span></div>
+<div class="line"><a name="l01846"></a><span class="lineno"> 1846</span>&#160;                    idx = 0;</div>
+<div class="line"><a name="l01847"></a><span class="lineno"> 1847</span>&#160;                    <span class="keywordflow">while</span> (usage[idx].shortopt != 0 &amp;&amp;</div>
+<div class="line"><a name="l01848"></a><span class="lineno"> 1848</span>&#160;                           (usage[idx].shortopt[0] != 0 ||</div>
+<div class="line"><a name="l01849"></a><span class="lineno"> 1849</span>&#160;                            usage[idx].longopt[0] != 0))</div>
+<div class="line"><a name="l01850"></a><span class="lineno"> 1850</span>&#160;                        ++idx;</div>
+<div class="line"><a name="l01851"></a><span class="lineno"> 1851</span>&#160;                    descriptor = (usage[idx].shortopt == 0 ? 0 : &amp;usage[idx]);</div>
+<div class="line"><a name="l01852"></a><span class="lineno"> 1852</span>&#160;                }</div>
+<div class="line"><a name="l01853"></a><span class="lineno"> 1853</span>&#160;</div>
+<div class="line"><a name="l01854"></a><span class="lineno"> 1854</span>&#160;                <span class="keywordflow">if</span> (descriptor != 0) {</div>
+<div class="line"><a name="l01855"></a><span class="lineno"> 1855</span>&#160;                    <a class="code" href="../../df/de0/namespaceoption.html#ac99aa12c5d9d6590e19cb78212eb6d63">Option</a> option(descriptor, param, optarg);</div>
+<div class="line"><a name="l01856"></a><span class="lineno"> 1856</span>&#160;                    <span class="keywordflow">switch</span> (descriptor-&gt;check_arg(option, print_errors)) {</div>
+<div class="line"><a name="l01857"></a><span class="lineno"> 1857</span>&#160;                    <span class="keywordflow">case</span> <a class="code" href="../../df/de0/namespaceoption.html#aee8c76a07877335762631491e7a5a1a9a9528e32563b795bd2930b12d0a5e382d" title="The argument is not acceptable and that&#39;s fatal.">ARG_ILLEGAL</a>:</div>
+<div class="line"><a name="l01858"></a><span class="lineno"> 1858</span>&#160;                        <span class="keywordflow">return</span> <span class="keyword">false</span>; <span class="comment">// fatal</span></div>
+<div class="line"><a name="l01859"></a><span class="lineno"> 1859</span>&#160;                    <span class="keywordflow">case</span> <a class="code" href="../../df/de0/namespaceoption.html#aee8c76a07877335762631491e7a5a1a9a445e08cb1747e5a22929e7ef2da43b55" title="The argument is acceptable for the option.">ARG_OK</a>:</div>
+<div class="line"><a name="l01860"></a><span class="lineno"> 1860</span>&#160;                        <span class="comment">// skip one element of the argument vector, if it&#39;s a</span></div>
+<div class="line"><a name="l01861"></a><span class="lineno"> 1861</span>&#160;                        <span class="comment">// separated argument</span></div>
+<div class="line"><a name="l01862"></a><span class="lineno"> 1862</span>&#160;                        <span class="keywordflow">if</span> (optarg != 0 &amp;&amp; have_more_args &amp;&amp;</div>
+<div class="line"><a name="l01863"></a><span class="lineno"> 1863</span>&#160;                            optarg == args[1]) {</div>
+<div class="line"><a name="l01864"></a><span class="lineno"> 1864</span>&#160;                            <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a50028a8c1f78607119e164ba8059018c">shift</a>(args, nonops);</div>
+<div class="line"><a name="l01865"></a><span class="lineno"> 1865</span>&#160;                            <span class="keywordflow">if</span> (numargs &gt; 0)</div>
+<div class="line"><a name="l01866"></a><span class="lineno"> 1866</span>&#160;                                --numargs;</div>
+<div class="line"><a name="l01867"></a><span class="lineno"> 1867</span>&#160;                            ++args;</div>
+<div class="line"><a name="l01868"></a><span class="lineno"> 1868</span>&#160;                        }</div>
+<div class="line"><a name="l01869"></a><span class="lineno"> 1869</span>&#160;</div>
+<div class="line"><a name="l01870"></a><span class="lineno"> 1870</span>&#160;                        <span class="comment">// No further short options are possible after an</span></div>
+<div class="line"><a name="l01871"></a><span class="lineno"> 1871</span>&#160;                        <span class="comment">// argument</span></div>
+<div class="line"><a name="l01872"></a><span class="lineno"> 1872</span>&#160;                        handle_short_options = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l01873"></a><span class="lineno"> 1873</span>&#160;</div>
+<div class="line"><a name="l01874"></a><span class="lineno"> 1874</span>&#160;                        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l01875"></a><span class="lineno"> 1875</span>&#160;                    <span class="keywordflow">case</span> <a class="code" href="../../df/de0/namespaceoption.html#aee8c76a07877335762631491e7a5a1a9a83e0837c79c957525918111d33cab3a9" title="The argument is not acceptable but that&#39;s non-fatal because the option&#39;s argument is optional...">ARG_IGNORE</a>:</div>
+<div class="line"><a name="l01876"></a><span class="lineno"> 1876</span>&#160;                    <span class="keywordflow">case</span> <a class="code" href="../../df/de0/namespaceoption.html#aee8c76a07877335762631491e7a5a1a9a353903b042e8eb0aa2f60c0043a58a7e" title="The option does not take an argument.">ARG_NONE</a>:</div>
+<div class="line"><a name="l01877"></a><span class="lineno"> 1877</span>&#160;                        option.arg = 0;</div>
+<div class="line"><a name="l01878"></a><span class="lineno"> 1878</span>&#160;                        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l01879"></a><span class="lineno"> 1879</span>&#160;                    }</div>
 <div class="line"><a name="l01880"></a><span class="lineno"> 1880</span>&#160;</div>
-<div class="line"><a name="l01881"></a><span class="lineno"> 1881</span>&#160;            <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a50028a8c1f78607119e164ba8059018c">shift</a>(args, nonops);</div>
-<div class="line"><a name="l01882"></a><span class="lineno"> 1882</span>&#160;            ++args;</div>
-<div class="line"><a name="l01883"></a><span class="lineno"> 1883</span>&#160;            <span class="keywordflow">if</span> (numargs &gt; 0)</div>
-<div class="line"><a name="l01884"></a><span class="lineno"> 1884</span>&#160;                --numargs;</div>
-<div class="line"><a name="l01885"></a><span class="lineno"> 1885</span>&#160;</div>
-<div class="line"><a name="l01886"></a><span class="lineno"> 1886</span>&#160;        } <span class="comment">// while</span></div>
-<div class="line"><a name="l01887"></a><span class="lineno"> 1887</span>&#160;</div>
-<div class="line"><a name="l01888"></a><span class="lineno"> 1888</span>&#160;        <span class="keywordflow">if</span> (numargs &gt; 0 &amp;&amp; *args == 0) <span class="comment">// It&#39;s a bug in the caller if numargs is</span></div>
-<div class="line"><a name="l01889"></a><span class="lineno"> 1889</span>&#160;                                       <span class="comment">// greater than the actual number</span></div>
-<div class="line"><a name="l01890"></a><span class="lineno"> 1890</span>&#160;            numargs = 0; <span class="comment">// of arguments, but as a service to the user we fix</span></div>
-<div class="line"><a name="l01891"></a><span class="lineno"> 1891</span>&#160;                         <span class="comment">// this if we spot it.</span></div>
-<div class="line"><a name="l01892"></a><span class="lineno"> 1892</span>&#160;</div>
-<div class="line"><a name="l01893"></a><span class="lineno"> 1893</span>&#160;        <span class="keywordflow">if</span> (numargs &lt; 0) { <span class="comment">// if we don&#39;t know the number of remaining</span></div>
-<div class="line"><a name="l01894"></a><span class="lineno"> 1894</span>&#160;                           <span class="comment">// non-option arguments</span></div>
-<div class="line"><a name="l01895"></a><span class="lineno"> 1895</span>&#160;                           <span class="comment">// we need to count them</span></div>
-<div class="line"><a name="l01896"></a><span class="lineno"> 1896</span>&#160;            numargs = 0;</div>
-<div class="line"><a name="l01897"></a><span class="lineno"> 1897</span>&#160;            <span class="keywordflow">while</span> (args[numargs] != 0)</div>
-<div class="line"><a name="l01898"></a><span class="lineno"> 1898</span>&#160;                ++numargs;</div>
-<div class="line"><a name="l01899"></a><span class="lineno"> 1899</span>&#160;        }</div>
-<div class="line"><a name="l01900"></a><span class="lineno"> 1900</span>&#160;</div>
-<div class="line"><a name="l01901"></a><span class="lineno"> 1901</span>&#160;        <span class="keywordflow">return</span> action.finished(numargs + nonops, args - nonops);</div>
-<div class="line"><a name="l01902"></a><span class="lineno"> 1902</span>&#160;    }</div>
+<div class="line"><a name="l01881"></a><span class="lineno"> 1881</span>&#160;                    <span class="keywordflow">if</span> (!action.perform(option))</div>
+<div class="line"><a name="l01882"></a><span class="lineno"> 1882</span>&#160;                        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l01883"></a><span class="lineno"> 1883</span>&#160;                }</div>
+<div class="line"><a name="l01884"></a><span class="lineno"> 1884</span>&#160;</div>
+<div class="line"><a name="l01885"></a><span class="lineno"> 1885</span>&#160;            } <span class="keywordflow">while</span> (handle_short_options);</div>
+<div class="line"><a name="l01886"></a><span class="lineno"> 1886</span>&#160;</div>
+<div class="line"><a name="l01887"></a><span class="lineno"> 1887</span>&#160;            <a class="code" href="../../d6/d83/classoption_1_1Parser.html#a50028a8c1f78607119e164ba8059018c">shift</a>(args, nonops);</div>
+<div class="line"><a name="l01888"></a><span class="lineno"> 1888</span>&#160;            ++args;</div>
+<div class="line"><a name="l01889"></a><span class="lineno"> 1889</span>&#160;            <span class="keywordflow">if</span> (numargs &gt; 0)</div>
+<div class="line"><a name="l01890"></a><span class="lineno"> 1890</span>&#160;                --numargs;</div>
+<div class="line"><a name="l01891"></a><span class="lineno"> 1891</span>&#160;</div>
+<div class="line"><a name="l01892"></a><span class="lineno"> 1892</span>&#160;        } <span class="comment">// while</span></div>
+<div class="line"><a name="l01893"></a><span class="lineno"> 1893</span>&#160;</div>
+<div class="line"><a name="l01894"></a><span class="lineno"> 1894</span>&#160;        <span class="keywordflow">if</span> (numargs &gt; 0 &amp;&amp; *args == 0) <span class="comment">// It&#39;s a bug in the caller if numargs is</span></div>
+<div class="line"><a name="l01895"></a><span class="lineno"> 1895</span>&#160;                                       <span class="comment">// greater than the actual number</span></div>
+<div class="line"><a name="l01896"></a><span class="lineno"> 1896</span>&#160;            numargs = 0; <span class="comment">// of arguments, but as a service to the user we fix</span></div>
+<div class="line"><a name="l01897"></a><span class="lineno"> 1897</span>&#160;                         <span class="comment">// this if we spot it.</span></div>
+<div class="line"><a name="l01898"></a><span class="lineno"> 1898</span>&#160;</div>
+<div class="line"><a name="l01899"></a><span class="lineno"> 1899</span>&#160;        <span class="keywordflow">if</span> (numargs &lt; 0) { <span class="comment">// if we don&#39;t know the number of remaining</span></div>
+<div class="line"><a name="l01900"></a><span class="lineno"> 1900</span>&#160;                           <span class="comment">// non-option arguments</span></div>
+<div class="line"><a name="l01901"></a><span class="lineno"> 1901</span>&#160;                           <span class="comment">// we need to count them</span></div>
+<div class="line"><a name="l01902"></a><span class="lineno"> 1902</span>&#160;            numargs = 0;</div>
+<div class="line"><a name="l01903"></a><span class="lineno"> 1903</span>&#160;            <span class="keywordflow">while</span> (args[numargs] != 0)</div>
+<div class="line"><a name="l01904"></a><span class="lineno"> 1904</span>&#160;                ++numargs;</div>
+<div class="line"><a name="l01905"></a><span class="lineno"> 1905</span>&#160;        }</div>
+<div class="line"><a name="l01906"></a><span class="lineno"> 1906</span>&#160;</div>
+<div class="line"><a name="l01907"></a><span class="lineno"> 1907</span>&#160;        <span class="keywordflow">return</span> action.finished(numargs + nonops, args - nonops);</div>
+<div class="line"><a name="l01908"></a><span class="lineno"> 1908</span>&#160;    }</div>
 </div><!-- fragment -->
 <p><div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
@@ -1919,7 +1919,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01448">1448</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01454">1454</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 
 </div>
 </div>
@@ -1942,7 +1942,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01452">1452</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01458">1458</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 
 </div>
 </div>
@@ -1964,7 +1964,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01621">1621</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01627">1627</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 
 </div>
 </div>
@@ -1986,7 +1986,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01622">1622</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01628">1628</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 
 </div>
 </div>
@@ -2008,9 +2008,9 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01194">1194</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01200">1200</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d69/optionparser_8h_source.html#l01679">parse()</a>.</p>
+<p>Referenced by <a class="el" href="../../da/d69/optionparser_8h_source.html#l01685">parse()</a>.</p>
 
 </div>
 </div>
@@ -2032,7 +2032,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01193">1193</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01199">1199</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 
 </div>
 </div>
@@ -2054,7 +2054,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01192">1192</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01198">1198</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 
 </div>
 </div>
@@ -2076,7 +2076,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01191">1191</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01197">1197</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 
 </div>
 </div>
@@ -2098,7 +2098,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01620">1620</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01626">1626</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 
 </div>
 </div>
@@ -2120,7 +2120,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01619">1619</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01625">1625</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 
 </div>
 </div>
@@ -2142,9 +2142,9 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01450">1450</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01456">1456</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d69/optionparser_8h_source.html#l01679">parse()</a>.</p>
+<p>Referenced by <a class="el" href="../../da/d69/optionparser_8h_source.html#l01685">parse()</a>.</p>
 
 </div>
 </div>
@@ -2154,7 +2154,7 @@ Friends</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../df/de0/namespaceoption.html">option</a></li><li class="navelem"><a class="el" href="../../d6/d83/classoption_1_1Parser.html">Parser</a></li>
-    <li class="footer">Generated on Wed Oct 26 2016 13:31:55 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Fri Oct 28 2016 13:28:09 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

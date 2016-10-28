@@ -170,7 +170,7 @@ Public Attributes</h2></td></tr>
 <div class="line">};</div>
 </div><!-- fragment --> </dd></dl>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l00373">373</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l00379">379</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
 <a class="anchor" id="aa5d675dba0214a4abd73007ff163cc67"></a>
 <div class="memitem">
@@ -186,9 +186,9 @@ Public Attributes</h2></td></tr>
 <p>This function will be called even if there is no potential argument. In that case it will be passed <code>NULL</code> as <code>arg</code> parameter. Do not confuse this with the empty string.</p>
 <p>See <a class="el" href="../../df/de0/namespaceoption.html#a4afb7f04597f34439679509baf4b6d39">CheckArg</a> for more information. </p>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l00491">491</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l00497">497</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d69/optionparser_8h_source.html#l01707">option::Parser::workhorse()</a>.</p>
+<p>Referenced by <a class="el" href="../../da/d69/optionparser_8h_source.html#l01713">option::Parser::workhorse()</a>.</p>
 
 </div>
 </div>
@@ -207,7 +207,7 @@ Public Attributes</h2></td></tr>
 <p>See <a class="el" href="../../df/de0/namespaceoption.html#afc8bb7e040a98a0b33ff1ce9da1be0d1" title="Outputs a nicely formatted usage string with support for multi-column formatting and line-wrapping...">option::printUsage()</a> for special formatting characters you can use in <code>help</code> to get a column layout.</p>
 <dl class="section attention"><dt>Attention</dt><dd>Must be UTF-8-encoded. If your compiler supports C++11 you can use the "u8" prefix to make sure string literals are properly encoded. </dd></dl>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l00512">512</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l00518">518</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 
 </div>
 </div>
@@ -226,9 +226,9 @@ Public Attributes</h2></td></tr>
 <p>If you have options that mean exactly opposite things (e.g. <code>&ndash;enable-foo</code> and <code>&ndash;disable-foo</code> ), you should also give them the same <code>index</code>, but distinguish them through different values for <a class="el" href="../../dc/dfe/structoption_1_1Descriptor.html#a1b220dabd8aad075fa441a80f9b9343c">type</a>. That way they end up in the same list and you can just take the last element of the list and use its type. This way you get the usual behaviour where switches later on the command line override earlier ones without having to code it manually.</p>
 <dl class="section user"><dt>Tip:</dt><dd>Use an enum rather than plain ints for better readability, as shown in the example at <a class="el" href="../../dc/dfe/structoption_1_1Descriptor.html" title="Describes an option, its help text (usage) and how it should be parsed.">Descriptor</a>. </dd></dl>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l00403">403</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l00409">409</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d69/optionparser_8h_source.html#l01688">option::Stats::add()</a>, and <a class="el" href="../../da/d69/optionparser_8h_source.html#l01648">option::Parser::perform()</a>.</p>
+<p>Referenced by <a class="el" href="../../da/d69/optionparser_8h_source.html#l01694">option::Stats::add()</a>, and <a class="el" href="../../da/d69/optionparser_8h_source.html#l01654">option::Parser::perform()</a>.</p>
 
 </div>
 </div>
@@ -251,7 +251,7 @@ Public Attributes</h2></td></tr>
  if <code>check_arg</code> does not return <a class="el" href="../../df/de0/namespaceoption.html#aee8c76a07877335762631491e7a5a1a9a9528e32563b795bd2930b12d0a5e382d">ARG_ILLEGAL</a> the descriptor's <a class="el" href="../../dc/dfe/structoption_1_1Descriptor.html#a1fee8ac44f529c99ac2b1149b4c391b1">index</a> <em>will</em> be used to pick the linked list into which to put the unknown option. <br/>
  If there is no dummy descriptor, unknown options will be dropped silently. </dd></dl>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l00476">476</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l00482">482</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 
 </div>
 </div>
@@ -270,9 +270,9 @@ Public Attributes</h2></td></tr>
 <p>If this <a class="el" href="../../dc/dfe/structoption_1_1Descriptor.html" title="Describes an option, its help text (usage) and how it should be parsed.">Descriptor</a> should not have short option characters, use the empty string "". NULL is not permitted here!</p>
 <p>See <a class="el" href="../../dc/dfe/structoption_1_1Descriptor.html#a470c449dfa894c9bfda2dae026142b4b">longopt</a> for more information. </p>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l00429">429</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l00435">435</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d69/optionparser_8h_source.html#l01707">option::Parser::workhorse()</a>.</p>
+<p>Referenced by <a class="el" href="../../da/d69/optionparser_8h_source.html#l01713">option::Parser::workhorse()</a>.</p>
 
 </div>
 </div>
@@ -289,7 +289,7 @@ Public Attributes</h2></td></tr>
 <p>Used to distinguish between options with the same <a class="el" href="../../dc/dfe/structoption_1_1Descriptor.html#a1fee8ac44f529c99ac2b1149b4c391b1">index</a>. See <a class="el" href="../../dc/dfe/structoption_1_1Descriptor.html#a1fee8ac44f529c99ac2b1149b4c391b1">index</a> for details. </p>
 <p>It is recommended that you use an enum rather than a plain int to make your code more readable. </p>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l00413">413</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l00419">419</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 
 </div>
 </div>
@@ -299,7 +299,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../df/de0/namespaceoption.html">option</a></li><li class="navelem"><a class="el" href="../../dc/dfe/structoption_1_1Descriptor.html">Descriptor</a></li>
-    <li class="footer">Generated on Wed Oct 26 2016 13:31:55 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Fri Oct 28 2016 13:28:09 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

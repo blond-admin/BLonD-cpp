@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"d7/d76/fft_8h.html#aee5012d20f905143a7d6739a0340eaf1":[2,0,7,14],
 "d7/d76/fft_8h.html#af7197252dd2a265bd53282a343582d02":[2,0,7,7],
 "d7/d76/fft_8h.html#af7856d4e781deb223b6ff7cde32ac5fa":[2,0,7,11],
 "d7/d76/fft_8h_source.html":[2,0,7],
@@ -248,6 +249,5 @@ var NAVTREEINDEX2 =
 "da/dfb/structoption_1_1PrintUsageImplementation.html#a41bfaabdf21e68877f3030d36acc0798":[1,0,3,4,9],
 "da/dfb/structoption_1_1PrintUsageImplementation.html#ab38c4198c5cccea2ccd992c8e014df70":[1,0,3,4,10],
 "db/d7b/classPSBPhaseNoiseInjection.html":[1,0,24],
-"db/d7b/classPSBPhaseNoiseInjection.html#a0afaaacc5c71047473edfcf7613f6f6f":[1,0,24,3],
-"db/d7b/classPSBPhaseNoiseInjection.html#a438748e939be754d085ed8e2c5194878":[1,0,24,5]
+"db/d7b/classPSBPhaseNoiseInjection.html#a0afaaacc5c71047473edfcf7613f6f6f":[1,0,24,3]
 };

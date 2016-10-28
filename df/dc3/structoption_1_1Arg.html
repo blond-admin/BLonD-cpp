@@ -163,7 +163,7 @@ Static Public Member Functions</h2></td></tr>
 <li><code><a class="el" href="../../df/dc3/structoption_1_1Arg.html#aadb5316ecbc9eb0a7f0019d14bf35ad0" title="Returns ARG_OK if the argument is attached and ARG_IGNORE otherwise.">Arg::Optional</a></code>  <a class="el" href="../../df/dc3/structoption_1_1Arg.html#aadb5316ecbc9eb0a7f0019d14bf35ad0" title="Returns ARG_OK if the argument is attached and ARG_IGNORE otherwise.">Arg::Optional</a> </li>
 </ul>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01010">1010</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01016">1016</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a7fc01987899c91c6b6a1be5711a46e22"></a>
 <div class="memitem">
@@ -199,10 +199,10 @@ Static Public Member Functions</h2></td></tr>
 
 <p>For options that don't take an argument: Returns ARG_NONE. </p>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01012">1012</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01018">1018</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 
-<p>References <a class="el" href="../../da/d69/optionparser_8h_source.html#l00303">option::ARG_NONE</a>.</p>
-<div class="fragment"><div class="line"><a name="l01012"></a><span class="lineno"> 1012</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="../../df/de0/namespaceoption.html#aee8c76a07877335762631491e7a5a1a9a353903b042e8eb0aa2f60c0043a58a7e" title="The option does not take an argument.">ARG_NONE</a>; }</div>
+<p>References <a class="el" href="../../da/d69/optionparser_8h_source.html#l00309">option::ARG_NONE</a>.</p>
+<div class="fragment"><div class="line"><a name="l01018"></a><span class="lineno"> 1018</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="../../df/de0/namespaceoption.html#aee8c76a07877335762631491e7a5a1a9a353903b042e8eb0aa2f60c0043a58a7e" title="The option does not take an argument.">ARG_NONE</a>; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -240,15 +240,15 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Returns ARG_OK if the argument is attached and ARG_IGNORE otherwise. </p>
 
-<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01016">1016</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d69/optionparser_8h_source.html#l01022">1022</a> of file <a class="el" href="../../da/d69/optionparser_8h_source.html">optionparser.h</a>.</p>
 
-<p>References <a class="el" href="../../da/d69/optionparser_8h_source.html#l00593">option::Option::arg</a>, <a class="el" href="../../da/d69/optionparser_8h_source.html#l00308">option::ARG_IGNORE</a>, <a class="el" href="../../da/d69/optionparser_8h_source.html#l00305">option::ARG_OK</a>, <a class="el" href="../../da/d69/optionparser_8h_source.html#l00584">option::Option::name</a>, and <a class="el" href="../../da/d69/optionparser_8h_source.html#l00625">option::Option::namelen</a>.</p>
-<div class="fragment"><div class="line"><a name="l01016"></a><span class="lineno"> 1016</span>&#160;                                                              {</div>
-<div class="line"><a name="l01017"></a><span class="lineno"> 1017</span>&#160;            <span class="keywordflow">if</span> (option.arg &amp;&amp; option.name[option.namelen] != 0)</div>
-<div class="line"><a name="l01018"></a><span class="lineno"> 1018</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="../../df/de0/namespaceoption.html#aee8c76a07877335762631491e7a5a1a9a445e08cb1747e5a22929e7ef2da43b55" title="The argument is acceptable for the option.">ARG_OK</a>;</div>
-<div class="line"><a name="l01019"></a><span class="lineno"> 1019</span>&#160;            <span class="keywordflow">else</span></div>
-<div class="line"><a name="l01020"></a><span class="lineno"> 1020</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="../../df/de0/namespaceoption.html#aee8c76a07877335762631491e7a5a1a9a83e0837c79c957525918111d33cab3a9" title="The argument is not acceptable but that&#39;s non-fatal because the option&#39;s argument is optional...">ARG_IGNORE</a>;</div>
-<div class="line"><a name="l01021"></a><span class="lineno"> 1021</span>&#160;        }</div>
+<p>References <a class="el" href="../../da/d69/optionparser_8h_source.html#l00599">option::Option::arg</a>, <a class="el" href="../../da/d69/optionparser_8h_source.html#l00314">option::ARG_IGNORE</a>, <a class="el" href="../../da/d69/optionparser_8h_source.html#l00311">option::ARG_OK</a>, <a class="el" href="../../da/d69/optionparser_8h_source.html#l00590">option::Option::name</a>, and <a class="el" href="../../da/d69/optionparser_8h_source.html#l00631">option::Option::namelen</a>.</p>
+<div class="fragment"><div class="line"><a name="l01022"></a><span class="lineno"> 1022</span>&#160;                                                              {</div>
+<div class="line"><a name="l01023"></a><span class="lineno"> 1023</span>&#160;            <span class="keywordflow">if</span> (option.arg &amp;&amp; option.name[option.namelen] != 0)</div>
+<div class="line"><a name="l01024"></a><span class="lineno"> 1024</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="../../df/de0/namespaceoption.html#aee8c76a07877335762631491e7a5a1a9a445e08cb1747e5a22929e7ef2da43b55" title="The argument is acceptable for the option.">ARG_OK</a>;</div>
+<div class="line"><a name="l01025"></a><span class="lineno"> 1025</span>&#160;            <span class="keywordflow">else</span></div>
+<div class="line"><a name="l01026"></a><span class="lineno"> 1026</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="../../df/de0/namespaceoption.html#aee8c76a07877335762631491e7a5a1a9a83e0837c79c957525918111d33cab3a9" title="The argument is not acceptable but that&#39;s non-fatal because the option&#39;s argument is optional...">ARG_IGNORE</a>;</div>
+<div class="line"><a name="l01027"></a><span class="lineno"> 1027</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -258,7 +258,7 @@ Static Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../df/de0/namespaceoption.html">option</a></li><li class="navelem"><a class="el" href="../../df/dc3/structoption_1_1Arg.html">Arg</a></li>
-    <li class="footer">Generated on Wed Oct 26 2016 13:31:55 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Fri Oct 28 2016 13:28:09 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

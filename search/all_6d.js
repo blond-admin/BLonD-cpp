@@ -17,6 +17,7 @@ var searchData=
   ['mean_5fdt',['mean_dt',['../d9/d7c/classBeams.html#a22269afb847796c7dfa1db07d7dbf544',1,'Beams']]],
   ['min',['min',['../df/d6d/namespacemymath.html#a5bcc40b5ebadd9d98f351775df65ec9f',1,'mymath']]],
   ['minlogf',['MINLOGF',['../d1/d47/namespacevdt_1_1details.html#ab9f484180a8db3772b24deb558bd45fa',1,'vdt::details']]],
+  ['minmax_5flocation',['minmax_location',['../db/de1/Distributions_8cpp.html#abbfebf0ac4f8db4363af627e88a18b5e',1,'minmax_location(f_vector_t &amp;x, f_vector_t &amp;f, f_vector_t &amp;min_x_position, f_vector_t &amp;max_x_position, f_vector_t &amp;min_values, f_vector_t &amp;max_values):&#160;Distributions.cpp'],['../dc/d7d/Distributions_8h.html#abbfebf0ac4f8db4363af627e88a18b5e',1,'minmax_location(f_vector_t &amp;x, f_vector_t &amp;f, f_vector_t &amp;min_x_position, f_vector_t &amp;max_x_position, f_vector_t &amp;min_values, f_vector_t &amp;max_values):&#160;Distributions.cpp']]],
   ['momentum',['momentum',['../d9/d7c/classBeams.html#af26003244d634224d4dc70cc1f0efe48',1,'Beams::momentum()'],['../d1/dfc/classGeneralParameters.html#aea11b2e34e53638809f9764489230dbf',1,'GeneralParameters::momentum()'],['../da/d49/classRfParameters.html#a4a73552a1d7436c4d02371076a13a4ca',1,'RfParameters::momentum()']]],
   ['monitors_2ecpp',['Monitors.cpp',['../da/dda/Monitors_8cpp.html',1,'']]],
   ['monitors_2eh',['Monitors.h',['../d0/da6/Monitors_8h.html',1,'']]],

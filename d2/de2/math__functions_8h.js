@@ -12,6 +12,7 @@ var math__functions_8h =
     [ "fast_sin", "d2/de2/math__functions_8h.html#a38897799c9327d162f914bbb097fb8e3", null ],
     [ "lin_interp", "d2/de2/math__functions_8h.html#ac7a4ab8746c54c7e201bdb02af5c09b0", null ],
     [ "lin_interp", "d2/de2/math__functions_8h.html#ad2f9b4023940b71535c85cf1c947b086", null ],
+    [ "lin_interp", "d2/de2/math__functions_8h.html#ab9add76a14abe5a35763f920f2be3cfd", null ],
     [ "linspace", "d2/de2/math__functions_8h.html#af1c2c7c1207d41744f71b0ecb4ebf67a", null ],
     [ "linspace", "d2/de2/math__functions_8h.html#a9e9e2eab9c77eff3f517f2a50f697647", null ],
     [ "max", "d2/de2/math__functions_8h.html#a2a11685fa6ce2396ae977fa1502a2cc4", null ],

@@ -79,8 +79,11 @@ protected:
 
 TEST_F(testPLLHCF, track1)
 {
+    auto GP = Context::GP;
+    auto Beam = Context::Beam;
+    auto RfP = Context::RfP;
 
-    longitudinal_bigaussian(10e-9, 1e6, 10, false);
+    longitudinal_bigaussian(GP, RfP, Beam, 10e-9, 1e6, 10, false);
 
     auto lhcf = new LHC_F(1.0 / 25e-6, 0, 0);
 

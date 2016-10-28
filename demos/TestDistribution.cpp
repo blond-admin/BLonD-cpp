@@ -103,7 +103,7 @@ int main(int argc, char **argv)
 
     // auto tracker = RingAndRfSection();
 
-    longitudinal_bigaussian(200e-9, 1e6, -1, false);
+    longitudinal_bigaussian(GP, RfP, Beam, 200e-9, 1e6, -1, false);
 
     // auto slice = Context::Slice = new Slices(RfP, Beam, N_slices, 0, -constant::pi, constant::pi,
     //         cuts_unit_type::rad);
@@ -154,7 +154,7 @@ int main(int argc, char **argv)
     // line_density_opt["bunch_length"] = "200e-9";
     // line_density_opt["density_variable"] = "density_from_J";
 
-    // // longitudinal_bigaussian(200e-9, 1e6, 1, false);
+    // // longitudinal_bigaussian(GP, RfP, Beam, 200e-9, 1e6, 1, false);
 
     // matched_from_line_density(full_ring, line_density_opt, "lowest_freq", "savefig");
     // util::dump(Beam->dt, "Beam->dt\n");

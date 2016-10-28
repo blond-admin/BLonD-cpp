@@ -85,8 +85,8 @@ TEST_F(testTC1, phaseSpace1)
 {
     auto Beam = Context::Beam;
     auto RfP = Context::RfP;
-
-    longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
+    auto GP = Context::GP;
+    longitudinal_bigaussian(GP, RfP, Beam, tau_0 / 4, 0, -1, false);
     auto epsilon = 1e-6;
     omp_set_num_threads(Context::n_threads);
     string params = TEST_FILES "/TC1_final/phaseSpace1/";
@@ -139,8 +139,10 @@ TEST_F(testTC1, phaseSpace1)
 TEST_F(testTC1, phaseSpace2)
 {
     auto Beam = Context::Beam;
+    auto GP = Context::GP;
+
     auto RfP = Context::RfP;
-    longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
+    longitudinal_bigaussian(GP, RfP, Beam, tau_0 / 4, 0, -1, false);
     auto epsilon = 1e-6;
 
     Context::n_threads = 3;

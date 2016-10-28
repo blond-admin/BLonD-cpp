@@ -86,7 +86,7 @@ int main(int argc, char **argv)
     Context::Slice = new Slices(RfP, Beam, N_slices, 0, -constant::pi, constant::pi,
                                 Slices::cuts_unit_t::rad);
 
-    longitudinal_bigaussian(200e-9, 1e6, 1, false);
+    longitudinal_bigaussian(GP, RfP, Beam, 200e-9, 1e6, 1, false);
 
     auto psb =
         new PSB(f_vector_t(N_t, 1.0 / 25e-6), f_vector_t{0, 0}, 10e-6, 7);

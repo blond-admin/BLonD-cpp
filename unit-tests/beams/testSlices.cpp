@@ -56,11 +56,11 @@ protected:
         auto GP = Context::GP;
         auto Beam = Context::Beam = new Beams(GP, N_p, N_b);
 
-        Context::RfP = new RfParameters(GP, n_sections, hVec,
-                                        voltageVec, dphiVec);
+        auto RfP = Context::RfP = new RfParameters(GP, n_sections, hVec,
+                voltageVec, dphiVec);
 
 
-        longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
+        longitudinal_bigaussian(GP, RfP, Beam, tau_0 / 4, 0, -1, false);
 
     }
 

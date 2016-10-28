@@ -62,7 +62,7 @@ protected:
 
         auto GP = Context::GP;
         auto Beam = Context::Beam = new Beams(GP, N_p, N_b);
-        
+
         Context::RfP = new RfParameters(GP, n_sections, hVec,
                                         voltageVec, dphiVec);
 
@@ -83,11 +83,11 @@ protected:
 
 TEST_F(testPlotBeams, plot_long_phase_space1)
 {
-    longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
+
     auto GP = Context::GP;
     auto RfP = Context::RfP;
     auto Beam = Context::Beam;
-
+    longitudinal_bigaussian(GP, RfP, Beam, tau_0 / 4, 0, -1, false);
     ASSERT_EQ(plot_long_phase_space(GP, RfP, Beam, 0., 1e-5, -1e7, 1e7), 1);
 
 }
@@ -95,11 +95,11 @@ TEST_F(testPlotBeams, plot_long_phase_space1)
 
 TEST_F(testPlotBeams, plot_long_phase_space2)
 {
-    longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
+
     auto GP = Context::GP;
     auto RfP = Context::RfP;
     auto Beam = Context::Beam;
-
+    longitudinal_bigaussian(GP, RfP, Beam, tau_0 / 4, 0, -1, false);
     ASSERT_EQ(plot_long_phase_space(GP, RfP, Beam, 0., 1e-5,
                                     -1e7, 1e7,  "s", 1, true), 1);
 

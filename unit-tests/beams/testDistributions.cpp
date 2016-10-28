@@ -347,183 +347,6 @@ TEST(testHelpers, distribution_density_function4)
 }
 
 
-TEST(testHelpers, minmax_location1)
-{
-    auto epsilon = 1e-8;
-    auto params = string(TEST_FILES "/Distributions/minmax_location1/");
-    int size = 100;
-    f_vector_t x = mymath::linspace(0.0, size, size);
-    f_vector_t f(size);
-
-    for (int i = 0; i < size; i++) f[i] = cos(i);
-    f_vector_t min_x_position, max_x_position;
-    f_vector_t min_values, max_values;
-
-    minmax_location(x, f, min_x_position, max_x_position,
-                    min_values, max_values);
-    f_vector_t v;
-
-    util::read_vector_from_file(v, params + "min_x_position.txt");
-    ASSERT_NEAR_LOOP(v, min_x_position, "min_x_position", epsilon);
-
-    util::read_vector_from_file(v, params + "max_x_position.txt");
-    ASSERT_NEAR_LOOP(v, max_x_position, "max_x_position", epsilon);
-
-    util::read_vector_from_file(v, params + "min_values.txt");
-    ASSERT_NEAR_LOOP(v, min_values, "min_values", epsilon);
-
-    util::read_vector_from_file(v, params + "max_values.txt");
-    ASSERT_NEAR_LOOP(v, max_values, "max_values", epsilon);
-
-}
-
-
-TEST(testHelpers, minmax_location2)
-{
-    auto epsilon = 1e-8;
-    auto params = string(TEST_FILES "/Distributions/minmax_location2/");
-    int size = 200;
-    f_vector_t x = mymath::linspace(0.0, size, size);
-    f_vector_t f(size);
-
-    for (int i = 0; i < size; i++) f[i] = (i % 2) ? cos(i) : sin(i);
-
-    f_vector_t min_x_position, max_x_position;
-    f_vector_t min_values, max_values;
-
-    minmax_location(x, f, min_x_position, max_x_position,
-                    min_values, max_values);
-    f_vector_t v;
-
-    util::read_vector_from_file(v, params + "min_x_position.txt");
-    ASSERT_NEAR_LOOP(v, min_x_position, "min_x_position", epsilon);
-
-    util::read_vector_from_file(v, params + "max_x_position.txt");
-    ASSERT_NEAR_LOOP(v, max_x_position, "max_x_position", epsilon);
-
-    util::read_vector_from_file(v, params + "min_values.txt");
-    ASSERT_NEAR_LOOP(v, min_values, "min_values", epsilon);
-
-    util::read_vector_from_file(v, params + "max_values.txt");
-    ASSERT_NEAR_LOOP(v, max_values, "max_values", epsilon);
-
-}
-
-
-
-TEST(testHelpers, potential_well_cut1)
-{
-    auto epsilon = 1e-8;
-    auto params = string(TEST_FILES "/Distributions/potential_well_cut1/");
-    int size = 100;
-    f_vector_t theta_coord_array = mymath::linspace(0.0, size, size);
-    f_vector_t potential_array(size);
-
-    for (int i = 0; i < size; i++)
-        potential_array[i] = (i % 2) ? cos(i) : sin(i);
-
-    f_vector_t theta_coord_sep, potential_well_sep;
-    f_vector_t min_values, max_values;
-
-    potential_well_cut(theta_coord_array, potential_array,
-                       theta_coord_sep, potential_well_sep);
-
-    f_vector_t v;
-
-    util::read_vector_from_file(v, params + "theta_coord_sep.txt");
-    ASSERT_NEAR_LOOP(v, theta_coord_sep, "theta_coord_sep", epsilon);
-
-    util::read_vector_from_file(v, params + "potential_well_sep.txt");
-    ASSERT_NEAR_LOOP(v, potential_well_sep, "potential_well_sep", epsilon);
-
-}
-
-
-TEST(testHelpers, potential_well_cut_deathtest1)
-{
-    int size = 5;
-    f_vector_t theta_coord_array = mymath::linspace(0.0, size, size);
-    f_vector_t potential_array(size);
-
-    for (int i = 0; i < size; i++)
-        potential_array[i] = (i % 2) ? cos(i) : sin(i);
-
-    f_vector_t theta_coord_sep, potential_well_sep;
-    f_vector_t min_values, max_values;
-
-    ASSERT_DEATH(potential_well_cut(theta_coord_array, potential_array,
-                                    theta_coord_sep, potential_well_sep)
-                 , "[potential_well_cut]\\s+");
-
-}
-
-
-TEST(testHelpers, potential_well_cut_deathtest2)
-{
-    int size = 10;
-    f_vector_t theta_coord_array = mymath::linspace(0.0, size, size);
-    f_vector_t potential_array(size);
-
-    for (int i = 0; i < size; i++)
-        potential_array[i] = cos(i);
-
-    f_vector_t theta_coord_sep, potential_well_sep;
-    f_vector_t min_values, max_values;
-
-    ASSERT_DEATH(potential_well_cut(theta_coord_array, potential_array,
-                                    theta_coord_sep, potential_well_sep)
-                 , "[potential_well_cut]\\s+");
-
-}
-
-
-TEST(testHelpers, potential_well_cut2)
-{
-    auto epsilon = 1e-8;
-    auto params = string(TEST_FILES "/Distributions/potential_well_cut2/");
-    int size = 10;
-    f_vector_t theta_coord_array = mymath::linspace(0.0, size, size);
-    f_vector_t potential_array(size);
-
-    for (int i = 0; i < size; i++)
-        potential_array[i] = sin(i);
-
-    f_vector_t theta_coord_sep, potential_well_sep;
-    f_vector_t min_values, max_values;
-
-    potential_well_cut(theta_coord_array, potential_array,
-                       theta_coord_sep, potential_well_sep);
-
-    f_vector_t v;
-
-    util::read_vector_from_file(v, params + "theta_coord_sep.txt");
-    ASSERT_NEAR_LOOP(v, theta_coord_sep, "theta_coord_sep", epsilon);
-
-    util::read_vector_from_file(v, params + "potential_well_sep.txt");
-    ASSERT_NEAR_LOOP(v, potential_well_sep, "potential_well_sep", epsilon);
-
-}
-
-
-
-TEST(testHelpers, potential_well_cut_deathtest3)
-{
-    auto epsilon = 1e-8;
-    int size = 10;
-    f_vector_t theta_coord_array = mymath::linspace(0.0, size, size);
-    f_vector_t potential_array(size);
-
-    for (int i = 0; i < size; i++)
-        potential_array[i] = exp(i);
-
-    f_vector_t theta_coord_sep, potential_well_sep;
-    f_vector_t min_values, max_values;
-
-    ASSERT_DEATH(potential_well_cut(theta_coord_array, potential_array,
-                                    theta_coord_sep, potential_well_sep)
-                 , "[potential_well_cut]\\s+");
-}
-
 
 
 
@@ -535,7 +358,7 @@ TEST(testHelpers, potential_well_cut_deathtest3)
 //     auto epsilon = 1e-8;
 //     auto params = string(TEST_FILES "/Distributions/line_density1/");
 
-//     longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
+//     longitudinal_bigaussian(GP, RfP, Beam, tau_0 / 4, 0, -1, false);
 //     auto slices = new Slices(RfP, beam, 100);
 //     slices->track();
 
@@ -900,10 +723,13 @@ protected:
 
 TEST_F(testBigaussian, sigmas1)
 {
+    auto GP = Context::GP;
+    auto Beam = Context::Beam;
+    auto RfP = Context::RfP;
     string params = TEST_FILES "/Distributions/Bigaussian/sigmas1/";
     auto epsilon = 1e-8;
 
-    longitudinal_bigaussian(tau_0 / 4 , 0, -1, false);
+    longitudinal_bigaussian(GP, RfP, Beam, tau_0 / 4 , 0, -1, false);
 
     f_vector_t v;
 
@@ -924,8 +750,11 @@ TEST_F(testBigaussian, dE1)
 
     string params = TEST_FILES "/Distributions/Bigaussian/dE1/";
 
+    auto GP = Context::GP;
+    auto Beam = Context::Beam;
+    auto RfP = Context::RfP;
 
-    longitudinal_bigaussian(0.1 * tau_0, 0, -1, false);
+    longitudinal_bigaussian(GP, RfP, Beam, 0.1 * tau_0, 0, -1, false);
 
     f_vector_t v;
     util::read_vector_from_file(v, params + "dE.txt");
@@ -943,9 +772,12 @@ TEST_F(testBigaussian, dE2)
     auto epsilon = 1e-8;
 
     string params = TEST_FILES "/Distributions/Bigaussian/dE2/";
+    auto GP = Context::GP;
+    auto Beam = Context::Beam;
+    auto RfP = Context::RfP;
 
 
-    longitudinal_bigaussian(tau_0, 1e3, -1, false);
+    longitudinal_bigaussian(GP, RfP, Beam, tau_0, 1e3, -1, false);
 
     f_vector_t v;
     util::read_vector_from_file(v, params + "dE.txt");
@@ -960,13 +792,15 @@ TEST_F(testBigaussian, dE2)
 
 TEST_F(testBigaussian, dt1)
 {
-    auto epsilon = 1e-8;
-
+    auto GP = Context::GP;
     auto Beam = Context::Beam;
+    auto RfP = Context::RfP;
+
+    auto epsilon = 1e-8;
 
     string params = TEST_FILES "/Distributions/Bigaussian/dt1/";
 
-    longitudinal_bigaussian(tau_0, 1e3, -1, false);
+    longitudinal_bigaussian(GP, RfP, Beam, tau_0, 1e3, -1, false);
 
     f_vector_t v;
     util::read_vector_from_file(v, params + "dt.txt");
@@ -982,11 +816,14 @@ TEST_F(testBigaussian, dt1)
 TEST_F(testBigaussian2, dE3)
 {
     auto epsilon = 1e-5;
+    auto GP = Context::GP;
     auto Beam = Context::Beam;
+    auto RfP = Context::RfP;
+
 
     string params = TEST_FILES "/Distributions/Bigaussian/dE3/";
 
-    longitudinal_bigaussian(1e-9, 5e6, -1, false);
+    longitudinal_bigaussian(GP, RfP, Beam, 1e-9, 5e6, -1, false);
 
     f_vector_t v;
 
@@ -1006,12 +843,14 @@ TEST_F(testBigaussian2, dE3)
 TEST_F(testBigaussian2, dt2)
 {
     auto epsilon = 1e-5;
-
+    auto GP = Context::GP;
     auto Beam = Context::Beam;
+    auto RfP = Context::RfP;
+
 
     string params = TEST_FILES "/Distributions/Bigaussian/dt2/";
 
-    longitudinal_bigaussian(1e-7, 5e4, -1, false);
+    longitudinal_bigaussian(GP, RfP, Beam, 1e-7, 5e4, -1, false);
 
     f_vector_t v;
 

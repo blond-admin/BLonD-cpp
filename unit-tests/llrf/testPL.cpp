@@ -8,8 +8,10 @@
 #include <blond/utilities.h>
 #include <gtest/gtest.h>
 
+using namespace std;
+
 const double epsilon = 1e-7;
-const std::string params = TEST_FILES "/PL/PL_params/";
+const string params = TEST_FILES "/PL/PL_params/";
 
 LHC *PL;
 RingAndRfSection *long_tracker;
@@ -31,7 +33,7 @@ protected:
         momentumVec[0].erase(momentumVec[0].begin(),
                              momentumVec[0].begin() + from_line);
 
-        // std::cout << "vector size is " << v.size() << "\n";
+        // cout << "vector size is " << v.size() << "\n";
         int remaining = N_t + 1 - momentumVec[0].size();
         for (int i = 0; i < remaining; ++i) {
             momentumVec[0].push_back(6.5e12);
@@ -40,7 +42,7 @@ protected:
         // double *V_array = new double[N_t + 1];
         f_vector_2d_t voltageVec(1, f_vector_t(N_t + 1));
         mymath::linspace(voltageVec[0].data(), 6e6, 10e6, 13563374, 13e6);
-        std::fill_n(&voltageVec[0][563374], 436627, 10e6);
+        fill_n(&voltageVec[0][563374], 436627, 10e6);
 
         // Define general parameters
         f_vector_2d_t alphaVec(alpha_order + 1, f_vector_t(n_sections, alpha));
@@ -118,7 +120,7 @@ private:
 
     const int N_slices = 151;
 
-    const std::string datafiles = DEMO_FILES "/LHC_restart/";
+    const string datafiles = DEMO_FILES "/LHC_restart/";
 
     const int from_line = 0;
 };
@@ -195,12 +197,16 @@ protected:
 
 TEST_F(testPL2, radial_difference1)
 {
-    longitudinal_bigaussian(1e-9, 10e6, 42, false);
+    auto GP = Context::GP;
+    auto Beam = Context::Beam;
+    auto RfP = Context::RfP;
+
+    longitudinal_bigaussian(GP, RfP, Beam, 1e-9, 10e6, 42, false);
     auto long_tracker = RingAndRfSection();
 
     auto sps = new SPS_RL(1.0 / 25e-6, 0, 1e-6);
 
-    auto params = std::string(TEST_FILES "/") + "PL/radial_difference/test1/";
+    auto params = string(TEST_FILES "/") + "PL/radial_difference/test1/";
 
     Context::Slice->track();
     f_vector_t drho;
@@ -217,7 +223,7 @@ TEST_F(testPL2, radial_difference1)
     auto epsilon = 1e-2;
     auto ref = v[0];
     auto real = mymath::mean(drho.data(), drho.size());
-    // ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+    // ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
     //       << "Testing of drho_mean failed\n";
 
     v.clear();
@@ -227,7 +233,7 @@ TEST_F(testPL2, radial_difference1)
     ref = v[0];
     real = mymath::standard_deviation(drho.data(), drho.size());
 
-    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+    ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
             << "Testing of drho_std failed\n";
 
     delete sps;
@@ -235,21 +241,24 @@ TEST_F(testPL2, radial_difference1)
 
 TEST_F(testPL2, radial_steering_from_freq1)
 {
+    auto GP = Context::GP;
+    auto Beam = Context::Beam;
     auto RfP = Context::RfP;
-    longitudinal_bigaussian(100e-9, 1e6, 1, false);
+
+    longitudinal_bigaussian(GP, RfP, Beam, 100e-9, 1e6, 1, false);
     auto long_tracker = RingAndRfSection();
 
     auto sps = new SPS_RL(1.0 / 25e-6, 0, 0);
 
     auto params =
-        std::string(TEST_FILES "/") + "PL/radial_steering_from_freq/test1/";
+        string(TEST_FILES "/") + "PL/radial_steering_from_freq/test1/";
 
     Context::Slice->track();
 
     N_t = 100;
 
     for (uint i = 0; i < N_t + 1; ++i)
-        RfP->omega_rf[0][i] = std::sqrt(i);
+        RfP->omega_rf[0][i] = sqrt(i);
 
     for (uint i = 0; i < N_t; ++i) {
         sps->radial_steering_from_freq();
@@ -265,9 +274,9 @@ TEST_F(testPL2, radial_steering_from_freq1)
     for (unsigned int i = 0; i < v.size(); ++i) {
         auto ref = v[i];
         auto real = RfP->omega_rf[0][i];
-        // std::cout << real << "\n";
-        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-                << "Testing of RfP->omega_RF failed on i " << i << std::endl;
+        // cout << real << "\n";
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
+                << "Testing of RfP->omega_RF failed on i " << i << endl;
     }
 
     v.clear();
@@ -280,11 +289,11 @@ TEST_F(testPL2, radial_steering_from_freq1)
     for (unsigned int i = 0; i < v.size(); ++i) {
         auto ref = v[i];
         auto real = RfP->dphi_rf_steering[i];
-        // std::cout << real << "\n";
+        // cout << real << "\n";
 
-        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
                 << "Testing of RfP->dphi_RF_steering failed on i " << i
-                << std::endl;
+                << endl;
     }
 
     v.clear();
@@ -297,10 +306,10 @@ TEST_F(testPL2, radial_steering_from_freq1)
     for (unsigned int i = 0; i < v.size(); ++i) {
         auto ref = v[i];
         auto real = RfP->phi_rf[0][i];
-        // std::cout << real << "\n";
+        // cout << real << "\n";
 
-        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-                << "Testing of RfP->phi_RF failed on i " << i << std::endl;
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
+                << "Testing of RfP->phi_RF failed on i " << i << endl;
     }
 
     v.clear();
@@ -311,7 +320,7 @@ TEST_F(testPL2, radial_steering_from_freq1)
 TEST_F(testPL, lhc_a)
 {
 
-    std::vector<double> v;
+    f_vector_t v;
     util::read_vector_from_file(v, params + "lhc_a");
     // Only check 1 out of 10 elements
     // otherwise refernece file too big
@@ -321,7 +330,7 @@ TEST_F(testPL, lhc_a)
 
         double ref = v[i];
         double real = PL->lhc_a[i * 10];
-        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)));
     }
 
     // printf("ok here\n");
@@ -330,7 +339,7 @@ TEST_F(testPL, lhc_a)
 TEST_F(testPL, lhc_t)
 {
 
-    std::vector<double> v;
+    f_vector_t v;
     util::read_vector_from_file(v, params + "lhc_t");
     // Only check 1 out of 10 elements
     // otherwise refernece file too big
@@ -339,7 +348,7 @@ TEST_F(testPL, lhc_t)
         // printf("%d\n", i);
         double ref = v[i];
         double real = PL->lhc_t[i * 10];
-        ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
+        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)));
     }
 }
 
@@ -348,11 +357,11 @@ TEST_F(testPL, phi_beam)
     Context::Slice->track();
     PL->beam_phase();
 
-    std::vector<double> v;
+    f_vector_t v;
     util::read_vector_from_file(v, params + "phi_beam");
     double ref = v[0];
     double real = PL->phi_beam;
-    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
+    ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)));
 }
 
 TEST_F(testPL, dphi)
@@ -361,11 +370,11 @@ TEST_F(testPL, dphi)
     PL->beam_phase();
     PL->phase_difference();
 
-    std::vector<double> v;
+    f_vector_t v;
     util::read_vector_from_file(v, params + "dphi");
     double ref = v[0];
     double real = PL->dphi;
-    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
+    ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)));
 }
 
 TEST_F(testPL, domega_RF)
@@ -374,11 +383,11 @@ TEST_F(testPL, domega_RF)
     PL->beam_phase();
     PL->phase_difference();
     long_tracker->track();
-    std::vector<double> v;
+    f_vector_t v;
     util::read_vector_from_file(v, params + "domega_RF");
     double ref = v[0];
     double real = PL->domega_rf;
-    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
+    ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)));
 }
 
 TEST_F(testPL, lhc_y)
@@ -387,11 +396,11 @@ TEST_F(testPL, lhc_y)
     PL->beam_phase();
     PL->phase_difference();
     long_tracker->track();
-    std::vector<double> v;
+    f_vector_t v;
     util::read_vector_from_file(v, params + "lhc_y");
     double ref = v[0];
     double real = PL->lhc_y;
-    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
+    ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)));
 }
 
 TEST_F(testPL, omega_RF)
@@ -405,11 +414,11 @@ TEST_F(testPL, omega_RF)
     // RfP->counter++;
     int counter = RfP->counter;
 
-    std::vector<double> v;
+    f_vector_t v;
     util::read_vector_from_file(v, params + "omega_RF");
     double ref = v[0];
     double real = RfP->omega_rf[0][counter];
-    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
+    ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)));
 }
 
 TEST_F(testPL, dphi_RF)
@@ -420,11 +429,11 @@ TEST_F(testPL, dphi_RF)
     long_tracker->track();
     // RfP->counter++;
 
-    std::vector<double> v;
+    f_vector_t v;
     util::read_vector_from_file(v, params + "dphi_RF");
     double ref = v[0];
     double real = Context::RfP->dphi_rf[0];
-    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
+    ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)));
 }
 
 TEST_F(testPL, phi_RF)
@@ -439,11 +448,11 @@ TEST_F(testPL, phi_RF)
 
     int counter = RfP->counter;
 
-    std::vector<double> v;
+    f_vector_t v;
     util::read_vector_from_file(v, params + "phi_RF");
     double ref = v[0];
     double real = RfP->phi_rf[0][counter];
-    ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)));
+    ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)));
 }
 
 int main(int ac, char *av[])

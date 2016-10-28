@@ -78,13 +78,14 @@ TEST_F(testMonitors, SlicesMonitor1)
 {
     auto RfP = Context::RfP;
     auto Beam = Context::Beam;
-
+    auto GP = Context::GP;
+    
     string params =
         TEST_FILES "/Monitors/SlicesMonitor1/";
     auto filename = "n_macroparticles.h5";
     remove(filename);
 
-    longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
+    longitudinal_bigaussian(GP, RfP, Beam, tau_0 / 4, 0, -1, false);
     auto slice = Slices(RfP, Beam, N_slices);
     auto slicesMonitor = SlicesMonitor(filename, N_t / dt_save + 1, &slice);
     auto tracker = RingAndRfSection();
@@ -119,16 +120,16 @@ TEST_F(testMonitors, BunchMonitor1)
 {
     auto GP = Context::GP;
     auto RfP = Context::RfP;
-    auto beam = Context::Beam;
+    auto Beam = Context::Beam;
     auto epsilon = 1e-7;
     string params =
         TEST_FILES "/Monitors/BunchMonitor1/";
     auto filename = "bunch.h5";
     remove(filename);
 
-    longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
-    auto slice = Slices(RfP, beam, N_slices);
-    auto bunchmonitor = BunchMonitor(GP, RfP, beam, filename, 100);
+    longitudinal_bigaussian(GP, RfP, Beam, tau_0 / 4, 0, -1, false);
+    auto slice = Slices(RfP, Beam, N_slices);
+    auto bunchmonitor = BunchMonitor(GP, RfP, Beam, filename, 100);
     auto tracker = RingAndRfSection();
 
     for (int i = 0; i < N_t; i++) {
@@ -234,20 +235,20 @@ TEST_F(testMonitors, BunchMonitor2)
 
     auto GP = Context::GP;
     auto RfP = Context::RfP;
-    auto beam = Context::Beam;
+    auto Beam = Context::Beam;
     auto epsilon = 1e-7;
     string params =
         TEST_FILES "/Monitors/BunchMonitor2/";
     auto filename = "bunch.h5";
     remove(filename);
 
-    longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
-    auto slice = Slices(RfP, beam, N_slices);
+    longitudinal_bigaussian(GP, RfP, Beam, tau_0 / 4, 0, -1, false);
+    auto slice = Slices(RfP, Beam, N_slices);
     auto PL_gain = 1.0 / (5 * GP->t_rev[0]);
     auto SL_gain = PL_gain / 10.0;
     f_vector_t PL_gainVec(N_t + 1 , PL_gain);
     auto PL = LHC(PL_gainVec, SL_gain);
-    auto bunchmonitor = BunchMonitor(GP, RfP, beam, filename,
+    auto bunchmonitor = BunchMonitor(GP, RfP, Beam, filename,
                                      100, &slice, &PL);
     auto tracker = RingAndRfSection();
 
@@ -368,7 +369,7 @@ TEST_F(testMonitors, BunchMonitor3)
 {
     auto GP = Context::GP;
     auto RfP = Context::RfP;
-    auto beam = Context::Beam;
+    auto Beam = Context::Beam;
     auto epsilon = 1e-7;
     string params =
         TEST_FILES "/Monitors/BunchMonitor3/";
@@ -376,8 +377,8 @@ TEST_F(testMonitors, BunchMonitor3)
 
     remove(filename);
 
-    longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
-    auto slice = Slices(RfP, beam, N_slices);
+    longitudinal_bigaussian(GP, RfP, Beam, tau_0 / 4, 0, -1, false);
+    auto slice = Slices(RfP, Beam, N_slices);
     auto PL_gain = 1.0 / (5 * GP->t_rev[0]);
     auto SL_gain = PL_gain / 10.0;
     f_vector_t PL_gainVec(N_t + 1 , PL_gain);
@@ -385,7 +386,7 @@ TEST_F(testMonitors, BunchMonitor3)
 
     auto noiseFB = LHCNoiseFB(1e-8, 0.1e9, 0.93, 100, true, {10, 20, 30});
 
-    auto bunchmonitor = BunchMonitor(GP, RfP, beam, filename,
+    auto bunchmonitor = BunchMonitor(GP, RfP, Beam, filename,
                                      100, &slice, &PL, &noiseFB);
     auto tracker = RingAndRfSection();
 

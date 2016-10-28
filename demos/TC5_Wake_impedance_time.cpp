@@ -91,7 +91,7 @@ int main(int argc, char **argv)
 
     auto long_tracker = new RingAndRfSection();
 
-    longitudinal_bigaussian(tau_0 / 4, 0, 1, false);
+    longitudinal_bigaussian(GP, RfP, Beam, tau_0 / 4, 0, 1, false);
 
     auto slices = Context::Slice = new Slices(RfP, Beam, N_slices,
             0, 0, 2 * constant::pi, Slices::cuts_unit_t::rad);

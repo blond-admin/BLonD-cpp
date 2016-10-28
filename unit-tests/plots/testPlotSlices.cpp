@@ -81,10 +81,10 @@ protected:
 
 TEST_F(testPlotSlices, plot_beam_profile1)
 {
-    longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
     auto GP = Context::GP;
     auto RfP = Context::RfP;
     auto Beam = Context::Beam;
+    longitudinal_bigaussian(GP, RfP, Beam, tau_0 / 4, 0, -1, false);
 
     auto slice = new Slices(RfP, Beam, N_slices);
 
@@ -96,10 +96,10 @@ TEST_F(testPlotSlices, plot_beam_profile1)
 
 TEST_F(testPlotSlices, plot_beam_profile_derivative1)
 {
-    longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
     auto GP = Context::GP;
     auto RfP = Context::RfP;
     auto Beam = Context::Beam;
+    longitudinal_bigaussian(GP, RfP, Beam, tau_0 / 4, 0, -1, false);
 
     auto slice = new Slices(RfP, Beam, N_slices);
 
@@ -111,11 +111,10 @@ TEST_F(testPlotSlices, plot_beam_profile_derivative1)
 
 TEST_F(testPlotSlices, plot_beam_profile_derivative2)
 {
-    longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
     auto GP = Context::GP;
     auto RfP = Context::RfP;
     auto Beam = Context::Beam;
-
+    longitudinal_bigaussian(GP, RfP, Beam, tau_0 / 4, 0, -1, false);
     auto slice = new Slices(RfP, Beam, N_slices);
 
     ASSERT_EQ(plot_beam_profile_derivative(slice, 0, "-", "fig",
@@ -128,11 +127,11 @@ TEST_F(testPlotSlices, plot_beam_profile_derivative2)
 TEST_F(testPlotSlices, plot_beam_spectrum1)
 {
 
-    longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
+
     auto GP = Context::GP;
     auto RfP = Context::RfP;
     auto Beam = Context::Beam;
-
+    longitudinal_bigaussian(GP, RfP, Beam, tau_0 / 4, 0, -1, false);
     auto slice = new Slices(RfP, Beam, N_slices);
 
     ASSERT_EQ(plot_beam_spectrum(slice, 0), 1);

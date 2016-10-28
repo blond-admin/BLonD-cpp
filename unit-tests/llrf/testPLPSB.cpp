@@ -34,10 +34,11 @@ uint N_slices = 200; // = (2^8)
 
 class testPLPSB : public ::testing::Test {
 
-  protected:
-    virtual void SetUp() {
+protected:
+    virtual void SetUp()
+    {
         omp_set_num_threads(1);
-        
+
         f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1, p_i));
 
         f_vector_2d_t alphaVec(n_sections, f_vector_t(alpha_order + 1, alpha));
@@ -58,9 +59,9 @@ class testPLPSB : public ::testing::Test {
 
         auto GP = Context::GP;
         auto Beam = Context::Beam = new Beams(GP, N_p, N_b);
-        
+
         auto RfP = Context::RfP = new RfParameters(GP, n_sections, hVec,
-                                        voltageVec, dphiVec);
+                voltageVec, dphiVec);
 
 
         // long_tracker = new RingAndRfSection();
@@ -69,7 +70,8 @@ class testPLPSB : public ::testing::Test {
                                     Slices::cuts_unit_t::rad);
     }
 
-    virtual void TearDown() {
+    virtual void TearDown()
+    {
         // Code here will be called immediately after each test
         // (right before the destructor).
         delete Context::GP;
@@ -80,9 +82,10 @@ class testPLPSB : public ::testing::Test {
     }
 };
 
-TEST_F(testPLPSB, constructor1) {
+TEST_F(testPLPSB, constructor1)
+{
 
-    // longitudinal_bigaussian(100e-9, 0.05e6, 1, false);
+    // longitudinal_bigaussian(GP, RfP, Beam, 100e-9, 0.05e6, 1, false);
 
     auto psb =
         new PSB(f_vector_t(N_t, 1.0 / 25e-6), f_vector_t{0, 0}, 10e-6, 7);
@@ -99,7 +102,7 @@ TEST_F(testPLPSB, constructor1) {
         auto real = psb->gain2[i];
 
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of gain2 failed on i " << i << std::endl;
+                << "Testing of gain2 failed on i " << i << std::endl;
     }
 
     v.clear();
@@ -111,7 +114,7 @@ TEST_F(testPLPSB, constructor1) {
         uint real = psb->gain[i];
 
         ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-            << "Testing of gain failed on i " << i << std::endl;
+                << "Testing of gain failed on i " << i << std::endl;
     }
 
     v.clear();
@@ -129,9 +132,14 @@ TEST_F(testPLPSB, constructor1) {
     delete psb;
 }
 
-TEST_F(testPLPSB, track1) {
+TEST_F(testPLPSB, track1)
+{
+    auto GP = Context::GP;
+    auto Beam = Context::Beam;
+    auto RfP = Context::RfP;
 
-    longitudinal_bigaussian(100e-9, 0.05e6, 1, false);
+
+    longitudinal_bigaussian(GP, RfP, Beam, 100e-9, 0.05e6, 1, false);
 
     auto psb =
         new PSB(f_vector_t(N_t, 1.0 / 25e-6), f_vector_t{0, 0}, 10e-6, 7);
@@ -159,7 +167,7 @@ TEST_F(testPLPSB, track1) {
     auto ref = v[0];
     auto real = mymath::mean(dphi_av.data(), dphi_av.size());
     ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-        << "Testing of dphi_av_mean failed\n";
+            << "Testing of dphi_av_mean failed\n";
 
     v.clear();
     util::read_vector_from_file(v, params + "dphi_av_std.txt");
@@ -167,7 +175,7 @@ TEST_F(testPLPSB, track1) {
     ref = v[0];
     real = mymath::standard_deviation(dphi_av.data(), dphi_av.size());
     ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-        << "Testing of dphi_av_std failed\n";
+            << "Testing of dphi_av_std failed\n";
 
     v.clear();
     util::read_vector_from_file(v, params + "t_accum_mean.txt");
@@ -175,7 +183,7 @@ TEST_F(testPLPSB, track1) {
     ref = v[0];
     real = mymath::mean(t_accum.data(), t_accum.size());
     ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-        << "Testing of t_accum_mean failed\n";
+            << "Testing of t_accum_mean failed\n";
 
     v.clear();
     util::read_vector_from_file(v, params + "t_accum_std.txt");
@@ -183,7 +191,7 @@ TEST_F(testPLPSB, track1) {
     ref = v[0];
     real = mymath::standard_deviation(t_accum.data(), t_accum.size());
     ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-        << "Testing of t_accum_std failed\n";
+            << "Testing of t_accum_std failed\n";
 
     v.clear();
     util::read_vector_from_file(v, params + "domega_PL_mean.txt");
@@ -191,7 +199,7 @@ TEST_F(testPLPSB, track1) {
     ref = v[0];
     real = mymath::mean(domega_PL.data(), domega_PL.size());
     ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-        << "Testing of domega_PL_mean failed\n";
+            << "Testing of domega_PL_mean failed\n";
 
     v.clear();
     util::read_vector_from_file(v, params + "domega_PL_std.txt");
@@ -199,7 +207,7 @@ TEST_F(testPLPSB, track1) {
     ref = v[0];
     real = mymath::standard_deviation(domega_PL.data(), domega_PL.size());
     ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-        << "Testing of domega_PL_std failed\n";
+            << "Testing of domega_PL_std failed\n";
 
     v.clear();
     util::read_vector_from_file(v, params + "drho_mean.txt");
@@ -207,7 +215,7 @@ TEST_F(testPLPSB, track1) {
     ref = v[0];
     real = mymath::mean(drho.data(), drho.size());
     ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-        << "Testing of drho_mean failed\n";
+            << "Testing of drho_mean failed\n";
 
     v.clear();
     util::read_vector_from_file(v, params + "drho_std.txt");
@@ -215,7 +223,7 @@ TEST_F(testPLPSB, track1) {
     ref = v[0];
     real = mymath::standard_deviation(drho.data(), drho.size());
     ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-        << "Testing of drho_std failed\n";
+            << "Testing of drho_std failed\n";
 
     v.clear();
     util::read_vector_from_file(v, params + "domega_RL_mean.txt");
@@ -223,7 +231,7 @@ TEST_F(testPLPSB, track1) {
     ref = v[0];
     real = mymath::mean(domega_RL.data(), domega_RL.size());
     ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-        << "Testing of domega_RL_mean failed\n";
+            << "Testing of domega_RL_mean failed\n";
 
     v.clear();
     util::read_vector_from_file(v, params + "domega_RL_std.txt");
@@ -231,7 +239,7 @@ TEST_F(testPLPSB, track1) {
     ref = v[0];
     real = mymath::standard_deviation(domega_RL.data(), domega_RL.size());
     ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-        << "Testing of domega_RL_std failed\n";
+            << "Testing of domega_RL_std failed\n";
 
     v.clear();
     util::read_vector_from_file(v, params + "domega_RF_mean.txt");
@@ -239,7 +247,7 @@ TEST_F(testPLPSB, track1) {
     ref = v[0];
     real = mymath::mean(domega_rf.data(), domega_rf.size());
     ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-        << "Testing of domega_RF_mean failed\n";
+            << "Testing of domega_RF_mean failed\n";
 
     v.clear();
     util::read_vector_from_file(v, params + "domega_RF_std.txt");
@@ -247,12 +255,13 @@ TEST_F(testPLPSB, track1) {
     ref = v[0];
     real = mymath::standard_deviation(domega_rf.data(), domega_rf.size());
     ASSERT_NEAR(ref, real, epsilon * std::max(fabs(ref), fabs(real)))
-        << "Testing of domega_RF_std failed\n";
+            << "Testing of domega_RF_std failed\n";
 
     delete psb;
 }
 
-int main(int ac, char* av[]) {
+int main(int ac, char *av[])
+{
     ::testing::InitGoogleTest(&ac, av);
     return RUN_ALL_TESTS();
 }

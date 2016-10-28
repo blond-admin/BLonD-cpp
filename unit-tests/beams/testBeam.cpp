@@ -79,9 +79,13 @@ protected:
 
 TEST_F(testBeam, statistics1)
 {
+
+    auto GP = Context::GP;
+    auto Beam = Context::Beam;
+    auto RfP = Context::RfP;
     std::string params =
         TEST_FILES "/Beam/statistics1/";
-    longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
+    longitudinal_bigaussian(GP, RfP, Beam, tau_0 / 4, 0, -1, false);
     Context::Beam->statistics();
 
     auto epsilon = 1e-8;
@@ -126,12 +130,15 @@ TEST_F(testBeam, statistics1)
 
 TEST_F(testBeam, losses_long_cut1)
 {
+    auto GP = Context::GP;
+    auto Beam = Context::Beam;
+    auto RfP = Context::RfP;
+
     auto epsilon = 1e-8;
 
     std::string params =
         TEST_FILES "/Beam/losses_long_cut1/";
-    auto Beam = Context::Beam;
-    longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
+    longitudinal_bigaussian(GP, RfP, Beam, tau_0 / 4, 0, -1, false);
     Beam->statistics();
     Beam->losses_longitudinal_cut(Beam->mean_dt, 10 * std::fabs(Beam->mean_dt));
 
@@ -150,11 +157,13 @@ TEST_F(testBeam, losses_long_cut1)
 TEST_F(testBeam, losses_energy_cut1)
 {
     auto epsilon = 1e-8;
+    auto GP = Context::GP;
+    auto Beam = Context::Beam;
+    auto RfP = Context::RfP;
 
     std::string params =
         TEST_FILES "/Beam/losses_energy_cut1/";
-    auto Beam = Context::Beam;
-    longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
+    longitudinal_bigaussian(GP, RfP, Beam, tau_0 / 4, 0, -1, false);
     Beam->statistics();
 
     Beam->losses_energy_cut(Beam->mean_dE, 10 * std::fabs(Beam->mean_dE));
@@ -243,7 +252,7 @@ TEST_F(testBeam2, losses_separatrix1)
     auto RfP = Context::RfP;
     auto Beam = Context::Beam;
 
-    longitudinal_bigaussian(tau_0 / 4, 0, -1, false);
+    longitudinal_bigaussian(GP, RfP, Beam, tau_0 / 4, 0, -1, false);
     Beam->losses_separatrix(GP, RfP);
 
     f_vector_t v;
@@ -266,7 +275,7 @@ TEST_F(testBeam2, losses_separatrix2)
     auto RfP = Context::RfP;
     auto Beam = Context::Beam;
 
-    longitudinal_bigaussian(tau_0 / 3, 0, -1, false);
+    longitudinal_bigaussian(GP, RfP, Beam, tau_0 / 3, 0, -1, false);
     auto tracker = RingAndRfSection();
 
     for (int i = 0; i < 500; i++) tracker.track();

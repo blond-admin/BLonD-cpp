@@ -44,7 +44,8 @@ void matched_from_distribution_density(FullRingAndRf *full_ring,
                                        int seed = 0);
 
 
-void longitudinal_bigaussian(double sigma_dt, double sigma_dE = 0,
+void longitudinal_bigaussian(GeneralParameters *GP, RfParameters *RfP,
+                             Beams *Beam, double sigma_dt, double sigma_dE = 0,
                              int seed = 0, bool reinsertion = false);
 
 
@@ -57,13 +58,6 @@ f_vector_t line_density_function(const f_vector_t &coord_array,
                                  const double bunch_position = 0.,
                                  double exponent = 0.);
 
-void minmax_location(f_vector_t &x, f_vector_t &f,
-                     f_vector_t &min_x_position, f_vector_t &max_x_position,
-                     f_vector_t &min_values, f_vector_t &max_values);
 
-void potential_well_cut(f_vector_t &theta_coord_array,
-                        f_vector_t &potential_array,
-                        f_vector_t &theta_coord_sep,
-                        f_vector_t &potential_well_sep);
 
 #endif /* BEAMS_DISTRIBUTIONS_H_ */

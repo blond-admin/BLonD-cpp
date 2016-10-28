@@ -81,8 +81,10 @@ class testPLSPS_RL : public ::testing::Test {
 };
 
 TEST_F(testPLSPS_RL, track1) {
-
-    longitudinal_bigaussian(200e-9, 100e6, 42321, false);
+    auto GP = Context::GP;
+    auto Beam = Context::Beam;
+    auto RfP = Context::RfP;
+    longitudinal_bigaussian(GP, RfP, Beam, 200e-9, 100e6, 42321, false);
 
     auto sps = new SPS_RL(25e-6, 0, 5e-6);
 
@@ -121,8 +123,11 @@ TEST_F(testPLSPS_RL, track1) {
 }
 
 TEST_F(testPLSPS_RL, track2) {
+    auto GP = Context::GP;
+    auto Beam = Context::Beam;
+    auto RfP = Context::RfP;
 
-    longitudinal_bigaussian(200e-9, 100e6, 42321, false);
+    longitudinal_bigaussian(GP, RfP, Beam, 200e-9, 100e6, 42321, false);
 
     auto sps = new SPS_RL(25e-6, 0, 5e-6);
     sps->reference = 1e-6;

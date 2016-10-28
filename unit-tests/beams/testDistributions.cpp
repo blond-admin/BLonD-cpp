@@ -5,21 +5,11 @@
 #include <blond/trackers/Tracker.h>
 #include <blond/utilities.h>
 #include <gtest/gtest.h>
+#include <testing_utilities.h>
 
 using namespace std;
 
 
-void test_vector(const f_vector_t &refV, const f_vector_t &realV,
-                 const string &varName, const double epsilon)
-{
-    ASSERT_EQ(refV.size(), realV.size());
-    for (uint i = 0; i < refV.size(); ++i) {
-        auto ref = refV[i];
-        auto real = realV[i];
-        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
-                << "Testing of " << varName << " failed on i " << i << "\n";
-    }
-}
 
 class testDistributions : public ::testing::Test {
 
@@ -374,16 +364,16 @@ TEST(testHelpers, minmax_location1)
     f_vector_t v;
 
     util::read_vector_from_file(v, params + "min_x_position.txt");
-    test_vector(v, min_x_position, "min_x_position", epsilon);
+    ASSERT_NEAR_LOOP(v, min_x_position, "min_x_position", epsilon);
 
     util::read_vector_from_file(v, params + "max_x_position.txt");
-    test_vector(v, max_x_position, "max_x_position", epsilon);
+    ASSERT_NEAR_LOOP(v, max_x_position, "max_x_position", epsilon);
 
     util::read_vector_from_file(v, params + "min_values.txt");
-    test_vector(v, min_values, "min_values", epsilon);
+    ASSERT_NEAR_LOOP(v, min_values, "min_values", epsilon);
 
     util::read_vector_from_file(v, params + "max_values.txt");
-    test_vector(v, max_values, "max_values", epsilon);
+    ASSERT_NEAR_LOOP(v, max_values, "max_values", epsilon);
 
 }
 
@@ -406,16 +396,16 @@ TEST(testHelpers, minmax_location2)
     f_vector_t v;
 
     util::read_vector_from_file(v, params + "min_x_position.txt");
-    test_vector(v, min_x_position, "min_x_position", epsilon);
+    ASSERT_NEAR_LOOP(v, min_x_position, "min_x_position", epsilon);
 
     util::read_vector_from_file(v, params + "max_x_position.txt");
-    test_vector(v, max_x_position, "max_x_position", epsilon);
+    ASSERT_NEAR_LOOP(v, max_x_position, "max_x_position", epsilon);
 
     util::read_vector_from_file(v, params + "min_values.txt");
-    test_vector(v, min_values, "min_values", epsilon);
+    ASSERT_NEAR_LOOP(v, min_values, "min_values", epsilon);
 
     util::read_vector_from_file(v, params + "max_values.txt");
-    test_vector(v, max_values, "max_values", epsilon);
+    ASSERT_NEAR_LOOP(v, max_values, "max_values", epsilon);
 
 }
 
@@ -441,10 +431,10 @@ TEST(testHelpers, potential_well_cut1)
     f_vector_t v;
 
     util::read_vector_from_file(v, params + "theta_coord_sep.txt");
-    test_vector(v, theta_coord_sep, "theta_coord_sep", epsilon);
+    ASSERT_NEAR_LOOP(v, theta_coord_sep, "theta_coord_sep", epsilon);
 
     util::read_vector_from_file(v, params + "potential_well_sep.txt");
-    test_vector(v, potential_well_sep, "potential_well_sep", epsilon);
+    ASSERT_NEAR_LOOP(v, potential_well_sep, "potential_well_sep", epsilon);
 
 }
 
@@ -507,10 +497,10 @@ TEST(testHelpers, potential_well_cut2)
     f_vector_t v;
 
     util::read_vector_from_file(v, params + "theta_coord_sep.txt");
-    test_vector(v, theta_coord_sep, "theta_coord_sep", epsilon);
+    ASSERT_NEAR_LOOP(v, theta_coord_sep, "theta_coord_sep", epsilon);
 
     util::read_vector_from_file(v, params + "potential_well_sep.txt");
-    test_vector(v, potential_well_sep, "potential_well_sep", epsilon);
+    ASSERT_NEAR_LOOP(v, potential_well_sep, "potential_well_sep", epsilon);
 
 }
 

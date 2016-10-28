@@ -192,13 +192,16 @@ if (TEST_ENABLED)
 endif ()
 
 
-include_directories(${PROJECT_SOURCE_DIR}/include/)
+include_directories(
+    ${PROJECT_SOURCE_DIR}/include/ 
+    ${PROJECT_SOURCE_DIR}/unit-tests/test-utilities/
+    )
 
 include_directories(SYSTEM
     ${EXTERNAL_INSTALL_DIR}/include/
     ${EXTERNAL_INSTALL_DIR}/include/python2.7
     ${EXTERNAL_INSTALL_DIR}/lib/python2.7/site-packages
-   )
+    )
 
 link_directories(
     ${EXTERNAL_INSTALL_DIR}/lib/python2.7/config
@@ -268,13 +271,13 @@ if (TEST_ENABLED)
     #     set(CTEST_MEMORYCHECK_COMMAND_OPTIONS, "--leak-check=full")
     # endif ()
 
-    file(GLOB UNIT_TEST_SOURCES "./unit-tests/*.cpp")
+    file(GLOB_RECURSE UNIT_TEST_SOURCES "./unit-tests/*.cpp")
     set(UNIT_TEST_FILES ${UNIT_TEST_SOURCES})
 
     foreach (src ${UNIT_TEST_FILES})
         file(RELATIVE_PATH testfile ${CMAKE_CURRENT_SOURCE_DIR} ${src})
         string(REPLACE ".cpp" "" testname ${testfile})
-        string(REPLACE "unit-tests/" "" testname ${testname})
+        string(REGEX REPLACE "unit-tests/.+/" "" testname ${testname})
         add_executable(${testname} ${src})
         set_target_properties(${testname} PROPERTIES RUNTIME_OUTPUT_DIRECTORY unit-tests)
         target_link_libraries(${testname} ${LIBRARIES})

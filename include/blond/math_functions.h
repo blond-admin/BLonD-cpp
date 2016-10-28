@@ -109,6 +109,7 @@ namespace mymath {
         y.resize(x.size());
 
         const int N = x.size();
+        if (N == 0) return;
         // const uint M = xp.size();
         const auto max = xp.back();
         const auto min = xp.front();
@@ -148,6 +149,15 @@ namespace mymath {
         auto left = yp.front();
         auto right = yp.back();
         lin_interp(x, xp, yp, y, left, right);
+    }
+
+    static inline f_vector_t lin_interp(const f_vector_t &x,
+                                        const f_vector_t &xp,
+                                        const f_vector_t &yp)
+    {
+        f_vector_t res;
+        lin_interp(x, xp, yp, res);
+        return res;
     }
 
     // Function to implement integration of f(x) over the interval

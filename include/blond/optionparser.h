@@ -269,8 +269,14 @@
 *
 */
 
+
 #ifndef OPTIONPARSER_H_
 #define OPTIONPARSER_H_
+#ifdef __GNUC__
+// Avoid tons of warnings with root code
+#pragma GCC system_header
+#endif
+
 /** @brief The namespace of The Lean Mean C++ Option Parser. */
 namespace option {
 

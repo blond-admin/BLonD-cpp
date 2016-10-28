@@ -256,10 +256,14 @@ def minmax_location(x, f):
 
     f_derivative = np.diff(f)
     x_derivative = x[0:-1] + (x[1]-x[0])/2
+    # print x.shape, x_derivative.shape, f_derivative.shape
+
     f_derivative = np.interp(x, x_derivative, f_derivative)
 
     f_derivative_second = np.diff(f_derivative)
     f_derivative_second = np.interp(x, x_derivative, f_derivative_second)
+
+    # print x.shape, x_derivative.shape, f_derivative_second.shape
 
     warnings.filterwarnings("ignore")
     f_derivative_zeros = np.unique(np.append(
@@ -271,7 +275,9 @@ def minmax_location(x, f):
                                            0] + 1] + x[f_derivative_zeros[f_derivative_second[f_derivative_zeros] < 0]])/2
 
     min_values = np.interp(min_x_position, x, f)
+    # print min_x_position.shape, x.shape, f.shape
     max_values = np.interp(max_x_position, x, f)
+    # print max_x_position.shape, x.shape, f.shape
 
     warnings.filterwarnings("default")
 

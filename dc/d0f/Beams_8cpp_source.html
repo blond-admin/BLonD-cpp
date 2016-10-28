@@ -208,7 +208,7 @@ $(document).ready(function(){initNavTree('dc/d0f/Beams_8cpp_source.html','../../
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
 <div class="line"><a name="l00095"></a><span class="lineno"><a class="code" href="../../d9/d7c/classBeams.html#a76e4b807fd1a83ae8fe190a774acaa19">   95</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d9/d7c/classBeams.html#a76e4b807fd1a83ae8fe190a774acaa19">Beams::losses_separatrix</a>(<a class="code" href="../../d1/dfc/classGeneralParameters.html">GeneralParameters</a> *GP, <a class="code" href="../../da/d49/classRfParameters.html">RfParameters</a> *RfP)</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;{</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keyword">auto</span> index = <a class="code" href="../../de/da5/utilities_8cpp.html#ad87a0030d0468114d36ebfacc62acbe0">is_in_separatrix</a>(GP, RfP, <span class="keyword">this</span>, <a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>, <a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keyword">auto</span> index = <a class="code" href="../../de/da5/utilities_8cpp.html#abdb8c63453b171d9a2ee00711825c33c">is_in_separatrix</a>(GP, RfP, <span class="keyword">this</span>, <a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>, <a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>);</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="preprocessor">    #pragma omp parallel for</span></div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; (int) <a class="code" href="../../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee">n_macroparticles</a>; i++)</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordtype">id</span>[i] = <span class="keywordtype">id</span>[i] * index[i];</div>
@@ -238,7 +238,7 @@ $(document).ready(function(){initNavTree('dc/d0f/Beams_8cpp_source.html','../../
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_2b12189b1b38a5891fb7949d75362c72.html">src</a></li><li class="navelem"><a class="el" href="../../dir_65a963df2049cffd9bd0ad804e3d7b5f.html">beams</a></li><li class="navelem"><a class="el" href="../../dc/d0f/Beams_8cpp.html">Beams.cpp</a></li>
-    <li class="footer">Generated on Fri Oct 28 2016 14:49:54 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Fri Oct 28 2016 15:33:34 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

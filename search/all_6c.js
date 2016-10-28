@@ -28,7 +28,7 @@ var searchData=
   ['ll',['ll',['../d6/d1e/unionvdt_1_1details_1_1ieee754.html#a58bac1c69bf490de720863c06ef822a3',1,'vdt::details::ieee754']]],
   ['log2e',['LOG2E',['../d1/d47/namespacevdt_1_1details.html#a150da290bc4a50a3d868920759b5b4d5',1,'vdt::details']]],
   ['log2ef',['LOG2EF',['../d1/d47/namespacevdt_1_1details.html#a5a5809445f2bb96fbaca4f861e774337',1,'vdt::details']]],
-  ['longitudinal_5fbigaussian',['longitudinal_bigaussian',['../db/de1/Distributions_8cpp.html#a916e8e66ddc16b05b16f6dee139cd193',1,'longitudinal_bigaussian(ftype sigma_dt, ftype sigma_dE, int seed, bool reinsertion):&#160;Distributions.cpp'],['../dc/d7d/Distributions_8h.html#a98bdf587fdb338fc70f1885b722df349',1,'longitudinal_bigaussian(double sigma_dt, double sigma_dE=0, int seed=0, bool reinsertion=false):&#160;Distributions.cpp']]],
+  ['longitudinal_5fbigaussian',['longitudinal_bigaussian',['../db/de1/Distributions_8cpp.html#a903200e144f4a1823ea93569df0d8438',1,'longitudinal_bigaussian(GeneralParameters *GP, RfParameters *RfP, Beams *Beam, double sigma_dt, double sigma_dE, int seed, bool reinsertion):&#160;Distributions.cpp'],['../dc/d7d/Distributions_8h.html#ad9600030e832de537807b8cae4b59590',1,'longitudinal_bigaussian(GeneralParameters *GP, RfParameters *RfP, Beams *Beam, double sigma_dt, double sigma_dE=0, int seed=0, bool reinsertion=false):&#160;Distributions.cpp']]],
   ['longopt',['longopt',['../dc/dfe/structoption_1_1Descriptor.html#a470c449dfa894c9bfda2dae026142b4b',1,'option::Descriptor']]],
   ['losses_5fenergy_5fcut',['losses_energy_cut',['../d9/d7c/classBeams.html#ae6013f8182f2cc9532d4685ab247ba00',1,'Beams']]],
   ['losses_5flongitudinal_5fcut',['losses_longitudinal_cut',['../d9/d7c/classBeams.html#a06a5a2331de86e65cbe3c95f6541067d',1,'Beams']]],

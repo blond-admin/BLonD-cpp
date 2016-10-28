@@ -45,7 +45,7 @@ var NAVTREEINDEX =
 "d3/dda/plot__llrf_8h.html#a0cf92ca93a86bbdc1bfa9331a83ea320",
 "d7/d76/fft_8h.html#aee5012d20f905143a7d6739a0340eaf1",
 "db/d7b/classPSBPhaseNoiseInjection.html#a438748e939be754d085ed8e2c5194878",
-"de/da1/classRingAndRfSection.html#ad221b5cfd531fe664b23ee81b0e18bda"
+"de/da1/classRingAndRfSection.html#adc26b6c36692ef581de212716d249756"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

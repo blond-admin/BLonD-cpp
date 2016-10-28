@@ -141,7 +141,7 @@ $(document).ready(function(){initNavTree('de/d44/trackers_2utilities_8h_source.h
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;           (std::floor(phi / (2.0 * <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a>) + 0.5));</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;std::vector&lt;int&gt; <a class="code" href="../../de/da5/utilities_8cpp.html#ad87a0030d0468114d36ebfacc62acbe0">is_in_separatrix</a>(<span class="keyword">const</span> <a class="code" href="../../d1/dfc/classGeneralParameters.html">GeneralParameters</a> *GP,</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;std::vector&lt;int&gt; <a class="code" href="../../de/da5/utilities_8cpp.html#abdb8c63453b171d9a2ee00711825c33c">is_in_separatrix</a>(<span class="keyword">const</span> <a class="code" href="../../d1/dfc/classGeneralParameters.html">GeneralParameters</a> *GP,</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                                   <span class="keyword">const</span> <a class="code" href="../../da/d49/classRfParameters.html">RfParameters</a> *RfP,</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                                   <span class="keyword">const</span> <a class="code" href="../../d9/d7c/classBeams.html">Beams</a> *Beam,</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                                   <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;dt,</div>
@@ -163,14 +163,23 @@ $(document).ready(function(){initNavTree('de/d44/trackers_2utilities_8h_source.h
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                  <span class="keyword">const</span> <span class="keywordtype">double</span> dE,</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                  <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> total_voltage = {});</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* TRACKERS_UTILITIES_H_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../de/da5/utilities_8cpp.html#abbfebf0ac4f8db4363af627e88a18b5e">minmax_location</a>(<a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;x, <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;f,</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                     <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;min_x_position, <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;max_x_position,</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                     <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;min_values, <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;max_values);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../de/da5/utilities_8cpp.html#a9c14754aa041a875ae3dbb8dd5cbd48b">potential_well_cut</a>(<a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;theta_coord_array,</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;potential_array,</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;theta_coord_sep,</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;potential_well_sep);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* TRACKERS_UTILITIES_H_ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_6b634e43e772001122993837e1d7e1c5.html">include</a></li><li class="navelem"><a class="el" href="../../dir_4a4b9f9a898a71f152a99978051a04a6.html">blond</a></li><li class="navelem"><a class="el" href="../../dir_bd75ece385a0f8574172231daa2591e2.html">trackers</a></li><li class="navelem"><a class="el" href="../../de/d44/trackers_2utilities_8h.html">utilities.h</a></li>
-    <li class="footer">Generated on Fri Oct 28 2016 14:49:54 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Fri Oct 28 2016 15:33:35 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

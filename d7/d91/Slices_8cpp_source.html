@@ -388,7 +388,7 @@ $(document).ready(function(){initNavTree('d7/d91/Slices_8cpp_source.html','../..
 <div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> array(<a class="code" href="../../dc/d45/classSlices.html#a695dbc7b6fbdbef0f594e9b63d6877c7">n_slices</a>);             <span class="comment">// = new double[n_slices];</span></div>
 <div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;</div>
 <div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> timeResolution = <a class="code" href="../../dc/d45/classSlices.html#a20fe6ad5ead7011307efdd5a81392366">bin_centers</a>[1] - <a class="code" href="../../dc/d45/classSlices.html#a20fe6ad5ead7011307efdd5a81392366">bin_centers</a>[0];</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> trap = <a class="code" href="../../df/d6d/namespacemymath.html#af5a5d7db0e4a7d6d9bf32bfb079b5af9">mymath::trapezoid</a>(<a class="code" href="../../dc/d45/classSlices.html#a6da6cf87cacb679fc1c9100a21cd3add">n_macroparticles</a>.data(),</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> trap = <a class="code" href="../../df/d6d/namespacemymath.html#a3cd62eeb1068e15105a0c617c9cc1fc6">mymath::trapezoid</a>(<a class="code" href="../../dc/d45/classSlices.html#a6da6cf87cacb679fc1c9100a21cd3add">n_macroparticles</a>.data(),</div>
 <div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;                                        timeResolution,</div>
 <div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;                                        <a class="code" href="../../dc/d45/classSlices.html#a695dbc7b6fbdbef0f594e9b63d6877c7">n_slices</a>);</div>
 <div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;</div>
@@ -397,13 +397,13 @@ $(document).ready(function(){initNavTree('d7/d91/Slices_8cpp_source.html','../..
 <div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="../../dc/d45/classSlices.html#a695dbc7b6fbdbef0f594e9b63d6877c7">n_slices</a>; ++i)</div>
 <div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;        array[i] = bin_centers[i] * lineDenNormalized[i];</div>
 <div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    <a class="code" href="../../dc/d45/classSlices.html#a03707a707fb59393b1971ee610c96696">bp_rms</a> = <a class="code" href="../../df/d6d/namespacemymath.html#af5a5d7db0e4a7d6d9bf32bfb079b5af9">mymath::trapezoid</a>(array.data(), timeResolution, <a class="code" href="../../dc/d45/classSlices.html#a695dbc7b6fbdbef0f594e9b63d6877c7">n_slices</a>);</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    <a class="code" href="../../dc/d45/classSlices.html#a03707a707fb59393b1971ee610c96696">bp_rms</a> = <a class="code" href="../../df/d6d/namespacemymath.html#a3cd62eeb1068e15105a0c617c9cc1fc6">mymath::trapezoid</a>(array.data(), timeResolution, <a class="code" href="../../dc/d45/classSlices.html#a695dbc7b6fbdbef0f594e9b63d6877c7">n_slices</a>);</div>
 <div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;</div>
 <div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt;  <a class="code" href="../../dc/d45/classSlices.html#a695dbc7b6fbdbef0f594e9b63d6877c7">n_slices</a>; ++i)</div>
 <div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;        array[i] = (bin_centers[i] - <a class="code" href="../../dc/d45/classSlices.html#a03707a707fb59393b1971ee610c96696">bp_rms</a>) * (bin_centers[i] - <a class="code" href="../../dc/d45/classSlices.html#a03707a707fb59393b1971ee610c96696">bp_rms</a>) *</div>
 <div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;                   lineDenNormalized[i];</div>
 <div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    <span class="keyword">auto</span> temp = <a class="code" href="../../df/d6d/namespacemymath.html#af5a5d7db0e4a7d6d9bf32bfb079b5af9">mymath::trapezoid</a>(array.data(), timeResolution, <a class="code" href="../../dc/d45/classSlices.html#a695dbc7b6fbdbef0f594e9b63d6877c7">n_slices</a>);</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    <span class="keyword">auto</span> temp = <a class="code" href="../../df/d6d/namespacemymath.html#a3cd62eeb1068e15105a0c617c9cc1fc6">mymath::trapezoid</a>(array.data(), timeResolution, <a class="code" href="../../dc/d45/classSlices.html#a695dbc7b6fbdbef0f594e9b63d6877c7">n_slices</a>);</div>
 <div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    <a class="code" href="../../dc/d45/classSlices.html#af300204d286031476fa03adba0614c80">bl_rms</a> = 4 * std::sqrt(temp);</div>
 <div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;}</div>
 <div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;</div>
@@ -527,7 +527,7 @@ $(document).ready(function(){initNavTree('d7/d91/Slices_8cpp_source.html','../..
 <div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> diffCenters(x.begin(), x.end() - 1);</div>
 <div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;d : diffCenters) d += dist_centers / 2;</div>
 <div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> res;</div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;        <a class="code" href="../../df/d6d/namespacemymath.html#ac7a4ab8746c54c7e201bdb02af5c09b0">mymath::lin_interp</a>(x, diffCenters, derivative,</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;        <a class="code" href="../../df/d6d/namespacemymath.html#a9be6643559654e4fd81774f43bd8cdc0">mymath::interp</a>(x, diffCenters, derivative,</div>
 <div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;                           res, derivative.front(), derivative.back());</div>
 <div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;        derivative = res;</div>
 <div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;    } <span class="keywordflow">else</span> {</div>
@@ -711,7 +711,7 @@ $(document).ready(function(){initNavTree('d7/d91/Slices_8cpp_source.html','../..
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_2b12189b1b38a5891fb7949d75362c72.html">src</a></li><li class="navelem"><a class="el" href="../../dir_65a963df2049cffd9bd0ad804e3d7b5f.html">beams</a></li><li class="navelem"><a class="el" href="../../d7/d91/Slices_8cpp.html">Slices.cpp</a></li>
-    <li class="footer">Generated on Fri Oct 28 2016 15:33:35 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Tue Nov 1 2016 17:42:46 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

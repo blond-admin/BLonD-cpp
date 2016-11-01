@@ -21,7 +21,6 @@ var searchData=
   ['charge',['charge',['../d9/d7c/classBeams.html#a4b94bd97868a7a8a23694164600aa513',1,'Beams::charge()'],['../d1/dfc/classGeneralParameters.html#a31759496b44dcf96ca8f247ec3e9873c',1,'GeneralParameters::charge()'],['../da/d49/classRfParameters.html#a1cf90d67f014a75c7e850e758cbe2e89',1,'RfParameters::charge()'],['../de/da1/classRingAndRfSection.html#a56e88a6395d17118e59291e088ea7584',1,'RingAndRfSection::charge()']]],
   ['charge2',['charge2',['../d1/dfc/classGeneralParameters.html#a3d27d07d86c35db8a0320ff98c7f9cdc',1,'GeneralParameters']]],
   ['check_5farg',['check_arg',['../dc/dfe/structoption_1_1Descriptor.html#aa5d675dba0214a4abd73007ff163cc67',1,'option::Descriptor']]],
-  ['check_5ferror',['CHECK_ERROR',['../de/df0/utilities_8h.html#a73b55c512f4821f45fcee5a1e02f8bd6',1,'utilities.h']]],
   ['checkarg',['CheckArg',['../df/de0/namespaceoption.html#a4afb7f04597f34439679509baf4b6d39',1,'option']]],
   ['close',['close',['../de/d59/classSlicesMonitor.html#ad228876b9de204e6551bec2eef540c38',1,'SlicesMonitor::close()'],['../d2/d00/classBunchMonitor.html#a7f4c9f9dcd83fc0ad60775c031138e76',1,'BunchMonitor::close()']]],
   ['coefficients',['coefficients',['../d9/d59/classPSB.html#a25a39ea1de2522560c2594571154ed4c',1,'PSB']]],

@@ -43,9 +43,9 @@ var sectionId = 'dynsection-4';
 <polygon fill="white" stroke="white" points="-4,5 -4,-146 781,-146 781,5 -4,5"/>
 <!-- Node1 -->
 <g id="node1" class="node"><title>Node1</title>
-<polygon fill="#bfbfbf" stroke="black" points="0.5,-34 0.5,-68 143.5,-68 143.5,-34 0.5,-34"/>
-<text text-anchor="start" x="8.5" y="-55" font-family="Helvetica,sans-Serif" font-size="10.00">InducedVoltageTime</text>
-<text text-anchor="middle" x="72" y="-42" font-family="Helvetica,sans-Serif" font-size="10.00">::induced_voltage_generation</text>
+<polygon fill="#bfbfbf" stroke="black" points="0.5,-54 0.5,-88 143.5,-88 143.5,-54 0.5,-54"/>
+<text text-anchor="start" x="8.5" y="-75" font-family="Helvetica,sans-Serif" font-size="10.00">InducedVoltageTime</text>
+<text text-anchor="middle" x="72" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">::induced_voltage_generation</text>
 </g>
 <!-- Node2 -->
 <g id="node3" class="node"><title>Node2</title>
@@ -56,8 +56,8 @@ var sectionId = 'dynsection-4';
 </g>
 <!-- Node1&#45;&gt;Node2 -->
 <g id="edge2" class="edge"><title>Node1&#45;&gt;Node2</title>
-<path fill="none" stroke="midnightblue" d="M143.603,-67.8477C158.206,-71.2838 173.351,-74.8474 187.254,-78.1187"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="186.597,-81.5595 197.133,-80.4431 188.2,-74.7456 186.597,-81.5595"/>
+<path fill="none" stroke="midnightblue" d="M143.603,-79.4238C155.066,-80.7725 166.863,-82.1603 178.13,-83.4859"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="177.964,-86.9905 188.305,-84.6829 178.782,-80.0384 177.964,-86.9905"/>
 </g>
 <!-- Node3 -->
 <g id="node5" class="node"><title>Node3</title>
@@ -68,20 +68,8 @@ var sectionId = 'dynsection-4';
 </g>
 <!-- Node1&#45;&gt;Node3 -->
 <g id="edge4" class="edge"><title>Node1&#45;&gt;Node3</title>
-<path fill="none" stroke="midnightblue" d="M143.603,-51C152.277,-51 161.142,-51 169.825,-51"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="169.911,-54.5001 179.911,-51 169.911,-47.5001 169.911,-54.5001"/>
-</g>
-<!-- Node13 -->
-<g id="node27" class="node"><title>Node13</title>
-<a xlink:href="../../df/d6d/namespacemymath.html#a5bcc40b5ebadd9d98f351775df65ec9f" target="_top" xlink:title="mymath::min">
-<polygon fill="white" stroke="black" points="205,-0.5 205,-21.5 279,-21.5 279,-0.5 205,-0.5"/>
-<text text-anchor="middle" x="242" y="-8.5" font-family="Helvetica,sans-Serif" font-size="10.00">mymath::min</text>
-</a>
-</g>
-<!-- Node1&#45;&gt;Node13 -->
-<g id="edge28" class="edge"><title>Node1&#45;&gt;Node13</title>
-<path fill="none" stroke="midnightblue" d="M143.603,-34.1523C160.872,-30.089 178.898,-25.8475 194.732,-22.1218"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="195.859,-25.4524 204.791,-19.755 194.255,-18.6385 195.859,-25.4524"/>
+<path fill="none" stroke="midnightblue" d="M143.603,-62.5762C152.277,-61.5557 161.142,-60.5127 169.825,-59.4912"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="170.389,-62.9491 179.911,-58.3046 169.571,-55.9971 170.389,-62.9491"/>
 </g>
 <!-- Node4 -->
 <g id="node7" class="node"><title>Node4</title>

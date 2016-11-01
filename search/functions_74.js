@@ -9,6 +9,6 @@ var searchData=
   ['track_5fcuts',['track_cuts',['../dc/d45/classSlices.html#a0bdde263c831c9387a16ba082216ded9',1,'Slices']]],
   ['track_5fghosts_5fparticles',['track_ghosts_particles',['../d4/dd7/classTotalInducedVoltage.html#a2d5dd1e9d1f5dbc4433f0831da86a069',1,'TotalInducedVoltage']]],
   ['track_5fmemory',['track_memory',['../d4/dd7/classTotalInducedVoltage.html#abe052d8bd5aeffdd15d1b6bd6514447a',1,'TotalInducedVoltage']]],
-  ['trapezoid',['trapezoid',['../df/d6d/namespacemymath.html#af5a5d7db0e4a7d6d9bf32bfb079b5af9',1,'mymath::trapezoid(T *f, const double *deltaX, const int nsub)'],['../df/d6d/namespacemymath.html#a031f0bb62b41f37cc9b7c5b5621ca979',1,'mymath::trapezoid(T *f, const double deltaX, const int nsub)']]],
+  ['trapezoid',['trapezoid',['../df/d6d/namespacemymath.html#a3cd62eeb1068e15105a0c617c9cc1fc6',1,'mymath::trapezoid(const T *f, const double *deltaX, const int nsub)'],['../df/d6d/namespacemymath.html#a58b2666981af81f28e1b0d3e949c5f5d',1,'mymath::trapezoid(const std::vector&lt; T &gt; &amp;f, const std::vector&lt; double &gt; &amp;deltaX)'],['../df/d6d/namespacemymath.html#ab25fe968eff921a9af5fbd217dc06bf6',1,'mymath::trapezoid(const T *f, const double deltaX, const int nsub)'],['../df/d6d/namespacemymath.html#a1b195ea5e3fad6353b25d96cd64d500f',1,'mymath::trapezoid(const std::vector&lt; T &gt; &amp;f, const double deltaX)']]],
   ['type',['type',['../d3/df3/classoption_1_1Option.html#a6560fa0526e2affd87d5a10622336af4',1,'option::Option']]]
 ];

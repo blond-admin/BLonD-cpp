@@ -4,5 +4,5 @@ var Distributions_8h =
     [ "line_density_function", "dc/d7d/Distributions_8h.html#abb8f841472248a964414a29e7552730b", null ],
     [ "longitudinal_bigaussian", "dc/d7d/Distributions_8h.html#ad9600030e832de537807b8cae4b59590", null ],
     [ "matched_from_distribution_density", "dc/d7d/Distributions_8h.html#a39ba163b714fe197bd81ac64ffa48d30", null ],
-    [ "matched_from_line_density", "dc/d7d/Distributions_8h.html#aa18b9fc400fa994778e7e811423c2f06", null ]
+    [ "matched_from_line_density", "dc/d7d/Distributions_8h.html#a392bda1df22a9c5034cb059fc9f8f349", null ]
 ];

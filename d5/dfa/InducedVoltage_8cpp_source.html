@@ -267,11 +267,11 @@ $(document).ready(function(){initNavTree('d5/dfa/InducedVoltage_8cpp_source.html
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        exit(-1);</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    }</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    inducedVoltage.resize((<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a>)<a class="code" href="../../dd/de2/classInducedVoltage.html#a3329197ef968eefdf5825a91a0158fed">fSlices</a>-&gt;<a class="code" href="../../dc/d45/classSlices.html#a695dbc7b6fbdbef0f594e9b63d6877c7">n_slices</a>);</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <a class="code" href="../../dd/de2/classInducedVoltage.html#a688bde18652fb78dd2f1b14d70902eea">fInducedVoltage</a> = inducedVoltage;</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <a class="code" href="../../dd/de2/classInducedVoltage.html#a688bde18652fb78dd2f1b14d70902eea">fInducedVoltage</a> = inducedVoltage;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <a class="code" href="../../dd/de2/classInducedVoltage.html#a688bde18652fb78dd2f1b14d70902eea">fInducedVoltage</a>.resize((<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a>)<a class="code" href="../../dd/de2/classInducedVoltage.html#a3329197ef968eefdf5825a91a0158fed">fSlices</a>-&gt;<a class="code" href="../../dc/d45/classSlices.html#a695dbc7b6fbdbef0f594e9b63d6877c7">n_slices</a>);</div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;</div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keywordflow">if</span> (length &gt; 0)</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        inducedVoltage.resize(<a class="code" href="../../df/d6d/namespacemymath.html#a5bcc40b5ebadd9d98f351775df65ec9f">std::min</a>((<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a>)<a class="code" href="../../dd/de2/classInducedVoltage.html#a3329197ef968eefdf5825a91a0158fed">fSlices</a>-&gt;<a class="code" href="../../dc/d45/classSlices.html#a695dbc7b6fbdbef0f594e9b63d6877c7">n_slices</a>, length), 0);</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        inducedVoltage.resize(length, 0);</div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;</div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <span class="keywordflow">return</span> inducedVoltage;</div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;}</div>
@@ -604,18 +604,19 @@ $(document).ready(function(){initNavTree('d5/dfa/InducedVoltage_8cpp_source.html
 <div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;        std::transform(tempIndVolt.begin(), tempIndVolt.end(),</div>
 <div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;                       v-&gt;fInducedVoltage.begin(), tempIndVolt.begin(),</div>
 <div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;                       std::plus&lt;double&gt;());</div>
-<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;    }</div>
-<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;</div>
-<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;    <a class="code" href="../../dd/de2/classInducedVoltage.html#a688bde18652fb78dd2f1b14d70902eea">fInducedVoltage</a> = tempIndVolt;</div>
-<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;    <span class="keywordflow">return</span> extIndVolt;</div>
-<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;}</div>
+<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;        <span class="comment">// std::cout &lt;&lt; &quot;extIndVolt: &quot; &lt;&lt; extIndVolt.size() &lt;&lt; &quot;\n&quot;;</span></div>
+<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;    }</div>
+<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;</div>
+<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;    <a class="code" href="../../dd/de2/classInducedVoltage.html#a688bde18652fb78dd2f1b14d70902eea">fInducedVoltage</a> = tempIndVolt;</div>
+<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;    <span class="keywordflow">return</span> extIndVolt;</div>
+<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_2b12189b1b38a5891fb7949d75362c72.html">src</a></li><li class="navelem"><a class="el" href="../../dir_326b8f99b5c2d2d05116bdfd6b773fd9.html">impedances</a></li><li class="navelem"><a class="el" href="../../d5/dfa/InducedVoltage_8cpp.html">InducedVoltage.cpp</a></li>
-    <li class="footer">Generated on Fri Oct 28 2016 15:33:35 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Tue Nov 1 2016 17:42:46 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

@@ -10,9 +10,10 @@ var math__functions_8h =
     [ "fast_cos", "d2/de2/math__functions_8h.html#a56db34e8382851729defc7a3eb906220", null ],
     [ "fast_exp", "d2/de2/math__functions_8h.html#a26804041cdba7feaf8427bdec22ba173", null ],
     [ "fast_sin", "d2/de2/math__functions_8h.html#a38897799c9327d162f914bbb097fb8e3", null ],
-    [ "lin_interp", "d2/de2/math__functions_8h.html#ac7a4ab8746c54c7e201bdb02af5c09b0", null ],
-    [ "lin_interp", "d2/de2/math__functions_8h.html#ad2f9b4023940b71535c85cf1c947b086", null ],
-    [ "lin_interp", "d2/de2/math__functions_8h.html#ab9add76a14abe5a35763f920f2be3cfd", null ],
+    [ "interp", "d2/de2/math__functions_8h.html#a9be6643559654e4fd81774f43bd8cdc0", null ],
+    [ "interp", "d2/de2/math__functions_8h.html#a1ad0bc05a9722e2dad00ea41ff54c65f", null ],
+    [ "interp", "d2/de2/math__functions_8h.html#af1463afdd1346159ddd27afdfa619d9a", null ],
+    [ "interp", "d2/de2/math__functions_8h.html#a86caf0a3c36f366a8f1056fef23e6ab1", null ],
     [ "linspace", "d2/de2/math__functions_8h.html#af1c2c7c1207d41744f71b0ecb4ebf67a", null ],
     [ "linspace", "d2/de2/math__functions_8h.html#a9e9e2eab9c77eff3f517f2a50f697647", null ],
     [ "max", "d2/de2/math__functions_8h.html#a2a11685fa6ce2396ae977fa1502a2cc4", null ],
@@ -22,6 +23,8 @@ var math__functions_8h =
     [ "sign", "d2/de2/math__functions_8h.html#a31743e3fc7ec3ccb0df630d0cad57959", null ],
     [ "standard_deviation", "d2/de2/math__functions_8h.html#aa50ebf887bdf0acc40e9d54519351de6", null ],
     [ "standard_deviation", "d2/de2/math__functions_8h.html#a464cc01d36a009ce4da5bfc214760270", null ],
-    [ "trapezoid", "d2/de2/math__functions_8h.html#af5a5d7db0e4a7d6d9bf32bfb079b5af9", null ],
-    [ "trapezoid", "d2/de2/math__functions_8h.html#a031f0bb62b41f37cc9b7c5b5621ca979", null ]
+    [ "trapezoid", "d2/de2/math__functions_8h.html#a3cd62eeb1068e15105a0c617c9cc1fc6", null ],
+    [ "trapezoid", "d2/de2/math__functions_8h.html#a58b2666981af81f28e1b0d3e949c5f5d", null ],
+    [ "trapezoid", "d2/de2/math__functions_8h.html#ab25fe968eff921a9af5fbd217dc06bf6", null ],
+    [ "trapezoid", "d2/de2/math__functions_8h.html#a1b195ea5e3fad6353b25d96cd64d500f", null ]
 ];

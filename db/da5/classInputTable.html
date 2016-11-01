@@ -285,16 +285,16 @@ Public Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00101">101</a> of file <a class="el" href="../../d1/dca/Intensity_8cpp_source.html">Intensity.cpp</a>.</p>
 
-<p>References <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00022">Intensity::fFreqArray</a>, <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00054">fFrequencyArrayLoaded</a>, <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00026">Intensity::fImpedance</a>, <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00056">fImZArrayLoaded</a>, <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00055">fReZArrayLoaded</a>, and <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00098">mymath::lin_interp()</a>.</p>
+<p>References <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00022">Intensity::fFreqArray</a>, <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00054">fFrequencyArrayLoaded</a>, <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00026">Intensity::fImpedance</a>, <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00056">fImZArrayLoaded</a>, <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00055">fReZArrayLoaded</a>, and <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00098">mymath::interp()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                                                               {</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="comment">// Impedance calculation method as a function of frequency.*</span></div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> ReZ;</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> ImZ;</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <a class="code" href="../../df/d6d/namespacemymath.html#ac7a4ab8746c54c7e201bdb02af5c09b0">mymath::lin_interp</a>(NewFrequencyArray, <a class="code" href="../../db/da5/classInputTable.html#a861009bb6a8b2ab970fc11393f95e8ce">fFrequencyArrayLoaded</a>,</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <a class="code" href="../../df/d6d/namespacemymath.html#a9be6643559654e4fd81774f43bd8cdc0">mymath::interp</a>(NewFrequencyArray, <a class="code" href="../../db/da5/classInputTable.html#a861009bb6a8b2ab970fc11393f95e8ce">fFrequencyArrayLoaded</a>,</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                       <a class="code" href="../../db/da5/classInputTable.html#a31da62c4264dc4b59ef60eda07ff4586">fReZArrayLoaded</a>, ReZ, 0.0f, 0.0f);</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <a class="code" href="../../df/d6d/namespacemymath.html#ac7a4ab8746c54c7e201bdb02af5c09b0">mymath::lin_interp</a>(NewFrequencyArray, <a class="code" href="../../db/da5/classInputTable.html#a861009bb6a8b2ab970fc11393f95e8ce">fFrequencyArrayLoaded</a>,</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <a class="code" href="../../df/d6d/namespacemymath.html#a9be6643559654e4fd81774f43bd8cdc0">mymath::interp</a>(NewFrequencyArray, <a class="code" href="../../db/da5/classInputTable.html#a861009bb6a8b2ab970fc11393f95e8ce">fFrequencyArrayLoaded</a>,</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                       <a class="code" href="../../db/da5/classInputTable.html#a17110ac9d2441a0a1634f127996167cd">fImZArrayLoaded</a>, ImZ, 0.0f, 0.0f);</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <a class="code" href="../../dc/dad/classIntensity.html#accd9b13fe550ae2761b5f73a70922b8d">fFreqArray</a> = NewFrequencyArray;</div>
@@ -312,7 +312,7 @@ Public Attributes</h2></td></tr>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../db/da5/classInputTable_a8fd3b73432c461936a7f8f5e0aebbdcd_cgraph.svg" width="499" height="94"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../db/da5/classInputTable_a8fd3b73432c461936a7f8f5e0aebbdcd_cgraph.svg" width="478" height="94"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </p>
@@ -345,9 +345,9 @@ Public Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00097">97</a> of file <a class="el" href="../../d1/dca/Intensity_8cpp_source.html">Intensity.cpp</a>.</p>
 
-<p>References <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00020">Intensity::fTimeArray</a>, <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00024">Intensity::fWake</a>, <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00058">fWakeArray</a>, and <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00098">mymath::lin_interp()</a>.</p>
+<p>References <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00020">Intensity::fTimeArray</a>, <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00024">Intensity::fWake</a>, <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00058">fWakeArray</a>, and <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00098">mymath::interp()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                                                         {</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <a class="code" href="../../df/d6d/namespacemymath.html#ac7a4ab8746c54c7e201bdb02af5c09b0">mymath::lin_interp</a>(NewTimeArray, <a class="code" href="../../dc/dad/classIntensity.html#a2065b2d9fb0e0e103bf82a7804cb0a3d">fTimeArray</a>, <a class="code" href="../../db/da5/classInputTable.html#a628a51ccd61712353935df8caddf534b">fWakeArray</a>, <a class="code" href="../../dc/dad/classIntensity.html#ad9e27f15dc5d8b0e39ab9e7eace2aef6">fWake</a>, 0.0f, 0.0f);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <a class="code" href="../../df/d6d/namespacemymath.html#a9be6643559654e4fd81774f43bd8cdc0">mymath::interp</a>(NewTimeArray, <a class="code" href="../../dc/dad/classIntensity.html#a2065b2d9fb0e0e103bf82a7804cb0a3d">fTimeArray</a>, <a class="code" href="../../db/da5/classInputTable.html#a628a51ccd61712353935df8caddf534b">fWakeArray</a>, <a class="code" href="../../dc/dad/classIntensity.html#ad9e27f15dc5d8b0e39ab9e7eace2aef6">fWake</a>, 0.0f, 0.0f);</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;}</div>
 </div><!-- fragment -->
 <p><div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -355,7 +355,7 @@ Public Attributes</h2></td></tr>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-3-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../db/da5/classInputTable_ae64468233934df7fe3d6ee8d4dcce12d_cgraph.svg" width="496" height="94"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../db/da5/classInputTable_ae64468233934df7fe3d6ee8d4dcce12d_cgraph.svg" width="475" height="94"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </p>
@@ -449,7 +449,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../db/da5/classInputTable.html">InputTable</a></li>
-    <li class="footer">Generated on Fri Oct 28 2016 15:33:35 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Tue Nov 1 2016 17:42:46 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

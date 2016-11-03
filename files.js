@@ -78,5 +78,6 @@ var files =
     [ "utilities.cpp", "de/da5/utilities_8cpp.html", "de/da5/utilities_8cpp" ],
     [ "trackers/utilities.h", "de/d44/trackers_2utilities_8h.html", "de/d44/trackers_2utilities_8h" ],
     [ "utilities.h", "de/df0/utilities_8h.html", "de/df0/utilities_8h" ],
-    [ "vdtcore_common.h", "df/de1/vdtcore__common_8h.html", "df/de1/vdtcore__common_8h" ]
+    [ "vdtcore_common.h", "df/de1/vdtcore__common_8h.html", "df/de1/vdtcore__common_8h" ],
+    [ "vector_math.h", "da/d30/vector__math_8h.html", "da/d30/vector__math_8h" ]
 ];

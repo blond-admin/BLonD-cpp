@@ -498,15 +498,31 @@ $(document).ready(function(){initNavTree('d2/de2/math__functions_8h_source.html'
 <div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    {</div>
 <div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;        <span class="keywordflow">return</span> (T(0) &lt; val) - (val &lt; T(0));</div>
 <div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;    }</div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;}</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* INCLUDES_MATH_FUNCTIONS_H_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00390"></a><span class="lineno"><a class="code" href="../../df/d6d/namespacemymath.html#a7e2dd5ac3ea27ff891d733ff22a3df56">  390</a></span>&#160;    <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="../../df/d6d/namespacemymath.html#a7e2dd5ac3ea27ff891d733ff22a3df56">meshgrid</a>(<span class="keyword">const</span> std::vector&lt;T&gt; &amp;in1,</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;                                <span class="keyword">const</span> std::vector&lt;T&gt; &amp;in2,</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;                                std::vector&lt; std::vector&lt;T&gt; &gt; &amp;out1,</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;                                std::vector&lt; std::vector&lt;T&gt; &gt; &amp;out2)</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;    {</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;        out1.clear(); out2.clear();</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; in2.size(); i++)</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;            out1.push_back(in1);</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;        </div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">int</span> cols = in1.size();</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;        <a class="code" href="../../de/df0/utilities_8h.html#a4248d71fc7ca79dc298d9871f8d7cfbe">FOR</a>(in2, <a class="code" href="../../da/db5/namespaceconstant.html#ac8669eb61b1b2cb90269446e1b7e0ed2">e</a>) out2.push_back(std::vector&lt;T&gt;(cols, *<a class="code" href="../../da/db5/namespaceconstant.html#ac8669eb61b1b2cb90269446e1b7e0ed2">e</a>));</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;    }</div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;}</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* INCLUDES_MATH_FUNCTIONS_H_ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_6b634e43e772001122993837e1d7e1c5.html">include</a></li><li class="navelem"><a class="el" href="../../dir_4a4b9f9a898a71f152a99978051a04a6.html">blond</a></li><li class="navelem"><a class="el" href="../../d2/de2/math__functions_8h.html">math_functions.h</a></li>
-    <li class="footer">Generated on Tue Nov 1 2016 17:42:46 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Thu Nov 3 2016 11:19:02 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

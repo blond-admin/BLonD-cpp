@@ -26,6 +26,7 @@ var searchData=
   ['operator_2d_3d',['operator-=',['../da/d30/vector__math_8h.html#a2c7be2fc3649d7ec94f989bf18de38e9',1,'operator-=(std::vector&lt; T &gt; &amp;a, const std::vector&lt; T &gt; &amp;b):&#160;vector_math.h'],['../da/d30/vector__math_8h.html#a6806e47e5b124eb54c5ad17de2eca654',1,'operator-=(std::vector&lt; T &gt; &amp;a, const U &amp;b):&#160;vector_math.h']]],
   ['operator_2f',['operator/',['../da/d30/vector__math_8h.html#ace2ea5b2e2ea3b7dc28df9d9faad4699',1,'operator/(const std::vector&lt; T &gt; &amp;a, const std::vector&lt; T &gt; &amp;b):&#160;vector_math.h'],['../da/d30/vector__math_8h.html#ab830ae6b22b24b8aa2d13f919b86a3a9',1,'operator/(const std::vector&lt; T &gt; &amp;a, const U &amp;b):&#160;vector_math.h'],['../da/d30/vector__math_8h.html#a62f589b4bb52fd1df3e5f85658eb5618',1,'operator/(const U &amp;b, const std::vector&lt; T &gt; &amp;a):&#160;vector_math.h']]],
   ['operator_2f_3d',['operator/=',['../da/d30/vector__math_8h.html#a75e1a979e63c5dad59544dbb5d4f2d58',1,'operator/=(std::vector&lt; T &gt; &amp;a, const std::vector&lt; T &gt; &amp;b):&#160;vector_math.h'],['../da/d30/vector__math_8h.html#a78b0a6b11a7437163d0d9818d0dde458',1,'operator/=(std::vector&lt; T &gt; &amp;a, const U &amp;b):&#160;vector_math.h']]],
+  ['operator_3c_3c',['operator&lt;&lt;',['../da/d30/vector__math_8h.html#a08b5c6fa0c8e8ef201e60441121613c3',1,'vector_math.h']]],
   ['operator_3d',['operator=',['../d3/df3/classoption_1_1Option.html#adb4b44f3778df8f28a04c48bd1b4a72b',1,'option::Option']]],
   ['option',['Option',['../d3/df3/classoption_1_1Option.html',1,'option']]],
   ['option',['option',['../df/de0/namespaceoption.html',1,'option'],['../d3/df3/classoption_1_1Option.html#aa2810152fc23b14175b115d1a7d38095',1,'option::Option::Option()'],['../d3/df3/classoption_1_1Option.html#a385221e2a8f37c548f0d5777bfddb216',1,'option::Option::Option(const Descriptor *desc_, const char *name_, const char *arg_)'],['../d3/df3/classoption_1_1Option.html#a4053240fecad1a3b1d8e4dc06b7aa8c4',1,'option::Option::Option(const Option &amp;orig)'],['../df/de0/namespaceoption.html#ac99aa12c5d9d6590e19cb78212eb6d63',1,'option::Option()']]],
@@ -35,8 +36,8 @@ var searchData=
   ['options_5fmax',['options_max',['../d8/de3/structoption_1_1Stats.html#a8121787feb1c7db84fca3ccb012b0473',1,'option::Stats']]],
   ['optionscount',['optionsCount',['../d6/d83/classoption_1_1Parser.html#aee62badd2a19a5b88cbc4a9b11813b82',1,'option::Parser']]],
   ['ostream',['ostream',['../d5/deb/structoption_1_1PrintUsageImplementation_1_1OStreamWriter.html#a9b808696e204a834acd4362c62b9f4c1',1,'option::PrintUsageImplementation::OStreamWriter']]],
-  ['ostreamwriter',['OStreamWriter',['../d5/deb/structoption_1_1PrintUsageImplementation_1_1OStreamWriter.html',1,'option::PrintUsageImplementation']]],
   ['ostreamwriter',['OStreamWriter',['../d5/deb/structoption_1_1PrintUsageImplementation_1_1OStreamWriter.html#abf38eb181267e96d86de1ea09ad22c3f',1,'option::PrintUsageImplementation::OStreamWriter']]],
+  ['ostreamwriter',['OStreamWriter',['../d5/deb/structoption_1_1PrintUsageImplementation_1_1OStreamWriter.html',1,'option::PrintUsageImplementation']]],
   ['out',['out',['../dc/daf/structfft_1_1fft__plan__t.html#a9b98f9d5fd8aa6d69caadff17cc91d04',1,'fft::fft_plan_t']]],
   ['output',['output',['../de/d50/classoption_1_1PrintUsageImplementation_1_1LineWrapper.html#a5b27b788033f4d6617a910da8cbcd511',1,'option::PrintUsageImplementation::LineWrapper']]]
 ];

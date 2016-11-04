@@ -20,6 +20,7 @@ var hierarchy =
       [ "Resonators", "da/d97/classResonators.html", null ]
     ] ],
     [ "LHCNoiseFB", "d8/d2b/classLHCNoiseFB.html", null ],
+    [ "matched_from_line_denstity_return_t", "d5/d26/structmatched__from__line__denstity__return__t.html", null ],
     [ "mymath::Ham", "d4/d19/classmymath_1_1Ham.html", null ],
     [ "option::Arg", "df/dc3/structoption_1_1Arg.html", [
       [ "util::Arg", "d7/d0f/structutil_1_1Arg.html", null ]

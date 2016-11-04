@@ -122,6 +122,7 @@ $(document).ready(function(){initNavTree('d2/de2/math__functions_8h.html','../..
 <code>#include &lt;<a class="el" href="../../d1/d3d/sin_8h_source.html">blond/sin.h</a>&gt;</code><br/>
 <code>#include &lt;<a class="el" href="../../de/df0/utilities_8h_source.html">blond/utilities.h</a>&gt;</code><br/>
 <code>#include &lt;cmath&gt;</code><br/>
+<code>#include &lt;random&gt;</code><br/>
 <code>#include &lt;cassert&gt;</code><br/>
 <code>#include &lt;<a class="el" href="../../d1/db0/openmp_8h_source.html">blond/openmp.h</a>&gt;</code><br/>
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -178,6 +179,9 @@ Functions</h2></td></tr>
 <tr class="separator:a26804041cdba7feaf8427bdec22ba173"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38897799c9327d162f914bbb097fb8e3"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d6d/namespacemymath.html#a38897799c9327d162f914bbb097fb8e3">mymath::fast_sin</a> (double x)</td></tr>
 <tr class="separator:a38897799c9327d162f914bbb097fb8e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46c2185537cdd77f6c5596907ffea994"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a46c2185537cdd77f6c5596907ffea994"><td class="memTemplItemLeft" align="right" valign="top">static std::vector&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../df/d6d/namespacemymath.html#a46c2185537cdd77f6c5596907ffea994">mymath::flatten</a> (const std::vector&lt; std::vector&lt; T &gt; &gt; &amp;a)</td></tr>
+<tr class="separator:a46c2185537cdd77f6c5596907ffea994"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9be6643559654e4fd81774f43bd8cdc0"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d6d/namespacemymath.html#a9be6643559654e4fd81774f43bd8cdc0">mymath::interp</a> (const std::vector&lt; double &gt; &amp;x, const std::vector&lt; double &gt; &amp;xp, const std::vector&lt; double &gt; &amp;yp, std::vector&lt; double &gt; &amp;y, const double left, const double right)</td></tr>
 <tr class="separator:a9be6643559654e4fd81774f43bd8cdc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1ad0bc05a9722e2dad00ea41ff54c65f"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d6d/namespacemymath.html#a1ad0bc05a9722e2dad00ea41ff54c65f">mymath::interp</a> (const std::vector&lt; double &gt; &amp;x, const std::vector&lt; double &gt; &amp;xp, const std::vector&lt; double &gt; &amp;yp, std::vector&lt; double &gt; &amp;y)</td></tr>
@@ -204,6 +208,9 @@ Functions</h2></td></tr>
 <tr class="separator:a5bcc40b5ebadd9d98f351775df65ec9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:accbb9ef1f97a6dca6e5fb46dc038130a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d6d/namespacemymath.html#accbb9ef1f97a6dca6e5fb46dc038130a">mymath::next_regular</a> (<a class="el" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> target)</td></tr>
 <tr class="separator:accbb9ef1f97a6dca6e5fb46dc038130a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7064f170fcf2451ae0a65de33426d18d"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:a7064f170fcf2451ae0a65de33426d18d"><td class="memTemplItemLeft" align="right" valign="top">static std::vector&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../df/d6d/namespacemymath.html#a7064f170fcf2451ae0a65de33426d18d">mymath::random_choice</a> (const std::vector&lt; T &gt; &amp;elems, const int size, std::vector&lt; U &gt; weights=std::vector&lt; U &gt;())</td></tr>
+<tr class="separator:a7064f170fcf2451ae0a65de33426d18d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31743e3fc7ec3ccb0df630d0cad57959"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a31743e3fc7ec3ccb0df630d0cad57959"><td class="memTemplItemLeft" align="right" valign="top">int&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../df/d6d/namespacemymath.html#a31743e3fc7ec3ccb0df630d0cad57959">mymath::sign</a> (const T val)</td></tr>
 <tr class="separator:a31743e3fc7ec3ccb0df630d0cad57959"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -232,7 +239,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_6b634e43e772001122993837e1d7e1c5.html">include</a></li><li class="navelem"><a class="el" href="../../dir_4a4b9f9a898a71f152a99978051a04a6.html">blond</a></li><li class="navelem"><a class="el" href="../../d2/de2/math__functions_8h.html">math_functions.h</a></li>
-    <li class="footer">Generated on Thu Nov 3 2016 11:19:02 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Fri Nov 4 2016 17:56:57 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

@@ -21,6 +21,7 @@ var annotated =
     [ "LHC_F", "d1/df5/classLHC__F.html", "d1/df5/classLHC__F" ],
     [ "LHCFlatSpectrum", "d5/d73/classLHCFlatSpectrum.html", "d5/d73/classLHCFlatSpectrum" ],
     [ "LHCNoiseFB", "d8/d2b/classLHCNoiseFB.html", "d8/d2b/classLHCNoiseFB" ],
+    [ "matched_from_line_denstity_return_t", "d5/d26/structmatched__from__line__denstity__return__t.html", "d5/d26/structmatched__from__line__denstity__return__t" ],
     [ "PhaseLoop", "d6/d87/classPhaseLoop.html", "d6/d87/classPhaseLoop" ],
     [ "PhaseNoise", "da/dd4/classPhaseNoise.html", "da/dd4/classPhaseNoise" ],
     [ "PSB", "d9/d59/classPSB.html", "d9/d59/classPSB" ],

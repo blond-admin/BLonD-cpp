@@ -23,5 +23,6 @@ var vector__math_8h =
     [ "operator/", "da/d30/vector__math_8h.html#ab830ae6b22b24b8aa2d13f919b86a3a9", null ],
     [ "operator/", "da/d30/vector__math_8h.html#a62f589b4bb52fd1df3e5f85658eb5618", null ],
     [ "operator/=", "da/d30/vector__math_8h.html#a75e1a979e63c5dad59544dbb5d4f2d58", null ],
-    [ "operator/=", "da/d30/vector__math_8h.html#a78b0a6b11a7437163d0d9818d0dde458", null ]
+    [ "operator/=", "da/d30/vector__math_8h.html#a78b0a6b11a7437163d0d9818d0dde458", null ],
+    [ "operator<<", "da/d30/vector__math_8h.html#a08b5c6fa0c8e8ef201e60441121613c3", null ]
 ];

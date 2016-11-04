@@ -13,6 +13,7 @@ var searchData=
   ['time_5fdiff',['time_diff',['../d6/d72/namespaceutil.html#a300c175d0eb8013d3a9e9f316d447b64',1,'util']]],
   ['time_5fdomain',['time_domain',['../d0/d6b/classInducedVoltageTime.html#abfce0f9ed897e5c28008d1ecfa82fe64a1692ec3c337cb284cdab378637d146fa',1,'InducedVoltageTime']]],
   ['time_5felapsed',['time_elapsed',['../d6/d72/namespaceutil.html#a7ab3cb9080ebe19b6755a564b316473e',1,'util']]],
+  ['time_5fline_5fden',['time_line_den',['../d5/d26/structmatched__from__line__denstity__return__t.html#aa85759edda36b82772210e6fefb222ed',1,'matched_from_line_denstity_return_t']]],
   ['time_5for_5ffreq',['time_or_freq',['../d0/d6b/classInducedVoltageTime.html#abfce0f9ed897e5c28008d1ecfa82fe64',1,'InducedVoltageTime']]],
   ['timing',['TIMING',['../d2/d2c/configuration_8h.html#a51b7a9c320bb9b58fc5632da0a44ab84',1,'configuration.h']]],
   ['totalinducedvoltage',['TotalInducedVoltage',['../d4/dd7/classTotalInducedVoltage.html',1,'TotalInducedVoltage'],['../d4/dd7/classTotalInducedVoltage.html#a2a575959fee8c1bb558e5dae35d67e6a',1,'TotalInducedVoltage::TotalInducedVoltage()'],['../de/da1/classRingAndRfSection.html#ab091a766edb041ac918f6cbd17ff55bd',1,'RingAndRfSection::totalInducedVoltage()']]],

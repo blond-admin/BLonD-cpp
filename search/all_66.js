@@ -71,6 +71,7 @@ var searchData=
   ['fit_5foption',['fit_option',['../dc/d45/classSlices.html#a1b43d25543d02d249bc2e6ce779f5154',1,'Slices']]],
   ['fit_5ft',['fit_t',['../dc/d45/classSlices.html#a145b60aa2ecd01f1a4524e49bead73f7',1,'Slices']]],
   ['fiturn',['fITurn',['../de/d59/classSlicesMonitor.html#a116433c1c6f927fc80f943f882c8f414',1,'SlicesMonitor::fITurn()'],['../d2/d00/classBunchMonitor.html#a14c465d71e0fa7bb6134dfd05d6aafd3',1,'BunchMonitor::fITurn()']]],
+  ['flatten',['flatten',['../df/d6d/namespacemymath.html#a46c2185537cdd77f6c5596907ffea994',1,'mymath']]],
   ['flenarraymem',['fLenArrayMem',['../d5/de7/classInducedVoltageFreq.html#a1f0df98e31a05420d8766b466625a94c',1,'InducedVoltageFreq']]],
   ['flenarraymemext',['fLenArrayMemExt',['../d5/de7/classInducedVoltageFreq.html#a4db4360ad43d14acca646159a7447f22',1,'InducedVoltageFreq']]],
   ['floor_5foption',['floor_option',['../d5/de7/classInducedVoltageFreq.html#a424da4862263dc9a5212837de92d5c94ab904a1eac09936df80f97013dd8f5add',1,'InducedVoltageFreq']]],

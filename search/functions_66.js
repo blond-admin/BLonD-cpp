@@ -18,6 +18,7 @@ var searchData=
   ['find_5fplan',['find_plan',['../d8/de0/namespacefft.html#af7197252dd2a265bd53282a343582d02',1,'fft']]],
   ['finished',['finished',['../d6/d83/classoption_1_1Parser.html#a9b5d752a49135a7f85d36e06877c7bfc',1,'option::Parser::finished(int numargs, const char **args)'],['../d6/d83/classoption_1_1Parser.html#af2e20ef22d804ba63bfb033572357424',1,'option::Parser::finished(int numargs, const char **args)']]],
   ['first',['first',['../d3/df3/classoption_1_1Option.html#abb4e13cd7c90999c8a6b1f871cece283',1,'option::Option']]],
+  ['flatten',['flatten',['../df/d6d/namespacemymath.html#a46c2185537cdd77f6c5596907ffea994',1,'mymath']]],
   ['flush',['flush',['../de/d50/classoption_1_1PrintUsageImplementation_1_1LineWrapper.html#a9383db9fd3fb18ce091db63ce0b149fd',1,'option::PrintUsageImplementation::LineWrapper']]],
   ['fp2uint',['fp2uint',['../d1/d47/namespacevdt_1_1details.html#afac5394acdf8e6047db199b251b86e98',1,'vdt::details::fp2uint(float x)'],['../d1/d47/namespacevdt_1_1details.html#a8b3f0982e5a3ddbb8cdd3d173f604db3',1,'vdt::details::fp2uint(double x)']]],
   ['fpfloor',['fpfloor',['../d1/d47/namespacevdt_1_1details.html#aa6b6cf3665a8a7088fe3225a877a899a',1,'vdt::details::fpfloor(const double x)'],['../d1/d47/namespacevdt_1_1details.html#a8532012a2a07ccbf46b691ff8baeef95',1,'vdt::details::fpfloor(const float x)']]],

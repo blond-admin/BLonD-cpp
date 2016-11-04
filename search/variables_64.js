@@ -5,6 +5,7 @@ var searchData=
   ['de',['dE',['../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f',1,'Beams']]],
   ['de_5fmax',['dE_max',['../de/da1/classRingAndRfSection.html#a1132dcf9d7e0937a2987c10f7f5076cf',1,'RingAndRfSection']]],
   ['delay',['delay',['../d6/d87/classPhaseLoop.html#a9d4fb1c2b3f140dde1080ce509cb0f66',1,'PhaseLoop']]],
+  ['density_5ffunction',['density_function',['../d5/d26/structmatched__from__line__denstity__return__t.html#ae398feffe3cf00488a6278af485d855f',1,'matched_from_line_denstity_return_t']]],
   ['desc',['desc',['../d3/df3/classoption_1_1Option.html#af8d664a7b5de1425008b1812a90a0c23',1,'option::Option']]],
   ['domega_5fpl',['domega_PL',['../d9/d59/classPSB.html#ae7c73ac3c1a51e4444e44a9837756d8a',1,'PSB']]],
   ['domega_5frf',['domega_rf',['../d6/d87/classPhaseLoop.html#af764d085a072f9d0a3e8930968fe45ec',1,'PhaseLoop']]],

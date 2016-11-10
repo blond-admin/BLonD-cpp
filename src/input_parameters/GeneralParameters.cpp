@@ -8,6 +8,8 @@
 #include <blond/constants.h>
 #include <blond/input_parameters/GeneralParameters.h>
 #include <numeric>
+#include <blond/vector_math.h>
+#include <blond/utilities.h>
 
 GeneralParameters::GeneralParameters(
     const int _n_turns, f_vector_t &_ring_length, f_vector_2d_t &_alpha,
@@ -17,9 +19,9 @@ GeneralParameters::GeneralParameters(
     const int number_of_sections)
 {
 
-    this->particle = _particle;
-    this->particle_2 = _particle2;
-    this->n_sections = number_of_sections;
+    particle = _particle;
+    particle_2 = _particle2;
+    n_sections = number_of_sections;
 
     if (particle == proton) {
         mass = constant::m_p * constant::c * constant::c / constant::e;
@@ -31,7 +33,7 @@ GeneralParameters::GeneralParameters(
         mass = user_mass;
         charge = user_charge;
     } else {
-        dprintf("ERROR: Particle type not recognized!");
+        std::cerr << "ERROR: Particle type not recognized!\n";
         exit(-1);
     }
 
@@ -47,18 +49,17 @@ GeneralParameters::GeneralParameters(
         mass2 = user_mass_2;
         charge2 = user_charge_2;
     } else {
-        dprintf("ERROR: Second particle type not recognized!");
+        std::cerr << "ERROR: Second particle type not recognized!\n";
         exit(-1);
     }
 
-    this->n_turns = _n_turns;
-    this->momentum = _momentum;
-    this->alpha_order = _alpha_order - 1;
-    this->alpha = _alpha;
-    this->ring_length = _ring_length;
-    this->ring_circumference =
-        std::accumulate(ring_length.begin(), ring_length.end(), 0.0);
-    this->ring_radius = ring_circumference / (2 * constant::pi);
+    n_turns = _n_turns;
+    momentum = _momentum;
+    alpha_order = _alpha_order - 1;
+    alpha = _alpha;
+    ring_length = _ring_length;
+    ring_circumference = std::accumulate(ALL(ring_length), 0.0);
+    ring_radius = ring_circumference / (2 * constant::pi);
 
     if (n_sections > 1) {
         // TODO do some things inside here
@@ -66,41 +67,36 @@ GeneralParameters::GeneralParameters(
         // Danilo told me we could skip this for now
     }
 
-    this->gamma.resize(n_sections, f_vector_t(n_turns + 1));
-    this->beta.resize(n_sections, f_vector_t(n_turns + 1));
-    this->energy.resize(n_sections, f_vector_t(n_turns + 1));
-    this->kin_energy.resize(n_sections, f_vector_t(n_turns + 1));
+    gamma.resize(n_sections, f_vector_t(n_turns + 1));
+    beta.resize(n_sections, f_vector_t(n_turns + 1));
+    energy.resize(n_sections, f_vector_t(n_turns + 1));
+    kin_energy.resize(n_sections, f_vector_t(n_turns + 1));
 
     const ftype masssq = mass * mass;
 
     for (int i = 0; i < n_sections; ++i) {
         for (int j = 0; j < n_turns + 1; ++j) {
             const ftype momentumsq = momentum[i][j] * momentum[i][j];
-            this->beta[i][j] = std::sqrt(1 / (1 + (masssq / momentumsq)));
-            this->gamma[i][j] = std::sqrt(1 + (momentumsq / masssq));
-            this->energy[i][j] = std::sqrt(masssq + momentumsq);
-            this->kin_energy[i][j] = energy[i][j] - mass;
+            beta[i][j] = std::sqrt(1 / (1 + (masssq / momentumsq)));
+            gamma[i][j] = std::sqrt(1 + (momentumsq / masssq));
+            energy[i][j] = std::sqrt(masssq + momentumsq);
+            kin_energy[i][j] = energy[i][j] - mass;
         }
     }
 
     t_rev.resize(n_turns + 1, 0);
 
     for (int i = 0; i < n_sections; ++i)
-        for (int j = 0; j < n_turns + 1; ++j)
-            t_rev[j] += ring_length[i] / (beta[i][j] * constant::c);
+        t_rev += ring_length[i] / constant::c / beta[i];
 
     cycle_time.resize(n_turns);
     cycle_time[0] = 0;
     for (int i = 1; i < n_turns; ++i)
         cycle_time[i] = t_rev[i] + cycle_time[i - 1];
 
-    f_rev.resize(n_turns + 1);
-    for (int i = 0; i < n_turns + 1; ++i)
-        f_rev[i] = 1 / t_rev[i];
+    f_rev = 1.0 / t_rev;
 
-    omega_rev.resize(n_turns + 1);
-    for (int i = 0; i < n_turns + 1; ++i)
-        omega_rev[i] = 2 * constant::pi * f_rev[i];
+    omega_rev = 2. * constant::pi * f_rev;
 
     if (alpha_order > 3) {
         dprintf(
@@ -108,9 +104,9 @@ GeneralParameters::GeneralParameters(
             "order");
         alpha_order = 3;
     }
-    this->eta_0.resize(n_sections, f_vector_t(n_turns + 1));
-    this->eta_1.resize(n_sections, f_vector_t(n_turns + 1));
-    this->eta_2.resize(n_sections, f_vector_t(n_turns + 1));
+    eta_0.resize(n_sections, f_vector_t(n_turns + 1));
+    eta_1.resize(n_sections, f_vector_t(n_turns + 1));
+    eta_2.resize(n_sections, f_vector_t(n_turns + 1));
     eta_generation();
 }
 

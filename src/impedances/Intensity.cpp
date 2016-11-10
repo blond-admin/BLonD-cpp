@@ -8,15 +8,14 @@
 #include <blond/constants.h>
 #include <blond/impedances/Intensity.h>
 #include <blond/math_functions.h>
+#include <blond/vector_math.h>
 
 Resonators::Resonators(f_vector_t& RS, f_vector_t& FrequencyR, f_vector_t& Q) {
     fRS = RS;
     fFrequencyR = FrequencyR;
     fQ = Q;
     fNResonators = RS.size();
-    fOmegaR.reserve(fNResonators);
-    for (unsigned int i = 0; i < fNResonators; ++i)
-        fOmegaR.push_back(2 * constant::pi * fFrequencyR[i]);
+    fOmegaR = 2. * constant::pi * fFrequencyR;
 }
 
 Resonators::~Resonators() {}
@@ -28,7 +27,6 @@ void Resonators::wake_calc(const f_vector_t& NewTimeArray) {
     fTimeArray = NewTimeArray;
     fWake.resize(fTimeArray.size());
     std::fill_n(fWake.begin(), fWake.size(), 0);
-    // util::dump(&fWake[0], 10, "start wake ");
 
     for (uint i = 0; i < fNResonators; ++i) {
         double alpha = fOmegaR[i] / (2 * fQ[i]);
@@ -52,9 +50,8 @@ void Resonators::imped_calc(const f_vector_t& NewFrequencyArray) {
 
     fFreqArray = NewFrequencyArray;
     fImpedance.resize(fFreqArray.size());
-    // fImpedance[0] = complex_t(0, 0);
     std::fill_n(fImpedance.begin(), fImpedance.size(), complex_t(0, 0));
-    // std::cout << complex_t(1,0) / complex_t(1,1) << '\n';
+
     for (uint i = 0; i < fNResonators; ++i) {
         for (uint j = 1; j < fImpedance.size(); ++j) {
             fImpedance[j] +=

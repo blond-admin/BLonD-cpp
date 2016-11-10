@@ -204,12 +204,8 @@ void Slices::track_cuts()
     double delta = beam->mean_dt - 0.5 * (cut_left + cut_right);
     cut_left += delta;
     cut_right += delta;
-    for (int i = 0; i < n_slices + 1; ++i) {
-        edges[i] += delta;
-    }
-    for (int i = 0; i < n_slices; ++i) {
-        bin_centers[i] += delta;
-    }
+    edges += delta;
+    bin_centers += delta;
 }
 
 void Slices::smooth_histogram(const double *__restrict input,
@@ -283,8 +279,6 @@ void Slices::rms()
     [](double x) {return x * x; }) * lineDen, timeResolution);
 
     bl_rms = 4 * std::sqrt(temp);
-    f_vector_t a;
-    lineDen.swap(a);
 }
 
 
@@ -295,8 +289,7 @@ void Slices::fwhm(const double shift)
     * Computation of the bunch length and position from the FWHM
     assuming Gaussian line density.*
     */
-    int max = *std::max_element(n_macroparticles.begin(),
-                                n_macroparticles.end());
+    int max = *std::max_element(ALL(n_macroparticles));
     double half_max = shift + 0.5 * (max - shift);
     double timeResolution = bin_centers[1] - bin_centers[0];
 
@@ -370,7 +363,7 @@ void Slices::beam_spectrum_generation(int n, bool onlyRFFT)
     fBeamSpectrumFreq = fft::rfftfreq(n, bin_centers[1] - bin_centers[0]);
 
     if (onlyRFFT == false) {
-        f_vector_t v(n_macroparticles.begin(), n_macroparticles.end());
+        auto v = n_macroparticles;
         fft::rfft(v, fBeamSpectrum, n, Context::n_threads);
     }
 }
@@ -388,28 +381,20 @@ void Slices::beam_profile_derivative(f_vector_t &x,
     x = bin_centers;
     const auto dist_centers = x[1] - x[0];
     if (mode == "filter1d") {
-
-        f_vector_t temp(n_macroparticles.begin(), n_macroparticles.end());
-        derivative = gaussian_filter1d(temp, 1, 1, "wrap");
+        derivative = gaussian_filter1d(n_macroparticles, 1, 1, "wrap");
         for (auto &d : derivative) d /= dist_centers;
 
     } else if (mode == "gradient") {
-
-        f_vector_t temp(n_macroparticles.begin(), n_macroparticles.end());
-        derivative = gradient(temp, dist_centers);
+        derivative = gradient(n_macroparticles, dist_centers);
 
     } else if (mode == "diff") {
-
         derivative.resize(n_macroparticles.size() - 1);
         for (uint i = 1; i < n_macroparticles.size(); i++)
             derivative[i - 1] = (n_macroparticles[i] - n_macroparticles[i - 1])
                                 / dist_centers;
         f_vector_t diffCenters(x.begin(), x.end() - 1);
-        for (auto &d : diffCenters) d += dist_centers / 2;
-        f_vector_t res;
-        mymath::interp(x, diffCenters, derivative,
-                       res, derivative.front(), derivative.back());
-        derivative = res;
+        diffCenters += dist_centers / 2.;
+        derivative = mymath::interp(x, diffCenters, derivative);
     } else {
         std::cerr << "Option for derivative is not recognized.\n";
         exit(-1);
@@ -548,13 +533,12 @@ void Slices::beam_profile_filter_chebyshev(std::map<std::string, std::string>
 void Slices::gaussian_fit()
 {
     f_vector_t p0;
-    double max = *std::max_element(n_macroparticles.begin(),
-                                   n_macroparticles.end());
+    double max = *std::max_element(ALL(n_macroparticles));
 
     if (bl_gauss == 0 && bp_gauss == 0) {
         p0 = {max,
-              mymath::mean(beam->dt.data(), beam->dt.size()),
-              mymath::standard_deviation(beam->dt.data(), beam->dt.size())
+              mymath::mean(beam->dt),
+              mymath::standard_deviation(beam->dt)
              };
     } else {
         p0 = {max,

@@ -169,12 +169,8 @@ int main(int argc, char **argv)
     }
 
     auto ZTable = new InputTable(freq, ReZ, ImZ);
-    vector<Intensity *> ZTableV{ZTable};
-
-    auto indVoltage = new InducedVoltageFreq(Slice, ZTableV, 1.0e7);
-    vector<InducedVoltage *> indVoltageV{indVoltage};
-
-    auto totVoltage = new TotalInducedVoltage(Beam, Slice, indVoltageV);
+    auto indVoltage = new InducedVoltageFreq(Slice, {ZTable}, 1.0e7);
+    auto totVoltage = new TotalInducedVoltage(Beam, Slice, {indVoltage});
 
     string h5file = "output_data-"
                     + to_string(Context::n_threads)

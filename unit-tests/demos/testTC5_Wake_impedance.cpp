@@ -112,10 +112,8 @@ TEST_F(testTC5, timeTrack)
     auto params = std::string(TEST_FILES "/TC5_final/time/");
 
     auto long_tracker = new RingAndRfSection();
-    std::vector<Intensity *> wakeSourceList({resonator});
-    auto indVoltTime = new InducedVoltageTime(Slice, wakeSourceList);
-    std::vector<InducedVoltage *> indVoltList({indVoltTime});
-    auto totVol = new TotalInducedVoltage(Beam, Slice, indVoltList);
+    auto indVoltTime = new InducedVoltageTime(Slice, {resonator});
+    auto totVol = new TotalInducedVoltage(Beam, Slice, {indVoltTime});
 
     for (uint i = 0; i < N_t; ++i) {
         totVol->track(Beam);
@@ -167,10 +165,8 @@ TEST_F(testTC5, freqTrack)
     auto params = std::string(TEST_FILES "/TC5_final/freq/");
 
     auto long_tracker = new RingAndRfSection();
-    std::vector<Intensity *> ImpSourceList({resonator});
-    auto indVoltFreq = new InducedVoltageFreq(Slice, ImpSourceList, 1e5);
-    std::vector<InducedVoltage *> indVoltList({indVoltFreq});
-    auto totVol = new TotalInducedVoltage(Beam, Slice, indVoltList);
+    auto indVoltFreq = new InducedVoltageFreq(Slice, {resonator}, 1e5);
+    auto totVol = new TotalInducedVoltage(Beam, Slice, {indVoltFreq});
 
     for (uint i = 0; i < N_t; ++i) {
         totVol->track(Beam);

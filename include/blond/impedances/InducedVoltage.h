@@ -52,7 +52,7 @@ public:
     void reprocess(Slices *newSlices);
     f_vector_t induced_voltage_generation(Beams *beam, uint length = 0);
     InducedVoltageTime(Slices *slices,
-                       std::vector<Intensity *> &WakeSourceList,
+                       const std::vector<Intensity *> &WakeSourceList,
                        time_or_freq TimeOrFreq = freq_domain);
 
     ~InducedVoltageTime();
@@ -108,7 +108,7 @@ public:
     void reprocess(Slices *newSlices);
     f_vector_t induced_voltage_generation(Beams *beam, uint length = 0);
     InducedVoltageFreq(Slices *slices,
-                       std::vector<Intensity *> &impedanceSourceList,
+                       const std::vector<Intensity *> &impedanceSourceList,
                        double freqResolutionInput = 0.0,
                        freq_res_option_t freq_res_option = freq_res_option_t::round_option,
                        uint NTurnsMem = 0, bool recalculationImpedance = false,
@@ -140,7 +140,7 @@ public:
 
     TotalInducedVoltage(Beams *beam,
                         Slices *slices,
-                        std::vector<InducedVoltage *> &InducedVoltageList,
+                        const std::vector<InducedVoltage *> &InducedVoltageList,
                         uint NTurnsMemory = 0,
                         f_vector_t RevTimeArray = f_vector_t());
 

@@ -49,12 +49,12 @@ double hamiltonian(const GeneralParameters *GP,
                   const double dE,
                   const f_vector_t total_voltage = {});
 
-void minmax_location(f_vector_t &x, f_vector_t &f,
+void minmax_location(const f_vector_t &x,const f_vector_t &f,
                      f_vector_t &min_x_position, f_vector_t &max_x_position,
                      f_vector_t &min_values, f_vector_t &max_values);
 
-void potential_well_cut(f_vector_t &theta_coord_array,
-                        f_vector_t &potential_array,
+void potential_well_cut(const f_vector_t &theta_coord_array,
+                        const f_vector_t &potential_array,
                         f_vector_t &theta_coord_sep,
                         f_vector_t &potential_well_sep);
 

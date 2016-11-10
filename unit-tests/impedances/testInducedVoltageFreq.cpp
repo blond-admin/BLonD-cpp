@@ -106,9 +106,7 @@ TEST_F(testInducedVoltageFreq, constructor1)
 {
     auto epsilon = 1e-8;
     auto slices = Context::Slice;
-    std::vector<Intensity *> ImpSourceList({resonator});
-
-    auto indVoltFreq = new InducedVoltageFreq(slices, ImpSourceList, 1e5);
+    auto indVoltFreq = new InducedVoltageFreq(slices, {resonator}, 1e5);
 
     auto params = std::string(TEST_FILES "/Impedances/") +
                   "InducedVoltage/InducedVoltageFreq/constructor1/";
@@ -151,9 +149,7 @@ TEST_F(testInducedVoltageFreq, constructor2)
 {
     auto epsilon = 1e-8;
     auto slices = Context::Slice;
-    std::vector<Intensity *> ImpSourceList({resonator});
-
-    auto indVoltFreq = new InducedVoltageFreq(slices, ImpSourceList,
+    auto indVoltFreq = new InducedVoltageFreq(slices, {resonator},
             1e5, InducedVoltageFreq::round_option, 100);
 
     auto params = std::string(TEST_FILES "/Impedances/") +
@@ -239,9 +235,8 @@ TEST_F(testInducedVoltageFreq, sum_impedances1)
 {
     auto epsilon = 1e-8;
     auto slices = Context::Slice;
-    std::vector<Intensity *> ImpSourceList({resonator});
 
-    auto indVoltFreq = new InducedVoltageFreq(slices, ImpSourceList, 1e5);
+    auto indVoltFreq = new InducedVoltageFreq(slices, {resonator}, 1e5);
 
     auto freq_array = fft::rfftfreq(Context::Slice->n_slices);
 
@@ -272,9 +267,7 @@ TEST_F(testInducedVoltageFreq, sum_impedances2)
     auto epsilon = 1e-8;
     auto Slice = Context::Slice;
 
-    std::vector<Intensity *> ImpSourceList({resonator});
-
-    auto indVoltFreq = new InducedVoltageFreq(Slice, ImpSourceList, 1e5);
+    auto indVoltFreq = new InducedVoltageFreq(Slice, {resonator}, 1e5);
 
     auto freq_array = fft::rfftfreq(Slice->n_slices, Slice->bin_centers[1] -
                                     Slice->bin_centers[0]);
@@ -304,9 +297,7 @@ TEST_F(testInducedVoltageFreq, reprocess1)
     auto epsilon = 1e-8;
     auto Slice = Context::Slice;
 
-    std::vector<Intensity *> ImpSourceList({resonator});
-
-    auto indVoltFreq = new InducedVoltageFreq(Slice, ImpSourceList, 1e5);
+    auto indVoltFreq = new InducedVoltageFreq(Slice, {resonator}, 1e5);
 
     for (int i = 0; i < Slice->n_slices; ++i)
         Slice->bin_centers[i] = 1.1 * Slice->bin_centers[i];
@@ -353,10 +344,9 @@ TEST_F(testInducedVoltageFreq, reprocess1)
 TEST_F(testInducedVoltageFreq, induced_voltage_generation1)
 {
     auto epsilon = 1e-8;
-    std::vector<Intensity *> ImpSourceList({resonator});
     auto beam = Context::Beam;
     auto slices = Context::Slice;
-    auto indVoltFreq = new InducedVoltageFreq(slices, ImpSourceList, 1e5);
+    auto indVoltFreq = new InducedVoltageFreq(slices, {resonator}, 1e5);
     slices->track();
 
     indVoltFreq->induced_voltage_generation(beam);
@@ -387,9 +377,8 @@ TEST_F(testInducedVoltageFreq, induced_voltage_generation2)
     auto epsilon = 1e-8;
     auto slices = Context::Slice;
     auto beam = Context::Beam;
-    std::vector<Intensity *> ImpSourceList({resonator});
 
-    auto indVoltFreq = new InducedVoltageFreq(slices, ImpSourceList, 1e4);
+    auto indVoltFreq = new InducedVoltageFreq(slices, {resonator}, 1e4);
     slices->track();
 
     auto res = indVoltFreq->induced_voltage_generation(beam, 50);
@@ -421,9 +410,8 @@ TEST_F(testInducedVoltageFreq, track1)
     auto beam = Context::Beam;
 
     auto epsilon = 1e-8;
-    std::vector<Intensity *> ImpSourceList({resonator});
 
-    auto indVoltFreq = new InducedVoltageFreq(slices, ImpSourceList, 1e5);
+    auto indVoltFreq = new InducedVoltageFreq(slices, {resonator}, 1e5);
     slices->track();
 
     indVoltFreq->track(beam);
@@ -454,9 +442,7 @@ TEST_F(testInducedVoltageFreq, track2)
     auto slices = Context::Slice;
     auto beam = Context::Beam;
 
-    std::vector<Intensity *> ImpSourceList({resonator});
-
-    auto indVoltFreq = new InducedVoltageFreq(slices, ImpSourceList, 1e5);
+    auto indVoltFreq = new InducedVoltageFreq(slices, {resonator}, 1e5);
     slices->track();
 
     for (auto i = 0; i < 10; i++)

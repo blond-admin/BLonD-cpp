@@ -159,7 +159,7 @@ public:
                                    const double option = lowest_freq,
                                    const double dt_margin_percent = 0.0);
 
-    FullRingAndRf(std::vector<RingAndRfSection * > &RingList);
+    FullRingAndRf(const std::vector<RingAndRfSection * > &RingList);
     ~FullRingAndRf();
 };
 

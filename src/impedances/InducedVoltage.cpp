@@ -36,14 +36,14 @@ void linear_interp_kick(
 }
 
 InducedVoltageTime::InducedVoltageTime(Slices *slices,
-                                       std::vector<Intensity *> &WakeSourceList,
+                                       const std::vector<Intensity *> &WakeList,
                                        time_or_freq TimeOrFreq)
 {
     // Induced voltage derived from the sum of
     // several wake fields (time domain).*
     fSlices = slices;
     // *Wake sources inputed as a list (eg: list of BBResonators objects)*
-    fWakeSourceList = WakeSourceList;
+    fWakeSourceList = WakeList;
 
     // *Time array of the wake in [s]*
     fTimeArray = f_vector_t();
@@ -153,17 +153,17 @@ f_vector_t InducedVoltageTime::induced_voltage_generation(Beams *beam,
         exit(-1);
     }
 
-    inducedVoltage.resize((uint)fSlices->n_slices);
     fInducedVoltage = inducedVoltage;
+    fInducedVoltage.resize((uint)fSlices->n_slices);
 
     if (length > 0)
-        inducedVoltage.resize(std::min((uint)fSlices->n_slices, length), 0);
+        inducedVoltage.resize(length, 0);
 
     return inducedVoltage;
 }
 
 InducedVoltageFreq::InducedVoltageFreq(Slices *slices,
-                                       std::vector<Intensity *> &impedanceSourceList,
+                                       const std::vector<Intensity *> &impedList,
                                        double freqResolutionInput,
                                        freq_res_option_t freq_res_option,
                                        uint NTurnsMem,
@@ -172,7 +172,7 @@ InducedVoltageFreq::InducedVoltageFreq(Slices *slices,
 {
     fNTurnsMem = NTurnsMem;
     fSlices = slices;
-    fImpedanceSourceList = impedanceSourceList;
+    fImpedanceSourceList = impedList;
     fFreqResolutionInput = freqResolutionInput;
 
     // *Length of one slice.*
@@ -432,7 +432,8 @@ f_vector_t InducedVoltageFreq::induced_voltage_generation(Beams *beam,
 }
 
 TotalInducedVoltage::TotalInducedVoltage(Beams *beam, Slices *slices,
-        std::vector<InducedVoltage *> &InducedVoltageList, uint NTurnsMemory,
+        const std::vector<InducedVoltage *> &InducedVoltageList,
+        uint NTurnsMemory,
         f_vector_t RevTimeArray)
 {
     fBeam = beam;
@@ -490,6 +491,7 @@ f_vector_t TotalInducedVoltage::induced_voltage_sum(Beams *beam, uint length)
         std::transform(tempIndVolt.begin(), tempIndVolt.end(),
                        v->fInducedVoltage.begin(), tempIndVolt.begin(),
                        std::plus<double>());
+        // std::cout << "extIndVolt: " << extIndVolt.size() << "\n";
     }
 
     fInducedVoltage = tempIndVolt;

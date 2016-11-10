@@ -119,8 +119,7 @@ TEST_F(testInducedVoltage, constructor1)
 {
     double epsilon = 1e-8;
     auto slices = Context::Slice;
-    std::vector<Intensity *> wakeSourceList({resonator});
-    auto indVoltTime = new InducedVoltageTime(slices, wakeSourceList);
+    auto indVoltTime = new InducedVoltageTime(slices, {resonator});
 
     auto params = std::string(TEST_FILES "/Impedances/") +
                   "InducedVoltage/InducedVoltageTime/constructor1/";
@@ -167,8 +166,7 @@ TEST_F(testInducedVoltage, reprocess1)
     auto beam = Context::Beam;
     double epsilon = 1e-8;
 
-    std::vector<Intensity *> wakeSourceList({resonator});
-    auto indVoltTime = new InducedVoltageTime(slices, wakeSourceList);
+    auto indVoltTime = new InducedVoltageTime(slices, {resonator});
     slices->track();
 
     for (int i = 0; i < slices->n_slices; i++)
@@ -234,11 +232,9 @@ TEST_F(testInducedVoltage, generation1)
     slices->track();
     auto epsilon = 1e-8;
 
-
-    std::vector<Intensity *> wakeSourceList({resonator});
-    auto indVoltTime = new InducedVoltageTime(slices, wakeSourceList);
-    f_vector_t res = indVoltTime->induced_voltage_generation(beam);
-
+    auto indVoltTime = new InducedVoltageTime(slices, {resonator});
+    indVoltTime->induced_voltage_generation(beam);
+    auto res = indVoltTime->fInducedVoltage;
     std::string params = std::string(TEST_FILES "/Impedances/") +
                          "InducedVoltage/InducedVoltageTime/generation1/";
 
@@ -272,8 +268,7 @@ TEST_F(testInducedVoltage, generation2)
     slices->track();
     auto epsilon = 1e-7;
 
-    std::vector<Intensity *> wakeSourceList({resonator});
-    auto indVoltTime = new InducedVoltageTime(slices, wakeSourceList);
+    auto indVoltTime = new InducedVoltageTime(slices, {resonator});
     f_vector_t res = indVoltTime->induced_voltage_generation(beam, 100);
 
     std::string params = std::string(TEST_FILES "/Impedances/") +
@@ -309,11 +304,10 @@ TEST_F(testInducedVoltage, convolution1)
     slices->track();
     auto epsilon = 1e-8;
 
-    std::vector<Intensity *> wakeSourceList({resonator});
-    auto indVoltTime =
-        new InducedVoltageTime(slices, wakeSourceList,
-                               InducedVoltageTime::time_or_freq::time_domain);
-    f_vector_t res = indVoltTime->induced_voltage_generation(beam);
+    auto indVoltTime = new InducedVoltageTime(slices, {resonator},
+            InducedVoltageTime::time_or_freq::time_domain);
+    indVoltTime->induced_voltage_generation(beam);
+    auto res = indVoltTime->fInducedVoltage;
 
     std::string params = std::string(TEST_FILES "/Impedances/") +
                          "InducedVoltage/InducedVoltageTime/convolution1/";
@@ -351,8 +345,7 @@ TEST_F(testInducedVoltage, track1)
 
     slices->track();
 
-    std::vector<Intensity *> wakeSourceList({resonator});
-    auto indVoltTime = new InducedVoltageTime(slices, wakeSourceList);
+    auto indVoltTime = new InducedVoltageTime(slices, {resonator});
     indVoltTime->track(beam);
 
     f_vector_t v;
@@ -380,10 +373,8 @@ TEST_F(testTotalInducedVoltage, sum1)
 
     slices->track();
 
-    std::vector<Intensity *> wakeSourceList({resonator});
-    auto indVoltTime = new InducedVoltageTime(slices, wakeSourceList);
-    std::vector<InducedVoltage *> indVoltList({indVoltTime});
-    auto totVol = new TotalInducedVoltage(beam, slices, indVoltList);
+    auto indVoltTime = new InducedVoltageTime(slices, {resonator});
+    auto totVol = new TotalInducedVoltage(beam, slices, {indVoltTime});
 
     f_vector_t res = totVol->induced_voltage_sum(beam, 200);
 
@@ -438,11 +429,9 @@ TEST_F(testTotalInducedVoltage, sum2)
 
     slices->track();
 
-    std::vector<Intensity *> wakeSourceList({resonator});
-    auto indVoltTime1 = new InducedVoltageTime(slices, wakeSourceList);
-    auto indVoltTime2 = new InducedVoltageTime(slices, wakeSourceList);
-    std::vector<InducedVoltage *> indVoltList({indVoltTime1, indVoltTime2});
-    auto totVol = new TotalInducedVoltage(beam, slices, indVoltList);
+    auto indVoltTime1 = new InducedVoltageTime(slices, {resonator});
+    auto indVoltTime2 = new InducedVoltageTime(slices, {resonator});
+    auto totVol = new TotalInducedVoltage(beam, slices, {indVoltTime1, indVoltTime2});
 
     f_vector_t res = totVol->induced_voltage_sum(beam, 200);
 
@@ -500,11 +489,8 @@ TEST_F(testTotalInducedVoltage, track1)
                   "InducedVoltage/TotalInducedVoltage/track1/";
 
 
-    std::vector<Intensity *> wakeSourceList({resonator});
-    auto indVoltTime = new InducedVoltageTime(slices, wakeSourceList);
-    std::vector<InducedVoltage *> indVoltList({indVoltTime});
-
-    auto totVol = new TotalInducedVoltage(beam, slices, indVoltList);
+    auto indVoltTime = new InducedVoltageTime(slices, {resonator});
+    auto totVol = new TotalInducedVoltage(beam, slices, {indVoltTime});
 
     for (int i = 0; i < 1000; i++) totVol->track(beam);
 
@@ -533,12 +519,9 @@ TEST_F(testTotalInducedVoltage, track2)
                   "InducedVoltage/TotalInducedVoltage/track2/";
 
 
-    std::vector<Intensity *> wakeSourceList({resonator});
-    auto indVoltTime = new InducedVoltageTime(slices, wakeSourceList);
-    auto indVoltTime2 = new InducedVoltageTime(slices, wakeSourceList);
-    std::vector<InducedVoltage *> indVoltList({indVoltTime, indVoltTime2});
-
-    auto totVol = new TotalInducedVoltage(beam, slices, indVoltList);
+    auto indVoltTime = new InducedVoltageTime(slices, {resonator});
+    auto indVoltTime2 = new InducedVoltageTime(slices, {resonator});
+    auto totVol = new TotalInducedVoltage(beam, slices, {indVoltTime, indVoltTime2});
 
     for (int i = 0; i < 100; i++) totVol->track(beam);
 

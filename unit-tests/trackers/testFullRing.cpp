@@ -101,8 +101,7 @@ TEST_F(testFullRing, constructor1)
     longitudinal_bigaussian(GP, RfP, Beam, 200e-9, 1e6, -1, false);
 
     auto long_tracker = new RingAndRfSection(RfP);
-    std::vector<RingAndRfSection *> trackerList{long_tracker, long_tracker};
-    auto fullRing = new FullRingAndRf(trackerList);
+    auto fullRing = new FullRingAndRf({long_tracker, long_tracker});
 
     f_vector_t v;
     util::read_vector_from_file(v, params + "ring_radius.txt");
@@ -132,8 +131,7 @@ TEST_F(testFullRing, track1)
     longitudinal_bigaussian(GP, RfP, Beam, 200e-9, 1e6, -1, false);
 
     auto long_tracker = new RingAndRfSection(RfP);
-    std::vector<RingAndRfSection *> trackerList{long_tracker, long_tracker};
-    auto fullRing = new FullRingAndRf(trackerList);
+    auto fullRing = new FullRingAndRf({long_tracker, long_tracker});
 
     for (uint i = 0; i < 100; ++i) fullRing->track();
 
@@ -171,9 +169,7 @@ TEST_F(testFullRing, track2)
 
     longitudinal_bigaussian(GP, RfP, Beam, 200e-9, 1e6, -1, false);
 
-    std::vector<RingAndRfSection *> trackerList{long_tracker1, long_tracker2};
-
-    auto fullRing = new FullRingAndRf(trackerList);
+    auto fullRing = new FullRingAndRf({long_tracker1, long_tracker2});
 
     for (uint i = 0; i < N_t; ++i) fullRing->track();
 
@@ -211,8 +207,7 @@ TEST_F(testFullRing, potential_well_generation1)
     auto epsilon = 1e-8;
 
     auto long_tracker = new RingAndRfSection(RfP);
-    std::vector<RingAndRfSection *> trackerList{long_tracker};
-    auto fullRing = new FullRingAndRf(trackerList);
+    auto fullRing = new FullRingAndRf({long_tracker});
 
     fullRing->potential_well_generation(0, 1000);
 
@@ -251,8 +246,7 @@ TEST_F(testFullRing, potential_well_generation2)
     auto epsilon = 1e-8;
 
     auto long_tracker = new RingAndRfSection(RfP);
-    std::vector<RingAndRfSection *> trackerList{long_tracker, long_tracker};
-    auto fullRing = new FullRingAndRf(trackerList);
+    auto fullRing = new FullRingAndRf({long_tracker, long_tracker});
 
     fullRing->potential_well_generation(10, 1000, 1);
 

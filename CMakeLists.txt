@@ -84,19 +84,16 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
 if(CYGWIN)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mcmodel=large")
 else ()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -INTERFACE_POSITION_INDEPENDENT_CODE")
 endif ()
 
 
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} \
-    -Og \
-    -g3 \
-    -fno-omit-frame-pointer") #-fsanitize=address")
+set(CMAKE_CXX_FLAGS_DEBUG "-Og -g3 -fno-omit-frame-pointer") #-fsanitize=address")
 
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} \
     -ffast-math \
-    -march=native")
-     # \
+    -march=native \
+    ")
     # -fopt-info-vec=report.txt")
 
 #CLANG and GCC specific
@@ -109,7 +106,7 @@ if (CMAKE_CXX_COMPILER_ID MATCHES GNU)
 
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Ofast")
     set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE}-flto")
-    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_GLIBCXX_DEBUG")
+    # set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_GLIBCXX_DEBUG")
     if (TEST_ENABLED STREQUAL "True")
         set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} \
             -fprofile-arcs \

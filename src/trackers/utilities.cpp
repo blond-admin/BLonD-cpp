@@ -183,10 +183,13 @@ double hamiltonian(const GeneralParameters *GP,
 }
 
 
-void minmax_location(f_vector_t &x, f_vector_t &f,
+void minmax_location(const f_vector_t &x, const f_vector_t &f,
                      f_vector_t &min_x_position, f_vector_t &max_x_position,
                      f_vector_t &min_values, f_vector_t &max_values)
 {
+    min_x_position.clear(); max_x_position.clear();
+    min_values.clear(); max_values.clear();
+    
     f_vector_t f_derivative;
     adjacent_difference(f.begin(), f.end(), back_inserter(f_derivative));
     f_derivative.erase(f_derivative.begin());
@@ -196,8 +199,7 @@ void minmax_location(f_vector_t &x, f_vector_t &f,
         x_derivative.push_back(x[i] + (x[1] - x[0]) / 2);
 
 
-    f_derivative = mymath::lin_interp(x, x_derivative, f_derivative);
-
+    f_derivative = mymath::interp(x, x_derivative, f_derivative);
 
     f_vector_t f_derivative_second;
     adjacent_difference(f_derivative.begin(), f_derivative.end(),
@@ -205,8 +207,7 @@ void minmax_location(f_vector_t &x, f_vector_t &f,
     f_derivative_second.erase(f_derivative_second.begin());
 
 
-    f_derivative_second = mymath::lin_interp(x, x_derivative,
-                          f_derivative_second);
+    f_derivative_second = mymath::interp(x, x_derivative, f_derivative_second);
 
     f_vector_t f_derivative_zeros;
     for (uint i = 0; i < f_derivative.size() - 1; i++) {
@@ -219,17 +220,19 @@ void minmax_location(f_vector_t &x, f_vector_t &f,
         else
             max_x_position.push_back((x[i + 1] + x[i]) / 2.);
 
-    min_values = mymath::lin_interp(min_x_position, x, f);
+    min_values = mymath::interp(min_x_position, x, f);
 
-    max_values = mymath::lin_interp(max_x_position, x, f);
+    max_values = mymath::interp(max_x_position, x, f);
 
 }
 
-void potential_well_cut(f_vector_t &theta_coord_array,
-                        f_vector_t &potential_array,
+void potential_well_cut(const f_vector_t &theta_coord_array,
+                        const f_vector_t &potential_array,
                         f_vector_t &theta_coord_sep,
                         f_vector_t &potential_well_sep)
 {
+    theta_coord_sep.clear();
+    potential_well_sep.clear();
 
     f_vector_t min_theta_positions, max_theta_positions;
     f_vector_t min_potential_values, max_potential_values;
@@ -240,8 +243,8 @@ void potential_well_cut(f_vector_t &theta_coord_array,
 
     int n_minima = min_theta_positions.size();
     int n_maxima = max_theta_positions.size();
-    cout << "minima: " << n_minima << "\n";
-    cout << "maxima: " << n_maxima << "\n";
+    // cout << "minima: " << n_minima << "\n";
+    // cout << "maxima: " << n_maxima << "\n";
     if (n_minima == 0) { // tested
         cerr << "[potential_well_cut] The potential well has no minima...\n";
         exit(-1);
@@ -291,15 +294,13 @@ void potential_well_cut(f_vector_t &theta_coord_array,
             }
         }
     } else if (n_maxima == 2) { // tested
-        auto lower_maximum_value = *min_element(max_potential_values.begin(),
-                                                max_potential_values.end());
-        auto higher_maximum_value = *max_element(max_potential_values.begin(),
-                                    max_potential_values.end());
+        auto lower_maximum_value = *min_element(ALL(max_potential_values));
+        auto higher_maximum_value = *max_element(ALL(max_potential_values));
         f_vector_t lower_maximum_theta, higher_maximum_theta;
         for (uint i = 0; i < max_theta_positions.size(); i++) {
             if (max_potential_values[i] == lower_maximum_value)
                 lower_maximum_theta.push_back(max_theta_positions[i]);
-            else if (max_potential_values[i] == higher_maximum_value)
+            if (max_potential_values[i] == higher_maximum_value)
                 higher_maximum_theta.push_back(max_theta_positions[i]);
         }
 
@@ -342,7 +343,7 @@ void potential_well_cut(f_vector_t &theta_coord_array,
         for (uint i = 0; i < max_theta_positions.size(); i++) {
             if (max_theta_positions[i] == left_max_theta)
                 left_max_value.push_back(max_potential_values[i]);
-            else if (max_theta_positions[i] == right_max_theta)
+            if (max_theta_positions[i] == right_max_theta)
                 right_max_value.push_back(max_potential_values[i]);
         }
         auto separatrix_value = min(

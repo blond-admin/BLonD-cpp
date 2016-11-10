@@ -413,7 +413,7 @@ void Slices::beam_profile_derivative(f_vector_t &x,
         f_vector_t diffCenters(x.begin(), x.end() - 1);
         for (auto &d : diffCenters) d += dist_centers / 2;
         f_vector_t res;
-        mymath::lin_interp(x, diffCenters, derivative,
+        mymath::interp(x, diffCenters, derivative,
                            res, derivative.front(), derivative.back());
         derivative = res;
     } else {

@@ -1,0 +1,20 @@
+### TODO
+* profile vector math, come up with an optimal implementation
+
+
+### NOTES
+*
+
+### FIXME
+* make impedances to accept a const list 
+* mymath::interp assumes that x (first input is sorted) while it shouldn't
+
+### Debugging distributions
+* line_den_diff FIXED
+* density_function is wrong
+* when -ffast-math is on, isnan is not checked at all, that's why I added an if in integrand. The result is a small difference in density_function
+* deltaE_for_grid is ok
+* error in flatten, FIXED
+* tested meshgrid as well
+* problem with density_function
+* ask alex what I should do with that, the problem is the nan values and then the trapz

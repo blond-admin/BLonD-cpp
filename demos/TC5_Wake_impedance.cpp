@@ -115,12 +115,10 @@ int main(int argc, char **argv)
 
     auto resonator = new Resonators(R_shunt, f_res, Q_factor);
 
-    vector<Intensity *> wakeSourceList({resonator});
-    auto indVoltTime = new InducedVoltageTime(Slice, wakeSourceList,
+    auto indVoltTime = new InducedVoltageTime(Slice, {resonator},
             InducedVoltageTime::freq_domain);
-    vector<InducedVoltage *> indVoltList({indVoltTime});
 
-    auto totVol = new TotalInducedVoltage(Beam, Slice, indVoltList);
+    auto totVol = new TotalInducedVoltage(Beam, Slice, {indVoltTime});
 
     auto indTrack = 0.0, longTrack = 0.0, sliceTrack = 0.0;
     for (int i = 0; i < N_t; ++i) {

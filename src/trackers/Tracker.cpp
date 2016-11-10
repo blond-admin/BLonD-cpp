@@ -300,7 +300,7 @@ void RingAndRfSection::drift(f_vector_t &beam_dt, f_vector_t &beam_dE,
           rfp->energy[index], beam_dt.size());
 }
 
-FullRingAndRf::FullRingAndRf(std::vector<RingAndRfSection *> &RingList)
+FullRingAndRf::FullRingAndRf(const std::vector<RingAndRfSection *> &RingList)
 {
     fRingList = RingList;
 

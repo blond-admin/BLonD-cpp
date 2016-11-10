@@ -712,7 +712,7 @@ def matched_from_distribution_density(beam_beta, beam_energy, beam_charge,
 
     temp = time_grid.flatten()[indexes]
     rand_nums = np.random.rand(beam_n_macroparticles)
-    
+
     for i in range(len(beam_dt)):
         beam_dt[i] = temp[i] + (rand_nums[i] - 0.5) * \
             (time_coord_low_res[1]-time_coord_low_res[0])
@@ -792,6 +792,20 @@ def line_density_function(coord_array, dist_type, bunch_length, bunch_position=0
         density_function[
             np.abs(coord_array - bunch_position) > bunch_length/2] = 0
         return density_function
+
+
+def plot_generated_bunch(time_line_den, line_density, time_coord_for_grid,
+                         reconstructed_line_den, plot, figdir):
+    plt.figure('Generated bunch')
+    plt.plot(time_line_den, line_density)
+    plt.plot(time_coord_for_grid, reconstructed_line_den /
+             np.max(reconstructed_line_den) * np.max(line_density))
+    plt.title('Line densities')
+    if plot == 'show':
+        plt.show()
+    elif plot == 'savefig':
+        fign = figdir + '/generated_bunch.png'
+        plt.savefig(fign)
 
 
 # def longitudinal_bigaussian(GeneralParameters, RFSectionParameters, beam,

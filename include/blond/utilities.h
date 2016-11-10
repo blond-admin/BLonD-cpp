@@ -50,11 +50,10 @@
 
 #define dprintf(...) fprintf(stdout, __VA_ARGS__) // Debug printf
 
-#define CHECK_ERROR(a)                                                         \
-    if (a) {                                                                   \
-        perror("Error at line\n\t" #a "\nSystem Msg");                         \
-        assert((a) == 0);                                                      \
-    }
+
+
+#define ALL(c) (c).begin(),(c).end() 
+#define FOR(c, it) for(auto it = c.begin(); it != c.end(); it++)
 
 namespace util {
 
@@ -137,14 +136,6 @@ namespace util {
 
      output_file.close();
     }
-
-    // sort an array with regards to another array
-    struct API MyComparator {
-        double* a;
-        MyComparator(double* _a) : a(_a) {}
-
-        bool operator()(double i1, double i2) { return i1 < i2; }
-    };
     */
 
     static inline char const *GETENV(char const *envstr)

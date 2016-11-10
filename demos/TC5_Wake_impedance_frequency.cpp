@@ -118,13 +118,8 @@ int main(int argc, char **argv)
     }
 
     auto resonator = new Resonators(R_shunt, f_res, Q_factor);
-
-    vector<Intensity *> ImpSourceList({resonator});
-    auto indVoltFreq = new InducedVoltageFreq(Slice, ImpSourceList, 1e5);
-
-    vector<InducedVoltage *> indVoltList({indVoltFreq});
-
-    auto totVol = new TotalInducedVoltage(Beam, Slice, indVoltList);
+    auto indVoltFreq = new InducedVoltageFreq(Slice, {resonator}, 1e5);
+    auto totVol = new TotalInducedVoltage(Beam, Slice, {indVoltFreq});
 
     auto indTrack = 0.0, longTrack = 0.0, sliceTrack = 0.0;
     for (int i = 0; i < N_t; ++i) {

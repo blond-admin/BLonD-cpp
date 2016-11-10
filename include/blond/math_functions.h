@@ -14,6 +14,7 @@
 #include <blond/sin.h>
 #include <blond/utilities.h>
 #include <cmath>
+#include <random>
 #include <cassert>
 #include <blond/openmp.h>
 
@@ -95,45 +96,33 @@ namespace mymath {
     // @y: the interpolated values, same shape as x
     // @left: value to return for x < xp[0]
     // @right: value to return for x > xp[last]
-    static inline void lin_interp(const std::vector<double> &x,
-                                  const std::vector<double> &xp,
-                                  const std::vector<double> &yp,
-                                  std::vector<double> &y,
-                                  const double left,
-                                  const double right)
+    static inline void interp(const std::vector<double> &x,
+                              const std::vector<double> &xp,
+                              const std::vector<double> &yp,
+                              std::vector<double> &y,
+                              const double left,
+                              const double right)
     {
-        // assert(y.empty());
         assert(xp.size() == yp.size());
-        // const double left = yp.front();
-        // const double right = yp.back();
+        assert(std::is_sorted(xp.begin(), xp.end()));
         y.resize(x.size());
 
+        const int M = xp.size();
         const int N = x.size();
         if (N == 0) return;
-        // const uint M = xp.size();
+
         const auto max = xp.back();
         const auto min = xp.front();
-        const auto end = xp.end();
-        const auto begin = xp.begin();
 
-        int k = 0;
-        while (x[k] < min && k < N) {
-            y[k] = left;
-            ++k;
-        }
-
-        auto j = begin;
-
-        for (int i = k; i < N; ++i) {
-            if (x[i] > max) {
+        for (int i = 0; i < N; ++i) {
+            int pos = std::lower_bound(xp.begin(), xp.end(), x[i]) - xp.begin();
+            if (pos == M)
                 y[i] = right;
-                continue;
-            }
-            j = std::lower_bound(j, end, x[i]);
-            const auto pos = j - begin;
-            if (*j == x[i]) {
+            else if (xp[pos] == x[i])
                 y[i] = yp[pos];
-            } else {
+            else if (pos == 0)
+                y[i] = left;
+            else {
                 y[i] = yp[pos - 1] +
                        (yp[pos] - yp[pos - 1]) * (x[i] - xp[pos - 1]) /
                        (xp[pos] - xp[pos - 1]);
@@ -141,22 +130,33 @@ namespace mymath {
         }
     }
 
-    static inline void lin_interp(const std::vector<double> &x,
-                                  const std::vector<double> &xp,
-                                  const std::vector<double> &yp,
-                                  std::vector<double> &y)
+    static inline void interp(const std::vector<double> &x,
+                              const std::vector<double> &xp,
+                              const std::vector<double> &yp,
+                              std::vector<double> &y)
     {
         auto left = yp.front();
         auto right = yp.back();
-        lin_interp(x, xp, yp, y, left, right);
+        interp(x, xp, yp, y, left, right);
     }
 
-    static inline f_vector_t lin_interp(const f_vector_t &x,
-                                        const f_vector_t &xp,
-                                        const f_vector_t &yp)
+    static inline f_vector_t interp(const f_vector_t &x,
+                                    const f_vector_t &xp,
+                                    const f_vector_t &yp)
     {
         f_vector_t res;
-        lin_interp(x, xp, yp, res);
+        interp(x, xp, yp, res);
+        return res;
+    }
+
+    static inline f_vector_t interp(const f_vector_t &x,
+                                    const f_vector_t &xp,
+                                    const f_vector_t &yp,
+                                    const double left,
+                                    const double right)
+    {
+        f_vector_t res;
+        interp(x, xp, yp, res, left, right);
         return res;
     }
 
@@ -222,7 +222,7 @@ namespace mymath {
 
 
     template <typename T>
-    static inline double trapezoid(T *f, const double *deltaX, const int nsub)
+    static inline double trapezoid(const T *f, const double *deltaX, const int nsub)
     {
         // initialize the partial sum to be f(a)+f(b) and
         // deltaX to be the step size using nsub subdivisions
@@ -239,7 +239,14 @@ namespace mymath {
     }
 
     template <typename T>
-    static inline double trapezoid(T *f, const double deltaX, const int nsub)
+    static inline double trapezoid(const std::vector<T> &f,
+                                   const std::vector<double> &deltaX)
+    {
+        return trapezoid<T>(f.data(), deltaX.data(), f.size());
+    }
+
+    template <typename T>
+    static inline double trapezoid(const T *f, const double deltaX, const int nsub)
     {
         // initialize the partial sum to be f(a)+f(b) and
         // deltaX to be the step size using nsub subdivisions
@@ -257,6 +264,12 @@ namespace mymath {
 
         // return approximation
         return psum;
+    }
+
+    template <typename T>
+    static inline double trapezoid(const std::vector<T> &f, const double deltaX)
+    {
+        return trapezoid<T>(f.data(), deltaX, f.size());
     }
 
     template <typename T>
@@ -290,12 +303,12 @@ namespace mymath {
     }
 
     static inline void linspace(double *a, const double start, const double end,
-                                const uint n, const uint keep_from = 0)
+                                const int n, const int keep_from = 0)
     {
         const double step = (end - start) / (n - 1);
         // double value = start;
         //#pragma omp parallel for
-        for (uint i = 0; i < n; ++i) {
+        for (int i = 0; i < n; ++i) {
             if (i >= keep_from)
                 a[i - keep_from] = start + i * step;
             // value += step;
@@ -305,11 +318,8 @@ namespace mymath {
     static inline f_vector_t linspace(const double start, const double end,
                                       const int n)
     {
-        const double step = (end - start) / (n - 1);
-        f_vector_t res;
-        res.reserve(n);
-        for (int i = 0; i < n; i++)
-            res.push_back(start + i * step);
+        f_vector_t res(n);
+        linspace(res.data(), start, end, n);
         return res;
     }
 
@@ -334,6 +344,12 @@ namespace mymath {
     }
 
     template <typename T>
+    static inline double mean(const std::vector<T> data)
+    {
+        return mean(data.data(), data.size());
+    }
+
+    template <typename T>
     static inline double standard_deviation(const T data[], const int n,
                                             const double mean)
     {
@@ -342,6 +358,13 @@ namespace mymath {
         for (int i = 0; i < n; ++i)
             sum_deviation += (data[i] - mean) * (data[i] - mean);
         return std::sqrt(sum_deviation / n);
+    }
+
+    template <typename T>
+    static inline double standard_deviation(const std::vector<T> data,
+                                            const double mean)
+    {
+        return standard_deviation(data.data(), data.size(), mean);
     }
 
     template <typename T>
@@ -355,9 +378,64 @@ namespace mymath {
         return std::sqrt(sum_deviation / n);
     }
 
+    template <typename T>
+    static inline double standard_deviation(const std::vector<T> data)
+    {
+        return standard_deviation(data.data(), data.size());
+    }
+
     template <typename T> int sign(const T val)
     {
         return (T(0) < val) - (val < T(0));
+    }
+
+
+    template <typename T>
+    static inline void meshgrid(const std::vector<T> &in1,
+                                const std::vector<T> &in2,
+                                std::vector< std::vector<T> > &out1,
+                                std::vector< std::vector<T> > &out2)
+    {
+        out1.clear();
+        out1.resize(in2.size(), in1);
+
+        out2.clear();
+        const int cols = in1.size();
+        FOR(in2, e) out2.push_back(std::vector<T>(cols, *e));
+
+    }
+
+    template <typename T>
+    static inline std::vector<T> flatten(const std::vector<std::vector<T> > &a)
+    {
+        std::vector<T> result;
+        FOR(a, row) {
+            result.insert(result.end(), (*row).begin(), (*row).end());
+        }
+        return result;
+    }
+
+    template <typename T>
+    static inline std::vector<T> random_choice(const std::vector<T> &elems,
+            const int size,
+            std::vector<double> weights = std::vector<double>())
+    {
+        if (weights.empty()) weights.resize(elems.size(), 1);
+        assert(weights.size() == elems.size());
+        // double weights_sum = accumulate(ALL(weights), 0.0);
+        // for(uint i = 1; i < weights.resize(); i++)
+        for (uint i = 1; i < weights.size(); i++) {
+            weights[i] += weights[i - 1];
+        }
+        std::default_random_engine gen(0);
+        std::uniform_real_distribution<double> d(0.0, weights.back());
+        std::vector<T> result(size);
+        for (int i = 0; i < size; i++) {
+            auto w = d(gen);
+            auto it = std::lower_bound(ALL(weights), w);
+            result[i] = elems[it - weights.begin()];
+        }
+        return result;
     }
 }
 #endif /* INCLUDES_MATH_FUNCTIONS_H_ */

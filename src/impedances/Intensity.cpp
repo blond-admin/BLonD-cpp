@@ -95,7 +95,7 @@ InputTable::InputTable(const f_vector_t& input1, const f_vector_t& input2,
 InputTable::~InputTable() {}
 
 void InputTable::wake_calc(const f_vector_t& NewTimeArray) {
-    mymath::lin_interp(NewTimeArray, fTimeArray, fWakeArray, fWake, 0.0f, 0.0f);
+    mymath::interp(NewTimeArray, fTimeArray, fWakeArray, fWake, 0.0f, 0.0f);
 }
 
 void InputTable::imped_calc(const f_vector_t& NewFrequencyArray) {
@@ -103,10 +103,10 @@ void InputTable::imped_calc(const f_vector_t& NewFrequencyArray) {
     f_vector_t ReZ;
     f_vector_t ImZ;
 
-    mymath::lin_interp(NewFrequencyArray, fFrequencyArrayLoaded,
+    mymath::interp(NewFrequencyArray, fFrequencyArrayLoaded,
                        fReZArrayLoaded, ReZ, 0.0f, 0.0f);
 
-    mymath::lin_interp(NewFrequencyArray, fFrequencyArrayLoaded,
+    mymath::interp(NewFrequencyArray, fFrequencyArrayLoaded,
                        fImZArrayLoaded, ImZ, 0.0f, 0.0f);
 
     fFreqArray = NewFrequencyArray;

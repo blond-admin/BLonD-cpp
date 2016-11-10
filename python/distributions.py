@@ -796,6 +796,7 @@ def line_density_function(coord_array, dist_type, bunch_length, bunch_position=0
 
 def plot_generated_bunch(time_line_den, line_density, time_coord_for_grid,
                          reconstructed_line_den, plot, figdir):
+    import os
     plt.figure('Generated bunch')
     plt.plot(time_line_den, line_density)
     plt.plot(time_coord_for_grid, reconstructed_line_den /
@@ -805,6 +806,8 @@ def plot_generated_bunch(time_line_den, line_density, time_coord_for_grid,
         plt.show()
     elif plot == 'savefig':
         fign = figdir + '/generated_bunch.png'
+        if not os.path.exists(figdir):
+            os.makedirs(figdir)
         plt.savefig(fign)
 
 

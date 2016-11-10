@@ -77,16 +77,14 @@ namespace mymath {
         #pragma omp parallel for
         for (auto n = 0; n < size; ++n) {
             res[n] = 0;
-            const uint kmin = (n >= KernelLen - 1) ? n - (KernelLen - 1) : 0;
-            const uint kmax = (n < SignalLen - 1) ? n : SignalLen - 1;
-            // uint j = n - kmin;
-            for (uint k = kmin; k <= kmax; k++) {
+            const int kmin = (n >= KernelLen - 1) ? n - (KernelLen - 1) : 0;
+            const int kmax = (n < SignalLen - 1) ? n : SignalLen - 1;
+            for (int k = kmin; k <= kmax; k++) {
                 res[n] += signal[k] * kernel[n - k];
                 //--j;
             }
         }
     }
-
 
 
     // Parameters are like python's np.interp
@@ -114,6 +112,7 @@ namespace mymath {
         const auto max = xp.back();
         const auto min = xp.front();
 
+        // #pragma omp parallel for
         for (int i = 0; i < N; ++i) {
             int pos = std::lower_bound(xp.begin(), xp.end(), x[i]) - xp.begin();
             if (pos == M)
@@ -422,8 +421,7 @@ namespace mymath {
     {
         if (weights.empty()) weights.resize(elems.size(), 1);
         assert(weights.size() == elems.size());
-        // double weights_sum = accumulate(ALL(weights), 0.0);
-        // for(uint i = 1; i < weights.resize(); i++)
+        // calculate cumulative sum
         for (uint i = 1; i < weights.size(); i++) {
             weights[i] += weights[i - 1];
         }

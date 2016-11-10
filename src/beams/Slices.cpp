@@ -9,6 +9,7 @@
 #include <blond/math_functions.h>
 #include <blond/fft.h>
 #include <blond/python.h>
+#include <blond/vector_math.h>
 
 Slices::Slices(RfParameters *RfP, Beams *Beam, int n_slices,
                int n_sigma, double cut_left, double cut_right,
@@ -270,27 +271,20 @@ void Slices::rms()
     * Computation of the RMS bunch length and position from the line density
     (bunch length = 4sigma).*
     */
-    f_vector_t lineDenNormalized(n_slices); // = new double[n_slices];
-    f_vector_t array(n_slices);             // = new double[n_slices];
 
     const auto timeResolution = bin_centers[1] - bin_centers[0];
-    const auto trap = mymath::trapezoid(n_macroparticles.data(),
-                                        timeResolution,
-                                        n_slices);
+    const auto trap = mymath::trapezoid(n_macroparticles, timeResolution);
 
-    for (int i = 0; i < n_slices; ++i)
-        lineDenNormalized[i] = n_macroparticles[i] / trap;
-    for (int i = 0; i < n_slices; ++i)
-        array[i] = bin_centers[i] * lineDenNormalized[i];
+    auto lineDen = n_macroparticles / trap;
+    bp_rms = mymath::trapezoid(bin_centers * lineDen, timeResolution);
 
-    bp_rms = mymath::trapezoid(array.data(), timeResolution, n_slices);
+    auto temp = mymath::trapezoid(
+                    apply_f(bin_centers - bp_rms,
+    [](double x) {return x * x; }) * lineDen, timeResolution);
 
-    for (int i = 0; i <  n_slices; ++i)
-        array[i] = (bin_centers[i] - bp_rms) * (bin_centers[i] - bp_rms) *
-                   lineDenNormalized[i];
-
-    auto temp = mymath::trapezoid(array.data(), timeResolution, n_slices);
     bl_rms = 4 * std::sqrt(temp);
+    f_vector_t a;
+    lineDen.swap(a);
 }
 
 
@@ -414,7 +408,7 @@ void Slices::beam_profile_derivative(f_vector_t &x,
         for (auto &d : diffCenters) d += dist_centers / 2;
         f_vector_t res;
         mymath::interp(x, diffCenters, derivative,
-                           res, derivative.front(), derivative.back());
+                       res, derivative.front(), derivative.back());
         derivative = res;
     } else {
         std::cerr << "Option for derivative is not recognized.\n";

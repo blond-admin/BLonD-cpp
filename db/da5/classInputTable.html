@@ -209,34 +209,34 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00068">68</a> of file <a class="el" href="../../d1/dca/Intensity_8cpp_source.html">Intensity.cpp</a>.</p>
+<p>Definition at line <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00065">65</a> of file <a class="el" href="../../d1/dca/Intensity_8cpp_source.html">Intensity.cpp</a>.</p>
 
 <p>References <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00054">fFrequencyArrayLoaded</a>, <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00057">fImpedanceLoaded</a>, <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00056">fImZArrayLoaded</a>, <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00055">fReZArrayLoaded</a>, <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00020">Intensity::fTimeArray</a>, and <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00058">fWakeArray</a>.</p>
-<div class="fragment"><div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                                                {</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">if</span> (input3.empty()) {</div>
+<div class="fragment"><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                                                {</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">if</span> (input3.empty()) {</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <a class="code" href="../../dc/dad/classIntensity.html#a2065b2d9fb0e0e103bf82a7804cb0a3d">fTimeArray</a> = input1;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <a class="code" href="../../db/da5/classInputTable.html#a628a51ccd61712353935df8caddf534b">fWakeArray</a> = input2;</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <a class="code" href="../../dc/dad/classIntensity.html#a2065b2d9fb0e0e103bf82a7804cb0a3d">fTimeArray</a> = input1;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <a class="code" href="../../db/da5/classInputTable.html#a628a51ccd61712353935df8caddf534b">fWakeArray</a> = input2;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <a class="code" href="../../db/da5/classInputTable.html#a861009bb6a8b2ab970fc11393f95e8ce">fFrequencyArrayLoaded</a> = input1;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <a class="code" href="../../db/da5/classInputTable.html#a31da62c4264dc4b59ef60eda07ff4586">fReZArrayLoaded</a> = input2;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <a class="code" href="../../db/da5/classInputTable.html#a17110ac9d2441a0a1634f127996167cd">fImZArrayLoaded</a> = input3;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        assert(<a class="code" href="../../db/da5/classInputTable.html#a31da62c4264dc4b59ef60eda07ff4586">fReZArrayLoaded</a>.size() == <a class="code" href="../../db/da5/classInputTable.html#a17110ac9d2441a0a1634f127996167cd">fImZArrayLoaded</a>.size());</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; <a class="code" href="../../db/da5/classInputTable.html#a31da62c4264dc4b59ef60eda07ff4586">fReZArrayLoaded</a>.size(); ++i) {</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            <a class="code" href="../../d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2">complex_t</a> z(<a class="code" href="../../db/da5/classInputTable.html#a31da62c4264dc4b59ef60eda07ff4586">fReZArrayLoaded</a>[i], <a class="code" href="../../db/da5/classInputTable.html#a17110ac9d2441a0a1634f127996167cd">fImZArrayLoaded</a>[i]);</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            <a class="code" href="../../db/da5/classInputTable.html#a13a8990ab04fa83755b4ab0f88e37e1c">fImpedanceLoaded</a>.push_back(z);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        }</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="../../db/da5/classInputTable.html#a861009bb6a8b2ab970fc11393f95e8ce">fFrequencyArrayLoaded</a>[0] != 0) {</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            <a class="code" href="../../db/da5/classInputTable.html#a861009bb6a8b2ab970fc11393f95e8ce">fFrequencyArrayLoaded</a>.insert(<a class="code" href="../../db/da5/classInputTable.html#a861009bb6a8b2ab970fc11393f95e8ce">fFrequencyArrayLoaded</a>.begin(), 0);</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            <a class="code" href="../../db/da5/classInputTable.html#a31da62c4264dc4b59ef60eda07ff4586">fReZArrayLoaded</a>.insert(<a class="code" href="../../db/da5/classInputTable.html#a31da62c4264dc4b59ef60eda07ff4586">fReZArrayLoaded</a>.begin(), 0);</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            <a class="code" href="../../db/da5/classInputTable.html#a17110ac9d2441a0a1634f127996167cd">fImZArrayLoaded</a>.insert(<a class="code" href="../../db/da5/classInputTable.html#a17110ac9d2441a0a1634f127996167cd">fImZArrayLoaded</a>.begin(), 0);</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        }</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    }</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;}</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <a class="code" href="../../db/da5/classInputTable.html#a861009bb6a8b2ab970fc11393f95e8ce">fFrequencyArrayLoaded</a> = input1;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <a class="code" href="../../db/da5/classInputTable.html#a31da62c4264dc4b59ef60eda07ff4586">fReZArrayLoaded</a> = input2;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <a class="code" href="../../db/da5/classInputTable.html#a17110ac9d2441a0a1634f127996167cd">fImZArrayLoaded</a> = input3;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        assert(<a class="code" href="../../db/da5/classInputTable.html#a31da62c4264dc4b59ef60eda07ff4586">fReZArrayLoaded</a>.size() == <a class="code" href="../../db/da5/classInputTable.html#a17110ac9d2441a0a1634f127996167cd">fImZArrayLoaded</a>.size());</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; <a class="code" href="../../db/da5/classInputTable.html#a31da62c4264dc4b59ef60eda07ff4586">fReZArrayLoaded</a>.size(); ++i) {</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            <a class="code" href="../../d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2">complex_t</a> z(<a class="code" href="../../db/da5/classInputTable.html#a31da62c4264dc4b59ef60eda07ff4586">fReZArrayLoaded</a>[i], <a class="code" href="../../db/da5/classInputTable.html#a17110ac9d2441a0a1634f127996167cd">fImZArrayLoaded</a>[i]);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            <a class="code" href="../../db/da5/classInputTable.html#a13a8990ab04fa83755b4ab0f88e37e1c">fImpedanceLoaded</a>.push_back(z);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        }</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="../../db/da5/classInputTable.html#a861009bb6a8b2ab970fc11393f95e8ce">fFrequencyArrayLoaded</a>[0] != 0) {</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            <a class="code" href="../../db/da5/classInputTable.html#a861009bb6a8b2ab970fc11393f95e8ce">fFrequencyArrayLoaded</a>.insert(<a class="code" href="../../db/da5/classInputTable.html#a861009bb6a8b2ab970fc11393f95e8ce">fFrequencyArrayLoaded</a>.begin(), 0);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            <a class="code" href="../../db/da5/classInputTable.html#a31da62c4264dc4b59ef60eda07ff4586">fReZArrayLoaded</a>.insert(<a class="code" href="../../db/da5/classInputTable.html#a31da62c4264dc4b59ef60eda07ff4586">fReZArrayLoaded</a>.begin(), 0);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            <a class="code" href="../../db/da5/classInputTable.html#a17110ac9d2441a0a1634f127996167cd">fImZArrayLoaded</a>.insert(<a class="code" href="../../db/da5/classInputTable.html#a17110ac9d2441a0a1634f127996167cd">fImZArrayLoaded</a>.begin(), 0);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        }</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    }</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -253,8 +253,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00095">95</a> of file <a class="el" href="../../d1/dca/Intensity_8cpp_source.html">Intensity.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;{}</div>
+<p>Definition at line <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00092">92</a> of file <a class="el" href="../../d1/dca/Intensity_8cpp_source.html">Intensity.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;{}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -283,29 +283,29 @@ Public Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="../../dc/dad/classIntensity.html#a914f7d935a7eac319cdf1c3ef79d76bf">Intensity</a>.</p>
 
-<p>Definition at line <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00101">101</a> of file <a class="el" href="../../d1/dca/Intensity_8cpp_source.html">Intensity.cpp</a>.</p>
+<p>Definition at line <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00098">98</a> of file <a class="el" href="../../d1/dca/Intensity_8cpp_source.html">Intensity.cpp</a>.</p>
 
 <p>References <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00022">Intensity::fFreqArray</a>, <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00054">fFrequencyArrayLoaded</a>, <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00026">Intensity::fImpedance</a>, <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00056">fImZArrayLoaded</a>, <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00055">fReZArrayLoaded</a>, and <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00097">mymath::interp()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                                                               {</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="comment">// Impedance calculation method as a function of frequency.*</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> ReZ;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> ImZ;</div>
+<div class="fragment"><div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                                                               {</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="comment">// Impedance calculation method as a function of frequency.*</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> ReZ;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> ImZ;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <a class="code" href="../../df/d6d/namespacemymath.html#a9be6643559654e4fd81774f43bd8cdc0">mymath::interp</a>(NewFrequencyArray, <a class="code" href="../../db/da5/classInputTable.html#a861009bb6a8b2ab970fc11393f95e8ce">fFrequencyArrayLoaded</a>,</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                       <a class="code" href="../../db/da5/classInputTable.html#a31da62c4264dc4b59ef60eda07ff4586">fReZArrayLoaded</a>, ReZ, 0.0f, 0.0f);</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <a class="code" href="../../df/d6d/namespacemymath.html#a9be6643559654e4fd81774f43bd8cdc0">mymath::interp</a>(NewFrequencyArray, <a class="code" href="../../db/da5/classInputTable.html#a861009bb6a8b2ab970fc11393f95e8ce">fFrequencyArrayLoaded</a>,</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                       <a class="code" href="../../db/da5/classInputTable.html#a31da62c4264dc4b59ef60eda07ff4586">fReZArrayLoaded</a>, ReZ, 0.0f, 0.0f);</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                       <a class="code" href="../../db/da5/classInputTable.html#a17110ac9d2441a0a1634f127996167cd">fImZArrayLoaded</a>, ImZ, 0.0f, 0.0f);</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <a class="code" href="../../df/d6d/namespacemymath.html#a9be6643559654e4fd81774f43bd8cdc0">mymath::interp</a>(NewFrequencyArray, <a class="code" href="../../db/da5/classInputTable.html#a861009bb6a8b2ab970fc11393f95e8ce">fFrequencyArrayLoaded</a>,</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                       <a class="code" href="../../db/da5/classInputTable.html#a17110ac9d2441a0a1634f127996167cd">fImZArrayLoaded</a>, ImZ, 0.0f, 0.0f);</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <a class="code" href="../../dc/dad/classIntensity.html#accd9b13fe550ae2761b5f73a70922b8d">fFreqArray</a> = NewFrequencyArray;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="comment">// Initializing real and imaginary part separately has been</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="comment">// omitted</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <a class="code" href="../../dc/dad/classIntensity.html#af9a843a9870ef6b98b3b8eed5baa54d1">fImpedance</a>.resize(ReZ.size());</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; ReZ.size(); ++i) {</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <a class="code" href="../../dc/dad/classIntensity.html#af9a843a9870ef6b98b3b8eed5baa54d1">fImpedance</a>[i] = <a class="code" href="../../d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2">complex_t</a>(ReZ[i], ImZ[i]);</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    }</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;}</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <a class="code" href="../../dc/dad/classIntensity.html#accd9b13fe550ae2761b5f73a70922b8d">fFreqArray</a> = NewFrequencyArray;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="comment">// Initializing real and imaginary part separately has been</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="comment">// omitted</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <a class="code" href="../../dc/dad/classIntensity.html#af9a843a9870ef6b98b3b8eed5baa54d1">fImpedance</a>.resize(ReZ.size());</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; ReZ.size(); ++i) {</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <a class="code" href="../../dc/dad/classIntensity.html#af9a843a9870ef6b98b3b8eed5baa54d1">fImpedance</a>[i] = <a class="code" href="../../d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2">complex_t</a>(ReZ[i], ImZ[i]);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    }</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;}</div>
 </div><!-- fragment -->
 <p><div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
@@ -343,12 +343,12 @@ Public Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="../../dc/dad/classIntensity.html#a4cfe3f8c21314f1c9496ee715dfc08ef">Intensity</a>.</p>
 
-<p>Definition at line <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00097">97</a> of file <a class="el" href="../../d1/dca/Intensity_8cpp_source.html">Intensity.cpp</a>.</p>
+<p>Definition at line <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00094">94</a> of file <a class="el" href="../../d1/dca/Intensity_8cpp_source.html">Intensity.cpp</a>.</p>
 
 <p>References <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00020">Intensity::fTimeArray</a>, <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00024">Intensity::fWake</a>, <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00058">fWakeArray</a>, and <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00097">mymath::interp()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                                                         {</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <a class="code" href="../../df/d6d/namespacemymath.html#a9be6643559654e4fd81774f43bd8cdc0">mymath::interp</a>(NewTimeArray, <a class="code" href="../../dc/dad/classIntensity.html#a2065b2d9fb0e0e103bf82a7804cb0a3d">fTimeArray</a>, <a class="code" href="../../db/da5/classInputTable.html#a628a51ccd61712353935df8caddf534b">fWakeArray</a>, <a class="code" href="../../dc/dad/classIntensity.html#ad9e27f15dc5d8b0e39ab9e7eace2aef6">fWake</a>, 0.0f, 0.0f);</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;}</div>
+<div class="fragment"><div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                                                         {</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <a class="code" href="../../df/d6d/namespacemymath.html#a9be6643559654e4fd81774f43bd8cdc0">mymath::interp</a>(NewTimeArray, <a class="code" href="../../dc/dad/classIntensity.html#a2065b2d9fb0e0e103bf82a7804cb0a3d">fTimeArray</a>, <a class="code" href="../../db/da5/classInputTable.html#a628a51ccd61712353935df8caddf534b">fWakeArray</a>, <a class="code" href="../../dc/dad/classIntensity.html#ad9e27f15dc5d8b0e39ab9e7eace2aef6">fWake</a>, 0.0f, 0.0f);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;}</div>
 </div><!-- fragment -->
 <p><div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
@@ -375,7 +375,7 @@ Public Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00054">54</a> of file <a class="el" href="../../d6/d70/Intensity_8h_source.html">Intensity.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00101">imped_calc()</a>, and <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00068">InputTable()</a>.</p>
+<p>Referenced by <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00098">imped_calc()</a>, and <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00065">InputTable()</a>.</p>
 
 </div>
 </div>
@@ -391,7 +391,7 @@ Public Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00057">57</a> of file <a class="el" href="../../d6/d70/Intensity_8h_source.html">Intensity.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00068">InputTable()</a>.</p>
+<p>Referenced by <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00065">InputTable()</a>.</p>
 
 </div>
 </div>
@@ -407,7 +407,7 @@ Public Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00056">56</a> of file <a class="el" href="../../d6/d70/Intensity_8h_source.html">Intensity.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00101">imped_calc()</a>, and <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00068">InputTable()</a>.</p>
+<p>Referenced by <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00098">imped_calc()</a>, and <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00065">InputTable()</a>.</p>
 
 </div>
 </div>
@@ -423,7 +423,7 @@ Public Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00055">55</a> of file <a class="el" href="../../d6/d70/Intensity_8h_source.html">Intensity.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00101">imped_calc()</a>, and <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00068">InputTable()</a>.</p>
+<p>Referenced by <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00098">imped_calc()</a>, and <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00065">InputTable()</a>.</p>
 
 </div>
 </div>
@@ -439,7 +439,7 @@ Public Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d6/d70/Intensity_8h_source.html#l00058">58</a> of file <a class="el" href="../../d6/d70/Intensity_8h_source.html">Intensity.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00068">InputTable()</a>, and <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00097">wake_calc()</a>.</p>
+<p>Referenced by <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00065">InputTable()</a>, and <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00094">wake_calc()</a>.</p>
 
 </div>
 </div>
@@ -449,7 +449,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../db/da5/classInputTable.html">InputTable</a></li>
-    <li class="footer">Generated on Thu Nov 10 2016 14:08:48 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Thu Nov 10 2016 16:25:59 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

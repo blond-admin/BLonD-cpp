@@ -327,107 +327,101 @@ Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00012">12</a> of file <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html">GeneralParameters.cpp</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00014">14</a> of file <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html">GeneralParameters.cpp</a>.</p>
 
-<p>References <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00034">alpha</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00029">alpha_order</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00039">beta</a>, <a class="el" href="../../d2/d6f/constants_8h_source.html#l00018">constant::c</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00032">charge</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00032">charge2</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00043">cycle_time</a>, <a class="el" href="../../de/df0/utilities_8h_source.html#l00051">dprintf</a>, <a class="el" href="../../d2/d6f/constants_8h_source.html#l00017">constant::e</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00025">electron</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00041">energy</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00046">eta_0</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00046">eta_1</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00046">eta_2</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00119">eta_generation()</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00044">f_rev</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00040">gamma</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00042">kin_energy</a>, <a class="el" href="../../d2/d6f/constants_8h_source.html#l00016">constant::m_e</a>, <a class="el" href="../../d2/d6f/constants_8h_source.html#l00015">constant::m_p</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00031">mass</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00031">mass2</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00035">momentum</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00027">n_sections</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00028">n_turns</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00025">none</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00044">omega_rev</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00030">particle</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00030">particle_2</a>, <a class="el" href="../../d2/d6f/constants_8h_source.html#l00019">constant::pi</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00025">proton</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00037">ring_circumference</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00036">ring_length</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00038">ring_radius</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00045">t_rev</a>, and <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00025">user_input</a>.</p>
-<div class="fragment"><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    this-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a7e054b33a2af57a70a84fc940b8350ae">particle</a> = _particle;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    this-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#acf1806cc242bad5ff7c5435cf670272f">particle_2</a> = _particle2;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    this-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a841441cee26c6af115bcf84e218b9795">n_sections</a> = number_of_sections;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../d1/dfc/classGeneralParameters.html#a7e054b33a2af57a70a84fc940b8350ae">particle</a> == <a class="code" href="../../d1/dfc/classGeneralParameters.html#aa00c27fcf78145c8d9cb4e2ca446871ea42403abbbd247a7edbac173f69a1eac3">proton</a>) {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a7947471d0866a47f0dc3202c63a432bd">mass</a> = <a class="code" href="../../da/db5/namespaceconstant.html#a50b3384a5f9abb737cb228ba2d781381">constant::m_p</a> * <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">constant::c</a> * <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">constant::c</a> / <a class="code" href="../../da/db5/namespaceconstant.html#ac8669eb61b1b2cb90269446e1b7e0ed2">constant::e</a>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a31759496b44dcf96ca8f247ec3e9873c">charge</a> = 1;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="../../d1/dfc/classGeneralParameters.html#a7e054b33a2af57a70a84fc940b8350ae">particle</a> == <a class="code" href="../../d1/dfc/classGeneralParameters.html#aa00c27fcf78145c8d9cb4e2ca446871ea40b7add7fbdefe8e9b70d6ac05073e65">electron</a>) {</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a7947471d0866a47f0dc3202c63a432bd">mass</a> = <a class="code" href="../../da/db5/namespaceconstant.html#a76d454fe8f8779dc3298e881b11b5c56">constant::m_e</a> * <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">constant::c</a> * <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">constant::c</a> / <a class="code" href="../../da/db5/namespaceconstant.html#ac8669eb61b1b2cb90269446e1b7e0ed2">constant::e</a>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a31759496b44dcf96ca8f247ec3e9873c">charge</a> = -1;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="../../d1/dfc/classGeneralParameters.html#a7e054b33a2af57a70a84fc940b8350ae">particle</a> == <a class="code" href="../../d1/dfc/classGeneralParameters.html#aa00c27fcf78145c8d9cb4e2ca446871ea5212ede93f983717c87879e8eda09df1">user_input</a>) {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a7947471d0866a47f0dc3202c63a432bd">mass</a> = user_mass;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a31759496b44dcf96ca8f247ec3e9873c">charge</a> = user_charge;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <a class="code" href="../../de/df0/utilities_8h.html#a0fb7bf82c787085c8b1ef0ad7d028424">dprintf</a>(<span class="stringliteral">&quot;ERROR: Particle type not recognized!&quot;</span>);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        exit(-1);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    }</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../d1/dfc/classGeneralParameters.html#acf1806cc242bad5ff7c5435cf670272f">particle_2</a> == <a class="code" href="../../d1/dfc/classGeneralParameters.html#aa00c27fcf78145c8d9cb4e2ca446871ea5d5ddb8635c7554d6bcf1f263e0235d4">none</a>) {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        ;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="../../d1/dfc/classGeneralParameters.html#acf1806cc242bad5ff7c5435cf670272f">particle_2</a> == <a class="code" href="../../d1/dfc/classGeneralParameters.html#aa00c27fcf78145c8d9cb4e2ca446871ea42403abbbd247a7edbac173f69a1eac3">proton</a>) {</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a2262f519b3707a6d5ba5bbc6f3c949fa">mass2</a> = <a class="code" href="../../da/db5/namespaceconstant.html#a50b3384a5f9abb737cb228ba2d781381">constant::m_p</a> * <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">constant::c</a> * <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">constant::c</a> / <a class="code" href="../../da/db5/namespaceconstant.html#ac8669eb61b1b2cb90269446e1b7e0ed2">constant::e</a>;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a3d27d07d86c35db8a0320ff98c7f9cdc">charge2</a> = 1;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="../../d1/dfc/classGeneralParameters.html#a7e054b33a2af57a70a84fc940b8350ae">particle</a> == <a class="code" href="../../d1/dfc/classGeneralParameters.html#aa00c27fcf78145c8d9cb4e2ca446871ea40b7add7fbdefe8e9b70d6ac05073e65">electron</a>) {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a2262f519b3707a6d5ba5bbc6f3c949fa">mass2</a> = <a class="code" href="../../da/db5/namespaceconstant.html#a76d454fe8f8779dc3298e881b11b5c56">constant::m_e</a> * <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">constant::c</a> * <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">constant::c</a> / <a class="code" href="../../da/db5/namespaceconstant.html#ac8669eb61b1b2cb90269446e1b7e0ed2">constant::e</a>;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a3d27d07d86c35db8a0320ff98c7f9cdc">charge2</a> = -1;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="../../d1/dfc/classGeneralParameters.html#a7e054b33a2af57a70a84fc940b8350ae">particle</a> == <a class="code" href="../../d1/dfc/classGeneralParameters.html#aa00c27fcf78145c8d9cb4e2ca446871ea5212ede93f983717c87879e8eda09df1">user_input</a>) {</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a2262f519b3707a6d5ba5bbc6f3c949fa">mass2</a> = user_mass_2;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a3d27d07d86c35db8a0320ff98c7f9cdc">charge2</a> = user_charge_2;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <a class="code" href="../../de/df0/utilities_8h.html#a0fb7bf82c787085c8b1ef0ad7d028424">dprintf</a>(<span class="stringliteral">&quot;ERROR: Second particle type not recognized!&quot;</span>);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        exit(-1);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    }</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    this-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a3172f667299d54f46f2eae03baf8fefc">n_turns</a> = _n_turns;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    this-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#aea11b2e34e53638809f9764489230dbf">momentum</a> = _momentum;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    this-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a868037d5c025a61382638689dd03e222">alpha_order</a> = _alpha_order - 1;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    this-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#aef606da69340a645340e73b16e03465d">alpha</a> = _alpha;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    this-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a1a1681992a7947522ab831656ff41f1e">ring_length</a> = _ring_length;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    this-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#aa66806ebe9d5eb2f8e3ea334cb60b37a">ring_circumference</a> =</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        std::accumulate(<a class="code" href="../../d1/dfc/classGeneralParameters.html#a1a1681992a7947522ab831656ff41f1e">ring_length</a>.begin(), <a class="code" href="../../d1/dfc/classGeneralParameters.html#a1a1681992a7947522ab831656ff41f1e">ring_length</a>.end(), 0.0);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    this-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a6af0a75ba89dd912483ef5fb210b473a">ring_radius</a> = <a class="code" href="../../d1/dfc/classGeneralParameters.html#aa66806ebe9d5eb2f8e3ea334cb60b37a">ring_circumference</a> / (2 * <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a>);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../d1/dfc/classGeneralParameters.html#a841441cee26c6af115bcf84e218b9795">n_sections</a> &gt; 1) {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="comment">// TODO do some things inside here</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="comment">// Should ask danilo about this</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="comment">// Danilo told me we could skip this for now</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    }</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    this-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a9f4d8b1a9de704f5477f27c2aeebbab1">gamma</a>.resize(<a class="code" href="../../d1/dfc/classGeneralParameters.html#a841441cee26c6af115bcf84e218b9795">n_sections</a>, <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a>(<a class="code" href="../../d1/dfc/classGeneralParameters.html#a3172f667299d54f46f2eae03baf8fefc">n_turns</a> + 1));</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    this-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a1dfbb2b28b96314abba548b4a750fce8">beta</a>.resize(<a class="code" href="../../d1/dfc/classGeneralParameters.html#a841441cee26c6af115bcf84e218b9795">n_sections</a>, <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a>(<a class="code" href="../../d1/dfc/classGeneralParameters.html#a3172f667299d54f46f2eae03baf8fefc">n_turns</a> + 1));</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    this-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#ad95d8eaac393bbb3210b8cf10ab0a20a">energy</a>.resize(<a class="code" href="../../d1/dfc/classGeneralParameters.html#a841441cee26c6af115bcf84e218b9795">n_sections</a>, <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a>(<a class="code" href="../../d1/dfc/classGeneralParameters.html#a3172f667299d54f46f2eae03baf8fefc">n_turns</a> + 1));</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    this-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a8ea497d1de23017318332812d823c4fe">kin_energy</a>.resize(<a class="code" href="../../d1/dfc/classGeneralParameters.html#a841441cee26c6af115bcf84e218b9795">n_sections</a>, <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a>(<a class="code" href="../../d1/dfc/classGeneralParameters.html#a3172f667299d54f46f2eae03baf8fefc">n_turns</a> + 1));</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> masssq = <a class="code" href="../../d1/dfc/classGeneralParameters.html#a7947471d0866a47f0dc3202c63a432bd">mass</a> * <a class="code" href="../../d1/dfc/classGeneralParameters.html#a7947471d0866a47f0dc3202c63a432bd">mass</a>;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="../../d1/dfc/classGeneralParameters.html#a841441cee26c6af115bcf84e218b9795">n_sections</a>; ++i) {</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; <a class="code" href="../../d1/dfc/classGeneralParameters.html#a3172f667299d54f46f2eae03baf8fefc">n_turns</a> + 1; ++j) {</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> momentumsq = <a class="code" href="../../d1/dfc/classGeneralParameters.html#aea11b2e34e53638809f9764489230dbf">momentum</a>[i][j] * <a class="code" href="../../d1/dfc/classGeneralParameters.html#aea11b2e34e53638809f9764489230dbf">momentum</a>[i][j];</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            this-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a1dfbb2b28b96314abba548b4a750fce8">beta</a>[i][j] = std::sqrt(1 / (1 + (masssq / momentumsq)));</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            this-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a9f4d8b1a9de704f5477f27c2aeebbab1">gamma</a>[i][j] = std::sqrt(1 + (momentumsq / masssq));</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            this-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#ad95d8eaac393bbb3210b8cf10ab0a20a">energy</a>[i][j] = std::sqrt(masssq + momentumsq);</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            this-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a8ea497d1de23017318332812d823c4fe">kin_energy</a>[i][j] = <a class="code" href="../../d1/dfc/classGeneralParameters.html#ad95d8eaac393bbb3210b8cf10ab0a20a">energy</a>[i][j] - <a class="code" href="../../d1/dfc/classGeneralParameters.html#a7947471d0866a47f0dc3202c63a432bd">mass</a>;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        }</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    }</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <a class="code" href="../../d1/dfc/classGeneralParameters.html#a17a3d67f7fa8e725b0e6e1fdb8ddd35c">t_rev</a>.resize(n_turns + 1, 0);</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="../../d1/dfc/classGeneralParameters.html#a841441cee26c6af115bcf84e218b9795">n_sections</a>; ++i)</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; n_turns + 1; ++j)</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            <a class="code" href="../../d1/dfc/classGeneralParameters.html#a17a3d67f7fa8e725b0e6e1fdb8ddd35c">t_rev</a>[j] += <a class="code" href="../../d1/dfc/classGeneralParameters.html#a1a1681992a7947522ab831656ff41f1e">ring_length</a>[i] / (<a class="code" href="../../d1/dfc/classGeneralParameters.html#a1dfbb2b28b96314abba548b4a750fce8">beta</a>[i][j] * <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">constant::c</a>);</div>
+<p>References <a class="el" href="../../de/df0/utilities_8h_source.html#l00055">ALL</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00034">alpha</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00029">alpha_order</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00039">beta</a>, <a class="el" href="../../d2/d6f/constants_8h_source.html#l00018">constant::c</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00032">charge</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00032">charge2</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00043">cycle_time</a>, <a class="el" href="../../de/df0/utilities_8h_source.html#l00051">dprintf</a>, <a class="el" href="../../d2/d6f/constants_8h_source.html#l00017">constant::e</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00025">electron</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00041">energy</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00046">eta_0</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00046">eta_1</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00046">eta_2</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00115">eta_generation()</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00044">f_rev</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00040">gamma</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00042">kin_energy</a>, <a class="el" href="../../d2/d6f/constants_8h_source.html#l00016">constant::m_e</a>, <a class="el" href="../../d2/d6f/constants_8h_source.html#l00015">constant::m_p</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00031">mass</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00031">mass2</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00035">momentum</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00027">n_sections</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00028">n_turns</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00025">none</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00044">omega_rev</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00030">particle</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00030">particle_2</a>, <a class="el" href="../../d2/d6f/constants_8h_source.html#l00019">constant::pi</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00025">proton</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00037">ring_circumference</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00036">ring_length</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00038">ring_radius</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00045">t_rev</a>, and <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00025">user_input</a>.</p>
+<div class="fragment"><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;{</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="../../d1/dfc/classGeneralParameters.html#a7e054b33a2af57a70a84fc940b8350ae">particle</a> = _particle;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="../../d1/dfc/classGeneralParameters.html#acf1806cc242bad5ff7c5435cf670272f">particle_2</a> = _particle2;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="../../d1/dfc/classGeneralParameters.html#a841441cee26c6af115bcf84e218b9795">n_sections</a> = number_of_sections;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../d1/dfc/classGeneralParameters.html#a7e054b33a2af57a70a84fc940b8350ae">particle</a> == <a class="code" href="../../d1/dfc/classGeneralParameters.html#aa00c27fcf78145c8d9cb4e2ca446871ea42403abbbd247a7edbac173f69a1eac3">proton</a>) {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a7947471d0866a47f0dc3202c63a432bd">mass</a> = <a class="code" href="../../da/db5/namespaceconstant.html#a50b3384a5f9abb737cb228ba2d781381">constant::m_p</a> * <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">constant::c</a> * <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">constant::c</a> / <a class="code" href="../../da/db5/namespaceconstant.html#ac8669eb61b1b2cb90269446e1b7e0ed2">constant::e</a>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a31759496b44dcf96ca8f247ec3e9873c">charge</a> = 1;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="../../d1/dfc/classGeneralParameters.html#a7e054b33a2af57a70a84fc940b8350ae">particle</a> == <a class="code" href="../../d1/dfc/classGeneralParameters.html#aa00c27fcf78145c8d9cb4e2ca446871ea40b7add7fbdefe8e9b70d6ac05073e65">electron</a>) {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a7947471d0866a47f0dc3202c63a432bd">mass</a> = <a class="code" href="../../da/db5/namespaceconstant.html#a76d454fe8f8779dc3298e881b11b5c56">constant::m_e</a> * <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">constant::c</a> * <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">constant::c</a> / <a class="code" href="../../da/db5/namespaceconstant.html#ac8669eb61b1b2cb90269446e1b7e0ed2">constant::e</a>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a31759496b44dcf96ca8f247ec3e9873c">charge</a> = -1;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="../../d1/dfc/classGeneralParameters.html#a7e054b33a2af57a70a84fc940b8350ae">particle</a> == <a class="code" href="../../d1/dfc/classGeneralParameters.html#aa00c27fcf78145c8d9cb4e2ca446871ea5212ede93f983717c87879e8eda09df1">user_input</a>) {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a7947471d0866a47f0dc3202c63a432bd">mass</a> = user_mass;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a31759496b44dcf96ca8f247ec3e9873c">charge</a> = user_charge;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        std::cerr &lt;&lt; <span class="stringliteral">&quot;ERROR: Particle type not recognized!\n&quot;</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        exit(-1);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    }</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../d1/dfc/classGeneralParameters.html#acf1806cc242bad5ff7c5435cf670272f">particle_2</a> == <a class="code" href="../../d1/dfc/classGeneralParameters.html#aa00c27fcf78145c8d9cb4e2ca446871ea5d5ddb8635c7554d6bcf1f263e0235d4">none</a>) {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        ;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="../../d1/dfc/classGeneralParameters.html#acf1806cc242bad5ff7c5435cf670272f">particle_2</a> == <a class="code" href="../../d1/dfc/classGeneralParameters.html#aa00c27fcf78145c8d9cb4e2ca446871ea42403abbbd247a7edbac173f69a1eac3">proton</a>) {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a2262f519b3707a6d5ba5bbc6f3c949fa">mass2</a> = <a class="code" href="../../da/db5/namespaceconstant.html#a50b3384a5f9abb737cb228ba2d781381">constant::m_p</a> * <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">constant::c</a> * <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">constant::c</a> / <a class="code" href="../../da/db5/namespaceconstant.html#ac8669eb61b1b2cb90269446e1b7e0ed2">constant::e</a>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a3d27d07d86c35db8a0320ff98c7f9cdc">charge2</a> = 1;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="../../d1/dfc/classGeneralParameters.html#a7e054b33a2af57a70a84fc940b8350ae">particle</a> == <a class="code" href="../../d1/dfc/classGeneralParameters.html#aa00c27fcf78145c8d9cb4e2ca446871ea40b7add7fbdefe8e9b70d6ac05073e65">electron</a>) {</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a2262f519b3707a6d5ba5bbc6f3c949fa">mass2</a> = <a class="code" href="../../da/db5/namespaceconstant.html#a76d454fe8f8779dc3298e881b11b5c56">constant::m_e</a> * <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">constant::c</a> * <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">constant::c</a> / <a class="code" href="../../da/db5/namespaceconstant.html#ac8669eb61b1b2cb90269446e1b7e0ed2">constant::e</a>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a3d27d07d86c35db8a0320ff98c7f9cdc">charge2</a> = -1;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="../../d1/dfc/classGeneralParameters.html#a7e054b33a2af57a70a84fc940b8350ae">particle</a> == <a class="code" href="../../d1/dfc/classGeneralParameters.html#aa00c27fcf78145c8d9cb4e2ca446871ea5212ede93f983717c87879e8eda09df1">user_input</a>) {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a2262f519b3707a6d5ba5bbc6f3c949fa">mass2</a> = user_mass_2;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a3d27d07d86c35db8a0320ff98c7f9cdc">charge2</a> = user_charge_2;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        std::cerr &lt;&lt; <span class="stringliteral">&quot;ERROR: Second particle type not recognized!\n&quot;</span>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        exit(-1);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    }</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="../../d1/dfc/classGeneralParameters.html#a3172f667299d54f46f2eae03baf8fefc">n_turns</a> = _n_turns;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <a class="code" href="../../d1/dfc/classGeneralParameters.html#aea11b2e34e53638809f9764489230dbf">momentum</a> = _momentum;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <a class="code" href="../../d1/dfc/classGeneralParameters.html#a868037d5c025a61382638689dd03e222">alpha_order</a> = _alpha_order - 1;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <a class="code" href="../../d1/dfc/classGeneralParameters.html#aef606da69340a645340e73b16e03465d">alpha</a> = _alpha;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="../../d1/dfc/classGeneralParameters.html#a1a1681992a7947522ab831656ff41f1e">ring_length</a> = _ring_length;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="../../d1/dfc/classGeneralParameters.html#aa66806ebe9d5eb2f8e3ea334cb60b37a">ring_circumference</a> = std::accumulate(<a class="code" href="../../de/df0/utilities_8h.html#a2f3c80e2df3ca3c632f7529d737384b3">ALL</a>(<a class="code" href="../../d1/dfc/classGeneralParameters.html#a1a1681992a7947522ab831656ff41f1e">ring_length</a>), 0.0);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="../../d1/dfc/classGeneralParameters.html#a6af0a75ba89dd912483ef5fb210b473a">ring_radius</a> = <a class="code" href="../../d1/dfc/classGeneralParameters.html#aa66806ebe9d5eb2f8e3ea334cb60b37a">ring_circumference</a> / (2 * <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a>);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../d1/dfc/classGeneralParameters.html#a841441cee26c6af115bcf84e218b9795">n_sections</a> &gt; 1) {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="comment">// TODO do some things inside here</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="comment">// Should ask danilo about this</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="comment">// Danilo told me we could skip this for now</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    }</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="../../d1/dfc/classGeneralParameters.html#a9f4d8b1a9de704f5477f27c2aeebbab1">gamma</a>.resize(<a class="code" href="../../d1/dfc/classGeneralParameters.html#a841441cee26c6af115bcf84e218b9795">n_sections</a>, <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a>(<a class="code" href="../../d1/dfc/classGeneralParameters.html#a3172f667299d54f46f2eae03baf8fefc">n_turns</a> + 1));</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <a class="code" href="../../d1/dfc/classGeneralParameters.html#a1dfbb2b28b96314abba548b4a750fce8">beta</a>.resize(<a class="code" href="../../d1/dfc/classGeneralParameters.html#a841441cee26c6af115bcf84e218b9795">n_sections</a>, <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a>(<a class="code" href="../../d1/dfc/classGeneralParameters.html#a3172f667299d54f46f2eae03baf8fefc">n_turns</a> + 1));</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="../../d1/dfc/classGeneralParameters.html#ad95d8eaac393bbb3210b8cf10ab0a20a">energy</a>.resize(<a class="code" href="../../d1/dfc/classGeneralParameters.html#a841441cee26c6af115bcf84e218b9795">n_sections</a>, <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a>(<a class="code" href="../../d1/dfc/classGeneralParameters.html#a3172f667299d54f46f2eae03baf8fefc">n_turns</a> + 1));</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="../../d1/dfc/classGeneralParameters.html#a8ea497d1de23017318332812d823c4fe">kin_energy</a>.resize(<a class="code" href="../../d1/dfc/classGeneralParameters.html#a841441cee26c6af115bcf84e218b9795">n_sections</a>, <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a>(<a class="code" href="../../d1/dfc/classGeneralParameters.html#a3172f667299d54f46f2eae03baf8fefc">n_turns</a> + 1));</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> masssq = <a class="code" href="../../d1/dfc/classGeneralParameters.html#a7947471d0866a47f0dc3202c63a432bd">mass</a> * <a class="code" href="../../d1/dfc/classGeneralParameters.html#a7947471d0866a47f0dc3202c63a432bd">mass</a>;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="../../d1/dfc/classGeneralParameters.html#a841441cee26c6af115bcf84e218b9795">n_sections</a>; ++i) {</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; <a class="code" href="../../d1/dfc/classGeneralParameters.html#a3172f667299d54f46f2eae03baf8fefc">n_turns</a> + 1; ++j) {</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> momentumsq = <a class="code" href="../../d1/dfc/classGeneralParameters.html#aea11b2e34e53638809f9764489230dbf">momentum</a>[i][j] * <a class="code" href="../../d1/dfc/classGeneralParameters.html#aea11b2e34e53638809f9764489230dbf">momentum</a>[i][j];</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            <a class="code" href="../../d1/dfc/classGeneralParameters.html#a1dfbb2b28b96314abba548b4a750fce8">beta</a>[i][j] = std::sqrt(1 / (1 + (masssq / momentumsq)));</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            <a class="code" href="../../d1/dfc/classGeneralParameters.html#a9f4d8b1a9de704f5477f27c2aeebbab1">gamma</a>[i][j] = std::sqrt(1 + (momentumsq / masssq));</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            <a class="code" href="../../d1/dfc/classGeneralParameters.html#ad95d8eaac393bbb3210b8cf10ab0a20a">energy</a>[i][j] = std::sqrt(masssq + momentumsq);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            <a class="code" href="../../d1/dfc/classGeneralParameters.html#a8ea497d1de23017318332812d823c4fe">kin_energy</a>[i][j] = <a class="code" href="../../d1/dfc/classGeneralParameters.html#ad95d8eaac393bbb3210b8cf10ab0a20a">energy</a>[i][j] - <a class="code" href="../../d1/dfc/classGeneralParameters.html#a7947471d0866a47f0dc3202c63a432bd">mass</a>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        }</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    }</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <a class="code" href="../../d1/dfc/classGeneralParameters.html#a17a3d67f7fa8e725b0e6e1fdb8ddd35c">t_rev</a>.resize(n_turns + 1, 0);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="../../d1/dfc/classGeneralParameters.html#a841441cee26c6af115bcf84e218b9795">n_sections</a>; ++i)</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a17a3d67f7fa8e725b0e6e1fdb8ddd35c">t_rev</a> += <a class="code" href="../../d1/dfc/classGeneralParameters.html#a1a1681992a7947522ab831656ff41f1e">ring_length</a>[i] / <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">constant::c</a> / <a class="code" href="../../d1/dfc/classGeneralParameters.html#a1dfbb2b28b96314abba548b4a750fce8">beta</a>[i];</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <a class="code" href="../../d1/dfc/classGeneralParameters.html#a9af4e15de4910bbbb4bdbd2466f84944">cycle_time</a>.resize(n_turns);</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <a class="code" href="../../d1/dfc/classGeneralParameters.html#a9af4e15de4910bbbb4bdbd2466f84944">cycle_time</a>[0] = 0;</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 1; i &lt; <a class="code" href="../../d1/dfc/classGeneralParameters.html#a3172f667299d54f46f2eae03baf8fefc">n_turns</a>; ++i)</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a9af4e15de4910bbbb4bdbd2466f84944">cycle_time</a>[i] = <a class="code" href="../../d1/dfc/classGeneralParameters.html#a17a3d67f7fa8e725b0e6e1fdb8ddd35c">t_rev</a>[i] + <a class="code" href="../../d1/dfc/classGeneralParameters.html#a9af4e15de4910bbbb4bdbd2466f84944">cycle_time</a>[i - 1];</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <a class="code" href="../../d1/dfc/classGeneralParameters.html#a6aa68d5d9c1f4ccc9d08abd9b26974a0">f_rev</a>.resize(n_turns + 1);</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n_turns + 1; ++i)</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a6aa68d5d9c1f4ccc9d08abd9b26974a0">f_rev</a>[i] = 1 / <a class="code" href="../../d1/dfc/classGeneralParameters.html#a17a3d67f7fa8e725b0e6e1fdb8ddd35c">t_rev</a>[i];</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <a class="code" href="../../d1/dfc/classGeneralParameters.html#a6aa68d5d9c1f4ccc9d08abd9b26974a0">f_rev</a> = 1.0 / <a class="code" href="../../d1/dfc/classGeneralParameters.html#a17a3d67f7fa8e725b0e6e1fdb8ddd35c">t_rev</a>;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <a class="code" href="../../d1/dfc/classGeneralParameters.html#aa150b8045dd161e6bcb6a94e49cf7714">omega_rev</a> = 2. * <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a> * <a class="code" href="../../d1/dfc/classGeneralParameters.html#a6aa68d5d9c1f4ccc9d08abd9b26974a0">f_rev</a>;</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <a class="code" href="../../d1/dfc/classGeneralParameters.html#aa150b8045dd161e6bcb6a94e49cf7714">omega_rev</a>.resize(n_turns + 1);</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n_turns + 1; ++i)</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#aa150b8045dd161e6bcb6a94e49cf7714">omega_rev</a>[i] = 2 * <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a> * <a class="code" href="../../d1/dfc/classGeneralParameters.html#a6aa68d5d9c1f4ccc9d08abd9b26974a0">f_rev</a>[i];</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../d1/dfc/classGeneralParameters.html#a868037d5c025a61382638689dd03e222">alpha_order</a> &gt; 3) {</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <a class="code" href="../../de/df0/utilities_8h.html#a0fb7bf82c787085c8b1ef0ad7d028424">dprintf</a>(</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            <span class="stringliteral">&quot;WARNING: Momentum compaction factor is implemented only up to 2nd &quot;</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            <span class="stringliteral">&quot;order&quot;</span>);</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a868037d5c025a61382638689dd03e222">alpha_order</a> = 3;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    }</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    this-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a4f2ff9253bfc21543e7c3834bb64fbb1">eta_0</a>.resize(n_sections, <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a>(n_turns + 1));</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    this-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#ae5a391e9d2480823637b97043b9563cd">eta_1</a>.resize(n_sections, <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a>(n_turns + 1));</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    this-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a04ef9d9a2aa02253b6a7e68ea8d1a97c">eta_2</a>.resize(n_sections, <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a>(n_turns + 1));</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <a class="code" href="../../d1/dfc/classGeneralParameters.html#ab509878f6b5bf35f7c0bfde605817852">eta_generation</a>();</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;}</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../d1/dfc/classGeneralParameters.html#a868037d5c025a61382638689dd03e222">alpha_order</a> &gt; 3) {</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <a class="code" href="../../de/df0/utilities_8h.html#a0fb7bf82c787085c8b1ef0ad7d028424">dprintf</a>(</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            <span class="stringliteral">&quot;WARNING: Momentum compaction factor is implemented only up to 2nd &quot;</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            <span class="stringliteral">&quot;order&quot;</span>);</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a868037d5c025a61382638689dd03e222">alpha_order</a> = 3;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    }</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <a class="code" href="../../d1/dfc/classGeneralParameters.html#a4f2ff9253bfc21543e7c3834bb64fbb1">eta_0</a>.resize(n_sections, <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a>(n_turns + 1));</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <a class="code" href="../../d1/dfc/classGeneralParameters.html#ae5a391e9d2480823637b97043b9563cd">eta_1</a>.resize(n_sections, <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a>(n_turns + 1));</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <a class="code" href="../../d1/dfc/classGeneralParameters.html#a04ef9d9a2aa02253b6a7e68ea8d1a97c">eta_2</a>.resize(n_sections, <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a>(n_turns + 1));</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <a class="code" href="../../d1/dfc/classGeneralParameters.html#ab509878f6b5bf35f7c0bfde605817852">eta_generation</a>();</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;}</div>
 </div><!-- fragment -->
 <p><div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
@@ -454,8 +448,8 @@ Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00117">117</a> of file <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html">GeneralParameters.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;{}</div>
+<p>Definition at line <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00113">113</a> of file <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html">GeneralParameters.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;{}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -481,16 +475,16 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00132">132</a> of file <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html">GeneralParameters.cpp</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00128">128</a> of file <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html">GeneralParameters.cpp</a>.</p>
 
 <p>References <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00034">alpha</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00046">eta_0</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00040">gamma</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00027">n_sections</a>, and <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00028">n_turns</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00119">eta_generation()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;{</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="../../d1/dfc/classGeneralParameters.html#a841441cee26c6af115bcf84e218b9795">n_sections</a>; ++i)</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; <a class="code" href="../../d1/dfc/classGeneralParameters.html#a3172f667299d54f46f2eae03baf8fefc">n_turns</a> + 1; ++j)</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;            <a class="code" href="../../d1/dfc/classGeneralParameters.html#a4f2ff9253bfc21543e7c3834bb64fbb1">eta_0</a>[i][j] = <a class="code" href="../../d1/dfc/classGeneralParameters.html#aef606da69340a645340e73b16e03465d">alpha</a>[i][0] - 1 / (<a class="code" href="../../d1/dfc/classGeneralParameters.html#a9f4d8b1a9de704f5477f27c2aeebbab1">gamma</a>[i][j] * <a class="code" href="../../d1/dfc/classGeneralParameters.html#a9f4d8b1a9de704f5477f27c2aeebbab1">gamma</a>[i][j]);</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;}</div>
+<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00115">eta_generation()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;{</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="../../d1/dfc/classGeneralParameters.html#a841441cee26c6af115bcf84e218b9795">n_sections</a>; ++i)</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; <a class="code" href="../../d1/dfc/classGeneralParameters.html#a3172f667299d54f46f2eae03baf8fefc">n_turns</a> + 1; ++j)</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;            <a class="code" href="../../d1/dfc/classGeneralParameters.html#a4f2ff9253bfc21543e7c3834bb64fbb1">eta_0</a>[i][j] = <a class="code" href="../../d1/dfc/classGeneralParameters.html#aef606da69340a645340e73b16e03465d">alpha</a>[i][0] - 1 / (<a class="code" href="../../d1/dfc/classGeneralParameters.html#a9f4d8b1a9de704f5477f27c2aeebbab1">gamma</a>[i][j] * <a class="code" href="../../d1/dfc/classGeneralParameters.html#a9f4d8b1a9de704f5477f27c2aeebbab1">gamma</a>[i][j]);</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;}</div>
 </div><!-- fragment -->
 <p><div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
@@ -525,18 +519,18 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00139">139</a> of file <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html">GeneralParameters.cpp</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00135">135</a> of file <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html">GeneralParameters.cpp</a>.</p>
 
 <p>References <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00034">alpha</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00039">beta</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00046">eta_0</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00046">eta_1</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00040">gamma</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00027">n_sections</a>, and <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00028">n_turns</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00119">eta_generation()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;{</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="../../d1/dfc/classGeneralParameters.html#a841441cee26c6af115bcf84e218b9795">n_sections</a>; ++i)</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; <a class="code" href="../../d1/dfc/classGeneralParameters.html#a3172f667299d54f46f2eae03baf8fefc">n_turns</a> + 1; ++j)</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;            <a class="code" href="../../d1/dfc/classGeneralParameters.html#ae5a391e9d2480823637b97043b9563cd">eta_1</a>[i][j] =</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;                3 * <a class="code" href="../../d1/dfc/classGeneralParameters.html#a1dfbb2b28b96314abba548b4a750fce8">beta</a>[i][j] * <a class="code" href="../../d1/dfc/classGeneralParameters.html#a1dfbb2b28b96314abba548b4a750fce8">beta</a>[i][j] / (2 * <a class="code" href="../../d1/dfc/classGeneralParameters.html#a9f4d8b1a9de704f5477f27c2aeebbab1">gamma</a>[i][j] * <a class="code" href="../../d1/dfc/classGeneralParameters.html#a9f4d8b1a9de704f5477f27c2aeebbab1">gamma</a>[i][j]) +</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;                <a class="code" href="../../d1/dfc/classGeneralParameters.html#aef606da69340a645340e73b16e03465d">alpha</a>[i][1] - <a class="code" href="../../d1/dfc/classGeneralParameters.html#aef606da69340a645340e73b16e03465d">alpha</a>[i][0] * <a class="code" href="../../d1/dfc/classGeneralParameters.html#a4f2ff9253bfc21543e7c3834bb64fbb1">eta_0</a>[i][j];</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;}</div>
+<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00115">eta_generation()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;{</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="../../d1/dfc/classGeneralParameters.html#a841441cee26c6af115bcf84e218b9795">n_sections</a>; ++i)</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; <a class="code" href="../../d1/dfc/classGeneralParameters.html#a3172f667299d54f46f2eae03baf8fefc">n_turns</a> + 1; ++j)</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;            <a class="code" href="../../d1/dfc/classGeneralParameters.html#ae5a391e9d2480823637b97043b9563cd">eta_1</a>[i][j] =</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;                3 * <a class="code" href="../../d1/dfc/classGeneralParameters.html#a1dfbb2b28b96314abba548b4a750fce8">beta</a>[i][j] * <a class="code" href="../../d1/dfc/classGeneralParameters.html#a1dfbb2b28b96314abba548b4a750fce8">beta</a>[i][j] / (2 * <a class="code" href="../../d1/dfc/classGeneralParameters.html#a9f4d8b1a9de704f5477f27c2aeebbab1">gamma</a>[i][j] * <a class="code" href="../../d1/dfc/classGeneralParameters.html#a9f4d8b1a9de704f5477f27c2aeebbab1">gamma</a>[i][j]) +</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;                <a class="code" href="../../d1/dfc/classGeneralParameters.html#aef606da69340a645340e73b16e03465d">alpha</a>[i][1] - <a class="code" href="../../d1/dfc/classGeneralParameters.html#aef606da69340a645340e73b16e03465d">alpha</a>[i][0] * <a class="code" href="../../d1/dfc/classGeneralParameters.html#a4f2ff9253bfc21543e7c3834bb64fbb1">eta_0</a>[i][j];</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;}</div>
 </div><!-- fragment -->
 <p><div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
@@ -571,23 +565,23 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00148">148</a> of file <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html">GeneralParameters.cpp</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00144">144</a> of file <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html">GeneralParameters.cpp</a>.</p>
 
 <p>References <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00034">alpha</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00039">beta</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00046">eta_0</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00046">eta_1</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00040">gamma</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00027">n_sections</a>, and <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00028">n_turns</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00119">eta_generation()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;{</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="../../d1/dfc/classGeneralParameters.html#a841441cee26c6af115bcf84e218b9795">n_sections</a>; ++i)</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; <a class="code" href="../../d1/dfc/classGeneralParameters.html#a3172f667299d54f46f2eae03baf8fefc">n_turns</a> + 1; ++j) {</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;            <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> betasq = <a class="code" href="../../d1/dfc/classGeneralParameters.html#a1dfbb2b28b96314abba548b4a750fce8">beta</a>[i][j] * <a class="code" href="../../d1/dfc/classGeneralParameters.html#a1dfbb2b28b96314abba548b4a750fce8">beta</a>[i][j];</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;            <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> gammasq = <a class="code" href="../../d1/dfc/classGeneralParameters.html#a9f4d8b1a9de704f5477f27c2aeebbab1">gamma</a>[i][j] * <a class="code" href="../../d1/dfc/classGeneralParameters.html#a9f4d8b1a9de704f5477f27c2aeebbab1">gamma</a>[i][j];</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;            <a class="code" href="../../d1/dfc/classGeneralParameters.html#ae5a391e9d2480823637b97043b9563cd">eta_1</a>[i][j] = -betasq * (5 * betasq - 1) / (2 * gammasq) +</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                          <a class="code" href="../../d1/dfc/classGeneralParameters.html#aef606da69340a645340e73b16e03465d">alpha</a>[i][2] - 2 * <a class="code" href="../../d1/dfc/classGeneralParameters.html#aef606da69340a645340e73b16e03465d">alpha</a>[i][0] * <a class="code" href="../../d1/dfc/classGeneralParameters.html#aef606da69340a645340e73b16e03465d">alpha</a>[i][1] +</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                          <a class="code" href="../../d1/dfc/classGeneralParameters.html#aef606da69340a645340e73b16e03465d">alpha</a>[i][1] / gammasq +</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;                          <a class="code" href="../../d1/dfc/classGeneralParameters.html#aef606da69340a645340e73b16e03465d">alpha</a>[i][0] * <a class="code" href="../../d1/dfc/classGeneralParameters.html#aef606da69340a645340e73b16e03465d">alpha</a>[i][0] * <a class="code" href="../../d1/dfc/classGeneralParameters.html#a4f2ff9253bfc21543e7c3834bb64fbb1">eta_0</a>[i][j] -</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;                          3 * betasq * <a class="code" href="../../d1/dfc/classGeneralParameters.html#aef606da69340a645340e73b16e03465d">alpha</a>[i][0] / (2 * gammasq);</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        }</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;}</div>
+<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00115">eta_generation()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;{</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="../../d1/dfc/classGeneralParameters.html#a841441cee26c6af115bcf84e218b9795">n_sections</a>; ++i)</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; <a class="code" href="../../d1/dfc/classGeneralParameters.html#a3172f667299d54f46f2eae03baf8fefc">n_turns</a> + 1; ++j) {</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;            <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> betasq = <a class="code" href="../../d1/dfc/classGeneralParameters.html#a1dfbb2b28b96314abba548b4a750fce8">beta</a>[i][j] * <a class="code" href="../../d1/dfc/classGeneralParameters.html#a1dfbb2b28b96314abba548b4a750fce8">beta</a>[i][j];</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;            <a class="code" href="../../d2/d2c/configuration_8h.html#a004b8ff539eef02deec81922dd98257b">ftype</a> gammasq = <a class="code" href="../../d1/dfc/classGeneralParameters.html#a9f4d8b1a9de704f5477f27c2aeebbab1">gamma</a>[i][j] * <a class="code" href="../../d1/dfc/classGeneralParameters.html#a9f4d8b1a9de704f5477f27c2aeebbab1">gamma</a>[i][j];</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;            <a class="code" href="../../d1/dfc/classGeneralParameters.html#ae5a391e9d2480823637b97043b9563cd">eta_1</a>[i][j] = -betasq * (5 * betasq - 1) / (2 * gammasq) +</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;                          <a class="code" href="../../d1/dfc/classGeneralParameters.html#aef606da69340a645340e73b16e03465d">alpha</a>[i][2] - 2 * <a class="code" href="../../d1/dfc/classGeneralParameters.html#aef606da69340a645340e73b16e03465d">alpha</a>[i][0] * <a class="code" href="../../d1/dfc/classGeneralParameters.html#aef606da69340a645340e73b16e03465d">alpha</a>[i][1] +</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;                          <a class="code" href="../../d1/dfc/classGeneralParameters.html#aef606da69340a645340e73b16e03465d">alpha</a>[i][1] / gammasq +</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                          <a class="code" href="../../d1/dfc/classGeneralParameters.html#aef606da69340a645340e73b16e03465d">alpha</a>[i][0] * <a class="code" href="../../d1/dfc/classGeneralParameters.html#aef606da69340a645340e73b16e03465d">alpha</a>[i][0] * <a class="code" href="../../d1/dfc/classGeneralParameters.html#a4f2ff9253bfc21543e7c3834bb64fbb1">eta_0</a>[i][j] -</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                          3 * betasq * <a class="code" href="../../d1/dfc/classGeneralParameters.html#aef606da69340a645340e73b16e03465d">alpha</a>[i][0] / (2 * gammasq);</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        }</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;}</div>
 </div><!-- fragment -->
 <p><div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
@@ -622,22 +616,22 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00119">119</a> of file <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html">GeneralParameters.cpp</a>.</p>
+<p>Definition at line <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00115">115</a> of file <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html">GeneralParameters.cpp</a>.</p>
 
-<p>References <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00132">_eta0()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00139">_eta1()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00148">_eta2()</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00029">alpha_order</a>, and <a class="el" href="../../de/df0/utilities_8h_source.html#l00051">dprintf</a>.</p>
+<p>References <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00128">_eta0()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00135">_eta1()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00144">_eta2()</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00029">alpha_order</a>, and <a class="el" href="../../de/df0/utilities_8h_source.html#l00051">dprintf</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00012">GeneralParameters()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;{</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <a class="code" href="../../d1/dfc/classGeneralParameters.html#a30464ea333810ac8c3386b5158e950bd">_eta0</a>();</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../d1/dfc/classGeneralParameters.html#a868037d5c025a61382638689dd03e222">alpha_order</a> &gt; 0)</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a82f0f7b09c94f3759608d56bf551ba07">_eta1</a>();</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../d1/dfc/classGeneralParameters.html#a868037d5c025a61382638689dd03e222">alpha_order</a> &gt; 1)</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a8b80c8cb19883043156cba41185e496c">_eta2</a>();</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../d1/dfc/classGeneralParameters.html#a868037d5c025a61382638689dd03e222">alpha_order</a> &gt; 2)</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        <a class="code" href="../../de/df0/utilities_8h.html#a0fb7bf82c787085c8b1ef0ad7d028424">dprintf</a>(</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;            <span class="stringliteral">&quot;WARNING: Momentum compaction factor is implemented only up to 2nd &quot;</span></div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;            <span class="stringliteral">&quot;order&quot;</span>);</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;}</div>
+<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00014">GeneralParameters()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;{</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <a class="code" href="../../d1/dfc/classGeneralParameters.html#a30464ea333810ac8c3386b5158e950bd">_eta0</a>();</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../d1/dfc/classGeneralParameters.html#a868037d5c025a61382638689dd03e222">alpha_order</a> &gt; 0)</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a82f0f7b09c94f3759608d56bf551ba07">_eta1</a>();</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../d1/dfc/classGeneralParameters.html#a868037d5c025a61382638689dd03e222">alpha_order</a> &gt; 1)</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <a class="code" href="../../d1/dfc/classGeneralParameters.html#a8b80c8cb19883043156cba41185e496c">_eta2</a>();</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../d1/dfc/classGeneralParameters.html#a868037d5c025a61382638689dd03e222">alpha_order</a> &gt; 2)</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <a class="code" href="../../de/df0/utilities_8h.html#a0fb7bf82c787085c8b1ef0ad7d028424">dprintf</a>(</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            <span class="stringliteral">&quot;WARNING: Momentum compaction factor is implemented only up to 2nd &quot;</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            <span class="stringliteral">&quot;order&quot;</span>);</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;}</div>
 </div><!-- fragment -->
 <p><div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
@@ -674,7 +668,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00034">34</a> of file <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html">GeneralParameters.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00132">_eta0()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00139">_eta1()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00148">_eta2()</a>, and <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00012">GeneralParameters()</a>.</p>
+<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00128">_eta0()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00135">_eta1()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00144">_eta2()</a>, and <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00014">GeneralParameters()</a>.</p>
 
 </div>
 </div>
@@ -690,7 +684,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00029">29</a> of file <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html">GeneralParameters.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00119">eta_generation()</a>, and <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00012">GeneralParameters()</a>.</p>
+<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00115">eta_generation()</a>, and <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00014">GeneralParameters()</a>.</p>
 
 </div>
 </div>
@@ -706,7 +700,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00039">39</a> of file <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html">GeneralParameters.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00139">_eta1()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00148">_eta2()</a>, <a class="el" href="../../dc/d0f/Beams_8cpp_source.html#l00013">Beams::Beams()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00012">GeneralParameters()</a>, and <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00785">longitudinal_bigaussian()</a>.</p>
+<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00135">_eta1()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00144">_eta2()</a>, <a class="el" href="../../dc/d0f/Beams_8cpp_source.html#l00013">Beams::Beams()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00014">GeneralParameters()</a>, and <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00785">longitudinal_bigaussian()</a>.</p>
 
 </div>
 </div>
@@ -722,7 +716,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00032">32</a> of file <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html">GeneralParameters.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../dc/d0f/Beams_8cpp_source.html#l00013">Beams::Beams()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00012">GeneralParameters()</a>, <a class="el" href="../../de/da5/utilities_8cpp_source.html#l00064">hamiltonian()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00785">longitudinal_bigaussian()</a>, and <a class="el" href="../../d3/d2c/plot__beams_8cpp_source.html#l00005">plot_long_phase_space()</a>.</p>
+<p>Referenced by <a class="el" href="../../dc/d0f/Beams_8cpp_source.html#l00013">Beams::Beams()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00014">GeneralParameters()</a>, <a class="el" href="../../de/da5/utilities_8cpp_source.html#l00064">hamiltonian()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00785">longitudinal_bigaussian()</a>, and <a class="el" href="../../d3/d2c/plot__beams_8cpp_source.html#l00005">plot_long_phase_space()</a>.</p>
 
 </div>
 </div>
@@ -738,7 +732,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00032">32</a> of file <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html">GeneralParameters.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00012">GeneralParameters()</a>.</p>
+<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00014">GeneralParameters()</a>.</p>
 
 </div>
 </div>
@@ -768,7 +762,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00043">43</a> of file <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html">GeneralParameters.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00012">GeneralParameters()</a>.</p>
+<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00014">GeneralParameters()</a>.</p>
 
 </div>
 </div>
@@ -784,7 +778,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00041">41</a> of file <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html">GeneralParameters.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../dc/d0f/Beams_8cpp_source.html#l00013">Beams::Beams()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00012">GeneralParameters()</a>, and <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00785">longitudinal_bigaussian()</a>.</p>
+<p>Referenced by <a class="el" href="../../dc/d0f/Beams_8cpp_source.html#l00013">Beams::Beams()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00014">GeneralParameters()</a>, and <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00785">longitudinal_bigaussian()</a>.</p>
 
 </div>
 </div>
@@ -800,7 +794,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00046">46</a> of file <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html">GeneralParameters.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00132">_eta0()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00139">_eta1()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00148">_eta2()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00012">GeneralParameters()</a>, and <a class="el" href="../../db/dee/PhaseLoop_8cpp_source.html#l00086">PhaseLoop::radial_steering_from_freq()</a>.</p>
+<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00128">_eta0()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00135">_eta1()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00144">_eta2()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00014">GeneralParameters()</a>, and <a class="el" href="../../db/dee/PhaseLoop_8cpp_source.html#l00086">PhaseLoop::radial_steering_from_freq()</a>.</p>
 
 </div>
 </div>
@@ -816,7 +810,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00046">46</a> of file <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html">GeneralParameters.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00139">_eta1()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00148">_eta2()</a>, and <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00012">GeneralParameters()</a>.</p>
+<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00135">_eta1()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00144">_eta2()</a>, and <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00014">GeneralParameters()</a>.</p>
 
 </div>
 </div>
@@ -832,7 +826,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00046">46</a> of file <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html">GeneralParameters.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00012">GeneralParameters()</a>.</p>
+<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00014">GeneralParameters()</a>.</p>
 
 </div>
 </div>
@@ -848,7 +842,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00044">44</a> of file <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html">GeneralParameters.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00012">GeneralParameters()</a>.</p>
+<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00014">GeneralParameters()</a>.</p>
 
 </div>
 </div>
@@ -864,7 +858,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00040">40</a> of file <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html">GeneralParameters.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00132">_eta0()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00139">_eta1()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00148">_eta2()</a>, <a class="el" href="../../dc/d0f/Beams_8cpp_source.html#l00013">Beams::Beams()</a>, and <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00012">GeneralParameters()</a>.</p>
+<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00128">_eta0()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00135">_eta1()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00144">_eta2()</a>, <a class="el" href="../../dc/d0f/Beams_8cpp_source.html#l00013">Beams::Beams()</a>, and <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00014">GeneralParameters()</a>.</p>
 
 </div>
 </div>
@@ -880,7 +874,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00042">42</a> of file <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html">GeneralParameters.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00012">GeneralParameters()</a>.</p>
+<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00014">GeneralParameters()</a>.</p>
 
 </div>
 </div>
@@ -896,7 +890,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00031">31</a> of file <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html">GeneralParameters.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../dc/d0f/Beams_8cpp_source.html#l00013">Beams::Beams()</a>, and <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00012">GeneralParameters()</a>.</p>
+<p>Referenced by <a class="el" href="../../dc/d0f/Beams_8cpp_source.html#l00013">Beams::Beams()</a>, and <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00014">GeneralParameters()</a>.</p>
 
 </div>
 </div>
@@ -912,7 +906,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00031">31</a> of file <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html">GeneralParameters.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00012">GeneralParameters()</a>.</p>
+<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00014">GeneralParameters()</a>.</p>
 
 </div>
 </div>
@@ -928,7 +922,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00035">35</a> of file <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html">GeneralParameters.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../dc/d0f/Beams_8cpp_source.html#l00013">Beams::Beams()</a>, and <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00012">GeneralParameters()</a>.</p>
+<p>Referenced by <a class="el" href="../../dc/d0f/Beams_8cpp_source.html#l00013">Beams::Beams()</a>, and <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00014">GeneralParameters()</a>.</p>
 
 </div>
 </div>
@@ -944,7 +938,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00027">27</a> of file <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html">GeneralParameters.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00132">_eta0()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00139">_eta1()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00148">_eta2()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00012">GeneralParameters()</a>, <a class="el" href="../../de/da5/utilities_8cpp_source.html#l00064">hamiltonian()</a>, <a class="el" href="../../de/da5/utilities_8cpp_source.html#l00017">is_in_separatrix()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00785">longitudinal_bigaussian()</a>, and <a class="el" href="../../d3/d2c/plot__beams_8cpp_source.html#l00005">plot_long_phase_space()</a>.</p>
+<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00128">_eta0()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00135">_eta1()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00144">_eta2()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00014">GeneralParameters()</a>, <a class="el" href="../../de/da5/utilities_8cpp_source.html#l00064">hamiltonian()</a>, <a class="el" href="../../de/da5/utilities_8cpp_source.html#l00017">is_in_separatrix()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00785">longitudinal_bigaussian()</a>, and <a class="el" href="../../d3/d2c/plot__beams_8cpp_source.html#l00005">plot_long_phase_space()</a>.</p>
 
 </div>
 </div>
@@ -960,7 +954,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00028">28</a> of file <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html">GeneralParameters.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00132">_eta0()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00139">_eta1()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00148">_eta2()</a>, <a class="el" href="../../da/dda/Monitors_8cpp_source.html#l00147">BunchMonitor::BunchMonitor()</a>, and <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00012">GeneralParameters()</a>.</p>
+<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00128">_eta0()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00135">_eta1()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00144">_eta2()</a>, <a class="el" href="../../da/dda/Monitors_8cpp_source.html#l00147">BunchMonitor::BunchMonitor()</a>, and <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00014">GeneralParameters()</a>.</p>
 
 </div>
 </div>
@@ -976,7 +970,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00044">44</a> of file <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html">GeneralParameters.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00012">GeneralParameters()</a>, and <a class="el" href="../../d6/db7/RfParameters_8h_source.html#l00075">RfParameters::RfParameters()</a>.</p>
+<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00014">GeneralParameters()</a>, and <a class="el" href="../../d6/db7/RfParameters_8h_source.html#l00075">RfParameters::RfParameters()</a>.</p>
 
 </div>
 </div>
@@ -992,7 +986,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00030">30</a> of file <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html">GeneralParameters.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00012">GeneralParameters()</a>.</p>
+<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00014">GeneralParameters()</a>.</p>
 
 </div>
 </div>
@@ -1008,7 +1002,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00030">30</a> of file <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html">GeneralParameters.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00012">GeneralParameters()</a>.</p>
+<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00014">GeneralParameters()</a>.</p>
 
 </div>
 </div>
@@ -1024,7 +1018,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00037">37</a> of file <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html">GeneralParameters.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00012">GeneralParameters()</a>, and <a class="el" href="../../de/da5/utilities_8cpp_source.html#l00064">hamiltonian()</a>.</p>
+<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00014">GeneralParameters()</a>, and <a class="el" href="../../de/da5/utilities_8cpp_source.html#l00064">hamiltonian()</a>.</p>
 
 </div>
 </div>
@@ -1040,7 +1034,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00036">36</a> of file <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html">GeneralParameters.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00012">GeneralParameters()</a>, and <a class="el" href="../../d6/db7/RfParameters_8h_source.html#l00075">RfParameters::RfParameters()</a>.</p>
+<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00014">GeneralParameters()</a>, and <a class="el" href="../../d6/db7/RfParameters_8h_source.html#l00075">RfParameters::RfParameters()</a>.</p>
 
 </div>
 </div>
@@ -1056,7 +1050,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00038">38</a> of file <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html">GeneralParameters.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00012">GeneralParameters()</a>.</p>
+<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00014">GeneralParameters()</a>.</p>
 
 </div>
 </div>
@@ -1072,7 +1066,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00045">45</a> of file <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html">GeneralParameters.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00012">GeneralParameters()</a>, and <a class="el" href="../../d3/d2c/plot__beams_8cpp_source.html#l00005">plot_long_phase_space()</a>.</p>
+<p>Referenced by <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00014">GeneralParameters()</a>, and <a class="el" href="../../d3/d2c/plot__beams_8cpp_source.html#l00005">plot_long_phase_space()</a>.</p>
 
 </div>
 </div>
@@ -1082,7 +1076,7 @@ Private Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../d1/dfc/classGeneralParameters.html">GeneralParameters</a></li>
-    <li class="footer">Generated on Thu Nov 10 2016 14:08:47 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Thu Nov 10 2016 16:25:59 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

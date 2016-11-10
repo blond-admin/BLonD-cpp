@@ -4,7 +4,7 @@ var classFullRingAndRf =
       [ "lowest_freq", "d6/d13/classFullRingAndRf.html#a6f5f0dd707a3dc279bdec805a914f6d8aa2f614792c46a5f9485d2d2cd99d6363", null ],
       [ "highest_voltage", "d6/d13/classFullRingAndRf.html#a6f5f0dd707a3dc279bdec805a914f6d8ae83077522000e4dbdb23b545641c13fd", null ]
     ] ],
-    [ "FullRingAndRf", "d6/d13/classFullRingAndRf.html#a76598d4ff0844df1493234a658660533", null ],
+    [ "FullRingAndRf", "d6/d13/classFullRingAndRf.html#a28c371d7ea28d702aaf67e88fee364c2", null ],
     [ "~FullRingAndRf", "d6/d13/classFullRingAndRf.html#a1dfc1bc6d2de5a7fab56fc08ee3a9e42", null ],
     [ "potential_well_generation", "d6/d13/classFullRingAndRf.html#a76ca8401684654596782338b81268ef2", null ],
     [ "track", "d6/d13/classFullRingAndRf.html#a269c8bc553951546bb6524c1edf4e262", null ],

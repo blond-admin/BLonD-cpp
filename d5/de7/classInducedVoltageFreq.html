@@ -148,8 +148,8 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a316a39db604590afcc57b72d9254ce6d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de7/classInducedVoltageFreq.html#a316a39db604590afcc57b72d9254ce6d">InducedVoltageFreq</a> (<a class="el" href="../../dc/d45/classSlices.html">Slices</a> *slices, std::vector&lt; <a class="el" href="../../dc/dad/classIntensity.html">Intensity</a> * &gt; &amp;impedanceSourceList, double freqResolutionInput=0.0, <a class="el" href="../../d5/de7/classInducedVoltageFreq.html#a424da4862263dc9a5212837de92d5c94">freq_res_option_t</a> freq_res_option=freq_res_option_t::round_option, <a class="el" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> NTurnsMem=0, bool recalculationImpedance=false, bool saveIndividualVoltages=false)</td></tr>
-<tr class="separator:a316a39db604590afcc57b72d9254ce6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ce05994fef3887a3106f0ad43634386"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de7/classInducedVoltageFreq.html#a8ce05994fef3887a3106f0ad43634386">InducedVoltageFreq</a> (<a class="el" href="../../dc/d45/classSlices.html">Slices</a> *slices, const std::vector&lt; <a class="el" href="../../dc/dad/classIntensity.html">Intensity</a> * &gt; &amp;impedanceSourceList, double freqResolutionInput=0.0, <a class="el" href="../../d5/de7/classInducedVoltageFreq.html#a424da4862263dc9a5212837de92d5c94">freq_res_option_t</a> freq_res_option=freq_res_option_t::round_option, <a class="el" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> NTurnsMem=0, bool recalculationImpedance=false, bool saveIndividualVoltages=false)</td></tr>
+<tr class="separator:a8ce05994fef3887a3106f0ad43634386"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a644e56cce5d135a597d046e3d6901e13"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de7/classInducedVoltageFreq.html#a644e56cce5d135a597d046e3d6901e13">~InducedVoltageFreq</a> ()</td></tr>
 <tr class="separator:a644e56cce5d135a597d046e3d6901e13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d32221f87feb031ad8db7524739cbb1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de7/classInducedVoltageFreq.html#a0d32221f87feb031ad8db7524739cbb1">induced_voltage_generation</a> (<a class="el" href="../../d9/d7c/classBeams.html">Beams</a> *beam, <a class="el" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> length=0)</td></tr>
@@ -242,7 +242,7 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a316a39db604590afcc57b72d9254ce6d"></a>
+<a class="anchor" id="a8ce05994fef3887a3106f0ad43634386"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -255,7 +255,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="../../dc/dad/classIntensity.html">Intensity</a> * &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="../../dc/dad/classIntensity.html">Intensity</a> * &gt; &amp;&#160;</td>
           <td class="paramname"><em>impedanceSourceList</em>, </td>
         </tr>
         <tr>
@@ -302,7 +302,7 @@ Public Attributes</h2></td></tr>
 <div class="fragment"><div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;{</div>
 <div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <a class="code" href="../../d5/de7/classInducedVoltageFreq.html#aec393d88dcd604439c97708f61e14d35">fNTurnsMem</a> = NTurnsMem;</div>
 <div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <a class="code" href="../../dd/de2/classInducedVoltage.html#a3329197ef968eefdf5825a91a0158fed">fSlices</a> = slices;</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <a class="code" href="../../d5/de7/classInducedVoltageFreq.html#af0cb209da8ad9c4bf54140bc4cc95c86">fImpedanceSourceList</a> = impedanceSourceList;</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <a class="code" href="../../d5/de7/classInducedVoltageFreq.html#af0cb209da8ad9c4bf54140bc4cc95c86">fImpedanceSourceList</a> = impedList;</div>
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <a class="code" href="../../d5/de7/classInducedVoltageFreq.html#a7cca6f3906857713af73c4df83b63ea4">fFreqResolutionInput</a> = freqResolutionInput;</div>
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;</div>
 <div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="comment">// *Length of one slice.*</span></div>
@@ -405,7 +405,7 @@ Public Attributes</h2></td></tr>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../d5/de7/classInducedVoltageFreq_a316a39db604590afcc57b72d9254ce6d_cgraph.svg" width="355" height="163"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d5/de7/classInducedVoltageFreq_a8ce05994fef3887a3106f0ad43634386_cgraph.svg" width="355" height="163"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </p>
@@ -479,7 +479,7 @@ Public Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00351">351</a> of file <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html">InducedVoltage.cpp</a>.</p>
 
-<p>References <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00373">Slices::beam_spectrum_generation()</a>, <a class="el" href="../../d7/d74/Beams_8h_source.html#l00026">Beams::charge</a>, <a class="el" href="../../d2/d6f/constants_8h_source.html#l00017">constant::e</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00046">Slices::fBeamSpectrum</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00047">Slices::fBeamSpectrumFreq</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00085">fFreqArray</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00069">fImpedanceSourceList</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00027">InducedVoltage::fInducedVoltage</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00090">fMatrixSaveIndividualImpedances</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00091">fMatrixSaveIndividualVoltages</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00086">fNFFTSampling</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00079">fRecalculationImpedance</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00080">fSaveIndividualVoltages</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00028">InducedVoltage::fSlices</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00089">fTotalImpedance</a>, <a class="el" href="../../d7/d76/fft_8h_source.html#l00319">fft::irfft()</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00037">Slices::n_slices</a>, <a class="el" href="../../d5/d87/globals_8h_source.html#l00024">Context::n_threads</a>, <a class="el" href="../../d7/d74/Beams_8h_source.html#l00035">Beams::ratio</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00289">sum_impedances()</a>.</p>
+<p>References <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00367">Slices::beam_spectrum_generation()</a>, <a class="el" href="../../d7/d74/Beams_8h_source.html#l00026">Beams::charge</a>, <a class="el" href="../../d2/d6f/constants_8h_source.html#l00017">constant::e</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00046">Slices::fBeamSpectrum</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00047">Slices::fBeamSpectrumFreq</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00085">fFreqArray</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00069">fImpedanceSourceList</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00027">InducedVoltage::fInducedVoltage</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00090">fMatrixSaveIndividualImpedances</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00091">fMatrixSaveIndividualVoltages</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00086">fNFFTSampling</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00079">fRecalculationImpedance</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00080">fSaveIndividualVoltages</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00028">InducedVoltage::fSlices</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00089">fTotalImpedance</a>, <a class="el" href="../../d7/d76/fft_8h_source.html#l00319">fft::irfft()</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00037">Slices::n_slices</a>, <a class="el" href="../../d5/d87/globals_8h_source.html#l00024">Context::n_threads</a>, <a class="el" href="../../d7/d74/Beams_8h_source.html#l00035">Beams::ratio</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00289">sum_impedances()</a>.</p>
 
 <p>Referenced by <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00275">track()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;{</div>
@@ -611,7 +611,7 @@ Public Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00302">302</a> of file <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html">InducedVoltage.cpp</a>.</p>
 
-<p>References <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00373">Slices::beam_spectrum_generation()</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00044">Slices::bin_centers</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00047">Slices::fBeamSpectrumFreq</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00085">fFreqArray</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00083">fFreqResolution</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00074">fFreqResolutionInput</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00087">fFreqResOption</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00086">fNFFTSampling</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00028">InducedVoltage::fSlices</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00089">fTotalImpedance</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00037">Slices::n_slices</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00052">mymath::next_regular()</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00289">sum_impedances()</a>.</p>
+<p>References <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00367">Slices::beam_spectrum_generation()</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00044">Slices::bin_centers</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00047">Slices::fBeamSpectrumFreq</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00085">fFreqArray</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00083">fFreqResolution</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00074">fFreqResolutionInput</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00087">fFreqResOption</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00086">fNFFTSampling</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00028">InducedVoltage::fSlices</a>, <a class="el" href="../../d9/dee/InducedVoltage_8h_source.html#l00089">fTotalImpedance</a>, <a class="el" href="../../dc/df2/Slices_8h_source.html#l00037">Slices::n_slices</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00052">mymath::next_regular()</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00289">sum_impedances()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;{</div>
 <div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    <a class="code" href="../../dd/de2/classInducedVoltage.html#a3329197ef968eefdf5825a91a0158fed">fSlices</a> = newSlices;</div>
 <div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;</div>
@@ -1062,7 +1062,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../d5/de7/classInducedVoltageFreq.html">InducedVoltageFreq</a></li>
-    <li class="footer">Generated on Fri Nov 4 2016 17:56:57 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Thu Nov 10 2016 14:08:48 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

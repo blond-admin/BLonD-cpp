@@ -1,5 +1,8 @@
 var NAVTREEINDEX3 =
 {
+"da/d97/classResonators.html#aec694e34c053e710f52796ccbe9679a6":[1,0,26,8],
+"da/d97/classResonators.html#af9b393a40560230dc7f1d6d3618e9e2f":[1,0,26,3],
+"da/d97/classResonators.html#afdc1cab8298a45ed46662819e5c9cbef":[1,0,26,1],
 "da/db5/namespaceconstant.html":[1,0,0],
 "da/db5/namespaceconstant.html":[0,0,0],
 "da/dd4/classPhaseNoise.html":[1,0,23],
@@ -60,6 +63,7 @@ var NAVTREEINDEX3 =
 "db/da5/classInputTable.html#aeb18d9e2e4c41bb19c7e09c023fa7b84":[1,0,15,1],
 "db/de1/Distributions_8cpp.html":[2,0,4],
 "db/de1/Distributions_8cpp.html#a16a9cf8e5241880f98a62832f9506378":[2,0,4,3],
+"db/de1/Distributions_8cpp.html#a2bb3b5294fedc5f82a515348a586d417":[2,0,4,5],
 "db/de1/Distributions_8cpp.html#a41bc3ce61f4e9f0418a6caa65b25820d":[2,0,4,4],
 "db/de1/Distributions_8cpp.html#a6d6073d940268d94172e059b9b48f99c":[2,0,4,1],
 "db/de1/Distributions_8cpp.html#a71ac4b7e67dc4e456b3cdeb2dc28c1a5":[2,0,4,0],
@@ -128,6 +132,7 @@ var NAVTREEINDEX3 =
 "dc/d7d/Distributions_8h.html#a39ba163b714fe197bd81ac64ffa48d30":[2,0,5,4],
 "dc/d7d/Distributions_8h.html#ab40941e937db232973d3bfe8a131c503":[2,0,5,1],
 "dc/d7d/Distributions_8h.html#abb8f841472248a964414a29e7552730b":[2,0,5,2],
+"dc/d7d/Distributions_8h.html#acbf747cb2f921b5b334987f33a027741":[2,0,5,6],
 "dc/d7d/Distributions_8h.html#ad0a60cd86b0b9037b473d0b7b8956ec2":[2,0,5,5],
 "dc/d7d/Distributions_8h.html#ad9600030e832de537807b8cae4b59590":[2,0,5,3],
 "dc/d7d/Distributions_8h_source.html":[2,0,5],
@@ -244,10 +249,5 @@ var NAVTREEINDEX3 =
 "de/d60/structoption_1_1PrintUsageImplementation_1_1StreamWriter.html":[1,0,3,4,5],
 "de/d60/structoption_1_1PrintUsageImplementation_1_1StreamWriter.html#a6f54abc9a3f7f00206d87a3619713954":[1,0,3,4,5,2],
 "de/d60/structoption_1_1PrintUsageImplementation_1_1StreamWriter.html#aa6ab48848dcbeb9e2cbde5d05ec35005":[1,0,3,4,5,0],
-"de/d60/structoption_1_1PrintUsageImplementation_1_1StreamWriter.html#ab4bfd31b1c37376505ccd4230f7f7ad9":[1,0,3,4,5,3],
-"de/d60/structoption_1_1PrintUsageImplementation_1_1StreamWriter.html#ae39bc6378c22d24a490104b7764c37b7":[1,0,3,4,5,1],
-"de/da1/classRingAndRfSection.html":[1,0,28],
-"de/da1/classRingAndRfSection.html#a0b9e1b140bc882fe60c16e0df39de3c5":[1,0,28,42],
-"de/da1/classRingAndRfSection.html#a10f29492bc5c4da2f978d76e6ffef564":[1,0,28,7],
-"de/da1/classRingAndRfSection.html#a1132dcf9d7e0937a2987c10f7f5076cf":[1,0,28,17]
+"de/d60/structoption_1_1PrintUsageImplementation_1_1StreamWriter.html#ab4bfd31b1c37376505ccd4230f7f7ad9":[1,0,3,4,5,3]
 };

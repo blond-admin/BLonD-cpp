@@ -8,7 +8,7 @@ var searchData=
   ['default_5ftrack',['default_track',['../d6/d87/classPhaseLoop.html#aa9249dc8c9d21f044065cd903929172f',1,'PhaseLoop']]],
   ['delay',['delay',['../d6/d87/classPhaseLoop.html#a9d4fb1c2b3f140dde1080ce509cb0f66',1,'PhaseLoop']]],
   ['delete_5farray',['delete_array',['../d6/d72/namespaceutil.html#ae0aeb3b7c368c886ba621b032db022f7',1,'util']]],
-  ['density_5ffunction',['density_function',['../d5/d26/structmatched__from__line__denstity__return__t.html#ae398feffe3cf00488a6278af485d855f',1,'matched_from_line_denstity_return_t']]],
+  ['density_5ffunction',['density_function',['../d5/d26/structmatched__from__line__denstity__return__t.html#aeb7db9574b4a030d3ab182a24b148e62',1,'matched_from_line_denstity_return_t']]],
   ['desc',['desc',['../d3/df3/classoption_1_1Option.html#af8d664a7b5de1425008b1812a90a0c23',1,'option::Option']]],
   ['descriptor',['Descriptor',['../dc/dfe/structoption_1_1Descriptor.html',1,'option']]],
   ['destroy_5ffft',['destroy_fft',['../d8/de0/namespacefft.html#adbd82fccb9e02c65511781361a4f21f0',1,'fft']]],

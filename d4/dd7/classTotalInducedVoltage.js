@@ -1,6 +1,6 @@
 var classTotalInducedVoltage =
 [
-    [ "TotalInducedVoltage", "d4/dd7/classTotalInducedVoltage.html#a2a575959fee8c1bb558e5dae35d67e6a", null ],
+    [ "TotalInducedVoltage", "d4/dd7/classTotalInducedVoltage.html#a022331755e9fd6dd90a2a6a1837bfdc1", null ],
     [ "~TotalInducedVoltage", "d4/dd7/classTotalInducedVoltage.html#a737a184a7fb24b6701151d7abbc894b9", null ],
     [ "induced_voltage_generation", "d4/dd7/classTotalInducedVoltage.html#aac87010774344855b412e0909023e43a", null ],
     [ "induced_voltage_sum", "d4/dd7/classTotalInducedVoltage.html#abc83c9281cb4106d169cdd78e697cf70", null ],

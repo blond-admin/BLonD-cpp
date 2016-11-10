@@ -13,7 +13,7 @@ var searchData=
   ['max_5fline_5fin_5fblock',['max_line_in_block',['../de/dc9/classoption_1_1PrintUsageImplementation_1_1LinePartIterator.html#ac76e736568519801a42ddb9069f0a6a7',1,'option::PrintUsageImplementation::LinePartIterator']]],
   ['maxlogf',['MAXLOGF',['../d1/d47/namespacevdt_1_1details.html#af1824fbaba646af63fbd602058fef7a2',1,'vdt::details']]],
   ['maxnumf',['MAXNUMF',['../d1/d47/namespacevdt_1_1details.html#ac550fc2478e5a3510e59f4f9ae94b316',1,'vdt::details']]],
-  ['mean',['mean',['../df/d6d/namespacemymath.html#ac815b54cedc0318b700fb483ee23ec2e',1,'mymath']]],
+  ['mean',['mean',['../df/d6d/namespacemymath.html#ac815b54cedc0318b700fb483ee23ec2e',1,'mymath::mean(const T data[], const int n)'],['../df/d6d/namespacemymath.html#a80566d33dfa4aa35efbc0bcc021623d2',1,'mymath::mean(const std::vector&lt; T &gt; data)']]],
   ['mean_5fde',['mean_dE',['../d9/d7c/classBeams.html#ac1972bebe3a1511e9b99aae41c35a83c',1,'Beams']]],
   ['mean_5fdt',['mean_dt',['../d9/d7c/classBeams.html#a22269afb847796c7dfa1db07d7dbf544',1,'Beams']]],
   ['meshgrid',['meshgrid',['../df/d6d/namespacemymath.html#a7e2dd5ac3ea27ff891d733ff22a3df56',1,'mymath']]],

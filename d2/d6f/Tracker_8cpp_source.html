@@ -414,7 +414,7 @@ $(document).ready(function(){initNavTree('d2/d6f/Tracker_8cpp_source.html','../.
 <div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;          <a class="code" href="../../de/da1/classRingAndRfSection.html#a9fef0f50fcda4c9fb84ff86fc143c764">rfp</a>-&gt;<a class="code" href="../../da/d49/classRfParameters.html#aa3f4c20de20abcc957e41b7f115a01dc">energy</a>[index], beam_dt.size());</div>
 <div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;}</div>
 <div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;</div>
-<div class="line"><a name="l00303"></a><span class="lineno"><a class="code" href="../../d6/d13/classFullRingAndRf.html#a76598d4ff0844df1493234a658660533">  303</a></span>&#160;<a class="code" href="../../d6/d13/classFullRingAndRf.html#a76598d4ff0844df1493234a658660533">FullRingAndRf::FullRingAndRf</a>(std::vector&lt;RingAndRfSection *&gt; &amp;RingList)</div>
+<div class="line"><a name="l00303"></a><span class="lineno"><a class="code" href="../../d6/d13/classFullRingAndRf.html#a28c371d7ea28d702aaf67e88fee364c2">  303</a></span>&#160;<a class="code" href="../../d6/d13/classFullRingAndRf.html#a28c371d7ea28d702aaf67e88fee364c2">FullRingAndRf::FullRingAndRf</a>(<span class="keyword">const</span> std::vector&lt;RingAndRfSection *&gt; &amp;RingList)</div>
 <div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;{</div>
 <div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    <a class="code" href="../../d6/d13/classFullRingAndRf.html#a7a457ac8373b6256d9aaabb313a169a1">fRingList</a> = RingList;</div>
 <div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;</div>
@@ -490,7 +490,7 @@ $(document).ready(function(){initNavTree('d2/d6f/Tracker_8cpp_source.html','../.
 <div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;    <span class="keyword">auto</span> last_dt = 2 * <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a> / main_omega_rf + time_array_margin / 2;</div>
 <div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;</div>
 <div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> time_array(n_points);</div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;    <a class="code" href="../../df/d6d/namespacemymath.html#af1c2c7c1207d41744f71b0ecb4ebf67a">mymath::linspace</a>(time_array.data(), first_dt, last_dt, n_points);</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;    <a class="code" href="../../df/d6d/namespacemymath.html#ae6f0d1529ee101163ab6f5a40dd268f4">mymath::linspace</a>(time_array.data(), first_dt, last_dt, n_points);</div>
 <div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;</div>
 <div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;    <a class="code" href="../../d6/d13/classFullRingAndRf.html#aa4465bbc2580dad431bacefd6194c4c0">fTotalVoltage</a>.resize(time_array.size());</div>
 <div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;</div>
@@ -536,7 +536,7 @@ $(document).ready(function(){initNavTree('d2/d6f/Tracker_8cpp_source.html','../.
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_2b12189b1b38a5891fb7949d75362c72.html">src</a></li><li class="navelem"><a class="el" href="../../dir_b0e556a43b1b7e1bb5688c73a151d451.html">trackers</a></li><li class="navelem"><a class="el" href="../../d2/d6f/Tracker_8cpp.html">Tracker.cpp</a></li>
-    <li class="footer">Generated on Fri Nov 4 2016 17:56:57 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Thu Nov 10 2016 14:08:47 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

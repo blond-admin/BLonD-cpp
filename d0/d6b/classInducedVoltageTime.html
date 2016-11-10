@@ -147,8 +147,8 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8e5cec663b800aca3b5b880b8eb298ad"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d6b/classInducedVoltageTime.html#a8e5cec663b800aca3b5b880b8eb298ad">InducedVoltageTime</a> (<a class="el" href="../../dc/d45/classSlices.html">Slices</a> *slices, std::vector&lt; <a class="el" href="../../dc/dad/classIntensity.html">Intensity</a> * &gt; &amp;WakeSourceList, <a class="el" href="../../d0/d6b/classInducedVoltageTime.html#abfce0f9ed897e5c28008d1ecfa82fe64">time_or_freq</a> TimeOrFreq=<a class="el" href="../../d0/d6b/classInducedVoltageTime.html#abfce0f9ed897e5c28008d1ecfa82fe64afd5b945671c9c5dbf4f2e3179e5ccb24">freq_domain</a>)</td></tr>
-<tr class="separator:a8e5cec663b800aca3b5b880b8eb298ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fe4f53ea9bf27fa1b96edf5667e2574"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d6b/classInducedVoltageTime.html#a2fe4f53ea9bf27fa1b96edf5667e2574">InducedVoltageTime</a> (<a class="el" href="../../dc/d45/classSlices.html">Slices</a> *slices, const std::vector&lt; <a class="el" href="../../dc/dad/classIntensity.html">Intensity</a> * &gt; &amp;WakeSourceList, <a class="el" href="../../d0/d6b/classInducedVoltageTime.html#abfce0f9ed897e5c28008d1ecfa82fe64">time_or_freq</a> TimeOrFreq=<a class="el" href="../../d0/d6b/classInducedVoltageTime.html#abfce0f9ed897e5c28008d1ecfa82fe64afd5b945671c9c5dbf4f2e3179e5ccb24">freq_domain</a>)</td></tr>
+<tr class="separator:a2fe4f53ea9bf27fa1b96edf5667e2574"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe5023e5a5f1debe3bd774e7bb2519e1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d6b/classInducedVoltageTime.html#abe5023e5a5f1debe3bd774e7bb2519e1">~InducedVoltageTime</a> ()</td></tr>
 <tr class="separator:abe5023e5a5f1debe3bd774e7bb2519e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79450cec4f3620f9c0e16faa544d5491"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d6b/classInducedVoltageTime.html#a79450cec4f3620f9c0e16faa544d5491">induced_voltage_generation</a> (<a class="el" href="../../d9/d7c/classBeams.html">Beams</a> *beam, <a class="el" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> length=0)</td></tr>
@@ -211,7 +211,7 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a8e5cec663b800aca3b5b880b8eb298ad"></a>
+<a class="anchor" id="a2fe4f53ea9bf27fa1b96edf5667e2574"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -224,7 +224,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="../../dc/dad/classIntensity.html">Intensity</a> * &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="../../dc/dad/classIntensity.html">Intensity</a> * &gt; &amp;&#160;</td>
           <td class="paramname"><em>WakeSourceList</em>, </td>
         </tr>
         <tr>
@@ -249,7 +249,7 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="comment">// several wake fields (time domain).*</span></div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="../../dd/de2/classInducedVoltage.html#a3329197ef968eefdf5825a91a0158fed">fSlices</a> = slices;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="comment">// *Wake sources inputed as a list (eg: list of BBResonators objects)*</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#ab04846f75250739419ac5c8d2e571f21">fWakeSourceList</a> = WakeSourceList;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#ab04846f75250739419ac5c8d2e571f21">fWakeSourceList</a> = WakeList;</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="comment">// *Time array of the wake in [s]*</span></div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <a class="code" href="../../d0/d6b/classInducedVoltageTime.html#a5ecb1559072fba216e1a320441982182">fTimeArray</a> = <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a>();</div>
@@ -278,7 +278,7 @@ Public Attributes</h2></td></tr>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../d0/d6b/classInducedVoltageTime_a8e5cec663b800aca3b5b880b8eb298ad_cgraph.svg" width="358" height="110"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d0/d6b/classInducedVoltageTime_a2fe4f53ea9bf27fa1b96edf5667e2574_cgraph.svg" width="358" height="110"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </p>
@@ -677,7 +677,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../d0/d6b/classInducedVoltageTime.html">InducedVoltageTime</a></li>
-    <li class="footer">Generated on Fri Nov 4 2016 17:56:57 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Thu Nov 10 2016 14:08:48 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

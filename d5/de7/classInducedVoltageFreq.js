@@ -5,7 +5,7 @@ var classInducedVoltageFreq =
       [ "ceil_option", "d5/de7/classInducedVoltageFreq.html#a424da4862263dc9a5212837de92d5c94a1449234ffcfafa642a62997b2815000a", null ],
       [ "floor_option", "d5/de7/classInducedVoltageFreq.html#a424da4862263dc9a5212837de92d5c94ab904a1eac09936df80f97013dd8f5add", null ]
     ] ],
-    [ "InducedVoltageFreq", "d5/de7/classInducedVoltageFreq.html#a316a39db604590afcc57b72d9254ce6d", null ],
+    [ "InducedVoltageFreq", "d5/de7/classInducedVoltageFreq.html#a8ce05994fef3887a3106f0ad43634386", null ],
     [ "~InducedVoltageFreq", "d5/de7/classInducedVoltageFreq.html#a644e56cce5d135a597d046e3d6901e13", null ],
     [ "induced_voltage_generation", "d5/de7/classInducedVoltageFreq.html#a0d32221f87feb031ad8db7524739cbb1", null ],
     [ "reprocess", "d5/de7/classInducedVoltageFreq.html#ae3727a320bc179d51b54be5721224c99", null ],

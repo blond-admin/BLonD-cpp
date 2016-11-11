@@ -9,6 +9,10 @@
 #include <blond/math_functions.h>
 #include <blond/trackers/Tracker.h>
 #include <iterator>
+#include <blond/vector_math.h>
+
+using namespace std;
+using namespace mymath;
 
 
 inline void RingAndRfSection::kick(const double *__restrict beam_dt,
@@ -26,7 +30,7 @@ inline void RingAndRfSection::kick(const double *__restrict beam_dt,
         #pragma omp parallel for
         for (int i = 0; i < n_macroparticles; ++i) {
             const double a = omega_rf[j] * beam_dt[i] + phi_rf[j];
-            beam_dE[i] += voltage[j] * mymath::fast_sin(a);
+            beam_dE[i] += voltage[j] * fast_sin(a);
         }
     }
 
@@ -166,9 +170,9 @@ void RingAndRfSection::track()
             }
         }
 
-        // std::cout << "right: " << indices_right_outside.size() << '\n';
-        // std::cout << "inside: " << indices_inside_frame.size() << '\n';
-        // std::cout << "left: " << indices_left_outside.size() << '\n';
+        // cout << "right: " << indices_right_outside.size() << '\n';
+        // cout << "inside: " << indices_inside_frame.size() << '\n';
+        // cout << "left: " << indices_left_outside.size() << '\n';
 
     } else {
         if (rf_kick_interp) {
@@ -183,9 +187,9 @@ void RingAndRfSection::track()
                     fTotalVoltage[i] += totalInducedVoltage->fInducedVoltage[i];
             }
 
-            std::transform(fRfVoltage.begin(), fRfVoltage.end(),
-                           fRfVoltage.begin(),
-                           std::bind1st(std::multiplies<double>(), charge));
+            transform(fRfVoltage.begin(), fRfVoltage.end(),
+                      fRfVoltage.begin(),
+                      bind1st(multiplies<double>(), charge));
 
             linear_interp_kick(beam->dt.data(), beam->dE.data(),
                                fRfVoltage.data(), slices->bin_centers.data(),
@@ -238,7 +242,7 @@ void RingAndRfSection::rf_voltage_calculation(int turn, Slices *slices)
     for (uint j = 0; j < slices->bin_centers.size(); j++) {
         double sum = 0.0;
         for (int i = 0; i < n_rf; i++) {
-            sum += vol[i] * std::sin(omeg[i] * slices->bin_centers[j] + phi[i]);
+            sum += vol[i] * sin(omeg[i] * slices->bin_centers[j] + phi[i]);
         }
         fRfVoltage[j] = sum;
     }
@@ -300,7 +304,7 @@ void RingAndRfSection::drift(f_vector_t &beam_dt, f_vector_t &beam_dE,
           rfp->energy[index], beam_dt.size());
 }
 
-FullRingAndRf::FullRingAndRf(const std::vector<RingAndRfSection *> &RingList)
+FullRingAndRf::FullRingAndRf(const vector<RingAndRfSection *> &RingList)
 {
     fRingList = RingList;
 
@@ -340,79 +344,68 @@ void FullRingAndRf::potential_well_generation(const int turn,
 
     double main_omega_rf;
     if (option == 0) {
-        auto k = mymath::min(omega_rf.data(), omega_rf.size());
-        main_omega_rf = omega_rf[k];
+        main_omega_rf = *min_element(ALL(omega_rf));
     } else if (option == 1) {
-        auto k = mymath::max(voltages.data(), voltages.size());
-        auto maxV = voltages[k];
-
+        auto maxV = *min_element(ALL(voltages));
         f_vector_t temp;
 
         for (uint i = 0; i < voltages.size(); ++i)
             if (voltages[i] == maxV)
                 temp.push_back(omega_rf[i]);
 
-        k = mymath::min(temp.data(), temp.size());
-        main_omega_rf = temp[k];
+        main_omega_rf = *min_element(ALL(omega_rf));
     } else {
         f_vector_t temp;
-        std::copy_if(omega_rf.begin(), omega_rf.end(), back_inserter(temp),
+        copy_if(omega_rf.begin(), omega_rf.end(), back_inserter(temp),
         [option](const double x) { return x == option; });
         if (temp.empty()) {
-            std::cerr << "[ERROR] The desired harmonic to compute"
-                      << "the potential well does not"
-                      << "match the RF parameters...\n";
+            cerr << "[ERROR] The desired harmonic to compute"
+                 << "the potential well does not"
+                 << "match the RF parameters...\n";
             exit(-1);
         }
         main_omega_rf = option;//temp[k];
     }
 
-    auto time_array_margin =
+    // cout << "main_omega_rf: " << main_omega_rf << "\n";
+
+    double time_array_margin =
         dt_margin_percent * 2 * constant::pi / main_omega_rf;
 
-    auto slippage_factor = fRingList[0]->eta_0[turn];
+    double slippage_factor = fRingList[0]->eta_0[turn];
 
-    auto first_dt = -time_array_margin / 2;
-    auto last_dt = 2 * constant::pi / main_omega_rf + time_array_margin / 2;
+    double first_dt = -time_array_margin / 2;
+    double last_dt = 2 * constant::pi / main_omega_rf + time_array_margin / 2;
 
-    f_vector_t time_array(n_points);
-    mymath::linspace(time_array.data(), first_dt, last_dt, n_points);
+    f_vector_t time_array = linspace(first_dt, last_dt, n_points);
 
     fTotalVoltage.resize(time_array.size());
 
     for (int i = 0; i < (int)time_array.size(); ++i) {
         double sum = 0.0;
         for (int j = 0; j < (int)voltages.size(); ++j) {
-            sum += voltages[j] * mymath::fast_sin(omega_rf[j] * time_array[i] +
-                                                  phi_offsets[j]);
+            sum += voltages[j] * fast_sin(omega_rf[j] * time_array[i] +
+                                          phi_offsets[j]);
         }
         fTotalVoltage[i] = sum;
     }
 
-    const auto eom_factor_potential =
-        mymath::sign(slippage_factor) * charge / t_rev[turn];
+    const double eom_factor_potential = sign(slippage_factor) * charge
+                                        / t_rev[turn];
 
-    auto tempVec = fTotalVoltage;
-    for (int i = 0; i < (int)fTotalVoltage.size(); ++i)
-        tempVec[i] =
-            eom_factor_potential *
-            (tempVec[i] -
-             (-fRingList[0]->acceleration_kick[turn]) / std::abs(charge));
+    // cout << "eom_factor_potential: " << eom_factor_potential << "\n";
+    // cout << "fTotalVoltage: " << fTotalVoltage << "\n";
+    // cout << "time_array: " << time_array[1] - time_array[0] << "\n";
 
-    auto tempArr = mymath::cum_trapezoid(
-                       tempVec.data(), time_array[1] - time_array[0], n_points);
+    fPotentialWell = 0.0 - cum_trapezoid(eom_factor_potential / abs(charge)
+                                         * (fTotalVoltage
+                                            + fRingList[0]->acceleration_kick[turn]),
+                                         time_array[1] - time_array[0]);
 
-    std::transform(tempArr.begin(), tempArr.end(), tempArr.begin(),
-    [](double x) { return -x; });
 
-    auto min_i = mymath::min(tempArr.data(), tempArr.size());
-    auto min = tempArr[min_i] > 0 ? 0 : tempArr[min_i];
-
-    fPotentialWell.resize(tempArr.size() + 1);
-    fPotentialWell[0] = - min;
-
-    for (uint i = 0; i < tempArr.size(); ++i)
-        fPotentialWell[i + 1] = tempArr[i] - min;
+    fPotentialWell.insert(fPotentialWell.begin(), 0);
+    // cout << "fPotentialWell: " << fPotentialWell;
+    fPotentialWell -= *min_element(ALL(fPotentialWell));
 
     fPotentialWellCoordinates = time_array;
 }

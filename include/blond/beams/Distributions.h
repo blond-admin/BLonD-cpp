@@ -14,16 +14,17 @@
 #include <blond/trackers/Tracker.h>
 #include <blond/impedances/InducedVoltage.h>
 #include <map>
+#include <functional>
 
-struct matched_from_line_denstity_return_t {
+struct line_density_t {
     f_vector_t hamiltonian_coord;
     f_vector_t density_function;
     f_vector_t time_line_den;
     f_vector_t line_density;
-    matched_from_line_denstity_return_t(f_vector_t &ham_c,
-                                        f_vector_t &den_func,
-                                        f_vector_t &time_l,
-                                        f_vector_t &line_den) :
+    line_density_t(const f_vector_t &ham_c,
+                   const f_vector_t &den_func,
+                   const f_vector_t &time_l,
+                   const f_vector_t &line_den) :
         hamiltonian_coord(ham_c),
         density_function(den_func),
         time_line_den(time_l),
@@ -32,7 +33,37 @@ struct matched_from_line_denstity_return_t {
 };
 
 
-matched_from_line_denstity_return_t
+struct distribution_denstity_t {
+    f_vector_t time_coord_low_res;
+    f_vector_t line_density;
+    distribution_denstity_t(const f_vector_t &time_coord,
+                            const f_vector_t &line_density) :
+        time_coord_low_res(time_coord),
+        line_density(line_density)
+    {}
+};
+
+struct multi_t {
+    double d;
+    std::string s;
+    int i;
+    f_vector_t v;
+    std::function<f_vector_t(const f_vector_t &, std::string,
+                             double, double)> f;
+    // std::function<double(double)> f;
+    multi_t() {}
+    multi_t(double _d) : d(_d) {}
+    multi_t(std::string _s) : s(_s) {}
+    multi_t(int _i) : i(_i) {}
+    multi_t(const f_vector_t &_v) : v(_v) {}
+    multi_t(std::function<f_vector_t(const f_vector_t &, std::string,
+                                     double, double)> _f) : f(_f) {}
+    // multi_t(std::function<double(double)> _f) : f(_f) {}
+
+};
+
+
+line_density_t
 matched_from_line_density(Beams *beam,
                           FullRingAndRf *full_ring,
                           std::map<std::string, std::string> line_density_opt,
@@ -48,6 +79,20 @@ matched_from_line_density(Beams *beam,
                           int seed = 0);
 
 
+distribution_denstity_t
+matched_from_distribution_density(Beams *beam,
+                                  FullRingAndRf *full_ring,
+                                  std::map<std::string, multi_t> distribution_opt,
+                                  FullRingAndRf::main_harmonic_t main_harmonic_opt =
+                                      FullRingAndRf::lowest_freq,
+                                  TotalInducedVoltage *totVolt = nullptr,
+                                  std::map<std::string, f_vector_t> extraVoltageDict =
+                                      std::map<std::string, f_vector_t>(),
+                                  int n_iterations_input = 1,
+                                  int seed = 0);
+
+
+/*
 void matched_from_distribution_density(FullRingAndRf *full_ring,
                                        std::map<std::string, std::string> distribution_opt,
                                        std::string main_harmonic = "lowest_freq",
@@ -55,7 +100,7 @@ void matched_from_distribution_density(FullRingAndRf *full_ring,
                                        std::map<std::string, std::string> extraVoltageDict =
                                                std::map<std::string, std::string>(),
                                        int seed = 0);
-
+*/
 
 void longitudinal_bigaussian(GeneralParameters *GP, RfParameters *RfP,
                              Beams *Beam, double sigma_dt, double sigma_dE = 0,

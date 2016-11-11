@@ -11,11 +11,12 @@
 #include <blond/python.h>
 #include <iostream>
 #include <blond/vector_math.h>
+#include <blond/math_functions.h>
 
 using namespace mymath;
 using namespace std;
 
-matched_from_line_denstity_return_t
+line_density_t
 matched_from_line_density(Beams *beam,
                           FullRingAndRf *full_ring,
                           map<string, string> line_density_opt,
@@ -526,70 +527,426 @@ matched_from_line_density(Beams *beam,
 
 
 
+distribution_denstity_t
+matched_from_distribution_density(Beams *beam,
+                                  FullRingAndRf *full_ring,
+                                  map<string, multi_t> distribution_opt,
+                                  FullRingAndRf::main_harmonic_t main_harmonic_opt,
+                                  TotalInducedVoltage *totVolt,
+                                  map<string, f_vector_t> extraVoltageDict,
+                                  int n_iterations_input,
+                                  int seed
+                                 )
+{
+    // NOTE
+    // Not setting distribution_opt["exponent"] to null
+    // Not defining distribution_density_function
 
-// void matched_from_line_density(Beams *beam,
-//                                FullRingAndRf *full_ring,
-//                                map<string, string> line_density_opt,
-//                                string main_harmonic,
-//                                TotalInducedVoltage *totVolt,
-//                                string plot,
-//                                string figdir,
-//                                string half_option,
-//                                map<string, string> extraVoltageDict,
-//                                int n_iterations_input,
-//                                int seed
-//                               )
-// {
-//     auto GP = Context::GP;
+    double slippage_factor = full_ring->fRingList[0]->eta_0[0];
+    double eom_factor_dE = abs(slippage_factor) / (2 * beam->beta
+                           * beam->beta * beam->energy);
 
-//     int n_points_potential = int(1e4);
+    double eom_factor_potential = sign(slippage_factor)
+                                  * beam->charge
+                                  / full_ring->fRingList[0]->t_rev[0];
+    // cout << distribution_opt["type"].s << "\n";
+    // cout << distribution_opt["exponent"].d << "\n";
+    // cout << distribution_opt["user_table"].v << "\n";
+    // cout << distribution_opt["function"].f({1, 2, 3}, "", 10, 0) << "\n";
 
-//     full_ring->potential_well_generation(0, n_points_potential, 0, 0.4);
+    // FIXME
+    int n_points_potential = 10;
+    // int n_points_potential = 10000;
 
-//     python::import();
-//     auto pFunc = python::import("distributions", "matched_from_line_density");
-//     auto pBeta = python::convert_double(beam->beta);
-//     auto pEnergy = python::convert_double(beam->energy);
-//     auto pCharge = python::convert_double(beam->charge);
-//     auto pNMacroparticles = python::convert_int(beam->n_macroparticles);
-//     auto pEta0 = python::convert_double(GP->eta_0[0][0]);
-//     auto pTRev0 = python::convert_double(GP->t_rev[0]);
-//     auto pMainHarmonic = python::convert_string(main_harmonic);
-//     auto pPlot = python::convert_string(plot);
-//     auto pFigDir = python::convert_string(figdir);
-//     auto pHalfOption = python::convert_string(half_option);
-//     auto pNIterationsInput = python::convert_int(n_iterations_input);
-//     auto pSeed = python::convert_int(seed);
-//     auto pDT = python::convert_double_array(beam->dt.data(), beam->dt.size());
-//     auto pDE = python::convert_double_array(beam->dE.data(), beam->dE.size());
+    // FIXME the problem starts from potential_well_generation
+    // There is a very slight difference in fPotentialWell
+    full_ring->potential_well_generation(0, n_points_potential,
+                                         main_harmonic_opt, 0.4);
 
-//     auto pPotentialWell = python::convert_double_array(
-//                               full_ring->fPotentialWell.data(),
-//                               full_ring->fPotentialWell.size());
+    auto potential_well_array = full_ring->fPotentialWell;
+    // cout << "potential_well_array: " << potential_well_array;
+    auto time_coord_array = full_ring->fPotentialWellCoordinates;
+    double time_resolution = time_coord_array[1] - time_coord_array[0];
 
-//     auto pTimeCoord = python::convert_double_array(
-//                           full_ring->fPotentialWellCoordinates.data(),
-//                           full_ring->fPotentialWellCoordinates.size());
+    f_vector_t extra_potential, induced_potential;
 
-//     auto pLineDensityOpt = python::convert_dictionary(line_density_opt);
-//     auto pExtraVoltageDict = python::convert_dictionary(extraVoltageDict);
+    if (!extraVoltageDict.empty()) {
+        auto extra_voltage_time_input = extraVoltageDict["time_array"];
+        auto extra_voltage_input = extraVoltageDict["voltage_array"];
+        auto extra_potential_input = -eom_factor_potential
+                                     * cum_trapezoid(extra_voltage_input.data(),
+                                             extra_voltage_input[1]
+                                             - extra_voltage_input[0],
+                                             extra_voltage_input.size());
+        extra_potential_input.insert(extra_potential_input.begin(), 0);
+        // extra_potential_input *= -eom_factor_potential;
+        extra_potential = interp(time_coord_array, extra_voltage_time_input,
+                                 extra_potential_input);
+    }
+    // FIXME the problems starts from total_potential
+    auto total_potential = extra_potential.empty() ? potential_well_array :
+                           potential_well_array + extra_potential;
 
-//     auto ret = PyObject_CallFunctionObjArgs(pFunc, pBeta, pEnergy,
-//                                             pCharge, pNMacroparticles,
-//                                             pDT, pDE, pEta0, pTRev0,
-//                                             pPotentialWell, pTimeCoord,
-//                                             pLineDensityOpt, pMainHarmonic,
-//                                             pPlot, pFigDir, pHalfOption,
-//                                             pExtraVoltageDict,
-//                                             pNIterationsInput, pSeed, NULL);
+    int n_iterations = n_iterations_input;
+    if (totVolt == nullptr)
+        n_iterations = 1;
+    else
+        // NOTE create a deepcopy of totVolt
+        ;
 
-//     if (!ret) {
-//         std::cerr << "[matched_from_line_density] An error occured while "
-//                   << "executing python code\n";
-//         exit(-1);
-//     }
+    // NOTE
+    // so far so good
+    // cout << "total_potential: " << total_potential;
+    // cout << "time_coord_array: " << time_coord_array;
 
-// }
+    for (int i = 0; i < n_iterations; i++) {
+        auto old_potential = total_potential;
+
+        total_potential = extra_potential.empty() ? potential_well_array :
+                          potential_well_array + extra_potential;
+
+        double sse = sqrt(sum(apply_f(old_potential, total_potential,
+        [](double a, double b) {return (a - b) * (a - b);})));
+
+        cout <<  "Matching the bunch... (iteration: " << i
+             << " and sse: " << sse << ")\n";
+
+        f_vector_t time_coord_sep, potential_well_sep;
+        potential_well_cut(time_coord_array, total_potential,
+                           time_coord_sep, potential_well_sep);
+
+
+        potential_well_sep -= *min_element(ALL(potential_well_sep));
+        n_points_potential = potential_well_sep.size();
+
+        auto max_potential = *max_element(ALL(potential_well_sep));
+        auto max_deltaE = sqrt(max_potential / eom_factor_dE);
+
+        // NOTE
+        // so far so good
+        // cout << "potential_well_sep: " << potential_well_sep;
+        // cout << "max_potential: " << max_potential << "\n";
+        // cout << "max_deltaE: " << max_deltaE <<"\n";
+
+        auto H_array_dE0 = potential_well_sep;
+        // FIXME
+        // int n_points_grid = 1000;
+        int n_points_grid = 10;
+
+        auto potential_well_indexes = arange(0.0, 1.0 * n_points_potential);
+        auto grid_indexes = arange(0.0, 1.0 * n_points_grid)
+                            * (1.0 * n_points_potential / n_points_grid);
+        auto time_coord_low_res = interp(grid_indexes, potential_well_indexes,
+                                         time_coord_sep);
+        auto deltaE_coord_array = linspace(-max_deltaE, max_deltaE, n_points_grid);
+
+        auto potential_well_low_res = interp(grid_indexes,
+                                             potential_well_indexes,
+                                             potential_well_sep);
+
+        f_vector_2d_t time_grid, deltaE_grid;
+        meshgrid(time_coord_low_res, deltaE_coord_array,
+                 time_grid, deltaE_grid);
+
+        f_vector_2d_t potential_well_grid, trash;
+        meshgrid(potential_well_low_res, potential_well_low_res,
+                 potential_well_grid, trash);
+
+        f_vector_t J_array_dE0(n_points_grid, 0.);
+
+        // NOTE so far so good
+        // cout << "potential_well_indexes: " << potential_well_indexes;
+        // cout << "grid_indexes: " << grid_indexes;
+        // cout << "time_coord_low_res: " << time_coord_low_res;
+        // cout << "deltaE_coord_array: " << deltaE_coord_array;
+        // cout << "potential_well_low_res: " << potential_well_low_res;
+
+        for (int j = 0; j < n_points_grid; j++) {
+            auto dE_trajectory = apply_f(H_array_dE0,
+            [eom_factor_dE, &potential_well_low_res, j](double x) {
+                auto num = (potential_well_low_res[j] - x) / eom_factor_dE;
+                return (num < 0.0) ? 0.0 : sqrt(num);
+            });
+            J_array_dE0[j] = (2.0 / (2.*constant::pi))
+                             * trapezoid(dE_trajectory, time_resolution);
+        }
+        // NOTE so far so good
+        // cout << "J_array_dE0: " << J_array_dE0;
+
+        H_array_dE0 = potential_well_low_res;
+        struct node {
+            double h, j;
+            bool operator<(const node &o) const
+            {
+                return h < o.h;
+            }
+        };
+
+        vector<node> nodes(H_array_dE0.size());
+        for (uint i = 0; i < nodes.size(); i++)
+            nodes[i] = {H_array_dE0[i], J_array_dE0[i]};
+        sort(ALL(nodes));
+        for (uint i = 0; i < nodes.size(); i++) {
+            H_array_dE0[i] = nodes[i].h;
+            J_array_dE0[i] = nodes[i].j;
+        }
+
+        f_vector_2d_t H_grid, J_grid;
+
+        for (uint j = 0; j < deltaE_grid.size(); j++)
+            H_grid.push_back(eom_factor_dE * deltaE_grid[j] * deltaE_grid[j]
+                             + potential_well_grid[j]);
+
+        for (auto &row : H_grid)
+            J_grid.push_back(interp(row, H_array_dE0, J_array_dE0, 0.0,
+                                    numeric_limits<double>::infinity()));
+
+        // almost ok, check H_array_dE0[1], J_array_dE0[1]
+        // almost ok, there is a difference in J_grid[0][4], J_grid[last][4]
+        // cout << "H_array_dE0: " << H_array_dE0;
+        // cout << "J_array_dE0: " << J_array_dE0;
+
+        // cout << "H_grid\n";
+        // for (auto &row : H_grid)
+        //     cout << row;
+
+        // cout << "J_grid\n";
+        // for (auto &row : J_grid)
+        //     cout << row;
+
+        auto density_variable = distribution_opt["density_variable"].s;
+
+        if (distribution_opt.find("bunch_length") != distribution_opt.end()) {
+            double tau = 0.0;
+            double X_low, X_hi, X_min, X_max, X_accuracy;
+            if (density_variable == "density_from_J") {
+                X_low = J_array_dE0[0];
+                X_hi = J_array_dE0[n_points_grid - 1];
+                X_min = X_low;
+                X_max = X_hi;
+                X_accuracy = J_array_dE0[1] - J_array_dE0[0] / 2;
+            } else if (density_variable == "density_from_H") {
+                X_low = H_array_dE0[0];
+                X_hi = H_array_dE0[n_points_grid - 1];
+                X_min = X_low;
+                X_max = X_hi;
+                X_accuracy = H_array_dE0[1] - H_array_dE0[0] / 2;
+            } else {
+                cerr << "[Distribution density] The density_variable was not "
+                     << "recognized\n";
+                exit(-1);
+            }
+
+            double bunch_length_accuracy = (time_coord_low_res[1]
+                                            - time_coord_low_res[0]) / 2;
+
+            while (abs(distribution_opt["bunch_length"].d - tau) > bunch_length_accuracy) {
+
+                double X0 = 0.5 * (X_low + X_hi);
+                // cout << "X0: " << X0 << "\n";
+                f_vector_2d_t density_grid;
+                if (density_variable == "density_from_J") {
+                    if (distribution_opt["type"].s == "user_input") {
+                        for (auto &row : J_grid)
+                            density_grid.push_back(
+                                distribution_opt["function"].f(
+                                    row, distribution_opt["type"].s,
+                                    X0, distribution_opt["exponent"].d));
+                    } else {
+                        for (auto &row : J_grid)
+                            density_grid.push_back(
+                                distribution_density_function(
+                                    row, distribution_opt["type"].s,
+                                    X0, distribution_opt["exponent"].d));
+                    }
+                } else { // density_variable == "density_from_H"
+                    if (distribution_opt["type"].s == "user_input") {
+                        for (auto &row : H_grid)
+                            density_grid.push_back(
+                                distribution_opt["function"].f(
+                                    row, distribution_opt["type"].s,
+                                    X0, distribution_opt["exponent"].d));
+                    } else {
+                        for (auto &row : H_grid)
+                            density_grid.push_back(
+                                distribution_density_function(
+                                    row, distribution_opt["type"].s,
+                                    X0, distribution_opt["exponent"].d));
+                    }
+                }
+
+                double density_grid_sum = 0;
+                for (auto &row : density_grid) density_grid_sum += sum(row);
+                for (auto &row : density_grid) row /= density_grid_sum;
+                // cout << "density_grid_sum: " << density_grid_sum << "\n";
+                f_vector_t line_density(density_grid[0].size(), 0);
+                for (auto &row : density_grid) line_density += row;
+                // cout << "line_density: " << line_density << "\n";
+                // test here
+                // very small differences due to H_grid, J_grid
+                bool flag = false;
+                FOR(line_density, it) flag = flag | (*it > 0);
+
+                if (flag) {
+                    auto square = [](double x) {return x * x;};
+                    tau = 4 * sqrt(
+                              sum(
+                                  apply_f(time_coord_low_res
+                                          - sum(line_density * time_coord_low_res)
+                                          / sum(line_density), square) * line_density)
+                              / sum(line_density));
+                    cout << "tau: " << tau << "\n";
+                    // tau = 7.85960204478e-07;
+                    if (distribution_opt.find("bunch_length_fit") != distribution_opt.end()) {
+
+                        auto slices = Slices(full_ring->fRingList[0]->rfp, beam,
+                                             n_points_grid);
+                        slices.n_macroparticles = line_density;
+                        slices.bin_centers = time_coord_low_res;
+                        slices.edges =
+                            linspace(
+                                slices.bin_centers[0]
+                                - (slices.bin_centers[1] - slices.bin_centers[0]) / 2,
+                                slices.bin_centers.back()
+                                + (slices.bin_centers[1] - slices.bin_centers[0]) / 2,
+                                slices.bin_centers.size() + 1);
+                        // FIXME end_to_end is working, gauss has a small error
+                        // fwhm returns nan
+                        // the problem is not tau, it is either line_density or
+                        // time_coord_low_res
+                        auto bunch_length_fit = distribution_opt["bunch_length_fit"].s;
+                        if (bunch_length_fit == "gauss") {
+                            slices.bl_gauss = tau;
+                            slices.bp_gauss = sum(line_density * time_coord_low_res)
+                                              / sum(line_density);
+                            cout << "bl_gauss: " << slices.bl_gauss << "\n";
+                            cout << "bp_gauss: " << slices.bp_gauss << "\n";
+                            slices.gaussian_fit();
+                            tau = slices.bl_gauss;
+                        } else if (bunch_length_fit == "fwhm") {
+                            slices.fwhm();
+                            tau = slices.bl_fwhm;
+                        } else if (bunch_length_fit == "end_to_end") {
+                            double first, last;
+                            int i = 0;
+
+                            while (i < n_points_grid && slices.n_macroparticles[i] <= 0) i++;
+                            first = i < n_points_grid ? slices.bin_centers[i] : 0;
+
+                            i = n_points_grid - 1;
+                            while (i >= 0 && slices.n_macroparticles[i] <= 0) i--;
+                            last = i >= 0 ? slices.bin_centers[i] : 0;
+
+                            tau = last - first;
+                        }
+                        // test till here
+                        cout << "tau: " << tau << "\n";
+                    }
+                    // exit(0);
+                }
+                if (tau >= distribution_opt["bunch_length"]) X_hi = X0;
+                else X_low = X0;
+
+                if (X_max - X0 < X_accuracy) {
+                    cerr << "[distribution density] Warning: The bucket is too "
+                         << "small to have the desired bunch length!\n"
+                         << "Input is " << distribution_opt["bunch_length"]
+                         << "\n, the generation gave " << tau
+                         << ", the error is " << distribution_opt["bunch_length"] - tau
+                         << "%\n"
+                         break;
+                }
+
+                if (X0 - X_min < X_accuracy)
+                    cerr << "[distribution density] Warning: The desired bunch "
+                         << "is too small to be generated accurately\n";
+
+                exit(0);
+            }
+            if (density_variable == "density_from_J") J0 = X0;
+            else H0 = X0;
+            // TODO continue here
+            // check tau is correct in the end of the loop
+            // line 648 distributions.py
+
+        }
+
+    }
+
+
+
+
+
+
+
+    return {{}, {}};
+}
+
+
+
+/*void matched_from_line_density(Beams *beam,
+                               FullRingAndRf *full_ring,
+                               map<string, string> line_density_opt,
+                               string main_harmonic,
+                               TotalInducedVoltage *totVolt,
+                               string plot,
+                               string figdir,
+                               string half_option,
+                               map<string, string> extraVoltageDict,
+                               int n_iterations_input,
+                               int seed
+                              )
+{
+    auto GP = Context::GP;
+
+    int n_points_potential = int(1e4);
+
+    full_ring->potential_well_generation(0, n_points_potential, 0, 0.4);
+
+    python::import();
+    auto pFunc = python::import("distributions", "matched_from_line_density");
+    auto pBeta = python::convert_double(beam->beta);
+    auto pEnergy = python::convert_double(beam->energy);
+    auto pCharge = python::convert_double(beam->charge);
+    auto pNMacroparticles = python::convert_int(beam->n_macroparticles);
+    auto pEta0 = python::convert_double(GP->eta_0[0][0]);
+    auto pTRev0 = python::convert_double(GP->t_rev[0]);
+    auto pMainHarmonic = python::convert_string(main_harmonic);
+    auto pPlot = python::convert_string(plot);
+    auto pFigDir = python::convert_string(figdir);
+    auto pHalfOption = python::convert_string(half_option);
+    auto pNIterationsInput = python::convert_int(n_iterations_input);
+    auto pSeed = python::convert_int(seed);
+    auto pDT = python::convert_double_array(beam->dt.data(), beam->dt.size());
+    auto pDE = python::convert_double_array(beam->dE.data(), beam->dE.size());
+
+    auto pPotentialWell = python::convert_double_array(
+                              full_ring->fPotentialWell.data(),
+                              full_ring->fPotentialWell.size());
+
+    auto pTimeCoord = python::convert_double_array(
+                          full_ring->fPotentialWellCoordinates.data(),
+                          full_ring->fPotentialWellCoordinates.size());
+
+    auto pLineDensityOpt = python::convert_dictionary(line_density_opt);
+    auto pExtraVoltageDict = python::convert_dictionary(extraVoltageDict);
+
+    auto ret = PyObject_CallFunctionObjArgs(pFunc, pBeta, pEnergy,
+                                            pCharge, pNMacroparticles,
+                                            pDT, pDE, pEta0, pTRev0,
+                                            pPotentialWell, pTimeCoord,
+                                            pLineDensityOpt, pMainHarmonic,
+                                            pPlot, pFigDir, pHalfOption,
+                                            pExtraVoltageDict,
+                                            pNIterationsInput, pSeed, NULL);
+
+    if (!ret) {
+        std::cerr << "[matched_from_line_density] An error occured while "
+                  << "executing python code\n";
+        exit(-1);
+    }
+
+}
 
 
 
@@ -650,6 +1007,8 @@ void matched_from_distribution_density(FullRingAndRf *full_ring,
     }
 }
 
+*/
+
 
 f_vector_t distribution_density_function(const f_vector_t &action_array,
         const string &dist_type, const double length, double exponent)
@@ -689,8 +1048,9 @@ f_vector_t distribution_density_function(const f_vector_t &action_array,
         }
         return ret;
     } else if (dist_type == "gaussian") {
-        for (uint i = 0; i < action_array.size(); i++)
-            ret[i] = exp(-2. * action_array[i] / length);
+        ret = apply_f(action_array, [length](double x) {return exp(-2 * x / length);});
+        // for (uint i = 0; i < action_array.size(); i++)
+        //     ret[i] = exp(-2. * action_array[i] / length);
     } else {
         cerr << "[distribution_density_function] The dist_type was not recognized\n";
         exit(-1);

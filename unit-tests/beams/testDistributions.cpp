@@ -7,6 +7,7 @@
 #include <gtest/gtest.h>
 #include <testing_utilities.h>
 #include <blond/plots/plot_slices.h>
+#include <blond/vector_math.h>
 
 using namespace std;
 
@@ -597,7 +598,84 @@ TEST_F(testDistributions, matched_from_line_density4)
 }
 
 
+TEST_F(testDistributions, matched_from_distribution_density1)
+{
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+    auto Slice = new Slices(RfP, Beam, N_slices);
+    auto epsilon = 1e-8;
+    auto params = string(TEST_FILES "/Distributions/distribution_density1/");
+    string datafiles = DEMO_FILES "/TC5_Wake_impedance/";
 
+
+    f_vector_t v;
+    util::read_vector_from_file(v, datafiles + "TC5_new_HQ_table.dat");
+
+    f_vector_t R_shunt, f_res, Q_factor;
+
+    R_shunt.reserve(v.size() / 3);
+    f_res.reserve(v.size() / 3);
+    Q_factor.reserve(v.size() / 3);
+
+    for (uint i = 0; i < v.size(); i += 3) {
+        f_res.push_back(v[i] * 1e9);
+        Q_factor.push_back(v[i + 1]);
+        R_shunt.push_back(v[i + 2] * 1e6);
+    }
+
+    auto resonator = new Resonators(R_shunt, f_res, Q_factor);
+    auto indVoltTime = new InducedVoltageTime(Slice, {resonator});
+    auto totVolt = new TotalInducedVoltage(Beam, Slice, {indVoltTime});
+
+    auto long_tracker = new RingAndRfSection(RfP);
+    auto fullRing = new FullRingAndRf({long_tracker});
+
+    map<string, multi_t> distribution_opt;
+    distribution_opt["type"] = {"gaussian"};
+    distribution_opt["bunch_length"] = {150e-9};
+    distribution_opt["density_variable"] = {"density_from_J"};
+    distribution_opt["exponent"] = {2.5};
+    distribution_opt["bunch_length_fit"] = {"gauss"};
+
+
+    map<string, f_vector_t> extra_volt_dict;
+    extra_volt_dict["time_array"] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    extra_volt_dict["voltage_array"] = {112, 2, 34, 41, 5, 6, 71, 8, 9, 10};
+
+    // distribution_opt["user_table"] = {f_vector_t({2.5, 1.5, 3, 4})};
+    // distribution_opt["function"] = {[](double x) {return x + 1;}};
+    auto f = [](f_vector_t v, string str, double a, double b) {return v + a;};
+
+    distribution_opt["function"] = {f};
+    // distribution_opt["user_table2"] = {{2.5, 1.5, 3, 4}};
+
+    auto ret = matched_from_distribution_density(
+                   Beam, fullRing, distribution_opt,
+                   FullRingAndRf::lowest_freq, totVolt);
+
+    // util::read_vector_from_file(v, params + "hamiltonian_coord.txt");
+    // ASSERT_NEAR_LOOP(v, ret.hamiltonian_coord, "hamiltonian_coord", epsilon);
+
+    // util::read_vector_from_file(v, params + "density_function.txt");
+    // ASSERT_NEAR_LOOP(v, ret.density_function, "density_function", epsilon);
+
+    // util::read_vector_from_file(v, params + "time_line_den.txt");
+    // ASSERT_NEAR_LOOP(v, ret.time_line_den, "time_line_den", epsilon);
+
+    // util::read_vector_from_file(v, params + "line_density.txt");
+    // ASSERT_NEAR_LOOP(v, ret.line_density, "line_density", epsilon);
+
+    delete totVolt;
+    delete indVoltTime;
+    delete resonator;
+    delete Slice;
+    delete long_tracker;
+    delete fullRing;
+}
+
+
+
+/*
 TEST_F(testDistributions, matched_from_distribution_density1)
 {
     auto RfP = Context::RfP;
@@ -684,7 +762,7 @@ TEST_F(testDistributions, matched_from_distribution_density2)
     delete long_tracker;
     delete fullRing;
 }
-
+*/
 
 
 

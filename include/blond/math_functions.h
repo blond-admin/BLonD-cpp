@@ -15,6 +15,7 @@
 #include <blond/utilities.h>
 #include <cmath>
 #include <random>
+#include <limits>
 #include <cassert>
 #include <blond/openmp.h>
 
@@ -332,14 +333,26 @@ namespace mymath {
     }
 
     template <typename T>
-    static inline double mean(const T data[], const int n)
+    static inline double sum(const T data[], const int n)
     {
         double m = 0.0;
         #pragma omp parallel for reduction(+ : m)
         for (int i = 0; i < n; ++i) {
             m += data[i];
         }
-        return m / n;
+        return m;
+    }
+
+    template <typename T>
+    static inline double sum(const std::vector<T> &data)
+    {
+        return sum(data.data(), data.size());
+    }
+
+    template <typename T>
+    static inline double mean(const T data[], const int n)
+    {
+        return sum(data, n) / n;
     }
 
     template <typename T>

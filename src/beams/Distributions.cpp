@@ -555,8 +555,8 @@ matched_from_distribution_density(Beams *beam,
     // cout << distribution_opt["function"].f({1, 2, 3}, "", 10, 0) << "\n";
 
     // FIXME
-    int n_points_potential = 10;
-    // int n_points_potential = 10000;
+    // int n_points_potential = 10;
+    int n_points_potential = 10000;
 
     // FIXME the problem starts from potential_well_generation
     // There is a very slight difference in fPotentialWell
@@ -569,6 +569,10 @@ matched_from_distribution_density(Beams *beam,
     double time_resolution = time_coord_array[1] - time_coord_array[0];
 
     f_vector_t extra_potential, induced_potential;
+    f_vector_t line_density, time_coord_low_res, deltaE_coord_array;
+    f_vector_2d_t density_grid;
+    f_vector_2d_t time_grid, deltaE_grid;
+
 
     if (!extraVoltageDict.empty()) {
         auto extra_voltage_time_input = extraVoltageDict["time_array"];
@@ -630,21 +634,20 @@ matched_from_distribution_density(Beams *beam,
 
         auto H_array_dE0 = potential_well_sep;
         // FIXME
-        // int n_points_grid = 1000;
-        int n_points_grid = 10;
+        int n_points_grid = 1000;
+        // int n_points_grid = 10;
 
         auto potential_well_indexes = arange(0.0, 1.0 * n_points_potential);
         auto grid_indexes = arange(0.0, 1.0 * n_points_grid)
                             * (1.0 * n_points_potential / n_points_grid);
-        auto time_coord_low_res = interp(grid_indexes, potential_well_indexes,
-                                         time_coord_sep);
-        auto deltaE_coord_array = linspace(-max_deltaE, max_deltaE, n_points_grid);
+        time_coord_low_res = interp(grid_indexes, potential_well_indexes,
+                                    time_coord_sep);
+        deltaE_coord_array = linspace(-max_deltaE, max_deltaE, n_points_grid);
 
         auto potential_well_low_res = interp(grid_indexes,
                                              potential_well_indexes,
                                              potential_well_sep);
 
-        f_vector_2d_t time_grid, deltaE_grid;
         meshgrid(time_coord_low_res, deltaE_coord_array,
                  time_grid, deltaE_grid);
 
@@ -715,6 +718,7 @@ matched_from_distribution_density(Beams *beam,
         //     cout << row;
 
         auto density_variable = distribution_opt["density_variable"].s;
+        double X0 = 0.;
 
         if (distribution_opt.find("bunch_length") != distribution_opt.end()) {
             double tau = 0.0;
@@ -739,12 +743,12 @@ matched_from_distribution_density(Beams *beam,
 
             double bunch_length_accuracy = (time_coord_low_res[1]
                                             - time_coord_low_res[0]) / 2;
-
             while (abs(distribution_opt["bunch_length"].d - tau) > bunch_length_accuracy) {
 
-                double X0 = 0.5 * (X_low + X_hi);
+                X0 = 0.5 * (X_low + X_hi);
                 // cout << "X0: " << X0 << "\n";
-                f_vector_2d_t density_grid;
+                // f_vector_2d_t density_grid;
+                density_grid.clear();
                 if (density_variable == "density_from_J") {
                     if (distribution_opt["type"].s == "user_input") {
                         for (auto &row : J_grid)
@@ -779,7 +783,8 @@ matched_from_distribution_density(Beams *beam,
                 for (auto &row : density_grid) density_grid_sum += sum(row);
                 for (auto &row : density_grid) row /= density_grid_sum;
                 // cout << "density_grid_sum: " << density_grid_sum << "\n";
-                f_vector_t line_density(density_grid[0].size(), 0);
+                line_density.clear();
+                line_density.resize(density_grid[0].size(), 0);
                 for (auto &row : density_grid) line_density += row;
                 // cout << "line_density: " << line_density << "\n";
                 // test here
@@ -795,7 +800,6 @@ matched_from_distribution_density(Beams *beam,
                                           - sum(line_density * time_coord_low_res)
                                           / sum(line_density), square) * line_density)
                               / sum(line_density));
-                    cout << "tau: " << tau << "\n";
                     // tau = 7.85960204478e-07;
                     if (distribution_opt.find("bunch_length_fit") != distribution_opt.end()) {
 
@@ -819,11 +823,12 @@ matched_from_distribution_density(Beams *beam,
                             slices.bl_gauss = tau;
                             slices.bp_gauss = sum(line_density * time_coord_low_res)
                                               / sum(line_density);
-                            cout << "bl_gauss: " << slices.bl_gauss << "\n";
-                            cout << "bp_gauss: " << slices.bp_gauss << "\n";
+                            // cout << "bl_gauss: " << slices.bl_gauss << "\n";
+                            // cout << "bp_gauss: " << slices.bp_gauss << "\n";
                             slices.gaussian_fit();
                             tau = slices.bl_gauss;
                         } else if (bunch_length_fit == "fwhm") {
+                            // FIXME fwhm not working (returns nan)
                             slices.fwhm();
                             tau = slices.bl_fwhm;
                         } else if (bunch_length_fit == "end_to_end") {
@@ -840,46 +845,165 @@ matched_from_distribution_density(Beams *beam,
                             tau = last - first;
                         }
                         // test till here
-                        cout << "tau: " << tau << "\n";
+                        // cout << "tau: " << tau << "\n";
                     }
                     // exit(0);
                 }
-                if (tau >= distribution_opt["bunch_length"]) X_hi = X0;
+                if (tau >= distribution_opt["bunch_length"].d) X_hi = X0;
                 else X_low = X0;
 
                 if (X_max - X0 < X_accuracy) {
                     cerr << "[distribution density] Warning: The bucket is too "
                          << "small to have the desired bunch length!\n"
-                         << "Input is " << distribution_opt["bunch_length"]
+                         << "Input is " << distribution_opt["bunch_length"].d
                          << "\n, the generation gave " << tau
-                         << ", the error is " << distribution_opt["bunch_length"] - tau
-                         << "%\n"
-                         break;
+                         << ", the error is " << distribution_opt["bunch_length"].d - tau
+                         << "%\n";
+                    break;
                 }
 
                 if (X0 - X_min < X_accuracy)
                     cerr << "[distribution density] Warning: The desired bunch "
                          << "is too small to be generated accurately\n";
 
-                exit(0);
+                // exit(0);
             }
-            if (density_variable == "density_from_J") J0 = X0;
-            else H0 = X0;
-            // TODO continue here
-            // check tau is correct in the end of the loop
-            // line 648 distributions.py
+            // if (density_variable == "density_from_J") J0 = X0;
+            // else H0 = X0;
+            // cout << "tau: " << tau << "\n";
+            // cout << "X0: " << X0 << "\n";
+            // tau and X0 are correct here
+
+        }
+
+        if (distribution_opt["type"].s != "user_input_table") {
+            density_grid.clear();
+            if (density_variable == "density_from_J") {
+                if (distribution_opt.find("emittance") != distribution_opt.end()) {
+                    X0 = distribution_opt["emittance"].d / (2 * constant::pi);
+                }
+                for (auto &row : J_grid)
+                    density_grid.push_back(
+                        distribution_density_function(
+                            row, distribution_opt["type"].s,
+                            X0, distribution_opt["exponent"].d));
+            } else { // density_variable == "density_from_H"
+                if (distribution_opt.find("emittance") != distribution_opt.end()) {
+                    auto emittance = distribution_opt["emittance"].d / (2 * constant::pi);
+                    auto H0 = interp({emittance}, J_array_dE0, H_array_dE0);
+                    X0 = H0[0];
+                }
+                for (auto &row : H_grid)
+                    density_grid.push_back(
+                        distribution_density_function(
+                            row, distribution_opt["type"].s,
+                            X0, distribution_opt["exponent"].d));
+            }
+        } else {
+            density_grid.clear();
+            if (density_variable == "density_from_J") {
+                for (auto &row : J_grid)
+                    density_grid.push_back(
+                        interp(row, distribution_opt["user_table_action"].v,
+                               distribution_opt["user_table_density"].v));
+            } else { // density_variable == "density_from_H"
+                for (auto &row : H_grid)
+                    density_grid.push_back(
+                        interp(row, distribution_opt["user_table_action"].v,
+                               distribution_opt["user_table_density"].v));
+            }
+        }
+        double density_grid_sum = 0;
+        for (uint i = 0; i < H_grid.size(); i++) {
+            for (uint j = 0; j < H_grid[i].size(); j++)
+                if (H_grid[i][j] > H_array_dE0.back())
+                    density_grid[i][j] = 0;
+            density_grid_sum += sum(density_grid[i]);
+        }
+
+        for (auto &row : density_grid) row /= density_grid_sum;
+
+        line_density.clear();
+        line_density.resize(density_grid[0].size(), 0);
+        for (auto &row : density_grid) line_density += row;
+        line_density /= (sum(line_density) / beam->n_macroparticles);
+
+        // continue here
+        if (totVolt != nullptr) {
+
+
+            auto slices = Slices(full_ring->fRingList[0]->rfp,
+                                 beam, n_points_grid);
+            slices.n_macroparticles = line_density;
+            slices.bin_centers = time_coord_low_res;
+            slices.edges = linspace(slices.bin_centers[0]
+                                    - (slices.bin_centers[1] - slices.bin_centers[0]) / 2,
+                                    slices.bin_centers.back()
+                                    + (slices.bin_centers[1] - slices.bin_centers[0]) / 2,
+                                    slices.bin_centers.size() + 1);
+            // slices.n_slices and slices.fit_option are already set
+
+            auto old_slices = totVolt->fSlices;
+
+            totVolt->reprocess(&slices);
+
+            int induced_voltage_length_sep = ceil((time_coord_array.back() - time_coord_low_res[0])
+                                                  / (time_coord_low_res[1] - time_coord_low_res[0]));
+            auto induced_voltage = totVolt->induced_voltage_sum(beam,
+                                   induced_voltage_length_sep);
+            auto time_induced_voltage = linspace(time_coord_low_res[0],
+                                                 time_coord_low_res[0]
+                                                 + (induced_voltage_length_sep - 1)
+                                                 * (time_coord_low_res[1] - time_coord_low_res[0]),
+                                                 induced_voltage_length_sep);
+
+            auto induced_potential_low_res = - eom_factor_potential
+                                             * cum_trapezoid(induced_voltage,
+                                                     time_induced_voltage[1]
+                                                     - time_induced_voltage[0]);
+
+            induced_potential_low_res.insert(induced_potential_low_res.begin(), 0);
+            auto induced_potential = interp(time_coord_array,
+                                            time_induced_voltage,
+                                            induced_potential_low_res);
+            totVolt->reprocess(old_slices);
 
         }
 
     }
 
+    //populating the bunch
+
+    f_vector_t density_grid_flat = flatten(density_grid);
+
+    auto indexes = random_choice(arange(0, (int)density_grid_flat.size()),
+                                 beam->n_macroparticles,
+                                 density_grid_flat);
 
 
 
+    auto time_grid_flat = flatten(time_grid);
+    auto deltaE_grid_flat = flatten(deltaE_grid);
+
+    const double delta_time_coord = time_coord_low_res[1] - time_coord_low_res[0];
+    const double delta_deltaE = deltaE_coord_array[1] - deltaE_coord_array[0];
+
+    default_random_engine gen(seed);
+    uniform_real_distribution<double> d(0.0, 1.0);
+
+    for (int i = 0; i < beam->n_macroparticles; i++) {
+        beam->dt[i] = time_grid_flat[indexes[i]] + (d(gen) - 0.5) * delta_time_coord;
+        beam->dE[i] = deltaE_grid_flat[indexes[i]] + (d(gen) - 0.5) * delta_deltaE;
+    }
+
+    // cout << "beam dt mean: " << mean(beam->dt) << "\n";
+    // cout << "beam dt std: " << standard_deviation(beam->dt) << "\n";
+
+    // cout << "beam dE mean: " << mean(beam->dE) << "\n";
+    // cout << "beam dE std: " << standard_deviation(beam->dE) << "\n";
 
 
-
-    return {{}, {}};
+    return {time_coord_low_res, line_density};
 }
 
 

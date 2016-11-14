@@ -10,7 +10,7 @@
 #include <blond/vector_math.h>
 
 using namespace std;
-
+using namespace mymath;
 
 
 class testDistributions : public ::testing::Test {
@@ -724,94 +724,205 @@ TEST_F(testDistributions, matched_from_distribution_density2)
 }
 
 
-/*
-TEST_F(testDistributions, matched_from_distribution_density1)
+
+
+TEST_F(testDistributions, matched_from_distribution_density3)
 {
     auto RfP = Context::RfP;
-    auto beam = Context::Beam;
+    auto Beam = Context::Beam;
+    auto Slice = new Slices(RfP, Beam, N_slices);
     auto epsilon = 1e-8;
-    auto params = string(TEST_FILES "/Distributions/distribution_density1/");
+    auto params = string(TEST_FILES "/Distributions/distribution_density3/");
+    string datafiles = DEMO_FILES "/TC5_Wake_impedance/";
+
+
+    f_vector_t v;
+    util::read_vector_from_file(v, datafiles + "TC5_new_HQ_table.dat");
+
+    f_vector_t R_shunt, f_res, Q_factor;
+
+    R_shunt.reserve(v.size() / 3);
+    f_res.reserve(v.size() / 3);
+    Q_factor.reserve(v.size() / 3);
+
+    for (uint i = 0; i < v.size(); i += 3) {
+        f_res.push_back(v[i] * 1e9);
+        Q_factor.push_back(v[i + 1]);
+        R_shunt.push_back(v[i + 2] * 1e6);
+    }
+
+    auto resonator = new Resonators(R_shunt, f_res, Q_factor);
+    auto indVoltTime = new InducedVoltageTime(Slice, {resonator});
+    auto totVolt = new TotalInducedVoltage(Beam, Slice, {indVoltTime});
 
     auto long_tracker = new RingAndRfSection(RfP);
     auto fullRing = new FullRingAndRf({long_tracker});
 
-    map<string, string> distribution_density_opt;
-    distribution_density_opt["type"] = "binomial";
-    distribution_density_opt["bunch_length"] = "100e-9";
-    distribution_density_opt["density_variable"] = "density_from_J";
-    distribution_density_opt["exponent"] = "1.5";
+    map<string, multi_t> distribution_opt;
+    distribution_opt["type"] = {"waterbag"};
+    distribution_opt["bunch_length"] = {200e-9};
+    distribution_opt["density_variable"] = {"density_from_H"};
+    // distribution_opt["exponent"] = {2.5};
+    // distribution_opt["bunch_length_fit"] = {"gauss"};
 
-    matched_from_distribution_density(fullRing, distribution_density_opt);
+
+    map<string, f_vector_t> extra_volt_dict;
+    auto time_array = linspace(0.0, 1e-3, 10000);
+    auto voltage_array = apply_f(time_array, [this](double x) {return sin(x) * V / 10.;});
+
+    extra_volt_dict["time_array"] = time_array;
+    extra_volt_dict["voltage_array"] = voltage_array;
+
+    auto ret = matched_from_distribution_density(
+                   Beam, fullRing, distribution_opt,
+                   FullRingAndRf::lowest_freq, totVolt,
+                   extra_volt_dict);
+
+    util::read_vector_from_file(v, params + "time_coord_low_res.txt");
+    ASSERT_NEAR_LOOP(v, ret.time_coord_low_res, "time_coord_low_res", epsilon);
+
+    util::read_vector_from_file(v, params + "line_density.txt");
+    ASSERT_NEAR_LOOP(v, ret.line_density, "line_density", epsilon);
+
+    delete totVolt;
+    delete indVoltTime;
+    delete resonator;
+    delete Slice;
+    delete long_tracker;
+    delete fullRing;
+}
+
+TEST_F(testDistributions, matched_from_distribution_density4)
+{
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+    auto Slice = new Slices(RfP, Beam, N_slices);
+    auto epsilon = 1e-8;
+    auto params = string(TEST_FILES "/Distributions/distribution_density4/");
+    string datafiles = DEMO_FILES "/TC5_Wake_impedance/";
+
 
     f_vector_t v;
-    util::read_vector_from_file(v, params + "dt.txt");
+    util::read_vector_from_file(v, datafiles + "TC5_new_HQ_table.dat");
 
-    ASSERT_EQ(v.size(), beam->dt.size());
-    for (uint i = 0; i < v.size(); ++i) {
-        auto ref = v[i];
-        auto real = beam->dt[i];
-        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
-                << "Testing of beam->dt failed on i " << i << endl;
+    f_vector_t R_shunt, f_res, Q_factor;
+
+    R_shunt.reserve(v.size() / 3);
+    f_res.reserve(v.size() / 3);
+    Q_factor.reserve(v.size() / 3);
+
+    for (uint i = 0; i < v.size(); i += 3) {
+        f_res.push_back(v[i] * 1e9);
+        Q_factor.push_back(v[i + 1]);
+        R_shunt.push_back(v[i + 2] * 1e6);
     }
 
-    util::read_vector_from_file(v, params + "dE.txt");
+    auto resonator = new Resonators(R_shunt, f_res, Q_factor);
+    auto indVoltTime = new InducedVoltageTime(Slice, {resonator});
+    auto totVolt = new TotalInducedVoltage(Beam, Slice, {indVoltTime});
 
-    ASSERT_EQ(v.size(), beam->dE.size());
-    for (uint i = 0; i < v.size(); ++i) {
-        auto ref = v[i];
-        auto real = beam->dE[i];
-        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
-                << "Testing of beam->dE failed on i " << i << endl;
-    }
+    auto long_tracker = new RingAndRfSection(RfP);
+    auto fullRing = new FullRingAndRf({long_tracker});
 
+    map<string, multi_t> distribution_opt;
+    distribution_opt["type"] = {"parabolic_line"};
+    distribution_opt["bunch_length"] = {300e-9};
+    distribution_opt["density_variable"] = {"density_from_J"};
+    // distribution_opt["exponent"] = {2.5};
+    distribution_opt["bunch_length_fit"] = {"gauss"};
+
+
+    // map<string, f_vector_t> extra_volt_dict;
+    // extra_volt_dict["time_array"] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    // extra_volt_dict["voltage_array"] = {112, 2, 34, 41, 5, 6, 71, 8, 9, 10};
+
+    auto ret = matched_from_distribution_density(
+                   Beam, fullRing, distribution_opt,
+                   FullRingAndRf::lowest_freq, totVolt);
+
+    util::read_vector_from_file(v, params + "time_coord_low_res.txt");
+    ASSERT_NEAR_LOOP(v, ret.time_coord_low_res, "time_coord_low_res", epsilon);
+
+    util::read_vector_from_file(v, params + "line_density.txt");
+    ASSERT_NEAR_LOOP(v, ret.line_density, "line_density", epsilon);
+
+    delete totVolt;
+    delete indVoltTime;
+    delete resonator;
+    delete Slice;
     delete long_tracker;
     delete fullRing;
 }
 
 
-TEST_F(testDistributions, matched_from_distribution_density2)
+TEST_F(testDistributions, matched_from_distribution_density5)
 {
     auto RfP = Context::RfP;
-    auto beam = Context::Beam;
+    auto Beam = Context::Beam;
+    auto Slice = new Slices(RfP, Beam, N_slices);
     auto epsilon = 1e-8;
-    auto params = string(TEST_FILES "/Distributions/distribution_density2/");
+    auto params = string(TEST_FILES "/Distributions/distribution_density5/");
+    f_vector_t v;
 
     auto long_tracker = new RingAndRfSection(RfP);
     auto fullRing = new FullRingAndRf({long_tracker});
 
-    map<string, string> distribution_density_opt;
-    distribution_density_opt["type"] = "parabolic_line";
-    distribution_density_opt["bunch_length"] = "200e-9";
-    distribution_density_opt["density_variable"] = "density_from_J";
-    distribution_density_opt["exponent"] = "2.0";
+    map<string, multi_t> distribution_opt;
+    distribution_opt["type"] = {"gaussian"};
+    distribution_opt["bunch_length"] = {300e-9};
+    distribution_opt["density_variable"] = {"density_from_J"};
+    distribution_opt["exponent"] = {0.7};
+    distribution_opt["bunch_length_fit"] = {"end_to_end"};
 
-    matched_from_distribution_density(fullRing, distribution_density_opt);
+    auto ret = matched_from_distribution_density(
+                   Beam, fullRing, distribution_opt,
+                   FullRingAndRf::lowest_freq);
 
-    f_vector_t v;
-    util::read_vector_from_file(v, params + "dt.txt");
+    util::read_vector_from_file(v, params + "time_coord_low_res.txt");
+    ASSERT_NEAR_LOOP(v, ret.time_coord_low_res, "time_coord_low_res", epsilon);
 
-    ASSERT_EQ(v.size(), beam->dt.size());
-    for (uint i = 0; i < v.size(); ++i) {
-        auto ref = v[i];
-        auto real = beam->dt[i];
-        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
-                << "Testing of beam->dt failed on i " << i << endl;
-    }
+    util::read_vector_from_file(v, params + "line_density.txt");
+    ASSERT_NEAR_LOOP(v, ret.line_density, "line_density", epsilon);
 
-    util::read_vector_from_file(v, params + "dE.txt");
-
-    ASSERT_EQ(v.size(), beam->dE.size());
-    for (uint i = 0; i < v.size(); ++i) {
-        auto ref = v[i];
-        auto real = beam->dE[i];
-        ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)))
-                << "Testing of beam->dE failed on i " << i << endl;
-    }
-
+    delete Slice;
     delete long_tracker;
     delete fullRing;
 }
-*/
+
+
+TEST_F(testDistributions, DISABLED_matched_from_distribution_density6)
+{
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+    auto Slice = new Slices(RfP, Beam, N_slices);
+    auto epsilon = 1e-8;
+    auto params = string(TEST_FILES "/Distributions/distribution_density6/");
+    f_vector_t v;
+
+    auto long_tracker = new RingAndRfSection(RfP);
+    auto fullRing = new FullRingAndRf({long_tracker});
+
+    map<string, multi_t> distribution_opt;
+    distribution_opt["type"] = {"gaussian"};
+    distribution_opt["bunch_length"] = {300e-9};
+    distribution_opt["density_variable"] = {"density_from_J"};
+    distribution_opt["exponent"] = {0.7};
+    distribution_opt["bunch_length_fit"] = {"fwhm"};
+
+    auto ret = matched_from_distribution_density(
+                   Beam, fullRing, distribution_opt,
+                   FullRingAndRf::lowest_freq);
+
+    util::read_vector_from_file(v, params + "time_coord_low_res.txt");
+    ASSERT_NEAR_LOOP(v, ret.time_coord_low_res, "time_coord_low_res", epsilon);
+
+    util::read_vector_from_file(v, params + "line_density.txt");
+    ASSERT_NEAR_LOOP(v, ret.line_density, "line_density", epsilon);
+
+    delete Slice;
+    delete long_tracker;
+    delete fullRing;
+}
 
 
 

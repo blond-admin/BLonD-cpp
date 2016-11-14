@@ -554,12 +554,8 @@ matched_from_distribution_density(Beams *beam,
     // cout << distribution_opt["user_table"].v << "\n";
     // cout << distribution_opt["function"].f({1, 2, 3}, "", 10, 0) << "\n";
 
-    // FIXME
-    // int n_points_potential = 10;
     int n_points_potential = 10000;
 
-    // FIXME the problem starts from potential_well_generation
-    // There is a very slight difference in fPotentialWell
     full_ring->potential_well_generation(0, n_points_potential,
                                          main_harmonic_opt, 0.4);
 
@@ -573,30 +569,25 @@ matched_from_distribution_density(Beams *beam,
     f_vector_2d_t density_grid;
     f_vector_2d_t time_grid, deltaE_grid;
 
-
     if (!extraVoltageDict.empty()) {
         auto extra_voltage_time_input = extraVoltageDict["time_array"];
         auto extra_voltage_input = extraVoltageDict["voltage_array"];
-        auto extra_potential_input = -eom_factor_potential
-                                     * cum_trapezoid(extra_voltage_input.data(),
-                                             extra_voltage_input[1]
-                                             - extra_voltage_input[0],
-                                             extra_voltage_input.size());
+        auto extra_potential_input = (-eom_factor_potential)
+                                     * cum_trapezoid(extra_voltage_input,
+                                             extra_voltage_time_input[1]
+                                             - extra_voltage_time_input[0]);
         extra_potential_input.insert(extra_potential_input.begin(), 0);
+
         // extra_potential_input *= -eom_factor_potential;
         extra_potential = interp(time_coord_array, extra_voltage_time_input,
                                  extra_potential_input);
     }
-    // FIXME the problems starts from total_potential
+
     auto total_potential = extra_potential.empty() ? potential_well_array :
                            potential_well_array + extra_potential;
-
     int n_iterations = n_iterations_input;
     if (totVolt == nullptr)
         n_iterations = 1;
-    else
-        // NOTE create a deepcopy of totVolt
-        ;
 
     // NOTE
     // so far so good

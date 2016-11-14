@@ -1,11 +1,11 @@
 var searchData=
 [
-  ['d',['d',['../d6/d1e/unionvdt_1_1details_1_1ieee754.html#a483f40f2a0f825458eb58ce0c01c8b3b',1,'vdt::details::ieee754']]],
+  ['d',['d',['../d3/d1f/structmulti__t.html#a35999e938b077b9dcbd06e4be5f97f1f',1,'multi_t::d()'],['../d6/d1e/unionvdt_1_1details_1_1ieee754.html#a483f40f2a0f825458eb58ce0c01c8b3b',1,'vdt::details::ieee754::d()']]],
   ['datbuf',['datbuf',['../de/d50/classoption_1_1PrintUsageImplementation_1_1LineWrapper.html#abd9a32967913817ef8266bcf8af3e973',1,'option::PrintUsageImplementation::LineWrapper']]],
   ['de',['dE',['../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f',1,'Beams']]],
   ['de_5fmax',['dE_max',['../de/da1/classRingAndRfSection.html#a1132dcf9d7e0937a2987c10f7f5076cf',1,'RingAndRfSection']]],
   ['delay',['delay',['../d6/d87/classPhaseLoop.html#a9d4fb1c2b3f140dde1080ce509cb0f66',1,'PhaseLoop']]],
-  ['density_5ffunction',['density_function',['../d5/d26/structmatched__from__line__denstity__return__t.html#aeb7db9574b4a030d3ab182a24b148e62',1,'matched_from_line_denstity_return_t']]],
+  ['density_5ffunction',['density_function',['../d6/d33/structline__density__t.html#aae5a5f2edde28f7c22a1b256d8ac56f9',1,'line_density_t']]],
   ['desc',['desc',['../d3/df3/classoption_1_1Option.html#af8d664a7b5de1425008b1812a90a0c23',1,'option::Option']]],
   ['domega_5fpl',['domega_PL',['../d9/d59/classPSB.html#ae7c73ac3c1a51e4444e44a9837756d8a',1,'PSB']]],
   ['domega_5frf',['domega_rf',['../d6/d87/classPhaseLoop.html#af764d085a072f9d0a3e8930968fe45ec',1,'PhaseLoop']]],

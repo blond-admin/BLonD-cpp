@@ -32,7 +32,7 @@
         </defs>
 
 <script type="text/javascript">
-var viewWidth = 810;
+var viewWidth = 816;
 var viewHeight = 270;
 var sectionId = 'dynsection-3';
 </script>
@@ -40,7 +40,7 @@ var sectionId = 'dynsection-3';
 <svg id="graph" class="graph">
 <g id="viewport">
 <title>LHCFlatSpectrum::generate</title>
-<polygon fill="white" stroke="white" points="-4,5 -4,-266 807,-266 807,5 -4,5"/>
+<polygon fill="white" stroke="white" points="-4,5 -4,-266 813,-266 813,5 -4,5"/>
 <!-- Node1 -->
 <g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0.5,-169.5 0.5,-190.5 139.5,-190.5 139.5,-169.5 0.5,-169.5"/>
@@ -169,104 +169,104 @@ var sectionId = 'dynsection-3';
 <!-- Node7 -->
 <g id="node14" class="node"><title>Node7</title>
 <a xlink:href="../../d8/de0/namespacefft.html#af7197252dd2a265bd53282a343582d02" target="_top" xlink:title="fft::find_plan">
-<polygon fill="white" stroke="black" points="518.5,-120.5 518.5,-141.5 589.5,-141.5 589.5,-120.5 518.5,-120.5"/>
-<text text-anchor="middle" x="554" y="-128.5" font-family="Helvetica,sans-Serif" font-size="10.00">fft::find_plan</text>
+<polygon fill="white" stroke="black" points="521.5,-80.5 521.5,-101.5 592.5,-101.5 592.5,-80.5 521.5,-80.5"/>
+<text text-anchor="middle" x="557" y="-88.5" font-family="Helvetica,sans-Serif" font-size="10.00">fft::find_plan</text>
 </a>
 </g>
 <!-- Node6&#45;&gt;Node7 -->
 <g id="edge14" class="edge"><title>Node6&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M439.232,-206.475C452.209,-203.279 468.609,-198.257 482,-191 502.569,-179.853 522.745,-162.301 536.481,-149.054"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="539.132,-151.355 543.779,-141.834 534.209,-146.379 539.132,-151.355"/>
+<path fill="none" stroke="midnightblue" d="M439.135,-208.837C452.886,-206.459 470.139,-201.47 482,-191 511.23,-165.197 491.142,-139.264 518,-111 519.189,-109.749 520.474,-108.562 521.828,-107.438"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="523.921,-110.246 530.157,-101.681 519.941,-104.488 523.921,-110.246"/>
 </g>
 <!-- Node12 -->
 <g id="node24" class="node"><title>Node12</title>
 <a xlink:href="../../d8/de0/namespacefft.html#a032995ee545c6cd17120d4478fcb25b5" target="_top" xlink:title="fft::run_fft">
-<polygon fill="white" stroke="black" points="524.5,-80.5 524.5,-101.5 583.5,-101.5 583.5,-80.5 524.5,-80.5"/>
-<text text-anchor="middle" x="554" y="-88.5" font-family="Helvetica,sans-Serif" font-size="10.00">fft::run_fft</text>
+<polygon fill="white" stroke="black" points="527.5,-120.5 527.5,-141.5 586.5,-141.5 586.5,-120.5 527.5,-120.5"/>
+<text text-anchor="middle" x="557" y="-128.5" font-family="Helvetica,sans-Serif" font-size="10.00">fft::run_fft</text>
 </a>
 </g>
 <!-- Node6&#45;&gt;Node12 -->
 <g id="edge24" class="edge"><title>Node6&#45;&gt;Node12</title>
-<path fill="none" stroke="midnightblue" d="M439.135,-208.837C452.886,-206.459 470.139,-201.47 482,-191 511.23,-165.197 491.616,-139.706 518,-111 519.028,-109.881 520.134,-108.811 521.297,-107.788"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="523.584,-110.451 529.594,-101.725 519.455,-104.799 523.584,-110.451"/>
+<path fill="none" stroke="midnightblue" d="M439.179,-206.376C452.137,-203.145 468.537,-198.123 482,-191 503.192,-179.788 524.238,-162.244 538.616,-149.017"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="541.387,-151.215 546.263,-141.808 536.586,-146.121 541.387,-151.215"/>
 </g>
 <!-- Node8 -->
 <g id="node16" class="node"><title>Node8</title>
 <a xlink:href="../../d8/de0/namespacefft.html#abb6f84e834ac2b3b2b1da535a152bcbb" target="_top" xlink:title="fft::init_fft">
-<polygon fill="white" stroke="black" points="628.5,-160.5 628.5,-181.5 687.5,-181.5 687.5,-160.5 628.5,-160.5"/>
-<text text-anchor="middle" x="658" y="-168.5" font-family="Helvetica,sans-Serif" font-size="10.00">fft::init_fft</text>
+<polygon fill="white" stroke="black" points="634.5,-120.5 634.5,-141.5 693.5,-141.5 693.5,-120.5 634.5,-120.5"/>
+<text text-anchor="middle" x="664" y="-128.5" font-family="Helvetica,sans-Serif" font-size="10.00">fft::init_fft</text>
 </a>
 </g>
 <!-- Node7&#45;&gt;Node8 -->
 <g id="edge16" class="edge"><title>Node7&#45;&gt;Node8</title>
-<path fill="none" stroke="midnightblue" d="M581.325,-141.51C593.41,-146.158 607.81,-151.696 620.851,-156.712"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="619.907,-160.099 630.497,-160.422 622.42,-153.565 619.907,-160.099"/>
+<path fill="none" stroke="midnightblue" d="M585.113,-101.51C597.669,-106.203 612.653,-111.805 626.173,-116.859"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="625.111,-120.198 635.703,-120.422 627.562,-113.642 625.111,-120.198"/>
 </g>
 <!-- Node10 -->
 <g id="node20" class="node"><title>Node10</title>
 <a xlink:href="../../d8/de0/namespacefft.html#af7856d4e781deb223b6ff7cde32ac5fa" target="_top" xlink:title="fft::init_rfft">
-<polygon fill="white" stroke="black" points="627,-120.5 627,-141.5 689,-141.5 689,-120.5 627,-120.5"/>
-<text text-anchor="middle" x="658" y="-128.5" font-family="Helvetica,sans-Serif" font-size="10.00">fft::init_rfft</text>
+<polygon fill="white" stroke="black" points="633,-80.5 633,-101.5 695,-101.5 695,-80.5 633,-80.5"/>
+<text text-anchor="middle" x="664" y="-88.5" font-family="Helvetica,sans-Serif" font-size="10.00">fft::init_rfft</text>
 </a>
 </g>
 <!-- Node7&#45;&gt;Node10 -->
 <g id="edge20" class="edge"><title>Node7&#45;&gt;Node10</title>
-<path fill="none" stroke="midnightblue" d="M589.5,-131C598.213,-131 607.615,-131 616.579,-131"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="616.833,-134.5 626.833,-131 616.833,-127.5 616.833,-134.5"/>
+<path fill="none" stroke="midnightblue" d="M592.629,-91C602.285,-91 612.818,-91 622.755,-91"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="622.833,-94.5001 632.833,-91 622.833,-87.5001 622.833,-94.5001"/>
 </g>
 <!-- Node11 -->
 <g id="node22" class="node"><title>Node11</title>
 <a xlink:href="../../d8/de0/namespacefft.html#ab6d7e93ba5e86251017f8f72a84ab3b0" target="_top" xlink:title="fft::init_irfft">
-<polygon fill="white" stroke="black" points="626,-80.5 626,-101.5 690,-101.5 690,-80.5 626,-80.5"/>
-<text text-anchor="middle" x="658" y="-88.5" font-family="Helvetica,sans-Serif" font-size="10.00">fft::init_irfft</text>
+<polygon fill="white" stroke="black" points="632,-40.5 632,-61.5 696,-61.5 696,-40.5 632,-40.5"/>
+<text text-anchor="middle" x="664" y="-48.5" font-family="Helvetica,sans-Serif" font-size="10.00">fft::init_irfft</text>
 </a>
 </g>
 <!-- Node7&#45;&gt;Node11 -->
 <g id="edge22" class="edge"><title>Node7&#45;&gt;Node11</title>
-<path fill="none" stroke="midnightblue" d="M581.325,-120.49C593.41,-115.842 607.81,-110.304 620.851,-105.288"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="622.42,-108.435 630.497,-101.578 619.907,-101.901 622.42,-108.435"/>
+<path fill="none" stroke="midnightblue" d="M585.113,-80.4905C597.669,-75.7967 612.653,-70.195 626.173,-65.1408"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="627.562,-68.3583 635.703,-61.5782 625.111,-61.8015 627.562,-68.3583"/>
 </g>
 <!-- Node9 -->
 <g id="node18" class="node"><title>Node9</title>
 <a xlink:href="../../df/d6d/namespacemymath.html#a31743e3fc7ec3ccb0df630d0cad57959" target="_top" xlink:title="mymath::sign">
-<polygon fill="white" stroke="black" points="726,-160.5 726,-181.5 802,-181.5 802,-160.5 726,-160.5"/>
-<text text-anchor="middle" x="764" y="-168.5" font-family="Helvetica,sans-Serif" font-size="10.00">mymath::sign</text>
+<polygon fill="white" stroke="black" points="732,-120.5 732,-141.5 808,-141.5 808,-120.5 732,-120.5"/>
+<text text-anchor="middle" x="770" y="-128.5" font-family="Helvetica,sans-Serif" font-size="10.00">mymath::sign</text>
 </a>
 </g>
 <!-- Node8&#45;&gt;Node9 -->
 <g id="edge18" class="edge"><title>Node8&#45;&gt;Node9</title>
-<path fill="none" stroke="midnightblue" d="M687.527,-171C696.254,-171 706.046,-171 715.634,-171"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="715.898,-174.5 725.898,-171 715.898,-167.5 715.898,-174.5"/>
+<path fill="none" stroke="midnightblue" d="M693.527,-131C702.254,-131 712.046,-131 721.634,-131"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="721.898,-134.5 731.898,-131 721.898,-127.5 721.898,-134.5"/>
 </g>
 <!-- Node13&#45;&gt;Node7 -->
 <g id="edge28" class="edge"><title>Node13&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M440.253,-54.9702C453.266,-57.9454 469.362,-62.9306 482,-71 502.159,-83.8712 499.291,-96.1 518,-111 519.772,-112.411 521.657,-113.78 523.6,-115.094"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="521.969,-118.201 532.317,-120.478 525.648,-112.245 521.969,-118.201"/>
+<path fill="none" stroke="midnightblue" d="M440.118,-57.6052C459.486,-63.1387 487.714,-71.2041 511.578,-78.0223"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="510.923,-81.4751 521.5,-80.857 512.846,-74.7444 510.923,-81.4751"/>
 </g>
 <!-- Node13&#45;&gt;Node12 -->
 <g id="edge30" class="edge"><title>Node13&#45;&gt;Node12</title>
-<path fill="none" stroke="midnightblue" d="M440.24,-57.7855C460.547,-63.7144 490.459,-72.4479 514.515,-79.4714"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="513.84,-82.9207 524.421,-82.3637 515.802,-76.2012 513.84,-82.9207"/>
+<path fill="none" stroke="midnightblue" d="M440.253,-54.9702C453.266,-57.9454 469.362,-62.9306 482,-71 502.159,-83.8712 499.046,-96.413 518,-111 520.005,-112.543 522.147,-114.023 524.357,-115.429"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="522.66,-118.491 533.068,-120.473 526.167,-112.433 522.66,-118.491"/>
 </g>
 <!-- Node14&#45;&gt;Node7 -->
 <g id="edge36" class="edge"><title>Node14&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M437.51,-131C456.107,-131 484.187,-131 508.118,-131"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="508.425,-134.5 518.425,-131 508.425,-127.5 508.425,-134.5"/>
+<path fill="none" stroke="midnightblue" d="M437.657,-125.098C457.063,-119.553 486.763,-111.068 511.679,-103.949"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="512.659,-107.309 521.313,-101.196 510.736,-100.578 512.659,-107.309"/>
 </g>
 <!-- Node14&#45;&gt;Node12 -->
 <g id="edge38" class="edge"><title>Node14&#45;&gt;Node12</title>
-<path fill="none" stroke="midnightblue" d="M437.51,-125.012C457.873,-119.066 489.605,-109.802 514.811,-102.442"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="515.844,-105.787 524.462,-99.6242 513.882,-99.0672 515.844,-105.787"/>
+<path fill="none" stroke="midnightblue" d="M437.657,-131C458.515,-131 491.264,-131 517.184,-131"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="517.459,-134.5 527.459,-131 517.459,-127.5 517.459,-134.5"/>
 </g>
 <!-- Node15&#45;&gt;Node7 -->
 <g id="edge42" class="edge"><title>Node15&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M438.708,-97.3381C457.391,-102.793 484.97,-110.845 508.47,-117.707"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="507.674,-121.12 518.254,-120.563 509.636,-114.401 507.674,-121.12"/>
+<path fill="none" stroke="midnightblue" d="M438.568,-91C457.83,-91 486.688,-91 511.094,-91"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="511.241,-94.5001 521.241,-91 511.241,-87.5001 511.241,-94.5001"/>
 </g>
 <!-- Node15&#45;&gt;Node12 -->
 <g id="edge44" class="edge"><title>Node15&#45;&gt;Node12</title>
-<path fill="none" stroke="midnightblue" d="M438.708,-91C458.976,-91 489.712,-91 514.353,-91"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="514.492,-94.5001 524.492,-91 514.492,-87.5001 514.492,-94.5001"/>
+<path fill="none" stroke="midnightblue" d="M438.568,-97.1623C459.559,-103.16 491.947,-112.413 517.551,-119.729"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="516.769,-123.145 527.346,-122.527 518.692,-116.415 516.769,-123.145"/>
 </g>
 <!-- Node17 -->
 <g id="node41" class="node"><title>Node17</title>
@@ -279,6 +279,18 @@ var sectionId = 'dynsection-3';
 <g id="edge48" class="edge"><title>Node16&#45;&gt;Node17</title>
 <path fill="none" stroke="midnightblue" d="M282.684,-49.4883C308.293,-42.1501 342.688,-32.2941 370.261,-24.393"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="371.433,-27.6981 380.082,-21.5788 369.505,-20.9689 371.433,-27.6981"/>
+</g>
+<!-- Node18 -->
+<g id="node43" class="node"><title>Node18</title>
+<a xlink:href="../../df/d6d/namespacemymath.html#a80532a0f537928e78a30ae10afeecb6c" target="_top" xlink:title="mymath::sum">
+<polygon fill="white" stroke="black" points="518.5,-0.5 518.5,-21.5 595.5,-21.5 595.5,-0.5 518.5,-0.5"/>
+<text text-anchor="middle" x="557" y="-8.5" font-family="Helvetica,sans-Serif" font-size="10.00">mymath::sum</text>
+</a>
+</g>
+<!-- Node17&#45;&gt;Node18 -->
+<g id="edge50" class="edge"><title>Node17&#45;&gt;Node18</title>
+<path fill="none" stroke="midnightblue" d="M458.247,-11C473.862,-11 491.787,-11 508.043,-11"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="508.443,-14.5001 518.443,-11 508.443,-7.5001 508.443,-14.5001"/>
 </g>
 </g>
 </svg>

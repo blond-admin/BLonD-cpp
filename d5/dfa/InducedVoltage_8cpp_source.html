@@ -476,11 +476,11 @@ $(document).ready(function(){initNavTree('d5/dfa/InducedVoltage_8cpp_source.html
 <div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;        <a class="code" href="../../dd/de2/classInducedVoltage.html#a688bde18652fb78dd2f1b14d70902eea">fInducedVoltage</a>.clear();</div>
 <div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;        <a class="code" href="../../dd/de2/classInducedVoltage.html#a688bde18652fb78dd2f1b14d70902eea">fInducedVoltage</a>.resize(<a class="code" href="../../dd/de2/classInducedVoltage.html#a3329197ef968eefdf5825a91a0158fed">fSlices</a>-&gt;<a class="code" href="../../dc/d45/classSlices.html#a33f3014f3986c7ee8b4580ca74aaab72">fBeamSpectrum</a>.size());</div>
 <div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; <a class="code" href="../../dd/de2/classInducedVoltage.html#a3329197ef968eefdf5825a91a0158fed">fSlices</a>-&gt;<a class="code" href="../../dc/d45/classSlices.html#a33f3014f3986c7ee8b4580ca74aaab72">fBeamSpectrum</a>.size(); ++i) {</div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;            <span class="keywordtype">double</span> sum = 0.0;</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;            <span class="keywordtype">double</span> <a class="code" href="../../df/d6d/namespacemymath.html#a80532a0f537928e78a30ae10afeecb6c">sum</a> = 0.0;</div>
 <div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> j = 0; j &lt; n; ++j) {</div>
 <div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;                sum += <a class="code" href="../../d5/de7/classInducedVoltageFreq.html#a9f8ebe9274eaf7eed9fa8e13910dbf32">fMatrixSaveIndividualVoltages</a>[i * n + j];</div>
 <div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;            }</div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;            <a class="code" href="../../dd/de2/classInducedVoltage.html#a688bde18652fb78dd2f1b14d70902eea">fInducedVoltage</a>[i] = sum;</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;            <a class="code" href="../../dd/de2/classInducedVoltage.html#a688bde18652fb78dd2f1b14d70902eea">fInducedVoltage</a>[i] = <a class="code" href="../../df/d6d/namespacemymath.html#a80532a0f537928e78a30ae10afeecb6c">sum</a>;</div>
 <div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;        }</div>
 <div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;</div>
 <div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a>();</div>
@@ -575,7 +575,7 @@ $(document).ready(function(){initNavTree('d5/dfa/InducedVoltage_8cpp_source.html
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_2b12189b1b38a5891fb7949d75362c72.html">src</a></li><li class="navelem"><a class="el" href="../../dir_326b8f99b5c2d2d05116bdfd6b773fd9.html">impedances</a></li><li class="navelem"><a class="el" href="../../d5/dfa/InducedVoltage_8cpp.html">InducedVoltage.cpp</a></li>
-    <li class="footer">Generated on Thu Nov 10 2016 16:25:59 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Mon Nov 14 2016 14:46:30 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

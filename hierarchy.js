@@ -7,6 +7,7 @@ var hierarchy =
       [ "option::Parser", "d6/d83/classoption_1_1Parser.html", null ],
       [ "option::Stats", "d8/de3/structoption_1_1Stats.html", null ]
     ] ],
+    [ "distribution_denstity_t", "da/d99/structdistribution__denstity__t.html", null ],
     [ "fft::fft_plan_t", "dc/daf/structfft_1_1fft__plan__t.html", null ],
     [ "FullRingAndRf", "d6/d13/classFullRingAndRf.html", null ],
     [ "GeneralParameters", "d1/dfc/classGeneralParameters.html", null ],
@@ -20,7 +21,8 @@ var hierarchy =
       [ "Resonators", "da/d97/classResonators.html", null ]
     ] ],
     [ "LHCNoiseFB", "d8/d2b/classLHCNoiseFB.html", null ],
-    [ "matched_from_line_denstity_return_t", "d5/d26/structmatched__from__line__denstity__return__t.html", null ],
+    [ "line_density_t", "d6/d33/structline__density__t.html", null ],
+    [ "multi_t", "d3/d1f/structmulti__t.html", null ],
     [ "mymath::Ham", "d4/d19/classmymath_1_1Ham.html", null ],
     [ "option::Arg", "df/dc3/structoption_1_1Arg.html", [
       [ "util::Arg", "d7/d0f/structutil_1_1Arg.html", null ]

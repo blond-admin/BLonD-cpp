@@ -196,6 +196,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a6eee85cb0cf7740263dfdf1ccbf38de3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a6eee85cb0cf7740263dfdf1ccbf38de3"><td class="memTemplItemLeft" align="right" valign="top">static double&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../df/d6d/namespacemymath.html#a6eee85cb0cf7740263dfdf1ccbf38de3">standard_deviation</a> (const std::vector&lt; T &gt; data)</td></tr>
 <tr class="separator:a6eee85cb0cf7740263dfdf1ccbf38de3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80532a0f537928e78a30ae10afeecb6c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a80532a0f537928e78a30ae10afeecb6c"><td class="memTemplItemLeft" align="right" valign="top">static double&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../df/d6d/namespacemymath.html#a80532a0f537928e78a30ae10afeecb6c">sum</a> (const T data[], const int n)</td></tr>
+<tr class="separator:a80532a0f537928e78a30ae10afeecb6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47420afeb05f18763067540f74b8f0b3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a47420afeb05f18763067540f74b8f0b3"><td class="memTemplItemLeft" align="right" valign="top">static double&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../df/d6d/namespacemymath.html#a47420afeb05f18763067540f74b8f0b3">sum</a> (const std::vector&lt; T &gt; &amp;data)</td></tr>
+<tr class="separator:a47420afeb05f18763067540f74b8f0b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3cd62eeb1068e15105a0c617c9cc1fc6"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a3cd62eeb1068e15105a0c617c9cc1fc6"><td class="memTemplItemLeft" align="right" valign="top">static double&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../df/d6d/namespacemymath.html#a3cd62eeb1068e15105a0c617c9cc1fc6">trapezoid</a> (const T *f, const double *deltaX, const int nsub)</td></tr>
 <tr class="separator:a3cd62eeb1068e15105a0c617c9cc1fc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -250,22 +256,22 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00326">326</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00327">327</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00019">matched_from_line_density()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    {</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;        std::vector&lt;T&gt; values;</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;        <span class="keywordflow">for</span> (T value = start; value &lt; stop; value += step)</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;            values.push_back(value);</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;        <span class="keywordflow">return</span> values;</div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;    }</div>
+<p>Referenced by <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00531">matched_from_distribution_density()</a>, and <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00020">matched_from_line_density()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    {</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;        std::vector&lt;T&gt; values;</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;        <span class="keywordflow">for</span> (T value = start; value &lt; stop; value += step)</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;            values.push_back(value);</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;        <span class="keywordflow">return</span> values;</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;    }</div>
 </div><!-- fragment -->
 <p><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_a604bb4037dc4262bc4a8af03cfbb0bfe_icgraph.svg" width="358" height="40"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_a604bb4037dc4262bc4a8af03cfbb0bfe_icgraph.svg" width="358" height="110"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </p>
@@ -322,23 +328,23 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00070">70</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00071">71</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
 
 <p>Referenced by <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00105">InducedVoltageTime::induced_voltage_generation()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    {</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">int</span> size = KernelLen + SignalLen - 1;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">        #pragma omp parallel for</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor"></span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span> n = 0; n &lt; size; ++n) {</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            res[n] = 0;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">int</span> kmin = (n &gt;= KernelLen - 1) ? n - (KernelLen - 1) : 0;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">int</span> kmax = (n &lt; SignalLen - 1) ? n : SignalLen - 1;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> k = kmin; k &lt;= kmax; k++) {</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                res[n] += signal[k] * kernel[n - k];</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                <span class="comment">//--j;</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            }</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        }</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    {</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">int</span> size = KernelLen + SignalLen - 1;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">        #pragma omp parallel for</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor"></span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span> n = 0; n &lt; size; ++n) {</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            res[n] = 0;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">int</span> kmin = (n &gt;= KernelLen - 1) ? n - (KernelLen - 1) : 0;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">int</span> kmax = (n &lt; SignalLen - 1) ? n : SignalLen - 1;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> k = kmin; k &lt;= kmax; k++) {</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                res[n] += signal[k] * kernel[n - k];</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                <span class="comment">//--j;</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            }</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        }</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    }</div>
 </div><!-- fragment -->
 <p><div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
@@ -392,31 +398,31 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00165">165</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00166">166</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../dc/d61/RfParameters_8cpp_source.html#l00049">RfParameters::calc_phi_s()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00019">matched_from_line_density()</a>, and <a class="el" href="../../d2/d6f/Tracker_8cpp_source.html#l00323">FullRingAndRf::potential_well_generation()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    {</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        <span class="comment">// initialize the partial sum to be f(a)+f(b) and</span></div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        <span class="comment">// deltaX to be the step size using nsub subdivisions</span></div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        <span class="comment">// double *psum = new double[nsub];</span></div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> psum(nsub - 1);</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        <span class="comment">// psum[0] = 0;</span></div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> half_dx = deltaX / 2.0;</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        psum[0] = (f[1] + f[0]) * half_dx;</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        <span class="comment">// increment the partial sum</span></div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        <span class="comment">// #pragma omp parallel for</span></div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 1; i &lt; nsub - 1; ++i)</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;            psum[i] = psum[i - 1] + (f[i + 1] + f[i]) * half_dx;</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        <span class="keywordflow">return</span> psum;</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    }</div>
+<p>Referenced by <a class="el" href="../../dc/d61/RfParameters_8cpp_source.html#l00049">RfParameters::calc_phi_s()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00531">matched_from_distribution_density()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00020">matched_from_line_density()</a>, and <a class="el" href="../../d2/d6f/Tracker_8cpp_source.html#l00327">FullRingAndRf::potential_well_generation()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    {</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        <span class="comment">// initialize the partial sum to be f(a)+f(b) and</span></div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        <span class="comment">// deltaX to be the step size using nsub subdivisions</span></div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        <span class="comment">// double *psum = new double[nsub];</span></div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> psum(nsub - 1);</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        <span class="comment">// psum[0] = 0;</span></div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> half_dx = deltaX / 2.0;</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        psum[0] = (f[1] + f[0]) * half_dx;</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        <span class="comment">// increment the partial sum</span></div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        <span class="comment">// #pragma omp parallel for</span></div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 1; i &lt; nsub - 1; ++i)</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;            psum[i] = psum[i - 1] + (f[i + 1] + f[i]) * half_dx;</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        <span class="keywordflow">return</span> psum;</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    }</div>
 </div><!-- fragment -->
 <p><div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_a37e69ec6da5a044211b293b350ed0df5_icgraph.svg" width="616" height="178"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_a37e69ec6da5a044211b293b350ed0df5_icgraph.svg" width="616" height="202"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </p>
@@ -469,22 +475,22 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00187">187</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    {</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        <span class="comment">// initialize the partial sum to be f(a)+f(b) and</span></div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        <span class="comment">// deltaX to be the step size using nsub subdivisions</span></div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        <span class="comment">// double *psum = new double[nsub];</span></div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> psum(nsub);</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> half_dx = deltaX / 2.0;</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        psum[0] = initial;</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        psum[1] = (f[1] + f[0]) * half_dx;</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        <span class="comment">// increment the partial sum</span></div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 2; i &lt; nsub; ++i)</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;            psum[i] = psum[i - 1] + (f[i] + f[i - 1]) * half_dx;</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        <span class="keywordflow">return</span> psum;</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    }</div>
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00188">188</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    {</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        <span class="comment">// initialize the partial sum to be f(a)+f(b) and</span></div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        <span class="comment">// deltaX to be the step size using nsub subdivisions</span></div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        <span class="comment">// double *psum = new double[nsub];</span></div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> psum(nsub);</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> half_dx = deltaX / 2.0;</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        psum[0] = initial;</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        psum[1] = (f[1] + f[0]) * half_dx;</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        <span class="comment">// increment the partial sum</span></div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 2; i &lt; nsub; ++i)</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;            psum[i] = psum[i - 1] + (f[i] + f[i - 1]) * half_dx;</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        <span class="keywordflow">return</span> psum;</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -522,10 +528,10 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00208">208</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    {</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        <span class="keywordflow">return</span> cum_trapezoid&lt;T&gt;(f.data(), deltaX, f.size());</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    }</div>
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00209">209</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    {</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;        <span class="keywordflow">return</span> cum_trapezoid&lt;T&gt;(f.data(), deltaX, f.size());</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -569,10 +575,10 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00215">215</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    {</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;        <span class="keywordflow">return</span> cum_trapezoid&lt;T&gt;(f.data(), deltaX, initial, f.size());</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    }</div>
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00216">216</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    {</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;        <span class="keywordflow">return</span> cum_trapezoid&lt;T&gt;(f.data(), deltaX, initial, f.size());</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -598,12 +604,12 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00065">65</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00066">66</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
 
 <p>References <a class="el" href="../../d1/d3d/sin_8h_source.html#l00039">vdt::fast_sin()</a>.</p>
 
 <p>Referenced by <a class="el" href="../../de/da5/utilities_8cpp_source.html#l00064">hamiltonian()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="../../d5/d7b/namespacevdt.html#a0013dcb44ade5e87e083c6a0daddcfd9" title="Double precision sine: just call sincos.">vdt::fast_sin</a>(x + M_PI_2); }</div>
+<div class="fragment"><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="../../d5/d7b/namespacevdt.html#a0013dcb44ade5e87e083c6a0daddcfd9" title="Double precision sine: just call sincos.">vdt::fast_sin</a>(x + M_PI_2); }</div>
 </div><!-- fragment -->
 <p><div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
@@ -649,10 +655,10 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00067">67</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00068">68</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
 
 <p>References <a class="el" href="../../d8/dcd/exp_8h_source.html#l00070">vdt::fast_exp()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="../../d5/d7b/namespacevdt.html#a5a8d5eaec2a0588b2b67e06aa187bd71" title="Exponential Function double precision.">vdt::fast_exp</a>(x); }</div>
+<div class="fragment"><div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="../../d5/d7b/namespacevdt.html#a5a8d5eaec2a0588b2b67e06aa187bd71" title="Exponential Function double precision.">vdt::fast_exp</a>(x); }</div>
 </div><!-- fragment -->
 <p><div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
@@ -688,12 +694,12 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00063">63</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00064">64</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
 
 <p>References <a class="el" href="../../d1/d3d/sin_8h_source.html#l00039">vdt::fast_sin()</a>.</p>
 
-<p>Referenced by <a class="el" href="../../de/da5/utilities_8cpp_source.html#l00064">hamiltonian()</a>, <a class="el" href="../../d2/d6f/Tracker_8cpp_source.html#l00014">RingAndRfSection::kick()</a>, and <a class="el" href="../../d2/d6f/Tracker_8cpp_source.html#l00323">FullRingAndRf::potential_well_generation()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="../../d5/d7b/namespacevdt.html#a0013dcb44ade5e87e083c6a0daddcfd9" title="Double precision sine: just call sincos.">vdt::fast_sin</a>(x); }</div>
+<p>Referenced by <a class="el" href="../../de/da5/utilities_8cpp_source.html#l00064">hamiltonian()</a>, <a class="el" href="../../d2/d6f/Tracker_8cpp_source.html#l00018">RingAndRfSection::kick()</a>, and <a class="el" href="../../d2/d6f/Tracker_8cpp_source.html#l00327">FullRingAndRf::potential_well_generation()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="../../d5/d7b/namespacevdt.html#a0013dcb44ade5e87e083c6a0daddcfd9" title="Double precision sine: just call sincos.">vdt::fast_sin</a>(x); }</div>
 </div><!-- fragment -->
 <p><div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
@@ -741,25 +747,25 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00408">408</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00421">421</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
 
 <p>References <a class="el" href="../../de/df0/utilities_8h_source.html#l00056">FOR</a>.</p>
 
-<p>Referenced by <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00019">matched_from_line_density()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;    {</div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;        std::vector&lt;T&gt; result;</div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;        <a class="code" href="../../de/df0/utilities_8h.html#a4248d71fc7ca79dc298d9871f8d7cfbe">FOR</a>(a, row) {</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;            result.insert(result.end(), (*row).begin(), (*row).end());</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;        }</div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;        <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    }</div>
+<p>Referenced by <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00531">matched_from_distribution_density()</a>, and <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00020">matched_from_line_density()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;    {</div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;        std::vector&lt;T&gt; result;</div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;        <a class="code" href="../../de/df0/utilities_8h.html#a4248d71fc7ca79dc298d9871f8d7cfbe">FOR</a>(a, row) {</div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;            result.insert(result.end(), (*row).begin(), (*row).end());</div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;        }</div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;        <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;    }</div>
 </div><!-- fragment -->
 <p><div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-8-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-8-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-8-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_a46c2185537cdd77f6c5596907ffea994_icgraph.svg" width="355" height="40"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_a46c2185537cdd77f6c5596907ffea994_icgraph.svg" width="355" height="110"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </p>
@@ -822,39 +828,39 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00097">97</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00098">98</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
 
-<p>References <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00290">max()</a>, and <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00275">min()</a>.</p>
+<p>References <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00291">max()</a>, and <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00276">min()</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00371">Slices::beam_profile_derivative()</a>, <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00098">InputTable::imped_calc()</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00132">interp()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00019">matched_from_line_density()</a>, <a class="el" href="../../de/da5/utilities_8cpp_source.html#l00186">minmax_location()</a>, and <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00094">InputTable::wake_calc()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    {</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        assert(xp.size() == yp.size());</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        assert(std::is_sorted(xp.begin(), xp.end()));</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        y.resize(x.size());</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">int</span> M = xp.size();</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">int</span> N = x.size();</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="keywordflow">if</span> (N == 0) <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> <a class="code" href="../../df/d6d/namespacemymath.html#a2a11685fa6ce2396ae977fa1502a2cc4">max</a> = xp.back();</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> <a class="code" href="../../df/d6d/namespacemymath.html#a5bcc40b5ebadd9d98f351775df65ec9f">min</a> = xp.front();</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <span class="comment">// #pragma omp parallel for</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; N; ++i) {</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            <span class="keywordtype">int</span> pos = std::lower_bound(xp.begin(), xp.end(), x[i]) - xp.begin();</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            <span class="keywordflow">if</span> (pos == M)</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                y[i] = right;</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (xp[pos] == x[i])</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                y[i] = yp[pos];</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (pos == 0)</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                y[i] = left;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                y[i] = yp[pos - 1] +</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                       (yp[pos] - yp[pos - 1]) * (x[i] - xp[pos - 1]) /</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                       (xp[pos] - xp[pos - 1]);</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;            }</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        }</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    }</div>
+<p>Referenced by <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00371">Slices::beam_profile_derivative()</a>, <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00098">InputTable::imped_calc()</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00133">interp()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00531">matched_from_distribution_density()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00020">matched_from_line_density()</a>, <a class="el" href="../../de/da5/utilities_8cpp_source.html#l00186">minmax_location()</a>, and <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00094">InputTable::wake_calc()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    {</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        assert(xp.size() == yp.size());</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        assert(std::is_sorted(xp.begin(), xp.end()));</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        y.resize(x.size());</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">int</span> M = xp.size();</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">int</span> N = x.size();</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keywordflow">if</span> (N == 0) <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> <a class="code" href="../../df/d6d/namespacemymath.html#a2a11685fa6ce2396ae977fa1502a2cc4">max</a> = xp.back();</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> <a class="code" href="../../df/d6d/namespacemymath.html#a5bcc40b5ebadd9d98f351775df65ec9f">min</a> = xp.front();</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="comment">// #pragma omp parallel for</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; N; ++i) {</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            <span class="keywordtype">int</span> pos = std::lower_bound(xp.begin(), xp.end(), x[i]) - xp.begin();</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            <span class="keywordflow">if</span> (pos == M)</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                y[i] = right;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (xp[pos] == x[i])</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                y[i] = yp[pos];</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (pos == 0)</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                y[i] = left;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                y[i] = yp[pos - 1] +</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                       (yp[pos] - yp[pos - 1]) * (x[i] - xp[pos - 1]) /</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                       (xp[pos] - xp[pos - 1]);</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;            }</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        }</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    }</div>
 </div><!-- fragment -->
 <p><div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-9-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
@@ -871,7 +877,7 @@ template&lt;typename T &gt; </div>
 <div id="dynsection-10-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-10-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_a9be6643559654e4fd81774f43bd8cdc0_icgraph.svg" width="100%" height="540"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_a9be6643559654e4fd81774f43bd8cdc0_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 </p>
@@ -922,14 +928,14 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00132">132</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00133">133</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
 
-<p>References <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00097">interp()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    {</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        <span class="keyword">auto</span> left = yp.front();</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        <span class="keyword">auto</span> right = yp.back();</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        <a class="code" href="../../df/d6d/namespacemymath.html#a9be6643559654e4fd81774f43bd8cdc0">interp</a>(x, xp, yp, y, left, right);</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    }</div>
+<p>References <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00098">interp()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    {</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        <span class="keyword">auto</span> left = yp.front();</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        <span class="keyword">auto</span> right = yp.back();</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        <a class="code" href="../../df/d6d/namespacemymath.html#a9be6643559654e4fd81774f43bd8cdc0">interp</a>(x, xp, yp, y, left, right);</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    }</div>
 </div><!-- fragment -->
 <p><div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-11-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
@@ -981,14 +987,14 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00142">142</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00143">143</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
 
-<p>References <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00097">interp()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    {</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> res;</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        <a class="code" href="../../df/d6d/namespacemymath.html#a9be6643559654e4fd81774f43bd8cdc0">interp</a>(x, xp, yp, res);</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        <span class="keywordflow">return</span> res;</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    }</div>
+<p>References <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00098">interp()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    {</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> res;</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        <a class="code" href="../../df/d6d/namespacemymath.html#a9be6643559654e4fd81774f43bd8cdc0">interp</a>(x, xp, yp, res);</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        <span class="keywordflow">return</span> res;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    }</div>
 </div><!-- fragment -->
 <p><div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-12-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
@@ -1052,14 +1058,14 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00151">151</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00152">152</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
 
-<p>References <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00097">interp()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    {</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> res;</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        <a class="code" href="../../df/d6d/namespacemymath.html#a9be6643559654e4fd81774f43bd8cdc0">interp</a>(x, xp, yp, res, left, right);</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        <span class="keywordflow">return</span> res;</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    }</div>
+<p>References <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00098">interp()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    {</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> res;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        <a class="code" href="../../df/d6d/namespacemymath.html#a9be6643559654e4fd81774f43bd8cdc0">interp</a>(x, xp, yp, res, left, right);</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        <span class="keywordflow">return</span> res;</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    }</div>
 </div><!-- fragment -->
 <p><div id="dynsection-13" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-13-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
@@ -1123,26 +1129,26 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00304">304</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00305">305</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../dc/d61/RfParameters_8cpp_source.html#l00049">RfParameters::calc_phi_s()</a>, <a class="el" href="../../db/d82/PhaseNoise_8cpp_source.html#l00378">LHCFlatSpectrum::generate()</a>, <a class="el" href="../../db/d82/PhaseNoise_8cpp_source.html#l00275">PSBPhaseNoiseInjection::generate()</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00317">linspace()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00019">matched_from_line_density()</a>, <a class="el" href="../../d2/d6f/Tracker_8cpp_source.html#l00323">FullRingAndRf::potential_well_generation()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00042">Slices::set_cuts()</a>, <a class="el" href="../../db/d82/PhaseNoise_8cpp_source.html#l00149">PhaseNoise::spectrum_generation()</a>, and <a class="el" href="../../db/d82/PhaseNoise_8cpp_source.html#l00017">PhaseNoise::spectrum_to_phase_noise()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    {</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">double</span> step = (end - start) / (n - 1);</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;        <span class="comment">// double value = start;</span></div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;        <span class="comment">//#pragma omp parallel for</span></div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n; ++i) {</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;            <span class="keywordflow">if</span> (i &gt;= keep_from)</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;                a[i - keep_from] = start + i * step;</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;            <span class="comment">// value += step;</span></div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;        }</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    }</div>
+<p>Referenced by <a class="el" href="../../dc/d61/RfParameters_8cpp_source.html#l00049">RfParameters::calc_phi_s()</a>, <a class="el" href="../../db/d82/PhaseNoise_8cpp_source.html#l00378">LHCFlatSpectrum::generate()</a>, <a class="el" href="../../db/d82/PhaseNoise_8cpp_source.html#l00275">PSBPhaseNoiseInjection::generate()</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00318">linspace()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00531">matched_from_distribution_density()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00020">matched_from_line_density()</a>, <a class="el" href="../../d2/d6f/Tracker_8cpp_source.html#l00327">FullRingAndRf::potential_well_generation()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00042">Slices::set_cuts()</a>, <a class="el" href="../../db/d82/PhaseNoise_8cpp_source.html#l00149">PhaseNoise::spectrum_generation()</a>, and <a class="el" href="../../db/d82/PhaseNoise_8cpp_source.html#l00017">PhaseNoise::spectrum_to_phase_noise()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    {</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">double</span> step = (end - start) / (n - 1);</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;        <span class="comment">// double value = start;</span></div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;        <span class="comment">//#pragma omp parallel for</span></div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n; ++i) {</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;            <span class="keywordflow">if</span> (i &gt;= keep_from)</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;                a[i - keep_from] = start + i * step;</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;            <span class="comment">// value += step;</span></div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;        }</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    }</div>
 </div><!-- fragment -->
 <p><div id="dynsection-14" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-14-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-14-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-14-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_ae6f0d1529ee101163ab6f5a40dd268f4_icgraph.svg" width="584" height="523"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_ae6f0d1529ee101163ab6f5a40dd268f4_icgraph.svg" width="584" height="574"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </p>
@@ -1187,14 +1193,14 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00317">317</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00318">318</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
 
-<p>References <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00304">linspace()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    {</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> res(n);</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;        <a class="code" href="../../df/d6d/namespacemymath.html#ae6f0d1529ee101163ab6f5a40dd268f4">linspace</a>(res.data(), start, end, n);</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;        <span class="keywordflow">return</span> res;</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;    }</div>
+<p>References <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00305">linspace()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    {</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> res(n);</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;        <a class="code" href="../../df/d6d/namespacemymath.html#ae6f0d1529ee101163ab6f5a40dd268f4">linspace</a>(res.data(), start, end, n);</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;        <span class="keywordflow">return</span> res;</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;    }</div>
 </div><!-- fragment -->
 <p><div id="dynsection-15" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-15-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
@@ -1248,21 +1254,21 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00290">290</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00291">291</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00285">Slices::fwhm()</a>, <a class="el" href="../../d3/db7/LHCNoiseFB_8cpp_source.html#l00128">LHCNoiseFB::fwhm_single_bunch()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00533">Slices::gaussian_fit()</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00097">interp()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00019">matched_from_line_density()</a>, <a class="el" href="../../d2/d6f/Tracker_8cpp_source.html#l00323">FullRingAndRf::potential_well_generation()</a>, and <a class="el" href="../../d3/db7/LHCNoiseFB_8cpp_source.html#l00053">LHCNoiseFB::track()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    {</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> p = 0;</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;        T <a class="code" href="../../df/d6d/namespacemymath.html#a2a11685fa6ce2396ae977fa1502a2cc4">max</a> = a[0];</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;        <span class="comment">//#pragma omp parallel for shared(p) reduction(max : max)</span></div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 1; i &lt; size; i += step) {</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;            <span class="keywordflow">if</span> (a[i] &gt; max) {</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;                max = a[i];</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;                p = i;</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;            }</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;        }</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;        <span class="keywordflow">return</span> p;</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    }</div>
+<p>Referenced by <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00285">Slices::fwhm()</a>, <a class="el" href="../../d3/db7/LHCNoiseFB_8cpp_source.html#l00128">LHCNoiseFB::fwhm_single_bunch()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00533">Slices::gaussian_fit()</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00098">interp()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00020">matched_from_line_density()</a>, and <a class="el" href="../../d3/db7/LHCNoiseFB_8cpp_source.html#l00053">LHCNoiseFB::track()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    {</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> p = 0;</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;        T <a class="code" href="../../df/d6d/namespacemymath.html#a2a11685fa6ce2396ae977fa1502a2cc4">max</a> = a[0];</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;        <span class="comment">//#pragma omp parallel for shared(p) reduction(max : max)</span></div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 1; i &lt; size; i += step) {</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;            <span class="keywordflow">if</span> (a[i] &gt; max) {</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;                max = a[i];</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;                p = i;</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;            }</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;        }</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;        <span class="keywordflow">return</span> p;</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    }</div>
 </div><!-- fragment -->
 <p><div id="dynsection-16" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-16-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
@@ -1310,23 +1316,30 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00335">335</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00353">353</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d3/db7/LHCNoiseFB_8cpp_source.html#l00151">LHCNoiseFB::fwhm_multi_bunch()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00533">Slices::gaussian_fit()</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00346">mean()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00042">Slices::set_cuts()</a>, and <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00352">standard_deviation()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    {</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;        <span class="keywordtype">double</span> m = 0.0;</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;<span class="preprocessor">        #pragma omp parallel for reduction(+ : m)</span></div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;<span class="preprocessor"></span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n; ++i) {</div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;            m += data[i];</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;        }</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;        <span class="keywordflow">return</span> m / n;</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;    }</div>
+<p>References <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00336">sum()</a>.</p>
+
+<p>Referenced by <a class="el" href="../../d3/db7/LHCNoiseFB_8cpp_source.html#l00151">LHCNoiseFB::fwhm_multi_bunch()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00533">Slices::gaussian_fit()</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00359">mean()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00042">Slices::set_cuts()</a>, and <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00365">standard_deviation()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;    {</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../df/d6d/namespacemymath.html#a80532a0f537928e78a30ae10afeecb6c">sum</a>(data, n) / n;</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;    }</div>
 </div><!-- fragment -->
 <p><div id="dynsection-17" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-17-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+  <img id="dynsection-17-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-17-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-17-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_ac815b54cedc0318b700fb483ee23ec2e_cgraph.svg" width="272" height="40"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+</p>
+
+<p><div id="dynsection-18" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-18-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-18-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-18-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_ac815b54cedc0318b700fb483ee23ec2e_icgraph.svg" width="100%" height="551"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -1358,19 +1371,19 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00346">346</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00359">359</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
 
-<p>References <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00335">mean()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    {</div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../df/d6d/namespacemymath.html#ac815b54cedc0318b700fb483ee23ec2e">mean</a>(data.data(), data.size());</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;    }</div>
+<p>References <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00353">mean()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;    {</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../df/d6d/namespacemymath.html#ac815b54cedc0318b700fb483ee23ec2e">mean</a>(data.data(), data.size());</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;    }</div>
 </div><!-- fragment -->
-<p><div id="dynsection-18" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-18-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-18-summary" class="dynsummary" style="display:block;">
+<p><div id="dynsection-19" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-19-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-19-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-18-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_a80566d33dfa4aa35efbc0bcc021623d2_cgraph.svg" width="278" height="40"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div id="dynsection-19-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_a80566d33dfa4aa35efbc0bcc021623d2_cgraph.svg" width="430" height="40"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </p>
@@ -1423,27 +1436,27 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00393">393</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00406">406</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
 
 <p>References <a class="el" href="../../d2/d6f/constants_8h_source.html#l00017">constant::e</a>, and <a class="el" href="../../de/df0/utilities_8h_source.html#l00056">FOR</a>.</p>
 
-<p>Referenced by <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00019">matched_from_line_density()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;    {</div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;        out1.clear();</div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;        out1.resize(in2.size(), in1);</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;</div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;        out2.clear();</div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">int</span> cols = in1.size();</div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;        <a class="code" href="../../de/df0/utilities_8h.html#a4248d71fc7ca79dc298d9871f8d7cfbe">FOR</a>(in2, <a class="code" href="../../da/db5/namespaceconstant.html#ac8669eb61b1b2cb90269446e1b7e0ed2">e</a>) out2.push_back(std::vector&lt;T&gt;(cols, *<a class="code" href="../../da/db5/namespaceconstant.html#ac8669eb61b1b2cb90269446e1b7e0ed2">e</a>));</div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;</div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;    }</div>
+<p>Referenced by <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00531">matched_from_distribution_density()</a>, and <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00020">matched_from_line_density()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;    {</div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;        out1.clear();</div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;        out1.resize(in2.size(), in1);</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;</div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;        out2.clear();</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">int</span> cols = in1.size();</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;        <a class="code" href="../../de/df0/utilities_8h.html#a4248d71fc7ca79dc298d9871f8d7cfbe">FOR</a>(in2, <a class="code" href="../../da/db5/namespaceconstant.html#ac8669eb61b1b2cb90269446e1b7e0ed2">e</a>) out2.push_back(std::vector&lt;T&gt;(cols, *<a class="code" href="../../da/db5/namespaceconstant.html#ac8669eb61b1b2cb90269446e1b7e0ed2">e</a>));</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;    }</div>
 </div><!-- fragment -->
-<p><div id="dynsection-19" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-19-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-19-summary" class="dynsummary" style="display:block;">
+<p><div id="dynsection-20" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-20-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-20-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-19-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_a7e2dd5ac3ea27ff891d733ff22a3df56_icgraph.svg" width="371" height="40"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div id="dynsection-20-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_a7e2dd5ac3ea27ff891d733ff22a3df56_icgraph.svg" width="371" height="110"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </p>
@@ -1490,27 +1503,27 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00275">275</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00276">276</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../dc/d61/RfParameters_8cpp_source.html#l00049">RfParameters::calc_phi_s()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00142">Slices::histogram()</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00097">interp()</a>, <a class="el" href="../../de/da5/utilities_8cpp_source.html#l00229">potential_well_cut()</a>, <a class="el" href="../../d2/d6f/Tracker_8cpp_source.html#l00323">FullRingAndRf::potential_well_generation()</a>, and <a class="el" href="../../d3/db7/LHCNoiseFB_8cpp_source.html#l00053">LHCNoiseFB::track()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    {</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> p = 0;</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;        T <a class="code" href="../../df/d6d/namespacemymath.html#a5bcc40b5ebadd9d98f351775df65ec9f">min</a> = a[0];</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;        <span class="comment">//#pragma omp parallel for  shared(p) reduction(min : min)</span></div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 1; i &lt; size; i += step) {</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;            <span class="keywordflow">if</span> (a[i] &lt; min) {</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;                min = a[i];</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;                p = i;</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;            }</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;        }</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;        <span class="keywordflow">return</span> p;</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    }</div>
+<p>Referenced by <a class="el" href="../../dc/d61/RfParameters_8cpp_source.html#l00049">RfParameters::calc_phi_s()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00142">Slices::histogram()</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00098">interp()</a>, <a class="el" href="../../de/da5/utilities_8cpp_source.html#l00229">potential_well_cut()</a>, and <a class="el" href="../../d3/db7/LHCNoiseFB_8cpp_source.html#l00053">LHCNoiseFB::track()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    {</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> p = 0;</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;        T <a class="code" href="../../df/d6d/namespacemymath.html#a5bcc40b5ebadd9d98f351775df65ec9f">min</a> = a[0];</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;        <span class="comment">//#pragma omp parallel for  shared(p) reduction(min : min)</span></div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 1; i &lt; size; i += step) {</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;            <span class="keywordflow">if</span> (a[i] &lt; min) {</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;                min = a[i];</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;                p = i;</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;            }</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;        }</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;        <span class="keywordflow">return</span> p;</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    }</div>
 </div><!-- fragment -->
-<p><div id="dynsection-20" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-20-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-20-summary" class="dynsummary" style="display:block;">
+<p><div id="dynsection-21" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-21-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-21-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-20-content" class="dyncontent" style="display:none;">
+<div id="dynsection-21-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_a5bcc40b5ebadd9d98f351775df65ec9f_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -1540,23 +1553,23 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00052">52</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00053">53</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
 
 <p>Referenced by <a class="el" href="../../db/d82/PhaseNoise_8cpp_source.html#l00275">PSBPhaseNoiseInjection::generate()</a>, <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00146">InducedVoltageFreq::InducedVoltageFreq()</a>, <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00038">InducedVoltageTime::InducedVoltageTime()</a>, <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00090">InducedVoltageTime::reprocess()</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00275">InducedVoltageFreq::reprocess()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span> i : Ham({2, 3, 5})) {</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            <span class="keywordflow">if</span> (i &gt; target)</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                <span class="keywordflow">return</span> i;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        }</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span> i : Ham({2, 3, 5})) {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            <span class="keywordflow">if</span> (i &gt; target)</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                <span class="keywordflow">return</span> i;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        }</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    }</div>
 </div><!-- fragment -->
-<p><div id="dynsection-21" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-21-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-21-summary" class="dynsummary" style="display:block;">
+<p><div id="dynsection-22" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-22-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-22-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-21-content" class="dyncontent" style="display:none;">
+<div id="dynsection-22-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_accbb9ef1f97a6dca6e5fb46dc038130a_icgraph.svg" width="379" height="334"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -1604,35 +1617,35 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00418">418</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00431">431</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
 
 <p>References <a class="el" href="../../de/df0/utilities_8h_source.html#l00055">ALL</a>.</p>
 
-<p>Referenced by <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00019">matched_from_line_density()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;    {</div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;        <span class="keywordflow">if</span> (weights.empty()) weights.resize(elems.size(), 1);</div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;        assert(weights.size() == elems.size());</div>
-<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;        <span class="comment">// calculate cumulative sum</span></div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 1; i &lt; weights.size(); i++) {</div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;            weights[i] += weights[i - 1];</div>
-<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;        }</div>
-<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;        std::default_random_engine gen(0);</div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;        std::uniform_real_distribution&lt;double&gt; d(0.0, weights.back());</div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;        std::vector&lt;T&gt; result(size);</div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; size; i++) {</div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;            <span class="keyword">auto</span> w = d(gen);</div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;            <span class="keyword">auto</span> it = std::lower_bound(<a class="code" href="../../de/df0/utilities_8h.html#a2f3c80e2df3ca3c632f7529d737384b3">ALL</a>(weights), w);</div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;            result[i] = elems[it - weights.begin()];</div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;        }</div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;        <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;    }</div>
+<p>Referenced by <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00531">matched_from_distribution_density()</a>, and <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00020">matched_from_line_density()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;    {</div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;        <span class="keywordflow">if</span> (weights.empty()) weights.resize(elems.size(), 1);</div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;        assert(weights.size() == elems.size());</div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;        <span class="comment">// calculate cumulative sum</span></div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 1; i &lt; weights.size(); i++) {</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;            weights[i] += weights[i - 1];</div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;        }</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;        std::default_random_engine gen(0);</div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;        std::uniform_real_distribution&lt;double&gt; d(0.0, weights.back());</div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;        std::vector&lt;T&gt; result(size);</div>
+<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; size; i++) {</div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;            <span class="keyword">auto</span> w = d(gen);</div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;            <span class="keyword">auto</span> it = std::lower_bound(<a class="code" href="../../de/df0/utilities_8h.html#a2f3c80e2df3ca3c632f7529d737384b3">ALL</a>(weights), w);</div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;            result[i] = elems[it - weights.begin()];</div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;        }</div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;        <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;    }</div>
 </div><!-- fragment -->
-<p><div id="dynsection-22" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-22-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-22-summary" class="dynsummary" style="display:block;">
+<p><div id="dynsection-23" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-23-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-23-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-22-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_ada0a7d5b58b157b862416d7aa854b375_icgraph.svg" width="406" height="40"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div id="dynsection-23-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_ada0a7d5b58b157b862416d7aa854b375_icgraph.svg" width="406" height="110"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </p>
@@ -1655,19 +1668,19 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00386">386</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00399">399</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d7/d76/fft_8h_source.html#l00094">fft::init_fft()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00019">matched_from_line_density()</a>, <a class="el" href="../../d2/d6f/Tracker_8cpp_source.html#l00323">FullRingAndRf::potential_well_generation()</a>, <a class="el" href="../../d6/db7/RfParameters_8h_source.html#l00075">RfParameters::RfParameters()</a>, and <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00023">Resonators::wake_calc()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;    {</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;        <span class="keywordflow">return</span> (T(0) &lt; val) - (val &lt; T(0));</div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;    }</div>
+<p>Referenced by <a class="el" href="../../d7/d76/fft_8h_source.html#l00094">fft::init_fft()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00531">matched_from_distribution_density()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00020">matched_from_line_density()</a>, <a class="el" href="../../d2/d6f/Tracker_8cpp_source.html#l00327">FullRingAndRf::potential_well_generation()</a>, <a class="el" href="../../d6/db7/RfParameters_8h_source.html#l00075">RfParameters::RfParameters()</a>, and <a class="el" href="../../d1/dca/Intensity_8cpp_source.html#l00023">Resonators::wake_calc()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;    {</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;        <span class="keywordflow">return</span> (T(0) &lt; val) - (val &lt; T(0));</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;    }</div>
 </div><!-- fragment -->
-<p><div id="dynsection-23" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-23-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-23-summary" class="dynsummary" style="display:block;">
+<p><div id="dynsection-24" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-24-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-24-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-23-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_a31743e3fc7ec3ccb0df630d0cad57959_icgraph.svg" width="100%" height="578"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div id="dynsection-24-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_a31743e3fc7ec3ccb0df630d0cad57959_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 </p>
@@ -1714,34 +1727,34 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00352">352</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00365">365</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
 
-<p>References <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00335">mean()</a>.</p>
+<p>References <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00353">mean()</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00533">Slices::gaussian_fit()</a>, <a class="el" href="../../db/d82/PhaseNoise_8cpp_source.html#l00378">LHCFlatSpectrum::generate()</a>, <a class="el" href="../../db/d82/PhaseNoise_8cpp_source.html#l00275">PSBPhaseNoiseInjection::generate()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00042">Slices::set_cuts()</a>, and <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00363">standard_deviation()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;    {</div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;        <span class="keywordtype">double</span> sum_deviation = 0.0;</div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;<span class="preprocessor">        #pragma omp parallel for reduction(+ : sum_deviation)</span></div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;<span class="preprocessor"></span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n; ++i)</div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;            sum_deviation += (data[i] - <a class="code" href="../../df/d6d/namespacemymath.html#ac815b54cedc0318b700fb483ee23ec2e">mean</a>) * (data[i] - <a class="code" href="../../df/d6d/namespacemymath.html#ac815b54cedc0318b700fb483ee23ec2e">mean</a>);</div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;        <span class="keywordflow">return</span> std::sqrt(sum_deviation / n);</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;    }</div>
+<p>Referenced by <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00533">Slices::gaussian_fit()</a>, <a class="el" href="../../db/d82/PhaseNoise_8cpp_source.html#l00378">LHCFlatSpectrum::generate()</a>, <a class="el" href="../../db/d82/PhaseNoise_8cpp_source.html#l00275">PSBPhaseNoiseInjection::generate()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00042">Slices::set_cuts()</a>, and <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00376">standard_deviation()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    {</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;        <span class="keywordtype">double</span> sum_deviation = 0.0;</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;<span class="preprocessor">        #pragma omp parallel for reduction(+ : sum_deviation)</span></div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;<span class="preprocessor"></span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n; ++i)</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;            sum_deviation += (data[i] - <a class="code" href="../../df/d6d/namespacemymath.html#ac815b54cedc0318b700fb483ee23ec2e">mean</a>) * (data[i] - <a class="code" href="../../df/d6d/namespacemymath.html#ac815b54cedc0318b700fb483ee23ec2e">mean</a>);</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;        <span class="keywordflow">return</span> std::sqrt(sum_deviation / n);</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;    }</div>
 </div><!-- fragment -->
-<p><div id="dynsection-24" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-24-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-24-summary" class="dynsummary" style="display:block;">
+<p><div id="dynsection-25" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-25-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-25-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-24-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_aa50ebf887bdf0acc40e9d54519351de6_cgraph.svg" width="355" height="40"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div id="dynsection-25-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_aa50ebf887bdf0acc40e9d54519351de6_cgraph.svg" width="507" height="40"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </p>
 
-<p><div id="dynsection-25" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-25-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-25-summary" class="dynsummary" style="display:block;">
+<p><div id="dynsection-26" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-26-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-26-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-25-content" class="dyncontent" style="display:none;">
+<div id="dynsection-26-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_aa50ebf887bdf0acc40e9d54519351de6_icgraph.svg" width="100%" height="500"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -1783,19 +1796,19 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00363">363</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00376">376</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
 
-<p>References <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00335">mean()</a>, and <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00352">standard_deviation()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;    {</div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../df/d6d/namespacemymath.html#aa50ebf887bdf0acc40e9d54519351de6">standard_deviation</a>(data.data(), data.size(), <a class="code" href="../../df/d6d/namespacemymath.html#ac815b54cedc0318b700fb483ee23ec2e">mean</a>);</div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    }</div>
+<p>References <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00353">mean()</a>, and <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00365">standard_deviation()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;    {</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../df/d6d/namespacemymath.html#aa50ebf887bdf0acc40e9d54519351de6">standard_deviation</a>(data.data(), data.size(), <a class="code" href="../../df/d6d/namespacemymath.html#ac815b54cedc0318b700fb483ee23ec2e">mean</a>);</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;    }</div>
 </div><!-- fragment -->
-<p><div id="dynsection-26" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-26-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-26-summary" class="dynsummary" style="display:block;">
+<p><div id="dynsection-27" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-27-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-27-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-26-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_a8a058539a0449c296f5ef407c314dde6_cgraph.svg" width="590" height="66"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div id="dynsection-27-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_a8a058539a0449c296f5ef407c314dde6_cgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 </p>
@@ -1836,24 +1849,24 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00370">370</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00383">383</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
 
-<p>References <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00335">mean()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;    {</div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">double</span> <a class="code" href="../../df/d6d/namespacemymath.html#ac815b54cedc0318b700fb483ee23ec2e">mean</a> = <a class="code" href="../../df/d6d/namespacemymath.html#ac815b54cedc0318b700fb483ee23ec2e">mymath::mean</a>(data, n);</div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;        <span class="keywordtype">double</span> sum_deviation = 0.0;</div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;<span class="preprocessor">        #pragma omp parallel for reduction(+ : sum_deviation)</span></div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;<span class="preprocessor"></span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n; ++i)</div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;            sum_deviation += (data[i] - mean) * (data[i] - <a class="code" href="../../df/d6d/namespacemymath.html#ac815b54cedc0318b700fb483ee23ec2e">mean</a>);</div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;        <span class="keywordflow">return</span> std::sqrt(sum_deviation / n);</div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;    }</div>
+<p>References <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00353">mean()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    {</div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">double</span> <a class="code" href="../../df/d6d/namespacemymath.html#ac815b54cedc0318b700fb483ee23ec2e">mean</a> = <a class="code" href="../../df/d6d/namespacemymath.html#ac815b54cedc0318b700fb483ee23ec2e">mymath::mean</a>(data, n);</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;        <span class="keywordtype">double</span> sum_deviation = 0.0;</div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;<span class="preprocessor">        #pragma omp parallel for reduction(+ : sum_deviation)</span></div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;<span class="preprocessor"></span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n; ++i)</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;            sum_deviation += (data[i] - mean) * (data[i] - <a class="code" href="../../df/d6d/namespacemymath.html#ac815b54cedc0318b700fb483ee23ec2e">mean</a>);</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;        <span class="keywordflow">return</span> std::sqrt(sum_deviation / n);</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;    }</div>
 </div><!-- fragment -->
-<p><div id="dynsection-27" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-27-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-27-summary" class="dynsummary" style="display:block;">
+<p><div id="dynsection-28" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-28-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-28-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-27-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_a464cc01d36a009ce4da5bfc214760270_cgraph.svg" width="355" height="40"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div id="dynsection-28-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_a464cc01d36a009ce4da5bfc214760270_cgraph.svg" width="507" height="40"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </p>
@@ -1884,19 +1897,120 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00381">381</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00394">394</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
 
-<p>References <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00352">standard_deviation()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;    {</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../df/d6d/namespacemymath.html#aa50ebf887bdf0acc40e9d54519351de6">standard_deviation</a>(data.data(), data.size());</div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    }</div>
+<p>References <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00365">standard_deviation()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    {</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../df/d6d/namespacemymath.html#aa50ebf887bdf0acc40e9d54519351de6">standard_deviation</a>(data.data(), data.size());</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;    }</div>
 </div><!-- fragment -->
-<p><div id="dynsection-28" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-28-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-28-summary" class="dynsummary" style="display:block;">
+<p><div id="dynsection-29" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-29-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-29-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-28-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_a6eee85cb0cf7740263dfdf1ccbf38de3_cgraph.svg" width="590" height="40"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div id="dynsection-29-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_a6eee85cb0cf7740263dfdf1ccbf38de3_cgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a80532a0f537928e78a30ae10afeecb6c"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static double mymath::sum </td>
+          <td>(</td>
+          <td class="paramtype">const T&#160;</td>
+          <td class="paramname"><em>data</em>[], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00336">336</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+
+<p>Referenced by <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00324">InducedVoltageFreq::induced_voltage_generation()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00531">matched_from_distribution_density()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00020">matched_from_line_density()</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00353">mean()</a>, <a class="el" href="../../d2/d6f/Tracker_8cpp_source.html#l00327">FullRingAndRf::potential_well_generation()</a>, <a class="el" href="../../db/dee/PhaseLoop_8cpp_source.html#l00119">PhaseLoop::radial_difference()</a>, <a class="el" href="../../d2/d6f/Tracker_8cpp_source.html#l00225">RingAndRfSection::rf_voltage_calculation()</a>, and <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00347">sum()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    {</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;        <span class="keywordtype">double</span> m = 0.0;</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;<span class="preprocessor">        #pragma omp parallel for reduction(+ : m)</span></div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;<span class="preprocessor"></span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n; ++i) {</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;            m += data[i];</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;        }</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;        <span class="keywordflow">return</span> m;</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    }</div>
+</div><!-- fragment -->
+<p><div id="dynsection-30" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-30-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-30-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-30-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_a80532a0f537928e78a30ae10afeecb6c_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a47420afeb05f18763067540f74b8f0b3"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static double mymath::sum </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00347">347</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+
+<p>References <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00336">sum()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    {</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="../../df/d6d/namespacemymath.html#a80532a0f537928e78a30ae10afeecb6c">sum</a>(data.data(), data.size());</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;    }</div>
+</div><!-- fragment -->
+<p><div id="dynsection-31" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-31-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-31-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-31-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_a47420afeb05f18763067540f74b8f0b3_cgraph.svg" width="267" height="40"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </p>
@@ -1943,30 +2057,30 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00224">224</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00225">225</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../db/dee/PhaseLoop_8cpp_source.html#l00015">PhaseLoop::beam_phase()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00019">matched_from_line_density()</a>, and <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00264">Slices::rms()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    {</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;        <span class="comment">// initialize the partial sum to be f(a)+f(b) and</span></div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;        <span class="comment">// deltaX to be the step size using nsub subdivisions</span></div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;        <span class="keywordtype">double</span> psum = 0.0;</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;<span class="comment">// increment the partial sum</span></div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;<span class="preprocessor">        #pragma omp parallel for reduction(+ : psum)</span></div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;<span class="preprocessor"></span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 1; i &lt; nsub; ++i) {</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;            psum += (f[i] + f[i - 1]) * (deltaX[i] - deltaX[i - 1]);</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;        }</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;        <span class="comment">// return approximation</span></div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;        <span class="keywordflow">return</span> psum / 2;</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    }</div>
+<p>Referenced by <a class="el" href="../../db/dee/PhaseLoop_8cpp_source.html#l00015">PhaseLoop::beam_phase()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00531">matched_from_distribution_density()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00020">matched_from_line_density()</a>, and <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00264">Slices::rms()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    {</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;        <span class="comment">// initialize the partial sum to be f(a)+f(b) and</span></div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;        <span class="comment">// deltaX to be the step size using nsub subdivisions</span></div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;        <span class="keywordtype">double</span> psum = 0.0;</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;<span class="comment">// increment the partial sum</span></div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;<span class="preprocessor">        #pragma omp parallel for reduction(+ : psum)</span></div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;<span class="preprocessor"></span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 1; i &lt; nsub; ++i) {</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;            psum += (f[i] + f[i - 1]) * (deltaX[i] - deltaX[i - 1]);</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        }</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;        <span class="comment">// return approximation</span></div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;        <span class="keywordflow">return</span> psum / 2;</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    }</div>
 </div><!-- fragment -->
-<p><div id="dynsection-29" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-29-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-29-summary" class="dynsummary" style="display:block;">
+<p><div id="dynsection-32" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-32-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-32-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-29-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_a3cd62eeb1068e15105a0c617c9cc1fc6_icgraph.svg" width="531" height="227"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div id="dynsection-32-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/d6d/namespacemymath_a3cd62eeb1068e15105a0c617c9cc1fc6_icgraph.svg" width="531" height="296"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </p>
@@ -2007,10 +2121,10 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00241">241</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    {</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;        <span class="keywordflow">return</span> trapezoid&lt;T&gt;(f.data(), deltaX.data(), f.size());</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    }</div>
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00242">242</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    {</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;        <span class="keywordflow">return</span> trapezoid&lt;T&gt;(f.data(), deltaX.data(), f.size());</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2054,25 +2168,25 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00248">248</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    {</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;        <span class="comment">// initialize the partial sum to be f(a)+f(b) and</span></div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;        <span class="comment">// deltaX to be the step size using nsub subdivisions</span></div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;        <span class="keywordtype">double</span> psum = f[0] + f[nsub - 1]; <span class="comment">// f(a)+f(b);</span></div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;<span class="comment">// double deltaX = (b-a)/nsub;</span></div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;<span class="comment">// increment the partial sum</span></div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;<span class="preprocessor">        #pragma omp parallel for reduction(+ : psum)</span></div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;<span class="preprocessor"></span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 1; i &lt; nsub - 1; ++i) {</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;            psum += 2 * f[i];</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;        }</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;        <span class="comment">// multiply the sum by the constant deltaX/2.0</span></div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;        psum = (deltaX / 2) * psum;</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;        <span class="comment">// return approximation</span></div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;        <span class="keywordflow">return</span> psum;</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    }</div>
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00249">249</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    {</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;        <span class="comment">// initialize the partial sum to be f(a)+f(b) and</span></div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;        <span class="comment">// deltaX to be the step size using nsub subdivisions</span></div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;        <span class="keywordtype">double</span> psum = f[0] + f[nsub - 1]; <span class="comment">// f(a)+f(b);</span></div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;<span class="comment">// double deltaX = (b-a)/nsub;</span></div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;<span class="comment">// increment the partial sum</span></div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;<span class="preprocessor">        #pragma omp parallel for reduction(+ : psum)</span></div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;<span class="preprocessor"></span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 1; i &lt; nsub - 1; ++i) {</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;            psum += 2 * f[i];</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;        }</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;        <span class="comment">// multiply the sum by the constant deltaX/2.0</span></div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;        psum = (deltaX / 2) * psum;</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;        <span class="comment">// return approximation</span></div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;        <span class="keywordflow">return</span> psum;</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2110,10 +2224,10 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00269">269</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    {</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;        <span class="keywordflow">return</span> trapezoid&lt;T&gt;(f.data(), deltaX, f.size());</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    }</div>
+<p>Definition at line <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00270">270</a> of file <a class="el" href="../../d2/de2/math__functions_8h_source.html">math_functions.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    {</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;        <span class="keywordflow">return</span> trapezoid&lt;T&gt;(f.data(), deltaX, f.size());</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2123,7 +2237,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../df/d6d/namespacemymath.html">mymath</a></li>
-    <li class="footer">Generated on Thu Nov 10 2016 16:26:00 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Mon Nov 14 2016 14:46:31 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

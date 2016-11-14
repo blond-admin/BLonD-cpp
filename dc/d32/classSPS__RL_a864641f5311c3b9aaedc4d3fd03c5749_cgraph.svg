@@ -63,16 +63,16 @@
 <path fill="none" stroke="midnightblue" d="M81.6735,-92.4905C100.585,-87.4807 123.402,-81.4366 143.442,-76.1279"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="144.559,-79.4528 153.33,-73.5087 142.767,-72.6862 144.559,-79.4528"/>
 </g>
-<!-- Node7 -->
-<g id="node13" class="node"><title>Node7</title>
+<!-- Node8 -->
+<g id="node15" class="node"><title>Node8</title>
 <a xlink:href="../../d6/d87/classPhaseLoop.html#a8b9be8d7df4932c531d6b4a4e8438173" target="_top" xlink:title="PhaseLoop::radial_steering\l_from_freq">
 <polygon fill="white" stroke="black" points="126,-0 126,-34 260,-34 260,-0 126,-0"/>
 <text text-anchor="start" x="134" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">PhaseLoop::radial_steering</text>
 <text text-anchor="middle" x="193" y="-8" font-family="Helvetica,sans-Serif" font-size="10.00">_from_freq</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node7 -->
-<g id="edge12" class="edge"><title>Node1&#45;&gt;Node7</title>
+<!-- Node1&#45;&gt;Node8 -->
+<g id="edge14" class="edge"><title>Node1&#45;&gt;Node8</title>
 <path fill="none" stroke="midnightblue" d="M53.3483,-92.401C67.8561,-79.3121 94.1967,-57.0605 120,-43 123.046,-41.3404 126.218,-39.7514 129.461,-38.2355"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="130.993,-41.3858 138.741,-34.1596 128.177,-34.9768 130.993,-41.3858"/>
 </g>
@@ -87,6 +87,18 @@
 <g id="edge4" class="edge"><title>Node2&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M256.809,-195C268.219,-195 280.068,-195 291.355,-195"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="291.534,-198.5 301.534,-195 291.534,-191.5 291.534,-198.5"/>
+</g>
+<!-- Node7 -->
+<g id="node13" class="node"><title>Node7</title>
+<a xlink:href="../../df/d6d/namespacemymath.html#a80532a0f537928e78a30ae10afeecb6c" target="_top" xlink:title="mymath::sum">
+<polygon fill="white" stroke="black" points="312.5,-52.5 312.5,-73.5 389.5,-73.5 389.5,-52.5 312.5,-52.5"/>
+<text text-anchor="middle" x="351" y="-60.5" font-family="Helvetica,sans-Serif" font-size="10.00">mymath::sum</text>
+</a>
+</g>
+<!-- Node6&#45;&gt;Node7 -->
+<g id="edge12" class="edge"><title>Node6&#45;&gt;Node7</title>
+<path fill="none" stroke="midnightblue" d="M264.603,-63C277.36,-63 290.376,-63 302.305,-63"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="302.475,-66.5001 312.475,-63 302.475,-59.5001 302.475,-66.5001"/>
 </g>
 </g>
 </svg>

@@ -298,7 +298,7 @@ Public Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../db/dee/PhaseLoop_8cpp_source.html#l00015">15</a> of file <a class="el" href="../../db/dee/PhaseLoop_8cpp_source.html">PhaseLoop.cpp</a>.</p>
 
-<p>References <a class="el" href="../../d3/d33/PhaseLoop_8h_source.html#l00029">alpha</a>, <a class="el" href="../../d3/d33/PhaseLoop_8h_source.html#l00035">phi_beam</a>, <a class="el" href="../../d2/d6f/constants_8h_source.html#l00019">constant::pi</a>, <a class="el" href="../../d5/d87/globals_8h_source.html#l00020">Context::RfP</a>, <a class="el" href="../../d5/d87/globals_8h_source.html#l00017">Context::Slice</a>, and <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00224">mymath::trapezoid()</a>.</p>
+<p>References <a class="el" href="../../d3/d33/PhaseLoop_8h_source.html#l00029">alpha</a>, <a class="el" href="../../d3/d33/PhaseLoop_8h_source.html#l00035">phi_beam</a>, <a class="el" href="../../d2/d6f/constants_8h_source.html#l00019">constant::pi</a>, <a class="el" href="../../d5/d87/globals_8h_source.html#l00020">Context::RfP</a>, <a class="el" href="../../d5/d87/globals_8h_source.html#l00017">Context::Slice</a>, and <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00225">mymath::trapezoid()</a>.</p>
 
 <p>Referenced by <a class="el" href="../../db/dee/PhaseLoop_8cpp_source.html#l00211">LHC::track()</a>, <a class="el" href="../../db/dee/PhaseLoop_8cpp_source.html#l00322">PSB::track()</a>, <a class="el" href="../../db/dee/PhaseLoop_8cpp_source.html#l00425">LHC_F::track()</a>, and <a class="el" href="../../db/dee/PhaseLoop_8cpp_source.html#l00458">SPS_RL::track()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
@@ -497,7 +497,7 @@ Public Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../db/dee/PhaseLoop_8cpp_source.html#l00119">119</a> of file <a class="el" href="../../db/dee/PhaseLoop_8cpp_source.html">PhaseLoop.cpp</a>.</p>
 
-<p>References <a class="el" href="../../d5/d87/globals_8h_source.html#l00019">Context::Beam</a>, <a class="el" href="../../d7/d74/Beams_8h_source.html#l00022">Beams::dE</a>, <a class="el" href="../../d3/d33/PhaseLoop_8h_source.html#l00033">drho</a>, <a class="el" href="../../d5/d87/globals_8h_source.html#l00018">Context::GP</a>, <a class="el" href="../../d5/d87/globals_8h_source.html#l00020">Context::RfP</a>, and <a class="el" href="../../d5/d87/globals_8h_source.html#l00017">Context::Slice</a>.</p>
+<p>References <a class="el" href="../../d5/d87/globals_8h_source.html#l00019">Context::Beam</a>, <a class="el" href="../../d3/d33/PhaseLoop_8h_source.html#l00033">drho</a>, <a class="el" href="../../d5/d87/globals_8h_source.html#l00018">Context::GP</a>, <a class="el" href="../../d5/d87/globals_8h_source.html#l00020">Context::RfP</a>, <a class="el" href="../../d5/d87/globals_8h_source.html#l00017">Context::Slice</a>, and <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00336">mymath::sum()</a>.</p>
 
 <p>Referenced by <a class="el" href="../../db/dee/PhaseLoop_8cpp_source.html#l00458">SPS_RL::track()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;{</div>
@@ -509,12 +509,12 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="comment">// Radial difference between beam and design orbit.*</span></div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> counter = RfP-&gt;counter;</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> n = 0;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordtype">double</span> sum = 0;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordtype">double</span> <a class="code" href="../../df/d6d/namespacemymath.html#a80532a0f537928e78a30ae10afeecb6c">sum</a> = 0;</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="comment">// double array[GP-&gt;n_turns];</span></div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; GP-&gt;n_turns; ++i) {</div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        <span class="keywordflow">if</span> (Beam-&gt;dt[i] &gt; Slice-&gt;bin_centers.front() &amp;&amp;</div>
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                Beam-&gt;dt[i] &lt; Slice-&gt;bin_centers.back()) {</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;            sum += Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>[i];</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;            sum += Beam-&gt;dE[i];</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            n++;</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        }</div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    }</div>
@@ -527,10 +527,20 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;}</div>
 </div><!-- fragment -->
 <p><div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+  <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-6-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d6/d87/classPhaseLoop_a533be96ab317002d494f831e746c465a_cgraph.svg" width="355" height="40"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+</p>
+
+<p><div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-7-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="../../d6/d87/classPhaseLoop_a533be96ab317002d494f831e746c465a_icgraph.svg" width="363" height="40"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -588,11 +598,11 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    }</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;}</div>
 </div><!-- fragment -->
-<p><div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
+<p><div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-8-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-7-content" class="dyncontent" style="display:none;">
+<div id="dynsection-8-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="../../d6/d87/classPhaseLoop_a8b9be8d7df4932c531d6b4a4e8438173_icgraph.svg" width="350" height="56"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -624,20 +634,8 @@ Public Attributes</h2></td></tr>
 <p>Reimplemented in <a class="el" href="../../dc/d32/classSPS__RL.html#a864641f5311c3b9aaedc4d3fd03c5749">SPS_RL</a>, <a class="el" href="../../d1/df5/classLHC__F.html#ab5b7348ca5812d32ebfc15b53759d5be">LHC_F</a>, <a class="el" href="../../d9/d59/classPSB.html#aaa22cc356f9de26a0eac4b2a1cc662a6">PSB</a>, and <a class="el" href="../../d1/dbd/classLHC.html#a5905abe73461ba2346212cbd629f8066">LHC</a>.</p>
 
 <p>Definition at line <a class="el" href="../../d3/d33/PhaseLoop_8h_source.html#l00019">19</a> of file <a class="el" href="../../d3/d33/PhaseLoop_8h_source.html">PhaseLoop.h</a>.</p>
-
-<p>Referenced by <a class="el" href="../../d2/d6f/Tracker_8cpp_source.html#l00090">RingAndRfSection::track()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{};</div>
 </div><!-- fragment -->
-<p><div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-8-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-8-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../d6/d87/classPhaseLoop_ac1ae735a3cf7a658dfdbb27668feda5f_icgraph.svg" width="352" height="40"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -669,7 +667,7 @@ Public Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d3/d33/PhaseLoop_8h_source.html#l00028">28</a> of file <a class="el" href="../../d3/d33/PhaseLoop_8h_source.html">PhaseLoop.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../db/dee/PhaseLoop_8cpp_source.html#l00177">LHC::LHC()</a>, <a class="el" href="../../db/dee/PhaseLoop_8cpp_source.html#l00411">LHC_F::LHC_F()</a>, <a class="el" href="../../db/dee/PhaseLoop_8cpp_source.html#l00386">PSB::precalculate_time()</a>, <a class="el" href="../../db/dee/PhaseLoop_8cpp_source.html#l00263">PSB::PSB()</a>, <a class="el" href="../../db/dee/PhaseLoop_8cpp_source.html#l00444">SPS_RL::SPS_RL()</a>, <a class="el" href="../../db/dee/PhaseLoop_8cpp_source.html#l00322">PSB::track()</a>, and <a class="el" href="../../d2/d6f/Tracker_8cpp_source.html#l00090">RingAndRfSection::track()</a>.</p>
+<p>Referenced by <a class="el" href="../../db/dee/PhaseLoop_8cpp_source.html#l00177">LHC::LHC()</a>, <a class="el" href="../../db/dee/PhaseLoop_8cpp_source.html#l00411">LHC_F::LHC_F()</a>, <a class="el" href="../../db/dee/PhaseLoop_8cpp_source.html#l00386">PSB::precalculate_time()</a>, <a class="el" href="../../db/dee/PhaseLoop_8cpp_source.html#l00263">PSB::PSB()</a>, <a class="el" href="../../db/dee/PhaseLoop_8cpp_source.html#l00444">SPS_RL::SPS_RL()</a>, and <a class="el" href="../../db/dee/PhaseLoop_8cpp_source.html#l00322">PSB::track()</a>.</p>
 
 </div>
 </div>
@@ -791,7 +789,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../d6/d87/classPhaseLoop.html">PhaseLoop</a></li>
-    <li class="footer">Generated on Thu Nov 10 2016 16:25:59 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Mon Nov 14 2016 14:46:31 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

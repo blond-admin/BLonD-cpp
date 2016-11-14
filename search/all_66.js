@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['f',['f',['../d6/d1e/unionvdt_1_1details_1_1ieee754.html#a88803bc30fe72b846750d9e18b0aa0c8',1,'vdt::details::ieee754']]],
+  ['f',['f',['../d3/d1f/structmulti__t.html#ab91907b4cc15284a161182cc530512e8',1,'multi_t::f()'],['../d6/d1e/unionvdt_1_1details_1_1ieee754.html#a88803bc30fe72b846750d9e18b0aa0c8',1,'vdt::details::ieee754::f()']]],
   ['f_5frev',['f_rev',['../d1/dfc/classGeneralParameters.html#a6aa68d5d9c1f4ccc9d08abd9b26974a0',1,'GeneralParameters']]],
   ['f_5fvector_5f2d_5ft',['f_vector_2d_t',['../d2/d2c/configuration_8h.html#a578604c41b2b32700ab03fc63ec857eb',1,'configuration.h']]],
   ['f_5fvector_5ft',['f_vector_t',['../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723',1,'configuration.h']]],

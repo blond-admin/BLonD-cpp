@@ -28,6 +28,7 @@ var searchData=
   ['streq',['streq',['../d6/d83/classoption_1_1Parser.html#ab1638764142e2789b552b8cc3196e365',1,'option::Parser']]],
   ['streqabbr',['streqabbr',['../d6/d83/classoption_1_1Parser.html#abcdbe5be641eb3586a0602a4189dc913',1,'option::Parser']]],
   ['string_5fto_5fdouble_5fvector',['string_to_double_vector',['../d6/d72/namespaceutil.html#a14a8aba3310095e612d55c2ea5a4f788',1,'util']]],
+  ['sum',['sum',['../df/d6d/namespacemymath.html#a80532a0f537928e78a30ae10afeecb6c',1,'mymath::sum(const T data[], const int n)'],['../df/d6d/namespacemymath.html#a47420afeb05f18763067540f74b8f0b3',1,'mymath::sum(const std::vector&lt; T &gt; &amp;data)']]],
   ['sum_5fimpedances',['sum_impedances',['../d5/de7/classInducedVoltageFreq.html#ad4bf4411c545885d9272093b6469748b',1,'InducedVoltageFreq']]],
   ['sum_5fwakes',['sum_wakes',['../d0/d6b/classInducedVoltageTime.html#ac4346e1775d9707b763941e70dcab0cd',1,'InducedVoltageTime']]],
   ['syscallwriter',['SyscallWriter',['../d3/d44/structoption_1_1PrintUsageImplementation_1_1SyscallWriter.html#ae4f8677dbd79b0a9238368e28014701a',1,'option::PrintUsageImplementation::SyscallWriter']]]

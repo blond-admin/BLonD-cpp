@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['s',['s',['../dc/d45/classSlices.html#a3d9fef3e5ac7d449b0e1ce9ec31d3d3eabbc369193aaec74663be4e947bf758cf',1,'Slices::s()'],['../d6/d1e/unionvdt_1_1details_1_1ieee754.html#a51ab4676816641fdbc3d37d13b2100fa',1,'vdt::details::ieee754::s()']]],
+  ['s',['s',['../d3/d1f/structmulti__t.html#adcab13781ac71ca4a285305f43c00946',1,'multi_t::s()'],['../dc/d45/classSlices.html#a3d9fef3e5ac7d449b0e1ce9ec31d3d3eabbc369193aaec74663be4e947bf758cf',1,'Slices::s()'],['../d6/d1e/unionvdt_1_1details_1_1ieee754.html#a51ab4676816641fdbc3d37d13b2100fa',1,'vdt::details::ieee754::s()']]],
   ['screenlen',['screenlen',['../de/dc9/classoption_1_1PrintUsageImplementation_1_1LinePartIterator.html#a80e35222723182a8245be699c3b2f141',1,'option::PrintUsageImplementation::LinePartIterator']]],
   ['screenlength',['screenLength',['../de/dc9/classoption_1_1PrintUsageImplementation_1_1LinePartIterator.html#a03b6fedfe805d7fc73216da5cd33270e',1,'option::PrintUsageImplementation::LinePartIterator']]],
   ['section_5findex',['section_index',['../da/d49/classRfParameters.html#a6d1bd625d9436f56067ad1ca07b7ef31',1,'RfParameters::section_index()'],['../de/da1/classRingAndRfSection.html#af3753e4eda1c70ff5428c9b2da0cb956',1,'RingAndRfSection::section_index()']]],
@@ -48,6 +48,7 @@ var searchData=
   ['streqabbr',['streqabbr',['../d6/d83/classoption_1_1Parser.html#abcdbe5be641eb3586a0602a4189dc913',1,'option::Parser']]],
   ['string_5fto_5fdouble_5fvector',['string_to_double_vector',['../d6/d72/namespaceutil.html#a14a8aba3310095e612d55c2ea5a4f788',1,'util']]],
   ['string_5fvector_5ft',['string_vector_t',['../d2/d2c/configuration_8h.html#a26b08bf8aabcdcd7f12c737b7c2cab1f',1,'configuration.h']]],
+  ['sum',['sum',['../df/d6d/namespacemymath.html#a80532a0f537928e78a30ae10afeecb6c',1,'mymath::sum(const T data[], const int n)'],['../df/d6d/namespacemymath.html#a47420afeb05f18763067540f74b8f0b3',1,'mymath::sum(const std::vector&lt; T &gt; &amp;data)']]],
   ['sum_5fimpedances',['sum_impedances',['../d5/de7/classInducedVoltageFreq.html#ad4bf4411c545885d9272093b6469748b',1,'InducedVoltageFreq']]],
   ['sum_5fwakes',['sum_wakes',['../d0/d6b/classInducedVoltageTime.html#ac4346e1775d9707b763941e70dcab0cd',1,'InducedVoltageTime']]],
   ['syscallwriter',['SyscallWriter',['../d3/d44/structoption_1_1PrintUsageImplementation_1_1SyscallWriter.html#ae4f8677dbd79b0a9238368e28014701a',1,'option::PrintUsageImplementation::SyscallWriter']]],

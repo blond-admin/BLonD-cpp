@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['i',['i',['../d6/d1e/unionvdt_1_1details_1_1ieee754.html#a82f9ed6aa0aa3abf2fce9e54dbc7688c',1,'vdt::details::ieee754']]],
+  ['i',['i',['../d3/d1f/structmulti__t.html#a0e1d6d3c5d00457e34c0a455314ea11b',1,'multi_t::i()'],['../d6/d1e/unionvdt_1_1details_1_1ieee754.html#a82f9ed6aa0aa3abf2fce9e54dbc7688c',1,'vdt::details::ieee754::i()']]],
   ['id',['id',['../d9/d7c/classBeams.html#aa4d9f9d5fa10d0d1fee534ddb6bbf410',1,'Beams']]],
   ['in',['in',['../dc/daf/structfft_1_1fft__plan__t.html#a8345f7a4b162987df53d03ae896d62a6',1,'fft::fft_plan_t']]],
   ['index',['index',['../dc/dfe/structoption_1_1Descriptor.html#a1fee8ac44f529c99ac2b1149b4c391b1',1,'option::Descriptor']]],

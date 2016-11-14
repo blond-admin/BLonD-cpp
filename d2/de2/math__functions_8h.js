@@ -29,6 +29,8 @@ var math__functions_8h =
     [ "standard_deviation", "d2/de2/math__functions_8h.html#a8a058539a0449c296f5ef407c314dde6", null ],
     [ "standard_deviation", "d2/de2/math__functions_8h.html#a464cc01d36a009ce4da5bfc214760270", null ],
     [ "standard_deviation", "d2/de2/math__functions_8h.html#a6eee85cb0cf7740263dfdf1ccbf38de3", null ],
+    [ "sum", "d2/de2/math__functions_8h.html#a80532a0f537928e78a30ae10afeecb6c", null ],
+    [ "sum", "d2/de2/math__functions_8h.html#a47420afeb05f18763067540f74b8f0b3", null ],
     [ "trapezoid", "d2/de2/math__functions_8h.html#a3cd62eeb1068e15105a0c617c9cc1fc6", null ],
     [ "trapezoid", "d2/de2/math__functions_8h.html#a58b2666981af81f28e1b0d3e949c5f5d", null ],
     [ "trapezoid", "d2/de2/math__functions_8h.html#ab25fe968eff921a9af5fbd217dc06bf6", null ],

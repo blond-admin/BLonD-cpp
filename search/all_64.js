@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['d',['d',['../d6/d1e/unionvdt_1_1details_1_1ieee754.html#a483f40f2a0f825458eb58ce0c01c8b3b',1,'vdt::details::ieee754']]],
+  ['d',['d',['../d3/d1f/structmulti__t.html#a35999e938b077b9dcbd06e4be5f97f1f',1,'multi_t::d()'],['../d6/d1e/unionvdt_1_1details_1_1ieee754.html#a483f40f2a0f825458eb58ce0c01c8b3b',1,'vdt::details::ieee754::d()']]],
   ['data',['data',['../de/dc9/classoption_1_1PrintUsageImplementation_1_1LinePartIterator.html#ada26229add63bd479c7877f2f8e32908',1,'option::PrintUsageImplementation::LinePartIterator']]],
   ['datbuf',['datbuf',['../de/d50/classoption_1_1PrintUsageImplementation_1_1LineWrapper.html#abd9a32967913817ef8266bcf8af3e973',1,'option::PrintUsageImplementation::LineWrapper']]],
   ['de',['dE',['../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f',1,'Beams']]],
@@ -8,12 +8,13 @@ var searchData=
   ['default_5ftrack',['default_track',['../d6/d87/classPhaseLoop.html#aa9249dc8c9d21f044065cd903929172f',1,'PhaseLoop']]],
   ['delay',['delay',['../d6/d87/classPhaseLoop.html#a9d4fb1c2b3f140dde1080ce509cb0f66',1,'PhaseLoop']]],
   ['delete_5farray',['delete_array',['../d6/d72/namespaceutil.html#ae0aeb3b7c368c886ba621b032db022f7',1,'util']]],
-  ['density_5ffunction',['density_function',['../d5/d26/structmatched__from__line__denstity__return__t.html#aeb7db9574b4a030d3ab182a24b148e62',1,'matched_from_line_denstity_return_t']]],
+  ['density_5ffunction',['density_function',['../d6/d33/structline__density__t.html#aae5a5f2edde28f7c22a1b256d8ac56f9',1,'line_density_t']]],
   ['desc',['desc',['../d3/df3/classoption_1_1Option.html#af8d664a7b5de1425008b1812a90a0c23',1,'option::Option']]],
   ['descriptor',['Descriptor',['../dc/dfe/structoption_1_1Descriptor.html',1,'option']]],
   ['destroy_5ffft',['destroy_fft',['../d8/de0/namespacefft.html#adbd82fccb9e02c65511781361a4f21f0',1,'fft']]],
   ['destroy_5fplans',['destroy_plans',['../d8/de0/namespacefft.html#a912305da2a5cea6ffdb34f36fc27169f',1,'fft']]],
   ['distribution_5fdensity_5ffunction',['distribution_density_function',['../db/de1/Distributions_8cpp.html#a71ac4b7e67dc4e456b3cdeb2dc28c1a5',1,'distribution_density_function(const f_vector_t &amp;action_array, const string &amp;dist_type, const double length, double exponent):&#160;Distributions.cpp'],['../dc/d7d/Distributions_8h.html#ab40941e937db232973d3bfe8a131c503',1,'distribution_density_function(const f_vector_t &amp;action_array, const std::string &amp;dist_type, double length, double exponent=0.):&#160;Distributions.cpp']]],
+  ['distribution_5fdenstity_5ft',['distribution_denstity_t',['../da/d99/structdistribution__denstity__t.html',1,'distribution_denstity_t'],['../da/d99/structdistribution__denstity__t.html#a8287323bd3cf5587a2c56a8224f9d349',1,'distribution_denstity_t::distribution_denstity_t()']]],
   ['distributions_2ecpp',['Distributions.cpp',['../db/de1/Distributions_8cpp.html',1,'']]],
   ['distributions_2eh',['Distributions.h',['../dc/d7d/Distributions_8h.html',1,'']]],
   ['domega_5fpl',['domega_PL',['../d9/d59/classPSB.html#ae7c73ac3c1a51e4444e44a9837756d8a',1,'PSB']]],

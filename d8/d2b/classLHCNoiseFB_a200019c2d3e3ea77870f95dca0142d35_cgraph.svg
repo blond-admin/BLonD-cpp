@@ -32,7 +32,7 @@
         </defs>
 
 <script type="text/javascript">
-var viewWidth = 520;
+var viewWidth = 634;
 var viewHeight = 110;
 var sectionId = 'dynsection-1';
 </script>
@@ -40,7 +40,7 @@ var sectionId = 'dynsection-1';
 <svg id="graph" class="graph">
 <g id="viewport">
 <title>LHCNoiseFB::LHCNoiseFB</title>
-<polygon fill="white" stroke="white" points="-4,5 -4,-106 517,-106 517,5 -4,5"/>
+<polygon fill="white" stroke="white" points="-4,5 -4,-106 631,-106 631,5 -4,5"/>
 <!-- Node1 -->
 <g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-40.5 0,-61.5 140,-61.5 140,-40.5 0,-40.5"/>
@@ -59,16 +59,16 @@ var sectionId = 'dynsection-1';
 <path fill="none" stroke="midnightblue" d="M140.02,-61.4628C149.313,-62.8514 158.875,-64.2802 168.259,-65.6824"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="167.943,-69.174 178.351,-67.1903 168.978,-62.2508 167.943,-69.174"/>
 </g>
-<!-- Node5 -->
-<g id="node9" class="node"><title>Node5</title>
+<!-- Node6 -->
+<g id="node11" class="node"><title>Node6</title>
 <a xlink:href="../../d8/d2b/classLHCNoiseFB.html#a06601d6fb2617658517590f0c5ca9ff8" target="_top" xlink:title="LHCNoiseFB::fwhm_single\l_bunch">
 <polygon fill="white" stroke="black" points="176,-8 176,-42 312,-42 312,-8 176,-8"/>
 <text text-anchor="start" x="184" y="-29" font-family="Helvetica,sans-Serif" font-size="10.00">LHCNoiseFB::fwhm_single</text>
 <text text-anchor="middle" x="244" y="-16" font-family="Helvetica,sans-Serif" font-size="10.00">_bunch</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node5 -->
-<g id="edge8" class="edge"><title>Node1&#45;&gt;Node5</title>
+<!-- Node1&#45;&gt;Node6 -->
+<g id="edge10" class="edge"><title>Node1&#45;&gt;Node6</title>
 <path fill="none" stroke="midnightblue" d="M140.02,-40.5372C148.505,-39.2694 157.213,-37.9682 165.806,-36.6842"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="166.446,-40.1274 175.819,-35.1879 165.412,-33.2043 166.446,-40.1274"/>
 </g>
@@ -96,20 +96,32 @@ var sectionId = 'dynsection-1';
 <path fill="none" stroke="midnightblue" d="M309.577,-81.9359C332.227,-83.6407 357.261,-85.525 378.61,-87.1319"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="378.533,-90.6359 388.767,-87.8965 379.058,-83.6557 378.533,-90.6359"/>
 </g>
-<!-- Node5&#45;&gt;Node3 -->
-<g id="edge12" class="edge"><title>Node5&#45;&gt;Node3</title>
+<!-- Node5 -->
+<g id="node9" class="node"><title>Node5</title>
+<a xlink:href="../../df/d6d/namespacemymath.html#a80532a0f537928e78a30ae10afeecb6c" target="_top" xlink:title="mymath::sum">
+<polygon fill="white" stroke="black" points="548.5,-80.5 548.5,-101.5 625.5,-101.5 625.5,-80.5 548.5,-80.5"/>
+<text text-anchor="middle" x="587" y="-88.5" font-family="Helvetica,sans-Serif" font-size="10.00">mymath::sum</text>
+</a>
+</g>
+<!-- Node4&#45;&gt;Node5 -->
+<g id="edge8" class="edge"><title>Node4&#45;&gt;Node5</title>
+<path fill="none" stroke="midnightblue" d="M471.25,-91C491.784,-91 516.745,-91 538.223,-91"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="538.452,-94.5001 548.452,-91 538.452,-87.5001 538.452,-94.5001"/>
+</g>
+<!-- Node6&#45;&gt;Node3 -->
+<g id="edge14" class="edge"><title>Node6&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M312.203,-34.5338C322.761,-36.0096 333.778,-37.5497 344.655,-39.0701"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="344.199,-42.5403 354.588,-40.4585 345.168,-35.6077 344.199,-42.5403"/>
 </g>
-<!-- Node6 -->
-<g id="node11" class="node"><title>Node6</title>
+<!-- Node7 -->
+<g id="node13" class="node"><title>Node7</title>
 <a xlink:href="../../df/d6d/namespacemymath.html#a2a11685fa6ce2396ae977fa1502a2cc4" target="_top" xlink:title="mymath::max">
 <polygon fill="white" stroke="black" points="391.5,-0.5 391.5,-21.5 468.5,-21.5 468.5,-0.5 391.5,-0.5"/>
 <text text-anchor="middle" x="430" y="-8.5" font-family="Helvetica,sans-Serif" font-size="10.00">mymath::max</text>
 </a>
 </g>
-<!-- Node5&#45;&gt;Node6 -->
-<g id="edge10" class="edge"><title>Node5&#45;&gt;Node6</title>
+<!-- Node6&#45;&gt;Node7 -->
+<g id="edge12" class="edge"><title>Node6&#45;&gt;Node7</title>
 <path fill="none" stroke="midnightblue" d="M312.203,-19.8664C335.102,-18.1428 360.165,-16.2564 381.263,-14.6684"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="381.566,-18.1555 391.275,-13.9148 381.041,-11.1753 381.566,-18.1555"/>
 </g>

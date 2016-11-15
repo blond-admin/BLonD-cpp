@@ -854,7 +854,7 @@ TEST_F(testDistributions, matched_from_distribution_density4)
     delete fullRing;
 }
 
-
+// FIXME there is an issue in this testcase
 TEST_F(testDistributions, matched_from_distribution_density5)
 {
     auto RfP = Context::RfP;
@@ -883,7 +883,6 @@ TEST_F(testDistributions, matched_from_distribution_density5)
 
     util::read_vector_from_file(v, params + "line_density.txt");
     ASSERT_NEAR_LOOP(v, ret.line_density, "line_density", epsilon);
-
     delete Slice;
     delete long_tracker;
     delete fullRing;
@@ -912,6 +911,11 @@ TEST_F(testDistributions, DISABLED_matched_from_distribution_density6)
     auto ret = matched_from_distribution_density(
                    Beam, fullRing, distribution_opt,
                    FullRingAndRf::lowest_freq);
+
+    // cout << "line_density sum: " << sum(ret.line_density) << "\n";
+    // cout << "line_density std: " << standard_deviation(ret.line_density) << "\n";
+    // cout << "line_density max: " << *max_element(ALL(ret.line_density)) << "\n";
+    // cout << "line_density min: " << *min_element(ALL(ret.line_density)) << "\n";
 
     util::read_vector_from_file(v, params + "time_coord_low_res.txt");
     ASSERT_NEAR_LOOP(v, ret.time_coord_low_res, "time_coord_low_res", epsilon);

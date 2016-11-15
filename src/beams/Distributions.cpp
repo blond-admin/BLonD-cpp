@@ -777,6 +777,9 @@ matched_from_distribution_density(Beams *beam,
                 line_density.clear();
                 line_density.resize(density_grid[0].size(), 0);
                 for (auto &row : density_grid) line_density += row;
+                // cout << "line_density sum: " << sum(line_density) << "\n";
+                // cout << "line_density min: " << *min_element(ALL(line_density)) << "\n";
+                // cout << "line_density max: " << *max_element(ALL(line_density)) << "\n";
                 // cout << "line_density: " << line_density << "\n";
                 // test here
                 // very small differences due to H_grid, J_grid
@@ -826,14 +829,21 @@ matched_from_distribution_density(Beams *beam,
                             double first, last;
                             int i = 0;
 
-                            while (i < n_points_grid && slices.n_macroparticles[i] <= 0) i++;
+                            while (i < n_points_grid && slices.n_macroparticles[i] <= 0.) i++;
+                            // cout << "first index: " << i << "\n";
+
                             first = i < n_points_grid ? slices.bin_centers[i] : 0;
 
                             i = n_points_grid - 1;
-                            while (i >= 0 && slices.n_macroparticles[i] <= 0) i--;
+                            while (i >= 0 && slices.n_macroparticles[i] <= 0.) i--;
+                            // cout << "last index: " << i << "\n";
+
                             last = i >= 0 ? slices.bin_centers[i] : 0;
 
                             tau = last - first;
+                            // cout.precision(12);
+                            // cout << "tau: " << tau << "\n";
+
                         }
                         // test till here
                         // cout << "tau: " << tau << "\n";

@@ -75,11 +75,7 @@ endif ()
 
 
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
-    -std=gnu++11 \
-    -Wall \
-    -pedantic \
-    -Wno-unused-variable")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11 -Wall -pedantic -Wno-unused-variable")
 
 if(CYGWIN)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mcmodel=large")
@@ -88,12 +84,10 @@ else ()
 endif ()
 
 
-set(CMAKE_CXX_FLAGS_DEBUG "-Og -g3 -fno-omit-frame-pointer") #-fsanitize=address")
+set(CMAKE_CXX_FLAGS_DEBUG "-Og -g -fno-omit-frame-pointer") #-fsanitize=address")
+set(CMAKE_CXX_FLAGS_DEBUG "-funsafe-math-optimizations")
 
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} \
-    -ffast-math \
-    -march=native \
-    ")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -ffast-math -march=native")
     # -fopt-info-vec=report.txt")
 
 #CLANG and GCC specific
@@ -103,16 +97,22 @@ if (CMAKE_CXX_COMPILER_ID MATCHES GNU)
         message(FATAL_ERROR "ERROR: Insufficient compiler version, \
                             need at lest 4.8 to continue")
     endif ()
+    # NOTE funsafe-math-optimizations can produce incorrect results in 
+    # Distributions functions
+    # set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Ofast")
+    # set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} \
+    #     -fno-math-errno \
+    #     -funsafe-math-optimizations \
+    #     -fno-rounding-math \
+    #     -ffinite-math-only \
+    #     -fno-signaling-nans \
+    #     -fcx-limited-range")
 
-    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Ofast")
     set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE}-flto")
     # set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_GLIBCXX_DEBUG")
     if (TEST_ENABLED STREQUAL "True")
-        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} \
-            -fprofile-arcs \
-            -ftest-coverage")
-        set(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} \
-            --coverage")
+        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fprofile-arcs -ftest-coverage")
+        set(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} --coverage")
     else ()
         message(STATUS "Code test coveredge is enabeled only in Debug mode")
     endif ()

@@ -854,7 +854,6 @@ TEST_F(testDistributions, matched_from_distribution_density4)
     delete fullRing;
 }
 
-// FIXME there is an issue in this testcase
 TEST_F(testDistributions, matched_from_distribution_density5)
 {
     auto RfP = Context::RfP;
@@ -888,7 +887,7 @@ TEST_F(testDistributions, matched_from_distribution_density5)
     delete fullRing;
 }
 
-
+// FIXME there is an issue in this testcase
 TEST_F(testDistributions, DISABLED_matched_from_distribution_density6)
 {
     auto RfP = Context::RfP;

@@ -84,8 +84,8 @@ else ()
 endif ()
 
 
-set(CMAKE_CXX_FLAGS_DEBUG "-Og -g -fno-omit-frame-pointer") #-fsanitize=address")
-set(CMAKE_CXX_FLAGS_DEBUG "-funsafe-math-optimizations")
+# set(CMAKE_CXX_FLAGS_DEBUG "-Og -g3 -fno-omit-frame-pointer") #-fsanitize=address")
+set(CMAKE_CXX_FLAGS_DEBUG "-Og -g3 -fno-omit-frame-pointer -funsafe-math-optimizations")
 
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -ffast-math -march=native")
     # -fopt-info-vec=report.txt")
@@ -99,7 +99,7 @@ if (CMAKE_CXX_COMPILER_ID MATCHES GNU)
     endif ()
     # NOTE funsafe-math-optimizations can produce incorrect results in 
     # Distributions functions
-    # set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Ofast")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Ofast")
     # set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} \
     #     -fno-math-errno \
     #     -funsafe-math-optimizations \

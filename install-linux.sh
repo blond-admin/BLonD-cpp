@@ -142,7 +142,7 @@ fi
 
 if [ "${INSTALL_HDF5}" = "true" ]; then
    echo -e "\n\n---- Installing HDF5"
-   wget http://www.hdfgroup.org/ftp/HDF5/current/src/hdf5-1.8.17.tar.gz -O${EXTERNAL}/tmp/hdf5.tar.gz
+   wget https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8.17/src/hdf5-1.8.17.tar.gz -O${EXTERNAL}/tmp/hdf5.tar.gz
    tar -xzvf ${EXTERNAL}/tmp/hdf5.tar.gz -C${EXTERNAL}/tmp &>> $log
    cd ${EXTERNAL}/tmp/hdf5-1.8.17
    ./configure --enable-cxx \

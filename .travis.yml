@@ -34,6 +34,11 @@ cache:
   pip: true
   directories:
     - $HOME/external
+before_cache:
+  - mkdir -p $HOME/external/install/local/bin
+  - mkdir -p $HOME/external/install/local/include
+  - mkdir -p $HOME/external/install/local/lib
+  - mkdir -p $HOME/external/install/local/share
 before_install:
 - export CC=/usr/bin/gcc-4.8
 - export CXX=/usr/bin/g++-4.8

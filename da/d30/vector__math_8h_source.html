@@ -337,23 +337,197 @@ $(document).ready(function(){initNavTree('da/d30/vector__math_8h_source.html','.
 <div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    <span class="keywordflow">return</span> a;</div>
 <div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;}</div>
 <div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00228"></a><span class="lineno"><a class="code" href="../../da/d30/vector__math_8h.html#a08b5c6fa0c8e8ef201e60441121613c3">  228</a></span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, const std::vector&lt;T&gt; &amp;a)</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;{</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    os &lt;&lt; <span class="stringliteral">&quot;[ &quot;</span>;</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    std::copy(a.begin(), a.end(), std::ostream_iterator&lt;T&gt;(os, <span class="stringliteral">&quot;, &quot;</span>));</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    os &lt;&lt; <span class="stringliteral">&quot;\b\b ]\n&quot;</span>;</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    <span class="keywordflow">return</span> os;</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00227"></a><span class="lineno"><a class="code" href="../../da/d30/vector__math_8h.html#a2d53778064794191ed7bd67955ecf841">  227</a></span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> T <a class="code" href="../../da/d30/vector__math_8h.html#a2d53778064794191ed7bd67955ecf841">pick</a>(<span class="keyword">const</span> std::vector&lt;T&gt; &amp;a, <span class="keyword">const</span> <span class="keywordtype">int</span> i)</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;{</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    assert(std::abs(i) &lt; a.size());</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    <span class="keywordflow">if</span> (i &gt;= 0)</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;        <span class="keywordflow">return</span> a[i];</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;        <span class="keywordflow">return</span> a.rbegin()[-i - 1];</div>
 <div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;}</div>
 <div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00237"></a><span class="lineno"><a class="code" href="../../da/d30/vector__math_8h.html#ac9f04c1cd6c87ff360f8dc0c39cd3f30">  237</a></span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> std::vector&lt;T&gt; <a class="code" href="../../da/d30/vector__math_8h.html#a2d53778064794191ed7bd67955ecf841">pick</a>(<span class="keyword">const</span> std::vector&lt;T&gt; &amp;a,</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;                                  <span class="keyword">const</span> std::vector&lt;int&gt; &amp;indexes)</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;{</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    std::vector&lt;T&gt; res;</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    res.reserve(indexes.size());</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;i : indexes) {</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;        res.push_back(a[i]);</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    }</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    <span class="keywordflow">return</span> res;</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;}</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00249"></a><span class="lineno"><a class="code" href="../../da/d30/vector__math_8h.html#a44dbe1589763737b94ae36738ed857f0">  249</a></span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> std::vector&lt;T&gt; <a class="code" href="../../da/d30/vector__math_8h.html#a2d53778064794191ed7bd67955ecf841">pick</a>(<span class="keyword">const</span> std::vector&lt;T&gt; &amp;a,</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;                                  <span class="keyword">const</span> std::vector&lt;bool&gt; &amp;indexes)</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;{</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    std::vector&lt;T&gt; res;</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    res.reserve(indexes.size());</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; indexes.size(); i++)</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;        <span class="keywordflow">if</span> (indexes[i] == <span class="keyword">true</span>)</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;            res.push_back(a[i]);</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    <span class="keywordflow">return</span> res;</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;}</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00261"></a><span class="lineno"><a class="code" href="../../da/d30/vector__math_8h.html#a488b37b1ffb46104861427531d1e5f5a">  261</a></span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> std::vector&lt;T&gt; <a class="code" href="../../da/d30/vector__math_8h.html#a488b37b1ffb46104861427531d1e5f5a">slice</a>(<span class="keyword">const</span> std::vector&lt;T&gt; &amp;a,</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;                                   <span class="keyword">const</span> <span class="keywordtype">int</span> start = 0,</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;                                   <span class="keywordtype">int</span> end = 0,</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;                                   <span class="keyword">const</span> <span class="keywordtype">int</span> step = 1)</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;{</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    <span class="keywordflow">if</span> (end == 0) end = a.size();</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (end &lt; 0) end = a.size() + end;</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    std::vector&lt;T&gt; result;</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    result.reserve((end - start + step - 1) / step);</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = start; i &lt; end; i += step)</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;        result.push_back(a[i]);</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;}</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00276"></a><span class="lineno"><a class="code" href="../../da/d30/vector__math_8h.html#a06c46c24a2d8962f82a9fa373c7f77e1">  276</a></span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> std::vector&lt;bool&gt; <a class="code" href="../../da/d30/vector__math_8h.html#a06c46c24a2d8962f82a9fa373c7f77e1">operator==</a>(<span class="keyword">const</span> std::vector&lt;T&gt; &amp;a,</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;        <span class="keyword">const</span> std::vector&lt;T&gt; &amp;b)</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;{</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    assert(a.size() == b.size());</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    std::vector&lt;bool&gt; result(a.size());</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    std::transform(a.begin(), a.end(), b.begin(),</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;                   result.begin(), std::equal_to&lt;T&gt;());</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;}</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00287"></a><span class="lineno"><a class="code" href="../../da/d30/vector__math_8h.html#ad71da7f1fa69c290296898142fbf86e5">  287</a></span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> std::vector&lt;bool&gt; <a class="code" href="../../da/d30/vector__math_8h.html#ad71da7f1fa69c290296898142fbf86e5">operator!=</a>(<span class="keyword">const</span> std::vector&lt;T&gt; &amp;a,</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;        <span class="keyword">const</span> std::vector&lt;T&gt; &amp;b)</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;{</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    assert(a.size() == b.size());</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    std::vector&lt;bool&gt; result(a.size());</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    std::transform(a.begin(), a.end(), b.begin(),</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;                   result.begin(), std::not_equal_to&lt;T&gt;());</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;}</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00298"></a><span class="lineno"><a class="code" href="../../da/d30/vector__math_8h.html#a058e807398a4c93030ccbeb8fc5097f6">  298</a></span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> std::vector&lt;bool&gt; operator&lt;(const std::vector&lt;T&gt; &amp;a,</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;        <span class="keyword">const</span> std::vector&lt;T&gt; &amp;b)</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;{</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    assert(a.size() == b.size());</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    std::vector&lt;bool&gt; result(a.size());</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    std::transform(a.begin(), a.end(), b.begin(),</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;                   result.begin(), std::less&lt;T&gt;());</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;}</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00309"></a><span class="lineno"><a class="code" href="../../da/d30/vector__math_8h.html#ae73eaef3567c441c1a4693b1735fcd93">  309</a></span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> std::vector&lt;bool&gt; operator&lt;=(const std::vector&lt;T&gt; &amp;a,</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;        <span class="keyword">const</span> std::vector&lt;T&gt; &amp;b)</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;{</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    assert(a.size() == b.size());</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    std::vector&lt;bool&gt; result(a.size());</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    std::transform(a.begin(), a.end(), b.begin(),</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;                   result.begin(), std::less_equal&lt;T&gt;());</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;}</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00321"></a><span class="lineno"><a class="code" href="../../da/d30/vector__math_8h.html#af5edc33878b5f25a8f16dca62832daca">  321</a></span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> std::vector&lt;bool&gt; <a class="code" href="../../da/d30/vector__math_8h.html#af5edc33878b5f25a8f16dca62832daca">operator&gt;</a>(<span class="keyword">const</span> std::vector&lt;T&gt; &amp;a,</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;        <span class="keyword">const</span> std::vector&lt;T&gt; &amp;b)</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;{</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;    assert(a.size() == b.size());</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;    std::vector&lt;bool&gt; result(a.size());</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    std::transform(a.begin(), a.end(), b.begin(),</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;                   result.begin(), std::greater&lt;T&gt;());</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;}</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00332"></a><span class="lineno"><a class="code" href="../../da/d30/vector__math_8h.html#a1002357bfe5a07084e5d1f872e413710">  332</a></span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> std::vector&lt;bool&gt; <a class="code" href="../../da/d30/vector__math_8h.html#a1002357bfe5a07084e5d1f872e413710">operator&gt;=</a>(<span class="keyword">const</span> std::vector&lt;T&gt; &amp;a,</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;        <span class="keyword">const</span> std::vector&lt;T&gt; &amp;b)</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;{</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    assert(a.size() == b.size());</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    std::vector&lt;bool&gt; result(a.size());</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    std::transform(a.begin(), a.end(), b.begin(),</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;                   result.begin(), std::greater_equal&lt;T&gt;());</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;}</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00343"></a><span class="lineno"><a class="code" href="../../da/d30/vector__math_8h.html#a95564ca2ad8863f81bc0aba4a4b46cd2">  343</a></span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> std::vector&lt;bool&gt; <a class="code" href="../../da/d30/vector__math_8h.html#a06c46c24a2d8962f82a9fa373c7f77e1">operator==</a>(<span class="keyword">const</span> std::vector&lt;T&gt; &amp;a, <span class="keyword">const</span> T &amp;b)</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;{</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;    std::vector&lt;bool&gt; result(a.size());</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    std::transform(a.begin(), a.end(), result.begin(),</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;                   std::bind2nd(std::equal_to&lt;T&gt;(), b));</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;}</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00352"></a><span class="lineno"><a class="code" href="../../da/d30/vector__math_8h.html#a563c8da061677e40421d646e5c6cee76">  352</a></span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> std::vector&lt;bool&gt; <a class="code" href="../../da/d30/vector__math_8h.html#ad71da7f1fa69c290296898142fbf86e5">operator!=</a>(<span class="keyword">const</span> std::vector&lt;T&gt; &amp;a, <span class="keyword">const</span> T &amp;b)</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;{</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;    std::vector&lt;bool&gt; result(a.size());</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;    std::transform(a.begin(), a.end(), result.begin(),</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;                   std::bind2nd(std::not_equal_to&lt;T&gt;(), b));</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;}</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00362"></a><span class="lineno"><a class="code" href="../../da/d30/vector__math_8h.html#a7efe5cfb273beeda351480986db7f8ef">  362</a></span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> std::vector&lt;bool&gt; operator&lt;(const std::vector&lt;T&gt; &amp;a, <span class="keyword">const</span> T &amp;b)</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;{</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;    std::vector&lt;bool&gt; result(a.size());</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;    std::transform(a.begin(), a.end(), result.begin(),</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;                   std::bind2nd(std::less&lt;T&gt;(), b));</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;}</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00372"></a><span class="lineno"><a class="code" href="../../da/d30/vector__math_8h.html#a1b2a66d49ccf90131ffd02d537f7c697">  372</a></span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> std::vector&lt;bool&gt; operator&lt;=(const std::vector&lt;T&gt; &amp;a, <span class="keyword">const</span> T &amp;b)</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;{</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    std::vector&lt;bool&gt; result(a.size());</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;    std::transform(a.begin(), a.end(), result.begin(),</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;                   std::bind2nd(std::less_equal&lt;T&gt;(), b));</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;}</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00382"></a><span class="lineno"><a class="code" href="../../da/d30/vector__math_8h.html#a9b0f0a5ebd2c63711d5af7af839847df">  382</a></span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> std::vector&lt;bool&gt; <a class="code" href="../../da/d30/vector__math_8h.html#af5edc33878b5f25a8f16dca62832daca">operator&gt;</a>(<span class="keyword">const</span> std::vector&lt;T&gt; &amp;a, <span class="keyword">const</span> T &amp;b)</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;{</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    std::vector&lt;bool&gt; result(a.size());</div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;    std::transform(a.begin(), a.end(), result.begin(),</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;                   std::bind2nd(std::greater&lt;T&gt;(), b));</div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;}</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00392"></a><span class="lineno"><a class="code" href="../../da/d30/vector__math_8h.html#aabb967d6fd12590a30b475dc1f45de14">  392</a></span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> std::vector&lt;bool&gt; <a class="code" href="../../da/d30/vector__math_8h.html#a1002357bfe5a07084e5d1f872e413710">operator&gt;=</a>(<span class="keyword">const</span> std::vector&lt;T&gt; &amp;a, <span class="keyword">const</span> T &amp;b)</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;{</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;    std::vector&lt;bool&gt; result(a.size());</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    std::transform(a.begin(), a.end(), result.begin(),</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;                   std::bind2nd(std::greater_equal&lt;T&gt;(), b));</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;}</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00402"></a><span class="lineno"><a class="code" href="../../da/d30/vector__math_8h.html#a08b5c6fa0c8e8ef201e60441121613c3">  402</a></span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, const std::vector&lt;T&gt; &amp;a)</div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;{</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;    os &lt;&lt; <span class="stringliteral">&quot;[ &quot;</span>;</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;    std::copy(a.begin(), a.end(), std::ostream_iterator&lt;T&gt;(os, <span class="stringliteral">&quot;, &quot;</span>));</div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;    os &lt;&lt; <span class="stringliteral">&quot;\b\b ]\n&quot;</span>;</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;    <span class="keywordflow">return</span> os;</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;}</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_6b634e43e772001122993837e1d7e1c5.html">include</a></li><li class="navelem"><a class="el" href="../../dir_4a4b9f9a898a71f152a99978051a04a6.html">blond</a></li><li class="navelem"><a class="el" href="../../da/d30/vector__math_8h.html">vector_math.h</a></li>
-    <li class="footer">Generated on Wed Nov 16 2016 12:15:35 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Wed Nov 16 2016 16:52:56 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

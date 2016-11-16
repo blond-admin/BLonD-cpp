@@ -19,6 +19,5 @@ var searchData=
   ['exp_5flimit',['EXP_LIMIT',['../d1/d47/namespacevdt_1_1details.html#adca1dee5b8a4bf7bf51c832506800ccb',1,'vdt::details']]],
   ['expfv',['expfv',['../d5/d7b/namespacevdt.html#adf51f303b8a0ca09ebf352cad48eb661',1,'vdt']]],
   ['exponential',['exponential',['../da/dd4/classPhaseNoise.html#aeecdda7739ac1c11a18927ea7b1f9cd3a2d5276764d2ea854888f2541cfa634dd',1,'PhaseNoise']]],
-  ['export_5fdecl',['EXPORT_DECL',['../de/df0/utilities_8h.html#a73624192b8eb3825eb770eded01458af',1,'utilities.h']]],
   ['expv',['expv',['../d5/d7b/namespacevdt.html#a64c9ed3eca28c6d0c273807b3565c93e',1,'vdt']]]
 ];

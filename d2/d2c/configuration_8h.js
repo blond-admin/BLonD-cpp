@@ -2,6 +2,7 @@ var configuration_8h =
 [
     [ "PRINT_RESULTS", "d2/d2c/configuration_8h.html#ad733c449d4055fd00765183476566700", null ],
     [ "TIMING", "d2/d2c/configuration_8h.html#a51b7a9c320bb9b58fc5632da0a44ab84", null ],
+    [ "bool_vector_t", "d2/d2c/configuration_8h.html#ab6116c7e17eb0a7031ac765906494164", null ],
     [ "complex_t", "d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2", null ],
     [ "complex_vector_2d_t", "d2/d2c/configuration_8h.html#ae86482565aaac8d87f5e77634b36bb55", null ],
     [ "complex_vector_t", "d2/d2c/configuration_8h.html#a875b9fae4b39f3f3a363bd3732836b71", null ],

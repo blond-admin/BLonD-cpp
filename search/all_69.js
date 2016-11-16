@@ -7,7 +7,6 @@ var searchData=
   ['ifft',['ifft',['../d8/de0/namespacefft.html#abf17de86632e9d1624635de461dbcd4f',1,'fft::ifft(complex_vector_t &amp;in, complex_vector_t &amp;out, uint n=0, const uint threads=1)'],['../d8/de0/namespacefft.html#a1aaf2c8a8ef62200a1813b59306aaee0a4c3229f1fd0dabaa06e98a32cb705347',1,'fft::IFFT()']]],
   ['imped_5fcalc',['imped_calc',['../dc/dad/classIntensity.html#a914f7d935a7eac319cdf1c3ef79d76bf',1,'Intensity::imped_calc()'],['../da/d97/classResonators.html#a320f8cb9c6266f0a2e011fb875aba5ba',1,'Resonators::imped_calc()'],['../db/da5/classInputTable.html#a8fd3b73432c461936a7f8f5e0aebbdcd',1,'InputTable::imped_calc()']]],
   ['import',['import',['../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33',1,'python::import()'],['../de/d4a/namespacepython.html#a84dc7b3d1047544f1726693737d0ad65',1,'python::import(std::string module, std::string function)']]],
-  ['import_5fdecl',['IMPORT_DECL',['../de/df0/utilities_8h.html#ae6df7db5eaa417c9b0a25c9822f64b18',1,'utilities.h']]],
   ['in',['in',['../dc/daf/structfft_1_1fft__plan__t.html#a8345f7a4b162987df53d03ae896d62a6',1,'fft::fft_plan_t']]],
   ['indent',['indent',['../da/dfb/structoption_1_1PrintUsageImplementation.html#a4136c574bba35ea1f478e0b6d7022367',1,'option::PrintUsageImplementation']]],
   ['index',['index',['../dc/dfe/structoption_1_1Descriptor.html#a1fee8ac44f529c99ac2b1149b4c391b1',1,'option::Descriptor::index()'],['../d3/df3/classoption_1_1Option.html#ac0acba91bbfcca0c35cfc54f197b15d2',1,'option::Option::index()']]],

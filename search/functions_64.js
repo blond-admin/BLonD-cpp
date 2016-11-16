@@ -2,7 +2,6 @@ var searchData=
 [
   ['data',['data',['../de/dc9/classoption_1_1PrintUsageImplementation_1_1LinePartIterator.html#ada26229add63bd479c7877f2f8e32908',1,'option::PrintUsageImplementation::LinePartIterator']]],
   ['default_5ftrack',['default_track',['../d6/d87/classPhaseLoop.html#aa9249dc8c9d21f044065cd903929172f',1,'PhaseLoop']]],
-  ['delete_5farray',['delete_array',['../d6/d72/namespaceutil.html#ae0aeb3b7c368c886ba621b032db022f7',1,'util']]],
   ['destroy_5ffft',['destroy_fft',['../d8/de0/namespacefft.html#adbd82fccb9e02c65511781361a4f21f0',1,'fft']]],
   ['destroy_5fplans',['destroy_plans',['../d8/de0/namespacefft.html#a912305da2a5cea6ffdb34f36fc27169f',1,'fft']]],
   ['distribution_5fdensity_5ffunction',['distribution_density_function',['../db/de1/Distributions_8cpp.html#a71ac4b7e67dc4e456b3cdeb2dc28c1a5',1,'distribution_density_function(const f_vector_t &amp;action_array, const string &amp;dist_type, const double length, double exponent):&#160;Distributions.cpp'],['../dc/d7d/Distributions_8h.html#ab40941e937db232973d3bfe8a131c503',1,'distribution_density_function(const f_vector_t &amp;action_array, const std::string &amp;dist_type, double length, double exponent=0.):&#160;Distributions.cpp']]],

@@ -129,7 +129,6 @@ $(document).ready(function(){initNavTree('de/df0/utilities_8h.html','../../');})
 <code>#include &lt;vector&gt;</code><br/>
 <code>#include &lt;sys/stat.h&gt;</code><br/>
 <code>#include &lt;<a class="el" href="../../d2/d2c/configuration_8h_source.html">blond/configuration.h</a>&gt;</code><br/>
-<code>#include &lt;mm_malloc.h&gt;</code><br/>
 <code>#include &lt;<a class="el" href="../../da/d69/optionparser_8h_source.html">blond/optionparser.h</a>&gt;</code><br/>
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Include dependency graph for utilities.h:</div>
@@ -164,24 +163,15 @@ Namespaces</h2></td></tr>
 Macros</h2></td></tr>
 <tr class="memitem:a2f3c80e2df3ca3c632f7529d737384b3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/df0/utilities_8h.html#a2f3c80e2df3ca3c632f7529d737384b3">ALL</a>(c)&#160;&#160;&#160;(c).begin(),(c).end()</td></tr>
 <tr class="separator:a2f3c80e2df3ca3c632f7529d737384b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8ce4efaa307683d3d763b37b4711c53"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/df0/utilities_8h.html#ad8ce4efaa307683d3d763b37b4711c53">API</a>&#160;&#160;&#160;<a class="el" href="../../de/df0/utilities_8h.html#ae6df7db5eaa417c9b0a25c9822f64b18">IMPORT_DECL</a></td></tr>
+<tr class="memitem:ad8ce4efaa307683d3d763b37b4711c53"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/df0/utilities_8h.html#ad8ce4efaa307683d3d763b37b4711c53">API</a></td></tr>
 <tr class="separator:ad8ce4efaa307683d3d763b37b4711c53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0fb7bf82c787085c8b1ef0ad7d028424"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/df0/utilities_8h.html#a0fb7bf82c787085c8b1ef0ad7d028424">dprintf</a>(...)&#160;&#160;&#160;fprintf(stdout, __VA_ARGS__)</td></tr>
 <tr class="separator:a0fb7bf82c787085c8b1ef0ad7d028424"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73624192b8eb3825eb770eded01458af"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/df0/utilities_8h.html#a73624192b8eb3825eb770eded01458af">EXPORT_DECL</a></td></tr>
-<tr class="separator:a73624192b8eb3825eb770eded01458af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4248d71fc7ca79dc298d9871f8d7cfbe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/df0/utilities_8h.html#a4248d71fc7ca79dc298d9871f8d7cfbe">FOR</a>(c, it)&#160;&#160;&#160;for(auto it = c.begin(); it != c.end(); it++)</td></tr>
 <tr class="separator:a4248d71fc7ca79dc298d9871f8d7cfbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae6df7db5eaa417c9b0a25c9822f64b18"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/df0/utilities_8h.html#ae6df7db5eaa417c9b0a25c9822f64b18">IMPORT_DECL</a></td></tr>
-<tr class="separator:ae6df7db5eaa417c9b0a25c9822f64b18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a8b6fdda7c3572c84a202da85fefec634"><td class="memItemLeft" align="right" valign="top">static void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d72/namespaceutil.html#a8b6fdda7c3572c84a202da85fefec634">util::aligned_malloc</a> (size_t n)</td></tr>
-<tr class="separator:a8b6fdda7c3572c84a202da85fefec634"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0aeb3b7c368c886ba621b032db022f7"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ae0aeb3b7c368c886ba621b032db022f7"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d6/d72/namespaceutil.html#ae0aeb3b7c368c886ba621b032db022f7">util::delete_array</a> (T *p)</td></tr>
-<tr class="separator:ae0aeb3b7c368c886ba621b032db022f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad395a0de4515c154b1fac5f8188a8ab7"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d72/namespaceutil.html#ad395a0de4515c154b1fac5f8188a8ab7">util::double_vector_to_string</a> (<a class="el" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;numbers)</td></tr>
 <tr class="separator:ad395a0de4515c154b1fac5f8188a8ab7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af69cf72a141b264fc22252a6497e45ee"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
@@ -223,9 +213,6 @@ Functions</h2></td></tr>
 <tr class="separator:a300c175d0eb8013d3a9e9f316d447b64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ab3cb9080ebe19b6755a564b316473e"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d72/namespaceutil.html#a7ab3cb9080ebe19b6755a564b316473e">util::time_elapsed</a> (timespec const &amp;begin)</td></tr>
 <tr class="separator:a7ab3cb9080ebe19b6755a564b316473e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbf1ace4203a3098e0f259969ea4e2d1"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:afbf1ace4203a3098e0f259969ea4e2d1"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d6/d72/namespaceutil.html#afbf1ace4203a3098e0f259969ea4e2d1">util::zero</a> (T *p, int n)</td></tr>
-<tr class="separator:afbf1ace4203a3098e0f259969ea4e2d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a class="anchor" id="a2f3c80e2df3ca3c632f7529d737384b3"></a>
@@ -242,9 +229,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../de/df0/utilities_8h_source.html#l00055">55</a> of file <a class="el" href="../../de/df0/utilities_8h_source.html">utilities.h</a>.</p>
+<p>Definition at line <a class="el" href="../../de/df0/utilities_8h_source.html#l00032">32</a> of file <a class="el" href="../../de/df0/utilities_8h_source.html">utilities.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00285">Slices::fwhm()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00533">Slices::gaussian_fit()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00014">GeneralParameters::GeneralParameters()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00531">matched_from_distribution_density()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00020">matched_from_line_density()</a>, <a class="el" href="../../de/da5/utilities_8cpp_source.html#l00229">potential_well_cut()</a>, <a class="el" href="../../d2/d6f/Tracker_8cpp_source.html#l00327">FullRingAndRf::potential_well_generation()</a>, and <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00431">mymath::random_choice()</a>.</p>
+<p>Referenced by <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00285">Slices::fwhm()</a>, <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00533">Slices::gaussian_fit()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00014">GeneralParameters::GeneralParameters()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00517">matched_from_distribution_density()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00020">matched_from_line_density()</a>, <a class="el" href="../../de/da5/utilities_8cpp_source.html#l00229">potential_well_cut()</a>, <a class="el" href="../../d2/d6f/Tracker_8cpp_source.html#l00327">FullRingAndRf::potential_well_generation()</a>, and <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00431">mymath::random_choice()</a>.</p>
 
 </div>
 </div>
@@ -253,12 +240,12 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define API&#160;&#160;&#160;<a class="el" href="../../de/df0/utilities_8h.html#ae6df7db5eaa417c9b0a25c9822f64b18">IMPORT_DECL</a></td>
+          <td class="memname">#define API</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../de/df0/utilities_8h_source.html#l00046">46</a> of file <a class="el" href="../../de/df0/utilities_8h_source.html">utilities.h</a>.</p>
+<p>Definition at line <a class="el" href="../../de/df0/utilities_8h_source.html#l00024">24</a> of file <a class="el" href="../../de/df0/utilities_8h_source.html">utilities.h</a>.</p>
 
 <p>Referenced by <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00078">Slices::sort_particles()</a>.</p>
 
@@ -278,23 +265,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../de/df0/utilities_8h_source.html#l00051">51</a> of file <a class="el" href="../../de/df0/utilities_8h_source.html">utilities.h</a>.</p>
+<p>Definition at line <a class="el" href="../../de/df0/utilities_8h_source.html#l00028">28</a> of file <a class="el" href="../../de/df0/utilities_8h_source.html">utilities.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../dc/d61/RfParameters_8cpp_source.html#l00049">RfParameters::calc_phi_s()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00115">GeneralParameters::eta_generation()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00014">GeneralParameters::GeneralParameters()</a>, <a class="el" href="../../de/df0/utilities_8h_source.html#l00250">util::print_time()</a>, and <a class="el" href="../../de/df0/utilities_8h_source.html#l00265">util::print_time_elapsed()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a73624192b8eb3825eb770eded01458af"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define EXPORT_DECL</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="../../de/df0/utilities_8h_source.html#l00037">37</a> of file <a class="el" href="../../de/df0/utilities_8h_source.html">utilities.h</a>.</p>
+<p>Referenced by <a class="el" href="../../dc/d61/RfParameters_8cpp_source.html#l00049">RfParameters::calc_phi_s()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00115">GeneralParameters::eta_generation()</a>, <a class="el" href="../../da/d56/GeneralParameters_8cpp_source.html#l00014">GeneralParameters::GeneralParameters()</a>, <a class="el" href="../../de/df0/utilities_8h_source.html#l00227">util::print_time()</a>, and <a class="el" href="../../de/df0/utilities_8h_source.html#l00242">util::print_time_elapsed()</a>.</p>
 
 </div>
 </div>
@@ -322,23 +295,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../de/df0/utilities_8h_source.html#l00056">56</a> of file <a class="el" href="../../de/df0/utilities_8h_source.html">utilities.h</a>.</p>
+<p>Definition at line <a class="el" href="../../de/df0/utilities_8h_source.html#l00033">33</a> of file <a class="el" href="../../de/df0/utilities_8h_source.html">utilities.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00421">mymath::flatten()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00531">matched_from_distribution_density()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00020">matched_from_line_density()</a>, and <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00406">mymath::meshgrid()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ae6df7db5eaa417c9b0a25c9822f64b18"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define IMPORT_DECL</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="../../de/df0/utilities_8h_source.html#l00038">38</a> of file <a class="el" href="../../de/df0/utilities_8h_source.html">utilities.h</a>.</p>
+<p>Referenced by <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00421">mymath::flatten()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00517">matched_from_distribution_density()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00020">matched_from_line_density()</a>, and <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00406">mymath::meshgrid()</a>.</p>
 
 </div>
 </div>
@@ -348,7 +307,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_6b634e43e772001122993837e1d7e1c5.html">include</a></li><li class="navelem"><a class="el" href="../../dir_4a4b9f9a898a71f152a99978051a04a6.html">blond</a></li><li class="navelem"><a class="el" href="../../de/df0/utilities_8h.html">utilities.h</a></li>
-    <li class="footer">Generated on Wed Nov 16 2016 12:15:36 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Wed Nov 16 2016 16:52:56 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

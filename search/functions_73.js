@@ -7,6 +7,7 @@ var searchData=
   ['sign',['sign',['../df/d6d/namespacemymath.html#a31743e3fc7ec3ccb0df630d0cad57959',1,'mymath']]],
   ['sinfv',['sinfv',['../d5/d7b/namespacevdt.html#af63f5e7aa6a3fc85caf5957647fa57af',1,'vdt']]],
   ['sinv',['sinv',['../d5/d7b/namespacevdt.html#aebae6573d29204b4d18bf2a005d3ab8c',1,'vdt']]],
+  ['slice',['slice',['../da/d30/vector__math_8h.html#a488b37b1ffb46104861427531d1e5f5a',1,'vector_math.h']]],
   ['slice_5fconstant_5fspace_5fhistogram',['slice_constant_space_histogram',['../dc/d45/classSlices.html#ae9463517699373a87a1dae18becf9319',1,'Slices']]],
   ['slice_5fconstant_5fspace_5fhistogram_5fsmooth',['slice_constant_space_histogram_smooth',['../dc/d45/classSlices.html#ab6c06f1fa1f97ec1fdec7db63c121715',1,'Slices']]],
   ['slices',['Slices',['../dc/d45/classSlices.html#aa6f4a80f2e363315eb7c3a325b0b50c3',1,'Slices']]],

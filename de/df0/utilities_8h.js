@@ -4,11 +4,7 @@ var utilities_8h =
     [ "ALL", "de/df0/utilities_8h.html#a2f3c80e2df3ca3c632f7529d737384b3", null ],
     [ "API", "de/df0/utilities_8h.html#ad8ce4efaa307683d3d763b37b4711c53", null ],
     [ "dprintf", "de/df0/utilities_8h.html#a0fb7bf82c787085c8b1ef0ad7d028424", null ],
-    [ "EXPORT_DECL", "de/df0/utilities_8h.html#a73624192b8eb3825eb770eded01458af", null ],
     [ "FOR", "de/df0/utilities_8h.html#a4248d71fc7ca79dc298d9871f8d7cfbe", null ],
-    [ "IMPORT_DECL", "de/df0/utilities_8h.html#ae6df7db5eaa417c9b0a25c9822f64b18", null ],
-    [ "aligned_malloc", "de/df0/utilities_8h.html#a8b6fdda7c3572c84a202da85fefec634", null ],
-    [ "delete_array", "de/df0/utilities_8h.html#ae0aeb3b7c368c886ba621b032db022f7", null ],
     [ "double_vector_to_string", "de/df0/utilities_8h.html#ad395a0de4515c154b1fac5f8188a8ab7", null ],
     [ "dump", "de/df0/utilities_8h.html#af69cf72a141b264fc22252a6497e45ee", null ],
     [ "dump", "de/df0/utilities_8h.html#ac23c734b93bd28f5dead2bb9eb809d59", null ],
@@ -26,6 +22,5 @@ var utilities_8h =
     [ "read_vector_from_file", "de/df0/utilities_8h.html#a490b3dd52b27f7d7de8cf81a753b97fa", null ],
     [ "string_to_double_vector", "de/df0/utilities_8h.html#a14a8aba3310095e612d55c2ea5a4f788", null ],
     [ "time_diff", "de/df0/utilities_8h.html#a300c175d0eb8013d3a9e9f316d447b64", null ],
-    [ "time_elapsed", "de/df0/utilities_8h.html#a7ab3cb9080ebe19b6755a564b316473e", null ],
-    [ "zero", "de/df0/utilities_8h.html#afbf1ace4203a3098e0f259969ea4e2d1", null ]
+    [ "time_elapsed", "de/df0/utilities_8h.html#a7ab3cb9080ebe19b6755a564b316473e", null ]
 ];

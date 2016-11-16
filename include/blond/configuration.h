@@ -13,7 +13,9 @@
 
 typedef double ftype;
 typedef unsigned int uint;
+
 typedef std::complex<double> complex_t;
+typedef std::vector<bool> bool_vector_t;
 typedef std::vector<double> f_vector_t;
 typedef std::vector<int> int_vector_t;
 typedef std::vector<uint> uint_vector_t;
@@ -28,9 +30,6 @@ typedef std::vector<complex_vector_t> complex_vector_2d_t;
 const unsigned PRECISION = 8;
 // Compile time switches
 // Needs re-compile every time a change is made
-
-// switch on/off fixed beam distribution
-// #define FIXED_PARTICLES
 
 // switch on/off timing
 #define TIMING

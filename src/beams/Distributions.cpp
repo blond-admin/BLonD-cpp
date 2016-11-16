@@ -87,8 +87,7 @@ matched_from_line_density(Beams *beam,
                                               + time_coord_array.back()) / 2.,
                                              exponent);
         line_density -= *min_element(ALL(line_density));
-        const double sum = accumulate(ALL(line_density), 0.);
-        line_density *= (beam->n_macroparticles / sum);
+        line_density *= (beam->n_macroparticles / sum(line_density));
     } else { // (line_density_opt["type"] == "user_input") {
         time_line_den = util::string_to_double_vector(line_density_opt["time_line_den"]);
         n_points_line_den = time_line_den.size();
@@ -98,8 +97,7 @@ matched_from_line_density(Beams *beam,
                            line_density_opt["line_density"]);
 
         line_density -= *min_element(ALL(line_density));
-        const double sum = accumulate(ALL(line_density), 0.);
-        line_density *= (beam->n_macroparticles / sum);
+        line_density *= (beam->n_macroparticles / sum(line_density));
     }
 
     f_vector_t induced_potential_final, induced_potential, time_induced_voltage;
@@ -172,13 +170,8 @@ matched_from_line_density(Beams *beam,
         f_vector_t min_values_profile, max_values_profile;
         f_vector_t time_line_den_non_zero;
         f_vector_t line_density_non_zero;
-
-        for (uint i = 0; i < line_density.size(); i++) {
-            if (abs(line_density[i]) > 1e-20) {
-                time_line_den_non_zero.push_back(time_line_den[i]);
-                line_density_non_zero.push_back(line_density[i]);
-            }
-        }
+        line_density_non_zero = pick(line_density, (time_line_den > 1e-20));
+        time_line_den_non_zero = pick(time_line_den, (time_line_den > 1e-20));
 
         minmax_location(time_line_den_non_zero, line_density_non_zero,
                         min_positions_profile, max_positions_profile,
@@ -234,8 +227,6 @@ matched_from_line_density(Beams *beam,
     }
 
     int n_points_abel = 10000;
-    // int n_points_abel = 100;
-
     int abel_both_step = 1;
     f_vector_2d_t density_function_average;
     f_vector_2d_t hamiltonian_average;
@@ -317,8 +308,7 @@ matched_from_line_density(Beams *beam,
                                      potential_half);
         density_function.resize(n_points_abel, 0.);
         hamiltonian_coord.resize(n_points_abel, 0.);
-        // cout << "line_den_diff_abel: " << line_den_diff_abel;
-        // cout << "potential_abel: " << potential_abel;
+
         if (half_option == "first" || (half_option == "both" && abel_index == 0)) {
             for (int i = 0; i < n_points_abel; i++) {
                 f_vector_t integrand(i + 1);
@@ -353,7 +343,6 @@ matched_from_line_density(Beams *beam,
                     else
                         integrand.push_back(line_den_diff_abel[j] / sqrt(potential_abel[j]
                                             - potential_abel[i]));
-                // cout << "integrand[" << i << "]: " << integrand[0] << "\n";
 
                 if (integrand.size() > 2) {
                     integrand[0] = integrand[1] + (integrand[2] - integrand[1]);
@@ -363,16 +352,13 @@ matched_from_line_density(Beams *beam,
                     // NOTE can this case ever occur?
                     integrand = {0};
                 }
-                // cout << "integrand[" << i << "]: " << integrand[0] << "\n";
                 density_function[i] = - sqrt(eom_factor_dE) / constant::pi
                                       * trapezoid(integrand, time_coord_diff);
                 hamiltonian_coord[i] = potential_abel[i];
             }
 
         }
-        // cout << "density_function: " << density_function;
 
-        // NOTE -ffast-math disables isnan and isinf checks
         FOR(density_function, it) {
             if (std::isnan(*it) || std::isinf(*it) || *it < 0.)
                 *it = 0.;
@@ -462,7 +448,7 @@ matched_from_line_density(Beams *beam,
     for (auto &row : density_grid) {
         for (auto &e : row)
             if (std::isnan(e) || std::isinf(e) || e < 0.) e = 0.;
-        grid_sum += accumulate(ALL(row), 0.0);
+        grid_sum += sum(row);
     }
 
     FOR(density_grid, row) *row /= grid_sum;

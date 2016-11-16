@@ -373,7 +373,7 @@ TEST(testLess, test1)
 {
     int_vector_t a {1, 3, 5, 10};
     int_vector_t b {0, 4, 6, 9};
-    std::vector<bool> ref;
+    bool_vector_t ref;
     for (uint i = 0; i < a.size(); i++)
         ref.push_back(a[i] < b[i]);
     ASSERT_EQ_LOOP(ref, (a < b), "less");
@@ -383,7 +383,7 @@ TEST(testLess, test2)
 {
     int_vector_t a {1, 3, 5, 10};
     int b = 5;
-    std::vector<bool> ref;
+    bool_vector_t ref;
     for (uint i = 0; i < a.size(); i++)
         ref.push_back(a[i] < b);
     ASSERT_EQ_LOOP(ref, (a < b), "less");
@@ -393,7 +393,7 @@ TEST(testLessEqual, test1)
 {
     int_vector_t a {1, 3, 5, 10};
     int_vector_t b {0, 4, 5, 9};
-    std::vector<bool> ref;
+    bool_vector_t ref;
     for (uint i = 0; i < a.size(); i++)
         ref.push_back(a[i] <= b[i]);
     ASSERT_EQ_LOOP(ref, (a <= b), "lessEqual");
@@ -403,7 +403,7 @@ TEST(testLessEqual, test2)
 {
     int_vector_t a {1, 3, 5, 10};
     int b = 5;
-    std::vector<bool> ref;
+    bool_vector_t ref;
     for (uint i = 0; i < a.size(); i++)
         ref.push_back(a[i] <= b);
     ASSERT_EQ_LOOP(ref, (a <= b), "lessEqual");
@@ -413,7 +413,7 @@ TEST(testGreater, test1)
 {
     int_vector_t a {1, 3, 5, 10};
     int_vector_t b {0, 4, 6, 9};
-    std::vector<bool> ref;
+    bool_vector_t ref;
     for (uint i = 0; i < a.size(); i++)
         ref.push_back(a[i] > b[i]);
     ASSERT_EQ_LOOP(ref, (a > b), "greater");
@@ -423,7 +423,7 @@ TEST(testGreater, test2)
 {
     int_vector_t a {1, 3, 5, 10};
     int b = 5;
-    std::vector<bool> ref;
+    bool_vector_t ref;
     for (uint i = 0; i < a.size(); i++)
         ref.push_back(a[i] > b);
     ASSERT_EQ_LOOP(ref, (a > b), "greater");
@@ -433,7 +433,7 @@ TEST(testGreaterEqual, test1)
 {
     int_vector_t a {1, 3, 5, 10};
     int_vector_t b {0, 4, 5, 9};
-    std::vector<bool> ref;
+    bool_vector_t ref;
     for (uint i = 0; i < a.size(); i++)
         ref.push_back(a[i] <= b[i]);
     ASSERT_EQ_LOOP(ref, (a <= b), "greaterEqual");
@@ -443,7 +443,7 @@ TEST(testGreaterEqual, test2)
 {
     int_vector_t a {1, 3, 5, 10};
     int b = 5;
-    std::vector<bool> ref;
+    bool_vector_t ref;
     for (uint i = 0; i < a.size(); i++)
         ref.push_back(a[i] <= b);
     ASSERT_EQ_LOOP(ref, (a <= b), "greaterEqual");
@@ -453,7 +453,7 @@ TEST(testEqual, test1)
 {
     int_vector_t a {1, 3, 5, 10};
     int_vector_t b {0, 4, 6, 9};
-    std::vector<bool> ref;
+    bool_vector_t ref;
     for (uint i = 0; i < a.size(); i++)
         ref.push_back(a[i] == b[i]);
     ASSERT_EQ_LOOP(ref, (a == b), "equal");
@@ -463,7 +463,7 @@ TEST(testEqual, test2)
 {
     int_vector_t a {1, 3, 5, 10};
     int b = 5;
-    std::vector<bool> ref;
+    bool_vector_t ref;
     for (uint i = 0; i < a.size(); i++)
         ref.push_back(a[i] == b);
     ASSERT_EQ_LOOP(ref, (a == b), "equal");
@@ -473,7 +473,7 @@ TEST(testNotEqual, test1)
 {
     int_vector_t a {1, 3, 5, 10};
     int_vector_t b {0, 4, 5, 9};
-    std::vector<bool> ref;
+    bool_vector_t ref;
     for (uint i = 0; i < a.size(); i++)
         ref.push_back(a[i] != b[i]);
     ASSERT_EQ_LOOP(ref, (a != b), "notEqual");
@@ -483,7 +483,7 @@ TEST(testNotEqual, test2)
 {
     int_vector_t a {1, 3, 5, 10};
     int b = 5;
-    std::vector<bool> ref;
+    bool_vector_t ref;
     for (uint i = 0; i < a.size(); i++)
         ref.push_back(a[i] != b);
     ASSERT_EQ_LOOP(ref, (a != b), "notEqual");

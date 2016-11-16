@@ -26,14 +26,14 @@ using namespace std;
 const long long N_b = 0; // Intensity
 
 // Machine and RF parameters
-const ftype radius = 25;
-const ftype C = 2 * constant::pi * radius;   // Machine circumference [m]
-const ftype p_i = 310891054.809;             // Synchronous momentum [eV/c]
+const double radius = 25;
+const double C = 2 * constant::pi * radius;   // Machine circumference [m]
+const double p_i = 310891054.809;             // Synchronous momentum [eV/c]
 const uint h = 1;                            // Harmonic number
-const ftype V = 8000;                        // RF voltage [V]
-const ftype dphi = -constant::pi;            // Phase modulation/offset
-const ftype gamma_t = 4.076750841;           // Transition gamma
-const ftype alpha = 1.0 / gamma_t / gamma_t; // First order mom. comp. factor
+const double V = 8000;                        // RF voltage [V]
+const double dphi = -constant::pi;            // Phase modulation/offset
+const double gamma_t = 4.076750841;           // Transition gamma
+const double alpha = 1.0 / gamma_t / gamma_t; // First order mom. comp. factor
 const uint alpha_order = 1;
 const uint n_sections = 1;
 // Tracking details

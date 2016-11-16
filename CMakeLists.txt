@@ -68,37 +68,42 @@ endif ()
 
 #Compiler settings
 check_cxx_compiler_flag(-std=c++11 COMPILER_HAS_CXX11)
+check_cxx_compiler_flag(-Ofast HAS_OFAST)
+check_cxx_compiler_flag(-ffast-math HAS_FFAST_MATH)
 
 if (NOT COMPILER_HAS_CXX11)
     message(FATAL_ERROR "ERROR: Compiler is lacking support for c++11")
 endif ()
 
+set(WARNINGS "-Wall -pedantic -Wno-unused-variable")
+set(CXXFLAGS "-std=gnu++11")
+set(DEBUG "-Og -g3 -fno-omit-frame-pointer")
+set(RELEASE "-march=native")
 
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11 -Wall -pedantic -Wno-unused-variable")
 
 if(CYGWIN)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mcmodel=large")
+    set(CXXFLAGS "${CXXFLAGS} -mcmodel=large")
 else ()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -INTERFACE_POSITION_INDEPENDENT_CODE")
+    set(CXXFLAGS "${CXXFLAGS} -INTERFACE_POSITION_INDEPENDENT_CODE")
 endif ()
 
-
-# set(CMAKE_CXX_FLAGS_DEBUG "-Og -g3 -fno-omit-frame-pointer") #-fsanitize=address")
-set(CMAKE_CXX_FLAGS_DEBUG "-Og -g3 -fno-omit-frame-pointer -funsafe-math-optimizations")
-
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -ffast-math -march=native")
-    # -fopt-info-vec=report.txt")
+if(HAS_OFAST)
+   set(RELEASE "${RELEASE} -Ofast")
+elseif(HAS_FFAST_MATH)
+   set(RELEASE "${RELEASE} -O3 -ffast-math")
+else()
+   set(RELEASE "${RELEASE} -O3")
+endif()
 
 #CLANG and GCC specific
 if (CMAKE_CXX_COMPILER_ID MATCHES GNU)
 
-    if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS "4.8.0")
-        message(FATAL_ERROR "ERROR: Insufficient compiler version, need at lest 4.8 to continue")
-    endif ()
+    set(CXXFLAGS "${CXXFLAGS} -funsafe-math-optimizations")
+
     # NOTE funsafe-math-optimizations can produce incorrect results in 
     # Distributions functions
-    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Ofast")
+    # set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Ofast")
+    set(RELEASE "${RELEASE} -Ofast")
     # set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} \
     #     -fno-math-errno \
     #     -funsafe-math-optimizations \
@@ -106,26 +111,23 @@ if (CMAKE_CXX_COMPILER_ID MATCHES GNU)
     #     -ffinite-math-only \
     #     -fno-signaling-nans \
     #     -fcx-limited-range")
-
-    set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE}-flto")
-    # set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_GLIBCXX_DEBUG")
-    if (TEST_ENABLED STREQUAL "True")
-        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fprofile-arcs -ftest-coverage")
-        set(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} --coverage")
+    set(VEC "-fopt-info-vec=vec_report.txt")
+    set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -flto")
+    # set(DEBUG "${DEBUG} -D_GLIBCXX_DEBUG")
+    if (CMAKE_BUILD_TYPE STREQUAL "CI")
+        set(DEBUG "${DEBUG} -fprofile-arcs -ftest-coverage")
+        set(CMAKE_EXE_LINKER_FLAGS_CI "${CMAKE_EXE_LINKER_FLAGS_CI} --coverage")
     else ()
-        message(STATUS "Code test coveredge is enabeled only in Debug mode")
+        message(STATUS "Code test coveredge is enabeled only in CI build type")
     endif ()
 
 elseif (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    
-    if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 3.8)
-        set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
-    else ()
-        set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Ofast")
-    endif ()
+    set(CXXFLAGS "${CXXFLAGS} -funsafe-math-optimizations")
+    set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -flto")
 
-    set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE}-flto")
-
+elseif (CMAKE_CXX_COMPILER_ID MATCHES Intel)
+    # FIXME Doesn't compile with icc
+    set(VEC "-qopt-report=5 -qopt-report-file=vec_report.txt")
 else ()
     message(FATAL_ERROR "${CMAKE_CXX_COMPILER_ID} is not supported")
 endif()
@@ -135,7 +137,7 @@ endif()
 find_package(OpenMP QUIET)
 if ((OPENMP_FOUND) AND (USE_OMP))
     message(STATUS "OpenMP found")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DUSE_OMP -fopenmp")
+    set(OPENMP "-DUSE_OMP -fopenmp")
 else ()
     message(STATUS "OpenMP will not be used")
     set(USE_FFTW_OMP "False")
@@ -150,11 +152,6 @@ if(FFTW_INCLUDES STREQUAL "FFTW_INCLUDES-NOTFOUND")
     message(FATAL_ERROR "ERROR: fftw3.h not found")
 endif()
 
-find_library(FFTW_LIB NAMES fftw fftw3 fftw3-3 fftw-3.3
-    PATHS ${EXTERNAL_INSTALL_DIR}/lib
-    NO_DEFAULT_PATH
-    REQUIRED)
-
 
 if (USE_FFTW_OMP)
     # message(STATUS "using omp version of fftw")
@@ -163,8 +160,13 @@ if (USE_FFTW_OMP)
         PATHS ${EXTERNAL_INSTALL_DIR}/lib
         NO_DEFAULT_PATH
         REQUIRED)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DUSE_FFTW_OMP")
+    set(OPENMP "${OPENMP} -DUSE_FFTW_OMP")
     set(FFTW_LIB ${FFTW_LIB} ${FFTW_OMP_LIB})
+else ()
+    find_library(FFTW_LIB NAMES fftw fftw3 fftw3-3 fftw-3.3
+        PATHS ${EXTERNAL_INSTALL_DIR}/lib
+        NO_DEFAULT_PATH
+        REQUIRED)
 endif ()
 
 # GTEST
@@ -222,6 +224,11 @@ file(GLOB_RECURSE SOURCES
         "src/*"
         "include/*"
         )
+
+set(CMAKE_CXX_FLAGS "${WARNINGS} ${CXXFLAGS} ${OPENMP}")
+set(CMAKE_CXX_FLAGS_RELEASE "${RELEASE} ${VEC}")
+set(CMAKE_CXX_FLAGS_DEBUG "${DEBUG}")
+set(CMAKE_CXX_FLAGS_CI "${DEBUG}")
 
 set(SOURCE_FILES ${SOURCES})
 

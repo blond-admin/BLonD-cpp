@@ -6,7 +6,7 @@ compiler:
 - gcc
 env:
   matrix:
-  - BUILD_TYPE=Debug
+  - BUILD_TYPE=CI
   - BUILD_TYPE=Release
   global:
     secure: Cu9RLkLijxJu85yHSTYq9ALGRZ5pglw29LCMdasYpUCSix9g/bJlUTcjI4FmvjtD3ZEaweaoKSluYQP0uHpjUYxe+VKLS1fZp5MlIDpaKEMmhb+Rc61Wi0G57RZ3DXOqLeUlcjECiIcYvzKKaWmRQ+ZqO9CRqVUjFwMkPRUZvvl7bQg0O3NVK3trBTyXSFK9Cu1CpPM4lxWp/Aw+DTuN5KD/89TUd35/03SMa4lOsBtooTA7o3pvkTcOIKU9OHoFkj3r2TrXJ4YHgM4jGW6kZs1LD7+b8YDTOod2Je6gDSpxwqzxGcceSwa/zYW95RHsaiGf41J4yYGFRJgoQgWTNFqP2OHD2enQueqQCVepkEjPrTUiyMBzV2CJ+vrkpAhlWaw4E/52Z4KcheYnUlawawnHYuK0iN+mLA/gzVtM6f4JoPeZJ45Nds7RHgjb1NSe37IJOoEL6h13FRdLVGIw0lPLS+wjiU2nEt4DKHd2a7l2uOmhutCHjQzBEbEC4//Ku+8QRsisEIS3zt+OFHlPhxrKBtQ2advWCPkL0y6BRYUe5CroXxqixMQWf2IYrChOqMuCpQe/7iYyfpVrcAEsK0A+84BV0Md8nz1NUr4JrC+vONLVoAcm1I+WATnWRKbD3OHmxP/vY/Plaqp2NaAud0jgzI1n97L4aQiN211XZW8=
@@ -49,7 +49,7 @@ script:
 - ctest -VV
 after_success:
  - coveralls --gcov gcov-4.8  --root .. -E ".*external.*" -E ".*CMakeFiles.*" -E ".*unit-tests/.*.cpp.*" -E "/usr/include/.*" -E ".*demos/.*" -E ".*include/blond/optionparser.h" -E ".*include/blond/sincos.h"
- - if [ "$BUILD_TYPE" == "Debug" ]; then
+ - if [ "$BUILD_TYPE" == "CI" ]; then
      cd ../ ;
      doxygen Doxyfile ;
      export BUILD_PATH=$(pwd) ;

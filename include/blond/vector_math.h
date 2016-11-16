@@ -223,6 +223,180 @@ static inline std::vector<T> operator/=(std::vector<T> &a, const U &b)
     return a;
 }
 
+template <typename T>
+static inline T pick(const std::vector<T> &a, const int i)
+{
+    assert(std::abs(i) < a.size());
+    if (i >= 0)
+        return a[i];
+    else
+        return a.rbegin()[-i - 1];
+}
+
+template <typename T>
+static inline std::vector<T> pick(const std::vector<T> &a,
+                                  const std::vector<int> &indexes)
+{
+    std::vector<T> res;
+    res.reserve(indexes.size());
+    for (const auto &i : indexes) {
+        res.push_back(a[i]);
+    }
+    return res;
+}
+
+template <typename T>
+static inline std::vector<T> pick(const std::vector<T> &a,
+                                  const std::vector<bool> &indexes)
+{
+    std::vector<T> res;
+    res.reserve(indexes.size());
+    for (uint i = 0; i < indexes.size(); i++)
+        if (indexes[i] == true)
+            res.push_back(a[i]);
+    return res;
+}
+
+template <typename T>
+static inline std::vector<T> slice(const std::vector<T> &a,
+                                   const int start = 0,
+                                   int end = 0,
+                                   const int step = 1)
+{
+    if (end == 0) end = a.size();
+    else if (end < 0) end = a.size() + end;
+    std::vector<T> result;
+    result.reserve((end - start + step - 1) / step);
+    for (int i = start; i < end; i += step)
+        result.push_back(a[i]);
+    return result;
+}
+
+template <typename T>
+static inline std::vector<bool> operator==(const std::vector<T> &a,
+        const std::vector<T> &b)
+{
+    assert(a.size() == b.size());
+    std::vector<bool> result(a.size());
+    std::transform(a.begin(), a.end(), b.begin(),
+                   result.begin(), std::equal_to<T>());
+    return result;
+}
+
+template <typename T>
+static inline std::vector<bool> operator!=(const std::vector<T> &a,
+        const std::vector<T> &b)
+{
+    assert(a.size() == b.size());
+    std::vector<bool> result(a.size());
+    std::transform(a.begin(), a.end(), b.begin(),
+                   result.begin(), std::not_equal_to<T>());
+    return result;
+}
+
+template <typename T>
+static inline std::vector<bool> operator<(const std::vector<T> &a,
+        const std::vector<T> &b)
+{
+    assert(a.size() == b.size());
+    std::vector<bool> result(a.size());
+    std::transform(a.begin(), a.end(), b.begin(),
+                   result.begin(), std::less<T>());
+    return result;
+}
+
+template <typename T>
+static inline std::vector<bool> operator<=(const std::vector<T> &a,
+        const std::vector<T> &b)
+{
+    assert(a.size() == b.size());
+    std::vector<bool> result(a.size());
+    std::transform(a.begin(), a.end(), b.begin(),
+                   result.begin(), std::less_equal<T>());
+    return result;
+}
+
+
+template <typename T>
+static inline std::vector<bool> operator>(const std::vector<T> &a,
+        const std::vector<T> &b)
+{
+    assert(a.size() == b.size());
+    std::vector<bool> result(a.size());
+    std::transform(a.begin(), a.end(), b.begin(),
+                   result.begin(), std::greater<T>());
+    return result;
+}
+
+template <typename T>
+static inline std::vector<bool> operator>=(const std::vector<T> &a,
+        const std::vector<T> &b)
+{
+    assert(a.size() == b.size());
+    std::vector<bool> result(a.size());
+    std::transform(a.begin(), a.end(), b.begin(),
+                   result.begin(), std::greater_equal<T>());
+    return result;
+}
+
+template <typename T>
+static inline std::vector<bool> operator==(const std::vector<T> &a, const T &b)
+{
+    std::vector<bool> result(a.size());
+    std::transform(a.begin(), a.end(), result.begin(),
+                   std::bind2nd(std::equal_to<T>(), b));
+    return result;
+}
+
+template <typename T>
+static inline std::vector<bool> operator!=(const std::vector<T> &a, const T &b)
+{
+    std::vector<bool> result(a.size());
+    std::transform(a.begin(), a.end(), result.begin(),
+                   std::bind2nd(std::not_equal_to<T>(), b));
+    return result;
+}
+
+
+template <typename T>
+static inline std::vector<bool> operator<(const std::vector<T> &a, const T &b)
+{
+    std::vector<bool> result(a.size());
+    std::transform(a.begin(), a.end(), result.begin(),
+                   std::bind2nd(std::less<T>(), b));
+    return result;
+}
+
+
+template <typename T>
+static inline std::vector<bool> operator<=(const std::vector<T> &a, const T &b)
+{
+    std::vector<bool> result(a.size());
+    std::transform(a.begin(), a.end(), result.begin(),
+                   std::bind2nd(std::less_equal<T>(), b));
+    return result;
+}
+
+
+template <typename T>
+static inline std::vector<bool> operator>(const std::vector<T> &a, const T &b)
+{
+    std::vector<bool> result(a.size());
+    std::transform(a.begin(), a.end(), result.begin(),
+                   std::bind2nd(std::greater<T>(), b));
+    return result;
+}
+
+
+template <typename T>
+static inline std::vector<bool> operator>=(const std::vector<T> &a, const T &b)
+{
+    std::vector<bool> result(a.size());
+    std::transform(a.begin(), a.end(), result.begin(),
+                   std::bind2nd(std::greater_equal<T>(), b));
+    return result;
+}
+
 
 template <typename T>
 static inline std::ostream &operator<<(std::ostream &os, const std::vector<T> &a)

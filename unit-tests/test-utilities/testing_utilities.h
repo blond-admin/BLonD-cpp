@@ -8,6 +8,7 @@
 #ifndef TESTING_UTILITIES_H_
 #define TESTING_UTILITIES_H_
 
+#include <gtest/gtest.h>
 #include <blond/configuration.h>
 #include <algorithm>
 #include <string>
@@ -43,8 +44,9 @@ static inline void ASSERT_DOUBLE_EQ_LOOP(const f_vector_t &refV,
     }
 }
 
-static inline void ASSERT_EQ_LOOP(const int_vector_t &refV,
-                                  const int_vector_t &realV,
+template <typename T>
+static inline void ASSERT_EQ_LOOP(const std::vector<T> &refV,
+                                  const std::vector<T> &realV,
                                   const std::string &varName)
 {
     ASSERT_EQ(refV.size(), realV.size());

@@ -4,9 +4,11 @@
 #include <blond/math_functions.h>
 #include <blond/utilities.h>
 #include <blond/vector_math.h>
+#include <testing_utilities.h>
 #include <gtest/gtest.h>
 
 using namespace mymath;
+// using namespace std;
 
 TEST(testAdd, test1)
 {
@@ -159,7 +161,7 @@ TEST(testMul, test3)
 TEST(testMul, test4)
 {
     const double epsilon = 1e-10;
-    
+
     f_vector_t a = linspace(0.0, 15.0, 132);
     f_vector_t b = linspace(0.0, 1.0, 132);
     auto c = 0 * a * b;
@@ -299,6 +301,193 @@ TEST(testApplyF, test6)
     }
 }
 
+TEST(testPick, test1)
+{
+    int_vector_t a {1, 2, 3};
+    ASSERT_EQ(a.back(), pick(a, -1));
+}
+
+TEST(testPick, test2)
+{
+    int_vector_t a {1, 2, 3};
+    ASSERT_EQ(a[1], pick(a, -2));
+}
+
+TEST(testPick, test3)
+{
+    int_vector_t a {1, 2, 3};
+    ASSERT_EQ(a[0], pick(a, 0));
+}
+
+TEST(testPick, test4)
+{
+    int_vector_t a {1, 2, 3};
+    auto res = pick(a, int_vector_t{0, 1, 2});
+
+    ASSERT_EQ_LOOP(a, res, "pick");
+}
+
+TEST(testPick, test5)
+{
+    int_vector_t a {1, 2, 3, 4};
+    auto res = pick(a, std::vector<bool> {false, true, false, true});
+    ASSERT_EQ_LOOP({2, 4}, res, "pick");
+}
+
+TEST(testSlice, test1)
+{
+    int_vector_t a {1, 2, 3, 4, 5, 6};
+    auto res = slice(a);
+    ASSERT_EQ_LOOP(a, res, "slice");
+}
+
+TEST(testSlice, test2)
+{
+    int_vector_t a {1, 2, 3, 4, 5, 6};
+    auto res = slice(a, 1);
+    ASSERT_EQ_LOOP({2, 3, 4, 5, 6}, res, "slice");
+}
+
+TEST(testSlice, test3)
+{
+    int_vector_t a {1, 2, 3, 4, 5, 6};
+    auto res = slice(a, 2, 4);
+    ASSERT_EQ_LOOP({3, 4}, res, "slice");
+}
+
+TEST(testSlice, test4)
+{
+    int_vector_t a {1, 2, 3, 4, 5, 6};
+    auto res = slice(a, 0, 0, 2);
+    ASSERT_EQ_LOOP({1, 3, 5}, res, "slice");
+}
+
+TEST(testSlice, test5)
+{
+    int_vector_t a {1, 2, 3, 4, 5, 6};
+    auto res = slice(a, 0, -2);
+    ASSERT_EQ_LOOP({1, 2, 3, 4}, res, "slice");
+}
+
+TEST(testLess, test1)
+{
+    int_vector_t a {1, 3, 5, 10};
+    int_vector_t b {0, 4, 6, 9};
+    std::vector<bool> ref;
+    for (uint i = 0; i < a.size(); i++)
+        ref.push_back(a[i] < b[i]);
+    ASSERT_EQ_LOOP(ref, (a < b), "less");
+}
+
+TEST(testLess, test2)
+{
+    int_vector_t a {1, 3, 5, 10};
+    int b = 5;
+    std::vector<bool> ref;
+    for (uint i = 0; i < a.size(); i++)
+        ref.push_back(a[i] < b);
+    ASSERT_EQ_LOOP(ref, (a < b), "less");
+}
+
+TEST(testLessEqual, test1)
+{
+    int_vector_t a {1, 3, 5, 10};
+    int_vector_t b {0, 4, 5, 9};
+    std::vector<bool> ref;
+    for (uint i = 0; i < a.size(); i++)
+        ref.push_back(a[i] <= b[i]);
+    ASSERT_EQ_LOOP(ref, (a <= b), "lessEqual");
+}
+
+TEST(testLessEqual, test2)
+{
+    int_vector_t a {1, 3, 5, 10};
+    int b = 5;
+    std::vector<bool> ref;
+    for (uint i = 0; i < a.size(); i++)
+        ref.push_back(a[i] <= b);
+    ASSERT_EQ_LOOP(ref, (a <= b), "lessEqual");
+}
+
+TEST(testGreater, test1)
+{
+    int_vector_t a {1, 3, 5, 10};
+    int_vector_t b {0, 4, 6, 9};
+    std::vector<bool> ref;
+    for (uint i = 0; i < a.size(); i++)
+        ref.push_back(a[i] > b[i]);
+    ASSERT_EQ_LOOP(ref, (a > b), "greater");
+}
+
+TEST(testGreater, test2)
+{
+    int_vector_t a {1, 3, 5, 10};
+    int b = 5;
+    std::vector<bool> ref;
+    for (uint i = 0; i < a.size(); i++)
+        ref.push_back(a[i] > b);
+    ASSERT_EQ_LOOP(ref, (a > b), "greater");
+}
+
+TEST(testGreaterEqual, test1)
+{
+    int_vector_t a {1, 3, 5, 10};
+    int_vector_t b {0, 4, 5, 9};
+    std::vector<bool> ref;
+    for (uint i = 0; i < a.size(); i++)
+        ref.push_back(a[i] <= b[i]);
+    ASSERT_EQ_LOOP(ref, (a <= b), "greaterEqual");
+}
+
+TEST(testGreaterEqual, test2)
+{
+    int_vector_t a {1, 3, 5, 10};
+    int b = 5;
+    std::vector<bool> ref;
+    for (uint i = 0; i < a.size(); i++)
+        ref.push_back(a[i] <= b);
+    ASSERT_EQ_LOOP(ref, (a <= b), "greaterEqual");
+}
+
+TEST(testEqual, test1)
+{
+    int_vector_t a {1, 3, 5, 10};
+    int_vector_t b {0, 4, 6, 9};
+    std::vector<bool> ref;
+    for (uint i = 0; i < a.size(); i++)
+        ref.push_back(a[i] == b[i]);
+    ASSERT_EQ_LOOP(ref, (a == b), "equal");
+}
+
+TEST(testEqual, test2)
+{
+    int_vector_t a {1, 3, 5, 10};
+    int b = 5;
+    std::vector<bool> ref;
+    for (uint i = 0; i < a.size(); i++)
+        ref.push_back(a[i] == b);
+    ASSERT_EQ_LOOP(ref, (a == b), "equal");
+}
+
+TEST(testNotEqual, test1)
+{
+    int_vector_t a {1, 3, 5, 10};
+    int_vector_t b {0, 4, 5, 9};
+    std::vector<bool> ref;
+    for (uint i = 0; i < a.size(); i++)
+        ref.push_back(a[i] != b[i]);
+    ASSERT_EQ_LOOP(ref, (a != b), "notEqual");
+}
+
+TEST(testNotEqual, test2)
+{
+    int_vector_t a {1, 3, 5, 10};
+    int b = 5;
+    std::vector<bool> ref;
+    for (uint i = 0; i < a.size(); i++)
+        ref.push_back(a[i] != b);
+    ASSERT_EQ_LOOP(ref, (a != b), "notEqual");
+}
 
 int main(int ac, char *av[])
 {

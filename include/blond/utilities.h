@@ -21,30 +21,7 @@
 #include <sys/stat.h>
 #include <blond/configuration.h>
 
-#ifndef WIN32
-#include <mm_malloc.h>
-#endif
-
-// DLL export
-#if defined(_GCC)
-#define EXPORT_DECL __attribute__((visibility("default")))
-#define IMPORT_DECL __attribute__((visibility("hidden")))
-#elif defined(_WIN32) || defined(__WIN32__) || defined(WIN32) ||               \
-    defined(MSC_VER)
-#define EXPORT_DECL __declspec(dllexport)
-#define IMPORT_DECL __declspec(dllimport)
-#else
-#define EXPORT_DECL
-#define IMPORT_DECL
-#endif
-
-#ifdef SHARED
-#define API EXPORT_DECL
-#elif STATIC
 #define API
-#else
-#define API IMPORT_DECL
-#endif
 
 #include <blond/optionparser.h>
 
@@ -147,20 +124,20 @@ namespace util {
             return env;
     }
 
-    static inline void *aligned_malloc(size_t n) { return _mm_malloc(n, 64); }
+    // static inline void *aligned_malloc(size_t n) { return _mm_malloc(n, 64); }
 
-    template <typename T> static inline void delete_array(T *p)
-    {
-        if (p != NULL)
-            delete[] p;
-    }
+    // template <typename T> static inline void delete_array(T *p)
+    // {
+    //     if (p != NULL)
+    //         delete[] p;
+    // }
 
-    template <typename T> static inline void zero(T *p, int n)
-    {
-        for (int i = 0; i < n; ++i) {
-            p[i] = 0;
-        }
-    }
+    // template <typename T> static inline void zero(T *p, int n)
+    // {
+    //     for (int i = 0; i < n; ++i) {
+    //         p[i] = 0;
+    //     }
+    // }
 
     template <typename T>
     static inline void dump(const T *a, const unsigned n, const char *s)

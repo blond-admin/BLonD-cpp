@@ -94,8 +94,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -ffast-math -march=nativ
 if (CMAKE_CXX_COMPILER_ID MATCHES GNU)
 
     if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS "4.8.0")
-        message(FATAL_ERROR "ERROR: Insufficient compiler version, \
-                            need at lest 4.8 to continue")
+        message(FATAL_ERROR "ERROR: Insufficient compiler version, need at lest 4.8 to continue")
     endif ()
     # NOTE funsafe-math-optimizations can produce incorrect results in 
     # Distributions functions

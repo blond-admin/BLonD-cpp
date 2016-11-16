@@ -170,8 +170,13 @@ matched_from_line_density(Beams *beam,
         f_vector_t min_values_profile, max_values_profile;
         f_vector_t time_line_den_non_zero;
         f_vector_t line_density_non_zero;
-        line_density_non_zero = pick(line_density, (time_line_den > 1e-20));
-        time_line_den_non_zero = pick(time_line_den, (time_line_den > 1e-20));
+
+        for (uint i = 0; i < line_density.size(); i++) {
+            if (abs(line_density[i]) > 1e-20) {
+                time_line_den_non_zero.push_back(time_line_den[i]);
+                line_density_non_zero.push_back(line_density[i]);
+            }
+        }
 
         minmax_location(time_line_den_non_zero, line_density_non_zero,
                         min_positions_profile, max_positions_profile,
@@ -448,7 +453,7 @@ matched_from_line_density(Beams *beam,
     for (auto &row : density_grid) {
         for (auto &e : row)
             if (std::isnan(e) || std::isinf(e) || e < 0.) e = 0.;
-        grid_sum += sum(row);
+        grid_sum += accumulate(ALL(row), 0.0);
     }
 
     FOR(density_grid, row) *row /= grid_sum;
@@ -734,11 +739,15 @@ matched_from_distribution_density(Beams *beam,
                                     row, distribution_opt["type"].s,
                                     X0, distribution_opt["exponent"].d));
                     } else {
-                        for (auto &row : J_grid)
-                            density_grid.push_back(
-                                distribution_density_function(
-                                    row, distribution_opt["type"].s,
-                                    X0, distribution_opt["exponent"].d));
+                        density_grid = distribution_density_function(J_grid,
+                                       distribution_opt["type"].s,
+                                       X0, distribution_opt["exponent"].d);
+
+                        // for (auto &row : J_grid)
+                        //     density_grid.push_back(
+                        //         distribution_density_function(
+                        //             row, distribution_opt["type"].s,
+                        //             X0, distribution_opt["exponent"].d));
                     }
                 } else { // density_variable == "density_from_H"
                     if (distribution_opt["type"].s == "user_input") {
@@ -748,11 +757,15 @@ matched_from_distribution_density(Beams *beam,
                                     row, distribution_opt["type"].s,
                                     X0, distribution_opt["exponent"].d));
                     } else {
-                        for (auto &row : H_grid)
-                            density_grid.push_back(
-                                distribution_density_function(
-                                    row, distribution_opt["type"].s,
-                                    X0, distribution_opt["exponent"].d));
+                        density_grid = distribution_density_function(H_grid,
+                                       distribution_opt["type"].s,
+                                       X0, distribution_opt["exponent"].d);
+
+                        // for (auto &row : H_grid)
+                        //     density_grid.push_back(
+                        //         distribution_density_function(
+                        //             row, distribution_opt["type"].s,
+                        //             X0, distribution_opt["exponent"].d));
                     }
                 }
 
@@ -869,22 +882,29 @@ matched_from_distribution_density(Beams *beam,
                 if (distribution_opt.find("emittance") != distribution_opt.end()) {
                     X0 = distribution_opt["emittance"].d / (2 * constant::pi);
                 }
-                for (auto &row : J_grid)
-                    density_grid.push_back(
-                        distribution_density_function(
-                            row, distribution_opt["type"].s,
-                            X0, distribution_opt["exponent"].d));
+                density_grid = distribution_density_function(J_grid,
+                               distribution_opt["type"].s,
+                               X0, distribution_opt["exponent"].d);
+
+                // for (auto &row : J_grid)
+                //     density_grid.push_back(
+                //         distribution_density_function(
+                //             row, distribution_opt["type"].s,
+                //             X0, distribution_opt["exponent"].d));
             } else { // density_variable == "density_from_H"
                 if (distribution_opt.find("emittance") != distribution_opt.end()) {
                     auto emittance = distribution_opt["emittance"].d / (2 * constant::pi);
                     auto H0 = interp({emittance}, J_array_dE0, H_array_dE0);
                     X0 = H0[0];
                 }
-                for (auto &row : H_grid)
-                    density_grid.push_back(
-                        distribution_density_function(
-                            row, distribution_opt["type"].s,
-                            X0, distribution_opt["exponent"].d));
+                density_grid = distribution_density_function(H_grid,
+                               distribution_opt["type"].s,
+                               X0, distribution_opt["exponent"].d);
+                // for (auto &row : H_grid)
+                //     density_grid.push_back(
+                //         distribution_density_function(
+                //             row, distribution_opt["type"].s,
+                //             X0, distribution_opt["exponent"].d));
             }
         } else {
             density_grid.clear();
@@ -995,132 +1015,6 @@ matched_from_distribution_density(Beams *beam,
 
 
 
-/*void matched_from_line_density(Beams *beam,
-                               FullRingAndRf *full_ring,
-                               map<string, string> line_density_opt,
-                               string main_harmonic,
-                               TotalInducedVoltage *totVolt,
-                               string plot,
-                               string figdir,
-                               string half_option,
-                               map<string, string> extraVoltageDict,
-                               int n_iterations_input,
-                               int seed
-                              )
-{
-    auto GP = Context::GP;
-
-    int n_points_potential = int(1e4);
-
-    full_ring->potential_well_generation(0, n_points_potential, 0, 0.4);
-
-    python::import();
-    auto pFunc = python::import("distributions", "matched_from_line_density");
-    auto pBeta = python::convert_double(beam->beta);
-    auto pEnergy = python::convert_double(beam->energy);
-    auto pCharge = python::convert_double(beam->charge);
-    auto pNMacroparticles = python::convert_int(beam->n_macroparticles);
-    auto pEta0 = python::convert_double(GP->eta_0[0][0]);
-    auto pTRev0 = python::convert_double(GP->t_rev[0]);
-    auto pMainHarmonic = python::convert_string(main_harmonic);
-    auto pPlot = python::convert_string(plot);
-    auto pFigDir = python::convert_string(figdir);
-    auto pHalfOption = python::convert_string(half_option);
-    auto pNIterationsInput = python::convert_int(n_iterations_input);
-    auto pSeed = python::convert_int(seed);
-    auto pDT = python::convert_double_array(beam->dt.data(), beam->dt.size());
-    auto pDE = python::convert_double_array(beam->dE.data(), beam->dE.size());
-
-    auto pPotentialWell = python::convert_double_array(
-                              full_ring->fPotentialWell.data(),
-                              full_ring->fPotentialWell.size());
-
-    auto pTimeCoord = python::convert_double_array(
-                          full_ring->fPotentialWellCoordinates.data(),
-                          full_ring->fPotentialWellCoordinates.size());
-
-    auto pLineDensityOpt = python::convert_dictionary(line_density_opt);
-    auto pExtraVoltageDict = python::convert_dictionary(extraVoltageDict);
-
-    auto ret = PyObject_CallFunctionObjArgs(pFunc, pBeta, pEnergy,
-                                            pCharge, pNMacroparticles,
-                                            pDT, pDE, pEta0, pTRev0,
-                                            pPotentialWell, pTimeCoord,
-                                            pLineDensityOpt, pMainHarmonic,
-                                            pPlot, pFigDir, pHalfOption,
-                                            pExtraVoltageDict,
-                                            pNIterationsInput, pSeed, NULL);
-
-    if (!ret) {
-        std::cerr << "[matched_from_line_density] An error occured while "
-                  << "executing python code\n";
-        exit(-1);
-    }
-
-}
-
-
-
-
-void matched_from_distribution_density(FullRingAndRf *full_ring,
-                                       map<string, string> distribution_opt,
-                                       string main_harmonic,
-                                       int n_iterations_input,
-                                       map<string, string> extraVoltageDict,
-                                       int seed
-                                      )
-{
-    auto GP = Context::GP;
-    auto Beam = Context::Beam;
-
-    int n_points_potential = int(1e4);
-
-    full_ring->potential_well_generation(0, n_points_potential, 0, 0.4);
-
-    python::import();
-    auto pFunc = python::import("distributions",
-                                "matched_from_distribution_density");
-    auto pBeta = python::convert_double(GP->beta[0][0]);
-    auto pNMacroparticles = python::convert_int(Beam->n_macroparticles);
-    auto pDT = python::convert_double_array(Beam->dt.data(), Beam->dt.size());
-    auto pDE = python::convert_double_array(Beam->dE.data(), Beam->dE.size());
-    auto pEnergy = python::convert_double(GP->energy[0][0]);
-    auto pCharge = python::convert_double(GP->charge);
-    auto pEta0 = python::convert_double(GP->eta_0[0][0]);
-    auto pTRev0 = python::convert_double(GP->t_rev[0]);
-    auto pMainHarmonic = python::convert_string(main_harmonic);
-    auto pNIterationsInput = python::convert_int(n_iterations_input);
-    auto pSeed = python::convert_int(seed);
-
-    auto pPotentialWell = python::convert_double_array(
-                              full_ring->fPotentialWell.data(),
-                              full_ring->fPotentialWell.size());
-
-    auto pTimeCoord = python::convert_double_array(
-                          full_ring->fPotentialWellCoordinates.data(),
-                          full_ring->fPotentialWellCoordinates.size());
-
-    auto pDistributionOpt = python::convert_dictionary(distribution_opt);
-    auto pExtraVoltageDict = python::convert_dictionary(extraVoltageDict);
-
-    auto ret = PyObject_CallFunctionObjArgs(pFunc, pBeta, pEnergy,
-                                            pCharge, pNMacroparticles,
-                                            pDT, pDE, pEta0, pTRev0,
-                                            pPotentialWell, pTimeCoord,
-                                            pDistributionOpt, pMainHarmonic,
-                                            pNIterationsInput,
-                                            pExtraVoltageDict,
-                                            pSeed, NULL);
-    if (!ret) {
-        std::cerr << "[matched_from_line_density] An error occured while "
-                  << "executing python code\n";
-        exit(-1);
-    }
-}
-
-*/
-
-
 f_vector_t distribution_density_function(const f_vector_t &action_array,
         const string &dist_type, const double length, double exponent)
 {
@@ -1160,8 +1054,6 @@ f_vector_t distribution_density_function(const f_vector_t &action_array,
         return ret;
     } else if (dist_type == "gaussian") {
         ret = apply_f(action_array, [length](double x) {return exp(-2 * x / length);});
-        // for (uint i = 0; i < action_array.size(); i++)
-        //     ret[i] = exp(-2. * action_array[i] / length);
     } else {
         cerr << "[distribution_density_function] The dist_type was not recognized\n";
         exit(-1);
@@ -1169,6 +1061,16 @@ f_vector_t distribution_density_function(const f_vector_t &action_array,
 
     return ret;
 
+}
+
+f_vector_2d_t distribution_density_function(const f_vector_2d_t &action_array,
+        const string &dist_type, const double length, double exponent)
+{
+    f_vector_2d_t ret;
+    for (const auto &row : action_array)
+        ret.push_back(distribution_density_function(row, dist_type,
+                      length, exponent));
+    return ret;
 }
 
 

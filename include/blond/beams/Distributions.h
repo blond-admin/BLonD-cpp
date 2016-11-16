@@ -108,7 +108,11 @@ void longitudinal_bigaussian(GeneralParameters *GP, RfParameters *RfP,
 
 
 f_vector_t distribution_density_function(const f_vector_t &action_array,
-        const std::string &dist_type, double length, double exponent = 0.);
+        const std::string &dist_type, const double length, double exponent = 0.);
+
+
+f_vector_2d_t distribution_density_function(const f_vector_2d_t &action_array,
+        const std::string &dist_type, const double length, double exponent = 0.0);
 
 f_vector_t line_density_function(const f_vector_t &coord_array,
                                  const std::string &dist_type,

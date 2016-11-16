@@ -302,7 +302,7 @@ template&lt;typename T , typename F &gt; </div>
 
 <p>Definition at line <a class="el" href="../../da/d30/vector__math_8h_source.html#l00025">25</a> of file <a class="el" href="../../da/d30/vector__math_8h_source.html">vector_math.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l01124">distribution_density_function()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00517">matched_from_distribution_density()</a>, <a class="el" href="../../da/d30/vector__math_8h_source.html#l00114">operator*()</a>, <a class="el" href="../../da/d30/vector__math_8h_source.html#l00083">operator+()</a>, <a class="el" href="../../da/d30/vector__math_8h_source.html#l00099">operator-()</a>, <a class="el" href="../../da/d30/vector__math_8h_source.html#l00130">operator/()</a>, and <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00264">Slices::rms()</a>.</p>
+<p>Referenced by <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l01018">distribution_density_function()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00522">matched_from_distribution_density()</a>, <a class="el" href="../../da/d30/vector__math_8h_source.html#l00114">operator*()</a>, <a class="el" href="../../da/d30/vector__math_8h_source.html#l00083">operator+()</a>, <a class="el" href="../../da/d30/vector__math_8h_source.html#l00099">operator-()</a>, <a class="el" href="../../da/d30/vector__math_8h_source.html#l00130">operator/()</a>, and <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00264">Slices::rms()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;{</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="comment">// const size_t size = a.size();</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="comment">// std::vector&lt;T&gt; result(size);</span></div>
@@ -319,7 +319,7 @@ template&lt;typename T , typename F &gt; </div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../da/d30/vector__math_8h_afb2484611b26c333e3a00f3dac1e5f99_icgraph.svg" width="483" height="374"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../da/d30/vector__math_8h_afb2484611b26c333e3a00f3dac1e5f99_icgraph.svg" width="483" height="383"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </p>
@@ -1683,7 +1683,7 @@ template&lt;typename T &gt; </div>
 
 <p>Definition at line <a class="el" href="../../da/d30/vector__math_8h_source.html#l00298">298</a> of file <a class="el" href="../../da/d30/vector__math_8h_source.html">vector_math.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00517">matched_from_distribution_density()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00020">matched_from_line_density()</a>, and <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00078">Slices::sort_particles()</a>.</p>
+<p>Referenced by <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00522">matched_from_distribution_density()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00020">matched_from_line_density()</a>, and <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00078">Slices::sort_particles()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;{</div>
 <div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    assert(a.size() == b.size());</div>
 <div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    std::vector&lt;bool&gt; result(a.size());</div>
@@ -2183,8 +2183,6 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Definition at line <a class="el" href="../../da/d30/vector__math_8h_source.html#l00227">227</a> of file <a class="el" href="../../da/d30/vector__math_8h_source.html">vector_math.h</a>.</p>
-
-<p>Referenced by <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00020">matched_from_line_density()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;{</div>
 <div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    assert(std::abs(i) &lt; a.size());</div>
 <div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    <span class="keywordflow">if</span> (i &gt;= 0)</div>
@@ -2193,16 +2191,6 @@ template&lt;typename T &gt; </div>
 <div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;        <span class="keywordflow">return</span> a.rbegin()[-i - 1];</div>
 <div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;}</div>
 </div><!-- fragment -->
-<p><div id="dynsection-25" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-25-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-25-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-25-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../da/d30/vector__math_8h_a2d53778064794191ed7bd67955ecf841_icgraph.svg" width="288" height="40"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="ac9f04c1cd6c87ff360f8dc0c39cd3f30"></a>
@@ -2362,7 +2350,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_6b634e43e772001122993837e1d7e1c5.html">include</a></li><li class="navelem"><a class="el" href="../../dir_4a4b9f9a898a71f152a99978051a04a6.html">blond</a></li><li class="navelem"><a class="el" href="../../da/d30/vector__math_8h.html">vector_math.h</a></li>
-    <li class="footer">Generated on Wed Nov 16 2016 16:52:56 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Wed Nov 16 2016 17:32:40 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

@@ -1,5 +1,7 @@
 var NAVTREEINDEX5 =
 {
+"functions_vars_0x68.html":[1,3,2,8],
+"functions_vars_0x69.html":[1,3,2,9],
 "functions_vars_0x6b.html":[1,3,2,10],
 "functions_vars_0x6c.html":[1,3,2,11],
 "functions_vars_0x6d.html":[1,3,2,12],
@@ -21,8 +23,8 @@ var NAVTREEINDEX5 =
 "globals_vars.html":[2,1,2],
 "hierarchy.html":[1,2],
 "index.html":[],
-"namespacemembers.html":[0,1,0,0],
 "namespacemembers.html":[0,1,0],
+"namespacemembers.html":[0,1,0,0],
 "namespacemembers_0x63.html":[0,1,0,1],
 "namespacemembers_0x64.html":[0,1,0,2],
 "namespacemembers_0x65.html":[0,1,0,3],

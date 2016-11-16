@@ -1,5 +1,7 @@
 var NAVTREEINDEX4 =
 {
+"de/d4a/namespacepython.html":[1,0,4],
+"de/d50/classoption_1_1PrintUsageImplementation_1_1LineWrapper.html":[1,0,3,4,3],
 "de/d50/classoption_1_1PrintUsageImplementation_1_1LineWrapper.html#a246494d38e76d7f65a70f1d0867dc42f":[1,0,3,4,3,8],
 "de/d50/classoption_1_1PrintUsageImplementation_1_1LineWrapper.html#a288f16b6e928e9f54f48e13ff6817e95":[1,0,3,4,3,0],
 "de/d50/classoption_1_1PrintUsageImplementation_1_1LineWrapper.html#a2e0ef4f940413addf063ad7e429c6556":[1,0,3,4,3,3],
@@ -186,8 +188,8 @@ var NAVTREEINDEX4 =
 "df/de1/vdtcore__common_8h.html#afac5394acdf8e6047db199b251b86e98":[2,0,51,5],
 "df/de1/vdtcore__common_8h_source.html":[2,0,51],
 "files.html":[2,0],
-"functions.html":[1,3,0],
 "functions.html":[1,3,0,0],
+"functions.html":[1,3,0],
 "functions_0x61.html":[1,3,0,1],
 "functions_0x62.html":[1,3,0,2],
 "functions_0x63.html":[1,3,0,3],
@@ -239,15 +241,13 @@ var NAVTREEINDEX4 =
 "functions_func_0x7e.html":[1,3,1,21],
 "functions_rela.html":[1,3,6],
 "functions_type.html":[1,3,3],
-"functions_vars.html":[1,3,2],
 "functions_vars.html":[1,3,2,0],
+"functions_vars.html":[1,3,2],
 "functions_vars_0x61.html":[1,3,2,1],
 "functions_vars_0x62.html":[1,3,2,2],
 "functions_vars_0x63.html":[1,3,2,3],
 "functions_vars_0x64.html":[1,3,2,4],
 "functions_vars_0x65.html":[1,3,2,5],
 "functions_vars_0x66.html":[1,3,2,6],
-"functions_vars_0x67.html":[1,3,2,7],
-"functions_vars_0x68.html":[1,3,2,8],
-"functions_vars_0x69.html":[1,3,2,9]
+"functions_vars_0x67.html":[1,3,2,7]
 };

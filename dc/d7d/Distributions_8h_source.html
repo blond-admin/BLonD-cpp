@@ -222,27 +222,31 @@ $(document).ready(function(){initNavTree('dc/d7d/Distributions_8h_source.html','
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> <a class="code" href="../../db/de1/Distributions_8cpp.html#a71ac4b7e67dc4e456b3cdeb2dc28c1a5">distribution_density_function</a>(<span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;action_array,</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keyword">const</span> std::string &amp;dist_type, <span class="keywordtype">double</span> length, <span class="keywordtype">double</span> exponent = 0.);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keyword">const</span> std::string &amp;dist_type, <span class="keyword">const</span> <span class="keywordtype">double</span> length, <span class="keywordtype">double</span> exponent = 0.);</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> <a class="code" href="../../db/de1/Distributions_8cpp.html#a6d6073d940268d94172e059b9b48f99c">line_density_function</a>(<span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;coord_array,</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                                 <span class="keyword">const</span> std::string &amp;dist_type,</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                                 <span class="keyword">const</span> <span class="keywordtype">double</span> bunch_length,</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                                 <span class="keyword">const</span> <span class="keywordtype">double</span> bunch_position = 0.,</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                                 <span class="keywordtype">double</span> exponent = 0.);</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../db/de1/Distributions_8cpp.html#a2bb3b5294fedc5f82a515348a586d417">plot_generated_bunch</a>(<a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;time_line_den, <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;line_density,</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                          <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;time_coord_for_grid,</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                          <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;rec_line_den,</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                          std::string plot, std::string figdir);</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* BEAMS_DISTRIBUTIONS_H_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<a class="code" href="../../d2/d2c/configuration_8h.html#a578604c41b2b32700ab03fc63ec857eb">f_vector_2d_t</a> <a class="code" href="../../db/de1/Distributions_8cpp.html#a71ac4b7e67dc4e456b3cdeb2dc28c1a5">distribution_density_function</a>(<span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a578604c41b2b32700ab03fc63ec857eb">f_vector_2d_t</a> &amp;action_array,</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <span class="keyword">const</span> std::string &amp;dist_type, <span class="keyword">const</span> <span class="keywordtype">double</span> length, <span class="keywordtype">double</span> exponent = 0.0);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> <a class="code" href="../../db/de1/Distributions_8cpp.html#a6d6073d940268d94172e059b9b48f99c">line_density_function</a>(<span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;coord_array,</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                                 <span class="keyword">const</span> std::string &amp;dist_type,</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                                 <span class="keyword">const</span> <span class="keywordtype">double</span> bunch_length,</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                                 <span class="keyword">const</span> <span class="keywordtype">double</span> bunch_position = 0.,</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                                 <span class="keywordtype">double</span> exponent = 0.);</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../db/de1/Distributions_8cpp.html#a2bb3b5294fedc5f82a515348a586d417">plot_generated_bunch</a>(<a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;time_line_den, <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;line_density,</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                          <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;time_coord_for_grid,</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                          <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;rec_line_den,</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                          std::string plot, std::string figdir);</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* BEAMS_DISTRIBUTIONS_H_ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_6b634e43e772001122993837e1d7e1c5.html">include</a></li><li class="navelem"><a class="el" href="../../dir_4a4b9f9a898a71f152a99978051a04a6.html">blond</a></li><li class="navelem"><a class="el" href="../../dir_0f46bbf322b1c503e543e0bfd6f16d56.html">beams</a></li><li class="navelem"><a class="el" href="../../dc/d7d/Distributions_8h.html">Distributions.h</a></li>
-    <li class="footer">Generated on Wed Nov 16 2016 16:52:56 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Wed Nov 16 2016 17:32:40 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

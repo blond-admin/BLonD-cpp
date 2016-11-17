@@ -49,18 +49,14 @@ matched_from_line_density(Beams *beam,
     f_vector_t extra_potential;
     int n_points_line_den = 0;
     f_vector_t line_density, time_line_den;
-    // NOTE what happens when extraVoltageDict is not empty??
     double line_den_resolution = 0.;
 
     if (!extraVoltageDict.empty()) {
         auto &extra_voltage_time_input = extraVoltageDict["time_array"];
         auto &extra_voltage_input = extraVoltageDict["voltage_array"];
-        auto extra_potential_input = cum_trapezoid(
-                                         extra_voltage_input.data(),
-                                         extra_voltage_input[1]
-                                         - extra_voltage_input[0],
-                                         extra_voltage_input.size()
-                                     );
+        auto extra_potential_input = cum_trapezoid(extra_voltage_input,
+                                         extra_voltage_time_input[1]
+                                         - extra_voltage_time_input[0]);
         extra_potential_input.insert(extra_potential_input.begin(), 0);
         extra_potential_input *= -eom_factor_potential;
         extra_potential = interp(time_coord_array, extra_voltage_time_input,
@@ -742,12 +738,6 @@ matched_from_distribution_density(Beams *beam,
                         density_grid = distribution_density_function(J_grid,
                                        distribution_opt["type"].s,
                                        X0, distribution_opt["exponent"].d);
-
-                        // for (auto &row : J_grid)
-                        //     density_grid.push_back(
-                        //         distribution_density_function(
-                        //             row, distribution_opt["type"].s,
-                        //             X0, distribution_opt["exponent"].d));
                     }
                 } else { // density_variable == "density_from_H"
                     if (distribution_opt["type"].s == "user_input") {
@@ -760,12 +750,6 @@ matched_from_distribution_density(Beams *beam,
                         density_grid = distribution_density_function(H_grid,
                                        distribution_opt["type"].s,
                                        X0, distribution_opt["exponent"].d);
-
-                        // for (auto &row : H_grid)
-                        //     density_grid.push_back(
-                        //         distribution_density_function(
-                        //             row, distribution_opt["type"].s,
-                        //             X0, distribution_opt["exponent"].d));
                     }
                 }
 
@@ -885,12 +869,6 @@ matched_from_distribution_density(Beams *beam,
                 density_grid = distribution_density_function(J_grid,
                                distribution_opt["type"].s,
                                X0, distribution_opt["exponent"].d);
-
-                // for (auto &row : J_grid)
-                //     density_grid.push_back(
-                //         distribution_density_function(
-                //             row, distribution_opt["type"].s,
-                //             X0, distribution_opt["exponent"].d));
             } else { // density_variable == "density_from_H"
                 if (distribution_opt.find("emittance") != distribution_opt.end()) {
                     auto emittance = distribution_opt["emittance"].d / (2 * constant::pi);
@@ -900,11 +878,6 @@ matched_from_distribution_density(Beams *beam,
                 density_grid = distribution_density_function(H_grid,
                                distribution_opt["type"].s,
                                X0, distribution_opt["exponent"].d);
-                // for (auto &row : H_grid)
-                //     density_grid.push_back(
-                //         distribution_density_function(
-                //             row, distribution_opt["type"].s,
-                //             X0, distribution_opt["exponent"].d));
             }
         } else {
             density_grid.clear();

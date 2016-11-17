@@ -11,6 +11,8 @@
 #include <blond/python.h>
 #include <blond/vector_math.h>
 
+using namespace std;
+
 Slices::Slices(RfParameters *RfP, Beams *Beam, int n_slices,
                int n_sigma, double cut_left, double cut_right,
                cuts_unit_t cuts_unit, fit_t fit_option,
@@ -289,10 +291,13 @@ void Slices::fwhm(const double shift)
     * Computation of the bunch length and position from the FWHM
     assuming Gaussian line density.*
     */
-    int max = *std::max_element(ALL(n_macroparticles));
+    double max = *max_element(ALL(n_macroparticles));
     double half_max = shift + 0.5 * (max - shift);
     double timeResolution = bin_centers[1] - bin_centers[0];
 
+    // cout << "max: " << max << "\n";
+    // cout << "half_max: " << half_max << "\n";
+    // cout << "timeResolution: " << timeResolution << "\n";
     // First aproximation for the half maximum values
     int taux1, taux2;
 
@@ -306,7 +311,8 @@ void Slices::fwhm(const double shift)
     while (i >= 0 && n_macroparticles[i] < half_max) i--;
     taux2 = i;
 
-    // dprintf("taux1, taux2 = %d, %d\n", taux1, taux2);
+    // cout << "taux1: " << taux1 << "\n";
+    // cout << "taux2: " << taux2 << "\n";
     double t1, t2;
 
     if (taux1 < n_slices && taux2 < n_slices - 1 && taux2 >= 0) {

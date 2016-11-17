@@ -598,6 +598,76 @@ TEST_F(testDistributions, matched_from_line_density4)
 }
 
 
+TEST_F(testDistributions, matched_from_line_density5)
+{
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+    auto Slice = new Slices(RfP, Beam, N_slices);
+    auto epsilon = 1e-8;
+    auto params = string(TEST_FILES "/Distributions/line_density5/");
+
+    f_vector_t v;
+
+    auto long_tracker = new RingAndRfSection(RfP);
+    auto fullRing = new FullRingAndRf({long_tracker});
+
+    map<string, string> line_density_opt;
+    line_density_opt["type"] = "binomial";
+    line_density_opt["bunch_length"] = "150e-9";
+    line_density_opt["density_variable"] = "density_from_H";
+    line_density_opt["exponent"] = "0.7";
+
+    map<string, f_vector_t> extra_volt_dict;
+    auto time_array = linspace(0.0, 1e-3, 10000);
+    auto voltage_array = apply_f(time_array, [this](double x) {return sin(x) * V / 10.;});
+
+    extra_volt_dict["time_array"] = time_array;
+    extra_volt_dict["voltage_array"] = voltage_array;
+
+    auto ret = matched_from_line_density(Beam, fullRing, line_density_opt,
+                                         FullRingAndRf::lowest_freq, nullptr,
+                                         "", "", "first", extra_volt_dict);
+
+    util::read_vector_from_file(v, params + "hamiltonian_coord.txt");
+    ASSERT_NEAR_LOOP(v, ret.hamiltonian_coord, "hamiltonian_coord", epsilon);
+
+    util::read_vector_from_file(v, params + "density_function.txt");
+    ASSERT_NEAR_LOOP(v, ret.density_function, "density_function", epsilon);
+
+    util::read_vector_from_file(v, params + "time_line_den.txt");
+    ASSERT_NEAR_LOOP(v, ret.time_line_den, "time_line_den", epsilon);
+
+    util::read_vector_from_file(v, params + "line_density.txt");
+    ASSERT_NEAR_LOOP(v, ret.line_density, "line_density", epsilon);
+
+    delete Slice;
+    delete long_tracker;
+    delete fullRing;
+}
+
+TEST_F(testDistributions, matched_from_line_density_deathtest1)
+{
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+    auto Slice = new Slices(RfP, Beam, N_slices);
+    auto epsilon = 1e-8;
+
+    auto long_tracker = new RingAndRfSection(RfP);
+    auto fullRing = new FullRingAndRf({long_tracker});
+
+    map<string, string> line_density_opt;
+
+
+    ASSERT_DEATH(matched_from_line_density(Beam, fullRing, line_density_opt),
+                 "\\w* was not recognized\n");
+
+
+    delete Slice;
+    delete long_tracker;
+    delete fullRing;
+}
+
+
 TEST_F(testDistributions, matched_from_distribution_density1)
 {
     auto RfP = Context::RfP;
@@ -887,8 +957,7 @@ TEST_F(testDistributions, matched_from_distribution_density5)
     delete fullRing;
 }
 
-// FIXME there is an issue in this testcase
-TEST_F(testDistributions, DISABLED_matched_from_distribution_density6)
+TEST_F(testDistributions, matched_from_distribution_density6)
 {
     auto RfP = Context::RfP;
     auto Beam = Context::Beam;
@@ -911,11 +980,6 @@ TEST_F(testDistributions, DISABLED_matched_from_distribution_density6)
                    Beam, fullRing, distribution_opt,
                    FullRingAndRf::lowest_freq);
 
-    // cout << "line_density sum: " << sum(ret.line_density) << "\n";
-    // cout << "line_density std: " << standard_deviation(ret.line_density) << "\n";
-    // cout << "line_density max: " << *max_element(ALL(ret.line_density)) << "\n";
-    // cout << "line_density min: " << *min_element(ALL(ret.line_density)) << "\n";
-
     util::read_vector_from_file(v, params + "time_coord_low_res.txt");
     ASSERT_NEAR_LOOP(v, ret.time_coord_low_res, "time_coord_low_res", epsilon);
 
@@ -927,6 +991,30 @@ TEST_F(testDistributions, DISABLED_matched_from_distribution_density6)
     delete fullRing;
 }
 
+TEST_F(testDistributions, matched_from_distribution_density_deathtest1)
+{
+    auto RfP = Context::RfP;
+    auto Beam = Context::Beam;
+    auto Slice = new Slices(RfP, Beam, N_slices);
+    auto epsilon = 1e-8;
+
+    auto long_tracker = new RingAndRfSection(RfP);
+    auto fullRing = new FullRingAndRf({long_tracker});
+
+    map<string, multi_t> distribution_opt;
+    distribution_opt["type"] = {"gaussian"};
+    distribution_opt["bunch_length"] = {300e-9};
+    distribution_opt["density_variable"] = {""};
+    distribution_opt["exponent"] = {0.7};
+
+    ASSERT_DEATH(matched_from_distribution_density(Beam, fullRing, distribution_opt),
+                 "\\w* was not recognized\n");
+
+
+    delete Slice;
+    delete long_tracker;
+    delete fullRing;
+}
 
 
 class testBigaussian : public ::testing::Test {

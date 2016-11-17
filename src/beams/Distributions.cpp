@@ -327,7 +327,6 @@ matched_from_line_density(Beams *beam,
                     auto rit = integrand.rbegin();
                     rit[0] = rit[1];
                 } else {
-                    // NOTE can this case ever occur?
                     integrand = {0};
                 }
 
@@ -350,7 +349,6 @@ matched_from_line_density(Beams *beam,
                 } else if (integrand.size() > 1) {
                     integrand[0] = integrand[1];
                 } else {
-                    // NOTE can this case ever occur?
                     integrand = {0};
                 }
                 density_function[i] = - sqrt(eom_factor_dE) / constant::pi
@@ -536,18 +534,12 @@ matched_from_distribution_density(Beams *beam,
     double eom_factor_potential = sign(slippage_factor)
                                   * beam->charge
                                   / full_ring->fRingList[0]->t_rev[0];
-    // cout << distribution_opt["type"].s << "\n";
-    // cout << distribution_opt["exponent"].d << "\n";
-    // cout << distribution_opt["user_table"].v << "\n";
-    // cout << distribution_opt["function"].f({1, 2, 3}, "", 10, 0) << "\n";
-
     int n_points_potential = 10000;
 
     full_ring->potential_well_generation(0, n_points_potential,
                                          main_harmonic_opt, 0.4);
 
     auto potential_well_array = full_ring->fPotentialWell;
-    // cout << "potential_well_array: " << potential_well_array;
     auto time_coord_array = full_ring->fPotentialWellCoordinates;
     double time_resolution = time_coord_array[1] - time_coord_array[0];
 
@@ -564,8 +556,6 @@ matched_from_distribution_density(Beams *beam,
                                              extra_voltage_time_input[1]
                                              - extra_voltage_time_input[0]);
         extra_potential_input.insert(extra_potential_input.begin(), 0);
-
-        // extra_potential_input *= -eom_factor_potential;
         extra_potential = interp(time_coord_array, extra_voltage_time_input,
                                  extra_potential_input);
     }
@@ -575,11 +565,6 @@ matched_from_distribution_density(Beams *beam,
     int n_iterations = n_iterations_input;
     if (totVolt == nullptr)
         n_iterations = 1;
-
-    // NOTE
-    // so far so good
-    // cout << "total_potential: " << total_potential;
-    // cout << "time_coord_array: " << time_coord_array;
 
     for (int i = 0; i < n_iterations; i++) {
         auto old_potential = total_potential;
@@ -604,16 +589,8 @@ matched_from_distribution_density(Beams *beam,
         auto max_potential = *max_element(ALL(potential_well_sep));
         auto max_deltaE = sqrt(max_potential / eom_factor_dE);
 
-        // NOTE
-        // so far so good
-        // cout << "potential_well_sep: " << potential_well_sep;
-        // cout << "max_potential: " << max_potential << "\n";
-        // cout << "max_deltaE: " << max_deltaE <<"\n";
-
         auto H_array_dE0 = potential_well_sep;
-        // FIXME
         int n_points_grid = 1000;
-        // int n_points_grid = 10;
 
         auto potential_well_indexes = arange(0.0, 1.0 * n_points_potential);
         auto grid_indexes = arange(0.0, 1.0 * n_points_grid)
@@ -635,13 +612,6 @@ matched_from_distribution_density(Beams *beam,
 
         f_vector_t J_array_dE0(n_points_grid, 0.);
 
-        // NOTE so far so good
-        // cout << "potential_well_indexes: " << potential_well_indexes;
-        // cout << "grid_indexes: " << grid_indexes;
-        // cout << "time_coord_low_res: " << time_coord_low_res;
-        // cout << "deltaE_coord_array: " << deltaE_coord_array;
-        // cout << "potential_well_low_res: " << potential_well_low_res;
-
         for (int j = 0; j < n_points_grid; j++) {
             auto dE_trajectory = apply_f(H_array_dE0,
             [eom_factor_dE, &potential_well_low_res, j](double x) {
@@ -651,8 +621,6 @@ matched_from_distribution_density(Beams *beam,
             J_array_dE0[j] = (2.0 / (2.*constant::pi))
                              * trapezoid(dE_trajectory, time_resolution);
         }
-        // NOTE so far so good
-        // cout << "J_array_dE0: " << J_array_dE0;
 
         H_array_dE0 = potential_well_low_res;
         struct node {
@@ -681,19 +649,6 @@ matched_from_distribution_density(Beams *beam,
         for (auto &row : H_grid)
             J_grid.push_back(interp(row, H_array_dE0, J_array_dE0, 0.0,
                                     numeric_limits<double>::infinity()));
-
-        // almost ok, check H_array_dE0[1], J_array_dE0[1]
-        // almost ok, there is a difference in J_grid[0][4], J_grid[last][4]
-        // cout << "H_array_dE0: " << H_array_dE0;
-        // cout << "J_array_dE0: " << J_array_dE0;
-
-        // cout << "H_grid\n";
-        // for (auto &row : H_grid)
-        //     cout << row;
-
-        // cout << "J_grid\n";
-        // for (auto &row : J_grid)
-        //     cout << row;
 
         auto density_variable = distribution_opt["density_variable"].s;
         double X0 = 0.;
@@ -724,8 +679,6 @@ matched_from_distribution_density(Beams *beam,
             while (abs(distribution_opt["bunch_length"].d - tau) > bunch_length_accuracy) {
 
                 X0 = 0.5 * (X_low + X_hi);
-                // cout << "X0: " << X0 << "\n";
-                // f_vector_2d_t density_grid;
                 density_grid.clear();
                 if (density_variable == "density_from_J") {
                     if (distribution_opt["type"].s == "user_input") {
@@ -756,16 +709,9 @@ matched_from_distribution_density(Beams *beam,
                 double density_grid_sum = 0;
                 for (auto &row : density_grid) density_grid_sum += sum(row);
                 for (auto &row : density_grid) row /= density_grid_sum;
-                // cout << "density_grid_sum: " << density_grid_sum << "\n";
                 line_density.clear();
                 line_density.resize(density_grid[0].size(), 0);
                 for (auto &row : density_grid) line_density += row;
-                // cout << "line_density sum: " << sum(line_density) << "\n";
-                // cout << "line_density min: " << *min_element(ALL(line_density)) << "\n";
-                // cout << "line_density max: " << *max_element(ALL(line_density)) << "\n";
-                // cout << "line_density: " << line_density << "\n";
-                // test here
-                // very small differences due to H_grid, J_grid
                 bool flag = false;
                 FOR(line_density, it) flag = flag | (*it > 0);
 
@@ -777,7 +723,6 @@ matched_from_distribution_density(Beams *beam,
                                           - sum(line_density * time_coord_low_res)
                                           / sum(line_density), square) * line_density)
                               / sum(line_density));
-                    // tau = 7.85960204478e-07;
                     if (distribution_opt.find("bunch_length_fit") != distribution_opt.end()) {
 
                         auto slices = Slices(full_ring->fRingList[0]->rfp, beam,
@@ -791,21 +736,14 @@ matched_from_distribution_density(Beams *beam,
                                 slices.bin_centers.back()
                                 + (slices.bin_centers[1] - slices.bin_centers[0]) / 2,
                                 slices.bin_centers.size() + 1);
-                        // FIXME end_to_end is working, gauss has a small error
-                        // fwhm returns nan
-                        // the problem is not tau, it is either line_density or
-                        // time_coord_low_res
                         auto bunch_length_fit = distribution_opt["bunch_length_fit"].s;
                         if (bunch_length_fit == "gauss") {
                             slices.bl_gauss = tau;
                             slices.bp_gauss = sum(line_density * time_coord_low_res)
                                               / sum(line_density);
-                            // cout << "bl_gauss: " << slices.bl_gauss << "\n";
-                            // cout << "bp_gauss: " << slices.bp_gauss << "\n";
                             slices.gaussian_fit();
                             tau = slices.bl_gauss;
                         } else if (bunch_length_fit == "fwhm") {
-                            // FIXME fwhm not working (returns nan)
                             slices.fwhm();
                             tau = slices.bl_fwhm;
                         } else if (bunch_length_fit == "end_to_end") {
@@ -813,25 +751,16 @@ matched_from_distribution_density(Beams *beam,
                             int i = 0;
 
                             while (i < n_points_grid && slices.n_macroparticles[i] <= 0.) i++;
-                            // cout << "first index: " << i << "\n";
 
                             first = i < n_points_grid ? slices.bin_centers[i] : 0;
 
                             i = n_points_grid - 1;
                             while (i >= 0 && slices.n_macroparticles[i] <= 0.) i--;
-                            // cout << "last index: " << i << "\n";
-
                             last = i >= 0 ? slices.bin_centers[i] : 0;
-
                             tau = last - first;
-                            // cout.precision(12);
-                            // cout << "tau: " << tau << "\n";
 
                         }
-                        // test till here
-                        // cout << "tau: " << tau << "\n";
                     }
-                    // exit(0);
                 }
                 if (tau >= distribution_opt["bunch_length"].d) X_hi = X0;
                 else X_low = X0;
@@ -849,15 +778,7 @@ matched_from_distribution_density(Beams *beam,
                 if (X0 - X_min < X_accuracy)
                     cerr << "[distribution density] Warning: The desired bunch "
                          << "is too small to be generated accurately\n";
-
-                // exit(0);
             }
-            // if (density_variable == "density_from_J") J0 = X0;
-            // else H0 = X0;
-            // cout << "tau: " << tau << "\n";
-            // cout << "X0: " << X0 << "\n";
-            // tau and X0 are correct here
-
         }
 
         if (distribution_opt["type"].s != "user_input_table") {

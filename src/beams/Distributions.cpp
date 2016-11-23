@@ -55,8 +55,8 @@ matched_from_line_density(Beams *beam,
         auto &extra_voltage_time_input = extraVoltageDict["time_array"];
         auto &extra_voltage_input = extraVoltageDict["voltage_array"];
         auto extra_potential_input = cum_trapezoid(extra_voltage_input,
-                                         extra_voltage_time_input[1]
-                                         - extra_voltage_time_input[0]);
+                                     extra_voltage_time_input[1]
+                                     - extra_voltage_time_input[0]);
         extra_potential_input.insert(extra_potential_input.begin(), 0);
         extra_potential_input *= -eom_factor_potential;
         extra_potential = interp(time_coord_array, extra_voltage_time_input,
@@ -828,6 +828,9 @@ matched_from_distribution_density(Beams *beam,
         line_density.resize(density_grid[0].size(), 0);
         for (auto &row : density_grid) line_density += row;
         line_density /= (sum(line_density) / beam->n_macroparticles);
+
+        // plot_generated_bunch(time_coord_low_res, line_density,
+        //                      time_coord_low_res, line_density, "savefig", "fig");
 
         // continue here
         if (totVolt != nullptr) {

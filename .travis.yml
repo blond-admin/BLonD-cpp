@@ -59,10 +59,10 @@ after_success:
      doxygen Doxyfile ;
      export BUILD_PATH=$(pwd) ;
      cd "$TRAVIS_BUILD_DIR" ;
-     git clone --branch=gh-pages --recursive https://github.com/kiliakis/BLonD-minimal-cpp.git web ;
+     git clone --branch=gh-pages --recursive https://github.com/kiliakis/BLonD-cpp.git web ;
      cd web ;
      cp -rf $BUILD_PATH/documentation/html/* ./ ;
      git add -A ;
      git -c user.name='travis' -c user.email='travis' commit -am "documentation update" ;
-     git push -f -q https://kiliakis:$GITHUB_API_KEY@github.com/kiliakis/BLonD-minimal-cpp.git gh-pages ;
+     git push -f -q https://kiliakis:$GITHUB_API_KEY@github.com/kiliakis/BLonD-cpp.git gh-pages ;
    fi

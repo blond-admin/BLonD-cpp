@@ -169,8 +169,8 @@ $(document).ready(function(){initNavTree('db/de1/Distributions_8cpp_source.html'
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keyword">auto</span> &amp;extra_voltage_time_input = extraVoltageDict[<span class="stringliteral">&quot;time_array&quot;</span>];</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keyword">auto</span> &amp;extra_voltage_input = extraVoltageDict[<span class="stringliteral">&quot;voltage_array&quot;</span>];</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keyword">auto</span> extra_potential_input = <a class="code" href="../../df/d6d/namespacemymath.html#a37e69ec6da5a044211b293b350ed0df5">cum_trapezoid</a>(extra_voltage_input,</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                                         extra_voltage_time_input[1]</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                                         - extra_voltage_time_input[0]);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                                     extra_voltage_time_input[1]</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                                     - extra_voltage_time_input[0]);</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        extra_potential_input.insert(extra_potential_input.begin(), 0);</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        extra_potential_input *= -eom_factor_potential;</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        extra_potential = <a class="code" href="../../df/d6d/namespacemymath.html#a9be6643559654e4fd81774f43bd8cdc0">interp</a>(time_coord_array, extra_voltage_time_input,</div>
@@ -943,353 +943,356 @@ $(document).ready(function(){initNavTree('db/de1/Distributions_8cpp_source.html'
 <div class="line"><a name="l00829"></a><span class="lineno">  829</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;row : density_grid) line_density += row;</div>
 <div class="line"><a name="l00830"></a><span class="lineno">  830</span>&#160;        line_density /= (<a class="code" href="../../df/d6d/namespacemymath.html#a80532a0f537928e78a30ae10afeecb6c">sum</a>(line_density) / beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee">n_macroparticles</a>);</div>
 <div class="line"><a name="l00831"></a><span class="lineno">  831</span>&#160;</div>
-<div class="line"><a name="l00832"></a><span class="lineno">  832</span>&#160;        <span class="comment">// continue here</span></div>
-<div class="line"><a name="l00833"></a><span class="lineno">  833</span>&#160;        <span class="keywordflow">if</span> (totVolt != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l00832"></a><span class="lineno">  832</span>&#160;        <span class="comment">// plot_generated_bunch(time_coord_low_res, line_density,</span></div>
+<div class="line"><a name="l00833"></a><span class="lineno">  833</span>&#160;        <span class="comment">//                      time_coord_low_res, line_density, &quot;savefig&quot;, &quot;fig&quot;);</span></div>
 <div class="line"><a name="l00834"></a><span class="lineno">  834</span>&#160;</div>
-<div class="line"><a name="l00835"></a><span class="lineno">  835</span>&#160;</div>
-<div class="line"><a name="l00836"></a><span class="lineno">  836</span>&#160;            <span class="keyword">auto</span> slices = <a class="code" href="../../dc/d45/classSlices.html">Slices</a>(full_ring-&gt;<a class="code" href="../../d6/d13/classFullRingAndRf.html#a7a457ac8373b6256d9aaabb313a169a1">fRingList</a>[0]-&gt;rfp,</div>
-<div class="line"><a name="l00837"></a><span class="lineno">  837</span>&#160;                                 beam, n_points_grid);</div>
-<div class="line"><a name="l00838"></a><span class="lineno">  838</span>&#160;            slices.n_macroparticles = line_density;</div>
-<div class="line"><a name="l00839"></a><span class="lineno">  839</span>&#160;            slices.bin_centers = time_coord_low_res;</div>
-<div class="line"><a name="l00840"></a><span class="lineno">  840</span>&#160;            slices.edges = <a class="code" href="../../df/d6d/namespacemymath.html#ae6f0d1529ee101163ab6f5a40dd268f4">linspace</a>(slices.bin_centers[0]</div>
-<div class="line"><a name="l00841"></a><span class="lineno">  841</span>&#160;                                    - (slices.bin_centers[1] - slices.bin_centers[0]) / 2,</div>
-<div class="line"><a name="l00842"></a><span class="lineno">  842</span>&#160;                                    slices.bin_centers.back()</div>
-<div class="line"><a name="l00843"></a><span class="lineno">  843</span>&#160;                                    + (slices.bin_centers[1] - slices.bin_centers[0]) / 2,</div>
-<div class="line"><a name="l00844"></a><span class="lineno">  844</span>&#160;                                    slices.bin_centers.size() + 1);</div>
-<div class="line"><a name="l00845"></a><span class="lineno">  845</span>&#160;            <span class="comment">// slices.n_slices and slices.fit_option are already set</span></div>
-<div class="line"><a name="l00846"></a><span class="lineno">  846</span>&#160;</div>
-<div class="line"><a name="l00847"></a><span class="lineno">  847</span>&#160;            <span class="keyword">auto</span> old_slices = totVolt-&gt;<a class="code" href="../../dd/de2/classInducedVoltage.html#a3329197ef968eefdf5825a91a0158fed">fSlices</a>;</div>
-<div class="line"><a name="l00848"></a><span class="lineno">  848</span>&#160;</div>
-<div class="line"><a name="l00849"></a><span class="lineno">  849</span>&#160;            totVolt-&gt;<a class="code" href="../../d4/dd7/classTotalInducedVoltage.html#aa6a56e9472a574c98871114d05dfea3b">reprocess</a>(&amp;slices);</div>
-<div class="line"><a name="l00850"></a><span class="lineno">  850</span>&#160;</div>
-<div class="line"><a name="l00851"></a><span class="lineno">  851</span>&#160;            <span class="keywordtype">int</span> induced_voltage_length_sep = ceil((time_coord_array.back() - time_coord_low_res[0])</div>
-<div class="line"><a name="l00852"></a><span class="lineno">  852</span>&#160;                                                  / (time_coord_low_res[1] - time_coord_low_res[0]));</div>
-<div class="line"><a name="l00853"></a><span class="lineno">  853</span>&#160;            <span class="keyword">auto</span> induced_voltage = totVolt-&gt;<a class="code" href="../../d4/dd7/classTotalInducedVoltage.html#abc83c9281cb4106d169cdd78e697cf70">induced_voltage_sum</a>(beam,</div>
-<div class="line"><a name="l00854"></a><span class="lineno">  854</span>&#160;                                   induced_voltage_length_sep);</div>
-<div class="line"><a name="l00855"></a><span class="lineno">  855</span>&#160;            <span class="keyword">auto</span> time_induced_voltage = <a class="code" href="../../df/d6d/namespacemymath.html#ae6f0d1529ee101163ab6f5a40dd268f4">linspace</a>(time_coord_low_res[0],</div>
-<div class="line"><a name="l00856"></a><span class="lineno">  856</span>&#160;                                                 time_coord_low_res[0]</div>
-<div class="line"><a name="l00857"></a><span class="lineno">  857</span>&#160;                                                 + (induced_voltage_length_sep - 1)</div>
-<div class="line"><a name="l00858"></a><span class="lineno">  858</span>&#160;                                                 * (time_coord_low_res[1] - time_coord_low_res[0]),</div>
-<div class="line"><a name="l00859"></a><span class="lineno">  859</span>&#160;                                                 induced_voltage_length_sep);</div>
-<div class="line"><a name="l00860"></a><span class="lineno">  860</span>&#160;</div>
-<div class="line"><a name="l00861"></a><span class="lineno">  861</span>&#160;            <span class="keyword">auto</span> induced_potential_low_res = - eom_factor_potential</div>
-<div class="line"><a name="l00862"></a><span class="lineno">  862</span>&#160;                                             * <a class="code" href="../../df/d6d/namespacemymath.html#a37e69ec6da5a044211b293b350ed0df5">cum_trapezoid</a>(induced_voltage,</div>
-<div class="line"><a name="l00863"></a><span class="lineno">  863</span>&#160;                                                     time_induced_voltage[1]</div>
-<div class="line"><a name="l00864"></a><span class="lineno">  864</span>&#160;                                                     - time_induced_voltage[0]);</div>
-<div class="line"><a name="l00865"></a><span class="lineno">  865</span>&#160;</div>
-<div class="line"><a name="l00866"></a><span class="lineno">  866</span>&#160;            induced_potential_low_res.insert(induced_potential_low_res.begin(), 0);</div>
-<div class="line"><a name="l00867"></a><span class="lineno">  867</span>&#160;            <span class="keyword">auto</span> induced_potential = <a class="code" href="../../df/d6d/namespacemymath.html#a9be6643559654e4fd81774f43bd8cdc0">interp</a>(time_coord_array,</div>
-<div class="line"><a name="l00868"></a><span class="lineno">  868</span>&#160;                                            time_induced_voltage,</div>
-<div class="line"><a name="l00869"></a><span class="lineno">  869</span>&#160;                                            induced_potential_low_res);</div>
-<div class="line"><a name="l00870"></a><span class="lineno">  870</span>&#160;            totVolt-&gt;<a class="code" href="../../d4/dd7/classTotalInducedVoltage.html#aa6a56e9472a574c98871114d05dfea3b">reprocess</a>(old_slices);</div>
-<div class="line"><a name="l00871"></a><span class="lineno">  871</span>&#160;</div>
-<div class="line"><a name="l00872"></a><span class="lineno">  872</span>&#160;        }</div>
-<div class="line"><a name="l00873"></a><span class="lineno">  873</span>&#160;</div>
-<div class="line"><a name="l00874"></a><span class="lineno">  874</span>&#160;    }</div>
-<div class="line"><a name="l00875"></a><span class="lineno">  875</span>&#160;</div>
-<div class="line"><a name="l00876"></a><span class="lineno">  876</span>&#160;    <span class="comment">//populating the bunch</span></div>
-<div class="line"><a name="l00877"></a><span class="lineno">  877</span>&#160;</div>
-<div class="line"><a name="l00878"></a><span class="lineno">  878</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> density_grid_flat = <a class="code" href="../../df/d6d/namespacemymath.html#a46c2185537cdd77f6c5596907ffea994">flatten</a>(density_grid);</div>
-<div class="line"><a name="l00879"></a><span class="lineno">  879</span>&#160;</div>
-<div class="line"><a name="l00880"></a><span class="lineno">  880</span>&#160;    <span class="keyword">auto</span> indexes = <a class="code" href="../../df/d6d/namespacemymath.html#ada0a7d5b58b157b862416d7aa854b375">random_choice</a>(<a class="code" href="../../df/d6d/namespacemymath.html#a604bb4037dc4262bc4a8af03cfbb0bfe">arange</a>(0, (<span class="keywordtype">int</span>)density_grid_flat.size()),</div>
-<div class="line"><a name="l00881"></a><span class="lineno">  881</span>&#160;                                 beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee">n_macroparticles</a>,</div>
-<div class="line"><a name="l00882"></a><span class="lineno">  882</span>&#160;                                 density_grid_flat);</div>
-<div class="line"><a name="l00883"></a><span class="lineno">  883</span>&#160;</div>
-<div class="line"><a name="l00884"></a><span class="lineno">  884</span>&#160;</div>
-<div class="line"><a name="l00885"></a><span class="lineno">  885</span>&#160;</div>
-<div class="line"><a name="l00886"></a><span class="lineno">  886</span>&#160;    <span class="keyword">auto</span> time_grid_flat = <a class="code" href="../../df/d6d/namespacemymath.html#a46c2185537cdd77f6c5596907ffea994">flatten</a>(time_grid);</div>
-<div class="line"><a name="l00887"></a><span class="lineno">  887</span>&#160;    <span class="keyword">auto</span> deltaE_grid_flat = <a class="code" href="../../df/d6d/namespacemymath.html#a46c2185537cdd77f6c5596907ffea994">flatten</a>(deltaE_grid);</div>
+<div class="line"><a name="l00835"></a><span class="lineno">  835</span>&#160;        <span class="comment">// continue here</span></div>
+<div class="line"><a name="l00836"></a><span class="lineno">  836</span>&#160;        <span class="keywordflow">if</span> (totVolt != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l00837"></a><span class="lineno">  837</span>&#160;</div>
+<div class="line"><a name="l00838"></a><span class="lineno">  838</span>&#160;</div>
+<div class="line"><a name="l00839"></a><span class="lineno">  839</span>&#160;            <span class="keyword">auto</span> slices = <a class="code" href="../../dc/d45/classSlices.html">Slices</a>(full_ring-&gt;<a class="code" href="../../d6/d13/classFullRingAndRf.html#a7a457ac8373b6256d9aaabb313a169a1">fRingList</a>[0]-&gt;rfp,</div>
+<div class="line"><a name="l00840"></a><span class="lineno">  840</span>&#160;                                 beam, n_points_grid);</div>
+<div class="line"><a name="l00841"></a><span class="lineno">  841</span>&#160;            slices.n_macroparticles = line_density;</div>
+<div class="line"><a name="l00842"></a><span class="lineno">  842</span>&#160;            slices.bin_centers = time_coord_low_res;</div>
+<div class="line"><a name="l00843"></a><span class="lineno">  843</span>&#160;            slices.edges = <a class="code" href="../../df/d6d/namespacemymath.html#ae6f0d1529ee101163ab6f5a40dd268f4">linspace</a>(slices.bin_centers[0]</div>
+<div class="line"><a name="l00844"></a><span class="lineno">  844</span>&#160;                                    - (slices.bin_centers[1] - slices.bin_centers[0]) / 2,</div>
+<div class="line"><a name="l00845"></a><span class="lineno">  845</span>&#160;                                    slices.bin_centers.back()</div>
+<div class="line"><a name="l00846"></a><span class="lineno">  846</span>&#160;                                    + (slices.bin_centers[1] - slices.bin_centers[0]) / 2,</div>
+<div class="line"><a name="l00847"></a><span class="lineno">  847</span>&#160;                                    slices.bin_centers.size() + 1);</div>
+<div class="line"><a name="l00848"></a><span class="lineno">  848</span>&#160;            <span class="comment">// slices.n_slices and slices.fit_option are already set</span></div>
+<div class="line"><a name="l00849"></a><span class="lineno">  849</span>&#160;</div>
+<div class="line"><a name="l00850"></a><span class="lineno">  850</span>&#160;            <span class="keyword">auto</span> old_slices = totVolt-&gt;<a class="code" href="../../dd/de2/classInducedVoltage.html#a3329197ef968eefdf5825a91a0158fed">fSlices</a>;</div>
+<div class="line"><a name="l00851"></a><span class="lineno">  851</span>&#160;</div>
+<div class="line"><a name="l00852"></a><span class="lineno">  852</span>&#160;            totVolt-&gt;<a class="code" href="../../d4/dd7/classTotalInducedVoltage.html#aa6a56e9472a574c98871114d05dfea3b">reprocess</a>(&amp;slices);</div>
+<div class="line"><a name="l00853"></a><span class="lineno">  853</span>&#160;</div>
+<div class="line"><a name="l00854"></a><span class="lineno">  854</span>&#160;            <span class="keywordtype">int</span> induced_voltage_length_sep = ceil((time_coord_array.back() - time_coord_low_res[0])</div>
+<div class="line"><a name="l00855"></a><span class="lineno">  855</span>&#160;                                                  / (time_coord_low_res[1] - time_coord_low_res[0]));</div>
+<div class="line"><a name="l00856"></a><span class="lineno">  856</span>&#160;            <span class="keyword">auto</span> induced_voltage = totVolt-&gt;<a class="code" href="../../d4/dd7/classTotalInducedVoltage.html#abc83c9281cb4106d169cdd78e697cf70">induced_voltage_sum</a>(beam,</div>
+<div class="line"><a name="l00857"></a><span class="lineno">  857</span>&#160;                                   induced_voltage_length_sep);</div>
+<div class="line"><a name="l00858"></a><span class="lineno">  858</span>&#160;            <span class="keyword">auto</span> time_induced_voltage = <a class="code" href="../../df/d6d/namespacemymath.html#ae6f0d1529ee101163ab6f5a40dd268f4">linspace</a>(time_coord_low_res[0],</div>
+<div class="line"><a name="l00859"></a><span class="lineno">  859</span>&#160;                                                 time_coord_low_res[0]</div>
+<div class="line"><a name="l00860"></a><span class="lineno">  860</span>&#160;                                                 + (induced_voltage_length_sep - 1)</div>
+<div class="line"><a name="l00861"></a><span class="lineno">  861</span>&#160;                                                 * (time_coord_low_res[1] - time_coord_low_res[0]),</div>
+<div class="line"><a name="l00862"></a><span class="lineno">  862</span>&#160;                                                 induced_voltage_length_sep);</div>
+<div class="line"><a name="l00863"></a><span class="lineno">  863</span>&#160;</div>
+<div class="line"><a name="l00864"></a><span class="lineno">  864</span>&#160;            <span class="keyword">auto</span> induced_potential_low_res = - eom_factor_potential</div>
+<div class="line"><a name="l00865"></a><span class="lineno">  865</span>&#160;                                             * <a class="code" href="../../df/d6d/namespacemymath.html#a37e69ec6da5a044211b293b350ed0df5">cum_trapezoid</a>(induced_voltage,</div>
+<div class="line"><a name="l00866"></a><span class="lineno">  866</span>&#160;                                                     time_induced_voltage[1]</div>
+<div class="line"><a name="l00867"></a><span class="lineno">  867</span>&#160;                                                     - time_induced_voltage[0]);</div>
+<div class="line"><a name="l00868"></a><span class="lineno">  868</span>&#160;</div>
+<div class="line"><a name="l00869"></a><span class="lineno">  869</span>&#160;            induced_potential_low_res.insert(induced_potential_low_res.begin(), 0);</div>
+<div class="line"><a name="l00870"></a><span class="lineno">  870</span>&#160;            <span class="keyword">auto</span> induced_potential = <a class="code" href="../../df/d6d/namespacemymath.html#a9be6643559654e4fd81774f43bd8cdc0">interp</a>(time_coord_array,</div>
+<div class="line"><a name="l00871"></a><span class="lineno">  871</span>&#160;                                            time_induced_voltage,</div>
+<div class="line"><a name="l00872"></a><span class="lineno">  872</span>&#160;                                            induced_potential_low_res);</div>
+<div class="line"><a name="l00873"></a><span class="lineno">  873</span>&#160;            totVolt-&gt;<a class="code" href="../../d4/dd7/classTotalInducedVoltage.html#aa6a56e9472a574c98871114d05dfea3b">reprocess</a>(old_slices);</div>
+<div class="line"><a name="l00874"></a><span class="lineno">  874</span>&#160;</div>
+<div class="line"><a name="l00875"></a><span class="lineno">  875</span>&#160;        }</div>
+<div class="line"><a name="l00876"></a><span class="lineno">  876</span>&#160;</div>
+<div class="line"><a name="l00877"></a><span class="lineno">  877</span>&#160;    }</div>
+<div class="line"><a name="l00878"></a><span class="lineno">  878</span>&#160;</div>
+<div class="line"><a name="l00879"></a><span class="lineno">  879</span>&#160;    <span class="comment">//populating the bunch</span></div>
+<div class="line"><a name="l00880"></a><span class="lineno">  880</span>&#160;</div>
+<div class="line"><a name="l00881"></a><span class="lineno">  881</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> density_grid_flat = <a class="code" href="../../df/d6d/namespacemymath.html#a46c2185537cdd77f6c5596907ffea994">flatten</a>(density_grid);</div>
+<div class="line"><a name="l00882"></a><span class="lineno">  882</span>&#160;</div>
+<div class="line"><a name="l00883"></a><span class="lineno">  883</span>&#160;    <span class="keyword">auto</span> indexes = <a class="code" href="../../df/d6d/namespacemymath.html#ada0a7d5b58b157b862416d7aa854b375">random_choice</a>(<a class="code" href="../../df/d6d/namespacemymath.html#a604bb4037dc4262bc4a8af03cfbb0bfe">arange</a>(0, (<span class="keywordtype">int</span>)density_grid_flat.size()),</div>
+<div class="line"><a name="l00884"></a><span class="lineno">  884</span>&#160;                                 beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee">n_macroparticles</a>,</div>
+<div class="line"><a name="l00885"></a><span class="lineno">  885</span>&#160;                                 density_grid_flat);</div>
+<div class="line"><a name="l00886"></a><span class="lineno">  886</span>&#160;</div>
+<div class="line"><a name="l00887"></a><span class="lineno">  887</span>&#160;</div>
 <div class="line"><a name="l00888"></a><span class="lineno">  888</span>&#160;</div>
-<div class="line"><a name="l00889"></a><span class="lineno">  889</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">double</span> delta_time_coord = time_coord_low_res[1] - time_coord_low_res[0];</div>
-<div class="line"><a name="l00890"></a><span class="lineno">  890</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">double</span> delta_deltaE = deltaE_coord_array[1] - deltaE_coord_array[0];</div>
+<div class="line"><a name="l00889"></a><span class="lineno">  889</span>&#160;    <span class="keyword">auto</span> time_grid_flat = <a class="code" href="../../df/d6d/namespacemymath.html#a46c2185537cdd77f6c5596907ffea994">flatten</a>(time_grid);</div>
+<div class="line"><a name="l00890"></a><span class="lineno">  890</span>&#160;    <span class="keyword">auto</span> deltaE_grid_flat = <a class="code" href="../../df/d6d/namespacemymath.html#a46c2185537cdd77f6c5596907ffea994">flatten</a>(deltaE_grid);</div>
 <div class="line"><a name="l00891"></a><span class="lineno">  891</span>&#160;</div>
-<div class="line"><a name="l00892"></a><span class="lineno">  892</span>&#160;    default_random_engine gen(seed);</div>
-<div class="line"><a name="l00893"></a><span class="lineno">  893</span>&#160;    uniform_real_distribution&lt;double&gt; d(0.0, 1.0);</div>
+<div class="line"><a name="l00892"></a><span class="lineno">  892</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">double</span> delta_time_coord = time_coord_low_res[1] - time_coord_low_res[0];</div>
+<div class="line"><a name="l00893"></a><span class="lineno">  893</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">double</span> delta_deltaE = deltaE_coord_array[1] - deltaE_coord_array[0];</div>
 <div class="line"><a name="l00894"></a><span class="lineno">  894</span>&#160;</div>
-<div class="line"><a name="l00895"></a><span class="lineno">  895</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee">n_macroparticles</a>; i++) {</div>
-<div class="line"><a name="l00896"></a><span class="lineno">  896</span>&#160;        beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>[i] = time_grid_flat[indexes[i]] + (d(gen) - 0.5) * delta_time_coord;</div>
-<div class="line"><a name="l00897"></a><span class="lineno">  897</span>&#160;        beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>[i] = deltaE_grid_flat[indexes[i]] + (d(gen) - 0.5) * delta_deltaE;</div>
-<div class="line"><a name="l00898"></a><span class="lineno">  898</span>&#160;    }</div>
-<div class="line"><a name="l00899"></a><span class="lineno">  899</span>&#160;</div>
-<div class="line"><a name="l00900"></a><span class="lineno">  900</span>&#160;    <span class="comment">// cout &lt;&lt; &quot;beam dt mean: &quot; &lt;&lt; mean(beam-&gt;dt) &lt;&lt; &quot;\n&quot;;</span></div>
-<div class="line"><a name="l00901"></a><span class="lineno">  901</span>&#160;    <span class="comment">// cout &lt;&lt; &quot;beam dt std: &quot; &lt;&lt; standard_deviation(beam-&gt;dt) &lt;&lt; &quot;\n&quot;;</span></div>
+<div class="line"><a name="l00895"></a><span class="lineno">  895</span>&#160;    default_random_engine gen(seed);</div>
+<div class="line"><a name="l00896"></a><span class="lineno">  896</span>&#160;    uniform_real_distribution&lt;double&gt; d(0.0, 1.0);</div>
+<div class="line"><a name="l00897"></a><span class="lineno">  897</span>&#160;</div>
+<div class="line"><a name="l00898"></a><span class="lineno">  898</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee">n_macroparticles</a>; i++) {</div>
+<div class="line"><a name="l00899"></a><span class="lineno">  899</span>&#160;        beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>[i] = time_grid_flat[indexes[i]] + (d(gen) - 0.5) * delta_time_coord;</div>
+<div class="line"><a name="l00900"></a><span class="lineno">  900</span>&#160;        beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>[i] = deltaE_grid_flat[indexes[i]] + (d(gen) - 0.5) * delta_deltaE;</div>
+<div class="line"><a name="l00901"></a><span class="lineno">  901</span>&#160;    }</div>
 <div class="line"><a name="l00902"></a><span class="lineno">  902</span>&#160;</div>
-<div class="line"><a name="l00903"></a><span class="lineno">  903</span>&#160;    <span class="comment">// cout &lt;&lt; &quot;beam dE mean: &quot; &lt;&lt; mean(beam-&gt;dE) &lt;&lt; &quot;\n&quot;;</span></div>
-<div class="line"><a name="l00904"></a><span class="lineno">  904</span>&#160;    <span class="comment">// cout &lt;&lt; &quot;beam dE std: &quot; &lt;&lt; standard_deviation(beam-&gt;dE) &lt;&lt; &quot;\n&quot;;</span></div>
+<div class="line"><a name="l00903"></a><span class="lineno">  903</span>&#160;    <span class="comment">// cout &lt;&lt; &quot;beam dt mean: &quot; &lt;&lt; mean(beam-&gt;dt) &lt;&lt; &quot;\n&quot;;</span></div>
+<div class="line"><a name="l00904"></a><span class="lineno">  904</span>&#160;    <span class="comment">// cout &lt;&lt; &quot;beam dt std: &quot; &lt;&lt; standard_deviation(beam-&gt;dt) &lt;&lt; &quot;\n&quot;;</span></div>
 <div class="line"><a name="l00905"></a><span class="lineno">  905</span>&#160;</div>
-<div class="line"><a name="l00906"></a><span class="lineno">  906</span>&#160;</div>
-<div class="line"><a name="l00907"></a><span class="lineno">  907</span>&#160;    <span class="keywordflow">return</span> {time_coord_low_res, line_density};</div>
-<div class="line"><a name="l00908"></a><span class="lineno">  908</span>&#160;}</div>
+<div class="line"><a name="l00906"></a><span class="lineno">  906</span>&#160;    <span class="comment">// cout &lt;&lt; &quot;beam dE mean: &quot; &lt;&lt; mean(beam-&gt;dE) &lt;&lt; &quot;\n&quot;;</span></div>
+<div class="line"><a name="l00907"></a><span class="lineno">  907</span>&#160;    <span class="comment">// cout &lt;&lt; &quot;beam dE std: &quot; &lt;&lt; standard_deviation(beam-&gt;dE) &lt;&lt; &quot;\n&quot;;</span></div>
+<div class="line"><a name="l00908"></a><span class="lineno">  908</span>&#160;</div>
 <div class="line"><a name="l00909"></a><span class="lineno">  909</span>&#160;</div>
-<div class="line"><a name="l00910"></a><span class="lineno">  910</span>&#160;</div>
-<div class="line"><a name="l00911"></a><span class="lineno">  911</span>&#160;</div>
-<div class="line"><a name="l00912"></a><span class="lineno"><a class="code" href="../../dc/d7d/Distributions_8h.html#a987b1cd26960740a7b90dfd2b224e142">  912</a></span>&#160;<a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> <a class="code" href="../../db/de1/Distributions_8cpp.html#a71ac4b7e67dc4e456b3cdeb2dc28c1a5">distribution_density_function</a>(<span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;action_array,</div>
-<div class="line"><a name="l00913"></a><span class="lineno">  913</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;dist_type, <span class="keyword">const</span> <span class="keywordtype">double</span> length, <span class="keywordtype">double</span> exponent)</div>
-<div class="line"><a name="l00914"></a><span class="lineno">  914</span>&#160;{</div>
-<div class="line"><a name="l00915"></a><span class="lineno">  915</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> ret(action_array.size());</div>
-<div class="line"><a name="l00916"></a><span class="lineno">  916</span>&#160;    <span class="keywordflow">if</span> (dist_type == <span class="stringliteral">&quot;binomial&quot;</span>) {</div>
-<div class="line"><a name="l00917"></a><span class="lineno">  917</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; action_array.size(); i++) {</div>
-<div class="line"><a name="l00918"></a><span class="lineno">  918</span>&#160;            <span class="keywordflow">if</span> (action_array[i] &gt; length)</div>
-<div class="line"><a name="l00919"></a><span class="lineno">  919</span>&#160;                ret[i] = 0.;</div>
-<div class="line"><a name="l00920"></a><span class="lineno">  920</span>&#160;            <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00921"></a><span class="lineno">  921</span>&#160;                ret[i] = pow((1. - action_array[i] / length), exponent);</div>
-<div class="line"><a name="l00922"></a><span class="lineno">  922</span>&#160;        }</div>
-<div class="line"><a name="l00923"></a><span class="lineno">  923</span>&#160;        <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l00924"></a><span class="lineno">  924</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dist_type == <span class="stringliteral">&quot;waterbag&quot;</span>) {</div>
-<div class="line"><a name="l00925"></a><span class="lineno">  925</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; action_array.size(); i++) {</div>
-<div class="line"><a name="l00926"></a><span class="lineno">  926</span>&#160;            <span class="keywordflow">if</span> (action_array[i] &gt; length)</div>
-<div class="line"><a name="l00927"></a><span class="lineno">  927</span>&#160;                ret[i] = 0.;</div>
-<div class="line"><a name="l00928"></a><span class="lineno">  928</span>&#160;            <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00929"></a><span class="lineno">  929</span>&#160;                ret[i] = 1.;</div>
-<div class="line"><a name="l00930"></a><span class="lineno">  930</span>&#160;        }</div>
-<div class="line"><a name="l00931"></a><span class="lineno">  931</span>&#160;        <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l00932"></a><span class="lineno">  932</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dist_type == <span class="stringliteral">&quot;parabolic_amplitude&quot;</span>) {</div>
-<div class="line"><a name="l00933"></a><span class="lineno">  933</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; action_array.size(); i++) {</div>
-<div class="line"><a name="l00934"></a><span class="lineno">  934</span>&#160;            <span class="keywordflow">if</span> (action_array[i] &gt; length)</div>
-<div class="line"><a name="l00935"></a><span class="lineno">  935</span>&#160;                ret[i] = 0.;</div>
-<div class="line"><a name="l00936"></a><span class="lineno">  936</span>&#160;            <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00937"></a><span class="lineno">  937</span>&#160;                ret[i] = (1 - action_array[i] / length);</div>
-<div class="line"><a name="l00938"></a><span class="lineno">  938</span>&#160;        }</div>
-<div class="line"><a name="l00939"></a><span class="lineno">  939</span>&#160;        <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l00940"></a><span class="lineno">  940</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dist_type == <span class="stringliteral">&quot;parabolic_line&quot;</span>) {</div>
-<div class="line"><a name="l00941"></a><span class="lineno">  941</span>&#160;        exponent = 0.5;</div>
-<div class="line"><a name="l00942"></a><span class="lineno">  942</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; action_array.size(); i++) {</div>
-<div class="line"><a name="l00943"></a><span class="lineno">  943</span>&#160;            <span class="keywordflow">if</span> (action_array[i] &gt; length)</div>
-<div class="line"><a name="l00944"></a><span class="lineno">  944</span>&#160;                ret[i] = 0.;</div>
-<div class="line"><a name="l00945"></a><span class="lineno">  945</span>&#160;            <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00946"></a><span class="lineno">  946</span>&#160;                ret[i] = pow((1. - action_array[i] / length), exponent);</div>
-<div class="line"><a name="l00947"></a><span class="lineno">  947</span>&#160;        }</div>
-<div class="line"><a name="l00948"></a><span class="lineno">  948</span>&#160;        <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l00949"></a><span class="lineno">  949</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dist_type == <span class="stringliteral">&quot;gaussian&quot;</span>) {</div>
-<div class="line"><a name="l00950"></a><span class="lineno">  950</span>&#160;        ret = <a class="code" href="../../da/d30/vector__math_8h.html#afb2484611b26c333e3a00f3dac1e5f99">apply_f</a>(action_array, [length](<span class="keywordtype">double</span> x) {<span class="keywordflow">return</span> exp(-2 * x / length);});</div>
-<div class="line"><a name="l00951"></a><span class="lineno">  951</span>&#160;    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00952"></a><span class="lineno">  952</span>&#160;        cerr &lt;&lt; <span class="stringliteral">&quot;[distribution_density_function] The dist_type was not recognized\n&quot;</span>;</div>
-<div class="line"><a name="l00953"></a><span class="lineno">  953</span>&#160;        exit(-1);</div>
-<div class="line"><a name="l00954"></a><span class="lineno">  954</span>&#160;    }</div>
-<div class="line"><a name="l00955"></a><span class="lineno">  955</span>&#160;</div>
-<div class="line"><a name="l00956"></a><span class="lineno">  956</span>&#160;    <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l00957"></a><span class="lineno">  957</span>&#160;</div>
-<div class="line"><a name="l00958"></a><span class="lineno">  958</span>&#160;}</div>
-<div class="line"><a name="l00959"></a><span class="lineno">  959</span>&#160;</div>
-<div class="line"><a name="l00960"></a><span class="lineno"><a class="code" href="../../dc/d7d/Distributions_8h.html#abc3778914c6ebda0c64fa9b2f0422493">  960</a></span>&#160;<a class="code" href="../../d2/d2c/configuration_8h.html#a578604c41b2b32700ab03fc63ec857eb">f_vector_2d_t</a> <a class="code" href="../../db/de1/Distributions_8cpp.html#a71ac4b7e67dc4e456b3cdeb2dc28c1a5">distribution_density_function</a>(<span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a578604c41b2b32700ab03fc63ec857eb">f_vector_2d_t</a> &amp;action_array,</div>
-<div class="line"><a name="l00961"></a><span class="lineno">  961</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;dist_type, <span class="keyword">const</span> <span class="keywordtype">double</span> length, <span class="keywordtype">double</span> exponent)</div>
-<div class="line"><a name="l00962"></a><span class="lineno">  962</span>&#160;{</div>
-<div class="line"><a name="l00963"></a><span class="lineno">  963</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a578604c41b2b32700ab03fc63ec857eb">f_vector_2d_t</a> ret;</div>
-<div class="line"><a name="l00964"></a><span class="lineno">  964</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;row : action_array)</div>
-<div class="line"><a name="l00965"></a><span class="lineno">  965</span>&#160;        ret.push_back(<a class="code" href="../../db/de1/Distributions_8cpp.html#a71ac4b7e67dc4e456b3cdeb2dc28c1a5">distribution_density_function</a>(row, dist_type,</div>
-<div class="line"><a name="l00966"></a><span class="lineno">  966</span>&#160;                      length, exponent));</div>
-<div class="line"><a name="l00967"></a><span class="lineno">  967</span>&#160;    <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l00968"></a><span class="lineno">  968</span>&#160;}</div>
-<div class="line"><a name="l00969"></a><span class="lineno">  969</span>&#160;</div>
-<div class="line"><a name="l00970"></a><span class="lineno">  970</span>&#160;</div>
-<div class="line"><a name="l00971"></a><span class="lineno">  971</span>&#160;</div>
-<div class="line"><a name="l00972"></a><span class="lineno"><a class="code" href="../../dc/d7d/Distributions_8h.html#abb8f841472248a964414a29e7552730b">  972</a></span>&#160;<a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> <a class="code" href="../../db/de1/Distributions_8cpp.html#a6d6073d940268d94172e059b9b48f99c">line_density_function</a>(<span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;coord_array,</div>
-<div class="line"><a name="l00973"></a><span class="lineno">  973</span>&#160;                                 <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;dist_type,</div>
-<div class="line"><a name="l00974"></a><span class="lineno">  974</span>&#160;                                 <span class="keyword">const</span> <span class="keywordtype">double</span> bunch_length,</div>
-<div class="line"><a name="l00975"></a><span class="lineno">  975</span>&#160;                                 <span class="keyword">const</span> <span class="keywordtype">double</span> bunch_position,</div>
-<div class="line"><a name="l00976"></a><span class="lineno">  976</span>&#160;                                 <span class="keywordtype">double</span> exponent)</div>
-<div class="line"><a name="l00977"></a><span class="lineno">  977</span>&#160;{</div>
-<div class="line"><a name="l00978"></a><span class="lineno">  978</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> ret(coord_array.size());</div>
-<div class="line"><a name="l00979"></a><span class="lineno">  979</span>&#160;    <span class="keywordflow">if</span> (dist_type == <span class="stringliteral">&quot;binomial&quot;</span>) {</div>
-<div class="line"><a name="l00980"></a><span class="lineno">  980</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; coord_array.size(); i++) {</div>
-<div class="line"><a name="l00981"></a><span class="lineno">  981</span>&#160;            <span class="keywordflow">if</span> (abs(coord_array[i] - bunch_position) &gt; bunch_length / 2.)</div>
-<div class="line"><a name="l00982"></a><span class="lineno">  982</span>&#160;                ret[i] = 0.;</div>
-<div class="line"><a name="l00983"></a><span class="lineno">  983</span>&#160;            <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00984"></a><span class="lineno">  984</span>&#160;                ret[i] = pow(1 -</div>
-<div class="line"><a name="l00985"></a><span class="lineno">  985</span>&#160;                             pow((coord_array[i] - bunch_position)</div>
-<div class="line"><a name="l00986"></a><span class="lineno">  986</span>&#160;                                 / (bunch_length / 2.), 2.),</div>
-<div class="line"><a name="l00987"></a><span class="lineno">  987</span>&#160;                             exponent + 0.5);</div>
-<div class="line"><a name="l00988"></a><span class="lineno">  988</span>&#160;        }</div>
-<div class="line"><a name="l00989"></a><span class="lineno">  989</span>&#160;        <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l00990"></a><span class="lineno">  990</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dist_type == <span class="stringliteral">&quot;waterbag&quot;</span>) {</div>
-<div class="line"><a name="l00991"></a><span class="lineno">  991</span>&#160;        exponent = 0.;</div>
-<div class="line"><a name="l00992"></a><span class="lineno">  992</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; coord_array.size(); i++) {</div>
-<div class="line"><a name="l00993"></a><span class="lineno">  993</span>&#160;            <span class="keywordflow">if</span> (abs(coord_array[i] - bunch_position) &gt; bunch_length / 2.)</div>
-<div class="line"><a name="l00994"></a><span class="lineno">  994</span>&#160;                ret[i] = 0.;</div>
-<div class="line"><a name="l00995"></a><span class="lineno">  995</span>&#160;            <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00996"></a><span class="lineno">  996</span>&#160;                ret[i] = pow(1 -</div>
-<div class="line"><a name="l00997"></a><span class="lineno">  997</span>&#160;                             pow((coord_array[i] - bunch_position)</div>
-<div class="line"><a name="l00998"></a><span class="lineno">  998</span>&#160;                                 / (bunch_length / 2.), 2.),</div>
-<div class="line"><a name="l00999"></a><span class="lineno">  999</span>&#160;                             exponent + 0.5);</div>
-<div class="line"><a name="l01000"></a><span class="lineno"> 1000</span>&#160;        }</div>
-<div class="line"><a name="l01001"></a><span class="lineno"> 1001</span>&#160;        <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l01002"></a><span class="lineno"> 1002</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dist_type == <span class="stringliteral">&quot;parabolic_amplitude&quot;</span>) {</div>
-<div class="line"><a name="l01003"></a><span class="lineno"> 1003</span>&#160;        exponent = 1.;</div>
-<div class="line"><a name="l01004"></a><span class="lineno"> 1004</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; coord_array.size(); i++) {</div>
-<div class="line"><a name="l01005"></a><span class="lineno"> 1005</span>&#160;            <span class="keywordflow">if</span> (abs(coord_array[i] - bunch_position) &gt; bunch_length / 2.)</div>
-<div class="line"><a name="l01006"></a><span class="lineno"> 1006</span>&#160;                ret[i] = 0.;</div>
-<div class="line"><a name="l01007"></a><span class="lineno"> 1007</span>&#160;            <span class="keywordflow">else</span></div>
-<div class="line"><a name="l01008"></a><span class="lineno"> 1008</span>&#160;                ret[i] = pow(1 -</div>
-<div class="line"><a name="l01009"></a><span class="lineno"> 1009</span>&#160;                             pow((coord_array[i] - bunch_position)</div>
-<div class="line"><a name="l01010"></a><span class="lineno"> 1010</span>&#160;                                 / (bunch_length / 2.), 2.),</div>
-<div class="line"><a name="l01011"></a><span class="lineno"> 1011</span>&#160;                             exponent + 0.5);</div>
-<div class="line"><a name="l01012"></a><span class="lineno"> 1012</span>&#160;        }</div>
-<div class="line"><a name="l01013"></a><span class="lineno"> 1013</span>&#160;        <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l01014"></a><span class="lineno"> 1014</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dist_type == <span class="stringliteral">&quot;parabolic_line&quot;</span>) {</div>
-<div class="line"><a name="l01015"></a><span class="lineno"> 1015</span>&#160;        exponent = 0.5;</div>
-<div class="line"><a name="l01016"></a><span class="lineno"> 1016</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; coord_array.size(); i++) {</div>
-<div class="line"><a name="l01017"></a><span class="lineno"> 1017</span>&#160;            <span class="keywordflow">if</span> (abs(coord_array[i] - bunch_position) &gt; bunch_length / 2.)</div>
-<div class="line"><a name="l01018"></a><span class="lineno"> 1018</span>&#160;                ret[i] = 0.;</div>
-<div class="line"><a name="l01019"></a><span class="lineno"> 1019</span>&#160;            <span class="keywordflow">else</span></div>
-<div class="line"><a name="l01020"></a><span class="lineno"> 1020</span>&#160;                ret[i] = pow(1 -</div>
-<div class="line"><a name="l01021"></a><span class="lineno"> 1021</span>&#160;                             pow((coord_array[i] - bunch_position)</div>
-<div class="line"><a name="l01022"></a><span class="lineno"> 1022</span>&#160;                                 / (bunch_length / 2.), 2.),</div>
-<div class="line"><a name="l01023"></a><span class="lineno"> 1023</span>&#160;                             exponent + 0.5);</div>
-<div class="line"><a name="l01024"></a><span class="lineno"> 1024</span>&#160;        }</div>
-<div class="line"><a name="l01025"></a><span class="lineno"> 1025</span>&#160;        <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l01026"></a><span class="lineno"> 1026</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dist_type == <span class="stringliteral">&quot;gaussian&quot;</span>) {</div>
-<div class="line"><a name="l01027"></a><span class="lineno"> 1027</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">double</span> sigma = bunch_length / 4.;</div>
-<div class="line"><a name="l01028"></a><span class="lineno"> 1028</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; coord_array.size(); i++)</div>
-<div class="line"><a name="l01029"></a><span class="lineno"> 1029</span>&#160;            ret[i] = exp(- pow(coord_array[i] - bunch_position, 2)</div>
-<div class="line"><a name="l01030"></a><span class="lineno"> 1030</span>&#160;                         / (2 * sigma * sigma));</div>
-<div class="line"><a name="l01031"></a><span class="lineno"> 1031</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dist_type == <span class="stringliteral">&quot;cosine_squared&quot;</span>) {</div>
-<div class="line"><a name="l01032"></a><span class="lineno"> 1032</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; coord_array.size(); i++) {</div>
-<div class="line"><a name="l01033"></a><span class="lineno"> 1033</span>&#160;            <span class="keywordflow">if</span> (abs(coord_array[i] - bunch_position) &gt; bunch_length / 2.)</div>
-<div class="line"><a name="l01034"></a><span class="lineno"> 1034</span>&#160;                ret[i] = 0.;</div>
-<div class="line"><a name="l01035"></a><span class="lineno"> 1035</span>&#160;            <span class="keywordflow">else</span></div>
-<div class="line"><a name="l01036"></a><span class="lineno"> 1036</span>&#160;                ret[i] = pow(cos(<a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a></div>
-<div class="line"><a name="l01037"></a><span class="lineno"> 1037</span>&#160;                                 * (coord_array[i] - bunch_position)</div>
-<div class="line"><a name="l01038"></a><span class="lineno"> 1038</span>&#160;                                 / bunch_length),</div>
-<div class="line"><a name="l01039"></a><span class="lineno"> 1039</span>&#160;                             2);</div>
-<div class="line"><a name="l01040"></a><span class="lineno"> 1040</span>&#160;        }</div>
-<div class="line"><a name="l01041"></a><span class="lineno"> 1041</span>&#160;        <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l01042"></a><span class="lineno"> 1042</span>&#160;    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l01043"></a><span class="lineno"> 1043</span>&#160;        cerr &lt;&lt; <span class="stringliteral">&quot;[line_density_function] The dist_type was not recognized\n&quot;</span>;</div>
-<div class="line"><a name="l01044"></a><span class="lineno"> 1044</span>&#160;        exit(-1);</div>
-<div class="line"><a name="l01045"></a><span class="lineno"> 1045</span>&#160;    }</div>
-<div class="line"><a name="l01046"></a><span class="lineno"> 1046</span>&#160;</div>
-<div class="line"><a name="l01047"></a><span class="lineno"> 1047</span>&#160;    <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l01048"></a><span class="lineno"> 1048</span>&#160;}</div>
+<div class="line"><a name="l00910"></a><span class="lineno">  910</span>&#160;    <span class="keywordflow">return</span> {time_coord_low_res, line_density};</div>
+<div class="line"><a name="l00911"></a><span class="lineno">  911</span>&#160;}</div>
+<div class="line"><a name="l00912"></a><span class="lineno">  912</span>&#160;</div>
+<div class="line"><a name="l00913"></a><span class="lineno">  913</span>&#160;</div>
+<div class="line"><a name="l00914"></a><span class="lineno">  914</span>&#160;</div>
+<div class="line"><a name="l00915"></a><span class="lineno"><a class="code" href="../../dc/d7d/Distributions_8h.html#a987b1cd26960740a7b90dfd2b224e142">  915</a></span>&#160;<a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> <a class="code" href="../../db/de1/Distributions_8cpp.html#a71ac4b7e67dc4e456b3cdeb2dc28c1a5">distribution_density_function</a>(<span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;action_array,</div>
+<div class="line"><a name="l00916"></a><span class="lineno">  916</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;dist_type, <span class="keyword">const</span> <span class="keywordtype">double</span> length, <span class="keywordtype">double</span> exponent)</div>
+<div class="line"><a name="l00917"></a><span class="lineno">  917</span>&#160;{</div>
+<div class="line"><a name="l00918"></a><span class="lineno">  918</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> ret(action_array.size());</div>
+<div class="line"><a name="l00919"></a><span class="lineno">  919</span>&#160;    <span class="keywordflow">if</span> (dist_type == <span class="stringliteral">&quot;binomial&quot;</span>) {</div>
+<div class="line"><a name="l00920"></a><span class="lineno">  920</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; action_array.size(); i++) {</div>
+<div class="line"><a name="l00921"></a><span class="lineno">  921</span>&#160;            <span class="keywordflow">if</span> (action_array[i] &gt; length)</div>
+<div class="line"><a name="l00922"></a><span class="lineno">  922</span>&#160;                ret[i] = 0.;</div>
+<div class="line"><a name="l00923"></a><span class="lineno">  923</span>&#160;            <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00924"></a><span class="lineno">  924</span>&#160;                ret[i] = pow((1. - action_array[i] / length), exponent);</div>
+<div class="line"><a name="l00925"></a><span class="lineno">  925</span>&#160;        }</div>
+<div class="line"><a name="l00926"></a><span class="lineno">  926</span>&#160;        <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l00927"></a><span class="lineno">  927</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dist_type == <span class="stringliteral">&quot;waterbag&quot;</span>) {</div>
+<div class="line"><a name="l00928"></a><span class="lineno">  928</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; action_array.size(); i++) {</div>
+<div class="line"><a name="l00929"></a><span class="lineno">  929</span>&#160;            <span class="keywordflow">if</span> (action_array[i] &gt; length)</div>
+<div class="line"><a name="l00930"></a><span class="lineno">  930</span>&#160;                ret[i] = 0.;</div>
+<div class="line"><a name="l00931"></a><span class="lineno">  931</span>&#160;            <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00932"></a><span class="lineno">  932</span>&#160;                ret[i] = 1.;</div>
+<div class="line"><a name="l00933"></a><span class="lineno">  933</span>&#160;        }</div>
+<div class="line"><a name="l00934"></a><span class="lineno">  934</span>&#160;        <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l00935"></a><span class="lineno">  935</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dist_type == <span class="stringliteral">&quot;parabolic_amplitude&quot;</span>) {</div>
+<div class="line"><a name="l00936"></a><span class="lineno">  936</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; action_array.size(); i++) {</div>
+<div class="line"><a name="l00937"></a><span class="lineno">  937</span>&#160;            <span class="keywordflow">if</span> (action_array[i] &gt; length)</div>
+<div class="line"><a name="l00938"></a><span class="lineno">  938</span>&#160;                ret[i] = 0.;</div>
+<div class="line"><a name="l00939"></a><span class="lineno">  939</span>&#160;            <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00940"></a><span class="lineno">  940</span>&#160;                ret[i] = (1 - action_array[i] / length);</div>
+<div class="line"><a name="l00941"></a><span class="lineno">  941</span>&#160;        }</div>
+<div class="line"><a name="l00942"></a><span class="lineno">  942</span>&#160;        <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l00943"></a><span class="lineno">  943</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dist_type == <span class="stringliteral">&quot;parabolic_line&quot;</span>) {</div>
+<div class="line"><a name="l00944"></a><span class="lineno">  944</span>&#160;        exponent = 0.5;</div>
+<div class="line"><a name="l00945"></a><span class="lineno">  945</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; action_array.size(); i++) {</div>
+<div class="line"><a name="l00946"></a><span class="lineno">  946</span>&#160;            <span class="keywordflow">if</span> (action_array[i] &gt; length)</div>
+<div class="line"><a name="l00947"></a><span class="lineno">  947</span>&#160;                ret[i] = 0.;</div>
+<div class="line"><a name="l00948"></a><span class="lineno">  948</span>&#160;            <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00949"></a><span class="lineno">  949</span>&#160;                ret[i] = pow((1. - action_array[i] / length), exponent);</div>
+<div class="line"><a name="l00950"></a><span class="lineno">  950</span>&#160;        }</div>
+<div class="line"><a name="l00951"></a><span class="lineno">  951</span>&#160;        <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l00952"></a><span class="lineno">  952</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dist_type == <span class="stringliteral">&quot;gaussian&quot;</span>) {</div>
+<div class="line"><a name="l00953"></a><span class="lineno">  953</span>&#160;        ret = <a class="code" href="../../da/d30/vector__math_8h.html#afb2484611b26c333e3a00f3dac1e5f99">apply_f</a>(action_array, [length](<span class="keywordtype">double</span> x) {<span class="keywordflow">return</span> exp(-2 * x / length);});</div>
+<div class="line"><a name="l00954"></a><span class="lineno">  954</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00955"></a><span class="lineno">  955</span>&#160;        cerr &lt;&lt; <span class="stringliteral">&quot;[distribution_density_function] The dist_type was not recognized\n&quot;</span>;</div>
+<div class="line"><a name="l00956"></a><span class="lineno">  956</span>&#160;        exit(-1);</div>
+<div class="line"><a name="l00957"></a><span class="lineno">  957</span>&#160;    }</div>
+<div class="line"><a name="l00958"></a><span class="lineno">  958</span>&#160;</div>
+<div class="line"><a name="l00959"></a><span class="lineno">  959</span>&#160;    <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l00960"></a><span class="lineno">  960</span>&#160;</div>
+<div class="line"><a name="l00961"></a><span class="lineno">  961</span>&#160;}</div>
+<div class="line"><a name="l00962"></a><span class="lineno">  962</span>&#160;</div>
+<div class="line"><a name="l00963"></a><span class="lineno"><a class="code" href="../../dc/d7d/Distributions_8h.html#abc3778914c6ebda0c64fa9b2f0422493">  963</a></span>&#160;<a class="code" href="../../d2/d2c/configuration_8h.html#a578604c41b2b32700ab03fc63ec857eb">f_vector_2d_t</a> <a class="code" href="../../db/de1/Distributions_8cpp.html#a71ac4b7e67dc4e456b3cdeb2dc28c1a5">distribution_density_function</a>(<span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a578604c41b2b32700ab03fc63ec857eb">f_vector_2d_t</a> &amp;action_array,</div>
+<div class="line"><a name="l00964"></a><span class="lineno">  964</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;dist_type, <span class="keyword">const</span> <span class="keywordtype">double</span> length, <span class="keywordtype">double</span> exponent)</div>
+<div class="line"><a name="l00965"></a><span class="lineno">  965</span>&#160;{</div>
+<div class="line"><a name="l00966"></a><span class="lineno">  966</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a578604c41b2b32700ab03fc63ec857eb">f_vector_2d_t</a> ret;</div>
+<div class="line"><a name="l00967"></a><span class="lineno">  967</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;row : action_array)</div>
+<div class="line"><a name="l00968"></a><span class="lineno">  968</span>&#160;        ret.push_back(<a class="code" href="../../db/de1/Distributions_8cpp.html#a71ac4b7e67dc4e456b3cdeb2dc28c1a5">distribution_density_function</a>(row, dist_type,</div>
+<div class="line"><a name="l00969"></a><span class="lineno">  969</span>&#160;                      length, exponent));</div>
+<div class="line"><a name="l00970"></a><span class="lineno">  970</span>&#160;    <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l00971"></a><span class="lineno">  971</span>&#160;}</div>
+<div class="line"><a name="l00972"></a><span class="lineno">  972</span>&#160;</div>
+<div class="line"><a name="l00973"></a><span class="lineno">  973</span>&#160;</div>
+<div class="line"><a name="l00974"></a><span class="lineno">  974</span>&#160;</div>
+<div class="line"><a name="l00975"></a><span class="lineno"><a class="code" href="../../dc/d7d/Distributions_8h.html#abb8f841472248a964414a29e7552730b">  975</a></span>&#160;<a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> <a class="code" href="../../db/de1/Distributions_8cpp.html#a6d6073d940268d94172e059b9b48f99c">line_density_function</a>(<span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;coord_array,</div>
+<div class="line"><a name="l00976"></a><span class="lineno">  976</span>&#160;                                 <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;dist_type,</div>
+<div class="line"><a name="l00977"></a><span class="lineno">  977</span>&#160;                                 <span class="keyword">const</span> <span class="keywordtype">double</span> bunch_length,</div>
+<div class="line"><a name="l00978"></a><span class="lineno">  978</span>&#160;                                 <span class="keyword">const</span> <span class="keywordtype">double</span> bunch_position,</div>
+<div class="line"><a name="l00979"></a><span class="lineno">  979</span>&#160;                                 <span class="keywordtype">double</span> exponent)</div>
+<div class="line"><a name="l00980"></a><span class="lineno">  980</span>&#160;{</div>
+<div class="line"><a name="l00981"></a><span class="lineno">  981</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> ret(coord_array.size());</div>
+<div class="line"><a name="l00982"></a><span class="lineno">  982</span>&#160;    <span class="keywordflow">if</span> (dist_type == <span class="stringliteral">&quot;binomial&quot;</span>) {</div>
+<div class="line"><a name="l00983"></a><span class="lineno">  983</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; coord_array.size(); i++) {</div>
+<div class="line"><a name="l00984"></a><span class="lineno">  984</span>&#160;            <span class="keywordflow">if</span> (abs(coord_array[i] - bunch_position) &gt; bunch_length / 2.)</div>
+<div class="line"><a name="l00985"></a><span class="lineno">  985</span>&#160;                ret[i] = 0.;</div>
+<div class="line"><a name="l00986"></a><span class="lineno">  986</span>&#160;            <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00987"></a><span class="lineno">  987</span>&#160;                ret[i] = pow(1 -</div>
+<div class="line"><a name="l00988"></a><span class="lineno">  988</span>&#160;                             pow((coord_array[i] - bunch_position)</div>
+<div class="line"><a name="l00989"></a><span class="lineno">  989</span>&#160;                                 / (bunch_length / 2.), 2.),</div>
+<div class="line"><a name="l00990"></a><span class="lineno">  990</span>&#160;                             exponent + 0.5);</div>
+<div class="line"><a name="l00991"></a><span class="lineno">  991</span>&#160;        }</div>
+<div class="line"><a name="l00992"></a><span class="lineno">  992</span>&#160;        <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l00993"></a><span class="lineno">  993</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dist_type == <span class="stringliteral">&quot;waterbag&quot;</span>) {</div>
+<div class="line"><a name="l00994"></a><span class="lineno">  994</span>&#160;        exponent = 0.;</div>
+<div class="line"><a name="l00995"></a><span class="lineno">  995</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; coord_array.size(); i++) {</div>
+<div class="line"><a name="l00996"></a><span class="lineno">  996</span>&#160;            <span class="keywordflow">if</span> (abs(coord_array[i] - bunch_position) &gt; bunch_length / 2.)</div>
+<div class="line"><a name="l00997"></a><span class="lineno">  997</span>&#160;                ret[i] = 0.;</div>
+<div class="line"><a name="l00998"></a><span class="lineno">  998</span>&#160;            <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00999"></a><span class="lineno">  999</span>&#160;                ret[i] = pow(1 -</div>
+<div class="line"><a name="l01000"></a><span class="lineno"> 1000</span>&#160;                             pow((coord_array[i] - bunch_position)</div>
+<div class="line"><a name="l01001"></a><span class="lineno"> 1001</span>&#160;                                 / (bunch_length / 2.), 2.),</div>
+<div class="line"><a name="l01002"></a><span class="lineno"> 1002</span>&#160;                             exponent + 0.5);</div>
+<div class="line"><a name="l01003"></a><span class="lineno"> 1003</span>&#160;        }</div>
+<div class="line"><a name="l01004"></a><span class="lineno"> 1004</span>&#160;        <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l01005"></a><span class="lineno"> 1005</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dist_type == <span class="stringliteral">&quot;parabolic_amplitude&quot;</span>) {</div>
+<div class="line"><a name="l01006"></a><span class="lineno"> 1006</span>&#160;        exponent = 1.;</div>
+<div class="line"><a name="l01007"></a><span class="lineno"> 1007</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; coord_array.size(); i++) {</div>
+<div class="line"><a name="l01008"></a><span class="lineno"> 1008</span>&#160;            <span class="keywordflow">if</span> (abs(coord_array[i] - bunch_position) &gt; bunch_length / 2.)</div>
+<div class="line"><a name="l01009"></a><span class="lineno"> 1009</span>&#160;                ret[i] = 0.;</div>
+<div class="line"><a name="l01010"></a><span class="lineno"> 1010</span>&#160;            <span class="keywordflow">else</span></div>
+<div class="line"><a name="l01011"></a><span class="lineno"> 1011</span>&#160;                ret[i] = pow(1 -</div>
+<div class="line"><a name="l01012"></a><span class="lineno"> 1012</span>&#160;                             pow((coord_array[i] - bunch_position)</div>
+<div class="line"><a name="l01013"></a><span class="lineno"> 1013</span>&#160;                                 / (bunch_length / 2.), 2.),</div>
+<div class="line"><a name="l01014"></a><span class="lineno"> 1014</span>&#160;                             exponent + 0.5);</div>
+<div class="line"><a name="l01015"></a><span class="lineno"> 1015</span>&#160;        }</div>
+<div class="line"><a name="l01016"></a><span class="lineno"> 1016</span>&#160;        <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l01017"></a><span class="lineno"> 1017</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dist_type == <span class="stringliteral">&quot;parabolic_line&quot;</span>) {</div>
+<div class="line"><a name="l01018"></a><span class="lineno"> 1018</span>&#160;        exponent = 0.5;</div>
+<div class="line"><a name="l01019"></a><span class="lineno"> 1019</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; coord_array.size(); i++) {</div>
+<div class="line"><a name="l01020"></a><span class="lineno"> 1020</span>&#160;            <span class="keywordflow">if</span> (abs(coord_array[i] - bunch_position) &gt; bunch_length / 2.)</div>
+<div class="line"><a name="l01021"></a><span class="lineno"> 1021</span>&#160;                ret[i] = 0.;</div>
+<div class="line"><a name="l01022"></a><span class="lineno"> 1022</span>&#160;            <span class="keywordflow">else</span></div>
+<div class="line"><a name="l01023"></a><span class="lineno"> 1023</span>&#160;                ret[i] = pow(1 -</div>
+<div class="line"><a name="l01024"></a><span class="lineno"> 1024</span>&#160;                             pow((coord_array[i] - bunch_position)</div>
+<div class="line"><a name="l01025"></a><span class="lineno"> 1025</span>&#160;                                 / (bunch_length / 2.), 2.),</div>
+<div class="line"><a name="l01026"></a><span class="lineno"> 1026</span>&#160;                             exponent + 0.5);</div>
+<div class="line"><a name="l01027"></a><span class="lineno"> 1027</span>&#160;        }</div>
+<div class="line"><a name="l01028"></a><span class="lineno"> 1028</span>&#160;        <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l01029"></a><span class="lineno"> 1029</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dist_type == <span class="stringliteral">&quot;gaussian&quot;</span>) {</div>
+<div class="line"><a name="l01030"></a><span class="lineno"> 1030</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">double</span> sigma = bunch_length / 4.;</div>
+<div class="line"><a name="l01031"></a><span class="lineno"> 1031</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; coord_array.size(); i++)</div>
+<div class="line"><a name="l01032"></a><span class="lineno"> 1032</span>&#160;            ret[i] = exp(- pow(coord_array[i] - bunch_position, 2)</div>
+<div class="line"><a name="l01033"></a><span class="lineno"> 1033</span>&#160;                         / (2 * sigma * sigma));</div>
+<div class="line"><a name="l01034"></a><span class="lineno"> 1034</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dist_type == <span class="stringliteral">&quot;cosine_squared&quot;</span>) {</div>
+<div class="line"><a name="l01035"></a><span class="lineno"> 1035</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; coord_array.size(); i++) {</div>
+<div class="line"><a name="l01036"></a><span class="lineno"> 1036</span>&#160;            <span class="keywordflow">if</span> (abs(coord_array[i] - bunch_position) &gt; bunch_length / 2.)</div>
+<div class="line"><a name="l01037"></a><span class="lineno"> 1037</span>&#160;                ret[i] = 0.;</div>
+<div class="line"><a name="l01038"></a><span class="lineno"> 1038</span>&#160;            <span class="keywordflow">else</span></div>
+<div class="line"><a name="l01039"></a><span class="lineno"> 1039</span>&#160;                ret[i] = pow(cos(<a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a></div>
+<div class="line"><a name="l01040"></a><span class="lineno"> 1040</span>&#160;                                 * (coord_array[i] - bunch_position)</div>
+<div class="line"><a name="l01041"></a><span class="lineno"> 1041</span>&#160;                                 / bunch_length),</div>
+<div class="line"><a name="l01042"></a><span class="lineno"> 1042</span>&#160;                             2);</div>
+<div class="line"><a name="l01043"></a><span class="lineno"> 1043</span>&#160;        }</div>
+<div class="line"><a name="l01044"></a><span class="lineno"> 1044</span>&#160;        <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l01045"></a><span class="lineno"> 1045</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l01046"></a><span class="lineno"> 1046</span>&#160;        cerr &lt;&lt; <span class="stringliteral">&quot;[line_density_function] The dist_type was not recognized\n&quot;</span>;</div>
+<div class="line"><a name="l01047"></a><span class="lineno"> 1047</span>&#160;        exit(-1);</div>
+<div class="line"><a name="l01048"></a><span class="lineno"> 1048</span>&#160;    }</div>
 <div class="line"><a name="l01049"></a><span class="lineno"> 1049</span>&#160;</div>
-<div class="line"><a name="l01050"></a><span class="lineno"> 1050</span>&#160;</div>
-<div class="line"><a name="l01051"></a><span class="lineno"> 1051</span>&#160;</div>
-<div class="line"><a name="l01052"></a><span class="lineno"><a class="code" href="../../dc/d7d/Distributions_8h.html#ad9600030e832de537807b8cae4b59590"> 1052</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../db/de1/Distributions_8cpp.html#a903200e144f4a1823ea93569df0d8438">longitudinal_bigaussian</a>(<a class="code" href="../../d1/dfc/classGeneralParameters.html">GeneralParameters</a> *GP, <a class="code" href="../../da/d49/classRfParameters.html">RfParameters</a> *RfP,</div>
-<div class="line"><a name="l01053"></a><span class="lineno"> 1053</span>&#160;                             <a class="code" href="../../d9/d7c/classBeams.html">Beams</a> *Beam, <span class="keywordtype">double</span> sigma_dt, <span class="keywordtype">double</span> sigma_dE,</div>
-<div class="line"><a name="l01054"></a><span class="lineno"> 1054</span>&#160;                             <span class="keywordtype">int</span> seed, <span class="keywordtype">bool</span> reinsertion)</div>
-<div class="line"><a name="l01055"></a><span class="lineno"> 1055</span>&#160;{</div>
-<div class="line"><a name="l01056"></a><span class="lineno"> 1056</span>&#160;    <span class="keywordflow">if</span> (GP-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a841441cee26c6af115bcf84e218b9795">n_sections</a> &gt; 1) {</div>
-<div class="line"><a name="l01057"></a><span class="lineno"> 1057</span>&#160;        cerr &lt;&lt; <span class="stringliteral">&quot;WARNING: longitudinal_bigaussian is not yet properly\n&quot;</span></div>
-<div class="line"><a name="l01058"></a><span class="lineno"> 1058</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;computed for several sections!\n&quot;</span>;</div>
-<div class="line"><a name="l01059"></a><span class="lineno"> 1059</span>&#160;    }</div>
-<div class="line"><a name="l01060"></a><span class="lineno"> 1060</span>&#160;    <span class="keywordflow">if</span> (RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#ab8af605062619c7682c292fbc86fab17">n_rf</a> &gt; 1) {</div>
-<div class="line"><a name="l01061"></a><span class="lineno"> 1061</span>&#160;        cerr &lt;&lt; <span class="stringliteral">&quot;WARNING: longitudinal_bigaussian for multiple RF\n&quot;</span></div>
-<div class="line"><a name="l01062"></a><span class="lineno"> 1062</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;is not yet implemented\n&quot;</span>;</div>
-<div class="line"><a name="l01063"></a><span class="lineno"> 1063</span>&#160;    }</div>
-<div class="line"><a name="l01064"></a><span class="lineno"> 1064</span>&#160;</div>
-<div class="line"><a name="l01065"></a><span class="lineno"> 1065</span>&#160;    <span class="keywordtype">int</span> counter = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a8f098f7bc761b681be6690902c72d8bf">counter</a>;</div>
-<div class="line"><a name="l01066"></a><span class="lineno"> 1066</span>&#160;    <span class="keywordtype">double</span> harmonic = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a8221a6edc51203d7f1bf373e79c42373">harmonic</a>[0][counter];</div>
-<div class="line"><a name="l01067"></a><span class="lineno"> 1067</span>&#160;    <span class="keywordtype">double</span> energy = GP-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#ad95d8eaac393bbb3210b8cf10ab0a20a">energy</a>[0][counter];</div>
-<div class="line"><a name="l01068"></a><span class="lineno"> 1068</span>&#160;    <span class="keywordtype">double</span> beta = GP-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a1dfbb2b28b96314abba548b4a750fce8">beta</a>[0][counter];</div>
-<div class="line"><a name="l01069"></a><span class="lineno"> 1069</span>&#160;    <span class="keywordtype">double</span> omega_rf = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a35d8f5f983fdfee8695f48e846a81416">omega_rf</a>[0][counter];</div>
-<div class="line"><a name="l01070"></a><span class="lineno"> 1070</span>&#160;    <span class="keywordtype">double</span> phi_s = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a7c2f76b32a2594bc7f6830dd77e71085">phi_s</a>[counter];</div>
-<div class="line"><a name="l01071"></a><span class="lineno"> 1071</span>&#160;    <span class="keywordtype">double</span> phi_rf = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#affe25d40fe500f5a152a86aee7071844">phi_rf</a>[0][counter];</div>
-<div class="line"><a name="l01072"></a><span class="lineno"> 1072</span>&#160;    <span class="keywordtype">double</span> eta0 = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#af5385ffb55da4c9d906f57f53275461f">eta_0</a>[counter];</div>
-<div class="line"><a name="l01073"></a><span class="lineno"> 1073</span>&#160;</div>
-<div class="line"><a name="l01074"></a><span class="lineno"> 1074</span>&#160;    <span class="keywordflow">if</span> (sigma_dE == 0) {</div>
-<div class="line"><a name="l01075"></a><span class="lineno"> 1075</span>&#160;        <span class="keyword">auto</span> voltage = GP-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a31759496b44dcf96ca8f247ec3e9873c">charge</a> * RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a439542a6e0c0d5bd0778acda2b75da13">voltage</a>[0][counter];</div>
-<div class="line"><a name="l01076"></a><span class="lineno"> 1076</span>&#160;        <span class="keyword">auto</span> phi_b = omega_rf * sigma_dt + phi_s;</div>
-<div class="line"><a name="l01077"></a><span class="lineno"> 1077</span>&#160;        sigma_dE =</div>
-<div class="line"><a name="l01078"></a><span class="lineno"> 1078</span>&#160;            sqrt(voltage * energy * beta * beta *</div>
-<div class="line"><a name="l01079"></a><span class="lineno"> 1079</span>&#160;                 (cos(phi_b) - cos(phi_s) + (phi_b - phi_s) * sin(phi_s)) /</div>
-<div class="line"><a name="l01080"></a><span class="lineno"> 1080</span>&#160;                 (<a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a> * harmonic * eta0));</div>
-<div class="line"><a name="l01081"></a><span class="lineno"> 1081</span>&#160;    }</div>
-<div class="line"><a name="l01082"></a><span class="lineno"> 1082</span>&#160;</div>
-<div class="line"><a name="l01083"></a><span class="lineno"> 1083</span>&#160;    Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#a66b7eb0be0b20692ae5d8b8893a319c3">sigma_dE</a> = sigma_dE;</div>
-<div class="line"><a name="l01084"></a><span class="lineno"> 1084</span>&#160;    Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#a09701e53444e77c361fdeb6eebe56a65">sigma_dt</a> = sigma_dt;</div>
+<div class="line"><a name="l01050"></a><span class="lineno"> 1050</span>&#160;    <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l01051"></a><span class="lineno"> 1051</span>&#160;}</div>
+<div class="line"><a name="l01052"></a><span class="lineno"> 1052</span>&#160;</div>
+<div class="line"><a name="l01053"></a><span class="lineno"> 1053</span>&#160;</div>
+<div class="line"><a name="l01054"></a><span class="lineno"> 1054</span>&#160;</div>
+<div class="line"><a name="l01055"></a><span class="lineno"><a class="code" href="../../dc/d7d/Distributions_8h.html#ad9600030e832de537807b8cae4b59590"> 1055</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../db/de1/Distributions_8cpp.html#a903200e144f4a1823ea93569df0d8438">longitudinal_bigaussian</a>(<a class="code" href="../../d1/dfc/classGeneralParameters.html">GeneralParameters</a> *GP, <a class="code" href="../../da/d49/classRfParameters.html">RfParameters</a> *RfP,</div>
+<div class="line"><a name="l01056"></a><span class="lineno"> 1056</span>&#160;                             <a class="code" href="../../d9/d7c/classBeams.html">Beams</a> *Beam, <span class="keywordtype">double</span> sigma_dt, <span class="keywordtype">double</span> sigma_dE,</div>
+<div class="line"><a name="l01057"></a><span class="lineno"> 1057</span>&#160;                             <span class="keywordtype">int</span> seed, <span class="keywordtype">bool</span> reinsertion)</div>
+<div class="line"><a name="l01058"></a><span class="lineno"> 1058</span>&#160;{</div>
+<div class="line"><a name="l01059"></a><span class="lineno"> 1059</span>&#160;    <span class="keywordflow">if</span> (GP-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a841441cee26c6af115bcf84e218b9795">n_sections</a> &gt; 1) {</div>
+<div class="line"><a name="l01060"></a><span class="lineno"> 1060</span>&#160;        cerr &lt;&lt; <span class="stringliteral">&quot;WARNING: longitudinal_bigaussian is not yet properly\n&quot;</span></div>
+<div class="line"><a name="l01061"></a><span class="lineno"> 1061</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;computed for several sections!\n&quot;</span>;</div>
+<div class="line"><a name="l01062"></a><span class="lineno"> 1062</span>&#160;    }</div>
+<div class="line"><a name="l01063"></a><span class="lineno"> 1063</span>&#160;    <span class="keywordflow">if</span> (RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#ab8af605062619c7682c292fbc86fab17">n_rf</a> &gt; 1) {</div>
+<div class="line"><a name="l01064"></a><span class="lineno"> 1064</span>&#160;        cerr &lt;&lt; <span class="stringliteral">&quot;WARNING: longitudinal_bigaussian for multiple RF\n&quot;</span></div>
+<div class="line"><a name="l01065"></a><span class="lineno"> 1065</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;is not yet implemented\n&quot;</span>;</div>
+<div class="line"><a name="l01066"></a><span class="lineno"> 1066</span>&#160;    }</div>
+<div class="line"><a name="l01067"></a><span class="lineno"> 1067</span>&#160;</div>
+<div class="line"><a name="l01068"></a><span class="lineno"> 1068</span>&#160;    <span class="keywordtype">int</span> counter = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a8f098f7bc761b681be6690902c72d8bf">counter</a>;</div>
+<div class="line"><a name="l01069"></a><span class="lineno"> 1069</span>&#160;    <span class="keywordtype">double</span> harmonic = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a8221a6edc51203d7f1bf373e79c42373">harmonic</a>[0][counter];</div>
+<div class="line"><a name="l01070"></a><span class="lineno"> 1070</span>&#160;    <span class="keywordtype">double</span> energy = GP-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#ad95d8eaac393bbb3210b8cf10ab0a20a">energy</a>[0][counter];</div>
+<div class="line"><a name="l01071"></a><span class="lineno"> 1071</span>&#160;    <span class="keywordtype">double</span> beta = GP-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a1dfbb2b28b96314abba548b4a750fce8">beta</a>[0][counter];</div>
+<div class="line"><a name="l01072"></a><span class="lineno"> 1072</span>&#160;    <span class="keywordtype">double</span> omega_rf = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a35d8f5f983fdfee8695f48e846a81416">omega_rf</a>[0][counter];</div>
+<div class="line"><a name="l01073"></a><span class="lineno"> 1073</span>&#160;    <span class="keywordtype">double</span> phi_s = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a7c2f76b32a2594bc7f6830dd77e71085">phi_s</a>[counter];</div>
+<div class="line"><a name="l01074"></a><span class="lineno"> 1074</span>&#160;    <span class="keywordtype">double</span> phi_rf = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#affe25d40fe500f5a152a86aee7071844">phi_rf</a>[0][counter];</div>
+<div class="line"><a name="l01075"></a><span class="lineno"> 1075</span>&#160;    <span class="keywordtype">double</span> eta0 = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#af5385ffb55da4c9d906f57f53275461f">eta_0</a>[counter];</div>
+<div class="line"><a name="l01076"></a><span class="lineno"> 1076</span>&#160;</div>
+<div class="line"><a name="l01077"></a><span class="lineno"> 1077</span>&#160;    <span class="keywordflow">if</span> (sigma_dE == 0) {</div>
+<div class="line"><a name="l01078"></a><span class="lineno"> 1078</span>&#160;        <span class="keyword">auto</span> voltage = GP-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a31759496b44dcf96ca8f247ec3e9873c">charge</a> * RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a439542a6e0c0d5bd0778acda2b75da13">voltage</a>[0][counter];</div>
+<div class="line"><a name="l01079"></a><span class="lineno"> 1079</span>&#160;        <span class="keyword">auto</span> phi_b = omega_rf * sigma_dt + phi_s;</div>
+<div class="line"><a name="l01080"></a><span class="lineno"> 1080</span>&#160;        sigma_dE =</div>
+<div class="line"><a name="l01081"></a><span class="lineno"> 1081</span>&#160;            sqrt(voltage * energy * beta * beta *</div>
+<div class="line"><a name="l01082"></a><span class="lineno"> 1082</span>&#160;                 (cos(phi_b) - cos(phi_s) + (phi_b - phi_s) * sin(phi_s)) /</div>
+<div class="line"><a name="l01083"></a><span class="lineno"> 1083</span>&#160;                 (<a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a> * harmonic * eta0));</div>
+<div class="line"><a name="l01084"></a><span class="lineno"> 1084</span>&#160;    }</div>
 <div class="line"><a name="l01085"></a><span class="lineno"> 1085</span>&#160;</div>
-<div class="line"><a name="l01086"></a><span class="lineno"> 1086</span>&#160;    <span class="keywordflow">if</span> (seed &lt; 0) {</div>
-<div class="line"><a name="l01087"></a><span class="lineno"> 1087</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> random;</div>
-<div class="line"><a name="l01088"></a><span class="lineno"> 1088</span>&#160;        <a class="code" href="../../d6/d72/namespaceutil.html#a490b3dd52b27f7d7de8cf81a753b97fa">util::read_vector_from_file</a>(random, TEST_FILES <span class="stringliteral">&quot;/normal_distribution.dat&quot;</span>);</div>
-<div class="line"><a name="l01089"></a><span class="lineno"> 1089</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee">n_macroparticles</a>; ++i) {</div>
-<div class="line"><a name="l01090"></a><span class="lineno"> 1090</span>&#160;            <span class="keywordtype">double</span> r = random[i % random.size()];</div>
-<div class="line"><a name="l01091"></a><span class="lineno"> 1091</span>&#160;            <span class="keywordflow">if</span> (eta0 &gt; 0)</div>
-<div class="line"><a name="l01092"></a><span class="lineno"> 1092</span>&#160;                Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>[i] = sigma_dt * r</div>
-<div class="line"><a name="l01093"></a><span class="lineno"> 1093</span>&#160;                              + (phi_s - phi_rf) / omega_rf;</div>
-<div class="line"><a name="l01094"></a><span class="lineno"> 1094</span>&#160;            <span class="keywordflow">else</span></div>
+<div class="line"><a name="l01086"></a><span class="lineno"> 1086</span>&#160;    Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#a66b7eb0be0b20692ae5d8b8893a319c3">sigma_dE</a> = sigma_dE;</div>
+<div class="line"><a name="l01087"></a><span class="lineno"> 1087</span>&#160;    Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#a09701e53444e77c361fdeb6eebe56a65">sigma_dt</a> = sigma_dt;</div>
+<div class="line"><a name="l01088"></a><span class="lineno"> 1088</span>&#160;</div>
+<div class="line"><a name="l01089"></a><span class="lineno"> 1089</span>&#160;    <span class="keywordflow">if</span> (seed &lt; 0) {</div>
+<div class="line"><a name="l01090"></a><span class="lineno"> 1090</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> random;</div>
+<div class="line"><a name="l01091"></a><span class="lineno"> 1091</span>&#160;        <a class="code" href="../../d6/d72/namespaceutil.html#a490b3dd52b27f7d7de8cf81a753b97fa">util::read_vector_from_file</a>(random, TEST_FILES <span class="stringliteral">&quot;/normal_distribution.dat&quot;</span>);</div>
+<div class="line"><a name="l01092"></a><span class="lineno"> 1092</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee">n_macroparticles</a>; ++i) {</div>
+<div class="line"><a name="l01093"></a><span class="lineno"> 1093</span>&#160;            <span class="keywordtype">double</span> r = random[i % random.size()];</div>
+<div class="line"><a name="l01094"></a><span class="lineno"> 1094</span>&#160;            <span class="keywordflow">if</span> (eta0 &gt; 0)</div>
 <div class="line"><a name="l01095"></a><span class="lineno"> 1095</span>&#160;                Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>[i] = sigma_dt * r</div>
-<div class="line"><a name="l01096"></a><span class="lineno"> 1096</span>&#160;                              + (phi_s - phi_rf - <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a>) / omega_rf;</div>
-<div class="line"><a name="l01097"></a><span class="lineno"> 1097</span>&#160;            Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>[i] = sigma_dE * r;</div>
-<div class="line"><a name="l01098"></a><span class="lineno"> 1098</span>&#160;        }</div>
-<div class="line"><a name="l01099"></a><span class="lineno"> 1099</span>&#160;    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l01100"></a><span class="lineno"> 1100</span>&#160;        default_random_engine generator(seed);</div>
-<div class="line"><a name="l01101"></a><span class="lineno"> 1101</span>&#160;        normal_distribution&lt;double&gt; distribution(0.0, 1.0);</div>
-<div class="line"><a name="l01102"></a><span class="lineno"> 1102</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee">n_macroparticles</a>; ++i) {</div>
-<div class="line"><a name="l01103"></a><span class="lineno"> 1103</span>&#160;            <span class="keywordtype">double</span> r = distribution(generator);</div>
-<div class="line"><a name="l01104"></a><span class="lineno"> 1104</span>&#160;            <span class="keywordflow">if</span> (eta0 &gt; 0)</div>
-<div class="line"><a name="l01105"></a><span class="lineno"> 1105</span>&#160;                Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>[i] = sigma_dt * r + (phi_s - phi_rf) / omega_rf;</div>
-<div class="line"><a name="l01106"></a><span class="lineno"> 1106</span>&#160;            <span class="keywordflow">else</span></div>
-<div class="line"><a name="l01107"></a><span class="lineno"> 1107</span>&#160;                Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>[i] =</div>
-<div class="line"><a name="l01108"></a><span class="lineno"> 1108</span>&#160;                    sigma_dt * r + (phi_s - phi_rf - <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a>) / omega_rf;</div>
-<div class="line"><a name="l01109"></a><span class="lineno"> 1109</span>&#160;            r = distribution(generator);</div>
-<div class="line"><a name="l01110"></a><span class="lineno"> 1110</span>&#160;            Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>[i] = sigma_dE * r;</div>
-<div class="line"><a name="l01111"></a><span class="lineno"> 1111</span>&#160;        }</div>
-<div class="line"><a name="l01112"></a><span class="lineno"> 1112</span>&#160;    }</div>
-<div class="line"><a name="l01113"></a><span class="lineno"> 1113</span>&#160;</div>
-<div class="line"><a name="l01114"></a><span class="lineno"> 1114</span>&#160;    <span class="comment">// TODO test this one</span></div>
-<div class="line"><a name="l01115"></a><span class="lineno"> 1115</span>&#160;    <span class="keywordflow">if</span> (reinsertion == <span class="keyword">true</span>) {</div>
-<div class="line"><a name="l01116"></a><span class="lineno"> 1116</span>&#160;        <span class="keyword">auto</span> is_not_in = <a class="code" href="../../de/da5/utilities_8cpp.html#abdb8c63453b171d9a2ee00711825c33c">is_in_separatrix</a>(GP, RfP, Beam, Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>, Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>);</div>
-<div class="line"><a name="l01117"></a><span class="lineno"> 1117</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;b : is_not_in) b = 1 - b;</div>
-<div class="line"><a name="l01118"></a><span class="lineno"> 1118</span>&#160;        <span class="keywordtype">int</span> size = accumulate(is_not_in.begin(), is_not_in.end(), 0);</div>
-<div class="line"><a name="l01119"></a><span class="lineno"> 1119</span>&#160;        default_random_engine generator(seed);</div>
-<div class="line"><a name="l01120"></a><span class="lineno"> 1120</span>&#160;        normal_distribution&lt;double&gt; distribution(0.0, 1.0);</div>
-<div class="line"><a name="l01121"></a><span class="lineno"> 1121</span>&#160;</div>
-<div class="line"><a name="l01122"></a><span class="lineno"> 1122</span>&#160;        <span class="keywordflow">while</span> (size != 0) {</div>
-<div class="line"><a name="l01123"></a><span class="lineno"> 1123</span>&#160;            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; size; ++i) {</div>
-<div class="line"><a name="l01124"></a><span class="lineno"> 1124</span>&#160;                <span class="keywordflow">if</span> (is_not_in[i] == <span class="keyword">false</span>) <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l01125"></a><span class="lineno"> 1125</span>&#160;</div>
-<div class="line"><a name="l01126"></a><span class="lineno"> 1126</span>&#160;                <span class="keywordtype">double</span> r = distribution(generator);</div>
-<div class="line"><a name="l01127"></a><span class="lineno"> 1127</span>&#160;                <span class="keywordflow">if</span> (eta0 &gt; 0)</div>
-<div class="line"><a name="l01128"></a><span class="lineno"> 1128</span>&#160;                    Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>[i] = sigma_dt * r + (phi_s - phi_rf) / omega_rf;</div>
-<div class="line"><a name="l01129"></a><span class="lineno"> 1129</span>&#160;                <span class="keywordflow">else</span></div>
-<div class="line"><a name="l01130"></a><span class="lineno"> 1130</span>&#160;                    Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>[i] = sigma_dt * r</div>
-<div class="line"><a name="l01131"></a><span class="lineno"> 1131</span>&#160;                                  + (phi_s - phi_rf - <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a>) / omega_rf;</div>
-<div class="line"><a name="l01132"></a><span class="lineno"> 1132</span>&#160;                r = distribution(generator);</div>
-<div class="line"><a name="l01133"></a><span class="lineno"> 1133</span>&#160;                Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>[i] = sigma_dE * r;</div>
-<div class="line"><a name="l01134"></a><span class="lineno"> 1134</span>&#160;            }</div>
-<div class="line"><a name="l01135"></a><span class="lineno"> 1135</span>&#160;            is_not_in = <a class="code" href="../../de/da5/utilities_8cpp.html#abdb8c63453b171d9a2ee00711825c33c">is_in_separatrix</a>(GP, RfP, Beam, Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>, Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>);</div>
-<div class="line"><a name="l01136"></a><span class="lineno"> 1136</span>&#160;            size = accumulate(is_not_in.begin(), is_not_in.end(), 0);</div>
-<div class="line"><a name="l01137"></a><span class="lineno"> 1137</span>&#160;</div>
-<div class="line"><a name="l01138"></a><span class="lineno"> 1138</span>&#160;        }</div>
-<div class="line"><a name="l01139"></a><span class="lineno"> 1139</span>&#160;    }</div>
-<div class="line"><a name="l01140"></a><span class="lineno"> 1140</span>&#160;}</div>
-<div class="line"><a name="l01141"></a><span class="lineno"> 1141</span>&#160;</div>
-<div class="line"><a name="l01142"></a><span class="lineno"><a class="code" href="../../dc/d7d/Distributions_8h.html#acbf747cb2f921b5b334987f33a027741"> 1142</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../db/de1/Distributions_8cpp.html#a2bb3b5294fedc5f82a515348a586d417">plot_generated_bunch</a>(<a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;time_line_den, <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;line_density,</div>
-<div class="line"><a name="l01143"></a><span class="lineno"> 1143</span>&#160;                          <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;time_coord,</div>
-<div class="line"><a name="l01144"></a><span class="lineno"> 1144</span>&#160;                          <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;rec_line_den,</div>
-<div class="line"><a name="l01145"></a><span class="lineno"> 1145</span>&#160;                          <span class="keywordtype">string</span> plot, <span class="keywordtype">string</span> figdir)</div>
-<div class="line"><a name="l01146"></a><span class="lineno"> 1146</span>&#160;{</div>
-<div class="line"><a name="l01147"></a><span class="lineno"> 1147</span>&#160;    <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>();</div>
-<div class="line"><a name="l01148"></a><span class="lineno"> 1148</span>&#160;    <span class="keyword">auto</span> pFunc = <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>(<span class="stringliteral">&quot;distributions&quot;</span>,</div>
-<div class="line"><a name="l01149"></a><span class="lineno"> 1149</span>&#160;                                <span class="stringliteral">&quot;plot_generated_bunch&quot;</span>);</div>
-<div class="line"><a name="l01150"></a><span class="lineno"> 1150</span>&#160;    <span class="keyword">auto</span> pTimeLineDen = <a class="code" href="../../de/d4a/namespacepython.html#a38f56692b4793b00b074fc192783947e">python::convert_double_array</a>(time_line_den.data(),</div>
-<div class="line"><a name="l01151"></a><span class="lineno"> 1151</span>&#160;                        time_line_den.size());</div>
-<div class="line"><a name="l01152"></a><span class="lineno"> 1152</span>&#160;    <span class="keyword">auto</span> pLineDen = <a class="code" href="../../de/d4a/namespacepython.html#a38f56692b4793b00b074fc192783947e">python::convert_double_array</a>(line_density.data(),</div>
-<div class="line"><a name="l01153"></a><span class="lineno"> 1153</span>&#160;                    line_density.size());</div>
-<div class="line"><a name="l01154"></a><span class="lineno"> 1154</span>&#160;</div>
-<div class="line"><a name="l01155"></a><span class="lineno"> 1155</span>&#160;    <span class="keyword">auto</span> pTimeCoord = <a class="code" href="../../de/d4a/namespacepython.html#a38f56692b4793b00b074fc192783947e">python::convert_double_array</a>(time_coord.data(),</div>
-<div class="line"><a name="l01156"></a><span class="lineno"> 1156</span>&#160;                      time_coord.size());</div>
-<div class="line"><a name="l01157"></a><span class="lineno"> 1157</span>&#160;    <span class="keyword">auto</span> pRecLineDen = <a class="code" href="../../de/d4a/namespacepython.html#a38f56692b4793b00b074fc192783947e">python::convert_double_array</a>(rec_line_den.data(),</div>
-<div class="line"><a name="l01158"></a><span class="lineno"> 1158</span>&#160;                       rec_line_den.size());</div>
-<div class="line"><a name="l01159"></a><span class="lineno"> 1159</span>&#160;</div>
-<div class="line"><a name="l01160"></a><span class="lineno"> 1160</span>&#160;    <span class="keyword">auto</span> pPlot = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(plot);</div>
-<div class="line"><a name="l01161"></a><span class="lineno"> 1161</span>&#160;    <span class="keyword">auto</span> pFigDir = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(figdir);</div>
+<div class="line"><a name="l01096"></a><span class="lineno"> 1096</span>&#160;                              + (phi_s - phi_rf) / omega_rf;</div>
+<div class="line"><a name="l01097"></a><span class="lineno"> 1097</span>&#160;            <span class="keywordflow">else</span></div>
+<div class="line"><a name="l01098"></a><span class="lineno"> 1098</span>&#160;                Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>[i] = sigma_dt * r</div>
+<div class="line"><a name="l01099"></a><span class="lineno"> 1099</span>&#160;                              + (phi_s - phi_rf - <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a>) / omega_rf;</div>
+<div class="line"><a name="l01100"></a><span class="lineno"> 1100</span>&#160;            Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>[i] = sigma_dE * r;</div>
+<div class="line"><a name="l01101"></a><span class="lineno"> 1101</span>&#160;        }</div>
+<div class="line"><a name="l01102"></a><span class="lineno"> 1102</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l01103"></a><span class="lineno"> 1103</span>&#160;        default_random_engine generator(seed);</div>
+<div class="line"><a name="l01104"></a><span class="lineno"> 1104</span>&#160;        normal_distribution&lt;double&gt; distribution(0.0, 1.0);</div>
+<div class="line"><a name="l01105"></a><span class="lineno"> 1105</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee">n_macroparticles</a>; ++i) {</div>
+<div class="line"><a name="l01106"></a><span class="lineno"> 1106</span>&#160;            <span class="keywordtype">double</span> r = distribution(generator);</div>
+<div class="line"><a name="l01107"></a><span class="lineno"> 1107</span>&#160;            <span class="keywordflow">if</span> (eta0 &gt; 0)</div>
+<div class="line"><a name="l01108"></a><span class="lineno"> 1108</span>&#160;                Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>[i] = sigma_dt * r + (phi_s - phi_rf) / omega_rf;</div>
+<div class="line"><a name="l01109"></a><span class="lineno"> 1109</span>&#160;            <span class="keywordflow">else</span></div>
+<div class="line"><a name="l01110"></a><span class="lineno"> 1110</span>&#160;                Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>[i] =</div>
+<div class="line"><a name="l01111"></a><span class="lineno"> 1111</span>&#160;                    sigma_dt * r + (phi_s - phi_rf - <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a>) / omega_rf;</div>
+<div class="line"><a name="l01112"></a><span class="lineno"> 1112</span>&#160;            r = distribution(generator);</div>
+<div class="line"><a name="l01113"></a><span class="lineno"> 1113</span>&#160;            Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>[i] = sigma_dE * r;</div>
+<div class="line"><a name="l01114"></a><span class="lineno"> 1114</span>&#160;        }</div>
+<div class="line"><a name="l01115"></a><span class="lineno"> 1115</span>&#160;    }</div>
+<div class="line"><a name="l01116"></a><span class="lineno"> 1116</span>&#160;</div>
+<div class="line"><a name="l01117"></a><span class="lineno"> 1117</span>&#160;    <span class="comment">// TODO test this one</span></div>
+<div class="line"><a name="l01118"></a><span class="lineno"> 1118</span>&#160;    <span class="keywordflow">if</span> (reinsertion == <span class="keyword">true</span>) {</div>
+<div class="line"><a name="l01119"></a><span class="lineno"> 1119</span>&#160;        <span class="keyword">auto</span> is_not_in = <a class="code" href="../../de/da5/utilities_8cpp.html#abdb8c63453b171d9a2ee00711825c33c">is_in_separatrix</a>(GP, RfP, Beam, Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>, Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>);</div>
+<div class="line"><a name="l01120"></a><span class="lineno"> 1120</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;b : is_not_in) b = 1 - b;</div>
+<div class="line"><a name="l01121"></a><span class="lineno"> 1121</span>&#160;        <span class="keywordtype">int</span> size = accumulate(is_not_in.begin(), is_not_in.end(), 0);</div>
+<div class="line"><a name="l01122"></a><span class="lineno"> 1122</span>&#160;        default_random_engine generator(seed);</div>
+<div class="line"><a name="l01123"></a><span class="lineno"> 1123</span>&#160;        normal_distribution&lt;double&gt; distribution(0.0, 1.0);</div>
+<div class="line"><a name="l01124"></a><span class="lineno"> 1124</span>&#160;</div>
+<div class="line"><a name="l01125"></a><span class="lineno"> 1125</span>&#160;        <span class="keywordflow">while</span> (size != 0) {</div>
+<div class="line"><a name="l01126"></a><span class="lineno"> 1126</span>&#160;            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; size; ++i) {</div>
+<div class="line"><a name="l01127"></a><span class="lineno"> 1127</span>&#160;                <span class="keywordflow">if</span> (is_not_in[i] == <span class="keyword">false</span>) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l01128"></a><span class="lineno"> 1128</span>&#160;</div>
+<div class="line"><a name="l01129"></a><span class="lineno"> 1129</span>&#160;                <span class="keywordtype">double</span> r = distribution(generator);</div>
+<div class="line"><a name="l01130"></a><span class="lineno"> 1130</span>&#160;                <span class="keywordflow">if</span> (eta0 &gt; 0)</div>
+<div class="line"><a name="l01131"></a><span class="lineno"> 1131</span>&#160;                    Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>[i] = sigma_dt * r + (phi_s - phi_rf) / omega_rf;</div>
+<div class="line"><a name="l01132"></a><span class="lineno"> 1132</span>&#160;                <span class="keywordflow">else</span></div>
+<div class="line"><a name="l01133"></a><span class="lineno"> 1133</span>&#160;                    Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>[i] = sigma_dt * r</div>
+<div class="line"><a name="l01134"></a><span class="lineno"> 1134</span>&#160;                                  + (phi_s - phi_rf - <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a>) / omega_rf;</div>
+<div class="line"><a name="l01135"></a><span class="lineno"> 1135</span>&#160;                r = distribution(generator);</div>
+<div class="line"><a name="l01136"></a><span class="lineno"> 1136</span>&#160;                Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>[i] = sigma_dE * r;</div>
+<div class="line"><a name="l01137"></a><span class="lineno"> 1137</span>&#160;            }</div>
+<div class="line"><a name="l01138"></a><span class="lineno"> 1138</span>&#160;            is_not_in = <a class="code" href="../../de/da5/utilities_8cpp.html#abdb8c63453b171d9a2ee00711825c33c">is_in_separatrix</a>(GP, RfP, Beam, Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>, Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>);</div>
+<div class="line"><a name="l01139"></a><span class="lineno"> 1139</span>&#160;            size = accumulate(is_not_in.begin(), is_not_in.end(), 0);</div>
+<div class="line"><a name="l01140"></a><span class="lineno"> 1140</span>&#160;</div>
+<div class="line"><a name="l01141"></a><span class="lineno"> 1141</span>&#160;        }</div>
+<div class="line"><a name="l01142"></a><span class="lineno"> 1142</span>&#160;    }</div>
+<div class="line"><a name="l01143"></a><span class="lineno"> 1143</span>&#160;}</div>
+<div class="line"><a name="l01144"></a><span class="lineno"> 1144</span>&#160;</div>
+<div class="line"><a name="l01145"></a><span class="lineno"><a class="code" href="../../dc/d7d/Distributions_8h.html#acbf747cb2f921b5b334987f33a027741"> 1145</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../db/de1/Distributions_8cpp.html#a2bb3b5294fedc5f82a515348a586d417">plot_generated_bunch</a>(<a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;time_line_den, <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;line_density,</div>
+<div class="line"><a name="l01146"></a><span class="lineno"> 1146</span>&#160;                          <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;time_coord,</div>
+<div class="line"><a name="l01147"></a><span class="lineno"> 1147</span>&#160;                          <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;rec_line_den,</div>
+<div class="line"><a name="l01148"></a><span class="lineno"> 1148</span>&#160;                          <span class="keywordtype">string</span> plot, <span class="keywordtype">string</span> figdir)</div>
+<div class="line"><a name="l01149"></a><span class="lineno"> 1149</span>&#160;{</div>
+<div class="line"><a name="l01150"></a><span class="lineno"> 1150</span>&#160;    <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>();</div>
+<div class="line"><a name="l01151"></a><span class="lineno"> 1151</span>&#160;    <span class="keyword">auto</span> pFunc = <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>(<span class="stringliteral">&quot;distributions&quot;</span>,</div>
+<div class="line"><a name="l01152"></a><span class="lineno"> 1152</span>&#160;                                <span class="stringliteral">&quot;plot_generated_bunch&quot;</span>);</div>
+<div class="line"><a name="l01153"></a><span class="lineno"> 1153</span>&#160;    <span class="keyword">auto</span> pTimeLineDen = <a class="code" href="../../de/d4a/namespacepython.html#a38f56692b4793b00b074fc192783947e">python::convert_double_array</a>(time_line_den.data(),</div>
+<div class="line"><a name="l01154"></a><span class="lineno"> 1154</span>&#160;                        time_line_den.size());</div>
+<div class="line"><a name="l01155"></a><span class="lineno"> 1155</span>&#160;    <span class="keyword">auto</span> pLineDen = <a class="code" href="../../de/d4a/namespacepython.html#a38f56692b4793b00b074fc192783947e">python::convert_double_array</a>(line_density.data(),</div>
+<div class="line"><a name="l01156"></a><span class="lineno"> 1156</span>&#160;                    line_density.size());</div>
+<div class="line"><a name="l01157"></a><span class="lineno"> 1157</span>&#160;</div>
+<div class="line"><a name="l01158"></a><span class="lineno"> 1158</span>&#160;    <span class="keyword">auto</span> pTimeCoord = <a class="code" href="../../de/d4a/namespacepython.html#a38f56692b4793b00b074fc192783947e">python::convert_double_array</a>(time_coord.data(),</div>
+<div class="line"><a name="l01159"></a><span class="lineno"> 1159</span>&#160;                      time_coord.size());</div>
+<div class="line"><a name="l01160"></a><span class="lineno"> 1160</span>&#160;    <span class="keyword">auto</span> pRecLineDen = <a class="code" href="../../de/d4a/namespacepython.html#a38f56692b4793b00b074fc192783947e">python::convert_double_array</a>(rec_line_den.data(),</div>
+<div class="line"><a name="l01161"></a><span class="lineno"> 1161</span>&#160;                       rec_line_den.size());</div>
 <div class="line"><a name="l01162"></a><span class="lineno"> 1162</span>&#160;</div>
-<div class="line"><a name="l01163"></a><span class="lineno"> 1163</span>&#160;    <span class="keyword">auto</span> ret = PyObject_CallFunctionObjArgs(pFunc, pTimeLineDen,</div>
-<div class="line"><a name="l01164"></a><span class="lineno"> 1164</span>&#160;                                            pLineDen, pTimeCoord,</div>
-<div class="line"><a name="l01165"></a><span class="lineno"> 1165</span>&#160;                                            pRecLineDen, pPlot, pFigDir, NULL);</div>
-<div class="line"><a name="l01166"></a><span class="lineno"> 1166</span>&#160;    <span class="keywordflow">if</span> (!ret) {</div>
-<div class="line"><a name="l01167"></a><span class="lineno"> 1167</span>&#160;        std::cerr &lt;&lt; <span class="stringliteral">&quot;[plot_generated_bunch] An error occured while &quot;</span></div>
-<div class="line"><a name="l01168"></a><span class="lineno"> 1168</span>&#160;                  &lt;&lt; <span class="stringliteral">&quot;executing python code\n&quot;</span>;</div>
-<div class="line"><a name="l01169"></a><span class="lineno"> 1169</span>&#160;        exit(-1);</div>
-<div class="line"><a name="l01170"></a><span class="lineno"> 1170</span>&#160;    }</div>
-<div class="line"><a name="l01171"></a><span class="lineno"> 1171</span>&#160;}</div>
+<div class="line"><a name="l01163"></a><span class="lineno"> 1163</span>&#160;    <span class="keyword">auto</span> pPlot = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(plot);</div>
+<div class="line"><a name="l01164"></a><span class="lineno"> 1164</span>&#160;    <span class="keyword">auto</span> pFigDir = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(figdir);</div>
+<div class="line"><a name="l01165"></a><span class="lineno"> 1165</span>&#160;</div>
+<div class="line"><a name="l01166"></a><span class="lineno"> 1166</span>&#160;    <span class="keyword">auto</span> ret = PyObject_CallFunctionObjArgs(pFunc, pTimeLineDen,</div>
+<div class="line"><a name="l01167"></a><span class="lineno"> 1167</span>&#160;                                            pLineDen, pTimeCoord,</div>
+<div class="line"><a name="l01168"></a><span class="lineno"> 1168</span>&#160;                                            pRecLineDen, pPlot, pFigDir, NULL);</div>
+<div class="line"><a name="l01169"></a><span class="lineno"> 1169</span>&#160;    <span class="keywordflow">if</span> (!ret) {</div>
+<div class="line"><a name="l01170"></a><span class="lineno"> 1170</span>&#160;        std::cerr &lt;&lt; <span class="stringliteral">&quot;[plot_generated_bunch] An error occured while &quot;</span></div>
+<div class="line"><a name="l01171"></a><span class="lineno"> 1171</span>&#160;                  &lt;&lt; <span class="stringliteral">&quot;executing python code\n&quot;</span>;</div>
+<div class="line"><a name="l01172"></a><span class="lineno"> 1172</span>&#160;        exit(-1);</div>
+<div class="line"><a name="l01173"></a><span class="lineno"> 1173</span>&#160;    }</div>
+<div class="line"><a name="l01174"></a><span class="lineno"> 1174</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_2b12189b1b38a5891fb7949d75362c72.html">src</a></li><li class="navelem"><a class="el" href="../../dir_65a963df2049cffd9bd0ad804e3d7b5f.html">beams</a></li><li class="navelem"><a class="el" href="../../db/de1/Distributions_8cpp.html">Distributions.cpp</a></li>
-    <li class="footer">Generated on Thu Nov 17 2016 14:40:41 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Wed Nov 23 2016 12:05:07 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

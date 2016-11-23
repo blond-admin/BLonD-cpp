@@ -16,6 +16,7 @@
 using namespace mymath;
 using namespace std;
 
+
 line_density_t
 matched_from_line_density(Beams *beam,
                           FullRingAndRf *full_ring,

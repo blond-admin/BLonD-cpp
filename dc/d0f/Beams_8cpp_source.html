@@ -124,121 +124,122 @@ $(document).ready(function(){initNavTree('dc/d0f/Beams_8cpp_source.html','../../
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../d2/de2/math__functions_8h.html">blond/math_functions.h</a>&gt;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../de/d44/trackers_2utilities_8h.html">blond/trackers/utilities.h</a>&gt;</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="code" href="../../d9/d7c/classBeams.html#aac5901b9ddb19625abaa662aa52d03f9">   13</a></span>&#160;<a class="code" href="../../d9/d7c/classBeams.html#aac5901b9ddb19625abaa662aa52d03f9">Beams::Beams</a>(<a class="code" href="../../d1/dfc/classGeneralParameters.html">GeneralParameters</a> *GP,</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;             <span class="keyword">const</span> <span class="keywordtype">int</span> _n_macroparticles,</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;             <span class="keyword">const</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span> _intensity)</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#a46307c6334da44881bd56169d5a30500">mass</a> = GP-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a7947471d0866a47f0dc3202c63a432bd">mass</a>;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#a4b94bd97868a7a8a23694164600aa513">charge</a> = GP-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a31759496b44dcf96ca8f247ec3e9873c">charge</a>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#a22d47e4bdb53b2e8f020071c582068d3">beta</a> = GP-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a1dfbb2b28b96314abba548b4a750fce8">beta</a>[0][0];</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#ac527b6bc685afe1ebdfc063cc9913df9">gamma</a> = GP-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a9f4d8b1a9de704f5477f27c2aeebbab1">gamma</a>[0][0];</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#ae1fe9d93b120b850007fd23af2bc45d9">energy</a> = GP-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#ad95d8eaac393bbb3210b8cf10ab0a20a">energy</a>[0][0];</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#af26003244d634224d4dc70cc1f0efe48">momentum</a> = GP-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#aea11b2e34e53638809f9764489230dbf">momentum</a>[0][0];</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee">n_macroparticles</a> = _n_macroparticles;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#ac430543dc1a6bb178a5cc6cfcb315be1">intensity</a> = _intensity;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>.resize(<a class="code" href="../../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee">n_macroparticles</a>);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>.resize(<a class="code" href="../../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee">n_macroparticles</a>);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordtype">id</span>.resize(<a class="code" href="../../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee">n_macroparticles</a>, 1);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#a22269afb847796c7dfa1db07d7dbf544">mean_dt</a> = <a class="code" href="../../d9/d7c/classBeams.html#ac1972bebe3a1511e9b99aae41c35a83c">mean_dE</a> = 0;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#a09701e53444e77c361fdeb6eebe56a65">sigma_dt</a> = <a class="code" href="../../d9/d7c/classBeams.html#a66b7eb0be0b20692ae5d8b8893a319c3">sigma_dE</a> = 0;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#a3f3b3bee03ea99a1459aa9d430565a84">ratio</a> = <a class="code" href="../../d9/d7c/classBeams.html#ac430543dc1a6bb178a5cc6cfcb315be1">intensity</a> / <a class="code" href="../../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee">n_macroparticles</a>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#a3cefa92250c23b8b48c3238417df3d3c">epsn_rms_l</a> = 0;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#a1a31acb1b54a038cdd6c3a18df31a278">n_macroparticles_lost</a> = 0;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="code" href="../../d9/d7c/classBeams.html#aacb7661506803611942bcd956fcdf042">   35</a></span>&#160;<a class="code" href="../../d9/d7c/classBeams.html#aacb7661506803611942bcd956fcdf042">Beams::~Beams</a>() {}</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="code" href="../../d9/d7c/classBeams.html#a62778a9071e6ab9dab3e02b733a014c5">   37</a></span>&#160;<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> <a class="code" href="../../d9/d7c/classBeams.html#a62778a9071e6ab9dab3e02b733a014c5">Beams::n_macroparticles_alive</a>()</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;{</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee">n_macroparticles</a> - <a class="code" href="../../d9/d7c/classBeams.html#a1a31acb1b54a038cdd6c3a18df31a278">n_macroparticles_lost</a>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="code" href="../../d9/d7c/classBeams.html#ae9935138e1455799fa7e8afaf9f7be79">   42</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d9/d7c/classBeams.html#ae9935138e1455799fa7e8afaf9f7be79">Beams::statistics</a>()</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;{</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#ae9935138e1455799fa7e8afaf9f7be79">statistics</a>(<a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>.data(), <a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>.data(), <span class="keywordtype">id</span>.data(), <a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>.size());</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="code" href="../../d9/d7c/classBeams.html#a8439410dfe144df86ff2d55ebfcfa069">   47</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d9/d7c/classBeams.html#ae9935138e1455799fa7e8afaf9f7be79">Beams::statistics</a>(<span class="keyword">const</span> <span class="keywordtype">double</span> *__restrict dE,</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                       <span class="keyword">const</span> <span class="keywordtype">double</span> *__restrict dt,</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                       <span class="keyword">const</span> <span class="keywordtype">int</span> *__restrict <span class="keywordtype">id</span>,</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                       <span class="keyword">const</span> <span class="keywordtype">int</span> size)</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;{</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">double</span> m_dE, m_dt, s_dE, s_dt;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    m_dt = m_dE = s_dE = s_dt = 0.0;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">int</span> n = 0;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">    #pragma omp parallel for reduction(+:m_dE, m_dt, n)</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; size; ++i) {</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        m_dE += <span class="keywordtype">id</span>[i] * dE[i];</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        m_dt += <span class="keywordtype">id</span>[i] * dt[i];</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        n += <span class="keywordtype">id</span>[i];</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    }</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#ac1972bebe3a1511e9b99aae41c35a83c">mean_dE</a> = m_dE /= n;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#a22269afb847796c7dfa1db07d7dbf544">mean_dt</a> = m_dt /= n;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">    #pragma omp parallel for reduction(+:s_dE, s_dt)</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; size; ++i) {</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        s_dE += <span class="keywordtype">id</span>[i] * (dE[i] - <a class="code" href="../../d9/d7c/classBeams.html#ac1972bebe3a1511e9b99aae41c35a83c">mean_dE</a>) * (dE[i] - <a class="code" href="../../d9/d7c/classBeams.html#ac1972bebe3a1511e9b99aae41c35a83c">mean_dE</a>);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        s_dt += <span class="keywordtype">id</span>[i] * (dt[i] - <a class="code" href="../../d9/d7c/classBeams.html#a22269afb847796c7dfa1db07d7dbf544">mean_dt</a>) * (dt[i] - <a class="code" href="../../d9/d7c/classBeams.html#a22269afb847796c7dfa1db07d7dbf544">mean_dt</a>);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    }</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#a66b7eb0be0b20692ae5d8b8893a319c3">sigma_dE</a> = std::sqrt(s_dE / n);</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#a09701e53444e77c361fdeb6eebe56a65">sigma_dt</a> = std::sqrt(s_dt / n);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#a3cefa92250c23b8b48c3238417df3d3c">epsn_rms_l</a> = <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a> * <a class="code" href="../../d9/d7c/classBeams.html#a66b7eb0be0b20692ae5d8b8893a319c3">sigma_dE</a> * <a class="code" href="../../d9/d7c/classBeams.html#a09701e53444e77c361fdeb6eebe56a65">sigma_dt</a>; <span class="comment">// in eVs</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="comment">// Losses</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#a1a31acb1b54a038cdd6c3a18df31a278">n_macroparticles_lost</a> = <a class="code" href="../../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee">n_macroparticles</a> - n;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;}</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="code" href="../../d9/d7c/classBeams.html#aac5901b9ddb19625abaa662aa52d03f9">   14</a></span>&#160;<a class="code" href="../../d9/d7c/classBeams.html#aac5901b9ddb19625abaa662aa52d03f9">Beams::Beams</a>(<a class="code" href="../../d1/dfc/classGeneralParameters.html">GeneralParameters</a> *GP,</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;             <span class="keyword">const</span> <span class="keywordtype">int</span> _n_macroparticles,</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;             <span class="keyword">const</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span> _intensity)</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#a46307c6334da44881bd56169d5a30500">mass</a> = GP-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a7947471d0866a47f0dc3202c63a432bd">mass</a>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#a4b94bd97868a7a8a23694164600aa513">charge</a> = GP-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a31759496b44dcf96ca8f247ec3e9873c">charge</a>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#a22d47e4bdb53b2e8f020071c582068d3">beta</a> = GP-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a1dfbb2b28b96314abba548b4a750fce8">beta</a>[0][0];</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#ac527b6bc685afe1ebdfc063cc9913df9">gamma</a> = GP-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a9f4d8b1a9de704f5477f27c2aeebbab1">gamma</a>[0][0];</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#ae1fe9d93b120b850007fd23af2bc45d9">energy</a> = GP-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#ad95d8eaac393bbb3210b8cf10ab0a20a">energy</a>[0][0];</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#af26003244d634224d4dc70cc1f0efe48">momentum</a> = GP-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#aea11b2e34e53638809f9764489230dbf">momentum</a>[0][0];</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee">n_macroparticles</a> = _n_macroparticles;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#ac430543dc1a6bb178a5cc6cfcb315be1">intensity</a> = _intensity;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>.resize(<a class="code" href="../../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee">n_macroparticles</a>);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>.resize(<a class="code" href="../../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee">n_macroparticles</a>);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordtype">id</span>.resize(<a class="code" href="../../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee">n_macroparticles</a>, 1);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#a22269afb847796c7dfa1db07d7dbf544">mean_dt</a> = <a class="code" href="../../d9/d7c/classBeams.html#ac1972bebe3a1511e9b99aae41c35a83c">mean_dE</a> = 0;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#a09701e53444e77c361fdeb6eebe56a65">sigma_dt</a> = <a class="code" href="../../d9/d7c/classBeams.html#a66b7eb0be0b20692ae5d8b8893a319c3">sigma_dE</a> = 0;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#a3f3b3bee03ea99a1459aa9d430565a84">ratio</a> = <a class="code" href="../../d9/d7c/classBeams.html#ac430543dc1a6bb178a5cc6cfcb315be1">intensity</a> / <a class="code" href="../../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee">n_macroparticles</a>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#a3cefa92250c23b8b48c3238417df3d3c">epsn_rms_l</a> = 0;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#a1a31acb1b54a038cdd6c3a18df31a278">n_macroparticles_lost</a> = 0;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;}</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="code" href="../../d9/d7c/classBeams.html#aacb7661506803611942bcd956fcdf042">   36</a></span>&#160;<a class="code" href="../../d9/d7c/classBeams.html#aacb7661506803611942bcd956fcdf042">Beams::~Beams</a>() {}</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="code" href="../../d9/d7c/classBeams.html#a62778a9071e6ab9dab3e02b733a014c5">   38</a></span>&#160;<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> <a class="code" href="../../d9/d7c/classBeams.html#a62778a9071e6ab9dab3e02b733a014c5">Beams::n_macroparticles_alive</a>()</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;{</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee">n_macroparticles</a> - <a class="code" href="../../d9/d7c/classBeams.html#a1a31acb1b54a038cdd6c3a18df31a278">n_macroparticles_lost</a>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="code" href="../../d9/d7c/classBeams.html#ae9935138e1455799fa7e8afaf9f7be79">   43</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d9/d7c/classBeams.html#ae9935138e1455799fa7e8afaf9f7be79">Beams::statistics</a>()</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;{</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#ae9935138e1455799fa7e8afaf9f7be79">statistics</a>(<a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>.data(), <a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>.data(), <span class="keywordtype">id</span>.data(), <a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>.size());</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="code" href="../../d9/d7c/classBeams.html#a8439410dfe144df86ff2d55ebfcfa069">   48</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d9/d7c/classBeams.html#ae9935138e1455799fa7e8afaf9f7be79">Beams::statistics</a>(<span class="keyword">const</span> <span class="keywordtype">double</span> *__restrict dE,</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                       <span class="keyword">const</span> <span class="keywordtype">double</span> *__restrict dt,</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                       <span class="keyword">const</span> <span class="keywordtype">int</span> *__restrict <span class="keywordtype">id</span>,</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                       <span class="keyword">const</span> <span class="keywordtype">int</span> size)</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;{</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">double</span> m_dE, m_dt, s_dE, s_dt;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    m_dt = m_dE = s_dE = s_dt = 0.0;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">int</span> n = 0;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">    #pragma omp parallel for reduction(+:m_dE, m_dt, n)</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; size; ++i) {</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        m_dE += <span class="keywordtype">id</span>[i] * dE[i];</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        m_dt += <span class="keywordtype">id</span>[i] * dt[i];</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        n += <span class="keywordtype">id</span>[i];</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    }</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#ac1972bebe3a1511e9b99aae41c35a83c">mean_dE</a> = m_dE /= n;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#a22269afb847796c7dfa1db07d7dbf544">mean_dt</a> = m_dt /= n;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">    #pragma omp parallel for reduction(+:s_dE, s_dt)</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; size; ++i) {</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        s_dE += <span class="keywordtype">id</span>[i] * (dE[i] - <a class="code" href="../../d9/d7c/classBeams.html#ac1972bebe3a1511e9b99aae41c35a83c">mean_dE</a>) * (dE[i] - <a class="code" href="../../d9/d7c/classBeams.html#ac1972bebe3a1511e9b99aae41c35a83c">mean_dE</a>);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        s_dt += <span class="keywordtype">id</span>[i] * (dt[i] - <a class="code" href="../../d9/d7c/classBeams.html#a22269afb847796c7dfa1db07d7dbf544">mean_dt</a>) * (dt[i] - <a class="code" href="../../d9/d7c/classBeams.html#a22269afb847796c7dfa1db07d7dbf544">mean_dt</a>);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    }</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#a66b7eb0be0b20692ae5d8b8893a319c3">sigma_dE</a> = std::sqrt(s_dE / n);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#a09701e53444e77c361fdeb6eebe56a65">sigma_dt</a> = std::sqrt(s_dt / n);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#a3cefa92250c23b8b48c3238417df3d3c">epsn_rms_l</a> = <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a> * <a class="code" href="../../d9/d7c/classBeams.html#a66b7eb0be0b20692ae5d8b8893a319c3">sigma_dE</a> * <a class="code" href="../../d9/d7c/classBeams.html#a09701e53444e77c361fdeb6eebe56a65">sigma_dt</a>; <span class="comment">// in eVs</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="comment">// Losses</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="code" href="../../d9/d7c/classBeams.html#a1a31acb1b54a038cdd6c3a18df31a278">n_macroparticles_lost</a> = <a class="code" href="../../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee">n_macroparticles</a> - n;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;}</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div>
-<div class="line"><a name="l00080"></a><span class="lineno"><a class="code" href="../../d9/d7c/classBeams.html#a06a5a2331de86e65cbe3c95f6541067d">   80</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d9/d7c/classBeams.html#a06a5a2331de86e65cbe3c95f6541067d">Beams::losses_longitudinal_cut</a>(<span class="keyword">const</span> <span class="keywordtype">double</span> dt_min, <span class="keyword">const</span> <span class="keywordtype">double</span> dt_max)</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;{</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">    #pragma omp parallel for</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; (int)<a class="code" href="../../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee">n_macroparticles</a>; i++)</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keywordtype">id</span>[i] = (<a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>[i] - dt_min) * (dt_max - <a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>[i]) &lt; 0 ? 0 : <span class="keywordtype">id</span>[i];</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;}</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
-<div class="line"><a name="l00087"></a><span class="lineno"><a class="code" href="../../d9/d7c/classBeams.html#ae6013f8182f2cc9532d4685ab247ba00">   87</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d9/d7c/classBeams.html#ae6013f8182f2cc9532d4685ab247ba00">Beams::losses_energy_cut</a>(<span class="keyword">const</span> <span class="keywordtype">double</span> dE_min, <span class="keyword">const</span> <span class="keywordtype">double</span> dE_max)</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;{</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">    #pragma omp parallel for</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; (int)<a class="code" href="../../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee">n_macroparticles</a>; ++i)</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordtype">id</span>[i] = (<a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>[i] - dE_min) * (dE_max - <a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>[i]) &lt; 0 ? 0 : <span class="keywordtype">id</span>[i];</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;}</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="code" href="../../d9/d7c/classBeams.html#a06a5a2331de86e65cbe3c95f6541067d">   81</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d9/d7c/classBeams.html#a06a5a2331de86e65cbe3c95f6541067d">Beams::losses_longitudinal_cut</a>(<span class="keyword">const</span> <span class="keywordtype">double</span> dt_min, <span class="keyword">const</span> <span class="keywordtype">double</span> dt_max)</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;{</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">    #pragma omp parallel for</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; (int)<a class="code" href="../../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee">n_macroparticles</a>; i++)</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordtype">id</span>[i] = (<a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>[i] - dt_min) * (dt_max - <a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>[i]) &lt; 0 ? 0 : <span class="keywordtype">id</span>[i];</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;}</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
+<div class="line"><a name="l00088"></a><span class="lineno"><a class="code" href="../../d9/d7c/classBeams.html#ae6013f8182f2cc9532d4685ab247ba00">   88</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d9/d7c/classBeams.html#ae6013f8182f2cc9532d4685ab247ba00">Beams::losses_energy_cut</a>(<span class="keyword">const</span> <span class="keywordtype">double</span> dE_min, <span class="keyword">const</span> <span class="keywordtype">double</span> dE_max)</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;{</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">    #pragma omp parallel for</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; (int)<a class="code" href="../../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee">n_macroparticles</a>; ++i)</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keywordtype">id</span>[i] = (<a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>[i] - dE_min) * (dE_max - <a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>[i]) &lt; 0 ? 0 : <span class="keywordtype">id</span>[i];</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;}</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
-<div class="line"><a name="l00095"></a><span class="lineno"><a class="code" href="../../d9/d7c/classBeams.html#a76e4b807fd1a83ae8fe190a774acaa19">   95</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d9/d7c/classBeams.html#a76e4b807fd1a83ae8fe190a774acaa19">Beams::losses_separatrix</a>(<a class="code" href="../../d1/dfc/classGeneralParameters.html">GeneralParameters</a> *GP, <a class="code" href="../../da/d49/classRfParameters.html">RfParameters</a> *RfP)</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;{</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keyword">auto</span> index = <a class="code" href="../../de/da5/utilities_8cpp.html#abdb8c63453b171d9a2ee00711825c33c">is_in_separatrix</a>(GP, RfP, <span class="keyword">this</span>, <a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>, <a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>);</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="preprocessor">    #pragma omp parallel for</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; (int) <a class="code" href="../../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee">n_macroparticles</a>; i++)</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordtype">id</span>[i] = <span class="keywordtype">id</span>[i] * index[i];</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;}</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment">void Beams::losses_longitudinal_cut(const double* __restrict dt,</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment">                                    const double dt_min, const double dt_max,</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="comment">                                    int* __restrict id) {</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment"></span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="comment">#pragma omp parallel for</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="comment">    for (int i = 0; i &lt; (int)n_macroparticles; i++) {</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="comment">        id[i] = (dt[i] - dt_min) * (dt_max - dt[i]) &lt; 0 ? 0 : id[i];</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="comment">    }</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment">}</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment"></span></div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment">void Beams::losses_energy_cut(const double* __restrict dE, const double dE_min,</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">                              const double dE_max, int* __restrict id) {</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment">#pragma omp parallel for</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="comment">    for (int i = 0; i &lt; (int)n_macroparticles; ++i) {</span></div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="comment">        id[i] = (dE[i] - dE_min) * (dE_max - dE[i]) &lt; 0 ? 0 : id[i];</span></div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="comment">    }</span></div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="comment">}</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
+<div class="line"><a name="l00096"></a><span class="lineno"><a class="code" href="../../d9/d7c/classBeams.html#a76e4b807fd1a83ae8fe190a774acaa19">   96</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d9/d7c/classBeams.html#a76e4b807fd1a83ae8fe190a774acaa19">Beams::losses_separatrix</a>(<a class="code" href="../../d1/dfc/classGeneralParameters.html">GeneralParameters</a> *GP, <a class="code" href="../../da/d49/classRfParameters.html">RfParameters</a> *RfP)</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;{</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keyword">auto</span> index = <a class="code" href="../../de/da5/utilities_8cpp.html#abdb8c63453b171d9a2ee00711825c33c">is_in_separatrix</a>(GP, RfP, <span class="keyword">this</span>, <a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>, <a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="preprocessor">    #pragma omp parallel for</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; (int) <a class="code" href="../../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee">n_macroparticles</a>; i++)</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <span class="keywordtype">id</span>[i] = <span class="keywordtype">id</span>[i] * index[i];</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;}</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment">void Beams::losses_longitudinal_cut(const double* __restrict dt,</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="comment">                                    const double dt_min, const double dt_max,</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment">                                    int* __restrict id) {</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="comment">#pragma omp parallel for</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="comment">    for (int i = 0; i &lt; (int)n_macroparticles; i++) {</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="comment">        id[i] = (dt[i] - dt_min) * (dt_max - dt[i]) &lt; 0 ? 0 : id[i];</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment">    }</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment">}</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">void Beams::losses_energy_cut(const double* __restrict dE, const double dE_min,</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment">                              const double dE_max, int* __restrict id) {</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="comment">#pragma omp parallel for</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="comment">    for (int i = 0; i &lt; (int)n_macroparticles; ++i) {</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="comment">        id[i] = (dE[i] - dE_min) * (dE_max - dE[i]) &lt; 0 ? 0 : id[i];</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="comment">    }</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="comment">}</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="comment">*/</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_2b12189b1b38a5891fb7949d75362c72.html">src</a></li><li class="navelem"><a class="el" href="../../dir_65a963df2049cffd9bd0ad804e3d7b5f.html">beams</a></li><li class="navelem"><a class="el" href="../../dc/d0f/Beams_8cpp.html">Beams.cpp</a></li>
-    <li class="footer">Generated on Wed Nov 23 2016 12:05:07 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Wed Nov 23 2016 13:37:45 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

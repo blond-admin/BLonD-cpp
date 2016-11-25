@@ -73,7 +73,6 @@ void Music::track()
 //     std::cout << "sorting time: " << duration.count() << '\n';
 
 //     start = std::chrono::system_clock::now();
-
     Beam->dE[0] += induced_voltage[0];
     double input_first_component = 1;
     double input_second_component = 0;

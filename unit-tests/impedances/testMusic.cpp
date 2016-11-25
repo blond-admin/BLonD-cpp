@@ -6,7 +6,7 @@
 #include <blond/utilities.h>
 #include <testing_utilities.h>
 #include <gtest/gtest.h>
-
+#include <blond/beams/Distributions.h>
 using namespace std;
 
 class testMusic : public ::testing::Test {
@@ -65,8 +65,7 @@ protected:
 
 
 
-        // longitudinal_bigaussian(GP, RfP, Beam, tau_0 / 4, 0, -1, false);
-
+        longitudinal_bigaussian(GP, RfP, Beam, 1e-9, 0, -1);
         Context::Slice = new Slices(RfP, Beam, N_slices);
     }
 
@@ -132,37 +131,32 @@ TEST_F(testMusic, constructor1)
     EXPECT_NEAR(v[0], music.coeff4, epsilon * abs(v[0]))
             << "Testing of coeff4 failed\n";
 
-    // for (uint i = 0; i < v.size(); ++i) {
-    //     double ref = v[i];
-    //     double real = indVoltTime->fTimeArray[i];
-    //     ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
-    //             << "Testing of indVoltTime->fTimeArray failed on i " << i
-    //             << std::endl;
-    // }
-
-    // util::read_vector_from_file(v, params + "total_wake.txt");
-    // ASSERT_EQ(v.size(), indVoltTime->fTotalWake.size());
-
-    // for (uint i = 0; i < v.size(); ++i) {
-    //     double ref = v[i];
-    //     double real = indVoltTime->fTotalWake[i];
-    //     ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
-    //             << "Testing of indVoltTime->fTotalWake failed on i " << i
-    //             << std::endl;
-    // }
-
-    // util::read_vector_from_file(v, params + "cut.txt");
-    // ASSERT_EQ(v.size(), 1);
-    // ASSERT_EQ(v[0], indVoltTime->fCut) << "Testing of fCut failed\n";
-
-    // util::read_vector_from_file(v, params + "fshape.txt");
-    // ASSERT_EQ(v.size(), 1);
-    // ASSERT_EQ(v[0], indVoltTime->fShape) << "Testing of fShape failed\n";
-
-    // delete indVoltTime;
 }
 
 
+TEST_F(testMusic, track1)
+{
+    double epsilon = 1e-8;
+    auto slices = Context::Slice;
+    auto beam = Context::Beam;
+    f_vector_t v;
+    string params = TEST_FILES "/Impedances/Music/track1/";
+
+    slices->track();
+
+    double R_S = 1e7;
+    double frequency_R = 1e8;
+    double Q = 1;
+    auto music = Music(beam, {R_S, 2 * constant::pi * frequency_R, Q}, N_p, N_b);
+    music.track();
+
+    util::read_vector_from_file(v, params + "induced_voltage.txt");
+    ASSERT_NEAR_LOOP(v, music.induced_voltage, "induced_voltage", epsilon);
+
+    util::read_vector_from_file(v, params + "beam_dE.txt");
+    ASSERT_NEAR_LOOP(v, music.Beam->dE, "beam_dE", epsilon);
+
+}
 
 
 int main(int ac, char *av[])

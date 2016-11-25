@@ -313,39 +313,38 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">//     std::cout &lt;&lt; &quot;sorting time: &quot; &lt;&lt; duration.count() &lt;&lt; &#39;\n&#39;;</span></div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">//     start = std::chrono::system_clock::now();</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <a class="code" href="../../d2/d2f/classMusic.html#a18b0e8fee3e5bec703f79f66031318ea">Beam</a>-&gt;<a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>[0] += <a class="code" href="../../d2/d2f/classMusic.html#a27fb8981aab5d12dbe384b62ef7a6b5f">induced_voltage</a>[0];</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">double</span> input_first_component = 1;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">double</span> input_second_component = 0;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n_macroparticles - 1; i++) {</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">double</span> time_difference = <a class="code" href="../../d2/d2f/classMusic.html#a18b0e8fee3e5bec703f79f66031318ea">Beam</a>-&gt;<a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>[i + 1] - <a class="code" href="../../d2/d2f/classMusic.html#a18b0e8fee3e5bec703f79f66031318ea">Beam</a>-&gt;<a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>[i];</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">double</span> exp_term = <a class="code" href="../../df/d6d/namespacemymath.html#a26804041cdba7feaf8427bdec22ba173">mymath::fast_exp</a>(-<a class="code" href="../../d2/d2f/classMusic.html#af47e92929f71a484937ce52f3ffb0328">alpha</a> * time_difference);</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">double</span> cos_term = <a class="code" href="../../df/d6d/namespacemymath.html#a56db34e8382851729defc7a3eb906220">mymath::fast_cos</a>(<a class="code" href="../../d2/d2f/classMusic.html#ab3d3904dc9248afa08cf7c3e7b2562a2">omega_bar</a> * time_difference);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">double</span> sin_term = <a class="code" href="../../df/d6d/namespacemymath.html#a38897799c9327d162f914bbb097fb8e3">mymath::fast_sin</a>(<a class="code" href="../../d2/d2f/classMusic.html#ab3d3904dc9248afa08cf7c3e7b2562a2">omega_bar</a> * time_difference);</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">double</span> product_first_component =</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            exp_term * ((cos_term + <a class="code" href="../../d2/d2f/classMusic.html#abb58fe207368ea7f7e119073b548b5d1">coeff1</a> * sin_term)</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                        * input_first_component + <a class="code" href="../../d2/d2f/classMusic.html#ab9a38f7955c3a27780f0f7cbc3d3ad63">coeff2</a> * sin_term</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                        * input_second_component);</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">double</span> product_second_component =</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            exp_term * (<a class="code" href="../../d2/d2f/classMusic.html#a490b71658096fe7b0d5b25236d9ae862">coeff3</a> * sin_term * input_first_component</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                        + (cos_term + <a class="code" href="../../d2/d2f/classMusic.html#aefff47e8a3d714db6218eb147db5fecf">coeff4</a> * sin_term)</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                        * input_second_component);</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <a class="code" href="../../d2/d2f/classMusic.html#a27fb8981aab5d12dbe384b62ef7a6b5f">induced_voltage</a>[i + 1] = <a class="code" href="../../d2/d2f/classMusic.html#a12e94c741ca6c23f285f288a99d74b67">constant</a> * (0.5 + product_first_component);</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <a class="code" href="../../d2/d2f/classMusic.html#a18b0e8fee3e5bec703f79f66031318ea">Beam</a>-&gt;<a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>[i + 1] += <a class="code" href="../../d2/d2f/classMusic.html#a27fb8981aab5d12dbe384b62ef7a6b5f">induced_voltage</a>[i + 1];</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        input_first_component = product_first_component + 1;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        input_second_component = product_second_component;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="code" href="../../d2/d2f/classMusic.html#a18b0e8fee3e5bec703f79f66031318ea">Beam</a>-&gt;<a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>[0] += <a class="code" href="../../d2/d2f/classMusic.html#a27fb8981aab5d12dbe384b62ef7a6b5f">induced_voltage</a>[0];</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">double</span> input_first_component = 1;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">double</span> input_second_component = 0;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n_macroparticles - 1; i++) {</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">double</span> time_difference = <a class="code" href="../../d2/d2f/classMusic.html#a18b0e8fee3e5bec703f79f66031318ea">Beam</a>-&gt;<a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>[i + 1] - <a class="code" href="../../d2/d2f/classMusic.html#a18b0e8fee3e5bec703f79f66031318ea">Beam</a>-&gt;<a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>[i];</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">double</span> exp_term = <a class="code" href="../../df/d6d/namespacemymath.html#a26804041cdba7feaf8427bdec22ba173">mymath::fast_exp</a>(-<a class="code" href="../../d2/d2f/classMusic.html#af47e92929f71a484937ce52f3ffb0328">alpha</a> * time_difference);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">double</span> cos_term = <a class="code" href="../../df/d6d/namespacemymath.html#a56db34e8382851729defc7a3eb906220">mymath::fast_cos</a>(<a class="code" href="../../d2/d2f/classMusic.html#ab3d3904dc9248afa08cf7c3e7b2562a2">omega_bar</a> * time_difference);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">double</span> sin_term = <a class="code" href="../../df/d6d/namespacemymath.html#a38897799c9327d162f914bbb097fb8e3">mymath::fast_sin</a>(<a class="code" href="../../d2/d2f/classMusic.html#ab3d3904dc9248afa08cf7c3e7b2562a2">omega_bar</a> * time_difference);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">double</span> product_first_component =</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            exp_term * ((cos_term + <a class="code" href="../../d2/d2f/classMusic.html#abb58fe207368ea7f7e119073b548b5d1">coeff1</a> * sin_term)</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                        * input_first_component + <a class="code" href="../../d2/d2f/classMusic.html#ab9a38f7955c3a27780f0f7cbc3d3ad63">coeff2</a> * sin_term</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                        * input_second_component);</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">double</span> product_second_component =</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            exp_term * (<a class="code" href="../../d2/d2f/classMusic.html#a490b71658096fe7b0d5b25236d9ae862">coeff3</a> * sin_term * input_first_component</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                        + (cos_term + <a class="code" href="../../d2/d2f/classMusic.html#aefff47e8a3d714db6218eb147db5fecf">coeff4</a> * sin_term)</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                        * input_second_component);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <a class="code" href="../../d2/d2f/classMusic.html#a27fb8981aab5d12dbe384b62ef7a6b5f">induced_voltage</a>[i + 1] = <a class="code" href="../../d2/d2f/classMusic.html#a12e94c741ca6c23f285f288a99d74b67">constant</a> * (0.5 + product_first_component);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <a class="code" href="../../d2/d2f/classMusic.html#a18b0e8fee3e5bec703f79f66031318ea">Beam</a>-&gt;<a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>[i + 1] += <a class="code" href="../../d2/d2f/classMusic.html#a27fb8981aab5d12dbe384b62ef7a6b5f">induced_voltage</a>[i + 1];</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        input_first_component = product_first_component + 1;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        input_second_component = product_second_component;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment">//     duration = std::chrono::system_clock::now() - start;</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment">//     std::cout &lt;&lt; &quot;tracking time: &quot; &lt;&lt; duration.count() &lt;&lt; &#39;\n&#39;;</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment">//     duration = std::chrono::system_clock::now() - start;</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment">//     std::cout &lt;&lt; &quot;tracking time: &quot; &lt;&lt; duration.count() &lt;&lt; &#39;\n&#39;;</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    }</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;}</div><!-- fragment -->
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    }</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;}</div><!-- fragment -->
 <p><div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -576,7 +575,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../d2/d2f/classMusic.html">Music</a></li>
-    <li class="footer">Generated on Fri Nov 25 2016 16:09:44 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Fri Nov 25 2016 16:58:50 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

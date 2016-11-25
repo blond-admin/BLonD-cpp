@@ -32,7 +32,7 @@
         </defs>
 
 <script type="text/javascript">
-var viewWidth = 554;
+var viewWidth = 662;
 var viewHeight = 270;
 var sectionId = 'dynsection-21';
 </script>
@@ -40,7 +40,7 @@ var sectionId = 'dynsection-21';
 <svg id="graph" class="graph">
 <g id="viewport">
 <title>vdt::details::sp2uint32</title>
-<polygon fill="white" stroke="white" points="-4,5 -4,-266 551,-266 551,5 -4,5"/>
+<polygon fill="white" stroke="white" points="-4,5 -4,-266 659,-266 659,5 -4,5"/>
 <!-- Node1 -->
 <g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0.5,-120.5 0.5,-141.5 113.5,-141.5 113.5,-120.5 0.5,-120.5"/>
@@ -70,63 +70,63 @@ var sectionId = 'dynsection-21';
 <path fill="none" stroke="midnightblue" d="M78.5594,-147.698C96.7314,-161.067 123.879,-179.436 150,-191 158.379,-194.71 167.599,-197.86 176.621,-200.486"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="80.5053,-144.782 70.4035,-141.588 76.3084,-150.385 80.5053,-144.782"/>
 </g>
-<!-- Node7 -->
-<g id="node13" class="node"><title>Node7</title>
+<!-- Node8 -->
+<g id="node15" class="node"><title>Node8</title>
 <a xlink:href="../../d1/d47/namespacevdt_1_1details.html#a0955c5c09034993fc754e50eb88cb52e" target="_top" xlink:title="Like frexp but vectorising and the exponent is a float.">
 <polygon fill="white" stroke="black" points="150,-160.5 150,-181.5 300,-181.5 300,-160.5 150,-160.5"/>
 <text text-anchor="middle" x="225" y="-168.5" font-family="Helvetica,sans-Serif" font-size="10.00">vdt::details::getMantExponentf</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node7 -->
-<g id="edge12" class="edge"><title>Node1&#45;&gt;Node7</title>
+<!-- Node1&#45;&gt;Node8 -->
+<g id="edge14" class="edge"><title>Node1&#45;&gt;Node8</title>
 <path fill="none" stroke="midnightblue" d="M110.922,-143.839C133.509,-149.216 159.438,-155.39 180.863,-160.491"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="111.679,-140.421 101.14,-141.51 110.057,-147.231 111.679,-140.421"/>
 </g>
-<!-- Node8 -->
-<g id="node15" class="node"><title>Node8</title>
+<!-- Node9 -->
+<g id="node17" class="node"><title>Node9</title>
 <a xlink:href="../../d1/d47/namespacevdt_1_1details.html#a856d0762e0fe395fd009d3adf2b3a2a5" target="_top" xlink:title="Get the sign mask.">
 <polygon fill="white" stroke="black" points="161,-120.5 161,-141.5 289,-141.5 289,-120.5 161,-120.5"/>
 <text text-anchor="middle" x="225" y="-128.5" font-family="Helvetica,sans-Serif" font-size="10.00">vdt::details::getSignMask</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node8 -->
-<g id="edge14" class="edge"><title>Node1&#45;&gt;Node8</title>
+<!-- Node1&#45;&gt;Node9 -->
+<g id="edge16" class="edge"><title>Node1&#45;&gt;Node9</title>
 <path fill="none" stroke="midnightblue" d="M123.975,-131C136.164,-131 148.853,-131 160.955,-131"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="123.877,-127.5 113.877,-131 123.877,-134.5 123.877,-127.5"/>
 </g>
-<!-- Node9 -->
-<g id="node17" class="node"><title>Node9</title>
+<!-- Node10 -->
+<g id="node19" class="node"><title>Node10</title>
 <a xlink:href="../../d1/d47/namespacevdt_1_1details.html#a118d5060963c6a7cd68f0aca61555858" target="_top" xlink:title="Makes an AND of a float and a unsigned long.">
 <polygon fill="white" stroke="black" points="160.5,-80.5 160.5,-101.5 289.5,-101.5 289.5,-80.5 160.5,-80.5"/>
 <text text-anchor="middle" x="225" y="-88.5" font-family="Helvetica,sans-Serif" font-size="10.00">vdt::details::spANDuint32</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node9 -->
-<g id="edge16" class="edge"><title>Node1&#45;&gt;Node9</title>
+<!-- Node1&#45;&gt;Node10 -->
+<g id="edge18" class="edge"><title>Node1&#45;&gt;Node10</title>
 <path fill="none" stroke="midnightblue" d="M110.922,-118.161C133.509,-112.784 159.438,-106.61 180.863,-101.509"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="110.057,-114.769 101.14,-120.49 111.679,-121.579 110.057,-114.769"/>
 </g>
-<!-- Node10 -->
-<g id="node19" class="node"><title>Node10</title>
+<!-- Node11 -->
+<g id="node21" class="node"><title>Node11</title>
 <a xlink:href="../../d1/d47/namespacevdt_1_1details.html#af03fab4ba853ec7ad76037354211d648" target="_top" xlink:title="Makes an OR of a float and a unsigned long.">
 <polygon fill="white" stroke="black" points="164,-40.5 164,-61.5 286,-61.5 286,-40.5 164,-40.5"/>
 <text text-anchor="middle" x="225" y="-48.5" font-family="Helvetica,sans-Serif" font-size="10.00">vdt::details::spORuint32</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node10 -->
-<g id="edge18" class="edge"><title>Node1&#45;&gt;Node10</title>
+<!-- Node1&#45;&gt;Node11 -->
+<g id="edge20" class="edge"><title>Node1&#45;&gt;Node11</title>
 <path fill="none" stroke="midnightblue" d="M78.5594,-114.302C96.7314,-100.933 123.879,-82.5643 150,-71 158.379,-67.2904 167.599,-64.1404 176.621,-61.5144"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="76.3084,-111.615 70.4035,-120.412 80.5053,-117.218 76.3084,-111.615"/>
 </g>
-<!-- Node11 -->
-<g id="node21" class="node"><title>Node11</title>
+<!-- Node12 -->
+<g id="node23" class="node"><title>Node12</title>
 <a xlink:href="../../d1/d47/namespacevdt_1_1details.html#a30d94a4ed6856964f440ed7dcf6fb37b" target="_top" xlink:title="Makes an OR of a float and a unsigned long.">
 <polygon fill="white" stroke="black" points="160.5,-0.5 160.5,-21.5 289.5,-21.5 289.5,-0.5 160.5,-0.5"/>
 <text text-anchor="middle" x="225" y="-8.5" font-family="Helvetica,sans-Serif" font-size="10.00">vdt::details::spXORuint32</text>
 </a>
 </g>
-<!-- Node1&#45;&gt;Node11 -->
-<g id="edge20" class="edge"><title>Node1&#45;&gt;Node11</title>
+<!-- Node1&#45;&gt;Node12 -->
+<g id="edge22" class="edge"><title>Node1&#45;&gt;Node12</title>
 <path fill="none" stroke="midnightblue" d="M69.5953,-111.958C85.601,-89.2696 115.351,-51.823 150,-31 156.353,-27.1822 163.438,-24.0817 170.647,-21.5665"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="66.5639,-110.19 63.7854,-120.414 72.3332,-114.154 66.5639,-110.19"/>
 </g>
@@ -142,15 +142,15 @@ var sectionId = 'dynsection-21';
 <path fill="none" stroke="midnightblue" d="M284.25,-218.9C302.26,-221.301 321.538,-223.872 337.674,-226.023"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="284.49,-215.401 274.116,-217.549 283.565,-222.34 284.49,-215.401"/>
 </g>
-<!-- Node6 -->
-<g id="node11" class="node"><title>Node6</title>
+<!-- Node7 -->
+<g id="node13" class="node"><title>Node7</title>
 <a xlink:href="../../d5/d7b/namespacevdt.html#a780ce9076bbef3b8a091f585dcd48a0e" target="_top" xlink:title="Exponential Function single precision.">
 <polygon fill="white" stroke="black" points="336.5,-180.5 336.5,-201.5 413.5,-201.5 413.5,-180.5 336.5,-180.5"/>
 <text text-anchor="middle" x="375" y="-188.5" font-family="Helvetica,sans-Serif" font-size="10.00">vdt::fast_expf</text>
 </a>
 </g>
-<!-- Node3&#45;&gt;Node6 -->
-<g id="edge10" class="edge"><title>Node3&#45;&gt;Node6</title>
+<!-- Node3&#45;&gt;Node7 -->
+<g id="edge12" class="edge"><title>Node3&#45;&gt;Node7</title>
 <path fill="none" stroke="midnightblue" d="M284.239,-203.101C301.721,-200.771 320.398,-198.28 336.237,-196.168"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="283.565,-199.66 274.116,-204.451 284.49,-206.599 283.565,-199.66"/>
 </g>
@@ -165,6 +165,18 @@ var sectionId = 'dynsection-21';
 <g id="edge8" class="edge"><title>Node4&#45;&gt;Node5</title>
 <path fill="none" stroke="midnightblue" d="M422.381,-231C431.575,-231 441.213,-231 450.413,-231"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="422.238,-227.5 412.238,-231 422.238,-234.5 422.238,-227.5"/>
+</g>
+<!-- Node6 -->
+<g id="node11" class="node"><title>Node6</title>
+<a xlink:href="../../d2/d2f/classMusic.html#a2016c0b24cc8359176692b37f8f1917e" target="_top" xlink:title="Music::track">
+<polygon fill="white" stroke="black" points="582.5,-220.5 582.5,-241.5 653.5,-241.5 653.5,-220.5 582.5,-220.5"/>
+<text text-anchor="middle" x="618" y="-228.5" font-family="Helvetica,sans-Serif" font-size="10.00">Music::track</text>
+</a>
+</g>
+<!-- Node5&#45;&gt;Node6 -->
+<g id="edge10" class="edge"><title>Node5&#45;&gt;Node6</title>
+<path fill="none" stroke="midnightblue" d="M555.858,-231C564.854,-231 573.914,-231 582.228,-231"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="555.772,-227.5 545.772,-231 555.772,-234.5 555.772,-227.5"/>
 </g>
 </g>
 </svg>

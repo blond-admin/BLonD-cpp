@@ -13,6 +13,7 @@ var searchData=
   ['indices_5finside_5fframe',['indices_inside_frame',['../de/da1/classRingAndRfSection.html#a772240b1bba4d2c1cb8322509d831b18',1,'RingAndRfSection']]],
   ['indices_5fleft_5foutside',['indices_left_outside',['../de/da1/classRingAndRfSection.html#adc26b6c36692ef581de212716d249756',1,'RingAndRfSection']]],
   ['indices_5fright_5foutside',['indices_right_outside',['../de/da1/classRingAndRfSection.html#a6e4abace6c23940013c0711d122483ff',1,'RingAndRfSection']]],
+  ['induced_5fvoltage',['induced_voltage',['../d2/d2f/classMusic.html#a27fb8981aab5d12dbe384b62ef7a6b5f',1,'Music']]],
   ['induced_5fvoltage_5fgeneration',['induced_voltage_generation',['../dd/de2/classInducedVoltage.html#adc3a9752318b508d8ec9532c6d25151c',1,'InducedVoltage::induced_voltage_generation()'],['../d0/d6b/classInducedVoltageTime.html#a79450cec4f3620f9c0e16faa544d5491',1,'InducedVoltageTime::induced_voltage_generation()'],['../d5/de7/classInducedVoltageFreq.html#a0d32221f87feb031ad8db7524739cbb1',1,'InducedVoltageFreq::induced_voltage_generation()'],['../d4/dd7/classTotalInducedVoltage.html#aac87010774344855b412e0909023e43a',1,'TotalInducedVoltage::induced_voltage_generation()']]],
   ['induced_5fvoltage_5fsum',['induced_voltage_sum',['../d4/dd7/classTotalInducedVoltage.html#abc83c9281cb4106d169cdd78e697cf70',1,'TotalInducedVoltage']]],
   ['inducedvoltage',['InducedVoltage',['../dd/de2/classInducedVoltage.html',1,'InducedVoltage'],['../dd/de2/classInducedVoltage.html#acb4785a0a001ae3d6fc3d450778cc0b0',1,'InducedVoltage::InducedVoltage()']]],

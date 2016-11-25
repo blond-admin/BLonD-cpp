@@ -1,8 +1,9 @@
 var searchData=
 [
   ['n',['n',['../dc/daf/structfft_1_1fft__plan__t.html#a568ea153cc83e58e53b1570e9461450d',1,'fft::fft_plan_t']]],
-  ['n_5fmacroparticles',['n_macroparticles',['../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee',1,'Beams::n_macroparticles()'],['../dc/d45/classSlices.html#a6da6cf87cacb679fc1c9100a21cd3add',1,'Slices::n_macroparticles()']]],
+  ['n_5fmacroparticles',['n_macroparticles',['../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee',1,'Beams::n_macroparticles()'],['../dc/d45/classSlices.html#a6da6cf87cacb679fc1c9100a21cd3add',1,'Slices::n_macroparticles()'],['../d2/d2f/classMusic.html#a6eddb52851afe331115909e18189a9cc',1,'Music::n_macroparticles()']]],
   ['n_5fmacroparticles_5flost',['n_macroparticles_lost',['../d9/d7c/classBeams.html#a1a31acb1b54a038cdd6c3a18df31a278',1,'Beams']]],
+  ['n_5fparticles',['n_particles',['../d2/d2f/classMusic.html#a07b0791cd6263295c941de376e0fb417',1,'Music']]],
   ['n_5frf',['n_rf',['../da/d49/classRfParameters.html#ab8af605062619c7682c292fbc86fab17',1,'RfParameters::n_rf()'],['../de/da1/classRingAndRfSection.html#ab1f2f85c27895dce93799d04f641403a',1,'RingAndRfSection::n_rf()']]],
   ['n_5fsections',['n_sections',['../d1/dfc/classGeneralParameters.html#a841441cee26c6af115bcf84e218b9795',1,'GeneralParameters']]],
   ['n_5fsigma',['n_sigma',['../dc/d45/classSlices.html#a5923ddc4a73915fb97e5139b94548bf6',1,'Slices']]],

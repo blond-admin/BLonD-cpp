@@ -24,5 +24,8 @@ var searchData=
   ['monitors_2eh',['Monitors.h',['../d0/da6/Monitors_8h.html',1,'']]],
   ['morebits',['MOREBITS',['../d1/d47/namespacevdt_1_1details.html#ae43e8ec975cab257cd2e1edea344c4a9',1,'vdt::details']]],
   ['multi_5ft',['multi_t',['../d3/d1f/structmulti__t.html',1,'multi_t'],['../d3/d1f/structmulti__t.html#a3f9bb3347665bc1c5cd7ca40bd66dc8b',1,'multi_t::multi_t()'],['../d3/d1f/structmulti__t.html#a83a6441fab122b395f01b14493dddec1',1,'multi_t::multi_t(double _d)'],['../d3/d1f/structmulti__t.html#a2b8d5784376e5792deefcd65c93fa67e',1,'multi_t::multi_t(std::string _s)'],['../d3/d1f/structmulti__t.html#a5b2289c063ae661203fd32e5358be2a8',1,'multi_t::multi_t(int _i)'],['../d3/d1f/structmulti__t.html#a3b52c589f9439e0b9ea34f4ad8712875',1,'multi_t::multi_t(const f_vector_t &amp;_v)'],['../d3/d1f/structmulti__t.html#a8ce688b8ce7d9cd63eebbababb424f5f',1,'multi_t::multi_t(std::function&lt; f_vector_t(const f_vector_t &amp;, std::string, double, double)&gt; _f)']]],
+  ['music',['Music',['../d2/d2f/classMusic.html',1,'Music'],['../d2/d2f/classMusic.html#a76b6465611d1801ecbb71e1b0dd842b8',1,'Music::Music()']]],
+  ['music_2ecpp',['Music.cpp',['../d6/df4/Music_8cpp.html',1,'']]],
+  ['music_2eh',['Music.h',['../dc/d9c/Music_8h.html',1,'']]],
   ['mymath',['mymath',['../df/d6d/namespacemymath.html',1,'']]]
 ];

@@ -33,6 +33,10 @@ var files =
     [ "math_functions.h", "d2/de2/math__functions_8h.html", "d2/de2/math__functions_8h" ],
     [ "Monitors.cpp", "da/dda/Monitors_8cpp.html", "da/dda/Monitors_8cpp" ],
     [ "Monitors.h", "d0/da6/Monitors_8h.html", "d0/da6/Monitors_8h" ],
+    [ "Music.cpp", "d6/df4/Music_8cpp.html", null ],
+    [ "Music.h", "dc/d9c/Music_8h.html", [
+      [ "Music", "d2/d2f/classMusic.html", "d2/d2f/classMusic" ]
+    ] ],
     [ "openmp.h", "d1/db0/openmp_8h.html", "d1/db0/openmp_8h" ],
     [ "optionparser.h", "da/d69/optionparser_8h.html", "da/d69/optionparser_8h" ],
     [ "PhaseLoop.cpp", "db/dee/PhaseLoop_8cpp.html", null ],
@@ -69,7 +73,9 @@ var files =
     [ "sin.h", "d1/d3d/sin_8h.html", "d1/d3d/sin_8h" ],
     [ "sincos.h", "dc/dfa/sincos_8h.html", "dc/dfa/sincos_8h" ],
     [ "Slices.cpp", "d7/d91/Slices_8cpp.html", null ],
-    [ "Slices.h", "dc/df2/Slices_8h.html", "dc/df2/Slices_8h" ],
+    [ "Slices.h", "dc/df2/Slices_8h.html", [
+      [ "Slices", "dc/d45/classSlices.html", "dc/d45/classSlices" ]
+    ] ],
     [ "Tracker.cpp", "d2/d6f/Tracker_8cpp.html", null ],
     [ "Tracker.h", "d2/d0e/Tracker_8h.html", [
       [ "FullRingAndRf", "d6/d13/classFullRingAndRf.html", "d6/d13/classFullRingAndRf" ],

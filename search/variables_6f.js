@@ -1,5 +1,7 @@
 var searchData=
 [
+  ['omega_5fbar',['omega_bar',['../d2/d2f/classMusic.html#ab3d3904dc9248afa08cf7c3e7b2562a2',1,'Music']]],
+  ['omega_5fr',['omega_R',['../d2/d2f/classMusic.html#aacc7ca6b86b8cee68bf63328c83108d8',1,'Music']]],
   ['omega_5frev',['omega_rev',['../d1/dfc/classGeneralParameters.html#aa150b8045dd161e6bcb6a94e49cf7714',1,'GeneralParameters']]],
   ['omega_5frf',['omega_rf',['../da/d49/classRfParameters.html#a35d8f5f983fdfee8695f48e846a81416',1,'RfParameters::omega_rf()'],['../de/da1/classRingAndRfSection.html#a62766b5a3af68ac17279aac3403f6b18',1,'RingAndRfSection::omega_rf()']]],
   ['omega_5frf_5fd',['omega_rf_d',['../da/d49/classRfParameters.html#a9cd15f833b621510346e470a0712b281',1,'RfParameters']]],

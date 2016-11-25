@@ -23,6 +23,7 @@ var hierarchy =
     [ "LHCNoiseFB", "d8/d2b/classLHCNoiseFB.html", null ],
     [ "line_density_t", "d6/d33/structline__density__t.html", null ],
     [ "multi_t", "d3/d1f/structmulti__t.html", null ],
+    [ "Music", "d2/d2f/classMusic.html", null ],
     [ "mymath::Ham", "d4/d19/classmymath_1_1Ham.html", null ],
     [ "option::Arg", "df/dc3/structoption_1_1Arg.html", [
       [ "util::Arg", "d7/d0f/structutil_1_1Arg.html", null ]

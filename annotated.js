@@ -24,6 +24,7 @@ var annotated =
     [ "LHCNoiseFB", "d8/d2b/classLHCNoiseFB.html", "d8/d2b/classLHCNoiseFB" ],
     [ "line_density_t", "d6/d33/structline__density__t.html", "d6/d33/structline__density__t" ],
     [ "multi_t", "d3/d1f/structmulti__t.html", "d3/d1f/structmulti__t" ],
+    [ "Music", "d2/d2f/classMusic.html", "d2/d2f/classMusic" ],
     [ "PhaseLoop", "d6/d87/classPhaseLoop.html", "d6/d87/classPhaseLoop" ],
     [ "PhaseNoise", "da/dd4/classPhaseNoise.html", "da/dd4/classPhaseNoise" ],
     [ "PSB", "d9/d59/classPSB.html", "d9/d59/classPSB" ],

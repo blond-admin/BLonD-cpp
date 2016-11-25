@@ -7,5 +7,6 @@ var searchData=
   ['indices_5finside_5fframe',['indices_inside_frame',['../de/da1/classRingAndRfSection.html#a772240b1bba4d2c1cb8322509d831b18',1,'RingAndRfSection']]],
   ['indices_5fleft_5foutside',['indices_left_outside',['../de/da1/classRingAndRfSection.html#adc26b6c36692ef581de212716d249756',1,'RingAndRfSection']]],
   ['indices_5fright_5foutside',['indices_right_outside',['../de/da1/classRingAndRfSection.html#a6e4abace6c23940013c0711d122483ff',1,'RingAndRfSection']]],
+  ['induced_5fvoltage',['induced_voltage',['../d2/d2f/classMusic.html#a27fb8981aab5d12dbe384b62ef7a6b5f',1,'Music']]],
   ['intensity',['intensity',['../d9/d7c/classBeams.html#ac430543dc1a6bb178a5cc6cfcb315be1',1,'Beams']]]
 ];

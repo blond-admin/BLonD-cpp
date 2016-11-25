@@ -1,5 +1,7 @@
 var searchData=
 [
+  ['omega_5fbar',['omega_bar',['../d2/d2f/classMusic.html#ab3d3904dc9248afa08cf7c3e7b2562a2',1,'Music']]],
+  ['omega_5fr',['omega_R',['../d2/d2f/classMusic.html#aacc7ca6b86b8cee68bf63328c83108d8',1,'Music']]],
   ['omega_5frev',['omega_rev',['../d1/dfc/classGeneralParameters.html#aa150b8045dd161e6bcb6a94e49cf7714',1,'GeneralParameters']]],
   ['omega_5frf',['omega_rf',['../da/d49/classRfParameters.html#a35d8f5f983fdfee8695f48e846a81416',1,'RfParameters::omega_rf()'],['../de/da1/classRingAndRfSection.html#a62766b5a3af68ac17279aac3403f6b18',1,'RingAndRfSection::omega_rf()']]],
   ['omega_5frf_5fd',['omega_rf_d',['../da/d49/classRfParameters.html#a9cd15f833b621510346e470a0712b281',1,'RfParameters']]],
@@ -33,8 +35,8 @@ var searchData=
   ['operator_3d_3d',['operator==',['../da/d30/vector__math_8h.html#a06c46c24a2d8962f82a9fa373c7f77e1',1,'operator==(const std::vector&lt; T &gt; &amp;a, const std::vector&lt; T &gt; &amp;b):&#160;vector_math.h'],['../da/d30/vector__math_8h.html#a95564ca2ad8863f81bc0aba4a4b46cd2',1,'operator==(const std::vector&lt; T &gt; &amp;a, const T &amp;b):&#160;vector_math.h']]],
   ['operator_3e',['operator&gt;',['../da/d30/vector__math_8h.html#af5edc33878b5f25a8f16dca62832daca',1,'operator&gt;(const std::vector&lt; T &gt; &amp;a, const std::vector&lt; T &gt; &amp;b):&#160;vector_math.h'],['../da/d30/vector__math_8h.html#a9b0f0a5ebd2c63711d5af7af839847df',1,'operator&gt;(const std::vector&lt; T &gt; &amp;a, const T &amp;b):&#160;vector_math.h']]],
   ['operator_3e_3d',['operator&gt;=',['../da/d30/vector__math_8h.html#a1002357bfe5a07084e5d1f872e413710',1,'operator&gt;=(const std::vector&lt; T &gt; &amp;a, const std::vector&lt; T &gt; &amp;b):&#160;vector_math.h'],['../da/d30/vector__math_8h.html#aabb967d6fd12590a30b475dc1f45de14',1,'operator&gt;=(const std::vector&lt; T &gt; &amp;a, const T &amp;b):&#160;vector_math.h']]],
-  ['option',['Option',['../d3/df3/classoption_1_1Option.html',1,'option']]],
   ['option',['option',['../df/de0/namespaceoption.html',1,'option'],['../d3/df3/classoption_1_1Option.html#aa2810152fc23b14175b115d1a7d38095',1,'option::Option::Option()'],['../d3/df3/classoption_1_1Option.html#a385221e2a8f37c548f0d5777bfddb216',1,'option::Option::Option(const Descriptor *desc_, const char *name_, const char *arg_)'],['../d3/df3/classoption_1_1Option.html#a4053240fecad1a3b1d8e4dc06b7aa8c4',1,'option::Option::Option(const Option &amp;orig)'],['../df/de0/namespaceoption.html#ac99aa12c5d9d6590e19cb78212eb6d63',1,'option::Option()']]],
+  ['option',['Option',['../d3/df3/classoption_1_1Option.html',1,'option']]],
   ['optional',['Optional',['../df/dc3/structoption_1_1Arg.html#aadb5316ecbc9eb0a7f0019d14bf35ad0',1,'option::Arg']]],
   ['optionparser_2eh',['optionparser.h',['../da/d69/optionparser_8h.html',1,'']]],
   ['options',['options',['../d6/d83/classoption_1_1Parser.html#a3020e9c73856f71bbcd0c24bda2be88e',1,'option::Parser']]],

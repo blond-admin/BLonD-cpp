@@ -17,7 +17,7 @@ var searchData=
   ['b_5fsigma_5fde',['b_sigma_dE',['../d2/d00/classBunchMonitor.html#aa8e747776192280a2a9d8c8a716b2327',1,'BunchMonitor']]],
   ['b_5fsigma_5fdt',['b_sigma_dt',['../d2/d00/classBunchMonitor.html#aa057a4b2c2cb90b33dc234fe4533a235',1,'BunchMonitor']]],
   ['b_5fsl_5fdphirf',['b_SL_dphiRF',['../d2/d00/classBunchMonitor.html#a86dd972b6b7511a70c1e89ab8567f03f',1,'BunchMonitor']]],
-  ['beam',['Beam',['../d6/d7a/structContext.html#ac43da1eea654ea818bca0a056ee20361',1,'Context::Beam()'],['../dc/d45/classSlices.html#ae4fc21746c7bdb77d0cc29afde8fe269',1,'Slices::beam()'],['../de/da1/classRingAndRfSection.html#a430a2e60a4471bbacdf2626a5b2c6056',1,'RingAndRfSection::beam()']]],
+  ['beam',['beam',['../dc/d45/classSlices.html#ae4fc21746c7bdb77d0cc29afde8fe269',1,'Slices::beam()'],['../de/da1/classRingAndRfSection.html#a430a2e60a4471bbacdf2626a5b2c6056',1,'RingAndRfSection::beam()'],['../d6/d7a/structContext.html#ac43da1eea654ea818bca0a056ee20361',1,'Context::Beam()'],['../d2/d2f/classMusic.html#a18b0e8fee3e5bec703f79f66031318ea',1,'Music::Beam()']]],
   ['beta',['beta',['../d9/d7c/classBeams.html#a22d47e4bdb53b2e8f020071c582068d3',1,'Beams::beta()'],['../d1/dfc/classGeneralParameters.html#a1dfbb2b28b96314abba548b4a750fce8',1,'GeneralParameters::beta()'],['../da/d49/classRfParameters.html#a15425f98910572408628138f7b966a62',1,'RfParameters::beta()'],['../de/da1/classRingAndRfSection.html#ae5d1f8b3b69ae4020f02a4a070986341',1,'RingAndRfSection::beta()']]],
   ['bin_5fcenters',['bin_centers',['../dc/d45/classSlices.html#a20fe6ad5ead7011307efdd5a81392366',1,'Slices']]],
   ['bl_5ffwhm',['bl_fwhm',['../dc/d45/classSlices.html#a81fa783726a3cc712118f6b8bd95dd0c',1,'Slices']]],

@@ -37,6 +37,7 @@ var classSlices =
     [ "bp_fwhm", "dc/d45/classSlices.html#a662d8b3ea52ceeaa0a8208f5365a863c", null ],
     [ "bp_gauss", "dc/d45/classSlices.html#aee2f91933700c6eb78089aa4297768c6", null ],
     [ "bp_rms", "dc/d45/classSlices.html#a03707a707fb59393b1971ee610c96696", null ],
+    [ "cfwhm", "dc/d45/classSlices.html#a6648a9b430de40731d51121e6f28097e", null ],
     [ "cut_left", "dc/d45/classSlices.html#a1cde953514bbc0f0873a80945471e499", null ],
     [ "cut_right", "dc/d45/classSlices.html#a6816564aaa92b6b8582000d4cd2284cf", null ],
     [ "cuts_unit", "dc/d45/classSlices.html#aefc4260bfce94c925166af01dcf58098", null ],

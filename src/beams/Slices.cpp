@@ -355,7 +355,9 @@ void Slices::fwhm(const double shift)
 //     return cfwhm * (bin_centers[taux2] - bin_centers[taux1]);
 // }
 
-void Slices::fwhm_multibunch() {}
+void Slices::fwhm_multibunch()
+{
+}
 
 void Slices::beam_spectrum_generation(int n, bool onlyRFFT)
 {

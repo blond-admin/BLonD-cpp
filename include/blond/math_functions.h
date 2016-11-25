@@ -110,8 +110,8 @@ namespace mymath {
         const int N = x.size();
         if (N == 0) return;
 
-        const auto max = xp.back();
-        const auto min = xp.front();
+        // const auto max = xp.back();
+        // const auto min = xp.front();
 
         // #pragma omp parallel for
         for (int i = 0; i < N; ++i) {

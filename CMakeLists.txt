@@ -77,7 +77,7 @@ endif ()
 
 set(WARNINGS "-Wall -pedantic -Wno-unused-variable")
 set(CXXFLAGS "-std=gnu++11")
-set(DEBUG "-Og -g3 -fno-omit-frame-pointer")
+set(DEBUG "-O0 -g -fno-omit-frame-pointer")
 # set(RELEASE "-march=native")
 set(RELEASE "-march=native -g -fno-omit-frame-pointer")
 
@@ -119,7 +119,7 @@ if (CMAKE_CXX_COMPILER_ID MATCHES GNU)
         set(DEBUG "${DEBUG} -fprofile-arcs -ftest-coverage")
         set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
     else ()
-        message(STATUS "Code test coverage is enabeled only in CI build type")
+        message(STATUS "Code test coverage is enabled only in CI build type")
     endif ()
 
 elseif (CMAKE_CXX_COMPILER_ID MATCHES "Clang")

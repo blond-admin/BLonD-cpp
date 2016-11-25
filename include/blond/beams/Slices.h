@@ -15,12 +15,10 @@ class Slices;
 #include <blond/input_parameters/RfParameters.h>
 #include <map>
 
-const double cfwhm = 2 * sqrt(2 * log(2));
-
-
 
 class API Slices {
 private:
+    const double cfwhm = 2 * std::sqrt(2 * std::log(2));
 
     f_vector_t gaussian_filter1d(f_vector_t &x, int sigma,
                                  int order, std::string mode);

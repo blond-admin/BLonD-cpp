@@ -49,7 +49,8 @@ namespace vdt {
 
         //------------------------------------------------------------------------------
 
-        inline double get_sin_px(const double x) {
+        inline double get_sin_px(const double x)
+        {
             double px = C1sin;
             px *= x;
             px += C2sin;
@@ -66,7 +67,8 @@ namespace vdt {
 
         //------------------------------------------------------------------------------
 
-        inline double get_cos_px(const double x) {
+        inline double get_cos_px(const double x)
+        {
             double px = C1cos;
             px *= x;
             px += C2cos;
@@ -93,9 +95,11 @@ namespace vdt {
             return ((x - y * DP1) - y * DP2) - y * DP3;
         }
 
+
         //------------------------------------------------------------------------------
         /// Sincos only for -45deg < x < 45deg
-        inline void fast_sincos_m45_45(const double z, double& s, double& c) {
+        inline void fast_sincos_m45_45(const double z, double &s, double &c)
+        {
 
             double zz = z * z;
             s = z + z * zz * get_sin_px(zz);
@@ -107,7 +111,8 @@ namespace vdt {
     } // End namespace details
 
     /// Double precision sincos
-    inline void fast_sincos(const double xx, double& s, double& c) {
+    inline void fast_sincos(const double xx, double &s, double &c)
+    {
         // I have to use doubles to make it vectorise...
 
         int j;
@@ -141,7 +146,8 @@ namespace vdt {
     namespace details {
         //------------------------------------------------------------------------------
         /// Reduce to 0 to 45
-        inline float reduce2quadrant(float x, int& quad) {
+        inline float reduce2quadrant(float x, int &quad)
+        {
             /* make argument positive */
             x = fabs(x);
 
@@ -157,7 +163,8 @@ namespace vdt {
         //------------------------------------------------------------------------------
 
         /// Sincos only for -45deg < x < 45deg
-        inline void fast_sincosf_m45_45(const float x, float& s, float& c) {
+        inline void fast_sincosf_m45_45(const float x, float &s, float &c)
+        {
 
             float z = x * x;
 
@@ -168,7 +175,7 @@ namespace vdt {
 
             c = ((2.443315711809948E-005f * z - 1.388731625493765E-003f) * z +
                  4.166664568298827E-002f) *
-                    z * z -
+                z * z -
                 0.5f * z + 1.0f;
         }
 
@@ -177,7 +184,8 @@ namespace vdt {
     } // end details namespace
 
     /// Single precision sincos
-    inline void fast_sincosf(const float xx, float& s, float& c) {
+    inline void fast_sincosf(const float xx, float &s, float &c)
+    {
 
         int j;
         const float x = details::reduce2quadrant(xx, j);

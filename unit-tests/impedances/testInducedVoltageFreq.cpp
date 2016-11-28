@@ -117,11 +117,10 @@ TEST_F(testInducedVoltageFreq, constructor1)
     // ASSERT_EQ(v.size(), indVoltTime->fTotalWake.size());
 
     for (uint i = 0; i < v.size(); ++i) {
-        auto ref = v[i];
-        auto real = indVoltFreq->fNFFTSampling;
-        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
-                << "Testing of indVoltFreq->fNFFTSampling failed on i " << i
-                << std::endl;
+        int ref = v[i];
+        int real = indVoltFreq->fNFFTSampling;
+        ASSERT_EQ(ref, real)
+                << "Testing of indVoltFreq->fNFFTSampling failed\n";
     }
 
     util::read_vector_from_file(v, params + "frequency_resolution.txt");
@@ -161,19 +160,18 @@ TEST_F(testInducedVoltageFreq, constructor2)
     // ASSERT_EQ(v.size(), indVoltTime->fTotalWake.size());
 
     for (uint i = 0; i < v.size(); ++i) {
-        auto ref = v[i];
-        auto real = indVoltFreq->fNTurnsMem;
-        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
-                << "Testing of indVoltFreq->fNTurnsMem failed on i " << i
-                << std::endl;
+        int ref = v[i];
+        int real = indVoltFreq->fNTurnsMem;
+        ASSERT_EQ(ref, real)
+                << "Testing of indVoltFreq->fNTurnsMem failed\n";
     }
 
     util::read_vector_from_file(v, params + "len_array_memory.txt");
 
     for (uint i = 0; i < v.size(); ++i) {
-        auto ref = v[i];
-        auto real = indVoltFreq->fLenArrayMem;
-        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
+        int ref = v[i];
+        int real = indVoltFreq->fLenArrayMem;
+        ASSERT_EQ(ref, real)
                 << "Testing of indVoltFreq->fLenArrayMem failed on i " << i
                 << std::endl;
     }
@@ -181,21 +179,19 @@ TEST_F(testInducedVoltageFreq, constructor2)
     util::read_vector_from_file(v, params + "len_array_memory_extended.txt");
 
     for (uint i = 0; i < v.size(); ++i) {
-        auto ref = v[i];
-        auto real = indVoltFreq->fLenArrayMemExt;
-        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
-                << "Testing of indVoltFreq->fLenArrayMemExt failed on i " << i
-                << std::endl;
+        int ref = v[i];
+        int real = indVoltFreq->fLenArrayMemExt;
+        ASSERT_EQ(ref, real)
+                << "Testing of indVoltFreq->fLenArrayMemExt failed\n";
     }
 
     util::read_vector_from_file(v, params + "n_points_fft.txt");
 
     for (uint i = 0; i < v.size(); ++i) {
-        auto ref = v[i];
-        auto real = indVoltFreq->fNPointsFFT;
-        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
-                << "Testing of indVoltFreq->fNPointsFFT failed on i " << i
-                << std::endl;
+        int ref = v[i];
+        int real = indVoltFreq->fNPointsFFT;
+        ASSERT_EQ(ref, real)
+                << "Testing of indVoltFreq->fNPointsFFT failed\n";
     }
 
     util::read_vector_from_file(v, params + "frequency_array_memory.txt");
@@ -311,11 +307,10 @@ TEST_F(testInducedVoltageFreq, reprocess1)
 
     util::read_vector_from_file(v, params + "n_fft_sampling.txt");
     for (uint i = 0; i < v.size(); ++i) {
-        auto ref = v[i];
-        auto real = indVoltFreq->fNFFTSampling;
-        ASSERT_NEAR(ref, real, epsilon * std::max(std::abs(ref), std::abs(real)))
-                << "Testing of indVoltFreq->fNFFTSampling failed on i " << i
-                << std::endl;
+        int ref = v[i];
+        int real = indVoltFreq->fNFFTSampling;
+        ASSERT_EQ(ref, real)
+                << "Testing of indVoltFreq->fNFFTSampling failed\n";
     }
 
     util::read_vector_from_file(v, params + "frequency_resolution.txt");

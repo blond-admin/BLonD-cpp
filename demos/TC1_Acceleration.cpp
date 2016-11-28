@@ -98,8 +98,8 @@ int main(int argc, char **argv)
     timespec begin_t;
 
     for (int i = 0; i < N_t; ++i) {
-        if (i % 10000 == 0)
-            cout << "Turn number " << i << " of " << N_t << "\n";
+        // if (i % 10000 == 0)
+        //     cout << "Turn number " << i << " of " << N_t << "\n";
         // util::get_time(begin_t);
         // long_tracker->track();
         // track_time += util::time_elapsed(begin_t);
@@ -123,10 +123,9 @@ int main(int argc, char **argv)
 
     cout << scientific;
     cout << "Average Turn Time : " << (slice_time + track_time) / N_t
-         << endl;
-    cout << "Average Tracker Track Time : " << track_time / N_t
-         << endl;
-    cout << "Average Slice Track Time : " << slice_time / N_t << endl;
+         << "\n";
+    cout << "Average Tracker Track Time : " << track_time / N_t << "\n";
+    cout << "Average Slice Track Time : " << slice_time / N_t << "\n";
 
     // util::dump(Beam->dE.data(), 10, "dE\n");
     // util::dump(Beam->dt.data(), 10, "dt\n");

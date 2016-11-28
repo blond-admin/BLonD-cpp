@@ -103,7 +103,7 @@ void InducedVoltageTime::reprocess(Slices *newSlices)
 }
 
 f_vector_t InducedVoltageTime::induced_voltage_generation(Beams *beam,
-        uint length)
+        int length)
 {
 
     // Method to calculate the induced voltage from wakes with convolution.*
@@ -135,7 +135,7 @@ f_vector_t InducedVoltageTime::induced_voltage_generation(Beams *beam,
     }
 
     fInducedVoltage = inducedVoltage;
-    fInducedVoltage.resize((uint)fSlices->n_slices);
+    fInducedVoltage.resize(fSlices->n_slices);
 
     if (length > 0)
         inducedVoltage.resize(length, 0);
@@ -147,7 +147,7 @@ InducedVoltageFreq::InducedVoltageFreq(Slices *slices,
                                        const std::vector<Intensity *> &impedList,
                                        double freqResolutionInput,
                                        freq_res_option_t freq_res_option,
-                                       uint NTurnsMem,
+                                       int NTurnsMem,
                                        bool recalculationImpedance,
                                        bool saveIndividualVoltages)
 {
@@ -207,15 +207,15 @@ InducedVoltageFreq::InducedVoltageFreq(Slices *slices,
         fSaveIndividualVoltages = saveIndividualVoltages;
         if (fSaveIndividualVoltages) {
             // Do I really need to store the length??
-            uint length = fImpedanceSourceList.size();
+            int length = fImpedanceSourceList.size();
             fMatrixSaveIndividualImpedances =
                 complex_vector_t(length * fFreqArray.size(), 0);
             fMatrixSaveIndividualVoltages =
                 f_vector_t(length * fSlices->n_slices, 0);
-            for (uint i = 0; i < length; ++i) {
-                const uint row_width =
+            for (int i = 0; i < length; ++i) {
+                const int row_width =
                     fImpedanceSourceList[i]->fImpedance.size();
-                for (uint j = 0; j < row_width; ++j) {
+                for (int j = 0; j < row_width; ++j) {
                     fMatrixSaveIndividualImpedances[i * row_width + j] =
                         fImpedanceSourceList[i]->fImpedance[j];
                 }
@@ -234,7 +234,7 @@ InducedVoltageFreq::InducedVoltageFreq(Slices *slices,
         fTimeArrayMem.reserve((fNTurnsMem + 1) * fSlices->n_slices);
         const double factor = fSlices->edges.back() - fSlices->edges.front();
 
-        for (uint i = 0; i < fNTurnsMem + 1; ++i) {
+        for (int i = 0; i < fNTurnsMem + 1; ++i) {
             for (int j = 0; j < fSlices->n_slices; ++j) {
                 fTimeArrayMem.push_back(fSlices->bin_centers[j] + factor * i);
             }
@@ -322,7 +322,7 @@ void InducedVoltageFreq::reprocess(Slices *newSlices)
 }
 
 f_vector_t InducedVoltageFreq::induced_voltage_generation(Beams *beam,
-        uint length)
+        int length)
 {
     //    Method to calculate the induced voltage from the inverse FFT of the
     //    impedance times the spectrum (fourier convolution).
@@ -331,14 +331,14 @@ f_vector_t InducedVoltageFreq::induced_voltage_generation(Beams *beam,
         sum_impedances(fFreqArray);
 
     fSlices->beam_spectrum_generation(fNFFTSampling);
-    const auto n = fImpedanceSourceList.size();
-    const auto factor = -beam->charge * constant::e * beam->ratio *
+    const int n = fImpedanceSourceList.size();
+    const double factor = -beam->charge * constant::e * beam->ratio *
                         fSlices->fBeamSpectrumFreq[1] * 2 *
                         (fSlices->fBeamSpectrum.size() - 1);
 
     if (fSaveIndividualVoltages) {
 
-        for (uint i = 0; i < n; ++i) {
+        for (int i = 0; i < n; ++i) {
             f_vector_t res;
             complex_vector_t in(fSlices->fBeamSpectrum.size());
 
@@ -363,7 +363,7 @@ f_vector_t InducedVoltageFreq::induced_voltage_generation(Beams *beam,
         fInducedVoltage.resize(fSlices->fBeamSpectrum.size());
         for (uint i = 0; i < fSlices->fBeamSpectrum.size(); ++i) {
             double sum = 0.0;
-            for (uint j = 0; j < n; ++j) {
+            for (int j = 0; j < n; ++j) {
                 sum += fMatrixSaveIndividualVoltages[i * n + j];
             }
             fInducedVoltage[i] = sum;
@@ -387,7 +387,7 @@ f_vector_t InducedVoltageFreq::induced_voltage_generation(Beams *beam,
         fInducedVoltage = res;
 
         if (length > 0) {
-            if (length > res.size())
+            if (length > (int)res.size())
                 res.resize(length, 0);
             else
                 res.resize(length);
@@ -399,7 +399,7 @@ f_vector_t InducedVoltageFreq::induced_voltage_generation(Beams *beam,
 
 TotalInducedVoltage::TotalInducedVoltage(Beams *beam, Slices *slices,
         const std::vector<InducedVoltage *> &InducedVoltageList,
-        uint NTurnsMemory,
+        int NTurnsMemory,
         f_vector_t RevTimeArray)
 {
     fBeam = beam;
@@ -435,7 +435,7 @@ void TotalInducedVoltage::reprocess(Slices *newSlices)
         v->reprocess(newSlices);
 }
 
-f_vector_t TotalInducedVoltage::induced_voltage_sum(Beams *beam, uint length)
+f_vector_t TotalInducedVoltage::induced_voltage_sum(Beams *beam, int length)
 {
     // Method to sum all the induced voltages in one single array.
     f_vector_t tempIndVolt;

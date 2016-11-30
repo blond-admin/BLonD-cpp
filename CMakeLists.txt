@@ -79,7 +79,7 @@ set(WARNINGS "-Wall -pedantic -Wno-unused-variable")
 set(CXXFLAGS "-std=gnu++11")
 set(DEBUG "-O0 -g -fno-omit-frame-pointer")
 # set(RELEASE "-march=native")
-set(RELEASE "-march=native -g -fno-omit-frame-pointer")
+# set(RELEASE "-march=native -g -fno-omit-frame-pointer")
 
 
 if(CYGWIN)
@@ -100,18 +100,7 @@ endif()
 if (CMAKE_CXX_COMPILER_ID MATCHES GNU)
 
     set(CXXFLAGS "${CXXFLAGS} -funsafe-math-optimizations")
-
-    # NOTE funsafe-math-optimizations can produce incorrect results in 
-    # Distributions functions
-    # set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Ofast")
     set(RELEASE "${RELEASE} -Ofast")
-    # set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} \
-    #     -fno-math-errno \
-    #     -funsafe-math-optimizations \
-    #     -fno-rounding-math \
-    #     -ffinite-math-only \
-    #     -fno-signaling-nans \
-    #     -fcx-limited-range")
     set(VEC "-fopt-info-vec=vec_report.txt")
     set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -flto")
     # set(DEBUG "${DEBUG} -D_GLIBCXX_DEBUG")

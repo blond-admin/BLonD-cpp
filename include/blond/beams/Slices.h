@@ -1,9 +1,9 @@
 /*
- * Slices.h
- *
- *  Created on: Mar 22, 2016
- *      Author: kiliakis
- */
+* Slices.h
+*
+*  Created on: Mar 22, 2016
+*      Author: kiliakis
+*/
 
 #ifndef BEAMS_SLICES_H_
 #define BEAMS_SLICES_H_

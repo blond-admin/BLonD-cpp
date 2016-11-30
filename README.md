@@ -71,7 +71,7 @@ What was happening here:
 * launch a cygwin terminal
 * clone the code into a directory (lets call it BLonD++/):
 ```bash  
-git clone --branch=master https://github.com/kiliakis/BLonD-minimal-cpp BLonD++
+git clone --branch=master https://github.com/kiliakis/BLonD-cpp BLonD++
 ```
 * To compile all dependencies and build blond library run the commands:
 ```bash

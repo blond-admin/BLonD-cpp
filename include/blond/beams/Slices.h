@@ -19,7 +19,8 @@ class Slices;
 class API Slices {
 private:
     const double cfwhm = 2 * std::sqrt(2 * std::log(2));
-
+    double *thread_hist;
+    
     f_vector_t gaussian_filter1d(f_vector_t &x, int sigma,
                                  int order, std::string mode);
     f_vector_t gradient(f_vector_t &x, double dist);

@@ -1,5 +1,6 @@
 var NAVTREEINDEX4 =
 {
+"dc/dfe/structoption_1_1Descriptor.html#a1fee8ac44f529c99ac2b1149b4c391b1":[1,0,3,1,2],
 "dc/dfe/structoption_1_1Descriptor.html#a470c449dfa894c9bfda2dae026142b4b":[1,0,3,1,3],
 "dc/dfe/structoption_1_1Descriptor.html#a9045b19311533e1b8a08645d57149c79":[1,0,3,1,1],
 "dc/dfe/structoption_1_1Descriptor.html#aa5d675dba0214a4abd73007ff163cc67":[1,0,3,1,0],
@@ -10,9 +11,9 @@ var NAVTREEINDEX4 =
 "dd/de2/classInducedVoltage.html#a4c27abdf4c983e54035c5afa05edd338":[1,0,13,1],
 "dd/de2/classInducedVoltage.html#a4ca69948f4c555dae5732d0cf4a6fce7":[1,0,13,4],
 "dd/de2/classInducedVoltage.html#a688bde18652fb78dd2f1b14d70902eea":[1,0,13,5],
+"dd/de2/classInducedVoltage.html#a9cafb8f7205576b1b73849841ae463bc":[1,0,13,2],
 "dd/de2/classInducedVoltage.html#acb4785a0a001ae3d6fc3d450778cc0b0":[1,0,13,0],
 "dd/de2/classInducedVoltage.html#ad31d03932d11d321678e73e809948ab6":[1,0,13,3],
-"dd/de2/classInducedVoltage.html#adc3a9752318b508d8ec9532c6d25151c":[1,0,13,2],
 "de/d44/trackers_2utilities_8h.html":[2,0,51],
 "de/d44/trackers_2utilities_8h.html#a138356080609cce92babac6fb4e12657":[2,0,51,4],
 "de/d44/trackers_2utilities_8h.html#a2731f126c4d1ccba42f4e34548cad649":[2,0,51,1],
@@ -165,8 +166,8 @@ var NAVTREEINDEX4 =
 "de/df0/utilities_8h.html#af69cf72a141b264fc22252a6497e45ee":[2,0,52,6],
 "de/df0/utilities_8h.html#afeae4d3075fe9a2e1efbc83e92b44534":[2,0,52,11],
 "de/df0/utilities_8h_source.html":[2,0,52],
-"df/d6d/namespacemymath.html":[0,0,2],
 "df/d6d/namespacemymath.html":[1,0,2],
+"df/d6d/namespacemymath.html":[0,0,2],
 "df/dae/structoption_1_1PrintUsageImplementation_1_1FunctionWriter.html":[1,0,3,4,0],
 "df/dae/structoption_1_1PrintUsageImplementation_1_1FunctionWriter.html#a3442e05eb04d2b1ee321193f5b10557b":[1,0,3,4,0,2],
 "df/dae/structoption_1_1PrintUsageImplementation_1_1FunctionWriter.html#aa8e8f237845e210e36ca431d7e503a70":[1,0,3,4,0,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX4 =
 "functions_func_0x65.html":[1,3,1,5],
 "functions_func_0x66.html":[1,3,1,6],
 "functions_func_0x67.html":[1,3,1,7],
-"functions_func_0x68.html":[1,3,1,8],
-"functions_func_0x69.html":[1,3,1,9]
+"functions_func_0x68.html":[1,3,1,8]
 };

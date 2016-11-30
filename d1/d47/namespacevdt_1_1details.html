@@ -557,17 +557,17 @@ Variables</h2></td></tr>
 
 <p>Sincos only for -45deg &lt; x &lt; 45deg. </p>
 
-<p>Definition at line <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00098">98</a> of file <a class="el" href="../../dc/dfa/sincos_8h_source.html">sincos.h</a>.</p>
+<p>Definition at line <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00101">101</a> of file <a class="el" href="../../dc/dfa/sincos_8h_source.html">sincos.h</a>.</p>
 
-<p>References <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00069">get_cos_px()</a>, and <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00052">get_sin_px()</a>.</p>
+<p>References <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00070">get_cos_px()</a>, and <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00052">get_sin_px()</a>.</p>
 
-<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00110">vdt::fast_sincos()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                                                                             {</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            <span class="keywordtype">double</span> zz = z * z;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            s = z + z * zz * <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a72ab4125be9fdc73004f1fcec303dea6">get_sin_px</a>(zz);</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">c</a> = 1.0 - zz * .5 + zz * zz * <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a2d78ddff70416636dcab4eabcab25c8f">get_cos_px</a>(zz);</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        }</div>
+<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00114">vdt::fast_sincos()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        {</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            <span class="keywordtype">double</span> zz = z * z;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            s = z + z * zz * <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a72ab4125be9fdc73004f1fcec303dea6">get_sin_px</a>(zz);</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">c</a> = 1.0 - zz * .5 + zz * zz * <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a2d78ddff70416636dcab4eabcab25c8f">get_cos_px</a>(zz);</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        }</div>
 </div><!-- fragment -->
 <p><div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
@@ -631,23 +631,23 @@ Variables</h2></td></tr>
 
 <p>Sincos only for -45deg &lt; x &lt; 45deg. </p>
 
-<p>Definition at line <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00160">160</a> of file <a class="el" href="../../dc/dfa/sincos_8h_source.html">sincos.h</a>.</p>
+<p>Definition at line <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00166">166</a> of file <a class="el" href="../../dc/dfa/sincos_8h_source.html">sincos.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00180">vdt::fast_sincosf()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                                                                           {</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;            <span class="keywordtype">float</span> z = x * x;</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;            s = (((-1.9515295891E-4f * z + 8.3321608736E-3f) * z -</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                  1.6666654611E-1f) *</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;                 z * x) +</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;                x;</div>
+<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00187">vdt::fast_sincosf()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        {</div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;            <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">c</a> = ((2.443315711809948E-005f * z - 1.388731625493765E-003f) * z +</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                 4.166664568298827E-002f) *</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                    z * z -</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;                0.5f * z + 1.0f;</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        }</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;            <span class="keywordtype">float</span> z = x * x;</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;            s = (((-1.9515295891E-4f * z + 8.3321608736E-3f) * z -</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;                  1.6666654611E-1f) *</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;                 z * x) +</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;                x;</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;            <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">c</a> = ((2.443315711809948E-005f * z - 1.388731625493765E-003f) * z +</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;                 4.166664568298827E-002f) *</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;                z * z -</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;                0.5f * z + 1.0f;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        }</div>
 </div><!-- fragment -->
 <p><div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
@@ -867,25 +867,25 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00069">69</a> of file <a class="el" href="../../dc/dfa/sincos_8h_source.html">sincos.h</a>.</p>
+<p>Definition at line <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00070">70</a> of file <a class="el" href="../../dc/dfa/sincos_8h_source.html">sincos.h</a>.</p>
 
 <p>References <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00031">C1cos</a>, <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00032">C2cos</a>, <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00033">C3cos</a>, <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00034">C4cos</a>, <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00035">C5cos</a>, and <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00036">C6cos</a>.</p>
 
-<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00098">fast_sincos_m45_45()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                                                 {</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            <span class="keywordtype">double</span> px = <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a1866521d5807ea80bd10201e7026834a">C1cos</a>;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            px *= x;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            px += <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a75205ab96c30d7d12d7a69fc8b6a0709">C2cos</a>;</div>
+<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00101">fast_sincos_m45_45()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        {</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            <span class="keywordtype">double</span> px = <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a1866521d5807ea80bd10201e7026834a">C1cos</a>;</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            px *= x;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            px += <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a346f69f1e9de50900db517ba317b02d4">C3cos</a>;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            px += <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a75205ab96c30d7d12d7a69fc8b6a0709">C2cos</a>;</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            px *= x;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            px += <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#acadf2a2ef6b18ca2c58caf63cd7a720e">C4cos</a>;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            px += <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a346f69f1e9de50900db517ba317b02d4">C3cos</a>;</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            px *= x;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            px += <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a4ae532c6317cd708053d8d2e83358b25">C5cos</a>;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            px += <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#acadf2a2ef6b18ca2c58caf63cd7a720e">C4cos</a>;</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            px *= x;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            px += <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#aa7540a5d01e0700461435f7757fa2eb9">C6cos</a>;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            <span class="keywordflow">return</span> px;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        }</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            px += <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a4ae532c6317cd708053d8d2e83358b25">C5cos</a>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            px *= x;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            px += <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#aa7540a5d01e0700461435f7757fa2eb9">C6cos</a>;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            <span class="keywordflow">return</span> px;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        }</div>
 </div><!-- fragment -->
 <p><div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-12-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
@@ -925,21 +925,21 @@ Variables</h2></td></tr>
 
 <p>References <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00024">C1sin</a>, <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00025">C2sin</a>, <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00026">C3sin</a>, <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00027">C4sin</a>, <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00028">C5sin</a>, and <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00029">C6sin</a>.</p>
 
-<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00098">fast_sincos_m45_45()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                                                 {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <span class="keywordtype">double</span> px = <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#affd93b43b9c973d0f1d11399b9aa7704">C1sin</a>;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            px *= x;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            px += <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a9b5715f82947bbb13c62f082837bb098">C2sin</a>;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            px *= x;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            px += <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a2920b5b3f548336fe0db2a742ef5b6f5">C3sin</a>;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            px *= x;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            px += <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#ae166f8fec57e8c869d03158d37b4073d">C4sin</a>;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            px *= x;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            px += <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a35523c70b95f70cbf894714e53c96b04">C5sin</a>;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            px *= x;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            px += <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a5eaa0b7b224da34632685cb40a6cfd4d">C6sin</a>;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            <span class="keywordflow">return</span> px;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        }</div>
+<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00101">fast_sincos_m45_45()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        {</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <span class="keywordtype">double</span> px = <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#affd93b43b9c973d0f1d11399b9aa7704">C1sin</a>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            px *= x;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            px += <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a9b5715f82947bbb13c62f082837bb098">C2sin</a>;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            px *= x;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            px += <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a2920b5b3f548336fe0db2a742ef5b6f5">C3sin</a>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            px *= x;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            px += <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#ae166f8fec57e8c869d03158d37b4073d">C4sin</a>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            px *= x;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            px += <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a35523c70b95f70cbf894714e53c96b04">C5sin</a>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            px *= x;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            px += <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a5eaa0b7b224da34632685cb40a6cfd4d">C6sin</a>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            <span class="keywordflow">return</span> px;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        }</div>
 </div><!-- fragment -->
 <p><div id="dynsection-13" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-13-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
@@ -1291,20 +1291,20 @@ Variables</h2></td></tr>
 
 <p>Reduce to 0 to 45. </p>
 
-<p>Definition at line <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00086">86</a> of file <a class="el" href="../../dc/dfa/sincos_8h_source.html">sincos.h</a>.</p>
+<p>Definition at line <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00088">88</a> of file <a class="el" href="../../dc/dfa/sincos_8h_source.html">sincos.h</a>.</p>
 
 <p>References <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00038">DP1</a>, <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00039">DP2</a>, <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00040">DP3</a>, and <a class="el" href="../../df/de1/vdtcore__common_8h_source.html#l00043">ONEOPIO4</a>.</p>
 
-<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00110">vdt::fast_sincos()</a>, and <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00180">vdt::fast_sincosf()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                                                               {</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            x = fabs(x);</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            quad = int(<a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a7755f26941d64e22d3084adbcf8c16d4">ONEOPIO4</a> * x); <span class="comment">// always positive, so (int) == std::floor</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            quad = (quad + 1) &amp; (~1);</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">double</span> y = double(quad);</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            <span class="comment">// Extended precision modular arithmetic</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            <span class="keywordflow">return</span> ((x - y * <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a2f2ab5ff8766ec0aaddd97c1f34ceb16">DP1</a>) - y * <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#aabadba6b60001532c019443f352a9c22">DP2</a>) - y * <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a960e9d834bfa251426ec425d03b97596">DP3</a>;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        }</div>
+<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00114">vdt::fast_sincos()</a>, and <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00187">vdt::fast_sincosf()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                                                               {</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            x = fabs(x);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            quad = int(<a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a7755f26941d64e22d3084adbcf8c16d4">ONEOPIO4</a> * x); <span class="comment">// always positive, so (int) == std::floor</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            quad = (quad + 1) &amp; (~1);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">double</span> y = double(quad);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            <span class="comment">// Extended precision modular arithmetic</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            <span class="keywordflow">return</span> ((x - y * <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a2f2ab5ff8766ec0aaddd97c1f34ceb16">DP1</a>) - y * <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#aabadba6b60001532c019443f352a9c22">DP2</a>) - y * <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a960e9d834bfa251426ec425d03b97596">DP3</a>;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        }</div>
 </div><!-- fragment -->
 <p><div id="dynsection-20" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-20-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
@@ -1352,21 +1352,21 @@ Variables</h2></td></tr>
 
 <p>Reduce to 0 to 45. </p>
 
-<p>Definition at line <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00144">144</a> of file <a class="el" href="../../dc/dfa/sincos_8h_source.html">sincos.h</a>.</p>
+<p>Definition at line <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00149">149</a> of file <a class="el" href="../../dc/dfa/sincos_8h_source.html">sincos.h</a>.</p>
 
 <p>References <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00044">DP1F</a>, <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00045">DP2F</a>, <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00046">DP3F</a>, and <a class="el" href="../../df/de1/vdtcore__common_8h_source.html#l00049">ONEOPIO4F</a>.</p>
-<div class="fragment"><div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;                                                         {</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;            <span class="comment">/* make argument positive */</span></div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;            x = fabs(x);</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;            quad = int(<a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a39356d3aa0412a34760958fd02e13be1">ONEOPIO4F</a> * x); <span class="comment">/* integer part of x/PIO4 */</span></div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;            quad = (quad + 1) &amp; (~1);</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">float</span> y = float(quad);</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;            <span class="comment">// quad &amp;=4;</span></div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;            <span class="comment">// Extended precision modular arithmetic</span></div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;            <span class="keywordflow">return</span> ((x - y * <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a8139cb9a03f17ec302c41451aae355cd">DP1F</a>) - y * <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a6e96e4a6221c668d8fc88f2b9a24f984">DP2F</a>) - y * <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a8fce354691f372dc7c7249870cb7c8c4">DP3F</a>;</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        }</div>
+<div class="fragment"><div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        {</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;            <span class="comment">/* make argument positive */</span></div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;            x = fabs(x);</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;            quad = int(<a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a39356d3aa0412a34760958fd02e13be1">ONEOPIO4F</a> * x); <span class="comment">/* integer part of x/PIO4 */</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;            quad = (quad + 1) &amp; (~1);</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">float</span> y = float(quad);</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;            <span class="comment">// quad &amp;=4;</span></div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            <span class="comment">// Extended precision modular arithmetic</span></div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;            <span class="keywordflow">return</span> ((x - y * <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a8139cb9a03f17ec302c41451aae355cd">DP1F</a>) - y * <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a6e96e4a6221c668d8fc88f2b9a24f984">DP2F</a>) - y * <a class="code" href="../../d1/d47/namespacevdt_1_1details.html#a8fce354691f372dc7c7249870cb7c8c4">DP3F</a>;</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1683,7 +1683,7 @@ Variables</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00031">31</a> of file <a class="el" href="../../dc/dfa/sincos_8h_source.html">sincos.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00069">get_cos_px()</a>.</p>
+<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00070">get_cos_px()</a>.</p>
 
 </div>
 </div>
@@ -1731,7 +1731,7 @@ Variables</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00032">32</a> of file <a class="el" href="../../dc/dfa/sincos_8h_source.html">sincos.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00069">get_cos_px()</a>.</p>
+<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00070">get_cos_px()</a>.</p>
 
 </div>
 </div>
@@ -1779,7 +1779,7 @@ Variables</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00033">33</a> of file <a class="el" href="../../dc/dfa/sincos_8h_source.html">sincos.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00069">get_cos_px()</a>.</p>
+<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00070">get_cos_px()</a>.</p>
 
 </div>
 </div>
@@ -1811,7 +1811,7 @@ Variables</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00034">34</a> of file <a class="el" href="../../dc/dfa/sincos_8h_source.html">sincos.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00069">get_cos_px()</a>.</p>
+<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00070">get_cos_px()</a>.</p>
 
 </div>
 </div>
@@ -1843,7 +1843,7 @@ Variables</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00035">35</a> of file <a class="el" href="../../dc/dfa/sincos_8h_source.html">sincos.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00069">get_cos_px()</a>.</p>
+<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00070">get_cos_px()</a>.</p>
 
 </div>
 </div>
@@ -1875,7 +1875,7 @@ Variables</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00036">36</a> of file <a class="el" href="../../dc/dfa/sincos_8h_source.html">sincos.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00069">get_cos_px()</a>.</p>
+<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00070">get_cos_px()</a>.</p>
 
 </div>
 </div>
@@ -1907,7 +1907,7 @@ Variables</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00038">38</a> of file <a class="el" href="../../dc/dfa/sincos_8h_source.html">sincos.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00086">reduce2quadrant()</a>.</p>
+<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00088">reduce2quadrant()</a>.</p>
 
 </div>
 </div>
@@ -1923,7 +1923,7 @@ Variables</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00044">44</a> of file <a class="el" href="../../dc/dfa/sincos_8h_source.html">sincos.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00144">reduce2quadrant()</a>.</p>
+<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00149">reduce2quadrant()</a>.</p>
 
 </div>
 </div>
@@ -1953,7 +1953,7 @@ Variables</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00039">39</a> of file <a class="el" href="../../dc/dfa/sincos_8h_source.html">sincos.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00086">reduce2quadrant()</a>.</p>
+<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00088">reduce2quadrant()</a>.</p>
 
 </div>
 </div>
@@ -1969,7 +1969,7 @@ Variables</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00045">45</a> of file <a class="el" href="../../dc/dfa/sincos_8h_source.html">sincos.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00144">reduce2quadrant()</a>.</p>
+<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00149">reduce2quadrant()</a>.</p>
 
 </div>
 </div>
@@ -1999,7 +1999,7 @@ Variables</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00040">40</a> of file <a class="el" href="../../dc/dfa/sincos_8h_source.html">sincos.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00086">reduce2quadrant()</a>.</p>
+<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00088">reduce2quadrant()</a>.</p>
 
 </div>
 </div>
@@ -2015,7 +2015,7 @@ Variables</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00046">46</a> of file <a class="el" href="../../dc/dfa/sincos_8h_source.html">sincos.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00144">reduce2quadrant()</a>.</p>
+<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00149">reduce2quadrant()</a>.</p>
 
 </div>
 </div>
@@ -2153,7 +2153,7 @@ Variables</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../df/de1/vdtcore__common_8h_source.html#l00043">43</a> of file <a class="el" href="../../df/de1/vdtcore__common_8h_source.html">vdtcore_common.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00086">reduce2quadrant()</a>.</p>
+<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00088">reduce2quadrant()</a>.</p>
 
 </div>
 </div>
@@ -2169,7 +2169,7 @@ Variables</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../df/de1/vdtcore__common_8h_source.html#l00049">49</a> of file <a class="el" href="../../df/de1/vdtcore__common_8h_source.html">vdtcore_common.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00144">reduce2quadrant()</a>.</p>
+<p>Referenced by <a class="el" href="../../dc/dfa/sincos_8h_source.html#l00149">reduce2quadrant()</a>.</p>
 
 </div>
 </div>
@@ -2513,7 +2513,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../d5/d7b/namespacevdt.html">vdt</a></li><li class="navelem"><a class="el" href="../../d1/d47/namespacevdt_1_1details.html">details</a></li>
-    <li class="footer">Generated on Sun Nov 27 2016 10:34:40 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Wed Nov 30 2016 14:07:59 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

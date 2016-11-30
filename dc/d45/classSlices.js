@@ -48,5 +48,6 @@ var classSlices =
     [ "n_macroparticles", "dc/d45/classSlices.html#a6da6cf87cacb679fc1c9100a21cd3add", null ],
     [ "n_sigma", "dc/d45/classSlices.html#a5923ddc4a73915fb97e5139b94548bf6", null ],
     [ "n_slices", "dc/d45/classSlices.html#a695dbc7b6fbdbef0f594e9b63d6877c7", null ],
-    [ "rfp", "dc/d45/classSlices.html#a9a83186373a5a3865b66324c934db1d7", null ]
+    [ "rfp", "dc/d45/classSlices.html#a9a83186373a5a3865b66324c934db1d7", null ],
+    [ "thread_hist", "dc/d45/classSlices.html#a0d02db1c6b56aa88bd682b98ed366242", null ]
 ];

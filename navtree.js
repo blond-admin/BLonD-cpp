@@ -45,8 +45,8 @@ var NAVTREEINDEX =
 "d3/d1f/structmulti__t.html#a2b55c32f685abaed2476c1b11f8de7cb",
 "d6/d87/classPhaseLoop.html#a4a8f325a0628fc82f107f0a9a43da3bf",
 "da/d49/classRfParameters.html#a6424978e623d1842c44c659bff989284",
-"dc/dfe/structoption_1_1Descriptor.html#a470c449dfa894c9bfda2dae026142b4b",
-"functions_func_0x6b.html"
+"dc/dfe/structoption_1_1Descriptor.html#a1fee8ac44f529c99ac2b1149b4c391b1",
+"functions_func_0x69.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

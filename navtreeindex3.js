@@ -140,6 +140,7 @@ var NAVTREEINDEX3 =
 "dc/d45/classSlices.html#a03707a707fb59393b1971ee610c96696":[1,0,32,30],
 "dc/d45/classSlices.html#a090a74f06f906aa224038f34f8cca67b":[1,0,32,26],
 "dc/d45/classSlices.html#a0bdde263c831c9387a16ba082216ded9":[1,0,32,22],
+"dc/d45/classSlices.html#a0d02db1c6b56aa88bd682b98ed366242":[1,0,32,43],
 "dc/d45/classSlices.html#a1395f49295f86c0bb9f769504c90417f":[1,0,32,15],
 "dc/d45/classSlices.html#a145b60aa2ecd01f1a4524e49bead73f7":[1,0,32,1],
 "dc/d45/classSlices.html#a145b60aa2ecd01f1a4524e49bead73f7a09d77ed8033240de4746dcd9cbc1c98d":[1,0,32,1,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX3 =
 "dc/dfa/sincos_8h_source.html":[2,0,45],
 "dc/dfe/structoption_1_1Descriptor.html":[1,0,3,1],
 "dc/dfe/structoption_1_1Descriptor.html#a0dba4ccca59c19d6ed4081391fca5adb":[1,0,3,1,4],
-"dc/dfe/structoption_1_1Descriptor.html#a1b220dabd8aad075fa441a80f9b9343c":[1,0,3,1,5],
-"dc/dfe/structoption_1_1Descriptor.html#a1fee8ac44f529c99ac2b1149b4c391b1":[1,0,3,1,2]
+"dc/dfe/structoption_1_1Descriptor.html#a1b220dabd8aad075fa441a80f9b9343c":[1,0,3,1,5]
 };

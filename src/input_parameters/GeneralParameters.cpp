@@ -106,9 +106,9 @@ GeneralParameters::GeneralParameters(
             "order");
         alpha_order = 3;
     }
-    eta_0.resize(n_sections);
-    eta_1.resize(n_sections);
-    eta_2.resize(n_sections);
+    eta_0.resize(n_sections, f_vector_t(n_turns + 1));
+    eta_1.resize(n_sections, f_vector_t(n_turns + 1));
+    eta_2.resize(n_sections, f_vector_t(n_turns + 1));
     eta_generation();
 }
 

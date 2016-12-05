@@ -277,7 +277,16 @@ if [ "${PY_VERSION}" = "greater" ]; then
    echo -e "---- Detected python version is greater than 2.7"
    echo -e "---- skipping python installation"
    PYTHON="python"
+   PYTHON_LIB=$($PYTHON -c "import sys;print sys.prefix")/lib
+   export LD_LIBRARY_PATH="${PYTHON_LIB}:$LD_LIBRARY_PATH"
 
+   PIP_INSTALLED=$(${PYTHON} -m pip -V | echo $?)
+   if [ "$PIP_INSTALLED" == "1" ]; then
+      echo -e "\n\n---- Installing PIP\n\n"
+      wget https://bootstrap.pypa.io/get-pip.py -O${EXTERNAL}/tmp/get-pip.py &> $log
+      $PYTHON ${EXTERNAL}/tmp/get-pip.py
+      echo -e "---- Python has been installed successfully\n\n"
+   fi
 else
 
    if [ -e ${INSTALL}/include/python2.7/Python.h ] && [ -e ${INSTALL}/lib/python2.7/config/libpython2.7.a ]; then
@@ -314,8 +323,10 @@ else
          echo -e "---- Python has been installed successfully\n\n"
          PYTHON="${INSTALL}/bin/python"
          export LD_LIBRARY_PATH="${INSTALL}/lib:$LD_LIBRARY_PATH"
+         echo -e "\n\n---- Installing PIP\n\n"
          wget https://bootstrap.pypa.io/get-pip.py -O${EXTERNAL}/tmp/get-pip.py &> $log
          $PYTHON ${EXTERNAL}/tmp/get-pip.py
+         echo -e "---- Python has been installed successfully\n\n"
       else
          echo -e "\n\n---- Python has failed to install successfully"
          echo -e "---- You will have to manually install this library"
@@ -345,9 +356,10 @@ else
    echo -e "\n\n---- Installing Python's external modules..."
    ${PYTHON} -m pip install --user virtualenv 2>> $log
    # pip install virtualenv &>> $log
+   # TODO here I need to link to the correct LD_LIBRARY_PATH
    ${PYTHON} -m virtualenv --python=${PYTHON} ${INSTALL} &>> $log
    source ${INSTALL}/bin/activate &>> $log
-   ${PYTHON} -m pip install -r ${EXTERNAL}/python-packages.txt 2>> $log
+   ${PYTHON} -m pip install --prefix=${INSTALL} -r ${EXTERNAL}/python-packages.txt 2>> $log
    export PYTHONPATH="${BLOND_HOME}/python:$PYTHONPATH"
    echo -e "\n\n---- Python's external modules have been installed successfully\n\n"
 fi

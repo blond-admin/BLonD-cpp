@@ -5,6 +5,7 @@
 #include <blond/math_functions.h>
 #include <blond/trackers/Tracker.h>
 #include <blond/utilities.h>
+#include <blond/vector_math.h>
 #include <testing_utilities.h>
 #include <gtest/gtest.h>
 
@@ -233,7 +234,7 @@ protected:
     const double tau_0 = 0.4e-9; // Initial bunch length, 4 sigma [s]
     // Machine and RF parameters
     const double C = 26658.883;       // Machine circumference [m]
-    const double p_i = 450e9;     // Synchronous momentum [eV/c]
+    const double p_i = 460e9;     // Synchronous momentum [eV/c]
     const double p_f = 460.005e9;     // Synchronous momentum, final
     const long long h = 35640;       // Harmonic number
     const double V = 6e6;             // RF voltage [V]
@@ -245,8 +246,8 @@ protected:
     const int n_sections = 1;
     // Tracking details
 
-    const int N_t = 2000; // Number of turns to track
-    const int N_p = 1000;  // Macro-particles
+    const int N_t = 100; // Number of turns to track
+    const int N_p = 100;  // Macro-particles
     const int N_slices = 10;
 
     virtual void SetUp()
@@ -257,7 +258,7 @@ protected:
         for (auto &v : momentumVec)
             v = mymath::linspace(p_i, p_f, N_t + 1);
 
-        f_vector_2d_t alphaVec(n_sections, f_vector_t(alpha_order + 1, alpha));
+        f_vector_2d_t alphaVec({{alpha, alpha / gamma_t, 2 * alpha / gamma_t}});
 
         f_vector_t CVec(n_sections, C);
 
@@ -281,7 +282,7 @@ protected:
 
         longitudinal_bigaussian(GP, RfP, Beam, tau_0 / 4, 0, -1, false);
 
-        Context::Slice = new Slices(RfP, Beam, N_slices);
+        // Context::Slice = new Slices(RfP, Beam, N_slices);
     }
 
     virtual void TearDown()
@@ -291,7 +292,6 @@ protected:
         delete Context::GP;
         delete Context::Beam;
         delete Context::RfP;
-        delete Context::Slice;
     }
 };
 
@@ -307,6 +307,27 @@ TEST_F(testTracker2, full_solver1)
     f_vector_t v;
 
     for (int i = 0; i < 10; i++)
+        long_tracker.track();
+    util::read_vector_from_file(v, params + "dE.txt");
+    ASSERT_NEAR_LOOP(v, Beam->dE, "dE", epsilon);
+
+    util::read_vector_from_file(v, params + "dt.txt");
+    ASSERT_NEAR_LOOP(v, Beam->dt, "dt", epsilon);
+
+}
+
+
+TEST_F(testTracker2, full_solver2)
+{
+    auto epsilon = 1e-8;
+    string params = TEST_FILES "/Tracker/full_solver2/";
+    auto Slice = Context::Slice;
+    auto Beam = Context::Beam;
+    auto RfP = Context::RfP;
+    auto long_tracker = RingAndRfSection(RfP, Beam, RingAndRfSection::full);
+    f_vector_t v;
+
+    for (int i = 0; i < N_t; i++)
         long_tracker.track();
 
     util::read_vector_from_file(v, params + "dE.txt");

@@ -91,7 +91,7 @@ TEST_F(testGP, t_rev)
     const double epsilon = 1e-8;
     string GP_params = TEST_FILES "/GP/GP_params/";
     vector<double> v;
-    util::read_vector_from_file(v, GP_params + "t_rev");
+    util::read_vector_from_file(v, GP_params + "t_rev.txt");
     ASSERT_NEAR_LOOP(v, Context::GP->t_rev, "t_rev", epsilon);
 }
 
@@ -109,7 +109,7 @@ TEST_F(testGP, omega_rev)
     const double epsilon = 1e-8;
     string GP_params = TEST_FILES "/GP/GP_params/";
     vector<double> v;
-    util::read_vector_from_file(v, GP_params + "omega_rev");
+    util::read_vector_from_file(v, GP_params + "omega_rev.txt");
     ASSERT_NEAR_LOOP(v, Context::GP->omega_rev, "omega_rev", epsilon);
 }
 
@@ -118,7 +118,7 @@ TEST_F(testGP, eta_0)
     const double epsilon = 1e-8;
     string GP_params = TEST_FILES "/GP/GP_params/";
     vector<double> v;
-    util::read_vector_from_file(v, GP_params + "eta_0[0]");
+    util::read_vector_from_file(v, GP_params + "eta_0[0].txt");
     ASSERT_NEAR_LOOP(v, Context::GP->eta_0[0], "eta_0[0]", epsilon);
 }
 

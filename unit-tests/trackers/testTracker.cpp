@@ -305,7 +305,7 @@ TEST_F(testTracker2, full_solver1)
     auto RfP = Context::RfP;
     auto long_tracker = RingAndRfSection(RfP, Beam, RingAndRfSection::full);
     f_vector_t v;
-    
+
 
     // util::read_vector_from_file(v, params + "rf_voltage.txt");
     // ASSERT_NEAR_LOOP(v, Beam->dE, "dE", epsilon);
@@ -502,15 +502,28 @@ TEST_F(testTrackerPeriodicity, set_periodicity1)
 
     long_tracker->set_periodicity();
 
-    int_vector_t v;
+    f_vector_t v;
     util::read_vector_from_file(v, params + "indices_right_outside.txt");
     auto res = long_tracker->indices_right_outside;
-    ASSERT_EQ_LOOP(v, res, "indices_right_outside");
-
+    ASSERT_EQ(v.size(), res.size());
+    for (uint i = 0; i < v.size(); ++i) {
+        int ref = v[i];
+        int real = res[i];
+        ASSERT_EQ(ref, real)
+                << "Testing of Beam->indices_right_outside failed on i " << i
+                << std::endl;
+    }
 
     util::read_vector_from_file(v, params + "indices_inside_frame.txt");
     res = long_tracker->indices_inside_frame;
-    ASSERT_EQ_LOOP(v, res, "indices_inside_frame");
+    ASSERT_EQ(v.size(), res.size());
+    for (uint i = 0; i < v.size(); ++i) {
+        int ref = v[i];
+        int real = res[i];
+        ASSERT_EQ(ref, real)
+                << "Testing of Beam->indices_inside_frame failed on i " << i
+                << std::endl;
+    }
 
 
     delete long_tracker;

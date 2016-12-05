@@ -306,10 +306,14 @@ TEST_F(testTracker2, full_solver1)
     auto long_tracker = RingAndRfSection(RfP, Beam, RingAndRfSection::full);
     f_vector_t v;
 
+    for (int i = 0; i < 10; i++)
+        long_tracker.track();
 
-    // util::read_vector_from_file(v, params + "rf_voltage.txt");
-    // ASSERT_NEAR_LOOP(v, Beam->dE, "dE", epsilon);
+    util::read_vector_from_file(v, params + "dE.txt");
+    ASSERT_NEAR_LOOP(v, Beam->dE, "dE", epsilon);
 
+    util::read_vector_from_file(v, params + "dt.txt");
+    ASSERT_NEAR_LOOP(v, Beam->dt, "dt", epsilon);
 
 }
 

@@ -242,7 +242,7 @@ protected:
     const double gamma_t = 55.759505; // Transition gamma
     const double alpha =
         1.0 / gamma_t / gamma_t; // First order mom. comp. factor
-    const int alpha_order = 3;
+    // const int alpha_order = 3;
     const int n_sections = 1;
     // Tracking details
 
@@ -253,45 +253,10 @@ protected:
     virtual void SetUp()
     {
         omp_set_num_threads(1);
-
-        f_vector_2d_t momentumVec(n_sections);
-        for (auto &v : momentumVec)
-            v = mymath::linspace(p_i, p_f, N_t + 1);
-
-        f_vector_2d_t alphaVec({{alpha, alpha / gamma_t, 2 * alpha / gamma_t}});
-
-        f_vector_t CVec(n_sections, C);
-
-        f_vector_2d_t hVec(n_sections, f_vector_t(N_t + 1, h));
-
-        f_vector_2d_t voltageVec(n_sections, f_vector_t(N_t + 1, V));
-
-        f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
-
-        Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
-                                            alpha_order, momentumVec,
-                                            GeneralParameters::particle_t::proton);
-
-
-        auto GP = Context::GP;
-        auto Beam = Context::Beam = new Beams(GP, N_p, N_b);
-
-        auto RfP = Context::RfP = new RfParameters(GP, n_sections, hVec,
-                voltageVec, dphiVec);
-
-
-        longitudinal_bigaussian(GP, RfP, Beam, tau_0 / 4, 0, -1, false);
-
-        // Context::Slice = new Slices(RfP, Beam, N_slices);
     }
 
     virtual void TearDown()
     {
-        // Code here will be called immediately after each test
-        // (right before the destructor).
-        delete Context::GP;
-        delete Context::Beam;
-        delete Context::RfP;
     }
 };
 
@@ -300,19 +265,46 @@ TEST_F(testTracker2, full_solver1)
 {
     auto epsilon = 1e-8;
     string params = TEST_FILES "/Tracker/full_solver1/";
-    auto Slice = Context::Slice;
-    auto Beam = Context::Beam;
-    auto RfP = Context::RfP;
-    auto long_tracker = RingAndRfSection(RfP, Beam, RingAndRfSection::full);
+
+    int alpha_order = 3;
+
+    f_vector_2d_t momentumVec(n_sections);
+    for (auto &v : momentumVec)
+        v = mymath::linspace(p_i, p_f, N_t + 1);
+
+    f_vector_2d_t alphaVec({{alpha, alpha / gamma_t, 2 * alpha / gamma_t}});
+
+    f_vector_t CVec(n_sections, C);
+
+    f_vector_2d_t hVec(n_sections, f_vector_t(N_t + 1, h));
+
+    f_vector_2d_t voltageVec(n_sections, f_vector_t(N_t + 1, V));
+
+    f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
+
+    auto GP = GeneralParameters(N_t, CVec, alphaVec,
+                                alpha_order, momentumVec,
+                                GeneralParameters::particle_t::proton);
+
+
+    auto Beam = Beams(&GP, N_p, N_b);
+
+    auto RfP = RfParameters(&GP, n_sections, hVec,
+                            voltageVec, dphiVec);
+
+
+    longitudinal_bigaussian(&GP, &RfP, &Beam, tau_0 / 4, 0, -1, false);
+    auto long_tracker = RingAndRfSection(&RfP, &Beam, RingAndRfSection::full);
     f_vector_t v;
 
     for (int i = 0; i < 10; i++)
         long_tracker.track();
+
     util::read_vector_from_file(v, params + "dE.txt");
-    ASSERT_NEAR_LOOP(v, Beam->dE, "dE", epsilon);
+    ASSERT_NEAR_LOOP(v, Beam.dE, "dE", epsilon);
 
     util::read_vector_from_file(v, params + "dt.txt");
-    ASSERT_NEAR_LOOP(v, Beam->dt, "dt", epsilon);
+    ASSERT_NEAR_LOOP(v, Beam.dt, "dt", epsilon);
 
 }
 
@@ -321,20 +313,140 @@ TEST_F(testTracker2, full_solver2)
 {
     auto epsilon = 1e-8;
     string params = TEST_FILES "/Tracker/full_solver2/";
-    auto Slice = Context::Slice;
-    auto Beam = Context::Beam;
-    auto RfP = Context::RfP;
-    auto long_tracker = RingAndRfSection(RfP, Beam, RingAndRfSection::full);
+    int alpha_order = 3;
+
+    f_vector_2d_t momentumVec(n_sections);
+    for (auto &v : momentumVec)
+        v = mymath::linspace(p_i, p_f, N_t + 1);
+
+    f_vector_2d_t alphaVec({{alpha, alpha / gamma_t, 2 * alpha / gamma_t}});
+
+    f_vector_t CVec(n_sections, C);
+
+    f_vector_2d_t hVec(n_sections, f_vector_t(N_t + 1, h));
+
+    f_vector_2d_t voltageVec(n_sections, f_vector_t(N_t + 1, V));
+
+    f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
+
+    auto GP = GeneralParameters(N_t, CVec, alphaVec,
+                                alpha_order, momentumVec,
+                                GeneralParameters::particle_t::proton);
+
+
+    auto Beam = Beams(&GP, N_p, N_b);
+
+    auto RfP = RfParameters(&GP, n_sections, hVec,
+                            voltageVec, dphiVec);
+
+
+    longitudinal_bigaussian(&GP, &RfP, &Beam, tau_0 / 4, 0, -1, false);
+    auto long_tracker = RingAndRfSection(&RfP, &Beam, RingAndRfSection::full);
+
     f_vector_t v;
 
     for (int i = 0; i < N_t; i++)
         long_tracker.track();
 
     util::read_vector_from_file(v, params + "dE.txt");
-    ASSERT_NEAR_LOOP(v, Beam->dE, "dE", epsilon);
+    ASSERT_NEAR_LOOP(v, Beam.dE, "dE", epsilon);
 
     util::read_vector_from_file(v, params + "dt.txt");
-    ASSERT_NEAR_LOOP(v, Beam->dt, "dt", epsilon);
+    ASSERT_NEAR_LOOP(v, Beam.dt, "dt", epsilon);
+
+}
+
+TEST_F(testTracker2, full_solver3)
+{
+    auto epsilon = 1e-8;
+    string params = TEST_FILES "/Tracker/full_solver3/";
+    int alpha_order = 1;
+
+    f_vector_2d_t momentumVec(n_sections);
+    for (auto &v : momentumVec)
+        v = mymath::linspace(p_i, p_f, N_t + 1);
+
+    f_vector_2d_t alphaVec({{alpha}});
+
+    f_vector_t CVec(n_sections, C);
+
+    f_vector_2d_t hVec(n_sections, f_vector_t(N_t + 1, h));
+
+    f_vector_2d_t voltageVec(n_sections, f_vector_t(N_t + 1, V));
+
+    f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
+
+    auto GP = GeneralParameters(N_t, CVec, alphaVec,
+                                alpha_order, momentumVec,
+                                GeneralParameters::particle_t::proton);
+
+
+    auto Beam = Beams(&GP, N_p, N_b);
+
+    auto RfP = RfParameters(&GP, n_sections, hVec,
+                            voltageVec, dphiVec);
+
+
+    longitudinal_bigaussian(&GP, &RfP, &Beam, tau_0 / 4, 0, -1, false);
+    auto long_tracker = RingAndRfSection(&RfP, &Beam, RingAndRfSection::full);
+
+    f_vector_t v;
+
+    for (int i = 0; i < N_t; i++)
+        long_tracker.track();
+
+    util::read_vector_from_file(v, params + "dE.txt");
+    ASSERT_NEAR_LOOP(v, Beam.dE, "dE", epsilon);
+
+    util::read_vector_from_file(v, params + "dt.txt");
+    ASSERT_NEAR_LOOP(v, Beam.dt, "dt", epsilon);
+
+}
+
+TEST_F(testTracker2, full_solver4)
+{
+    auto epsilon = 1e-8;
+    string params = TEST_FILES "/Tracker/full_solver4/";
+    int alpha_order = 2;
+
+    f_vector_2d_t momentumVec(n_sections);
+    for (auto &v : momentumVec)
+        v = mymath::linspace(p_i, p_f, N_t + 1);
+
+    f_vector_2d_t alphaVec({{alpha, alpha / gamma_t}});
+
+    f_vector_t CVec(n_sections, C);
+
+    f_vector_2d_t hVec(n_sections, f_vector_t(N_t + 1, h));
+
+    f_vector_2d_t voltageVec(n_sections, f_vector_t(N_t + 1, V));
+
+    f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
+
+    auto GP = GeneralParameters(N_t, CVec, alphaVec,
+                                alpha_order, momentumVec,
+                                GeneralParameters::particle_t::proton);
+
+
+    auto Beam = Beams(&GP, N_p, N_b);
+
+    auto RfP = RfParameters(&GP, n_sections, hVec,
+                            voltageVec, dphiVec);
+
+
+    longitudinal_bigaussian(&GP, &RfP, &Beam, tau_0 / 4, 0, -1, false);
+    auto long_tracker = RingAndRfSection(&RfP, &Beam, RingAndRfSection::full);
+
+    f_vector_t v;
+
+    for (int i = 0; i < N_t; i++)
+        long_tracker.track();
+
+    util::read_vector_from_file(v, params + "dE.txt");
+    ASSERT_NEAR_LOOP(v, Beam.dE, "dE", epsilon);
+
+    util::read_vector_from_file(v, params + "dt.txt");
+    ASSERT_NEAR_LOOP(v, Beam.dt, "dt", epsilon);
 
 }
 

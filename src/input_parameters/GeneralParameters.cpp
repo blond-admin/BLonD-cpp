@@ -32,10 +32,11 @@ GeneralParameters::GeneralParameters(
     } else if (particle == user_input) {
         mass = user_mass;
         charge = user_charge;
-    } else {
-        std::cerr << "ERROR: Particle type not recognized!\n";
-        exit(-1);
-    }
+    } // Can never happen because of enum type
+    // else {
+    //     std::cerr << "ERROR: Particle type not recognized!\n";
+    //     exit(-1);
+    // }
 
     if (particle_2 == none) {
         ;
@@ -48,10 +49,11 @@ GeneralParameters::GeneralParameters(
     } else if (particle == user_input) {
         mass2 = user_mass_2;
         charge2 = user_charge_2;
-    } else {
-        std::cerr << "ERROR: Second particle type not recognized!\n";
-        exit(-1);
-    }
+    } // Can never happen because of enum type
+    // else {
+    //     std::cerr << "ERROR: Second particle type not recognized!\n";
+    //     exit(-1);
+    // }
 
     n_turns = _n_turns;
     momentum = _momentum;
@@ -148,10 +150,5 @@ void GeneralParameters::_eta2()
                    - 2. * alpha[i][0] * alpha[i][1]
                    + alpha[i][1] / gammasq +
                    alpha[i][0] * alpha[i][0] * eta_0[i];
-        // eta_2[i] = -1. * betasq * (5 * betasq - 1) / (2. * gammasq) +
-        //            alpha[i][2] - 2. * alpha[i][0] * alpha[i][1] +
-        //            alpha[i][1] / gammasq +
-        //            alpha[i][0] * alpha[i][0] * eta_0[i] -
-        //            3. * betasq * alpha[i][0] / (2. * gammasq);
     }
 }

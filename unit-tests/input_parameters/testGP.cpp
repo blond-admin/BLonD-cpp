@@ -52,104 +52,78 @@ private:
 
 };
 
-TEST_F(testGP, test_charge)
+TEST_F(testGP, charge)
 {
     const double epsilon = 1e-8;
 
     string GP_params = TEST_FILES "/GP/GP_params/";
     vector<double> v;
     util::read_vector_from_file(v, GP_params + "charge");
-    // cout << v[0];
     double ref = v[0];
     double real = Context::GP->charge;
-    ASSERT_NEAR(ref, real, epsilon * max(std::abs(ref), std::abs(real)));
+    ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)));
 }
 
-TEST_F(testGP, test_mass)
+TEST_F(testGP, mass)
 {
     const double epsilon = 1e-8;
     string GP_params = TEST_FILES "/GP/GP_params/";
     vector<double> v;
     util::read_vector_from_file(v, GP_params + "mass");
-    // cout << v[0];
     double ref = v[0];
     double real = Context::GP->mass;
-    ASSERT_NEAR(ref, real, epsilon * max(std::abs(ref), std::abs(real)));
+    ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)));
 }
 
-TEST_F(testGP, test_ring_radius)
+TEST_F(testGP, ring_radius)
 {
     const double epsilon = 1e-8;
     string GP_params = TEST_FILES "/GP/GP_params/";
     vector<double> v;
     util::read_vector_from_file(v, GP_params + "ring_radius");
-    // cout << v[0];
     double ref = v[0];
     double real = Context::GP->ring_radius;
-    ASSERT_NEAR(ref, real, epsilon * max(std::abs(ref), std::abs(real)));
+    ASSERT_NEAR(ref, real, epsilon * max(abs(ref), abs(real)));
 }
 
-TEST_F(testGP, test_t_rev)
+TEST_F(testGP, t_rev)
 {
     const double epsilon = 1e-8;
     string GP_params = TEST_FILES "/GP/GP_params/";
     vector<double> v;
     util::read_vector_from_file(v, GP_params + "t_rev");
-    // cout << v.size() << endl;
-    // ASSERT_EQ(v.size(), GP->n_turns+1 );
-    for (unsigned int i = 0; i < v.size(); ++i) {
-        double ref = v[i];
-        double real = Context::GP->t_rev[i];
-        ASSERT_NEAR(ref, real, epsilon * max(std::abs(ref), std::abs(real)));
-    }
+    ASSERT_NEAR_LOOP(v, Context::GP->t_rev, "t_rev", epsilon);
 }
 
-TEST_F(testGP, test_cycle_time)
+TEST_F(testGP, cycle_time)
 {
     const double epsilon = 1e-8;
     string GP_params = TEST_FILES "/GP/GP_params/";
     vector<double> v;
     util::read_vector_from_file(v, GP_params + "cycle_time");
-    // ASSERT_EQ(v.size(), GP->n_turns+1);
-    for (unsigned int i = 0; i < v.size(); ++i) {
-        double ref = v[i];
-        double real = Context::GP->cycle_time[i];
-        ASSERT_NEAR(ref, real, epsilon * max(std::abs(ref), std::abs(real)));
-    }
+    ASSERT_NEAR_LOOP(v, Context::GP->cycle_time, "cycle_time", epsilon);
 }
 
-TEST_F(testGP, test_omega_rev)
+TEST_F(testGP, omega_rev)
 {
     const double epsilon = 1e-8;
     string GP_params = TEST_FILES "/GP/GP_params/";
     vector<double> v;
     util::read_vector_from_file(v, GP_params + "omega_rev");
-    // cout << v.size() << endl;
-    // ASSERT_EQ(v.size(), GP->n_turns+1);
-    for (unsigned int i = 0; i < v.size(); ++i) {
-        double ref = v[i];
-        double real = Context::GP->omega_rev[i];
-        ASSERT_NEAR(ref, real, epsilon * max(std::abs(ref), std::abs(real)));
-    }
+    ASSERT_NEAR_LOOP(v, Context::GP->omega_rev, "omega_rev", epsilon);
 }
 
-TEST_F(testGP, test_eta_0)
+TEST_F(testGP, eta_0)
 {
     const double epsilon = 1e-8;
     string GP_params = TEST_FILES "/GP/GP_params/";
     vector<double> v;
     util::read_vector_from_file(v, GP_params + "eta_0[0]");
-    // cout << v.size() << endl;
-    // ASSERT_EQ(v.size(), GP->n_turns +1);
-    for (unsigned int i = 0; i < v.size(); ++i) {
-        double ref = v[i];
-        double real = Context::GP->eta_0[0][i];
-        ASSERT_NEAR(ref, real, epsilon * max(std::abs(ref), std::abs(real)));
-    }
+    ASSERT_NEAR_LOOP(v, Context::GP->eta_0[0], "eta_0[0]", epsilon);
 }
 
 
-TEST(testGP_higher_alpha_order, eta_1_1)
+TEST(higher_alpha_order, eta_1_1)
 {
     const double C = 26658.883;       // Machine circumference [m]
     const double p_i = 100e8;     // Synchronous momentum [eV/c]
@@ -188,7 +162,7 @@ TEST(testGP_higher_alpha_order, eta_1_1)
 
 }
 
-TEST(testGP_higher_alpha_order, eta_1_2)
+TEST(higher_alpha_order, eta_1_2)
 {
     const double C = 26658.883;       // Machine circumference [m]
     const double p_i = 50e5;     // Synchronous momentum [eV/c]
@@ -228,7 +202,7 @@ TEST(testGP_higher_alpha_order, eta_1_2)
 }
 
 
-TEST(testGP_higher_alpha_order, eta_2_1)
+TEST(higher_alpha_order, eta_2_1)
 {
     const double C = 26658.883;       // Machine circumference [m]
     const double p_i = 50e5;     // Synchronous momentum [eV/c]
@@ -271,7 +245,7 @@ TEST(testGP_higher_alpha_order, eta_2_1)
 }
 
 
-TEST(testGP_higher_alpha_order, eta_2_2)
+TEST(particle_types, electron_electron1)
 {
     const double C = 26658.883;       // Machine circumference [m]
     const double p_i = 50e5;     // Synchronous momentum [eV/c]
@@ -279,45 +253,112 @@ TEST(testGP_higher_alpha_order, eta_2_2)
     const double gamma_t = 15.759505; // Transition gamma
     const double alpha =
         1.0 / gamma_t / gamma_t; // First order mom. comp. factor
-    const int alpha_order = 3;
-    const int n_sections = 2;
+    const int alpha_order = 1;
+    const int n_sections = 1;
     // Tracking details
 
     const int N_t = 50; // Number of turns to track
 
     omp_set_num_threads(1);
 
-    f_vector_2d_t momentumVec({mymath::linspace(p_i, p_f, N_t + 1),
-                               mymath::linspace(1.1 * p_i, 1.2 * p_f, N_t + 1)
-                              });
-    // for (auto &v : momentumVec)
-    //     v = mymath::linspace(p_i, p_f, N_t + 1);
+    f_vector_2d_t momentumVec({mymath::linspace(p_i, p_f, N_t + 1)});
 
-    f_vector_2d_t alphaVec({{alpha, alpha / gamma_t, 2 * alpha / gamma_t},
-        {1.1 * alpha, 1.1 * alpha / gamma_t, 1.1 * 2 * alpha / gamma_t}
-    });
+    f_vector_2d_t alphaVec({{alpha}});
 
-    f_vector_t CVec{C, 1.1 * C};
+    f_vector_t CVec{C};
 
     auto GP = GeneralParameters(N_t, CVec, alphaVec,
                                 alpha_order, momentumVec,
                                 GeneralParameters::particle_t::electron,
-                                0, 0, GeneralParameters::proton, 0, 0,
+                                0, 0, GeneralParameters::electron, 0, 0,
                                 n_sections);
 
     f_vector_t v;
-    string params = TEST_FILES "/GP/higher_alpha_order/eta_2_2/";
+    string params = TEST_FILES "/GP/particle_types/electron_electron1/";
 
-    util::read_vector_from_file(v, params + "eta_0[1].txt");
-    ASSERT_NEAR_LOOP(v, GP.eta_0[1], "eta_0[1]");
+    util::read_vector_from_file(v, params + "mass.txt");
+    ASSERT_NEAR_LOOP(v, {GP.mass}, "mass");
+    util::read_vector_from_file(v, params + "charge.txt");
+    ASSERT_NEAR_LOOP(v, {GP.charge}, "charge");
 
-    util::read_vector_from_file(v, params + "eta_1[1].txt");
-    ASSERT_NEAR_LOOP(v, GP.eta_1[1], "eta_1[1]");
+    util::read_vector_from_file(v, params + "mass2.txt");
+    ASSERT_NEAR_LOOP(v, {GP.mass2}, "mass2");
+    util::read_vector_from_file(v, params + "charge2.txt");
+    ASSERT_NEAR_LOOP(v, {GP.charge2}, "charge2");
 
-    util::read_vector_from_file(v, params + "eta_2[1].txt");
-    ASSERT_NEAR_LOOP(v, GP.eta_2[1], "eta_2[1]");
+}
 
 
+TEST(particle_types, input_input1)
+{
+    const double C = 26658.883;       // Machine circumference [m]
+    const double p_i = 50e5;     // Synchronous momentum [eV/c]
+    const double p_f = 80e5;     // Synchronous momentum, final
+    const double gamma_t = 15.759505; // Transition gamma
+    const double alpha =
+        1.0 / gamma_t / gamma_t; // First order mom. comp. factor
+    const int alpha_order = 1;
+    const int n_sections = 1;
+    // Tracking details
+
+    const int N_t = 50; // Number of turns to track
+
+    omp_set_num_threads(1);
+
+    f_vector_2d_t momentumVec({mymath::linspace(p_i, p_f, N_t + 1)});
+
+    f_vector_2d_t alphaVec({{alpha}});
+
+    f_vector_t CVec{C};
+
+    auto GP = GeneralParameters(N_t, CVec, alphaVec,
+                                alpha_order, momentumVec,
+                                GeneralParameters::user_input, 1.0, 2.0,
+                                GeneralParameters::user_input, 3.0, 4.0,
+                                n_sections);
+
+    auto epsilon = 1e-8;
+    ASSERT_NEAR(GP.mass, 1.0,  epsilon * min(1.0, GP.mass));
+    ASSERT_NEAR(GP.charge, 2.0,  epsilon * min(1.0, GP.charge));
+
+    ASSERT_NEAR(GP.mass2, 3.0,  epsilon * min(1.0, GP.mass2));
+    ASSERT_NEAR(GP.charge2, 4.0,  epsilon * min(1.0, GP.charge2));
+}
+
+TEST(particle_types, death_test1)
+{
+    const double C = 26658.883;       // Machine circumference [m]
+    const double p_i = 50e5;     // Synchronous momentum [eV/c]
+    const double p_f = 80e5;     // Synchronous momentum, final
+    const double gamma_t = 15.759505; // Transition gamma
+    const double alpha =
+        1.0 / gamma_t / gamma_t; // First order mom. comp. factor
+    const int alpha_order = 1;
+    const int n_sections = 1;
+    // Tracking details
+
+    const int N_t = 50; // Number of turns to track
+
+    omp_set_num_threads(1);
+
+    f_vector_2d_t momentumVec({mymath::linspace(p_i, p_f, N_t + 1)});
+
+    f_vector_2d_t alphaVec({{alpha}});
+
+    f_vector_t CVec{C};
+
+    auto GP = GeneralParameters(N_t, CVec, alphaVec,
+                                alpha_order, momentumVec,
+                                GeneralParameters::user_input, 1.0, 2.0,
+                                GeneralParameters::user_input, 3.0, 4.0,
+                                n_sections);
+
+    auto epsilon = 1e-8;
+    ASSERT_NEAR(GP.mass, 1.0,  epsilon * min(1.0, GP.mass));
+    ASSERT_NEAR(GP.charge, 2.0,  epsilon * min(1.0, GP.charge));
+
+    ASSERT_NEAR(GP.mass2, 3.0,  epsilon * min(1.0, GP.mass2));
+    ASSERT_NEAR(GP.charge2, 4.0,  epsilon * min(1.0, GP.charge2));
 }
 
 int main(int ac, char *av[])

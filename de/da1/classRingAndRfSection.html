@@ -569,25 +569,25 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">double</span> eta0 = eta_zero * coeff;</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">double</span> eta1 = eta_one * coeff * coeff;</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">double</span> eta2 = eta_two * coeff * coeff * coeff;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="../../de/da1/classRingAndRfSection.html#aa1c71353846f8456e2058a56b39306f9">alpha_order</a> == 1)</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">            #pragma omp parallel for</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor"></span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n_macroparticles; i++)</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                beam_dt[i] += T * (1. / (1. - eta0 * beam_dE[i]) - 1.);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="../../de/da1/classRingAndRfSection.html#aa1c71353846f8456e2058a56b39306f9">alpha_order</a> == 2)</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">            #pragma omp parallel for</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor"></span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n_macroparticles; i++)</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                beam_dt[i] += T * (1. / (1. - eta0 * beam_dE[i] -</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                                         eta1 * beam_dE[i] * beam_dE[i]) -</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                                   1.);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">            #pragma omp parallel for</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor"></span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n_macroparticles; i++)</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                beam_dt[i] +=</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                    T * (1. / (1. - eta0 * beam_dE[i] -</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                               eta1 * beam_dE[i] * beam_dE[i] -</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                               eta2 * beam_dE[i] * beam_dE[i] * beam_dE[i]) -</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                         1.);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="../../de/da1/classRingAndRfSection.html#aa1c71353846f8456e2058a56b39306f9">alpha_order</a> == 0) {</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">            #pragma omp parallel for</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor"></span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n_macroparticles; i++)</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                beam_dt[i] += T * (1. / (1. - eta0 * beam_dE[i]) - 1.);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="../../de/da1/classRingAndRfSection.html#aa1c71353846f8456e2058a56b39306f9">alpha_order</a> == 1) {</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">            #pragma omp parallel for</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor"></span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n_macroparticles; i++)</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                beam_dt[i] += T * (1. / (1. - eta0 * beam_dE[i] -</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                                         eta1 * beam_dE[i] * beam_dE[i]) -</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                                   1.);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">            #pragma omp parallel for</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor"></span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n_macroparticles; i++)</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                beam_dt[i] +=</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                    T * (1. / (1. - eta0 * beam_dE[i] -</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                               eta1 * beam_dE[i] * beam_dE[i] -</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                               eta2 * beam_dE[i] * beam_dE[i] * beam_dE[i]) -</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                         1.);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        }</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    }</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;}</div>
 </div><!-- fragment -->
@@ -1523,7 +1523,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../de/da1/classRingAndRfSection.html">RingAndRfSection</a></li>
-    <li class="footer">Generated on Mon Dec 5 2016 16:40:04 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Mon Dec 5 2016 17:33:40 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

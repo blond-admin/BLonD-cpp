@@ -101,7 +101,7 @@ if (CMAKE_CXX_COMPILER_ID MATCHES GNU)
 
     set(CXXFLAGS "${CXXFLAGS} -funsafe-math-optimizations")
     set(RELEASE "${RELEASE} -Ofast")
-    set(VEC "-fopt-info-vec=vec_report.txt")
+    # set(VEC "-fopt-info-vec=vec_report.txt")
     set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -flto")
     # set(DEBUG "${DEBUG} -D_GLIBCXX_DEBUG")
     if (CMAKE_BUILD_TYPE STREQUAL "CI")
@@ -116,7 +116,6 @@ elseif (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -flto")
 
 elseif (CMAKE_CXX_COMPILER_ID MATCHES Intel)
-    # FIXME Doesn't compile with icc
     set(VEC "-qopt-report=5 -qopt-report-file=vec_report.txt")
 else ()
     message(FATAL_ERROR "${CMAKE_CXX_COMPILER_ID} is not supported")

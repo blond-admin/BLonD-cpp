@@ -353,13 +353,14 @@ if [ "$PIP_INSTALLED" == "1" ]; then
    echo -e "---- and then re-run this script."
    echo -e "---- For more information, please visit this site: https://packaging.python.org/install_requirements_linux/\n\n"
 else
-   echo -e "\n\n---- Installing Python's external modules..."
-   ${PYTHON} -m pip install --user virtualenv 2>> $log
+   echo -e "\n\n---- Setting up python virtualenv..."
+   ${PYTHON} -m pip install --user virtualenv # 2>> $log
    # pip install virtualenv &>> $log
    # TODO here I need to link to the correct LD_LIBRARY_PATH
    ${PYTHON} -m virtualenv --python=${PYTHON} ${INSTALL} &>> $log
    source ${INSTALL}/bin/activate &>> $log
-   ${PYTHON} -m pip install --prefix=${INSTALL} -r ${EXTERNAL}/python-packages.txt 2>> $log
+   echo -e "\n\n---- Installing Python's external modules..."
+   ${PYTHON} -m pip install --prefix=${INSTALL} -r ${EXTERNAL}/python-packages.txt # 2>> $log
    export PYTHONPATH="${BLOND_HOME}/python:$PYTHONPATH"
    echo -e "\n\n---- Python's external modules have been installed successfully\n\n"
 fi

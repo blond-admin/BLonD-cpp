@@ -104,9 +104,9 @@ GeneralParameters::GeneralParameters(
             "order");
         alpha_order = 3;
     }
-    eta_0.resize(n_sections, f_vector_t(n_turns + 1));
-    eta_1.resize(n_sections, f_vector_t(n_turns + 1));
-    eta_2.resize(n_sections, f_vector_t(n_turns + 1));
+    eta_0.resize(n_sections);
+    eta_1.resize(n_sections);
+    eta_2.resize(n_sections);
     eta_generation();
 }
 
@@ -128,29 +128,30 @@ void GeneralParameters::eta_generation()
 void GeneralParameters::_eta0()
 {
     for (int i = 0; i < n_sections; ++i)
-        for (int j = 0; j < n_turns + 1; ++j)
-            eta_0[i][j] = alpha[i][0] - 1 / (gamma[i][j] * gamma[i][j]);
+        eta_0[i] = alpha[i][0] - 1 / (gamma[i] * gamma[i]);
 }
 
 void GeneralParameters::_eta1()
 {
     for (int i = 0; i < n_sections; ++i)
-        for (int j = 0; j < n_turns + 1; ++j)
-            eta_1[i][j] =
-                3 * beta[i][j] * beta[i][j] / (2 * gamma[i][j] * gamma[i][j]) +
-                alpha[i][1] - alpha[i][0] * eta_0[i][j];
+        eta_1[i] = 3 * beta[i] * beta[i] / (2 * gamma[i] * gamma[i]) +
+                   alpha[i][1] - alpha[i][0] * eta_0[i];
 }
 
 void GeneralParameters::_eta2()
 {
-    for (int i = 0; i < n_sections; ++i)
-        for (int j = 0; j < n_turns + 1; ++j) {
-            const ftype betasq = beta[i][j] * beta[i][j];
-            ftype gammasq = gamma[i][j] * gamma[i][j];
-            eta_1[i][j] = -betasq * (5 * betasq - 1) / (2 * gammasq) +
-                          alpha[i][2] - 2 * alpha[i][0] * alpha[i][1] +
-                          alpha[i][1] / gammasq +
-                          alpha[i][0] * alpha[i][0] * eta_0[i][j] -
-                          3 * betasq * alpha[i][0] / (2 * gammasq);
-        }
+    for (int i = 0; i < n_sections; ++i) {
+        auto betasq = beta[i] * beta[i];
+        auto gammasq = gamma[i] * gamma[i];
+        eta_2[i] = betasq * ((1. - 3. * alpha[i][0]) - 5. * betasq)
+                   / (2. * gammasq) + alpha[i][2]
+                   - 2. * alpha[i][0] * alpha[i][1]
+                   + alpha[i][1] / gammasq +
+                   alpha[i][0] * alpha[i][0] * eta_0[i];
+        // eta_2[i] = -1. * betasq * (5 * betasq - 1) / (2. * gammasq) +
+        //            alpha[i][2] - 2. * alpha[i][0] * alpha[i][1] +
+        //            alpha[i][1] / gammasq +
+        //            alpha[i][0] * alpha[i][0] * eta_0[i] -
+        //            3. * betasq * alpha[i][0] / (2. * gammasq);
+    }
 }

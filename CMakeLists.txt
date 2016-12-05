@@ -79,7 +79,7 @@ set(WARNINGS "-Wall -pedantic -Wno-unused-variable")
 set(CXXFLAGS "-std=gnu++11")
 set(DEBUG "-O0 -g -fno-omit-frame-pointer")
 # set(RELEASE "-march=native")
-# set(RELEASE "-march=native -g -fno-omit-frame-pointer")
+set(RELEASE "-march=native -g -fno-omit-frame-pointer")
 
 
 if(CYGWIN)

@@ -156,52 +156,7 @@ void Slices::histogram(const double *__restrict input,
                        const int n_macroparticles)
 {
 
-    // const double inv_bin_width = n_slices / (cut_right - cut_left);
-    // // histogram is faster with ints
-    // typedef double hist_t;
-    // hist_t *h;
-    // #pragma omp parallel
-    // {
-    //     const int threads = omp_get_num_threads();
-    //     const int id = omp_get_thread_num();
-    //     int tile = (n_macroparticles + threads - 1) / threads;
-    //     int start = id * tile;
-    //     int end = std::min(start + tile, n_macroparticles);
-    //     const int row = id * n_slices;
-
-    //     #pragma omp single
-    //     h = (hist_t *)calloc(threads * n_slices, sizeof(hist_t));
-
-    //     hist_t *h_row = &h[row];
-
-    //     for (int i = start; i < end; ++i) {
-    //         const double a = input[i];
-    //         if (a < cut_left || a > cut_right) continue;
-    //         const int ffbin = (int)((a - cut_left) * inv_bin_width);
-    //         h_row[ffbin]++;
-    //     }
-    //     #pragma omp barrier
-
-    //     tile = (n_slices + threads - 1) / threads;
-    //     start = id * tile;
-    //     end = std::min(start + tile, n_slices);
-
-    //     for (int i = start; i < end; i++)
-    //         output[i] = 0;
-    //     // memset(&output[start], 0, (end-start) * sizeof(double));
-
-    //     for (int i = 0; i < threads; ++i) {
-    //         const int r = i * n_slices;
-    //         for (int j = start; j < end; ++j) {
-    //             output[j] += h[r + j];
-    //         }
-    //     }
-    // }
-
-    // if (h) free(h);
-
     const double inv_bin_width = n_slices / (cut_right - cut_left);
-    // const double constant1 = cut_left * inv_bin_width;
     #pragma omp parallel
     {
         const int id = omp_get_thread_num();

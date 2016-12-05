@@ -28,14 +28,14 @@ public:
     int n_turns;
     int alpha_order;
     particle_t particle, particle_2;
-    ftype mass, mass2;
-    ftype charge, charge2;
-    ftype cumulative_times;
+    double mass, mass2;
+    double charge, charge2;
+    double cumulative_times;
     f_vector_2d_t alpha;
     f_vector_2d_t momentum;
     f_vector_t ring_length;
-    ftype ring_circumference;
-    ftype ring_radius;
+    double ring_circumference;
+    double ring_radius;
     f_vector_2d_t beta;
     f_vector_2d_t gamma;
     f_vector_2d_t energy;
@@ -48,9 +48,9 @@ public:
     GeneralParameters(const int n_turns, f_vector_t &ring_length,
                       f_vector_2d_t &alpha, const int alpha_order,
                       f_vector_2d_t &momentum, const particle_t particle,
-                      ftype user_mass = 0, ftype user_charge = 0,
+                      double user_mass = 0, double user_charge = 0,
                       const particle_t particle2 = none,
-                      ftype user_mass_2 = 0, ftype user_charge_2 = 0,
+                      double user_mass_2 = 0, double user_charge_2 = 0,
                       const int number_of_sections = 1);
 
     ~GeneralParameters();

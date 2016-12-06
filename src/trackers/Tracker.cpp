@@ -180,16 +180,10 @@ void RingAndRfSection::track()
             rf_voltage_calculation(counter, slices);
             fTotalVoltage = fRfVoltage;
 
-            if (totalInducedVoltage != NULL) {
-                assert(fRfVoltage.size() ==
-                       totalInducedVoltage->fInducedVoltage.size());
-                for (uint i = 0; i < fRfVoltage.size(); i++)
-                    fTotalVoltage[i] += totalInducedVoltage->fInducedVoltage[i];
-            }
+            if (totalInducedVoltage != NULL)
+                fTotalVoltage += totalInducedVoltage->fInducedVoltage;
 
-            transform(fRfVoltage.begin(), fRfVoltage.end(),
-                      fRfVoltage.begin(),
-                      bind1st(multiplies<double>(), charge));
+            fRfVoltage *= charge;
 
             linear_interp_kick(beam->dt.data(), beam->dE.data(),
                                fRfVoltage.data(), slices->bin_centers.data(),
@@ -251,7 +245,6 @@ void RingAndRfSection::rf_voltage_calculation(int turn, Slices *slices)
     delete[] vol;
     delete[] omeg;
     delete[] phi;
-
 }
 
 

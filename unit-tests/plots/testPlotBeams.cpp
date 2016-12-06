@@ -83,7 +83,7 @@ protected:
 
 TEST_F(testPlotBeams, plot_long_phase_space1)
 {
-
+    
     auto GP = Context::GP;
     auto RfP = Context::RfP;
     auto Beam = Context::Beam;

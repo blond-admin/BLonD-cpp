@@ -178,6 +178,12 @@ if (TEST_ENABLED)
         REQUIRED)
 endif ()
 
+# Python
+find_library(PYTHON_LIB NAMES python python2.7 
+    PATHS ${EXTERNAL_INSTALL_DIR}/lib
+    NO_DEFAULT_PATH REQUIRED)
+
+# set(PYTHONPATH "PYTHONPATH=${PROJECT_SOURCE_DIR}/python/")
 
 include_directories(
     ${PROJECT_SOURCE_DIR}/include/ 
@@ -191,13 +197,12 @@ include_directories(SYSTEM
     )
 
 link_directories(
-    ${EXTERNAL_INSTALL_DIR}/lib/python2.7/config
     ${EXTERNAL_INSTALL_DIR}/lib
    )
 
 
 # main library
-list(APPEND PYTHON_LIB python2.7)
+# list(APPEND PYTHON_LIB python2.7)
 list(APPEND HDF5_LIB hdf5 hdf5_cpp hdf5_hl hdf5_hl_cpp)
 list(APPEND REST_LIBS util dl)
 

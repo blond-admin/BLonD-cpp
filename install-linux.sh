@@ -279,7 +279,7 @@ if [ "${PY_VERSION}" = "greater" ]; then
    PYTHON="python"
    PYTHON_LIB=$($PYTHON -c "import sys;print sys.prefix")/lib
    export LD_LIBRARY_PATH="${PYTHON_LIB}:$LD_LIBRARY_PATH"
-   cp --update ${PYTHON_LIB}/libpython* ${INSTALL}/lib/
+   cp ${PYTHON_LIB}/libpython* ${INSTALL}/lib/
 
    PIP_INSTALLED=$(${PYTHON} -m pip -V | echo $?)
    if [ "$PIP_INSTALLED" == "1" ]; then

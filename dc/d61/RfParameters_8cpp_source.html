@@ -141,19 +141,19 @@ $(document).ready(function(){initNavTree('dc/d61/RfParameters_8cpp_source.html',
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword"></span>{</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordtype">double</span> eta = 0;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../da/d49/classRfParameters.html#a3ad4de6375c2102677356fc3121f106b">alpha_order</a> == 1)</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../da/d49/classRfParameters.html#a3ad4de6375c2102677356fc3121f106b">alpha_order</a> == 1){</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        eta = <a class="code" href="../../da/d49/classRfParameters.html#af5385ffb55da4c9d906f57f53275461f">eta_0</a>[<a class="code" href="../../da/d49/classRfParameters.html#a8f098f7bc761b681be6690902c72d8bf">counter</a>];</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordtype">double</span> delta =</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            dE / ((beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#a22d47e4bdb53b2e8f020071c582068d3">beta</a>) * (beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#a22d47e4bdb53b2e8f020071c582068d3">beta</a>) * beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#ae1fe9d93b120b850007fd23af2bc45d9">energy</a>);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        eta += <a class="code" href="../../da/d49/classRfParameters.html#af5385ffb55da4c9d906f57f53275461f">eta_0</a>[<a class="code" href="../../da/d49/classRfParameters.html#a8f098f7bc761b681be6690902c72d8bf">counter</a>] * 1;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="../../da/d49/classRfParameters.html#a3ad4de6375c2102677356fc3121f106b">alpha_order</a> &gt; 0)</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    }</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordtype">double</span> delta = dE / (beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#a22d47e4bdb53b2e8f020071c582068d3">beta</a> * beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#a22d47e4bdb53b2e8f020071c582068d3">beta</a> * beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#ae1fe9d93b120b850007fd23af2bc45d9">energy</a>);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        eta += <a class="code" href="../../da/d49/classRfParameters.html#af5385ffb55da4c9d906f57f53275461f">eta_0</a>[<a class="code" href="../../da/d49/classRfParameters.html#a8f098f7bc761b681be6690902c72d8bf">counter</a>];</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="../../da/d49/classRfParameters.html#a3ad4de6375c2102677356fc3121f106b">alpha_order</a> &gt; 1)</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            eta += <a class="code" href="../../da/d49/classRfParameters.html#a85e7135ca39f2b49feb7c3e17b912891">eta_1</a>[<a class="code" href="../../da/d49/classRfParameters.html#a8f098f7bc761b681be6690902c72d8bf">counter</a>] * delta;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="../../da/d49/classRfParameters.html#a3ad4de6375c2102677356fc3121f106b">alpha_order</a> &gt; 1)</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="../../da/d49/classRfParameters.html#a3ad4de6375c2102677356fc3121f106b">alpha_order</a> &gt; 2)</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            eta += <a class="code" href="../../da/d49/classRfParameters.html#a992cf6c270176d05a76b4d256443c8d3">eta_2</a>[<a class="code" href="../../da/d49/classRfParameters.html#a8f098f7bc761b681be6690902c72d8bf">counter</a>] * delta * delta;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="../../da/d49/classRfParameters.html#a3ad4de6375c2102677356fc3121f106b">alpha_order</a> &gt; 2)</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            std::cerr &lt;&lt; <span class="stringliteral">&quot;WARNING: Momentum compaction factor is implemented&quot;</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                      &lt;&lt; <span class="stringliteral">&quot;only up to 2nd order\n&quot;</span>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="comment">// if (alpha_order &gt; 3)</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="comment">//     std::cerr &lt;&lt; &quot;WARNING: Momentum compaction factor is implemented&quot;</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="comment">//               &lt;&lt; &quot;only up to 2nd order\n&quot;;</span></div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    }</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">return</span> eta;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
@@ -298,7 +298,7 @@ $(document).ready(function(){initNavTree('dc/d61/RfParameters_8cpp_source.html',
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_2b12189b1b38a5891fb7949d75362c72.html">src</a></li><li class="navelem"><a class="el" href="../../dir_077c0f12c71f89edc969f08d86165fa7.html">input_parameters</a></li><li class="navelem"><a class="el" href="../../dc/d61/RfParameters_8cpp.html">RfParameters.cpp</a></li>
-    <li class="footer">Generated on Tue Dec 6 2016 08:55:34 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Thu Dec 8 2016 16:41:08 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

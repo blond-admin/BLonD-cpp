@@ -366,7 +366,7 @@ Private Member Functions</h2></td></tr>
 
 <p>References <a class="el" href="../../d7/d74/Beams_8h_source.html#l00022">dE</a>, <a class="el" href="../../d7/d74/Beams_8h_source.html#l00021">dt</a>, <a class="el" href="../../de/da5/utilities_8cpp_source.html#l00017">is_in_separatrix()</a>, and <a class="el" href="../../d7/d74/Beams_8h_source.html#l00038">n_macroparticles</a>.</p>
 <div class="fragment"><div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;{</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keyword">auto</span> index = <a class="code" href="../../de/da5/utilities_8cpp.html#abdb8c63453b171d9a2ee00711825c33c">is_in_separatrix</a>(GP, RfP, <span class="keyword">this</span>, <a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>, <a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keyword">auto</span> index = <a class="code" href="../../de/da5/utilities_8cpp.html#acfdce1d697404ce637bc6533a2929a97">is_in_separatrix</a>(GP, RfP, <span class="keyword">this</span>, <a class="code" href="../../d9/d7c/classBeams.html#ac794162d7a4f9c4675982932c2c78abc">dt</a>, <a class="code" href="../../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f">dE</a>);</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="preprocessor">    #pragma omp parallel for</span></div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; (int) <a class="code" href="../../d9/d7c/classBeams.html#a24f89235642383e942e0e798e0c154ee">n_macroparticles</a>; i++)</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <span class="keywordtype">id</span>[i] = <span class="keywordtype">id</span>[i] * index[i];</div>
@@ -518,7 +518,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d7/d74/Beams_8h_source.html#l00027">27</a> of file <a class="el" href="../../d7/d74/Beams_8h_source.html">Beams.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../dc/d0f/Beams_8cpp_source.html#l00014">Beams()</a>, <a class="el" href="../../dc/d61/RfParameters_8cpp_source.html#l00025">RfParameters::eta_tracking()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00516">matched_from_distribution_density()</a>, and <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00020">matched_from_line_density()</a>.</p>
+<p>Referenced by <a class="el" href="../../dc/d0f/Beams_8cpp_source.html#l00014">Beams()</a>, <a class="el" href="../../dc/d61/RfParameters_8cpp_source.html#l00025">RfParameters::eta_tracking()</a>, <a class="el" href="../../de/da5/utilities_8cpp_source.html#l00132">hamiltonian()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00516">matched_from_distribution_density()</a>, and <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00020">matched_from_line_density()</a>.</p>
 
 </div>
 </div>
@@ -582,7 +582,7 @@ Private Member Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d7/d74/Beams_8h_source.html#l00029">29</a> of file <a class="el" href="../../d7/d74/Beams_8h_source.html">Beams.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../dc/d0f/Beams_8cpp_source.html#l00014">Beams()</a>, <a class="el" href="../../dc/d61/RfParameters_8cpp_source.html#l00025">RfParameters::eta_tracking()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00516">matched_from_distribution_density()</a>, and <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00020">matched_from_line_density()</a>.</p>
+<p>Referenced by <a class="el" href="../../dc/d0f/Beams_8cpp_source.html#l00014">Beams()</a>, <a class="el" href="../../dc/d61/RfParameters_8cpp_source.html#l00025">RfParameters::eta_tracking()</a>, <a class="el" href="../../de/da5/utilities_8cpp_source.html#l00132">hamiltonian()</a>, <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00516">matched_from_distribution_density()</a>, and <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00020">matched_from_line_density()</a>.</p>
 
 </div>
 </div>
@@ -800,7 +800,7 @@ Private Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../d9/d7c/classBeams.html">Beams</a></li>
-    <li class="footer">Generated on Tue Dec 6 2016 08:55:35 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Thu Dec 8 2016 16:41:09 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

@@ -265,21 +265,15 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">double</span> cos_phi_s = <a class="code" href="../../df/d6d/namespacemymath.html#a56db34e8382851729defc7a3eb906220">mymath::fast_cos</a>(phi_s);</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">double</span> sin_phi_s = <a class="code" href="../../df/d6d/namespacemymath.html#a38897799c9327d162f914bbb097fb8e3">mymath::fast_sin</a>(phi_s);</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="comment">// auto f1 = [ = ](double phib, double de) {</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="comment">//     return c1 * de * de + c2</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="comment">//            * (mymath::fast_cos(phib) - cos_phi_s + (phib - phi_s) * sin_phi_s);</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="comment">// };</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="comment">// transform(phi_b.begin(), phi_b.end(), &amp;dE[0], phi_b.begin(), f1);</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="preprocessor">    #pragma omp parallel for</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; size; i++)</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        phi_b[i] = c1 * dE[i] * dE[i]</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                   + c2 * (<a class="code" href="../../df/d6d/namespacemymath.html#a56db34e8382851729defc7a3eb906220">mymath::fast_cos</a>(phi_b[i]) - cos_phi_s</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                           + (phi_b[i] - phi_s) * sin_phi_s);</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="preprocessor">    #pragma omp parallel for</span></div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; size; i++)</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        phi_b[i] = c1 * dE[i] * dE[i]</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                   + c2 * (<a class="code" href="../../df/d6d/namespacemymath.html#a56db34e8382851729defc7a3eb906220">mymath::fast_cos</a>(phi_b[i]) - cos_phi_s</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                           + (phi_b[i] - phi_s) * sin_phi_s);</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keywordflow">return</span> phi_b;</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;}</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordflow">return</span> phi_b;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;}</div>
 </div><!-- fragment -->
 <p><div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
@@ -351,49 +345,46 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../de/da5/utilities_8cpp_source.html#l00138">138</a> of file <a class="el" href="../../de/da5/utilities_8cpp_source.html">utilities.cpp</a>.</p>
+<p>Definition at line <a class="el" href="../../de/da5/utilities_8cpp_source.html#l00132">132</a> of file <a class="el" href="../../de/da5/utilities_8cpp_source.html">utilities.cpp</a>.</p>
 
-<p>References <a class="el" href="../../d6/db7/RfParameters_8h_source.html#l00034">RfParameters::beta</a>, <a class="el" href="../../d2/d6f/constants_8h_source.html#l00018">constant::c</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00032">GeneralParameters::charge</a>, <a class="el" href="../../d6/db7/RfParameters_8h_source.html#l00054">RfParameters::counter</a>, <a class="el" href="../../d6/db7/RfParameters_8h_source.html#l00036">RfParameters::energy</a>, <a class="el" href="../../d6/db7/RfParameters_8h_source.html#l00037">RfParameters::eta_0</a>, <a class="el" href="../../dc/d61/RfParameters_8cpp_source.html#l00025">RfParameters::eta_tracking()</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00066">mymath::fast_cos()</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00064">mymath::fast_sin()</a>, <a class="el" href="../../d6/db7/RfParameters_8h_source.html#l00057">RfParameters::harmonic</a>, <a class="el" href="../../d6/db7/RfParameters_8h_source.html#l00055">RfParameters::n_rf</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00027">GeneralParameters::n_sections</a>, <a class="el" href="../../d6/db7/RfParameters_8h_source.html#l00051">RfParameters::omega_rf</a>, <a class="el" href="../../de/d44/trackers_2utilities_8h_source.html#l00018">phase_modulo_above_transition()</a>, <a class="el" href="../../de/d44/trackers_2utilities_8h_source.html#l00024">phase_modulo_below_transition()</a>, <a class="el" href="../../d6/db7/RfParameters_8h_source.html#l00047">RfParameters::phi_rf</a>, <a class="el" href="../../d6/db7/RfParameters_8h_source.html#l00043">RfParameters::phi_s</a>, <a class="el" href="../../d2/d6f/constants_8h_source.html#l00019">constant::pi</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00037">GeneralParameters::ring_circumference</a>, and <a class="el" href="../../d6/db7/RfParameters_8h_source.html#l00058">RfParameters::voltage</a>.</p>
-<div class="fragment"><div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;{</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keywordflow">if</span> (GP-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a841441cee26c6af115bcf84e218b9795">n_sections</a> &gt; 1)</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        cerr &lt;&lt; <span class="stringliteral">&quot;WARNING: The Hamiltonian is not yet properly computed&quot;</span></div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;for several sections!\n&quot;</span>;</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    <span class="keywordflow">if</span> (RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#ab8af605062619c7682c292fbc86fab17">n_rf</a> &gt; 1)</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        cerr &lt;&lt; <span class="stringliteral">&quot;WARNING: The Hamiltonian will be calculated for&quot;</span></div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;the first harmonic only!\n&quot;</span>;</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> counter = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a8f098f7bc761b681be6690902c72d8bf">counter</a>;</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">double</span> h0 = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a8221a6edc51203d7f1bf373e79c42373">harmonic</a>[0][counter];</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keywordtype">double</span> v0;</div>
+<p>References <a class="el" href="../../d7/d74/Beams_8h_source.html#l00027">Beams::beta</a>, <a class="el" href="../../d2/d6f/constants_8h_source.html#l00018">constant::c</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00032">GeneralParameters::charge</a>, <a class="el" href="../../d6/db7/RfParameters_8h_source.html#l00054">RfParameters::counter</a>, <a class="el" href="../../d7/d74/Beams_8h_source.html#l00029">Beams::energy</a>, <a class="el" href="../../d6/db7/RfParameters_8h_source.html#l00037">RfParameters::eta_0</a>, <a class="el" href="../../dc/d61/RfParameters_8cpp_source.html#l00025">RfParameters::eta_tracking()</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00066">mymath::fast_cos()</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00064">mymath::fast_sin()</a>, <a class="el" href="../../d6/db7/RfParameters_8h_source.html#l00057">RfParameters::harmonic</a>, <a class="el" href="../../d6/db7/RfParameters_8h_source.html#l00055">RfParameters::n_rf</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00027">GeneralParameters::n_sections</a>, <a class="el" href="../../d6/db7/RfParameters_8h_source.html#l00051">RfParameters::omega_rf</a>, <a class="el" href="../../de/d44/trackers_2utilities_8h_source.html#l00018">phase_modulo_above_transition()</a>, <a class="el" href="../../de/d44/trackers_2utilities_8h_source.html#l00024">phase_modulo_below_transition()</a>, <a class="el" href="../../d6/db7/RfParameters_8h_source.html#l00047">RfParameters::phi_rf</a>, <a class="el" href="../../d6/db7/RfParameters_8h_source.html#l00043">RfParameters::phi_s</a>, <a class="el" href="../../d2/d6f/constants_8h_source.html#l00019">constant::pi</a>, <a class="el" href="../../d5/d34/GeneralParameters_8h_source.html#l00037">GeneralParameters::ring_circumference</a>, and <a class="el" href="../../d6/db7/RfParameters_8h_source.html#l00058">RfParameters::voltage</a>.</p>
+<div class="fragment"><div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;{</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="keywordflow">if</span> (GP-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a841441cee26c6af115bcf84e218b9795">n_sections</a> &gt; 1)</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        cerr &lt;&lt; <span class="stringliteral">&quot;WARNING: The Hamiltonian is not yet properly computed&quot;</span></div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;for several sections!\n&quot;</span>;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keywordflow">if</span> (RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#ab8af605062619c7682c292fbc86fab17">n_rf</a> &gt; 1)</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        cerr &lt;&lt; <span class="stringliteral">&quot;WARNING: The Hamiltonian will be calculated for&quot;</span></div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;the first harmonic only!\n&quot;</span>;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> counter = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a8f098f7bc761b681be6690902c72d8bf">counter</a>;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">double</span> h0 = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a8221a6edc51203d7f1bf373e79c42373">harmonic</a>[0][counter];</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    <span class="keywordtype">double</span> v0;</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <span class="keywordflow">if</span> (total_voltage.empty())</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        v0 = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a439542a6e0c0d5bd0778acda2b75da13">voltage</a>[0][counter];</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        v0 = total_voltage[counter];</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    v0 *= GP-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a1567fdea0ce9bb2078aeb73e5f2308d8">charge</a>;</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordflow">if</span> (total_voltage.empty())</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        v0 = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a439542a6e0c0d5bd0778acda2b75da13">voltage</a>[0][counter];</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        v0 = total_voltage[counter];</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    v0 *= GP-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a1567fdea0ce9bb2078aeb73e5f2308d8">charge</a>;</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">double</span> c1 = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a4b2692022b8cb71a3475e964fcc0c474">eta_tracking</a>(Beam, counter, dE)</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                      * <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a> * <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">constant::c</a></div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;                      / (GP-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a7a1674550ca03836c7ce59ff46ad2766">ring_circumference</a> * RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a15425f98910572408628138f7b966a62">beta</a>[counter] *</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                         RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#aa3f4c20de20abcc957e41b7f115a01dc">energy</a>[counter]);</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">double</span> c2 = <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">constant::c</a> * RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a15425f98910572408628138f7b966a62">beta</a>[counter] * v0</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                      / (h0 * GP-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a7a1674550ca03836c7ce59ff46ad2766">ring_circumference</a>);</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">double</span> phi_s = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a7c2f76b32a2594bc7f6830dd77e71085">phi_s</a>[counter];</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keywordtype">double</span> phi_b = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a35d8f5f983fdfee8695f48e846a81416">omega_rf</a>[0][counter] * dt + RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#affe25d40fe500f5a152a86aee7071844">phi_rf</a>[0][counter];</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">double</span> eta0 = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#af5385ffb55da4c9d906f57f53275461f">eta_0</a>[counter];</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <span class="keywordflow">if</span> (eta0 &lt; 0)</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        phi_b = <a class="code" href="../../de/d44/trackers_2utilities_8h.html#a9e21d0f7015cfb95d271ecb0d0531f13">phase_modulo_below_transition</a>(phi_b);</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (eta0 &gt; 0)</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        phi_b = <a class="code" href="../../de/d44/trackers_2utilities_8h.html#a138356080609cce92babac6fb4e12657">phase_modulo_above_transition</a>(phi_b);</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <span class="keywordflow">return</span> c1 * dE * dE</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;           + c2 * (<a class="code" href="../../df/d6d/namespacemymath.html#a56db34e8382851729defc7a3eb906220">mymath::fast_cos</a>(phi_b) - <a class="code" href="../../df/d6d/namespacemymath.html#a56db34e8382851729defc7a3eb906220">mymath::fast_cos</a>(phi_s)</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;                   + (phi_b - phi_s) * <a class="code" href="../../df/d6d/namespacemymath.html#a38897799c9327d162f914bbb097fb8e3">mymath::fast_sin</a>(phi_s));</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;}</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">double</span> c1 = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a4b2692022b8cb71a3475e964fcc0c474">eta_tracking</a>(Beam, counter, dE)</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;                      * <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a> * <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">constant::c</a></div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;                      / (GP-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a7a1674550ca03836c7ce59ff46ad2766">ring_circumference</a> * Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#a22d47e4bdb53b2e8f020071c582068d3">beta</a> *</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;                         Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#ae1fe9d93b120b850007fd23af2bc45d9">energy</a>);</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">double</span> c2 = <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">constant::c</a> * Beam-&gt;<a class="code" href="../../d9/d7c/classBeams.html#a22d47e4bdb53b2e8f020071c582068d3">beta</a> * v0</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;                      / (h0 * GP-&gt;<a class="code" href="../../d1/dfc/classGeneralParameters.html#a7a1674550ca03836c7ce59ff46ad2766">ring_circumference</a>);</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">double</span> phi_s = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a7c2f76b32a2594bc7f6830dd77e71085">phi_s</a>[counter];</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <span class="keywordtype">double</span> phi_b = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#a35d8f5f983fdfee8695f48e846a81416">omega_rf</a>[0][counter] * dt + RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#affe25d40fe500f5a152a86aee7071844">phi_rf</a>[0][counter];</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">double</span> eta0 = RfP-&gt;<a class="code" href="../../da/d49/classRfParameters.html#af5385ffb55da4c9d906f57f53275461f">eta_0</a>[counter];</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="keywordflow">if</span> (eta0 &lt; 0)</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        phi_b = <a class="code" href="../../de/d44/trackers_2utilities_8h.html#a9e21d0f7015cfb95d271ecb0d0531f13">phase_modulo_below_transition</a>(phi_b);</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (eta0 &gt; 0)</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        phi_b = <a class="code" href="../../de/d44/trackers_2utilities_8h.html#a138356080609cce92babac6fb4e12657">phase_modulo_above_transition</a>(phi_b);</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keywordflow">return</span> c1 * dE * dE</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;           + c2 * (<a class="code" href="../../df/d6d/namespacemymath.html#a56db34e8382851729defc7a3eb906220">mymath::fast_cos</a>(phi_b) - <a class="code" href="../../df/d6d/namespacemymath.html#a56db34e8382851729defc7a3eb906220">mymath::fast_cos</a>(phi_s)</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;                   + (phi_b - phi_s) * <a class="code" href="../../df/d6d/namespacemymath.html#a38897799c9327d162f914bbb097fb8e3">mymath::fast_sin</a>(phi_s));</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;}</div>
 </div><!-- fragment -->
 <p><div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
@@ -488,7 +479,7 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                            total_voltage);</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="comment">// vector&lt;bool&gt; is not thread safe!!</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    vector&lt;int&gt; isin(temp.size());</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a793c26b686f40c50a951d01b70b08950">int_vector_t</a> isin(temp.size());</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> size = isin.size();</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">    #pragma omp parallel for</span></div>
@@ -568,50 +559,50 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../de/da5/utilities_8cpp_source.html#l00186">186</a> of file <a class="el" href="../../de/da5/utilities_8cpp_source.html">utilities.cpp</a>.</p>
+<p>Definition at line <a class="el" href="../../de/da5/utilities_8cpp_source.html#l00177">177</a> of file <a class="el" href="../../de/da5/utilities_8cpp_source.html">utilities.cpp</a>.</p>
 
 <p>References <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00098">mymath::interp()</a>.</p>
 
-<p>Referenced by <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00020">matched_from_line_density()</a>, and <a class="el" href="../../de/da5/utilities_8cpp_source.html#l00229">potential_well_cut()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;{</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    min_x_position.clear(); max_x_position.clear();</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    min_values.clear(); max_values.clear();</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    </div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> f_derivative;</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    adjacent_difference(f.begin(), f.end(), back_inserter(f_derivative));</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    f_derivative.erase(f_derivative.begin());</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> x_derivative;</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; x.size() - 1; i++)</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        x_derivative.push_back(x[i] + (x[1] - x[0]) / 2);</div>
+<p>Referenced by <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00020">matched_from_line_density()</a>, and <a class="el" href="../../de/da5/utilities_8cpp_source.html#l00220">potential_well_cut()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;{</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    min_x_position.clear(); max_x_position.clear();</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    min_values.clear(); max_values.clear();</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> f_derivative;</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    adjacent_difference(f.begin(), f.end(), back_inserter(f_derivative));</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    f_derivative.erase(f_derivative.begin());</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> x_derivative;</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; x.size() - 1; i++)</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        x_derivative.push_back(x[i] + (x[1] - x[0]) / 2);</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    f_derivative = <a class="code" href="../../df/d6d/namespacemymath.html#a9be6643559654e4fd81774f43bd8cdc0">mymath::interp</a>(x, x_derivative, f_derivative);</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> f_derivative_second;</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    adjacent_difference(f_derivative.begin(), f_derivative.end(),</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;                        back_inserter(f_derivative_second));</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    f_derivative_second.erase(f_derivative_second.begin());</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;</div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    f_derivative = <a class="code" href="../../df/d6d/namespacemymath.html#a9be6643559654e4fd81774f43bd8cdc0">mymath::interp</a>(x, x_derivative, f_derivative);</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> f_derivative_second;</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    adjacent_difference(f_derivative.begin(), f_derivative.end(),</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;                        back_inserter(f_derivative_second));</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    f_derivative_second.erase(f_derivative_second.begin());</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    f_derivative_second = <a class="code" href="../../df/d6d/namespacemymath.html#a9be6643559654e4fd81774f43bd8cdc0">mymath::interp</a>(x, x_derivative, f_derivative_second);</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> f_derivative_zeros;</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; f_derivative.size() - 1; i++) {</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;        <span class="keywordflow">if</span> (f_derivative[i] == 0. || (f_derivative[i + 1] / f_derivative[i] &lt; 0.))</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;            f_derivative_zeros.push_back(i);</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    }</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;i : f_derivative_zeros)</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;        <span class="keywordflow">if</span> (f_derivative_second[i] &gt; 0)</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;            min_x_position.push_back((x[i + 1] + x[i]) / 2.);</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;        <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;            max_x_position.push_back((x[i + 1] + x[i]) / 2.);</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    min_values = <a class="code" href="../../df/d6d/namespacemymath.html#a9be6643559654e4fd81774f43bd8cdc0">mymath::interp</a>(min_x_position, x, f);</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    max_values = <a class="code" href="../../df/d6d/namespacemymath.html#a9be6643559654e4fd81774f43bd8cdc0">mymath::interp</a>(max_x_position, x, f);</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;}</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    f_derivative_second = <a class="code" href="../../df/d6d/namespacemymath.html#a9be6643559654e4fd81774f43bd8cdc0">mymath::interp</a>(x, x_derivative, f_derivative_second);</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> f_derivative_zeros;</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; f_derivative.size() - 1; i++) {</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        <span class="keywordflow">if</span> (f_derivative[i] == 0. || (f_derivative[i + 1] / f_derivative[i] &lt; 0.))</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;            f_derivative_zeros.push_back(i);</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    }</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;i : f_derivative_zeros)</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        <span class="keywordflow">if</span> (f_derivative_second[i] &gt; 0)</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;            min_x_position.push_back((x[i + 1] + x[i]) / 2.);</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;            max_x_position.push_back((x[i + 1] + x[i]) / 2.);</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    min_values = <a class="code" href="../../df/d6d/namespacemymath.html#a9be6643559654e4fd81774f43bd8cdc0">mymath::interp</a>(min_x_position, x, f);</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    max_values = <a class="code" href="../../df/d6d/namespacemymath.html#a9be6643559654e4fd81774f43bd8cdc0">mymath::interp</a>(max_x_position, x, f);</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;}</div>
 </div><!-- fragment -->
 <p><div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
@@ -758,143 +749,143 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="../../de/da5/utilities_8cpp_source.html#l00229">229</a> of file <a class="el" href="../../de/da5/utilities_8cpp_source.html">utilities.cpp</a>.</p>
+<p>Definition at line <a class="el" href="../../de/da5/utilities_8cpp_source.html#l00220">220</a> of file <a class="el" href="../../de/da5/utilities_8cpp_source.html">utilities.cpp</a>.</p>
 
-<p>References <a class="el" href="../../de/df0/utilities_8h_source.html#l00032">ALL</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00276">mymath::min()</a>, and <a class="el" href="../../de/da5/utilities_8cpp_source.html#l00186">minmax_location()</a>.</p>
+<p>References <a class="el" href="../../de/df0/utilities_8h_source.html#l00032">ALL</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00276">mymath::min()</a>, and <a class="el" href="../../de/da5/utilities_8cpp_source.html#l00177">minmax_location()</a>.</p>
 
 <p>Referenced by <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00516">matched_from_distribution_density()</a>, and <a class="el" href="../../db/de1/Distributions_8cpp_source.html#l00020">matched_from_line_density()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;{</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    theta_coord_sep.clear();</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    potential_well_sep.clear();</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> min_theta_positions, max_theta_positions;</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> min_potential_values, max_potential_values;</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    <a class="code" href="../../de/da5/utilities_8cpp.html#a69254a443ce03ae3f136093fff843cae">minmax_location</a>(theta_coord_array, potential_array,</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;                    min_theta_positions, max_theta_positions,</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;                    min_potential_values, max_potential_values);</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    <span class="keywordtype">int</span> n_minima = min_theta_positions.size();</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    <span class="keywordtype">int</span> n_maxima = max_theta_positions.size();</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    <span class="comment">// cout &lt;&lt; &quot;minima: &quot; &lt;&lt; n_minima &lt;&lt; &quot;\n&quot;;</span></div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    <span class="comment">// cout &lt;&lt; &quot;maxima: &quot; &lt;&lt; n_maxima &lt;&lt; &quot;\n&quot;;</span></div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    <span class="keywordflow">if</span> (n_minima == 0) { <span class="comment">// tested</span></div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        cerr &lt;&lt; <span class="stringliteral">&quot;[potential_well_cut] The potential well has no minima...\n&quot;</span>;</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;        exit(-1);</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    }</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    <span class="keywordflow">if</span> (n_minima &gt; n_maxima &amp;&amp; n_maxima == 1) {</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;        cerr &lt;&lt; <span class="stringliteral">&quot;[potential_well_cut] The potential well has more minima,\n&quot;</span></div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;             &lt;&lt; <span class="stringliteral">&quot; and only one maximum\n&quot;</span>;</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;        exit(-1);</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    }</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    <span class="keywordflow">if</span> (n_maxima == 0) {</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;[potential_well_cut] Warning: The maximum of the potential \n&quot;</span></div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;well could not be found... You may reconsider the options to \n&quot;</span></div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;calculate the potential well as the main harmonic is probably \n&quot;</span></div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;not the expected one. You may also increase the percentage of \n&quot;</span></div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;margin to compute the potential well.\n&quot;</span></div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;The full potential well will be taken\n&quot;</span>;</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (n_maxima == 1) { <span class="comment">// tested</span></div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;        <span class="keywordflow">if</span> (min_theta_positions[0] &gt; max_theta_positions[0]) {</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; potential_array.size(); ++i) {</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;                <span class="keywordflow">if</span> (potential_array[i] &lt; max_potential_values[0]</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;                        &amp;&amp; theta_coord_array[i] &gt; max_theta_positions[0]) {</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;                    theta_coord_sep.push_back(theta_coord_array[i]);</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;                    potential_well_sep.push_back(potential_array[i]);</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;                }</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;            }</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;            <span class="keywordflow">if</span> (potential_array.back() &lt; potential_array[0]) {</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;                cerr &lt;&lt; <span class="stringliteral">&quot;[potential_well_cut] The potential well is not well defined.\n&quot;</span></div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;                     &lt;&lt; <span class="stringliteral">&quot;You may reconsider the options to calculate \n&quot;</span></div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;                     &lt;&lt; <span class="stringliteral">&quot;the potential well as the main harmonic is \n&quot;</span></div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;                     &lt;&lt; <span class="stringliteral">&quot;probably not the expected one.\n&quot;</span>;</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;                exit(-1);</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;            }</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; potential_array.size(); ++i) {</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;                <span class="keywordflow">if</span> (potential_array[i] &lt; max_potential_values[0]</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;                        &amp;&amp; theta_coord_array[i] &lt; max_theta_positions[0]) {</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;                    theta_coord_sep.push_back(theta_coord_array[i]);</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;                    potential_well_sep.push_back(potential_array[i]);</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;                }</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;            }</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;            <span class="keywordflow">if</span> (potential_array.back() &lt; potential_array[0]) {</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;                cerr &lt;&lt; <span class="stringliteral">&quot;[potential_well_cut] The potential well is not well defined.\n&quot;</span></div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;                     &lt;&lt; <span class="stringliteral">&quot;You may reconsider the options to calculate \n&quot;</span></div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;                     &lt;&lt; <span class="stringliteral">&quot;the potential well as the main harmonic is \n&quot;</span></div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;                     &lt;&lt; <span class="stringliteral">&quot;probably not the expected one.\n&quot;</span>;</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;                exit(-1);</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;            }</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;        }</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (n_maxima == 2) { <span class="comment">// tested</span></div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;        <span class="keyword">auto</span> lower_maximum_value = *min_element(<a class="code" href="../../de/df0/utilities_8h.html#a2f3c80e2df3ca3c632f7529d737384b3">ALL</a>(max_potential_values));</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;        <span class="keyword">auto</span> higher_maximum_value = *max_element(<a class="code" href="../../de/df0/utilities_8h.html#a2f3c80e2df3ca3c632f7529d737384b3">ALL</a>(max_potential_values));</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> lower_maximum_theta, higher_maximum_theta;</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; max_theta_positions.size(); i++) {</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;            <span class="keywordflow">if</span> (max_potential_values[i] == lower_maximum_value)</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;                lower_maximum_theta.push_back(max_theta_positions[i]);</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;            <span class="keywordflow">if</span> (max_potential_values[i] == higher_maximum_value)</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;                higher_maximum_theta.push_back(max_theta_positions[i]);</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;        }</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;        <span class="keywordflow">if</span> (lower_maximum_theta.size() == 2) {</div>
+<div class="fragment"><div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;{</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    theta_coord_sep.clear();</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    potential_well_sep.clear();</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> min_theta_positions, max_theta_positions;</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> min_potential_values, max_potential_values;</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    <a class="code" href="../../de/da5/utilities_8cpp.html#a69254a443ce03ae3f136093fff843cae">minmax_location</a>(theta_coord_array, potential_array,</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;                    min_theta_positions, max_theta_positions,</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;                    min_potential_values, max_potential_values);</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    <span class="keywordtype">int</span> n_minima = min_theta_positions.size();</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    <span class="keywordtype">int</span> n_maxima = max_theta_positions.size();</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    <span class="comment">// cout &lt;&lt; &quot;minima: &quot; &lt;&lt; n_minima &lt;&lt; &quot;\n&quot;;</span></div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    <span class="comment">// cout &lt;&lt; &quot;maxima: &quot; &lt;&lt; n_maxima &lt;&lt; &quot;\n&quot;;</span></div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <span class="keywordflow">if</span> (n_minima == 0) { <span class="comment">// tested</span></div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;        cerr &lt;&lt; <span class="stringliteral">&quot;[potential_well_cut] The potential well has no minima...\n&quot;</span>;</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;        exit(-1);</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    }</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    <span class="keywordflow">if</span> (n_minima &gt; n_maxima &amp;&amp; n_maxima == 1) {</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;        cerr &lt;&lt; <span class="stringliteral">&quot;[potential_well_cut] The potential well has more minima,\n&quot;</span></div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;             &lt;&lt; <span class="stringliteral">&quot; and only one maximum\n&quot;</span>;</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;        exit(-1);</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    }</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    <span class="keywordflow">if</span> (n_maxima == 0) {</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;[potential_well_cut] Warning: The maximum of the potential \n&quot;</span></div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;well could not be found... You may reconsider the options to \n&quot;</span></div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;calculate the potential well as the main harmonic is probably \n&quot;</span></div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;not the expected one. You may also increase the percentage of \n&quot;</span></div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;margin to compute the potential well.\n&quot;</span></div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;The full potential well will be taken\n&quot;</span>;</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (n_maxima == 1) { <span class="comment">// tested</span></div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;        <span class="keywordflow">if</span> (min_theta_positions[0] &gt; max_theta_positions[0]) {</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; potential_array.size(); ++i) {</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;                <span class="keywordflow">if</span> (potential_array[i] &lt; max_potential_values[0]</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;                        &amp;&amp; theta_coord_array[i] &gt; max_theta_positions[0]) {</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;                    theta_coord_sep.push_back(theta_coord_array[i]);</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;                    potential_well_sep.push_back(potential_array[i]);</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;                }</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;            }</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;            <span class="keywordflow">if</span> (potential_array.back() &lt; potential_array[0]) {</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;                cerr &lt;&lt; <span class="stringliteral">&quot;[potential_well_cut] The potential well is not well defined.\n&quot;</span></div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;                     &lt;&lt; <span class="stringliteral">&quot;You may reconsider the options to calculate \n&quot;</span></div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;                     &lt;&lt; <span class="stringliteral">&quot;the potential well as the main harmonic is \n&quot;</span></div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;                     &lt;&lt; <span class="stringliteral">&quot;probably not the expected one.\n&quot;</span>;</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;                exit(-1);</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;            }</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; potential_array.size(); ++i) {</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;                <span class="keywordflow">if</span> (potential_array[i] &lt; max_potential_values[0]</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;                        &amp;&amp; theta_coord_array[i] &lt; max_theta_positions[0]) {</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;                    theta_coord_sep.push_back(theta_coord_array[i]);</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;                    potential_well_sep.push_back(potential_array[i]);</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;                }</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;            }</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;            <span class="keywordflow">if</span> (potential_array.back() &lt; potential_array[0]) {</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;                cerr &lt;&lt; <span class="stringliteral">&quot;[potential_well_cut] The potential well is not well defined.\n&quot;</span></div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;                     &lt;&lt; <span class="stringliteral">&quot;You may reconsider the options to calculate \n&quot;</span></div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;                     &lt;&lt; <span class="stringliteral">&quot;the potential well as the main harmonic is \n&quot;</span></div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;                     &lt;&lt; <span class="stringliteral">&quot;probably not the expected one.\n&quot;</span>;</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;                exit(-1);</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;            }</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;        }</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (n_maxima == 2) { <span class="comment">// tested</span></div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;        <span class="keyword">auto</span> lower_maximum_value = *min_element(<a class="code" href="../../de/df0/utilities_8h.html#a2f3c80e2df3ca3c632f7529d737384b3">ALL</a>(max_potential_values));</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;        <span class="keyword">auto</span> higher_maximum_value = *max_element(<a class="code" href="../../de/df0/utilities_8h.html#a2f3c80e2df3ca3c632f7529d737384b3">ALL</a>(max_potential_values));</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> lower_maximum_theta, higher_maximum_theta;</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; max_theta_positions.size(); i++) {</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;            <span class="keywordflow">if</span> (max_potential_values[i] == lower_maximum_value)</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;                lower_maximum_theta.push_back(max_theta_positions[i]);</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;            <span class="keywordflow">if</span> (max_potential_values[i] == higher_maximum_value)</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;                higher_maximum_theta.push_back(max_theta_positions[i]);</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;        }</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;        <span class="keywordflow">if</span> (lower_maximum_theta.size() == 2) {</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; potential_array.size(); ++i) {</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;                <span class="keywordflow">if</span> (potential_array[i] &lt; lower_maximum_value</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;                        &amp;&amp; theta_coord_array[i] &gt; lower_maximum_theta[0]</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;                        &amp;&amp; theta_coord_array[i] &lt; lower_maximum_theta[1]) {</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;                    theta_coord_sep.push_back(theta_coord_array[i]);</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;                    potential_well_sep.push_back(potential_array[i]);</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;                }</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;            }</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (min_theta_positions[0] &gt; lower_maximum_theta[0]) {</div>
 <div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; potential_array.size(); ++i) {</div>
 <div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;                <span class="keywordflow">if</span> (potential_array[i] &lt; lower_maximum_value</div>
 <div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;                        &amp;&amp; theta_coord_array[i] &gt; lower_maximum_theta[0]</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;                        &amp;&amp; theta_coord_array[i] &lt; lower_maximum_theta[1]) {</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;                        &amp;&amp; theta_coord_array[i] &lt; higher_maximum_theta[0]) {</div>
 <div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;                    theta_coord_sep.push_back(theta_coord_array[i]);</div>
 <div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;                    potential_well_sep.push_back(potential_array[i]);</div>
 <div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;                }</div>
 <div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;            }</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (min_theta_positions[0] &gt; lower_maximum_theta[0]) {</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;        } <span class="keywordflow">else</span> {</div>
 <div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; potential_array.size(); ++i) {</div>
 <div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;                <span class="keywordflow">if</span> (potential_array[i] &lt; lower_maximum_value</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;                        &amp;&amp; theta_coord_array[i] &gt; lower_maximum_theta[0]</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;                        &amp;&amp; theta_coord_array[i] &lt; higher_maximum_theta[0]) {</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;                        &amp;&amp; theta_coord_array[i] &lt; lower_maximum_theta[0]</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;                        &amp;&amp; theta_coord_array[i] &gt; higher_maximum_theta[0]) {</div>
 <div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;                    theta_coord_sep.push_back(theta_coord_array[i]);</div>
 <div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;                    potential_well_sep.push_back(potential_array[i]);</div>
 <div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;                }</div>
 <div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;            }</div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; potential_array.size(); ++i) {</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;                <span class="keywordflow">if</span> (potential_array[i] &lt; lower_maximum_value</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;                        &amp;&amp; theta_coord_array[i] &lt; lower_maximum_theta[0]</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;                        &amp;&amp; theta_coord_array[i] &gt; higher_maximum_theta[0]) {</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;                    theta_coord_sep.push_back(theta_coord_array[i]);</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;                    potential_well_sep.push_back(potential_array[i]);</div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;                }</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;            }</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;        }</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    } <span class="keywordflow">else</span> { <span class="comment">// tested</span></div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;        <span class="keyword">auto</span> left_max_theta = *min_element(max_theta_positions.begin(),</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;                                           max_theta_positions.end());</div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;        <span class="keyword">auto</span> right_max_theta = *max_element(max_theta_positions.begin(),</div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;                                            max_theta_positions.end());</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> left_max_value, right_max_value;</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; max_theta_positions.size(); i++) {</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;            <span class="keywordflow">if</span> (max_theta_positions[i] == left_max_theta)</div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;                left_max_value.push_back(max_potential_values[i]);</div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;            <span class="keywordflow">if</span> (max_theta_positions[i] == right_max_theta)</div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;                right_max_value.push_back(max_potential_values[i]);</div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;        }</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;        <span class="keyword">auto</span> separatrix_value = <a class="code" href="../../df/d6d/namespacemymath.html#a5bcc40b5ebadd9d98f351775df65ec9f">min</a>(</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;                                    *min_element(left_max_value.begin(), left_max_value.end()),</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;                                    *min_element(right_max_value.begin(), right_max_value.end()));</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;        }</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    } <span class="keywordflow">else</span> { <span class="comment">// tested</span></div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;        <span class="keyword">auto</span> left_max_theta = *min_element(max_theta_positions.begin(),</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;                                           max_theta_positions.end());</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;        <span class="keyword">auto</span> right_max_theta = *max_element(max_theta_positions.begin(),</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;                                            max_theta_positions.end());</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> left_max_value, right_max_value;</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; max_theta_positions.size(); i++) {</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;            <span class="keywordflow">if</span> (max_theta_positions[i] == left_max_theta)</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;                left_max_value.push_back(max_potential_values[i]);</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;            <span class="keywordflow">if</span> (max_theta_positions[i] == right_max_theta)</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;                right_max_value.push_back(max_potential_values[i]);</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;        }</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;        <span class="keyword">auto</span> separatrix_value = <a class="code" href="../../df/d6d/namespacemymath.html#a5bcc40b5ebadd9d98f351775df65ec9f">min</a>(</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;                                    *min_element(left_max_value.begin(), left_max_value.end()),</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;                                    *min_element(right_max_value.begin(), right_max_value.end()));</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; theta_coord_array.size(); ++i) {</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;            <span class="keywordflow">if</span> (theta_coord_array[i] &gt; left_max_theta</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;                    &amp;&amp; theta_coord_array[i] &lt; right_max_theta</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;                    &amp;&amp; potential_array[i] &lt; separatrix_value) {</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;                theta_coord_sep.push_back(theta_coord_array[i]);</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;                potential_well_sep.push_back(potential_array[i]);</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;            }</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;        }</div>
 <div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;</div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; theta_coord_array.size(); ++i) {</div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;            <span class="keywordflow">if</span> (theta_coord_array[i] &gt; left_max_theta</div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;                    &amp;&amp; theta_coord_array[i] &lt; right_max_theta</div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;                    &amp;&amp; potential_array[i] &lt; separatrix_value) {</div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;                theta_coord_sep.push_back(theta_coord_array[i]);</div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;                potential_well_sep.push_back(potential_array[i]);</div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;            }</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;        }</div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;</div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;    }</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;</div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;}</div><!-- fragment -->
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;    }</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;}</div><!-- fragment -->
 <p><div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-11-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-11-summary" class="dynsummary" style="display:block;">
@@ -923,7 +914,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_6b634e43e772001122993837e1d7e1c5.html">include</a></li><li class="navelem"><a class="el" href="../../dir_4a4b9f9a898a71f152a99978051a04a6.html">blond</a></li><li class="navelem"><a class="el" href="../../dir_bd75ece385a0f8574172231daa2591e2.html">trackers</a></li><li class="navelem"><a class="el" href="../../de/d44/trackers_2utilities_8h.html">utilities.h</a></li>
-    <li class="footer">Generated on Tue Dec 6 2016 08:55:35 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Thu Dec 8 2016 16:41:09 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

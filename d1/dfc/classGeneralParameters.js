@@ -6,7 +6,7 @@ var classGeneralParameters =
       [ "user_input", "d1/dfc/classGeneralParameters.html#aa00c27fcf78145c8d9cb4e2ca446871ea5212ede93f983717c87879e8eda09df1", null ],
       [ "none", "d1/dfc/classGeneralParameters.html#aa00c27fcf78145c8d9cb4e2ca446871ea5d5ddb8635c7554d6bcf1f263e0235d4", null ]
     ] ],
-    [ "GeneralParameters", "d1/dfc/classGeneralParameters.html#abdf51316dbeb5bbd4ac591c2bceb0232", null ],
+    [ "GeneralParameters", "d1/dfc/classGeneralParameters.html#a6c48ee71ae7d4ed26ef9c89f72a5a126", null ],
     [ "~GeneralParameters", "d1/dfc/classGeneralParameters.html#a65ac51b4b19d21b043e7b14e711948f8", null ],
     [ "_eta0", "d1/dfc/classGeneralParameters.html#a30464ea333810ac8c3386b5158e950bd", null ],
     [ "_eta1", "d1/dfc/classGeneralParameters.html#a82f0f7b09c94f3759608d56bf551ba07", null ],

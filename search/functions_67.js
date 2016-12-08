@@ -2,7 +2,7 @@ var searchData=
 [
   ['gaussian_5ffilter1d',['gaussian_filter1d',['../dc/d45/classSlices.html#ab1443b2ebec9ed465a8301be8e1c747f',1,'Slices']]],
   ['gaussian_5ffit',['gaussian_fit',['../dc/d45/classSlices.html#a31398a7ae3bf058bf358e38e61eb50c9',1,'Slices']]],
-  ['generalparameters',['GeneralParameters',['../d1/dfc/classGeneralParameters.html#abdf51316dbeb5bbd4ac591c2bceb0232',1,'GeneralParameters']]],
+  ['generalparameters',['GeneralParameters',['../d1/dfc/classGeneralParameters.html#a6c48ee71ae7d4ed26ef9c89f72a5a126',1,'GeneralParameters']]],
   ['generate',['generate',['../da/dd4/classPhaseNoise.html#a6d049cf7ec73c74279bf79a65a2102b6',1,'PhaseNoise::generate()'],['../d5/d73/classLHCFlatSpectrum.html#a2c1a3a410f3213af74e4839aaa560e80',1,'LHCFlatSpectrum::generate()'],['../db/d7b/classPSBPhaseNoiseInjection.html#a0afaaacc5c71047473edfcf7613f6f6f',1,'PSBPhaseNoiseInjection::generate()']]],
   ['get_5fcos_5fpx',['get_cos_px',['../d1/d47/namespacevdt_1_1details.html#a2d78ddff70416636dcab4eabcab25c8f',1,'vdt::details']]],
   ['get_5fnone',['get_none',['../de/d4a/namespacepython.html#a09c1faa5c89cea1c2d9383f7fa2e7649',1,'python']]],

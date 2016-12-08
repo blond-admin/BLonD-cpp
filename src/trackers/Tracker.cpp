@@ -67,11 +67,11 @@ inline void RingAndRfSection::drift(double *__restrict beam_dt,
         const double eta0 = eta_zero * coeff;
         const double eta1 = eta_one * coeff * coeff;
         const double eta2 = eta_two * coeff * coeff * coeff;
-        if (alpha_order == 0) {
+        if (alpha_order == 1) {
             #pragma omp parallel for
             for (int i = 0; i < n_macroparticles; i++)
                 beam_dt[i] += T * (1. / (1. - eta0 * beam_dE[i]) - 1.);
-        } else if (alpha_order == 1) {
+        } else if (alpha_order == 2) {
             #pragma omp parallel for
             for (int i = 0; i < n_macroparticles; i++)
                 beam_dt[i] += T * (1. / (1. - eta0 * beam_dE[i] -

@@ -13,7 +13,7 @@
 #include <vector>
 
 
-class API GeneralParameters {
+class GeneralParameters {
 
 private:
     void eta_generation();
@@ -46,8 +46,8 @@ public:
     f_vector_2d_t eta_0, eta_1, eta_2;
 
     GeneralParameters(const int n_turns, f_vector_t &ring_length,
-                      f_vector_2d_t &alpha, const int alpha_order,
-                      f_vector_2d_t &momentum, const particle_t particle,
+                      f_vector_2d_t &alpha, f_vector_2d_t &momentum,
+                      const particle_t particle,
                       double user_mass = 0, double user_charge = 0,
                       const particle_t particle2 = none,
                       double user_mass_2 = 0, double user_charge_2 = 0,

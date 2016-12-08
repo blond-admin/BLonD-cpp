@@ -12,8 +12,8 @@
 #include <blond/utilities.h>
 
 GeneralParameters::GeneralParameters(
-    const int _n_turns, f_vector_t &_ring_length, f_vector_2d_t &_alpha,
-    const int _alpha_order, f_vector_2d_t &_momentum,
+    const int _n_turns, f_vector_t &_ring_length,
+    f_vector_2d_t &_alpha, f_vector_2d_t &_momentum,
     const particle_t _particle, ftype user_mass, ftype user_charge,
     const particle_t _particle2, ftype user_mass_2, ftype user_charge_2,
     const int number_of_sections)
@@ -57,7 +57,7 @@ GeneralParameters::GeneralParameters(
 
     n_turns = _n_turns;
     momentum = _momentum;
-    alpha_order = _alpha_order - 1;
+    alpha_order = _alpha[0].size();
     alpha = _alpha;
     ring_length = _ring_length;
     ring_circumference = std::accumulate(ALL(ring_length), 0.0);
@@ -101,9 +101,8 @@ GeneralParameters::GeneralParameters(
     omega_rev = 2. * constant::pi * f_rev;
 
     if (alpha_order > 3) {
-        dprintf(
-            "WARNING: Momentum compaction factor is implemented only up to 2nd "
-            "order");
+        std::cerr << "[GeneralParameters] WARNING: Momentum compaction factor"
+                  " is implemented only up to 2nd order\n";
         alpha_order = 3;
     }
     eta_0.resize(n_sections, f_vector_t(n_turns + 1));
@@ -117,14 +116,10 @@ GeneralParameters::~GeneralParameters() {}
 void GeneralParameters::eta_generation()
 {
     _eta0();
-    if (alpha_order > 0)
-        _eta1();
     if (alpha_order > 1)
-        _eta2();
+        _eta1();
     if (alpha_order > 2)
-        dprintf(
-            "WARNING: Momentum compaction factor is implemented only up to 2nd "
-            "order");
+        _eta2();
 }
 
 void GeneralParameters::_eta0()

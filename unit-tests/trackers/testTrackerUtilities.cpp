@@ -42,7 +42,7 @@ protected:
         for (auto &v : momentumVec)
             mymath::linspace(v.data(), p_s, 1.01 * p_s, N_t + 1);
 
-        f_vector_2d_t alphaVec(n_sections, f_vector_t(alpha_order + 1, alpha));
+        f_vector_2d_t alphaVec(n_sections, f_vector_t(alpha_order, alpha));
 
         f_vector_t CVec(n_sections, C);
 
@@ -52,8 +52,7 @@ protected:
 
         f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 
-        Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
-                                            alpha_order, momentumVec,
+        Context::GP = new GeneralParameters(N_t, CVec, alphaVec, momentumVec,
                                             GeneralParameters::particle_t::proton);
 
         // Context::Beam = new Beams(N_p, N_b);
@@ -187,42 +186,42 @@ TEST(phaseModuloAbove, test3)
 
 TEST_F(testTrackerUtilities, hamiltonian1)
 {
-    auto epsilon = 1e-3;
+    auto epsilon = 1e-8;
     auto GP = Context::GP;
     auto Beam = Context::Beam;
     auto RfP = Context::RfP;
     auto real = hamiltonian(GP, RfP, Beam, 0.0, 0.0);
-    ASSERT_NEAR(real, 2915556.62852, epsilon);
+    ASSERT_NEAR(real, 2915556.62852, 2915556.62852 * epsilon);
 }
 
 TEST_F(testTrackerUtilities, hamiltonian2)
 {
-    auto epsilon = 1e-3;
+    auto epsilon = 1e-8;
     auto GP = Context::GP;
     auto Beam = Context::Beam;
     auto RfP = Context::RfP;
     auto real = hamiltonian(GP, RfP, Beam, 1e-7, 0.0);
-    ASSERT_NEAR(real, 2828529.22602, epsilon);
+    ASSERT_NEAR(real, 2828529.22602, 2828529.22602 * epsilon);
 }
 
 TEST_F(testTrackerUtilities, hamiltonian3)
 {
-    auto epsilon = 1e-3;
+    auto epsilon = 1e-8;
     auto GP = Context::GP;
     auto Beam = Context::Beam;
     auto RfP = Context::RfP;
     auto real = hamiltonian(GP, RfP, Beam, 1e-7, 1e7);
-    ASSERT_NEAR(real, 2831020.19352, epsilon);
+    ASSERT_NEAR(real, 2831020.19352, 2831020.19352* epsilon);
 }
 
 TEST_F(testTrackerUtilities, hamiltonian4)
 {
-    auto epsilon = 1e-4;
+    auto epsilon = 1e-8;
     auto GP = Context::GP;
     auto Beam = Context::Beam;
     auto RfP = Context::RfP;
     auto real = hamiltonian(GP, RfP, Beam, Beam->dt[100], Beam->dE[200]);
-    ASSERT_NEAR(real, 4767.48080202, epsilon);
+    ASSERT_NEAR(real, 4767.48080202, 4767.48080202 * epsilon);
 }
 
 

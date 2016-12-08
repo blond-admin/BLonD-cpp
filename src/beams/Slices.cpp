@@ -31,7 +31,7 @@ Slices::Slices(RfParameters *RfP, Beams *Beam, int n_slices,
     this->bin_centers.resize(n_slices, 0.0);
     this->thread_hist = (double *) malloc(n_slices * omp_get_max_threads()
                                           * sizeof(double));
-
+    
 
     set_cuts();
 
@@ -157,6 +157,7 @@ void Slices::histogram(const double *__restrict input,
 {
 
     const double inv_bin_width = n_slices / (cut_right - cut_left);
+    
     #pragma omp parallel
     {
         const int id = omp_get_thread_num();

@@ -16,7 +16,7 @@ class RfParameters;
 #include <blond/math_functions.h>
 #include <blond/constants.h>
 #include <blond/globals.h>
-
+#include <blond/vector_math.h>
 
 
 
@@ -122,16 +122,20 @@ public:
                               (2 * constant::pi * beta[i] *
                                beta[i] * energy[i]));
 
-        omega_s0.resize(n_turns + 1);
-        for (int i = 0; i < (n_turns + 1); ++i)
-            omega_s0[i] = Qs[i] * GP->omega_rev[i];
+        // omega_s0.resize(n_turns + 1);
+        // for (int i = 0; i < (n_turns + 1); ++i)
+        //     omega_s0[i] = Qs[i] * GP->omega_rev[i];
+        omega_s0 = Qs * GP->omega_rev;
 
-        omega_rf_d.resize(n_rf, f_vector_t(n_turns + 1));
+        // omega_rf_d.resize(n_rf, f_vector_t(n_turns + 1));
+        omega_rf_d.resize(n_rf);
 
         for (int i = 0; i < n_rf; ++i)
-            for (int j = 0; j < n_turns + 1; ++j)
-                omega_rf_d[i][j] = 2. * constant::pi * beta[j] * constant::c *
-                                   harmonic[i][j] / ring_circumference;
+            omega_rf_d[i] = (2. * constant::pi * constant::c / ring_circumference)
+                            * beta * harmonic[i];
+        // for (int j = 0; j < n_turns + 1; ++j)
+        //     omega_rf_d[i][j] = 2. * constant::pi * beta[j] * constant::c *
+        //                        harmonic[i][j] / ring_circumference;
 
         if (_omega_rf.empty())
             omega_rf = omega_rf_d;
@@ -141,9 +145,11 @@ public:
         phi_rf = phi_offset;
         dphi_rf.resize(n_rf, 0);
         dphi_rf_steering.resize(n_rf, 0);
-        t_rf.resize(n_turns + 1);
-        for (int i = 0; i < n_turns + 1; ++i)
-            t_rf[i] = 2 * constant::pi / omega_rf[section_index][i];
+
+        t_rf = (2. * constant::pi) / omega_rf[section_index];
+        // t_rf.resize(n_turns + 1);
+        // for (int i = 0; i < n_turns + 1; ++i)
+        //     t_rf[i] = 2 * constant::pi / omega_rf[section_index][i];
     }
     ~RfParameters() {};
 };

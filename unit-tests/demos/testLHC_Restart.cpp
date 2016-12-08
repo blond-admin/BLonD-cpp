@@ -51,12 +51,12 @@ protected:
         std::fill_n(&voltageVec[0][563374], 436627, 10e6);
 
         // Define general parameters
-        f_vector_2d_t alphaVec(n_sections, f_vector_t(alpha_order + 1, alpha));
+        f_vector_2d_t alphaVec(n_sections, f_vector_t(alpha_order, alpha));
 
         f_vector_t CVec(n_sections, C);
 
         Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
-                                            alpha_order, momentumVec,
+                                             momentumVec,
                                             GeneralParameters::particle_t::proton);
         auto GP = Context::GP;
 

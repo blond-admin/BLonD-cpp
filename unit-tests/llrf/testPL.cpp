@@ -50,7 +50,7 @@ protected:
         f_vector_t CVec(n_sections, C);
 
         Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
-                                            alpha_order, momentumVec,
+                                             momentumVec,
                                             GeneralParameters::particle_t::proton);
         auto GP = Context::GP;
         f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
@@ -133,7 +133,7 @@ class testPL2 : public ::testing::Test {
 
         f_vector_2d_t momentumVec(n_sections, f_vector_t(N_t + 1, p_i));
 
-        f_vector_2d_t alphaVec(n_sections, f_vector_t(alpha_order + 1, alpha));
+        f_vector_2d_t alphaVec(n_sections, f_vector_t(alpha_order, alpha));
 
         f_vector_t CVec(n_sections, C);
 
@@ -144,7 +144,7 @@ class testPL2 : public ::testing::Test {
         f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 
         Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
-                                            alpha_order, momentumVec,
+                                             momentumVec,
                                             GeneralParameters::particle_t::proton);
 
 

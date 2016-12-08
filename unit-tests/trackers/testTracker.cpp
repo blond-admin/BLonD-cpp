@@ -42,7 +42,7 @@ protected:
         for (auto &v : momentumVec)
             mymath::linspace(v.data(), p_i, p_f, N_t + 1);
 
-        f_vector_2d_t alphaVec(n_sections, f_vector_t(alpha_order + 1, alpha));
+        f_vector_2d_t alphaVec(n_sections, f_vector_t(alpha_order, alpha));
 
         f_vector_t CVec(n_sections, C);
 
@@ -53,7 +53,7 @@ protected:
         f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 
         Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
-                                            alpha_order, momentumVec,
+                                             momentumVec,
                                             GeneralParameters::particle_t::proton);
 
         // auto Beam = Context::Beam = new Beams(N_p, N_b);
@@ -283,7 +283,7 @@ TEST_F(testTracker2, full_solver1)
     f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 
     auto GP = GeneralParameters(N_t, CVec, alphaVec,
-                                alpha_order, momentumVec,
+                                 momentumVec,
                                 GeneralParameters::particle_t::proton);
 
 
@@ -330,7 +330,7 @@ TEST_F(testTracker2, full_solver2)
     f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 
     auto GP = GeneralParameters(N_t, CVec, alphaVec,
-                                alpha_order, momentumVec,
+                                 momentumVec,
                                 GeneralParameters::particle_t::proton);
 
 
@@ -377,7 +377,7 @@ TEST_F(testTracker2, full_solver3)
     f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 
     auto GP = GeneralParameters(N_t, CVec, alphaVec,
-                                alpha_order, momentumVec,
+                                 momentumVec,
                                 GeneralParameters::particle_t::proton);
 
 
@@ -424,7 +424,7 @@ TEST_F(testTracker2, full_solver4)
     f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 
     auto GP = GeneralParameters(N_t, CVec, alphaVec,
-                                alpha_order, momentumVec,
+                                 momentumVec,
                                 GeneralParameters::particle_t::proton);
 
 
@@ -484,7 +484,7 @@ protected:
         for (auto &v : momentumVec)
             mymath::linspace(v.data(), p_i, p_f, N_t + 1);
 
-        f_vector_2d_t alphaVec(n_sections, f_vector_t(alpha_order + 1, alpha));
+        f_vector_2d_t alphaVec(n_sections, f_vector_t(alpha_order, alpha));
 
         f_vector_t CVec(n_sections, C);
 
@@ -500,7 +500,7 @@ protected:
         f_vector_2d_t dphiVec(n_rf, f_vector_t(N_t + 1, dphi));
 
         Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
-                                            alpha_order, momentumVec,
+                                             momentumVec,
                                             GeneralParameters::particle_t::proton);
         auto GP = Context::GP;
 
@@ -595,7 +595,7 @@ protected:
         f_vector_2d_t dphiVec(n_sections, f_vector_t(N_t + 1, dphi));
 
         Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
-                                            alpha_order, momentumVec,
+                                             momentumVec,
                                             GeneralParameters::particle_t::proton);
 
         auto GP = Context::GP;

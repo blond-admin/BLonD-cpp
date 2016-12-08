@@ -14,12 +14,12 @@
 using namespace std;
 
 
-vector<int> is_in_separatrix(const GeneralParameters *GP,
-                             const RfParameters *RfP,
-                             const Beams *Beam,
-                             const f_vector_t &dt,
-                             const f_vector_t &dE,
-                             f_vector_t total_voltage)
+int_vector_t is_in_separatrix(const GeneralParameters *GP,
+                              const RfParameters *RfP,
+                              const Beams *Beam,
+                              const f_vector_t &dt,
+                              const f_vector_t &dE,
+                              f_vector_t total_voltage)
 {
     /*
     Condition for being inside the separatrix.
@@ -48,7 +48,7 @@ vector<int> is_in_separatrix(const GeneralParameters *GP,
                             total_voltage);
 
     // vector<bool> is not thread safe!!
-    vector<int> isin(temp.size());
+    int_vector_t isin(temp.size());
     const int size = isin.size();
 
     #pragma omp parallel for
@@ -118,12 +118,6 @@ f_vector_t hamiltonian(const GeneralParameters *GP,
     const double cos_phi_s = mymath::fast_cos(phi_s);
     const double sin_phi_s = mymath::fast_sin(phi_s);
 
-    // auto f1 = [ = ](double phib, double de) {
-    //     return c1 * de * de + c2
-    //            * (mymath::fast_cos(phib) - cos_phi_s + (phib - phi_s) * sin_phi_s);
-    // };
-    // transform(phi_b.begin(), phi_b.end(), &dE[0], phi_b.begin(), f1);
-
     #pragma omp parallel for
     for (int i = 0; i < size; i++)
         phi_b[i] = c1 * dE[i] * dE[i]
@@ -161,12 +155,10 @@ double hamiltonian(const GeneralParameters *GP,
 
     const double c1 = RfP->eta_tracking(Beam, counter, dE)
                       * constant::pi * constant::c
-                      / (GP->ring_circumference * RfP->beta[counter] *
-                         RfP->energy[counter]);
-
-    const double c2 = constant::c * RfP->beta[counter] * v0
+                      / (GP->ring_circumference * Beam->beta *
+                         Beam->energy);
+    const double c2 = constant::c * Beam->beta * v0
                       / (h0 * GP->ring_circumference);
-
     const double phi_s = RfP->phi_s[counter];
     double phi_b = RfP->omega_rf[0][counter] * dt + RfP->phi_rf[0][counter];
     const double eta0 = RfP->eta_0[counter];
@@ -175,7 +167,6 @@ double hamiltonian(const GeneralParameters *GP,
         phi_b = phase_modulo_below_transition(phi_b);
     else if (eta0 > 0)
         phi_b = phase_modulo_above_transition(phi_b);
-
 
     return c1 * dE * dE
            + c2 * (mymath::fast_cos(phi_b) - mymath::fast_cos(phi_s)
@@ -189,7 +180,7 @@ void minmax_location(const f_vector_t &x, const f_vector_t &f,
 {
     min_x_position.clear(); max_x_position.clear();
     min_values.clear(); max_values.clear();
-    
+
     f_vector_t f_derivative;
     adjacent_difference(f.begin(), f.end(), back_inserter(f_derivative));
     f_derivative.erase(f_derivative.begin());

@@ -27,19 +27,19 @@ double RfParameters::eta_tracking(const Beams *beam, const int counter,
 {
 
     double eta = 0;
-    if (alpha_order == 1)
+    if (alpha_order == 1){
         eta = eta_0[counter];
+    }
     else {
-        double delta =
-            dE / ((beam->beta) * (beam->beta) * beam->energy);
-        eta += eta_0[counter] * 1;
-        if (alpha_order > 0)
-            eta += eta_1[counter] * delta;
+        double delta = dE / (beam->beta * beam->beta * beam->energy);
+        eta += eta_0[counter];
         if (alpha_order > 1)
-            eta += eta_2[counter] * delta * delta;
+            eta += eta_1[counter] * delta;
         if (alpha_order > 2)
-            std::cerr << "WARNING: Momentum compaction factor is implemented"
-                      << "only up to 2nd order\n";
+            eta += eta_2[counter] * delta * delta;
+        // if (alpha_order > 3)
+        //     std::cerr << "WARNING: Momentum compaction factor is implemented"
+        //               << "only up to 2nd order\n";
     }
     return eta;
 }

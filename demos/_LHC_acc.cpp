@@ -82,12 +82,12 @@ int main(int argc, char **argv)
 
     // Define general parameters
 
-    f_vector_2d_t alphaVec(n_sections, f_vector_t(alpha_order + 1, alpha));
+    f_vector_2d_t alphaVec(n_sections, f_vector_t(alpha_order, alpha));
 
     f_vector_t CVec(n_sections, C);
 
     auto GP = Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
-            alpha_order, momentumVec,
+             momentumVec,
             GeneralParameters::particle_t::proton);
 
     cout << "General parameters set...\n";

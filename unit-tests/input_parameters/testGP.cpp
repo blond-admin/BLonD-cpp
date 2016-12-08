@@ -19,12 +19,11 @@ protected:
         for (auto &v : momentumVec)
             mymath::linspace(v.data(), p_i, p_f, N_t + 1);
 
-        f_vector_2d_t alphaVec(n_sections, f_vector_t(alpha_order + 1, alpha));
+        f_vector_2d_t alphaVec(n_sections, f_vector_t(alpha_order, alpha));
 
         f_vector_t CVec(n_sections, C);
 
-        Context::GP = new GeneralParameters(N_t, CVec, alphaVec,
-                                            alpha_order, momentumVec,
+        Context::GP = new GeneralParameters(N_t, CVec, alphaVec, momentumVec,
                                             GeneralParameters::particle_t::proton);
     }
 
@@ -148,7 +147,7 @@ TEST(higher_alpha_order, eta_1_1)
     f_vector_t CVec(n_sections, C);
 
     auto GP = GeneralParameters(N_t, CVec, alphaVec,
-                                alpha_order, momentumVec,
+                                momentumVec,
                                 GeneralParameters::particle_t::electron);
 
     f_vector_t v;
@@ -187,7 +186,7 @@ TEST(higher_alpha_order, eta_1_2)
     f_vector_t CVec(n_sections, C);
 
     auto GP = GeneralParameters(N_t, CVec, alphaVec,
-                                alpha_order, momentumVec,
+                                momentumVec,
                                 GeneralParameters::particle_t::electron);
 
     f_vector_t v;
@@ -226,8 +225,7 @@ TEST(higher_alpha_order, eta_2_1)
 
     f_vector_t CVec(n_sections, C);
 
-    auto GP = GeneralParameters(N_t, CVec, alphaVec,
-                                alpha_order, momentumVec,
+    auto GP = GeneralParameters(N_t, CVec, alphaVec, momentumVec,
                                 GeneralParameters::particle_t::electron);
 
     f_vector_t v;
@@ -268,7 +266,7 @@ TEST(particle_types, electron_electron1)
     f_vector_t CVec{C};
 
     auto GP = GeneralParameters(N_t, CVec, alphaVec,
-                                alpha_order, momentumVec,
+                                momentumVec,
                                 GeneralParameters::particle_t::electron,
                                 0, 0, GeneralParameters::electron, 0, 0,
                                 n_sections);
@@ -312,7 +310,7 @@ TEST(particle_types, input_input1)
     f_vector_t CVec{C};
 
     auto GP = GeneralParameters(N_t, CVec, alphaVec,
-                                alpha_order, momentumVec,
+                                momentumVec,
                                 GeneralParameters::user_input, 1.0, 2.0,
                                 GeneralParameters::user_input, 3.0, 4.0,
                                 n_sections);
@@ -348,7 +346,7 @@ TEST(particle_types, death_test1)
     f_vector_t CVec{C};
 
     auto GP = GeneralParameters(N_t, CVec, alphaVec,
-                                alpha_order, momentumVec,
+                                momentumVec,
                                 GeneralParameters::user_input, 1.0, 2.0,
                                 GeneralParameters::user_input, 3.0, 4.0,
                                 n_sections);

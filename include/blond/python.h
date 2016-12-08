@@ -12,22 +12,20 @@
 #include <numpy/core/include/numpy/arrayobject.h>
 #include <map>
 #include <blond/configuration.h>
-#include <algorithm>
+#include <cstdlib>
 
 namespace python {
 
-    // static bool
-
     static inline int initialize()
     {
+        putenv("PYTHONPATH=" PYPATH);
+        Py_SetPythonHome(PYHOME);
         Py_Initialize();
-        // import_array1(0);
         return 0;
     }
 
     static inline int import()
     {
-        // Py_Initialize();
         import_array1(0);
         return 0;
     }
@@ -39,6 +37,7 @@ namespace python {
 
     static inline PyObject *import(std::string module, std::string function)
     {
+        // TODO try to prepend the path to python folder
         auto pModule = PyImport_ImportModule(module.c_str());
         assert(pModule);
 

@@ -5,7 +5,6 @@ cmake_minimum_required(VERSION 2.8.4)
 project(BLonD++ CXX)
 include(CheckCXXCompilerFlag)
 include(ExternalProject)
-# include(ProcessorCount)
 include(CTest)
 
 
@@ -20,7 +19,7 @@ set(CMAKE_BUILD_TYPE "Release" CACHE STRING "We have optimized configuration
 # Variables default values list
 set(CMAKE_BUILD_TYPE Release CACHE STRING "default build type 
     for Make-like generators")
-set(SHARED_LIBRARY_ENABLED "True")
+set(SHARED_LIBRARY_ENABLED "False")
 set(EXTERNAL_INSTALL_DIR ${PROJECT_SOURCE_DIR}/external/install)
 set(TEST_ENABLED "True" CACHE STRING "Cerate unit-test projects")
 # set(BENCHMARK_ENABLED "True" CACHE STRING "Cerate benchmark projects")
@@ -46,14 +45,11 @@ set(WITH_FORMAT "False" CACHE STRING
 set(USE_FFTW_OMP "False" CACHE STRING 
     "Should use OpenMP flavour of FFTW library (linux only)") 
 
-add_definitions(-DDEMO_FILES="${DATAFILES_DIR_DEMOS}" 
-                -DTEST_FILES="${DATAFILES_DIR_TESTS}") #demos datafiles
-
-# CPU for build count
-# ProcessorCount(N)
-# if (NOT N EQUAL 0)
-#     set(ctest_test_args ${ctest_test_args} PARALLEL_LEVEL ${N})
-# endif ()
+add_definitions(-DDEMO_FILES="${DATAFILES_DIR_DEMOS}"
+                -DTEST_FILES="${DATAFILES_DIR_TESTS}"
+                -DPROJECT_HOME="${PROJECT_SOURCE_DIR}"
+                -DPYHOME="${EXTERNAL_INSTALL_DIR}"
+                -DPYPATH="${PROJECT_SOURCE_DIR}/python/")
 
 # Project architecture
 set(ARCHITECTURE "Default" CACHE STRING 
@@ -80,7 +76,6 @@ set(CXXFLAGS "-std=gnu++11")
 set(DEBUG "-O0 -g -fno-omit-frame-pointer")
 # set(RELEASE "-march=native")
 set(RELEASE "-march=native -g -fno-omit-frame-pointer")
-
 
 if(CYGWIN)
     set(CXXFLAGS "${CXXFLAGS} -mcmodel=large")
@@ -179,11 +174,9 @@ if (TEST_ENABLED)
 endif ()
 
 # Python
-find_library(PYTHON_LIB NAMES python python2.7 
-    PATHS ${EXTERNAL_INSTALL_DIR}/lib
-    NO_DEFAULT_PATH REQUIRED)
-
-# set(PYTHONPATH "PYTHONPATH=${PROJECT_SOURCE_DIR}/python/")
+# find_library(PYTHON_LIB NAMES python python2.7 
+#     PATHS ${EXTERNAL_INSTALL_DIR}/lib
+#     NO_DEFAULT_PATH REQUIRED)
 
 include_directories(
     ${PROJECT_SOURCE_DIR}/include/ 
@@ -202,7 +195,7 @@ link_directories(
 
 
 # main library
-# list(APPEND PYTHON_LIB python2.7)
+list(APPEND PYTHON_LIB python2.7)
 list(APPEND HDF5_LIB hdf5 hdf5_cpp hdf5_hl hdf5_hl_cpp)
 list(APPEND REST_LIBS util dl)
 
@@ -225,7 +218,6 @@ set(CMAKE_CXX_FLAGS_DEBUG "${DEBUG}")
 set(CMAKE_CXX_FLAGS_CI "${DEBUG}")
 
 set(SOURCE_FILES ${SOURCES})
-
 
 if (SHARED_LIBRARY_ENABLED)
     add_library(blond SHARED ${SOURCE_FILES})
@@ -262,7 +254,6 @@ if (TEST_ENABLED)
     # message(STATUS "Generating test executables")
     list(APPEND LIBRARIES ${GTEST_LIB})
     list(APPEND LIBRARIES ${GTEST_MAIN_LIB})
-
     # if (UNIX)
     #     set(CTEST_MEMORYCHECK_COMMAND, "usr/bin/valgrind")
     #     set(CTEST_MEMORYCHECK_COMMAND_OPTIONS, "--leak-check=full")

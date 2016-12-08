@@ -274,7 +274,7 @@ PY_VERSION=$(python --version 2>&1 | awk '{print $2}')
 PY_VERSION=$(verlt ${PY_VERSION} "2.7" && echo "less" || echo "greater")
 
 if [ "${PY_VERSION}" = "greater" ]; then
-   echo -e "---- Detected python version is greater than 2.7"
+   echo -e "\n\n---- Detected python version greater than 2.7"
    echo -e "---- skipping python installation"
    PYTHON="python"
    PYTHON_LIB=$($PYTHON -c "import sys;print sys.prefix")/lib
@@ -319,8 +319,9 @@ else
       make install &>> $log
 
       cd ${BLOND_HOME}
-
-      if [ -e ${INSTALL}/include/python2.7/Python.h ] && [ -e ${INSTALL}/lib/python2.7/config/libpython2.7.a ]; then
+      
+      # TODO add a check for libpython shared or static
+      if [ -e ${INSTALL}/include/python2.7/Python.h ]; then
          echo -e "---- Python has been installed successfully\n\n"
          PYTHON="${INSTALL}/bin/python"
          export LD_LIBRARY_PATH="${INSTALL}/lib:$LD_LIBRARY_PATH"
@@ -356,11 +357,10 @@ if [ "$PIP_INSTALLED" == "1" ]; then
 else
    echo -e "\n\n---- Setting up python virtualenv..."
    ${PYTHON} -m pip install --user virtualenv # 2>> $log
-   # pip install virtualenv &>> $log
-   # TODO here I need to link to the correct LD_LIBRARY_PATH
    ${PYTHON} -m virtualenv --python=${PYTHON} ${INSTALL} &>> $log
    source ${INSTALL}/bin/activate &>> $log
    echo -e "\n\n---- Installing Python's external modules..."
+   # ${PYTHON} -m pip install -I --prefix=${INSTALL} numpy # 2>> $log
    ${PYTHON} -m pip install --prefix=${INSTALL} -r ${EXTERNAL}/python-packages.txt # 2>> $log
    export PYTHONPATH="${BLOND_HOME}/python:$PYTHONPATH"
    echo -e "\n\n---- Python's external modules have been installed successfully\n\n"

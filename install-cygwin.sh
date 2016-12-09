@@ -113,7 +113,7 @@ if [ "${INSTALL_FFTW}" = "true" ] ; then
         echo -e "---- into directory ${BLOND_HOME}/external/install\n\n"
 
     fi
-    echo -e "---- Installation of fftw3 is completed\n\n"
+    # echo -e "---- Installation of fftw3 is completed\n\n"
 fi
 
 # -----------------------
@@ -172,7 +172,7 @@ if [ "${INSTALL_HDF5}" = "true" ]; then
         echo -e "---- You will have to manually install this library"
         echo -e "---- into directory ${BLOND_HOME}/external/install\n\n"
     fi
-    echo -e "---- Installation of HDF5 is completed\n\n"
+    # echo -e "---- Installation of HDF5 is completed\n\n"
 fi
 
 # -----------------------
@@ -227,7 +227,7 @@ if [ "${INSTALL_GTEST}" = "true" ] ; then
         echo -e "---- You will have to manually install this library"
         echo -e "---- into directory ${BLOND_HOME}/external/install\n\n"
     fi
-    echo -e "---- Installation of googletest is completed\n\n"
+    # echo -e "---- Installation of googletest is completed\n\n"
 fi
 
 # ------------------------------
@@ -332,8 +332,7 @@ if [ "$PIP_INSTALLED" == "1" ]; then
     echo -e "\n\n---- PIP is needed in order to install the required python modules\n\n"
 else
     echo -e "\n\n---- Installing Python's external modules..."
-    python -m pip install -r ${EXTERNAL}/python-packages.txt 2>> $log
-    export PYTHONPATH="${BLOND_HOME}/python:$PYTHONPATH"
+    python -m pip install -I -r ${EXTERNAL}/python-packages.txt
     echo -e "\n\n---- Python's external modules have been installed successfully\n\n"
 fi
 # ----------------------------------

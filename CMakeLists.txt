@@ -13,6 +13,7 @@ set_property(GLOBAL PROPERTY USE_FOLDERS On)
 
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING 
     "We have optemized configuration for Debug and Release configurations")
+
 set(CMAKE_BUILD_TYPE "Release" CACHE STRING "We have optimized configuration 
     for Debug and Release configurations")
 

@@ -100,7 +100,7 @@ if [ "${INSTALL_FFTW}" = "true" ] ; then
    make &>> $log
    make install &>> $log
 
-   if [ -e ${INSTALL}/include/fftw3.h ] && [ -e ${INSTALL}/lib/libfftw3.a ]; then
+   if [ -e ${INSTALL}/include/fftw3.h ] && [ -e ${INSTALL}/lib/libfftw3.so ]; then
       echo -e "---- fftw3 has been installed successfully\n\n"
    else
       echo -e "---- fftw3 has failed to install successfully"

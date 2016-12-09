@@ -108,7 +108,7 @@ if [ "${INSTALL_FFTW}" = "true" ] ; then
       echo -e "---- into directory ${BLOND_HOME}/external/install\n\n"
 
    fi
-   echo -e "---- Installation of fftw3 is completed\n\n"
+   # echo -e "---- Installation of fftw3 is completed\n\n"
 fi
 
 # -----------------------
@@ -154,7 +154,7 @@ if [ "${INSTALL_HDF5}" = "true" ]; then
    make &>> $log
    make install &>> $log
 
-if [ -e ${INSTALL}/include/hdf5.h ] && [ -e ${INSTALL}/lib/libhdf5.so ]; then
+   if [ -e ${INSTALL}/include/hdf5.h ] && [ -e ${INSTALL}/lib/libhdf5.so ]; then
       echo -e "---- HDF5 has been installed successfully\n\n"
    else
       echo -e "---- HDF5 has failed to install successfully"
@@ -162,7 +162,7 @@ if [ -e ${INSTALL}/include/hdf5.h ] && [ -e ${INSTALL}/lib/libhdf5.so ]; then
       echo -e "---- into directory ${BLOND_HOME}/external/install\n\n"
 
    fi
-   echo -e "---- Installation of HDF5 is completed\n\n"
+   # echo -e "---- Installation of HDF5 is completed\n\n"
 fi
 
 # -----------------------
@@ -217,7 +217,7 @@ if [ "${INSTALL_GTEST}" = "true" ] ; then
       echo -e "---- into directory ${BLOND_HOME}/external/install\n\n"
 
    fi
-   echo -e "---- Installation of googletest is completed\n\n"
+   # echo -e "---- Installation of googletest is completed\n\n"
 fi
 
 # ------------------------------
@@ -257,7 +257,7 @@ if [ "${INSTALL_GBENCH}" = "true" ] ; then
       echo -e "---- You will have to manually install this library"
       echo -e "---- into directory ${BLOND_HOME}/external/install\n\n"
    fi
-   echo -e "---- Installation of googlebench is completed\n\n"
+   # echo -e "---- Installation of googlebench is completed\n\n"
 fi
 
 # ------------------------------
@@ -275,7 +275,7 @@ PY_VERSION=$(verlt ${PY_VERSION} "2.7" && echo "less" || echo "greater")
 
 if [ "${PY_VERSION}" = "greater" ]; then
    echo -e "\n\n---- Detected python version greater than 2.7"
-   echo -e "---- skipping python installation"
+   echo -e "---- Skipping python installation"
    PYTHON="python"
    PYTHON_LIB=$($PYTHON -c "import sys;print sys.prefix")/lib
    export LD_LIBRARY_PATH="${PYTHON_LIB}:$LD_LIBRARY_PATH"
@@ -313,8 +313,9 @@ else
       cd ${EXTERNAL}/tmp/Python-2.7.12
       ./configure --enable-unicode=ucs4 \
                   --with-threads \
-                  --enable-shared \
                   --prefix="$INSTALL" &>> $log
+                  # --enable-shared \
+
       make &>> $log
       make install &>> $log
 
@@ -331,7 +332,7 @@ else
          echo -e "---- Python has been installed successfully\n\n"
       else
          echo -e "\n\n---- Python has failed to install successfully"
-         echo -e "---- You will have to manually install this library"
+         echo -e "---- You will have to manually install Python"
          echo -e "---- into directory ${BLOND_HOME}/external/install\n\n"
       fi
 
@@ -359,11 +360,10 @@ else
    ${PYTHON} -m pip install --user virtualenv # 2>> $log
    ${PYTHON} -m virtualenv --python=${PYTHON} ${INSTALL} &>> $log
    source ${INSTALL}/bin/activate &>> $log
+   echo -e "---- Virtualenv has been set up successfully"
    echo -e "\n\n---- Installing Python's external modules..."
-   # ${PYTHON} -m pip install -I --prefix=${INSTALL} numpy # 2>> $log
-   ${PYTHON} -m pip install --prefix=${INSTALL} -r ${EXTERNAL}/python-packages.txt # 2>> $log
-   export PYTHONPATH="${BLOND_HOME}/python:$PYTHONPATH"
-   echo -e "\n\n---- Python's external modules have been installed successfully\n\n"
+   ${PYTHON} -m pip install -I --prefix=${INSTALL} -r ${EXTERNAL}/python-packages.txt # 2>> $log
+   echo -e "---- Python's external modules have been installed successfully\n\n"
 fi
 # ----------------------------------
 # end of Python Modules installation

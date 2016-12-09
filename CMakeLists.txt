@@ -19,15 +19,20 @@ set(CMAKE_BUILD_TYPE "Release" CACHE STRING "We have optimized configuration
 # Variables default values list
 set(CMAKE_BUILD_TYPE Release CACHE STRING "default build type 
     for Make-like generators")
+
 set(SHARED_LIBRARY_ENABLED "False")
+
 set(EXTERNAL_INSTALL_DIR ${PROJECT_SOURCE_DIR}/external/install)
+
 set(TEST_ENABLED "True" CACHE STRING "Cerate unit-test projects")
 # set(BENCHMARK_ENABLED "True" CACHE STRING "Cerate benchmark projects")
+
 set(ARCHITECTURE "x64" CACHE STRING "Set architecture 'x86' or 'x32'") 
 # TODO: find usages and  fix comment
 
 set(DATAFILES_DIR_DEMOS "${CMAKE_CURRENT_LIST_DIR}/demos/input_files" 
     CACHE STRING "Set demos input files path")
+
 set(DATAFILES_DIR_TESTS "${CMAKE_CURRENT_LIST_DIR}/unit-tests/references" 
     CACHE STRING "Set unit-tests input files path")
 
@@ -172,11 +177,6 @@ if (TEST_ENABLED)
         NO_DEFAULT_PATH
         REQUIRED)
 endif ()
-
-# Python
-# find_library(PYTHON_LIB NAMES python python2.7 
-#     PATHS ${EXTERNAL_INSTALL_DIR}/lib
-#     NO_DEFAULT_PATH REQUIRED)
 
 include_directories(
     ${PROJECT_SOURCE_DIR}/include/ 

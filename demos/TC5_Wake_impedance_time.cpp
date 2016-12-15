@@ -4,18 +4,7 @@
  *  Created on: May 9, 2016
  *      Author: kiliakis
  */
-#include <blond/beams/Beams.h>
-#include <blond/beams/Distributions.h>
-#include <blond/beams/Slices.h>
-#include <blond/globals.h>
-#include <blond/input_parameters/GeneralParameters.h>
-#include <blond/input_parameters/RfParameters.h>
-#include <blond/math_functions.h>
-#include <blond/trackers/Tracker.h>
-#include <blond/utilities.h>
-#include <stdio.h>
-#include <blond/impedances/InducedVoltage.h>
-
+#include <blond/blond.h>
 using namespace std;
 
 const string datafiles = DEMO_FILES "/TC5_Wake_impedance/";

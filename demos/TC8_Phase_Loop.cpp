@@ -4,17 +4,12 @@
  *  Created on: July 11, 2016
  *      Author: kiliakis
  */
-#include <blond/beams/Distributions.h>
-#include <blond/globals.h>
-#include <blond/llrf/PhaseLoop.h>
-#include <blond/math_functions.h>
-#include <blond/trackers/Tracker.h>
-#include <blond/utilities.h>
+#include <blond/blond.h>
+using namespace std;
 
 // Simulation parameters
 // --------------------------------------------------------
 
-using namespace std;
 
 // Bunch parameters
 const long long N_b = 0; // Intensity

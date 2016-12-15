@@ -4,17 +4,7 @@
  *  Created on: Apr 12, 2016
  *      Author: kiliakis
  */
-#include <blond/beams/Distributions.h>
-#include <blond/globals.h>
-#include <blond/llrf/PhaseLoop.h>
-#include <blond/math_functions.h>
-#include <blond/trackers/Tracker.h>
-#include <blond/utilities.h>
-#include <blond/llrf/LHCNoiseFB.h>
-#include <blond/llrf/PhaseNoise.h>
-#include <blond/impedances/InducedVoltage.h>
-#include <blond/monitors/Monitors.h>
-
+#include <blond/blond.h>
 using namespace std;
 
 // Simulation parameters

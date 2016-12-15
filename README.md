@@ -63,7 +63,7 @@ What was happening here:
 
 
 #### Windows
-* Download setup-x86_64.exe from cygwin installation page.
+* Download setup-x86_64.exe from [cygwin installation page](https://cygwin.com/install.html).
 * Run setup-x86_64.exe, follow the on-screen instructions.
 * In the "Select Packages" screen, the packages needed for a basic cygwin installation are already checked. Except from these, add:
   * git (devel category, bin only)
@@ -83,6 +83,18 @@ cmake .. # Configuration
 cmake --build . # Compilation
 ctest -VV # Testing
 ```
+
+## Eclipse CDT Integration (Linux & Windows)
+In order to import BLonD++ project in Eclipse you will need to:
+* Create a directory to host the eclipse build. Let's call it eclipse_build. This directory **must not** be placed under BLonD++ main directory.
+* Run the following commands:
+  * `cd eclipse_build`
+  * `cmake -G "Eclipse CDT - Unix Makefiles" path/to/BLonD++`
+* Then from the Eclipse IDE select File >> Import >> C/C++ >> Existing Code as Makefile Project.
+* In the Import Existing Code window specify the project name (can be anything), the existing code location (*must be the location of eclipse_build*), and your c++ compiler. Then Hit Finish.
+* Note that although you will be able to modify the code, compile and run directly from the IDE, if you add a new source file you will have to repeat the build process (2nd step) in order to update the Makefiles. 
+* In order to directly import cmakelists project on Eclipse, please have a look at [this page](https://cmake.org/Wiki/Eclipse_CDT4_Generator) and the [cmakebuilder plugin](http://www.janua.fr/cmakebuilder-by-janua/).
+
 
 ## Using system Libraries (advanced)
 **TODO**

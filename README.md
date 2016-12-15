@@ -95,6 +95,15 @@ In order to import BLonD++ project in Eclipse you will need to:
 * Note that although you will be able to modify the code, compile and run directly from the IDE, if you add a new source file you will have to repeat the build process (2nd step) in order to update the Makefiles. 
 * In order to directly import cmakelists project on Eclipse, please have a look at [this page](https://cmake.org/Wiki/Eclipse_CDT4_Generator) and the [cmakebuilder plugin](http://www.janua.fr/cmakebuilder-by-janua/).
 
+## Manage your personal workspace
+After having successfully compiled the code, you may start writing your own main files. Every main file that you add in the BLonD++/demos directory will be automatically compiled (you need to run cmake in order to update the makefiles). If you want to separate your workspace from BLonD++ you just have to:
+* copy or move the BLonD++/workspace directory to a preferred location
+* `cd preferred/location/workspace`
+* `mkdir build`
+* `cd build`
+* `cmake -DBLOND_DIR=path/to/blond_cpp -DMAIN_FILES_DIR=path/to/your/mainfiles_dir ..`
+* `cmake --build .`
+Note that the directory of your main files can contain other sub-directories with main files. All the .cpp files will be compiled and an executable will be produced inside the `workspace/build` directory.
 
 ## Using system Libraries (advanced)
 **TODO**

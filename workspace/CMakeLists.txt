@@ -3,10 +3,7 @@ cmake_minimum_required(VERSION 2.8.4)
 project(MyBLonD++ CXX)
 include(CheckCXXCompilerFlag)
 
-set(USAGE_MESSAGE "usage: cmake -DCMAKE_BUILD_TYPE=Debug/Release \
-                                -DBLOND_DIR=path/to/blond_cpp \
-                                -DMAIN_FILES_DIR=path/to/mymain/files \
-                                ..")
+set(USAGE_MESSAGE "usage: cmake -DCMAKE_BUILD_TYPE=Debug/Release -DBLOND_DIR=path/to/blond_cpp -DMAIN_FILES_DIR=path/to/mymain/files ..")
 
 # Variables default values list
 if(NOT CMAKE_BUILD_TYPE)
@@ -22,7 +19,7 @@ if(NOT MAIN_FILES_DIR)
     message(FATAL_ERROR "ERROR: You must specify the path to your main files\
                         \n${USAGE_MESSAGE}")
 endif()
-
+get_filename_component(MAIN_FILES_DIR ${MAIN_FILES_DIR} ABSOLUTE)
 
 set(SHARED_LIBRARY_ENABLED "False")
 set(EXTERNAL_INSTALL_DIR ${BLOND_DIR}/external/install)
@@ -170,12 +167,14 @@ list(APPEND LIBRARIES
         )
 
 # build the executables
-file(GLOB_RECURSE EXECUTABLE_SOURCES "${MAIN_FILES_DIR}*.cpp")
-set(EXECUTABLE_FILES ${EXECUTABLE_SOURCES})
+file(GLOB_RECURSE EXECUTABLE_FILES "${MAIN_FILES_DIR}/*.cpp")
+if(NOT EXECUTABLE_FILES)
+    message("No Executables were found in ${MAIN_FILES_DIR}")
+    message("You should consider passing an absolute path to -DMAIN_FILES_DIR")
+endif()
 foreach (src ${EXECUTABLE_FILES})
-    file(RELATIVE_PATH testfile ${CMAKE_CURRENT_SOURCE_DIR} ${src})
-    string(REPLACE ".cpp" "" testname ${testfile})
-    string(REPLACE "${MAIN_FILES_DIR}" "" testname ${testname})
+    string(REPLACE ".cpp" "" testname ${src})
+    string(REPLACE "${MAIN_FILES_DIR}/" "" testname ${testname})
     add_executable(${testname} ${src})
     target_link_libraries(${testname} ${LIBRARIES})
 endforeach ()

@@ -8,8 +8,9 @@ verlt() {
     [ "$1" = "$2" ] && return 1 || verlte $1 $2
 }
 
-LIB="/lib"
-BIN="/bin"
+LIB="/usr/lib"
+BIN="/usr/bin"
+PYTHON="/usr/bin/python"
 INCLUDE="/usr/include"
 BLOND_HOME="$(pwd)"
 EXTERNAL="${BLOND_HOME}/external"
@@ -243,40 +244,6 @@ cd ${BLOND_HOME}
 # -----------------------
 
 
-# if [ "${INSTALL_GBENCH}" = "true" ] ; then
-
-#    echo -e "\n\n---- Installing googlebench"
-
-#    git clone https://github.com/google/benchmark.git ${EXTERNAL}/tmp/googlebench
-#    cd ${EXTERNAL}/tmp/googlebench/
-#    cp -r include/* "${INSTALL}/include/"
-#    mkdir -p build &>> $log
-#    cd build
-#    CC=gcc CXX=g++ cmake -DCMAKE_BUILD_TYPE=Release \
-#                         -DBENCHMARK_CXX_LINKER_FLAGS="-lrt" \
-#                         .. &>> $log
-#    make &>> $log
-#    cp src/*.a "${INSTALL}/lib"
-
-#    cd ${BLOND_HOME}
-
-#    if [ -e ${INSTALL}/include/benchmark/benchmark.h ] && [ -e ${INSTALL}/lib/libbenchmark.a ]; then
-#       echo -e "---- googlebench has been installed successfully\n\n"
-#    else
-#       echo -e "---- googlebench has failed to install successfully"
-#       echo -e "---- You will have to manually install this library"
-#       echo -e "---- into directory ${BLOND_HOME}/external/install\n\n"
-#    fi
-#    echo -e "---- Installation of googlebench is completed\n\n"
-# fi
-
-# ------------------------------
-# end of googlebench installation
-# ------------------------------
-
-
-cd ${BLOND_HOME}
-
 # -------------------
 # Python installation
 # -------------------
@@ -307,7 +274,7 @@ if [ "${INSTALL_PYTHON}" = "true" ] ; then
 
     if [ -e ${INSTALL}/include/python2.7/Python.h ] && [ -e ${INSTALL}/lib/libpython2.7.dll.a ]; then
         echo -e "---- Python has been installed successfully\n"
-        python -m ensurepip
+        ${PYTHON} -m ensurepip
         echo -e "---- Pip has been installed successfully\n\n"
     else
         echo -e "\n\n---- Python has failed to install successfully"
@@ -327,12 +294,12 @@ fi
 # -----------------------
 # Python external modules installation
 # -----------------------
-PIP_INSTALLED=$(python -m pip -V | echo $?)
+PIP_INSTALLED=$(${PYTHON} -m pip -V | echo $?)
 if [ "$PIP_INSTALLED" == "1" ]; then
     echo -e "\n\n---- PIP is needed in order to install the required python modules\n\n"
 else
     echo -e "\n\n---- Installing Python's external modules..."
-    python -m pip install -I -r ${EXTERNAL}/python-packages.txt
+    ${PYTHON} -m pip install -r ${EXTERNAL}/python-packages.txt
     echo -e "\n\n---- Python's external modules have been installed successfully\n\n"
 fi
 # ----------------------------------

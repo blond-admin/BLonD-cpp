@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['wake_5fcalc',['wake_calc',['../dc/dad/classIntensity.html#a4cfe3f8c21314f1c9496ee715dfc08ef',1,'Intensity::wake_calc()'],['../da/d97/classResonators.html#af9b393a40560230dc7f1d6d3618e9e2f',1,'Resonators::wake_calc()'],['../db/da5/classInputTable.html#ae64468233934df7fe3d6ee8d4dcce12d',1,'InputTable::wake_calc()']]],
+  ['wake_5fcalc',['wake_calc',['../dc/dad/classIntensity.html#a4cfe3f8c21314f1c9496ee715dfc08ef',1,'Intensity::wake_calc()'],['../da/d97/classResonators.html#af9b393a40560230dc7f1d6d3618e9e2f',1,'Resonators::wake_calc()'],['../db/da5/classInputTable.html#ae64468233934df7fe3d6ee8d4dcce12d',1,'InputTable::wake_calc()'],['../d4/df6/classTravelingWaveCavity.html#ab4af2d682af75fbd437f7e68b20f1686',1,'TravelingWaveCavity::wake_calc()']]],
   ['weightfunction',['weightfunction',['../da/dd4/classPhaseNoise.html#aeecdda7739ac1c11a18927ea7b1f9cd3a720b9a56e34debf88386f71ac2510039',1,'PhaseNoise']]],
   ['width',['width',['../de/d50/classoption_1_1PrintUsageImplementation_1_1LineWrapper.html#a535a97a3d4669e873ba1700215d6b7e7',1,'option::PrintUsageImplementation::LineWrapper']]],
   ['with_5fsync_5ffreq',['with_sync_freq',['../db/d7b/classPSBPhaseNoiseInjection.html#a4b0e66ef1359fece1906335f019aba10aec50a4a07303fb86cd4d84ebb7b8cd23',1,'PSBPhaseNoiseInjection']]],

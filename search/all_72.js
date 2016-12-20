@@ -26,7 +26,7 @@ var searchData=
   ['rfft',['RFFT',['../d8/de0/namespacefft.html#a1aaf2c8a8ef62200a1813b59306aaee0a57ef828fbd2211a76965d5dca018db74',1,'fft::RFFT()'],['../d8/de0/namespacefft.html#a789573d204d06c288f6b74c45cd92137',1,'fft::rfft(f_vector_t &amp;in, complex_vector_t &amp;out, uint n=0, const uint threads=1)']]],
   ['rfftfreq',['rfftfreq',['../d8/de0/namespacefft.html#a011fc652588e7ee1e8872f8b8b675d6e',1,'fft']]],
   ['rfnoise',['RFnoise',['../d6/d87/classPhaseLoop.html#ae7403a2c2ca509e90939edaf3ea6377b',1,'PhaseLoop']]],
-  ['rfp',['rfp',['../dc/d45/classSlices.html#a9a83186373a5a3865b66324c934db1d7',1,'Slices::rfp()'],['../de/da1/classRingAndRfSection.html#a9fef0f50fcda4c9fb84ff86fc143c764',1,'RingAndRfSection::rfp()'],['../d6/d7a/structContext.html#a48db4fc5c2a199a0c1685dc11f5f0a6f',1,'Context::RfP()']]],
+  ['rfp',['RfP',['../d6/d7a/structContext.html#a48db4fc5c2a199a0c1685dc11f5f0a6f',1,'Context::RfP()'],['../dc/d45/classSlices.html#a9a83186373a5a3865b66324c934db1d7',1,'Slices::rfp()'],['../de/da1/classRingAndRfSection.html#a9fef0f50fcda4c9fb84ff86fc143c764',1,'RingAndRfSection::rfp()']]],
   ['rfparameters',['RfParameters',['../da/d49/classRfParameters.html',1,'RfParameters'],['../da/d49/classRfParameters.html#a9a497597d0d637d853542145a61ece94',1,'RfParameters::RfParameters()']]],
   ['rfparameters_2ecpp',['RfParameters.cpp',['../dc/d61/RfParameters_8cpp.html',1,'']]],
   ['rfparameters_2eh',['RfParameters.h',['../d6/db7/RfParameters_8h.html',1,'']]],

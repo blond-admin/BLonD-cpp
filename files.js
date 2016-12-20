@@ -25,7 +25,8 @@ var files =
     [ "Intensity.h", "d6/d70/Intensity_8h.html", [
       [ "InputTable", "db/da5/classInputTable.html", "db/da5/classInputTable" ],
       [ "Intensity", "dc/dad/classIntensity.html", "dc/dad/classIntensity" ],
-      [ "Resonators", "da/d97/classResonators.html", "da/d97/classResonators" ]
+      [ "Resonators", "da/d97/classResonators.html", "da/d97/classResonators" ],
+      [ "TravelingWaveCavity", "d4/df6/classTravelingWaveCavity.html", "d4/df6/classTravelingWaveCavity" ]
     ] ],
     [ "LHCNoiseFB.cpp", "d3/db7/LHCNoiseFB_8cpp.html", null ],
     [ "LHCNoiseFB.h", "d4/dba/LHCNoiseFB_8h.html", [
@@ -64,6 +65,8 @@ var files =
     [ "plot_parameters.h", "d8/d1b/plot__parameters_8h.html", "d8/d1b/plot__parameters_8h" ],
     [ "plot_slices.cpp", "d4/dfd/plot__slices_8cpp.html", "d4/dfd/plot__slices_8cpp" ],
     [ "plot_slices.h", "d2/d51/plot__slices_8h.html", "d2/d51/plot__slices_8h" ],
+    [ "plot_xy.cpp", "d2/de3/plot__xy_8cpp.html", "d2/de3/plot__xy_8cpp" ],
+    [ "plot_xy.h", "d0/d31/plot__xy_8h.html", "d0/d31/plot__xy_8h" ],
     [ "preprocess.cpp", "d3/d12/preprocess_8cpp.html", "d3/d12/preprocess_8cpp" ],
     [ "preprocess.h", "d4/db8/preprocess_8h.html", "d4/db8/preprocess_8h" ],
     [ "python.h", "d1/da8/python_8h.html", "d1/da8/python_8h" ],

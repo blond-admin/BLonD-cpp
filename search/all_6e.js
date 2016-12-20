@@ -22,7 +22,7 @@ var searchData=
   ['nextwrap',['nextwrap',['../d3/df3/classoption_1_1Option.html#ae8d8c058af3c781cb1d444998df48fef',1,'option::Option']]],
   ['no_5fscaling',['no_scaling',['../db/d7b/classPSBPhaseNoiseInjection.html#a4b0e66ef1359fece1906335f019aba10a394f9c24e089a584bb1c1428a1df2954',1,'PSBPhaseNoiseInjection']]],
   ['noisefb',['noiseFB',['../d6/d87/classPhaseLoop.html#a9346f7d58a2281b4f61572eca2481ada',1,'PhaseLoop::noiseFB()'],['../de/da1/classRingAndRfSection.html#a11f1bfacb142e878008fa8ac9b70af5c',1,'RingAndRfSection::noiseFB()']]],
-  ['none',['None',['../df/dc3/structoption_1_1Arg.html#a7fc01987899c91c6b6a1be5711a46e22',1,'option::Arg::None()'],['../d1/dfc/classGeneralParameters.html#aa00c27fcf78145c8d9cb4e2ca446871ea5d5ddb8635c7554d6bcf1f263e0235d4',1,'GeneralParameters::none()']]],
+  ['none',['none',['../d1/dfc/classGeneralParameters.html#aa00c27fcf78145c8d9cb4e2ca446871ea5d5ddb8635c7554d6bcf1f263e0235d4',1,'GeneralParameters::none()'],['../df/dc3/structoption_1_1Arg.html#a7fc01987899c91c6b6a1be5711a46e22',1,'option::Arg::None()']]],
   ['nonempty',['NonEmpty',['../d7/d0f/structutil_1_1Arg.html#a8d9f103b5250460040fb20814d1f6d12',1,'util::Arg']]],
   ['nonop_5fargs',['nonop_args',['../d6/d83/classoption_1_1Parser.html#ab6df1186f1e85a80366573b3e0c7bbf6',1,'option::Parser']]],
   ['nonop_5fcount',['nonop_count',['../d6/d83/classoption_1_1Parser.html#a3e17e9a2958006b81d99ed5981ed2b9e',1,'option::Parser']]],

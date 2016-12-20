@@ -24,5 +24,6 @@ var searchData=
   ['_7eslices',['~Slices',['../dc/d45/classSlices.html#aff1c877ffac79658a155b56150745170',1,'Slices']]],
   ['_7eslicesmonitor',['~SlicesMonitor',['../de/d59/classSlicesMonitor.html#aefb7c3588394e4c28f150274d1aaf168',1,'SlicesMonitor']]],
   ['_7esps_5frl',['~SPS_RL',['../dc/d32/classSPS__RL.html#a86ee7de8bf3b33b12680f9bc3604d332',1,'SPS_RL']]],
-  ['_7etotalinducedvoltage',['~TotalInducedVoltage',['../d4/dd7/classTotalInducedVoltage.html#a737a184a7fb24b6701151d7abbc894b9',1,'TotalInducedVoltage']]]
+  ['_7etotalinducedvoltage',['~TotalInducedVoltage',['../d4/dd7/classTotalInducedVoltage.html#a737a184a7fb24b6701151d7abbc894b9',1,'TotalInducedVoltage']]],
+  ['_7etravelingwavecavity',['~TravelingWaveCavity',['../d4/df6/classTravelingWaveCavity.html#a8403387f54dd762d152440cabd3064e6',1,'TravelingWaveCavity']]]
 ];

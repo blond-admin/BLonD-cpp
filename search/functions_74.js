@@ -11,5 +11,6 @@ var searchData=
   ['track_5fghosts_5fparticles',['track_ghosts_particles',['../d4/dd7/classTotalInducedVoltage.html#a2d5dd1e9d1f5dbc4433f0831da86a069',1,'TotalInducedVoltage']]],
   ['track_5fmemory',['track_memory',['../d4/dd7/classTotalInducedVoltage.html#abe052d8bd5aeffdd15d1b6bd6514447a',1,'TotalInducedVoltage']]],
   ['trapezoid',['trapezoid',['../df/d6d/namespacemymath.html#a3cd62eeb1068e15105a0c617c9cc1fc6',1,'mymath::trapezoid(const T *f, const double *deltaX, const int nsub)'],['../df/d6d/namespacemymath.html#a58b2666981af81f28e1b0d3e949c5f5d',1,'mymath::trapezoid(const std::vector&lt; T &gt; &amp;f, const std::vector&lt; double &gt; &amp;deltaX)'],['../df/d6d/namespacemymath.html#ab25fe968eff921a9af5fbd217dc06bf6',1,'mymath::trapezoid(const T *f, const double deltaX, const int nsub)'],['../df/d6d/namespacemymath.html#a1b195ea5e3fad6353b25d96cd64d500f',1,'mymath::trapezoid(const std::vector&lt; T &gt; &amp;f, const double deltaX)']]],
+  ['travelingwavecavity',['TravelingWaveCavity',['../d4/df6/classTravelingWaveCavity.html#af89b344489be9d82072ce0e2b080b8a1',1,'TravelingWaveCavity']]],
   ['type',['type',['../d3/df3/classoption_1_1Option.html#a6560fa0526e2affd87d5a10622336af4',1,'option::Option']]]
 ];

@@ -35,5 +35,6 @@ var annotated =
     [ "Slices", "dc/d45/classSlices.html", "dc/d45/classSlices" ],
     [ "SlicesMonitor", "de/d59/classSlicesMonitor.html", "de/d59/classSlicesMonitor" ],
     [ "SPS_RL", "dc/d32/classSPS__RL.html", "dc/d32/classSPS__RL" ],
-    [ "TotalInducedVoltage", "d4/dd7/classTotalInducedVoltage.html", "d4/dd7/classTotalInducedVoltage" ]
+    [ "TotalInducedVoltage", "d4/dd7/classTotalInducedVoltage.html", "d4/dd7/classTotalInducedVoltage" ],
+    [ "TravelingWaveCavity", "d4/df6/classTravelingWaveCavity.html", "d4/df6/classTravelingWaveCavity" ]
 ];

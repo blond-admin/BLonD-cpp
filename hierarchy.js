@@ -18,7 +18,8 @@ var hierarchy =
     ] ],
     [ "Intensity", "dc/dad/classIntensity.html", [
       [ "InputTable", "db/da5/classInputTable.html", null ],
-      [ "Resonators", "da/d97/classResonators.html", null ]
+      [ "Resonators", "da/d97/classResonators.html", null ],
+      [ "TravelingWaveCavity", "d4/df6/classTravelingWaveCavity.html", null ]
     ] ],
     [ "LHCNoiseFB", "d8/d2b/classLHCNoiseFB.html", null ],
     [ "line_density_t", "d6/d33/structline__density__t.html", null ],

@@ -266,9 +266,8 @@ fi
 
 if [ "${INSTALL_PYTHON}" = "true" ] ; then
     echo -e "\n\n---- Installing Python2.7\n\n"
-    cp -l ${LIB}/libpython2.7.dll.a ${INSTALL}/lib/
-    cp -rl ${LIB}/python2.7 ${INSTALL}/lib
-    cp -rl ${INCLUDE}/python2.7 ${INSTALL}/include
+    ln -s ${LIB}/libpython2.7.dll.a ${INSTALL}/lib/
+    ln -s ${INCLUDE}/python2.7/ ${INSTALL}/include/
 
     cd ${BLOND_HOME}
 
@@ -281,7 +280,6 @@ if [ "${INSTALL_PYTHON}" = "true" ] ; then
         echo -e "---- You will have to manually install this library"
         echo -e "---- into directory ${BLOND_HOME}/external/install\n\n"
     fi
-
 fi
 
 
@@ -300,6 +298,7 @@ if [ "$PIP_INSTALLED" == "1" ]; then
 else
     echo -e "\n\n---- Installing Python's external modules..."
     ${PYTHON} -m pip install -r ${EXTERNAL}/python-packages.txt
+    ln -s ${LIB}/python2.7/ ${INSTALL}/lib/
     echo -e "\n\n---- Python's external modules have been installed successfully\n\n"
 fi
 # ----------------------------------

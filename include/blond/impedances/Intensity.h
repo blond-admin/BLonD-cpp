@@ -71,7 +71,7 @@ class API TravelingWaveCavity : public Intensity {
     // *Resonant frequency in [Hz]*
     f_vector_t fFrequencyR;
     //  *Resonant angular frequency in [rad/s]*
-    f_vector_t fOmegaR;
+    // f_vector_t fOmegaR;
     //  *Filling factor a*
     f_vector_t faFactor;
     unsigned int fNResonators;

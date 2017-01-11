@@ -13,8 +13,24 @@
 #include <map>
 #include <blond/configuration.h>
 #include <cstdlib>
+#include <iostream>
+#include <string>
+#include <vector>
 
 namespace python {
+
+    struct multi_t {
+        double d;
+        std::string s;
+        int i;
+        std::vector<double> v;
+        std::string type;
+        multi_t() {}
+        multi_t(double _d) : d(_d), type("double") {}
+        multi_t(std::string _s) : s(_s), type("string") {}
+        multi_t(int _i) : i(_i), type("int") {}
+        multi_t(const std::vector<double> &_v) : v(_v), type("f_vector_t") {}
+    };
 
     static inline int initialize()
     {
@@ -92,6 +108,12 @@ namespace python {
         return pVar;
     }
 
+    static inline PyArrayObject *convert_int_array(std::vector<int> &v)
+    {
+        return convert_int_array(v.data(), v.size());
+    }
+
+
     static inline PyArrayObject *convert_double_array(double *array, int size)
     {
         int dims[1] = {size};
@@ -100,6 +122,28 @@ namespace python {
 
         assert(pVar);
         return pVar;
+    }
+
+
+    static inline PyArrayObject *convert_double_array(std::vector<double> &v)
+    {
+        return convert_double_array(v.data(), v.size());
+    }
+
+    static inline PyObject *convert_double_list(double *array, int size)
+    {
+        auto pList = PyList_New(size);
+        assert(pList);
+        for (int i = 0; i < size; i++) {
+            auto pVar = convert_double(array[i]);
+            PyList_SET_ITEM(pList, i, pVar);
+        }
+        return pList;
+    }
+
+    static inline PyObject *convert_double_list(std::vector<double> &v)
+    {
+        return convert_double_list(v.data(), v.size());
     }
 
     static inline PyObject *convert_string_array(std::string *array, int size)
@@ -112,24 +156,11 @@ namespace python {
         return pVar;
     }
 
-
-    /*
-    static inline PyArrayObject *convert_double_2d_array(f_vector_2d_t &v)
+    static inline PyObject *convert_string_array(std::vector<std::string> &v)
     {
-        int dims[2] = {v.size(), v.front().size()};
-        auto array = new double[dims[0] * dims[1]];
-        int count = 0;
-        for (const auto &row : v) {
-            assert(row.size() == dims[1]);
-            std::copy(row.begin(), row.end(), &array[count]);
-            count += dims[1];
-        }
-        auto pVar = (PyArrayObject *) PyArray_FromDimsAndData(2, dims, NPY_DOUBLE,
-                    (char *)array);
-        assert(pVar);
-        return pVar;
+        return convert_string_array(v.data(), v.size());
     }
-    */
+
 
     static inline PyObject *convert_double_2d_array(f_vector_2d_t &v)
     {
@@ -145,12 +176,6 @@ namespace python {
                 PyList_SET_ITEM(pRow, j, pVar);
             }
             PyList_SET_ITEM(pList, i, pRow);
-            // int dims[1] = {v[i].size()};
-            // auto pVar = (PyObject *) PyArray_FromDimsAndData(1, dims,
-            //             NPY_DOUBLE,
-            //             (char *)v[i].data());
-            // assert(pVar);
-            // PyList_SET_ITEM(pList, i, pVar);
         }
         return pList;
     }
@@ -171,8 +196,13 @@ namespace python {
         return pList;
     }
 
+    static inline PyObject *convert_complex_array(complex_vector_t &v)
+    {
+        return convert_complex_array(v.data(), v.size());
+    }
+
     static inline PyObject *convert_dictionary(std::map<std::string,
-            std::string> map)
+            std::string> &map)
     {
         if (map.size() > 0) {
             auto pDict = PyDict_New();
@@ -181,6 +211,37 @@ namespace python {
                 auto pKey = PyString_FromString(pair.first.c_str());
                 auto pVal = PyString_FromString(pair.second.c_str());
                 PyDict_SetItem(pDict, pKey, pVal);
+            }
+            return pDict;
+        } else {
+            return Py_None;
+        }
+    }
+
+    static inline PyObject *convert_dictionary(std::map<std::string,
+            multi_t> &map)
+    {
+        if (map.size() > 0) {
+            auto pDict = PyDict_New();
+            assert(pDict);
+            for (auto &pair : map) {
+                auto pKey = PyString_FromString(pair.first.c_str());
+                if (pair.second.type == "double") {
+                    auto pVal = convert_double(pair.second.d);
+                    PyDict_SetItem(pDict, pKey, pVal);
+                } else if (pair.second.type == "int") {
+                    auto pVal = convert_int(pair.second.i);
+                    PyDict_SetItem(pDict, pKey, pVal);
+                } else if (pair.second.type == "string") {
+                    auto pVal = convert_string(pair.second.s);
+                    PyDict_SetItem(pDict, pKey, pVal);
+                } else if (pair.second.type == "f_vector_t") {
+                    auto pVal = convert_double_list(pair.second.v);
+                    PyDict_SetItem(pDict, pKey, pVal);
+                } else {
+                    std::cerr << "Warning: type " << pair.second.type
+                              << " was not recognized.\n";
+                }
             }
             return pDict;
         } else {

@@ -543,10 +543,12 @@ matched_from_distribution_density(Beams *beam,
     auto time_coord_array = full_ring->fPotentialWellCoordinates;
     double time_resolution = time_coord_array[1] - time_coord_array[0];
 
-    f_vector_t extra_potential, induced_potential;
+    f_vector_t extra_potential, induced_potential(potential_well_array.size(),0);
     f_vector_t line_density, time_coord_low_res, deltaE_coord_array;
     f_vector_2d_t density_grid;
     f_vector_2d_t time_grid, deltaE_grid;
+
+    
 
     if (!extraVoltageDict.empty()) {
         auto extra_voltage_time_input = extraVoltageDict["time_array"];
@@ -559,9 +561,9 @@ matched_from_distribution_density(Beams *beam,
         extra_potential = interp(time_coord_array, extra_voltage_time_input,
                                  extra_potential_input);
     }
-
-    auto total_potential = extra_potential.empty() ? potential_well_array :
-                           potential_well_array + extra_potential;
+      
+    auto total_potential = extra_potential.empty() ? potential_well_array + induced_potential :
+                           potential_well_array + induced_potential + extra_potential;
     int n_iterations = n_iterations_input;
     if (totVolt == nullptr)
         n_iterations = 1;
@@ -569,8 +571,8 @@ matched_from_distribution_density(Beams *beam,
     for (int i = 0; i < n_iterations; i++) {
         auto old_potential = total_potential;
 
-        total_potential = extra_potential.empty() ? potential_well_array :
-                          potential_well_array + extra_potential;
+        total_potential = extra_potential.empty() ? potential_well_array + induced_potential :
+                          potential_well_array + induced_potential + extra_potential;
 
         double sse = sqrt(sum(apply_f(old_potential, total_potential,
         [](double a, double b) {return (a - b) * (a - b);})));
@@ -867,9 +869,10 @@ matched_from_distribution_density(Beams *beam,
                                                      - time_induced_voltage[0]);
 
             induced_potential_low_res.insert(induced_potential_low_res.begin(), 0);
-            auto induced_potential = interp(time_coord_array,
+            induced_potential = interp(time_coord_array,
                                             time_induced_voltage,
                                             induced_potential_low_res);
+
             totVolt->reprocess(old_slices);
 
         }

@@ -64,4 +64,22 @@ class API InputTable : public Intensity {
     ~InputTable();
 };
 
+class API TravelingWaveCavity : public Intensity {
+  public:
+    // *Shunt impepdance in* [:math:`\Omega`]
+    f_vector_t fRS;
+    // *Resonant frequency in [Hz]*
+    f_vector_t fFrequencyR;
+    //  *Resonant angular frequency in [rad/s]*
+    f_vector_t fOmegaR;
+    //  *Filling factor a*
+    f_vector_t faFactor;
+    unsigned int fNResonators;
+
+    void wake_calc(const f_vector_t& NewTimeArray);
+    void imped_calc(const f_vector_t& NewFrequencyArray);
+    TravelingWaveCavity(f_vector_t& RS, f_vector_t& FrequencyR, f_vector_t& aFactor);
+    ~TravelingWaveCavity();
+};
+
 #endif /* IMPEDANCES_INTENSITY_H_ */

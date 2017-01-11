@@ -115,3 +115,75 @@ void InputTable::imped_calc(const f_vector_t& NewFrequencyArray) {
         fImpedance[i] = complex_t(ReZ[i], ImZ[i]);
     }
 }
+
+
+
+TravelingWaveCavity::TravelingWaveCavity(f_vector_t& RS, f_vector_t& FrequencyR, f_vector_t& aFactor) {
+    fRS = RS;
+    fFrequencyR = FrequencyR;
+    faFactor = aFactor;
+    fNResonators = RS.size();
+    fOmegaR = 2. * constant::pi * fFrequencyR;
+}
+
+TravelingWaveCavity::~TravelingWaveCavity() {}
+
+void TravelingWaveCavity::wake_calc(const f_vector_t& NewTimeArray) {
+  /*
+   * Wake calculation method as a function of time.*
+   */
+
+  // TODO, make unit-tests
+  
+  fTimeArray = NewTimeArray;
+  fWake.resize(fTimeArray.size());
+  std::fill_n(fWake.begin(), fWake.size(), 0);
+
+  for (uint i = 0; i < fNResonators; ++i) {
+    double a_tilde = faFactor[i] / (2 * constant::pi);
+
+    for (uint j = 0; j < fWake.size(); ++j) {
+      double temp = fTimeArray[j];
+      if (temp <= a_tilde) {
+	// util::dump(&temp, 1, "temp ");
+	int sign = (temp > 0) - (temp < 0);
+	fWake[j] += (sign + 1) * 2 * fRS[i] / a_tilde *
+	  (1 - temp/a_tilde) * std::cos(2*constant::pi*fFrequencyR[i]*temp);
+      }
+      else{
+	fWake[j]=0;
+      }
+    }
+  }
+}
+
+void TravelingWaveCavity::imped_calc(const f_vector_t& NewFrequencyArray) {
+  /*
+   * Impedance calculation method as a function of frequency.*
+   */
+
+  // TODO, make unit-tests
+
+  fFreqArray = NewFrequencyArray;
+  fImpedance.resize(fFreqArray.size());
+  std::fill_n(fImpedance.begin(), fImpedance.size(), complex_t(0, 0));
+
+  for (uint i = 0; i < fNResonators; ++i) {
+    for (uint j = 1; j < fImpedance.size(); ++j) {
+      fImpedance[j] += complex_t(fRS[i] * ( pow(std::sin(faFactor[i]/2*(fFreqArray[j]-fFrequencyR[i])) / (faFactor[i]/2*(fFreqArray[j]-fFrequencyR[i])),2)
+
+
+					    + pow(std::sin(faFactor[i]/2*(fFreqArray[j]+fFrequencyR[i])) / (faFactor[i]/2*(fFreqArray[j]+fFrequencyR[i])),2)),
+
+
+
+
+
+				 - 2* fRS[i] * ((faFactor[i]/2*(fFreqArray[j]-fFrequencyR[i]) - std::sin(faFactor[i]*(fFreqArray[j]-fFrequencyR[i]))) / pow(faFactor[i]*(fFreqArray[j]-fFrequencyR[i]),2)
+
+
+					   + (faFactor[i]/2*(fFreqArray[j]+fFrequencyR[i]) - std::sin(faFactor[i]*(fFreqArray[j]+fFrequencyR[i]))) / pow(faFactor[i]*(fFreqArray[j]+fFrequencyR[i]),2)));
+
+    }
+  }
+}

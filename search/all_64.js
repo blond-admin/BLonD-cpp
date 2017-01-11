@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['d',['d',['../d3/d1f/structmulti__t.html#a35999e938b077b9dcbd06e4be5f97f1f',1,'multi_t::d()'],['../d6/d1e/unionvdt_1_1details_1_1ieee754.html#a483f40f2a0f825458eb58ce0c01c8b3b',1,'vdt::details::ieee754::d()']]],
+  ['d',['d',['../d3/d1f/structmulti__t.html#a35999e938b077b9dcbd06e4be5f97f1f',1,'multi_t::d()'],['../d8/dc3/structpython_1_1multi__t.html#a94dbd608c21017570df3a939c3078613',1,'python::multi_t::d()'],['../d6/d1e/unionvdt_1_1details_1_1ieee754.html#a483f40f2a0f825458eb58ce0c01c8b3b',1,'vdt::details::ieee754::d()']]],
   ['data',['data',['../de/dc9/classoption_1_1PrintUsageImplementation_1_1LinePartIterator.html#ada26229add63bd479c7877f2f8e32908',1,'option::PrintUsageImplementation::LinePartIterator']]],
   ['datbuf',['datbuf',['../de/d50/classoption_1_1PrintUsageImplementation_1_1LineWrapper.html#abd9a32967913817ef8266bcf8af3e973',1,'option::PrintUsageImplementation::LineWrapper']]],
   ['de',['dE',['../d9/d7c/classBeams.html#aee16d047ccfd3c501acae981de5c458f',1,'Beams']]],

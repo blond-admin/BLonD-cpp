@@ -4,7 +4,7 @@ var annotated =
     [ "fft", "d8/de0/namespacefft.html", "d8/de0/namespacefft" ],
     [ "mymath", "df/d6d/namespacemymath.html", "df/d6d/namespacemymath" ],
     [ "option", "df/de0/namespaceoption.html", "df/de0/namespaceoption" ],
-    [ "python", "de/d4a/namespacepython.html", null ],
+    [ "python", "de/d4a/namespacepython.html", "de/d4a/namespacepython" ],
     [ "util", "d6/d72/namespaceutil.html", "d6/d72/namespaceutil" ],
     [ "vdt", "d5/d7b/namespacevdt.html", "d5/d7b/namespacevdt" ],
     [ "Beams", "d9/d7c/classBeams.html", "d9/d7c/classBeams" ],

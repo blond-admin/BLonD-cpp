@@ -407,7 +407,7 @@ Private Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00045">45</a> of file <a class="el" href="../../d7/d91/Slices_8cpp_source.html">Slices.cpp</a>.</p>
 
-<p>References <a class="el" href="../../d7/d76/fft_8h_source.html#l00153">fft::destroy_plans()</a>.</p>
+<p>References <a class="el" href="../../d7/d76/fft_8h_source.html#l00154">fft::destroy_plans()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;{</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="../../d8/de0/namespacefft.html#a912305da2a5cea6ffdb34f36fc27169f">fft::destroy_plans</a>();</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../dc/d45/classSlices.html#a0d02db1c6b56aa88bd682b98ed366242">thread_hist</a>) free(<a class="code" href="../../dc/d45/classSlices.html#a0d02db1c6b56aa88bd682b98ed366242">thread_hist</a>);</div>
@@ -552,7 +552,7 @@ Private Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00433">433</a> of file <a class="el" href="../../d7/d91/Slices_8cpp_source.html">Slices.cpp</a>.</p>
 
-<p>References <a class="el" href="../../d1/da8/python_8h_source.html#l00174">python::convert_dictionary()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00055">python::convert_double()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00095">python::convert_double_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00063">python::convert_int()</a>, and <a class="el" href="../../d1/da8/python_8h_source.html#l00027">python::import()</a>.</p>
+<p>References <a class="el" href="../../d1/da8/python_8h_source.html#l00204">python::convert_dictionary()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00071">python::convert_double()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00117">python::convert_double_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00079">python::convert_int()</a>, and <a class="el" href="../../d1/da8/python_8h_source.html#l00043">python::import()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;{</div>
 <div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;    <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>();</div>
 <div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;    <span class="keyword">auto</span> pFunc = <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>(<span class="stringliteral">&quot;utilities&quot;</span>, <span class="stringliteral">&quot;beam_profile_filter_chebyshev&quot;</span>);</div>
@@ -569,7 +569,7 @@ Private Attributes</h2></td></tr>
 <div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;        exit(-1);</div>
 <div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;    }</div>
 <div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;</div>
-<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;    <span class="keyword">auto</span> pFilterOption = <a class="code" href="../../de/d4a/namespacepython.html#a3ed6443d960779c5c83ac6f6a2ff95ee">python::convert_dictionary</a>(filter_option);</div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;    <span class="keyword">auto</span> pFilterOption = <a class="code" href="../../de/d4a/namespacepython.html#a40fa0a3d6ad1631bb114c21b08719535">python::convert_dictionary</a>(filter_option);</div>
 <div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;</div>
 <div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;    <span class="keyword">auto</span> ret = PyObject_CallFunctionObjArgs(pFunc, pNMacroparticles,</div>
 <div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;                                            pResolution, pNSlices,</div>
@@ -642,7 +642,7 @@ Private Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00477">477</a> of file <a class="el" href="../../d7/d91/Slices_8cpp_source.html">Slices.cpp</a>.</p>
 
-<p>References <a class="el" href="../../d1/da8/python_8h_source.html#l00174">python::convert_dictionary()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00055">python::convert_double()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00095">python::convert_double_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00063">python::convert_int()</a>, and <a class="el" href="../../d1/da8/python_8h_source.html#l00027">python::import()</a>.</p>
+<p>References <a class="el" href="../../d1/da8/python_8h_source.html#l00204">python::convert_dictionary()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00071">python::convert_double()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00117">python::convert_double_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00079">python::convert_int()</a>, and <a class="el" href="../../d1/da8/python_8h_source.html#l00043">python::import()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;{</div>
 <div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;    <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>();</div>
 <div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;    <span class="keyword">auto</span> pFunc = <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>(<span class="stringliteral">&quot;utilities&quot;</span>, <span class="stringliteral">&quot;beam_profile_filter_chebyshev&quot;</span>);</div>
@@ -658,7 +658,7 @@ Private Attributes</h2></td></tr>
 <div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;                  &lt;&lt; <span class="stringliteral">&quot;function without transfer_function_plot == true\n&quot;</span>;</div>
 <div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;        exit(-1);</div>
 <div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;    }</div>
-<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;    <span class="keyword">auto</span> pFilterOption = <a class="code" href="../../de/d4a/namespacepython.html#a3ed6443d960779c5c83ac6f6a2ff95ee">python::convert_dictionary</a>(filter_option);</div>
+<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;    <span class="keyword">auto</span> pFilterOption = <a class="code" href="../../de/d4a/namespacepython.html#a40fa0a3d6ad1631bb114c21b08719535">python::convert_dictionary</a>(filter_option);</div>
 <div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;</div>
 <div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;    <span class="keyword">auto</span> ret = PyObject_CallFunctionObjArgs(pFunc, pNMacroparticles,</div>
 <div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;                                            pResolution, pNSlices,</div>
@@ -722,7 +722,7 @@ Private Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00349">349</a> of file <a class="el" href="../../d7/d91/Slices_8cpp_source.html">Slices.cpp</a>.</p>
 
-<p>References <a class="el" href="../../d5/d87/globals_8h_source.html#l00024">Context::n_threads</a>, <a class="el" href="../../d7/d76/fft_8h_source.html#l00246">fft::rfft()</a>, and <a class="el" href="../../d7/d76/fft_8h_source.html#l00342">fft::rfftfreq()</a>.</p>
+<p>References <a class="el" href="../../d5/d87/globals_8h_source.html#l00024">Context::n_threads</a>, <a class="el" href="../../d7/d76/fft_8h_source.html#l00247">fft::rfft()</a>, and <a class="el" href="../../d7/d76/fft_8h_source.html#l00343">fft::rfftfreq()</a>.</p>
 
 <p>Referenced by <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00324">InducedVoltageFreq::induced_voltage_generation()</a>, and <a class="el" href="../../d5/dfa/InducedVoltage_8cpp_source.html#l00275">InducedVoltageFreq::reprocess()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;{</div>
@@ -931,7 +931,7 @@ Private Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00395">395</a> of file <a class="el" href="../../d7/d91/Slices_8cpp_source.html">Slices.cpp</a>.</p>
 
-<p>References <a class="el" href="../../d1/da8/python_8h_source.html#l00095">python::convert_double_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00063">python::convert_int()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00070">python::convert_string()</a>, and <a class="el" href="../../d1/da8/python_8h_source.html#l00027">python::import()</a>.</p>
+<p>References <a class="el" href="../../d1/da8/python_8h_source.html#l00117">python::convert_double_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00079">python::convert_int()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00086">python::convert_string()</a>, and <a class="el" href="../../d1/da8/python_8h_source.html#l00043">python::import()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;{</div>
 <div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;    <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>();</div>
 <div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;    <span class="keyword">auto</span> pFunc = <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>(<span class="stringliteral">&quot;utilities&quot;</span>, <span class="stringliteral">&quot;gaussian_filter1d&quot;</span>);</div>
@@ -976,7 +976,7 @@ Private Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00522">522</a> of file <a class="el" href="../../d7/d91/Slices_8cpp_source.html">Slices.cpp</a>.</p>
 
-<p>References <a class="el" href="../../de/df0/utilities_8h_source.html#l00032">ALL</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00095">python::convert_double_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00027">python::import()</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00291">mymath::max()</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00353">mymath::mean()</a>, and <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00365">mymath::standard_deviation()</a>.</p>
+<p>References <a class="el" href="../../de/df0/utilities_8h_source.html#l00032">ALL</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00117">python::convert_double_array()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00043">python::import()</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00291">mymath::max()</a>, <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00353">mymath::mean()</a>, and <a class="el" href="../../d2/de2/math__functions_8h_source.html#l00365">mymath::standard_deviation()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;{</div>
 <div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> p0;</div>
 <div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;    <span class="keywordtype">double</span> <a class="code" href="../../df/d6d/namespacemymath.html#a2a11685fa6ce2396ae977fa1502a2cc4">max</a> = *std::max_element(<a class="code" href="../../de/df0/utilities_8h.html#a2f3c80e2df3ca3c632f7529d737384b3">ALL</a>(<a class="code" href="../../dc/d45/classSlices.html#a6da6cf87cacb679fc1c9100a21cd3add">n_macroparticles</a>));</div>
@@ -1062,7 +1062,7 @@ Private Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="../../d7/d91/Slices_8cpp_source.html#l00415">415</a> of file <a class="el" href="../../d7/d91/Slices_8cpp_source.html">Slices.cpp</a>.</p>
 
-<p>References <a class="el" href="../../d1/da8/python_8h_source.html#l00055">python::convert_double()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00095">python::convert_double_array()</a>, and <a class="el" href="../../d1/da8/python_8h_source.html#l00027">python::import()</a>.</p>
+<p>References <a class="el" href="../../d1/da8/python_8h_source.html#l00071">python::convert_double()</a>, <a class="el" href="../../d1/da8/python_8h_source.html#l00117">python::convert_double_array()</a>, and <a class="el" href="../../d1/da8/python_8h_source.html#l00043">python::import()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;{</div>
 <div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;    <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>();</div>
 <div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;    <span class="keyword">auto</span> pFunc = <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>(<span class="stringliteral">&quot;utilities&quot;</span>, <span class="stringliteral">&quot;gradient&quot;</span>);</div>
@@ -1872,7 +1872,7 @@ Private Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dc/d45/classSlices.html">Slices</a></li>
-    <li class="footer">Generated on Tue Dec 20 2016 12:00:05 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Wed Jan 11 2017 12:12:01 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

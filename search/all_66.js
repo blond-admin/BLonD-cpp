@@ -88,7 +88,7 @@ var searchData=
   ['fnturnsmem',['fNTurnsMem',['../d5/de7/classInducedVoltageFreq.html#a54d2091efe6fc4508b221e9e0da6b2bd',1,'InducedVoltageFreq']]],
   ['fnturnsmemory',['fNTurnsMemory',['../d4/dd7/classTotalInducedVoltage.html#add86d9712b5cfd4d7c861212587e1847',1,'TotalInducedVoltage']]],
   ['fnupdate',['fNUpdate',['../d8/d2b/classLHCNoiseFB.html#a157cdf50dacbc4018db5873c209aa737',1,'LHCNoiseFB']]],
-  ['fomegar',['fOmegaR',['../da/d97/classResonators.html#a0cf2c2daaf3ed6b0bf056f06e5bb6230',1,'Resonators::fOmegaR()'],['../d4/df6/classTravelingWaveCavity.html#a7a559225b746d834f04fb2b60810a55e',1,'TravelingWaveCavity::fOmegaR()']]],
+  ['fomegar',['fOmegaR',['../da/d97/classResonators.html#a0cf2c2daaf3ed6b0bf056f06e5bb6230',1,'Resonators']]],
   ['for',['FOR',['../de/df0/utilities_8h.html#a4248d71fc7ca79dc298d9871f8d7cfbe',1,'utilities.h']]],
   ['fp2uint',['fp2uint',['../d1/d47/namespacevdt_1_1details.html#afac5394acdf8e6047db199b251b86e98',1,'vdt::details::fp2uint(float x)'],['../d1/d47/namespacevdt_1_1details.html#a8b3f0982e5a3ddbb8cdd3d173f604db3',1,'vdt::details::fp2uint(double x)']]],
   ['fpfloor',['fpfloor',['../d1/d47/namespacevdt_1_1details.html#aa6b6cf3665a8a7088fe3225a877a899a',1,'vdt::details::fpfloor(const double x)'],['../d1/d47/namespacevdt_1_1details.html#a8532012a2a07ccbf46b691ff8baeef95',1,'vdt::details::fpfloor(const float x)']]],

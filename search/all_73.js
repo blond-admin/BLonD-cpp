@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['s',['s',['../d3/d1f/structmulti__t.html#adcab13781ac71ca4a285305f43c00946',1,'multi_t::s()'],['../dc/d45/classSlices.html#a3d9fef3e5ac7d449b0e1ce9ec31d3d3eabbc369193aaec74663be4e947bf758cf',1,'Slices::s()'],['../d6/d1e/unionvdt_1_1details_1_1ieee754.html#a51ab4676816641fdbc3d37d13b2100fa',1,'vdt::details::ieee754::s()']]],
+  ['s',['s',['../d3/d1f/structmulti__t.html#adcab13781ac71ca4a285305f43c00946',1,'multi_t::s()'],['../dc/d45/classSlices.html#a3d9fef3e5ac7d449b0e1ce9ec31d3d3eabbc369193aaec74663be4e947bf758cf',1,'Slices::s()'],['../d8/dc3/structpython_1_1multi__t.html#a048329470c8d4e9a58f34628c48944c6',1,'python::multi_t::s()'],['../d6/d1e/unionvdt_1_1details_1_1ieee754.html#a51ab4676816641fdbc3d37d13b2100fa',1,'vdt::details::ieee754::s()']]],
   ['screenlen',['screenlen',['../de/dc9/classoption_1_1PrintUsageImplementation_1_1LinePartIterator.html#a80e35222723182a8245be699c3b2f141',1,'option::PrintUsageImplementation::LinePartIterator']]],
   ['screenlength',['screenLength',['../de/dc9/classoption_1_1PrintUsageImplementation_1_1LinePartIterator.html#a03b6fedfe805d7fc73216da5cd33270e',1,'option::PrintUsageImplementation::LinePartIterator']]],
   ['section_5findex',['section_index',['../da/d49/classRfParameters.html#a6d1bd625d9436f56067ad1ca07b7ef31',1,'RfParameters::section_index()'],['../de/da1/classRingAndRfSection.html#af3753e4eda1c70ff5428c9b2da0cb956',1,'RingAndRfSection::section_index()']]],

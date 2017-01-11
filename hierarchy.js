@@ -51,6 +51,7 @@ var hierarchy =
       [ "LHCFlatSpectrum", "d5/d73/classLHCFlatSpectrum.html", null ],
       [ "PSBPhaseNoiseInjection", "db/d7b/classPSBPhaseNoiseInjection.html", null ]
     ] ],
+    [ "python::multi_t", "d8/dc3/structpython_1_1multi__t.html", null ],
     [ "RfParameters", "da/d49/classRfParameters.html", null ],
     [ "RingAndRfSection", "de/da1/classRingAndRfSection.html", null ],
     [ "Slices", "dc/d45/classSlices.html", null ],

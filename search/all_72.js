@@ -11,6 +11,7 @@ var searchData=
   ['read_5f2d',['read_2D',['../da/dda/Monitors_8cpp.html#aa772acf54ad202bb2e5ed534215c8f8b',1,'read_2D(std::string fname, std::string dsname, std::string type, hsize_t dims[]):&#160;Monitors.cpp'],['../d0/da6/Monitors_8h.html#aa772acf54ad202bb2e5ed534215c8f8b',1,'read_2D(std::string fname, std::string dsname, std::string type, hsize_t dims[]):&#160;Monitors.cpp']]],
   ['read_5ffrom_5ffile',['read_from_file',['../d6/d72/namespaceutil.html#a28bd03d2c6314e28f8ee51ac9d1bf6ec',1,'util']]],
   ['read_5fvector_5ffrom_5ffile',['read_vector_from_file',['../d6/d72/namespaceutil.html#a490b3dd52b27f7d7de8cf81a753b97fa',1,'util']]],
+  ['real_5fpart',['real_part',['../df/d6d/namespacemymath.html#a0697d892c677620bdc458a0abf93ea43',1,'mymath']]],
   ['real_5ft',['real_t',['../d2/d00/classBunchMonitor.html#a9fb02a8a860372dc0c8db48cbd017b7e',1,'BunchMonitor']]],
   ['real_5fto_5fcomplex',['real_to_complex',['../d8/de0/namespacefft.html#aee5012d20f905143a7d6739a0340eaf1',1,'fft']]],
   ['reduce2quadrant',['reduce2quadrant',['../d1/d47/namespacevdt_1_1details.html#a50fa4cb8145d71e1867a3d899452fbba',1,'vdt::details::reduce2quadrant(double x, int32_t &amp;quad)'],['../d1/d47/namespacevdt_1_1details.html#aa5ecacde73694dc6f81bce9725142b6d',1,'vdt::details::reduce2quadrant(float x, int &amp;quad)']]],

@@ -61,7 +61,7 @@ var searchData=
   ['fnturnsmem',['fNTurnsMem',['../d5/de7/classInducedVoltageFreq.html#a54d2091efe6fc4508b221e9e0da6b2bd',1,'InducedVoltageFreq']]],
   ['fnturnsmemory',['fNTurnsMemory',['../d4/dd7/classTotalInducedVoltage.html#add86d9712b5cfd4d7c861212587e1847',1,'TotalInducedVoltage']]],
   ['fnupdate',['fNUpdate',['../d8/d2b/classLHCNoiseFB.html#a157cdf50dacbc4018db5873c209aa737',1,'LHCNoiseFB']]],
-  ['fomegar',['fOmegaR',['../da/d97/classResonators.html#a0cf2c2daaf3ed6b0bf056f06e5bb6230',1,'Resonators::fOmegaR()'],['../d4/df6/classTravelingWaveCavity.html#a7a559225b746d834f04fb2b60810a55e',1,'TravelingWaveCavity::fOmegaR()']]],
+  ['fomegar',['fOmegaR',['../da/d97/classResonators.html#a0cf2c2daaf3ed6b0bf056f06e5bb6230',1,'Resonators']]],
   ['fpl',['fPL',['../d2/d00/classBunchMonitor.html#a65c70deb0d8248299e65c3357ede0048',1,'BunchMonitor']]],
   ['fpotentialwell',['fPotentialWell',['../d6/d13/classFullRingAndRf.html#ab220132fee1bd0139476c6b99a5aa4b1',1,'FullRingAndRf']]],
   ['fpotentialwellcoordinates',['fPotentialWellCoordinates',['../d6/d13/classFullRingAndRf.html#a2e6d4d5bc380b9a21a660d27f41bf656',1,'FullRingAndRf']]],

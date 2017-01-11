@@ -32,6 +32,6 @@ var searchData=
   ['travelingwavecavity',['TravelingWaveCavity',['../d4/df6/classTravelingWaveCavity.html',1,'TravelingWaveCavity'],['../d4/df6/classTravelingWaveCavity.html#af89b344489be9d82072ce0e2b080b8a1',1,'TravelingWaveCavity::TravelingWaveCavity()']]],
   ['twopi',['TWOPI',['../d1/d47/namespacevdt_1_1details.html#aa32834ffdaa0c512de64c5c223ec1051',1,'vdt::details']]],
   ['twopif',['TWOPIF',['../d1/d47/namespacevdt_1_1details.html#a50f5fbf07893f3dc72b8b3311ec02e94',1,'vdt::details']]],
-  ['type',['type',['../dc/daf/structfft_1_1fft__plan__t.html#af5af71ca0db492f804a8fbdf277b7081',1,'fft::fft_plan_t::type()'],['../dc/dfe/structoption_1_1Descriptor.html#a1b220dabd8aad075fa441a80f9b9343c',1,'option::Descriptor::type()'],['../d3/df3/classoption_1_1Option.html#a6560fa0526e2affd87d5a10622336af4',1,'option::Option::type()']]],
+  ['type',['type',['../dc/daf/structfft_1_1fft__plan__t.html#af5af71ca0db492f804a8fbdf277b7081',1,'fft::fft_plan_t::type()'],['../dc/dfe/structoption_1_1Descriptor.html#a1b220dabd8aad075fa441a80f9b9343c',1,'option::Descriptor::type()'],['../d8/dc3/structpython_1_1multi__t.html#aca62b588d84561eafe39d0475076fea4',1,'python::multi_t::type()'],['../d3/df3/classoption_1_1Option.html#a6560fa0526e2affd87d5a10622336af4',1,'option::Option::type()']]],
   ['utilities_2eh',['utilities.h',['../de/d44/trackers_2utilities_8h.html',1,'']]]
 ];

@@ -7,6 +7,5 @@ var classTravelingWaveCavity =
     [ "faFactor", "d4/df6/classTravelingWaveCavity.html#a326f9328c66d1cc6256558b77204f6e6", null ],
     [ "fFrequencyR", "d4/df6/classTravelingWaveCavity.html#a62f400aaac4256d33717c49a32187ff3", null ],
     [ "fNResonators", "d4/df6/classTravelingWaveCavity.html#a18b58cd1d0782bc2f3a8d9659dd55d2d", null ],
-    [ "fOmegaR", "d4/df6/classTravelingWaveCavity.html#a7a559225b746d834f04fb2b60810a55e", null ],
     [ "fRS", "d4/df6/classTravelingWaveCavity.html#aed62eac8c467c5a5e2fce79c113a1458", null ]
 ];

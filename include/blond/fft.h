@@ -90,6 +90,7 @@ namespace fft {
         }
     }
 
+
     //#ifdef USE_FFTW
     static inline fftw_plan init_fft(const int n, complex_t *in, complex_t *out,
                                      const int sign = FFTW_FORWARD,

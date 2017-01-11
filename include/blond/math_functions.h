@@ -448,5 +448,19 @@ namespace mymath {
         }
         return result;
     }
+
+    static inline f_vector_t real_part(const std::vector<complex_t> &in)
+    {
+        f_vector_t res; res.reserve(in.size());
+        for (const auto &z : in) res.push_back(z.real());
+        return res;
+    }
+
+    static inline f_vector_t imag_part(const std::vector<complex_t> &in)
+    {
+        f_vector_t res; res.reserve(in.size());
+        for (const auto &z : in) res.push_back(z.imag());
+        return res;
+    }
 }
 #endif /* INCLUDES_MATH_FUNCTIONS_H_ */

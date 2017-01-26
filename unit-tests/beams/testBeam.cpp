@@ -1,15 +1,5 @@
-#include <iostream>
-#include <list>
-#include <string>
-
-#include <blond/beams/Distributions.h>
-#include <blond/constants.h>
-#include <blond/input_parameters/GeneralParameters.h>
-#include <blond/math_functions.h>
-#include <blond/trackers/Tracker.h>
-#include <blond/utilities.h>
 #include <gtest/gtest.h>
-
+#include <blond/blond.h>
 using namespace std;
 
 class testBeam : public ::testing::Test {

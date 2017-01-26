@@ -1,7 +1,8 @@
 #include <blond/plots/plot_impedance.h>
 #include <blond/python.h>
+using namespace blond;
 
-int plot_impedance_vs_frequency(int counter,
+int blond::plot_impedance_vs_frequency(int counter,
                                 InducedVoltageFreq *indVoltFreq,
                                 Slices *slices,
                                 std::string option1,
@@ -86,7 +87,7 @@ int plot_impedance_vs_frequency(int counter,
 
 
 
-int plot_induced_voltage_vs_bin_centers(int counter,
+int blond::plot_induced_voltage_vs_bin_centers(int counter,
                                         TotalInducedVoltage *totIndVolt,
                                         Slices *slices,
                                         std::string style ,

@@ -1,12 +1,6 @@
-
-#include <blond/globals.h>
-#include <blond/input_parameters/GeneralParameters.h>
-#include <blond/input_parameters/RfParameters.h>
-#include <blond/impedances/Music.h>
-#include <blond/utilities.h>
+#include <blond/blond.h>
 #include <testing_utilities.h>
 #include <gtest/gtest.h>
-#include <blond/beams/Distributions.h>
 using namespace std;
 
 class testMusic : public ::testing::Test {

@@ -1,9 +1,6 @@
-#include <blond/globals.h>
-#include <blond/llrf/PhaseNoise.h>
-#include <blond/math_functions.h>
-#include <blond/utilities.h>
+#include <blond/blond.h>
+
 #include <gtest/gtest.h>
-#include <stdio.h>
 
 // Simulation parameters
 // --------------------------------------------------------

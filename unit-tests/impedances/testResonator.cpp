@@ -1,13 +1,5 @@
-#include <blond/beams/Beams.h>
-#include <blond/beams/Distributions.h>
-#include <blond/beams/Slices.h>
-#include <blond/globals.h>
-#include <blond/input_parameters/GeneralParameters.h>
-#include <blond/input_parameters/RfParameters.h>
-#include <blond/math_functions.h>
-#include <blond/trackers/Tracker.h>
-#include <blond/utilities.h>
-#include <stdio.h>
+#include <blond/blond.h>
+
 #include <gtest/gtest.h>
 
 const std::string datafiles = DEMO_FILES "/TC5_Wake_impedance/";

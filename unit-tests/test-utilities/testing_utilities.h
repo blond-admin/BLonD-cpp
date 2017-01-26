@@ -9,13 +9,13 @@
 #define TESTING_UTILITIES_H_
 
 #include <gtest/gtest.h>
-#include <blond/configuration.h>
+// #include <blond/configuration.h>
 #include <algorithm>
 #include <string>
 #include <cmath>
 
-static inline void ASSERT_NEAR_LOOP(const f_vector_t &refV,
-                                    const f_vector_t &realV,
+static inline void ASSERT_NEAR_LOOP(const std::vector<double> &refV,
+                                    const std::vector<double> &realV,
                                     const std::string &varName,
                                     const double epsilon = 1e-8)
 {
@@ -31,8 +31,8 @@ static inline void ASSERT_NEAR_LOOP(const f_vector_t &refV,
 }
 
 
-static inline void ASSERT_DOUBLE_EQ_LOOP(const f_vector_t &refV,
-        const f_vector_t &realV,
+static inline void ASSERT_DOUBLE_EQ_LOOP(const std::vector<double> &refV,
+        const std::vector<double> &realV,
         const std::string &varName)
 {
     ASSERT_EQ(refV.size(), realV.size());

@@ -1,9 +1,5 @@
-#include <iostream>
+#include <blond/blond.h>
 
-#include <blond/globals.h>
-#include <blond/input_parameters/GeneralParameters.h>
-#include <blond/math_functions.h>
-#include <blond/utilities.h>
 #include <gtest/gtest.h>
 
 using namespace std;

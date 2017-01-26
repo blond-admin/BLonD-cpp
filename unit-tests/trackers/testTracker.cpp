@@ -1,11 +1,5 @@
-#include <iostream>
+#include <blond/blond.h>
 
-#include <blond/beams/Distributions.h>
-#include <blond/input_parameters/GeneralParameters.h>
-#include <blond/math_functions.h>
-#include <blond/trackers/Tracker.h>
-#include <blond/utilities.h>
-#include <blond/vector_math.h>
 #include <testing_utilities.h>
 #include <gtest/gtest.h>
 

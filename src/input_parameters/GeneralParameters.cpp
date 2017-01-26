@@ -11,6 +11,8 @@
 #include <blond/vector_math.h>
 #include <blond/utilities.h>
 
+using namespace blond;
+
 GeneralParameters::GeneralParameters(
     const int _n_turns, f_vector_t &_ring_length,
     f_vector_2d_t &_alpha, f_vector_2d_t &_momentum,

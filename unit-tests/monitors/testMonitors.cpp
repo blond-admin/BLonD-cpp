@@ -1,9 +1,5 @@
-#include <blond/monitors/Monitors.h>
-#include <blond/constants.h>
-#include <blond/beams/Distributions.h>
-#include <blond/input_parameters/GeneralParameters.h>
-#include <blond/math_functions.h>
-#include <blond/utilities.h>
+#include <blond/blond.h>
+
 #include <gtest/gtest.h>
 
 using namespace std;

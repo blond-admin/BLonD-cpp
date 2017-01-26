@@ -1,4 +1,5 @@
 #include <blond/input_parameters/preprocess.h>
+using namespace blond;
 
 void preprocess_ramp(GeneralParameters::particle_t particle_type,
                      double circumference, f_vector_t &time, f_vector_t &data,

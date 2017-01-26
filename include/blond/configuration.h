@@ -10,31 +10,31 @@
 
 #include <complex>
 #include <vector>
+namespace blond {
+    typedef double ftype;
+    typedef unsigned int uint;
 
-typedef double ftype;
-typedef unsigned int uint;
+    typedef std::complex<double> complex_t;
+    typedef std::vector<bool> bool_vector_t;
+    typedef std::vector<double> f_vector_t;
+    typedef std::vector<int> int_vector_t;
+    typedef std::vector<uint> uint_vector_t;
+    typedef std::vector<complex_t> complex_vector_t;
+    typedef std::vector<std::string> string_vector_t;
 
-typedef std::complex<double> complex_t;
-typedef std::vector<bool> bool_vector_t;
-typedef std::vector<double> f_vector_t;
-typedef std::vector<int> int_vector_t;
-typedef std::vector<uint> uint_vector_t;
-typedef std::vector<complex_t> complex_vector_t;
-typedef std::vector<std::string> string_vector_t;
+    typedef std::vector<f_vector_t> f_vector_2d_t;
+    typedef std::vector<int_vector_t> int_vector_2d_t;
+    typedef std::vector<uint_vector_t> uint_vector_2d_t;
+    typedef std::vector<complex_vector_t> complex_vector_2d_t;
 
-typedef std::vector<f_vector_t> f_vector_2d_t;
-typedef std::vector<int_vector_t> int_vector_2d_t;
-typedef std::vector<uint_vector_t> uint_vector_2d_t;
-typedef std::vector<complex_vector_t> complex_vector_2d_t;
+    const unsigned PRECISION = 8;
 
-const unsigned PRECISION = 8;
 // Compile time switches
 // Needs re-compile every time a change is made
-
 // switch on/off timing
 #define TIMING
 
 // switch on/off result printing
 #define PRINT_RESULTS
-
+} // blond
 #endif /* INCLUDES_CONFIGURATION_H_ */

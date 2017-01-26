@@ -15,6 +15,7 @@
 #include <blond/globals.h>
 #include <blond/llrf/LHCNoiseFB.h>
 #include <blond/math_functions.h>
+using namespace blond;
 
 const double LHCNoiseFB::cfwhm = std::sqrt(2.0 / std::log(2.0));
 

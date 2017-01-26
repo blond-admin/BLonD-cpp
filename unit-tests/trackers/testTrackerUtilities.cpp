@@ -1,14 +1,6 @@
-#include <blond/beams/Distributions.h>
-#include <blond/input_parameters/GeneralParameters.h>
-#include <blond/llrf/PhaseLoop.h>
-#include <blond/math_functions.h>
-#include <blond/trackers/Tracker.h>
-#include <blond/utilities.h>
+#include <blond/blond.h>
 #include <gtest/gtest.h>
-#include <blond/trackers/utilities.h>
 #include <testing_utilities.h>
-
-
 
 using namespace std;
 

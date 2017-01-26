@@ -1,13 +1,6 @@
-#include <blond/beams/Distributions.h>
-#include <blond/constants.h>
-#include <blond/input_parameters/GeneralParameters.h>
-#include <blond/math_functions.h>
-#include <blond/trackers/Tracker.h>
-#include <blond/utilities.h>
-#include <gtest/gtest.h>
+#include <blond/blond.h>
 #include <testing_utilities.h>
-#include <blond/plots/plot_slices.h>
-#include <blond/vector_math.h>
+#include <gtest/gtest.h>
 
 using namespace std;
 using namespace mymath;

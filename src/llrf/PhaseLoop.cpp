@@ -8,6 +8,7 @@
 #include <blond/constants.h>
 #include <blond/llrf/PhaseLoop.h>
 #include <blond/math_functions.h>
+using namespace blond;
 
 PhaseLoop::PhaseLoop(f_vector_t PL_gain, double window_coefficient, uint _delay,
                      PhaseNoise *phaseNoise, LHCNoiseFB *LHCNoiseFB) {}

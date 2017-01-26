@@ -21,6 +21,7 @@
  arrays of n_turns values
  */
 
+using namespace blond;
 
 double RfParameters::eta_tracking(const Beams *beam, const int counter,
                                   const double dE) const

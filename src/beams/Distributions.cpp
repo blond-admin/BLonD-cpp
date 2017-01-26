@@ -13,11 +13,12 @@
 #include <blond/vector_math.h>
 #include <blond/math_functions.h>
 
+using namespace blond;
 using namespace mymath;
 using namespace std;
 
 line_density_t
-matched_from_line_density(Beams *beam,
+blond::matched_from_line_density(Beams *beam,
                           FullRingAndRf *full_ring,
                           map<string, string> line_density_opt,
                           FullRingAndRf::main_harmonic_t main_harmonic_opt,
@@ -513,7 +514,7 @@ matched_from_line_density(Beams *beam,
 
 
 distribution_denstity_t
-matched_from_distribution_density(Beams *beam,
+blond::matched_from_distribution_density(Beams *beam,
                                   FullRingAndRf *full_ring,
                                   map<string, multi_t> distribution_opt,
                                   FullRingAndRf::main_harmonic_t main_harmonic_opt,
@@ -915,7 +916,7 @@ matched_from_distribution_density(Beams *beam,
 
 
 
-f_vector_t distribution_density_function(const f_vector_t &action_array,
+f_vector_t blond::distribution_density_function(const f_vector_t &action_array,
         const string &dist_type, const double length, double exponent)
 {
     f_vector_t ret(action_array.size());
@@ -963,7 +964,7 @@ f_vector_t distribution_density_function(const f_vector_t &action_array,
 
 }
 
-f_vector_2d_t distribution_density_function(const f_vector_2d_t &action_array,
+f_vector_2d_t blond::distribution_density_function(const f_vector_2d_t &action_array,
         const string &dist_type, const double length, double exponent)
 {
     f_vector_2d_t ret;
@@ -975,7 +976,7 @@ f_vector_2d_t distribution_density_function(const f_vector_2d_t &action_array,
 
 
 
-f_vector_t line_density_function(const f_vector_t &coord_array,
+f_vector_t blond::line_density_function(const f_vector_t &coord_array,
                                  const string &dist_type,
                                  const double bunch_length,
                                  const double bunch_position,
@@ -1055,7 +1056,7 @@ f_vector_t line_density_function(const f_vector_t &coord_array,
 
 
 
-void longitudinal_bigaussian(GeneralParameters *GP, RfParameters *RfP,
+void blond::longitudinal_bigaussian(GeneralParameters *GP, RfParameters *RfP,
                              Beams *Beam, double sigma_dt, double sigma_dE,
                              int seed, bool reinsertion)
 {
@@ -1145,7 +1146,7 @@ void longitudinal_bigaussian(GeneralParameters *GP, RfParameters *RfP,
     }
 }
 
-void plot_generated_bunch(f_vector_t &time_line_den, f_vector_t &line_density,
+void blond::plot_generated_bunch(f_vector_t &time_line_den, f_vector_t &line_density,
                           f_vector_t &time_coord,
                           f_vector_t &rec_line_den,
                           string plot, string figdir)

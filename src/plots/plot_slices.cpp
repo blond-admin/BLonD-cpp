@@ -1,8 +1,9 @@
 #include <blond/plots/plot_slices.h>
 #include <blond/python.h>
 #include <blond/utilities.h>
+using namespace blond;
 
-int plot_beam_profile(Slices *Slices,
+int blond::plot_beam_profile(Slices *Slices,
                       int counter,
                       std::string style,
                       std::string dirname)
@@ -27,7 +28,7 @@ int plot_beam_profile(Slices *Slices,
 }
 
 
-int plot_beam_profile_derivative(Slices *Slices,
+int blond::plot_beam_profile_derivative(Slices *Slices,
                                  int counter,
                                  std::string style,
                                  std::string dirname,
@@ -55,7 +56,7 @@ int plot_beam_profile_derivative(Slices *Slices,
     return ret != nullptr;
 }
 
-int plot_beam_spectrum(Slices *Slices, int counter,
+int blond::plot_beam_spectrum(Slices *Slices, int counter,
                        std::string style,
                        std::string dirname)
 {

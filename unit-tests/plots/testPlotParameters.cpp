@@ -1,5 +1,5 @@
-#include <iostream>
-#include <blond/plots/plot_parameters.h>
+#include <blond/blond.h>
+
 #include <gtest/gtest.h>
 
 using namespace std;

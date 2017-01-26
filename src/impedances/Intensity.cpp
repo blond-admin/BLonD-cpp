@@ -10,6 +10,9 @@
 #include <blond/math_functions.h>
 #include <blond/vector_math.h>
 
+using namespace blond;
+
+
 Resonators::Resonators(f_vector_t &RS, f_vector_t &FrequencyR, f_vector_t &Q)
 {
     fRS = RS;

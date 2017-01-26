@@ -22,48 +22,48 @@
 #include <blond/configuration.h>
 #include <blond/utilities.h>
 #include <functional>
+namespace blond {
+    class LHCNoiseFB {
+    private:
+        static const double cfwhm;
 
-class API LHCNoiseFB {
-  private:
-    static const double cfwhm;
+    public:
+        // Phase noise scaling factor. Initially 0
+        double fX;
 
-  public:
-    // Phase noise scaling factor. Initially 0
-    double fX;
+        // Target bunch length [s], 4-sigma value.
+        double fBlTarg;
 
-    // Target bunch length [s], 4-sigma value.
-    double fBlTarg;
+        // Measured bunch length [s], FWHM.
+        double fBlMeas;
 
-    // Measured bunch length [s], FWHM.
-    double fBlMeas;
+        // Feedback recursion scaling factor.*
+        double fA;
 
-    // Feedback recursion scaling factor.*
-    double fA;
+        // Update feedback every n_update turns.*
+        uint fNUpdate;
 
-    // Update feedback every n_update turns.*
-    uint fNUpdate;
+        // Switch to use constant or variable gain*
+        bool fVariableGain;
 
-    // Switch to use constant or variable gain*
-    bool fVariableGain;
+        // Feedback gain [1/s]
+        f_vector_t fG;
 
-    // Feedback gain [1/s]
-    f_vector_t fG;
+        // Bunch pattern for multi-bunch simulations
+        f_vector_t fBunchPattern;
 
-    // Bunch pattern for multi-bunch simulations
-    f_vector_t fBunchPattern;
+        f_vector_t fBlMeasBBB;
 
-    f_vector_t fBlMeasBBB;
+        std::function<void()> fFwhm;
 
-    std::function<void()> fFwhm;
-
-    LHCNoiseFB(double bl_target, double gain = 0.1e9, double factor = 0.93,
-               double update_frequency = 22500, bool variable_gain = true,
-               f_vector_t bunch_pattern = f_vector_t());
-    ~LHCNoiseFB();
-    void track();
-    double fwhm_interpolation(uint_vector_t index, double half_height);
-    void fwhm_single_bunch();
-    void fwhm_multi_bunch();
-};
-
+        LHCNoiseFB(double bl_target, double gain = 0.1e9, double factor = 0.93,
+                   double update_frequency = 22500, bool variable_gain = true,
+                   f_vector_t bunch_pattern = f_vector_t());
+        ~LHCNoiseFB();
+        void track();
+        double fwhm_interpolation(uint_vector_t index, double half_height);
+        void fwhm_single_bunch();
+        void fwhm_multi_bunch();
+    };
+} // blond
 #endif /* LLRF_LHCNOISEFB_H_ */

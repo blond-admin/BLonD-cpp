@@ -7,7 +7,10 @@
 #include <blond/utilities.h>
 #include <blond/vector_math.h>
 
-void linear_interp_kick(
+using namespace blond;
+
+
+void blond::linear_interp_kick(
     const double *__restrict beam_dt,
     double *__restrict beam_dE,
     const double *__restrict voltage_array,

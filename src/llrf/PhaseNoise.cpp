@@ -13,6 +13,7 @@
 #include <blond/math_functions.h>
 #include <blond/fft.h>
 #include <random>
+using namespace blond;
 
 void PhaseNoise::spectrum_to_phase_noise(f_vector_t &t, f_vector_t &dphi,
         const f_vector_t &freq_array,

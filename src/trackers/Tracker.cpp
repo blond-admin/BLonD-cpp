@@ -11,6 +11,7 @@
 #include <iterator>
 #include <blond/vector_math.h>
 
+using namespace blond;
 using namespace std;
 using namespace mymath;
 

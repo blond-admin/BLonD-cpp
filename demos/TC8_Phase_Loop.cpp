@@ -140,7 +140,7 @@ int main(int argc, char **argv)
 void parse_args(int argc, char **argv)
 {
     using namespace std;
-    using namespace option;
+    using namespace optionparser;
 
     enum optionIndex {
         UNKNOWN,
@@ -152,7 +152,7 @@ void parse_args(int argc, char **argv)
         OPTIONS_NUM
     };
 
-    const option::Descriptor usage[] = {
+    const optionparser::Descriptor usage[] = {
         {
             UNKNOWN, 0, "", "", Arg::None, "USAGE: ./TC8_Phase_Loop [options]\n\n"
             "Options:"

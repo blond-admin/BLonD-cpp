@@ -11,6 +11,7 @@
 #include <blond/python.h>
 #include <blond/vector_math.h>
 
+using namespace blond;
 using namespace std;
 
 Slices::Slices(RfParameters *RfP, Beams *Beam, int n_slices,
@@ -90,7 +91,7 @@ void Slices::sort_particles()
     *Sort the particles with respect to their position.*
     */
 
-    struct API particle {
+    struct particle {
         double dE;
         double dt;
         int id;

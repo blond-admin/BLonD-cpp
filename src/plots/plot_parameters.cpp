@@ -1,9 +1,10 @@
 
 #include <blond/plots/plot_parameters.h>
 #include <blond/python.h>
+using namespace blond;
 
 
-int plot_voltage_programme(f_vector_t &time, f_vector_t &voltage,
+int blond::plot_voltage_programme(f_vector_t &time, f_vector_t &voltage,
                            int sampling, std::string dirname, int figno)
 {
     // python::initialize();

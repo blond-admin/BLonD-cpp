@@ -11,15 +11,16 @@
 #include <blond/constants.h>
 #include <blond/math_functions.h>
 
+using namespace blond;
 using namespace std;
 
 
-int_vector_t is_in_separatrix(const GeneralParameters *GP,
-                              const RfParameters *RfP,
-                              const Beams *Beam,
-                              const f_vector_t &dt,
-                              const f_vector_t &dE,
-                              f_vector_t total_voltage)
+int_vector_t blond::is_in_separatrix(const GeneralParameters *GP,
+                                     const RfParameters *RfP,
+                                     const Beams *Beam,
+                                     const f_vector_t &dt,
+                                     const f_vector_t &dE,
+                                     f_vector_t total_voltage)
 {
     /*
     Condition for being inside the separatrix.
@@ -61,13 +62,13 @@ int_vector_t is_in_separatrix(const GeneralParameters *GP,
 
 
 // TODO fix the issue with eta tracking with dE vector and alpha_order > 1
-f_vector_t hamiltonian(const GeneralParameters *GP,
-                       const RfParameters *RfP,
-                       const Beams *Beam,
-                       const double *__restrict dt,
-                       const double *__restrict dE,
-                       const int size,
-                       const f_vector_t total_voltage)
+f_vector_t blond::hamiltonian(const GeneralParameters *GP,
+                              const RfParameters *RfP,
+                              const Beams *Beam,
+                              const double *__restrict dt,
+                              const double *__restrict dE,
+                              const int size,
+                              const f_vector_t total_voltage)
 {
     if (GP->n_sections > 1)
         cerr << "WARNING: The Hamiltonian is not yet properly computed"
@@ -129,12 +130,12 @@ f_vector_t hamiltonian(const GeneralParameters *GP,
 }
 
 
-double hamiltonian(const GeneralParameters *GP,
-                   const RfParameters *RfP,
-                   const Beams *Beam,
-                   const double dt,
-                   const double dE,
-                   const f_vector_t total_voltage)
+double blond::hamiltonian(const GeneralParameters *GP,
+                          const RfParameters *RfP,
+                          const Beams *Beam,
+                          const double dt,
+                          const double dE,
+                          const f_vector_t total_voltage)
 {
     if (GP->n_sections > 1)
         cerr << "WARNING: The Hamiltonian is not yet properly computed"
@@ -174,9 +175,9 @@ double hamiltonian(const GeneralParameters *GP,
 }
 
 
-void minmax_location(const f_vector_t &x, const f_vector_t &f,
-                     f_vector_t &min_x_position, f_vector_t &max_x_position,
-                     f_vector_t &min_values, f_vector_t &max_values)
+void blond::minmax_location(const f_vector_t &x, const f_vector_t &f,
+                            f_vector_t &min_x_position, f_vector_t &max_x_position,
+                            f_vector_t &min_values, f_vector_t &max_values)
 {
     min_x_position.clear(); max_x_position.clear();
     min_values.clear(); max_values.clear();
@@ -217,10 +218,10 @@ void minmax_location(const f_vector_t &x, const f_vector_t &f,
 
 }
 
-void potential_well_cut(const f_vector_t &theta_coord_array,
-                        const f_vector_t &potential_array,
-                        f_vector_t &theta_coord_sep,
-                        f_vector_t &potential_well_sep)
+void blond::potential_well_cut(const f_vector_t &theta_coord_array,
+                               const f_vector_t &potential_array,
+                               f_vector_t &theta_coord_sep,
+                               f_vector_t &potential_well_sep)
 {
     theta_coord_sep.clear();
     potential_well_sep.clear();

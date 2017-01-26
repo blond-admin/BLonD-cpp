@@ -1,14 +1,5 @@
+#include <blond/blond.h>
 
-#include <iostream>
-#include <list>
-#include <string>
-
-#include <blond/beams/Distributions.h>
-#include <blond/input_parameters/GeneralParameters.h>
-#include <blond/llrf/PhaseLoop.h>
-#include <blond/math_functions.h>
-#include <blond/trackers/Tracker.h>
-#include <blond/utilities.h>
 #include <gtest/gtest.h>
 
 // const double epsilon = 1e-3;

@@ -14,6 +14,7 @@
 #include <algorithm>
 #endif
 
+using namespace blond;
 using namespace std;
 
 Music::Music(Beams *beam, const f_vector_t &resonator,

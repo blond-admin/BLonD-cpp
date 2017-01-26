@@ -1,9 +1,5 @@
-#include <iostream>
+#include <blond/blond.h>
 
-#include <blond/configuration.h>
-#include <blond/fft.h>
-#include <blond/math_functions.h>
-#include <blond/utilities.h>
 #include <gtest/gtest.h>
 
 TEST(testIRFFT, rfft_even) {

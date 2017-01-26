@@ -1,8 +1,4 @@
-#include <list>
-#include <blond/globals.h>
-#include <blond/input_parameters/GeneralParameters.h>
-#include <blond/math_functions.h>
-#include <blond/utilities.h>
+#include <blond/blond.h>
 #include <testing_utilities.h>
 #include <gtest/gtest.h>
 

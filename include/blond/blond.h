@@ -13,6 +13,7 @@
 #include <blond/configuration.h>
 #include <blond/globals.h>
 #include <blond/math_functions.h>
+#include <blond/fft.h>
 #include <blond/openmp.h>
 #include <blond/vector_math.h>
 #include <blond/utilities.h>
@@ -36,6 +37,7 @@
 #include <blond/plots/plot_llrf.h>
 #include <blond/plots/plot_parameters.h>
 #include <blond/plots/plot_slices.h>
+using namespace blond;
 
 
 #endif /* INCLUDES_BLOND_H_ */

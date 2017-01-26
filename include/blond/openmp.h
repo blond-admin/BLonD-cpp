@@ -13,11 +13,12 @@
 #include <omp.h>
 
 #else
-
-static inline int omp_get_num_threads() {return 1;}
-static inline int omp_get_max_threads() {return 1;}
-static inline int omp_get_thread_num() {return 0;}
-static inline void omp_set_num_threads(int threads) {}
+namespace blond {
+    static inline int omp_get_num_threads() {return 1;}
+    static inline int omp_get_max_threads() {return 1;}
+    static inline int omp_get_thread_num() {return 0;}
+    static inline void omp_set_num_threads(int threads) {}
+} // blond
 #endif
 
 #endif /* INCLUDE_BLOND_OPENMP_H_ */

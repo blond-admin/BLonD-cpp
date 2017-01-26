@@ -1,10 +1,6 @@
-#include <blond/configuration.h>
-#include <blond/constants.h>
-#include <blond/globals.h>
-#include <blond/math_functions.h>
-#include <blond/utilities.h>
-#include <blond/vector_math.h>
+#include <blond/blond.h>
 #include <testing_utilities.h>
+
 #include <gtest/gtest.h>
 
 using namespace mymath;

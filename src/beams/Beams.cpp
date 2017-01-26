@@ -10,6 +10,7 @@
 #include <blond/math_functions.h>
 #include <blond/trackers/utilities.h>
 
+using namespace blond;
 
 Beams::Beams(GeneralParameters *GP,
              const int _n_macroparticles,

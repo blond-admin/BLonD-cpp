@@ -1,8 +1,9 @@
 #include <blond/plots/plot_beams.h>
 #include <blond/python.h>
 #include <blond/monitors/Monitors.h>
+using namespace blond;
 
-int plot_long_phase_space(GeneralParameters *GP, RfParameters *RfP,
+int blond::plot_long_phase_space(GeneralParameters *GP, RfParameters *RfP,
                           Beams *Beam, double xmin, double xmax,
                           double ymin, double ymax, std::string xunit,
                           int sampling, bool separatrix_plot,
@@ -105,7 +106,7 @@ int plot_long_phase_space(GeneralParameters *GP, RfParameters *RfP,
 }
 
 
-int plot_bunch_length_evol(RfParameters *RfP, std::string h5data,
+int blond::plot_bunch_length_evol(RfParameters *RfP, std::string h5data,
                            int output_freq, std::string dirname)
 {
 
@@ -131,7 +132,7 @@ int plot_bunch_length_evol(RfParameters *RfP, std::string h5data,
 }
 
 // NOTE removed unused variable Slice
-int plot_bunch_length_evol_gaussian(RfParameters *RfP, std::string h5data,
+int blond::plot_bunch_length_evol_gaussian(RfParameters *RfP, std::string h5data,
                                     int output_freq, std::string dirname)
 {
 
@@ -158,7 +159,7 @@ int plot_bunch_length_evol_gaussian(RfParameters *RfP, std::string h5data,
 }
 
 
-int plot_position_evol(RfParameters *RfP, std::string h5data,
+int blond::plot_position_evol(RfParameters *RfP, std::string h5data,
                        int output_freq, std::string style,
                        std::string dirname)
 {
@@ -186,7 +187,7 @@ int plot_position_evol(RfParameters *RfP, std::string h5data,
 }
 
 
-int plot_energy_evol(RfParameters *RfP, std::string h5data,
+int blond::plot_energy_evol(RfParameters *RfP, std::string h5data,
                      int output_freq, std::string style,
                      std::string dirname)
 {
@@ -212,7 +213,7 @@ int plot_energy_evol(RfParameters *RfP, std::string h5data,
     return ret != nullptr;
 }
 
-int plot_transmitted_particles(RfParameters *RfP, std::string h5data,
+int blond::plot_transmitted_particles(RfParameters *RfP, std::string h5data,
                                int output_freq, std::string style,
                                std::string dirname)
 {

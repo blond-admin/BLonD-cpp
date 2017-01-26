@@ -9,10 +9,12 @@
 #include <string>
 #include <iostream>
 #include <algorithm>
+
+using namespace blond;
 using namespace H5;
 
 
-void *read_2D(std::string fname, std::string dsname,
+void *blond::read_2D(std::string fname, std::string dsname,
               std::string type, hsize_t dims[])
 {
     auto file_id = H5Fopen(fname.c_str(), H5F_ACC_RDONLY, H5P_DEFAULT);
@@ -39,7 +41,7 @@ void *read_2D(std::string fname, std::string dsname,
     return res;
 }
 
-void *read_1D(std::string fname, std::string dsname,
+void *blond::read_1D(std::string fname, std::string dsname,
               std::string type, hsize_t dims[])
 {
     auto file_id = H5Fopen(fname.c_str(), H5F_ACC_RDONLY, H5P_DEFAULT);

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['no_5fscaling',['no_scaling',['../db/d7b/classPSBPhaseNoiseInjection.html#a4b0e66ef1359fece1906335f019aba10a394f9c24e089a584bb1c1428a1df2954',1,'PSBPhaseNoiseInjection']]],
-  ['none',['none',['../d1/dfc/classGeneralParameters.html#aa00c27fcf78145c8d9cb4e2ca446871ea5d5ddb8635c7554d6bcf1f263e0235d4',1,'GeneralParameters']]],
-  ['normal',['normal',['../dc/d45/classSlices.html#a145b60aa2ecd01f1a4524e49bead73f7a3967831be574a53441e9b28bde9e7c9e',1,'Slices']]]
+  ['no_5fscaling',['no_scaling',['../db/d42/classblond_1_1PSBPhaseNoiseInjection.html#a550c911ab33970db8c1663d827adb70aa350dd3296c91b58c6eafac78cf4681cb',1,'blond::PSBPhaseNoiseInjection']]],
+  ['none',['none',['../d1/d6f/classblond_1_1GeneralParameters.html#ac0a7d55eaf5f1e0d8430876a0b82db9ba35a99a085b2b3e11c24b7b230c01f276',1,'blond::GeneralParameters']]],
+  ['normal',['normal',['../d4/d46/classblond_1_1Slices.html#adda399dd2c57447e8b19b82a1640d56da0e44d625432065cce9569dc7d145dbcd',1,'blond::Slices']]]
 ];

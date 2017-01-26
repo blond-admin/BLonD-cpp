@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['gaussian',['gaussian',['../dc/d45/classSlices.html#a145b60aa2ecd01f1a4524e49bead73f7a09d77ed8033240de4746dcd9cbc1c98d',1,'Slices']]]
+  ['gaussian',['gaussian',['../d4/d46/classblond_1_1Slices.html#adda399dd2c57447e8b19b82a1640d56da9f44507bfd39e6e32cf6456fff197eb9',1,'blond::Slices']]]
 ];

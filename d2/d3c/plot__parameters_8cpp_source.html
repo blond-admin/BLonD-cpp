@@ -115,37 +115,38 @@ $(document).ready(function(){initNavTree('d2/d3c/plot__parameters_8cpp_source.ht
 <a href="../../d2/d3c/plot__parameters_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../d8/d1b/plot__parameters_8h.html">blond/plots/plot_parameters.h</a>&gt;</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../d1/da8/python_8h.html">blond/python.h</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">using namespace </span>blond;</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
-<div class="line"><a name="l00006"></a><span class="lineno"><a class="code" href="../../d8/d1b/plot__parameters_8h.html#a85d8f3cd2cb068b4acb7e34897d0d622">    6</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d2/d3c/plot__parameters_8cpp.html#ada23365ba3d3b48a1b7441ce03440894">plot_voltage_programme</a>(<a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;time, <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;voltage,</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;                           <span class="keywordtype">int</span> sampling, std::string dirname, <span class="keywordtype">int</span> figno)</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <span class="comment">// python::initialize();</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>();</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">auto</span> pFunc = <a class="code" href="../../de/d4a/namespacepython.html#a713f8b295244715fb64ea92c5b172d33">python::import</a>(<span class="stringliteral">&quot;plot_parameters&quot;</span>, <span class="stringliteral">&quot;plot_voltage_programme&quot;</span>);</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keyword">auto</span> pTime = <a class="code" href="../../de/d4a/namespacepython.html#a38f56692b4793b00b074fc192783947e">python::convert_double_array</a>(time.data(), time.size());</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keyword">auto</span> pVoltage = <a class="code" href="../../de/d4a/namespacepython.html#a38f56692b4793b00b074fc192783947e">python::convert_double_array</a>(voltage.data(), voltage.size());</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">auto</span> pSampling = <a class="code" href="../../de/d4a/namespacepython.html#adb27db8de2c6c5b4f381fadcc86a4939">python::convert_int</a>(sampling);</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">auto</span> pDirname = <a class="code" href="../../de/d4a/namespacepython.html#aaed0c03f36b79c4703d003314d78b412">python::convert_string</a>(dirname);</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">auto</span> pFigno = <a class="code" href="../../de/d4a/namespacepython.html#adb27db8de2c6c5b4f381fadcc86a4939">python::convert_int</a>(figno);</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="code" href="../../d5/d60/namespaceblond.html#a279ac3ee78b4c285ab86372128838323">    7</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d5/d60/namespaceblond.html#a279ac3ee78b4c285ab86372128838323">blond::plot_voltage_programme</a>(<a class="code" href="../../d5/d60/namespaceblond.html#aad6870f98ad5af5f55842d0056cd642f">f_vector_t</a> &amp;time, <a class="code" href="../../d5/d60/namespaceblond.html#aad6870f98ad5af5f55842d0056cd642f">f_vector_t</a> &amp;voltage,</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;                           <span class="keywordtype">int</span> sampling, std::string dirname, <span class="keywordtype">int</span> figno)</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="comment">// python::initialize();</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <a class="code" href="../../d4/d48/namespaceblond_1_1python.html#a83fe87000238e499d1a364facbbff28f">python::import</a>();</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">auto</span> pFunc = <a class="code" href="../../d4/d48/namespaceblond_1_1python.html#a83fe87000238e499d1a364facbbff28f">python::import</a>(<span class="stringliteral">&quot;plot_parameters&quot;</span>, <span class="stringliteral">&quot;plot_voltage_programme&quot;</span>);</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keyword">auto</span> pTime = <a class="code" href="../../d4/d48/namespaceblond_1_1python.html#a358bb67c6e13aba766d6c4e09ec3e5d3">python::convert_double_array</a>(time.data(), time.size());</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">auto</span> pVoltage = <a class="code" href="../../d4/d48/namespaceblond_1_1python.html#a358bb67c6e13aba766d6c4e09ec3e5d3">python::convert_double_array</a>(voltage.data(), voltage.size());</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">auto</span> pSampling = <a class="code" href="../../d4/d48/namespaceblond_1_1python.html#aa8b3e76a211499c930e4ace15b4b6db0">python::convert_int</a>(sampling);</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">auto</span> pDirname = <a class="code" href="../../d4/d48/namespaceblond_1_1python.html#a960d71f6af5aa04d4dfd470986d0faea">python::convert_string</a>(dirname);</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">auto</span> pFigno = <a class="code" href="../../d4/d48/namespaceblond_1_1python.html#aa8b3e76a211499c930e4ace15b4b6db0">python::convert_int</a>(figno);</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">auto</span> ret = PyObject_CallFunctionObjArgs(pFunc, pTime, pVoltage, pSampling,</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;                                            pDirname, pFigno, NULL);</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">return</span> ret != <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">auto</span> ret = PyObject_CallFunctionObjArgs(pFunc, pTime, pVoltage, pSampling,</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;                                            pDirname, pFigno, NULL);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">return</span> ret != <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_2b12189b1b38a5891fb7949d75362c72.html">src</a></li><li class="navelem"><a class="el" href="../../dir_c38ecdaba2cf8d1fb8e1bbe1cf356d5a.html">plots</a></li><li class="navelem"><a class="el" href="../../d2/d3c/plot__parameters_8cpp.html">plot_parameters.cpp</a></li>
-    <li class="footer">Generated on Wed Jan 11 2017 12:12:00 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Thu Jan 26 2017 20:02:14 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

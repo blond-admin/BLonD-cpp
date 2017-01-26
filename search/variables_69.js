@@ -1,12 +1,12 @@
 var searchData=
 [
-  ['i',['i',['../d3/d1f/structmulti__t.html#a0e1d6d3c5d00457e34c0a455314ea11b',1,'multi_t::i()'],['../d8/dc3/structpython_1_1multi__t.html#ab8decf59e2ad31b4cdf493bef32108ac',1,'python::multi_t::i()'],['../d6/d1e/unionvdt_1_1details_1_1ieee754.html#a82f9ed6aa0aa3abf2fce9e54dbc7688c',1,'vdt::details::ieee754::i()']]],
-  ['id',['id',['../d9/d7c/classBeams.html#aa4d9f9d5fa10d0d1fee534ddb6bbf410',1,'Beams']]],
-  ['in',['in',['../dc/daf/structfft_1_1fft__plan__t.html#a8345f7a4b162987df53d03ae896d62a6',1,'fft::fft_plan_t']]],
-  ['index',['index',['../dc/dfe/structoption_1_1Descriptor.html#a1fee8ac44f529c99ac2b1149b4c391b1',1,'option::Descriptor']]],
-  ['indices_5finside_5fframe',['indices_inside_frame',['../de/da1/classRingAndRfSection.html#a772240b1bba4d2c1cb8322509d831b18',1,'RingAndRfSection']]],
-  ['indices_5fleft_5foutside',['indices_left_outside',['../de/da1/classRingAndRfSection.html#adc26b6c36692ef581de212716d249756',1,'RingAndRfSection']]],
-  ['indices_5fright_5foutside',['indices_right_outside',['../de/da1/classRingAndRfSection.html#a6e4abace6c23940013c0711d122483ff',1,'RingAndRfSection']]],
-  ['induced_5fvoltage',['induced_voltage',['../d2/d2f/classMusic.html#a27fb8981aab5d12dbe384b62ef7a6b5f',1,'Music']]],
-  ['intensity',['intensity',['../d9/d7c/classBeams.html#ac430543dc1a6bb178a5cc6cfcb315be1',1,'Beams']]]
+  ['i',['i',['../da/d7e/structblond_1_1multi__t.html#a555536ce085c7b1354908b7c4acf4240',1,'blond::multi_t::i()'],['../dd/d19/structblond_1_1python_1_1multi__t.html#a49d714b3e2882e390bfec333a4bd6e43',1,'blond::python::multi_t::i()'],['../d8/d01/unionblond_1_1vdt_1_1details_1_1ieee754.html#ab9df01cc478674fb3029ac6f30312939',1,'blond::vdt::details::ieee754::i()']]],
+  ['id',['id',['../d5/d0c/classblond_1_1Beams.html#aa0f7c1644ea70bf2ee5598d43a24747c',1,'blond::Beams']]],
+  ['in',['in',['../d6/dfd/structblond_1_1fft_1_1fft__plan__t.html#a54a8496861cde20b6ab284f9ac8fc785',1,'blond::fft::fft_plan_t']]],
+  ['index',['index',['../d9/ded/structblond_1_1optionparser_1_1Descriptor.html#adb58c39cdc24b11a10e7848ed5cefd03',1,'blond::optionparser::Descriptor']]],
+  ['indices_5finside_5fframe',['indices_inside_frame',['../d7/df8/classblond_1_1RingAndRfSection.html#a488866818f46077787df3409037321d6',1,'blond::RingAndRfSection']]],
+  ['indices_5fleft_5foutside',['indices_left_outside',['../d7/df8/classblond_1_1RingAndRfSection.html#a064ad30b9018641ae8210328d3ffc80d',1,'blond::RingAndRfSection']]],
+  ['indices_5fright_5foutside',['indices_right_outside',['../d7/df8/classblond_1_1RingAndRfSection.html#aa322ba9aa2b1983cd00c29a1530b2452',1,'blond::RingAndRfSection']]],
+  ['induced_5fvoltage',['induced_voltage',['../d9/d12/classblond_1_1Music.html#ae37b6310253b91e8fdef598120740cc5',1,'blond::Music']]],
+  ['intensity',['intensity',['../d5/d0c/classblond_1_1Beams.html#aeb6fe7b232321b2272cfc9861bcc8300',1,'blond::Beams']]]
 ];

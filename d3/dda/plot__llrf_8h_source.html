@@ -123,66 +123,66 @@ $(document).ready(function(){initNavTree('d3/dda/plot__llrf_8h_source.html','../
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../d1/da8/python_8h.html">blond/python.h</a>&gt;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d3/dca/plot__llrf_8cpp.html#a3ce107f897563a674c3dcfd0ceafab2b">plot_noise_spectrum</a>(<a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;frequency, <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;spectrum,</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;                         <span class="keywordtype">int</span> sampling = 1, std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>,</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                         <span class="keywordtype">int</span> figno = 0);</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>blond {</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="../../d5/d60/namespaceblond.html#aab46d75ea3b7ba1e5b1c74cf4a948983">plot_noise_spectrum</a>(<a class="code" href="../../d5/d60/namespaceblond.html#aad6870f98ad5af5f55842d0056cd642f">f_vector_t</a> &amp;frequency, <a class="code" href="../../d5/d60/namespaceblond.html#aad6870f98ad5af5f55842d0056cd642f">f_vector_t</a> &amp;spectrum,</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;                            <span class="keywordtype">int</span> sampling = 1, std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>,</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                            <span class="keywordtype">int</span> figno = 0);</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d3/dca/plot__llrf_8cpp.html#ae45dccac8b3363794a59b0795cf76d77">plot_phase_noise</a>(<a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;frequency, <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;spectrum,</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;                      <span class="keywordtype">int</span> sampling = 1, std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>,</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;                      <span class="keywordtype">int</span> figno = 0);</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="../../d5/d60/namespaceblond.html#a7e29b022819e42c95cffe3c0e47da303">plot_phase_noise</a>(<a class="code" href="../../d5/d60/namespaceblond.html#aad6870f98ad5af5f55842d0056cd642f">f_vector_t</a> &amp;frequency, <a class="code" href="../../d5/d60/namespaceblond.html#aad6870f98ad5af5f55842d0056cd642f">f_vector_t</a> &amp;spectrum,</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;                         <span class="keywordtype">int</span> sampling = 1, std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>,</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;                         <span class="keywordtype">int</span> figno = 0);</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d3/dca/plot__llrf_8cpp.html#afc23b809976d8f884eed368b3da22f81">plot_PL_bunch_phase</a>(<a class="code" href="../../da/d49/classRfParameters.html">RfParameters</a> *RfP, std::string h5data,</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                         <span class="keywordtype">int</span> output_freq = 1, std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="../../d5/d60/namespaceblond.html#a097d28c7859ccc2f65daf182b4241d7f">plot_PL_bunch_phase</a>(RfParameters *RfP, std::string h5data,</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                            <span class="keywordtype">int</span> output_freq = 1, std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>);</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d3/dca/plot__llrf_8cpp.html#ab630273c00ebea4fb57badf91ae966b1">plot_PL_RF_phase</a>(<a class="code" href="../../da/d49/classRfParameters.html">RfParameters</a> *RfP, std::string h5data,</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                      <span class="keywordtype">int</span> output_freq = 1, std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="../../d5/d60/namespaceblond.html#aa745dea26791ce879c21688e8f4868be">plot_PL_RF_phase</a>(RfParameters *RfP, std::string h5data,</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                         <span class="keywordtype">int</span> output_freq = 1, std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>);</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d3/dca/plot__llrf_8cpp.html#aff1a3a32521187f5f9d71bb0f2af7c40">plot_PL_phase_corr</a>(<a class="code" href="../../da/d49/classRfParameters.html">RfParameters</a> *RfP, std::string h5data,</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                        <span class="keywordtype">int</span> output_freq = 1, std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="../../d5/d60/namespaceblond.html#ae424e03f8ab057ea162be0ecd761f98d">plot_PL_phase_corr</a>(RfParameters *RfP, std::string h5data,</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                           <span class="keywordtype">int</span> output_freq = 1, std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>);</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d3/dca/plot__llrf_8cpp.html#a49b90eec0fa81b680b7ec4adfea8095e">plot_PL_RF_freq</a>(<a class="code" href="../../da/d49/classRfParameters.html">RfParameters</a> *RfP, std::string h5data,</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                     <span class="keywordtype">int</span> output_freq = 1, std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="../../d5/d60/namespaceblond.html#a927de322fc625da5ba7e2c075804f231">plot_PL_RF_freq</a>(RfParameters *RfP, std::string h5data,</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                        <span class="keywordtype">int</span> output_freq = 1, std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>);</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d3/dca/plot__llrf_8cpp.html#ad5f147c9ce832d06926c5710297f91de">plot_PL_freq_corr</a>(<a class="code" href="../../da/d49/classRfParameters.html">RfParameters</a> *RfP, std::string h5data,</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                       <span class="keywordtype">int</span> output_freq = 1, std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="../../d5/d60/namespaceblond.html#aef6e820c1f9b0feaa486ba263cfb504d">plot_PL_freq_corr</a>(RfParameters *RfP, std::string h5data,</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                          <span class="keywordtype">int</span> output_freq = 1, std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>);</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d3/dca/plot__llrf_8cpp.html#ad1cf3364708ea35b11093e6e06728e45">plot_RF_phase_error</a>(<a class="code" href="../../da/d49/classRfParameters.html">RfParameters</a> *RfP, std::string h5data,</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                         <span class="keywordtype">int</span> output_freq = 1, std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="../../d5/d60/namespaceblond.html#a6ab00ea09a818a22dbb9e750dc6ca360">plot_RF_phase_error</a>(RfParameters *RfP, std::string h5data,</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                            <span class="keywordtype">int</span> output_freq = 1, std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>);</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d3/dca/plot__llrf_8cpp.html#ad6f7ddc82f08146a8ed8f129b7da7c37">plot_RL_radial_error</a>(<a class="code" href="../../da/d49/classRfParameters.html">RfParameters</a> *RfP, std::string h5data,</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                          <span class="keywordtype">int</span> output_freq = 1, std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="../../d5/d60/namespaceblond.html#a0fe2680754db29eb257b117ff3078764">plot_RL_radial_error</a>(RfParameters *RfP, std::string h5data,</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                             <span class="keywordtype">int</span> output_freq = 1, std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>);</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d3/dca/plot__llrf_8cpp.html#a8e53081e319d1e9e79796ddd4cfcfa3f">plot_COM_motion</a>(<a class="code" href="../../da/d49/classRfParameters.html">RfParameters</a> *RfP,</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                     std::string h5data, <span class="keywordtype">int</span> output_freq = 1,</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                     std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="../../d5/d60/namespaceblond.html#af4abc0353bad94b674853c6084ce03bc">plot_COM_motion</a>(RfParameters *RfP,</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                        std::string h5data, <span class="keywordtype">int</span> output_freq = 1,</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                        std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>);</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d3/dca/plot__llrf_8cpp.html#ae11d7dcf6ae700e4454f00c6bb5ad6d9">plot_LHCNoiseFB</a>(<a class="code" href="../../da/d49/classRfParameters.html">RfParameters</a> *RfP, std::string h5data,</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                     <span class="keywordtype">int</span> output_freq = 1, std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="../../d5/d60/namespaceblond.html#a31888731ec1b08cc230f908aeefa4a3b">plot_LHCNoiseFB</a>(RfParameters *RfP, std::string h5data,</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                        <span class="keywordtype">int</span> output_freq = 1, std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>);</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d3/dca/plot__llrf_8cpp.html#ad4efd00981d0d79f694b73d260c42baa">plot_LHCNoiseFB_FWHM</a>(<a class="code" href="../../da/d49/classRfParameters.html">RfParameters</a> *RfP,</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                          std::string h5data, <span class="keywordtype">int</span> output_freq = 1,</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                          std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="../../d5/d60/namespaceblond.html#a6e08a1fe75dec223515c2c56a3806f4c">plot_LHCNoiseFB_FWHM</a>(RfParameters *RfP,</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                             std::string h5data, <span class="keywordtype">int</span> output_freq = 1,</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                             std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>);</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d3/dca/plot__llrf_8cpp.html#ad264906a8be4ff269af37febef34251b">plot_LHCNoiseFB_FWHM_bbb</a>(<a class="code" href="../../da/d49/classRfParameters.html">RfParameters</a> *RfP,</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                              std::string h5data, <span class="keywordtype">int</span> output_freq = 1,</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                              std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="../../d5/d60/namespaceblond.html#afb7d1ccbdb675641b702d15088ccf5d5">plot_LHCNoiseFB_FWHM_bbb</a>(RfParameters *RfP,</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                                 std::string h5data, <span class="keywordtype">int</span> output_freq = 1,</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                                 std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>);</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;} <span class="comment">// blond</span></div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* INCLUDE_BLOND_PLOTS_PLOT_LLRF_H_ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -190,7 +190,7 @@ $(document).ready(function(){initNavTree('d3/dda/plot__llrf_8h_source.html','../
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_6b634e43e772001122993837e1d7e1c5.html">include</a></li><li class="navelem"><a class="el" href="../../dir_4a4b9f9a898a71f152a99978051a04a6.html">blond</a></li><li class="navelem"><a class="el" href="../../dir_15c48f2dd8c459163726396473006cff.html">plots</a></li><li class="navelem"><a class="el" href="../../d3/dda/plot__llrf_8h.html">plot_llrf.h</a></li>
-    <li class="footer">Generated on Wed Jan 11 2017 12:12:00 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Thu Jan 26 2017 20:02:14 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

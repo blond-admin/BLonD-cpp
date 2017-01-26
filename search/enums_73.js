@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['solver_5ftype',['solver_type',['../de/da1/classRingAndRfSection.html#a90beb273d833acc0d4eeb6058c08734e',1,'RingAndRfSection']]]
+  ['solver_5ftype',['solver_type',['../d7/df8/classblond_1_1RingAndRfSection.html#a62f26c225a52b9d252afccf850afa605',1,'blond::RingAndRfSection']]]
 ];

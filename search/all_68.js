@@ -1,15 +1,15 @@
 var searchData=
 [
-  ['ham',['Ham',['../d4/d19/classmymath_1_1Ham.html',1,'mymath']]],
-  ['ham',['Ham',['../d4/d19/classmymath_1_1Ham.html#a6c5842fe46265501145f26ee45239832',1,'mymath::Ham']]],
-  ['hamiltonian',['hamiltonian',['../de/da5/utilities_8cpp.html#a22b3cea36e661181f590b17471e42f38',1,'hamiltonian(const GeneralParameters *GP, const RfParameters *RfP, const Beams *Beam, const double *__restrict dt, const double *__restrict dE, const int size, const f_vector_t total_voltage):&#160;utilities.cpp'],['../de/da5/utilities_8cpp.html#aedd27401f467e3d523669b957a7f1db0',1,'hamiltonian(const GeneralParameters *GP, const RfParameters *RfP, const Beams *Beam, const double dt, const double dE, const f_vector_t total_voltage):&#160;utilities.cpp'],['../de/d44/trackers_2utilities_8h.html#a31907045e09e1acf77495337b7c92830',1,'hamiltonian(const GeneralParameters *GP, const RfParameters *RfP, const Beams *Beam, const double *__restrict dt, const double *__restrict dE, const int size, const f_vector_t total_voltage={}):&#160;utilities.cpp'],['../de/d44/trackers_2utilities_8h.html#a2731f126c4d1ccba42f4e34548cad649',1,'hamiltonian(const GeneralParameters *GP, const RfParameters *RfP, const Beams *Beam, const double dt, const double dE, const f_vector_t total_voltage={}):&#160;utilities.cpp']]],
-  ['hamiltonian_5fcoord',['hamiltonian_coord',['../d6/d33/structline__density__t.html#a4835de2f8dc4fa721605805d66da27dc',1,'line_density_t']]],
-  ['harmonic',['harmonic',['../da/d49/classRfParameters.html#a8221a6edc51203d7f1bf373e79c42373',1,'RfParameters::harmonic()'],['../de/da1/classRingAndRfSection.html#ad9a182c4833a4be30d39976dcf9b2cd6',1,'RingAndRfSection::harmonic()']]],
-  ['head',['head',['../de/d50/classoption_1_1PrintUsageImplementation_1_1LineWrapper.html#a5e2107b64c4a785fb92fca3f99e04c6e',1,'option::PrintUsageImplementation::LineWrapper']]],
-  ['help',['help',['../dc/dfe/structoption_1_1Descriptor.html#a9045b19311533e1b8a08645d57149c79',1,'option::Descriptor']]],
-  ['highest_5fvoltage',['highest_voltage',['../d6/d13/classFullRingAndRf.html#a6f5f0dd707a3dc279bdec805a914f6d8ae83077522000e4dbdb23b545641c13fd',1,'FullRingAndRf']]],
-  ['histogram',['histogram',['../dc/d45/classSlices.html#a663512ec224f285fa8e5b3e3bee65761',1,'Slices']]],
-  ['hit_5ftarget_5fline',['hit_target_line',['../de/dc9/classoption_1_1PrintUsageImplementation_1_1LinePartIterator.html#a1538b520d8c7f40d9e35f0289805041d',1,'option::PrintUsageImplementation::LinePartIterator']]],
-  ['horizontal_5fcut',['horizontal_cut',['../de/da1/classRingAndRfSection.html#a605e79c96fcc0901d131fcad4cb472ef',1,'RingAndRfSection']]],
-  ['hyperbolic',['hyperbolic',['../da/dd4/classPhaseNoise.html#aeecdda7739ac1c11a18927ea7b1f9cd3aab2a6bab56a14c958f97a85838ee74dd',1,'PhaseNoise']]]
+  ['ham',['Ham',['../da/d20/classblond_1_1mymath_1_1Ham.html',1,'blond::mymath']]],
+  ['ham',['Ham',['../da/d20/classblond_1_1mymath_1_1Ham.html#a244f73441a1310c8e3e11c7b3a2a5549',1,'blond::mymath::Ham']]],
+  ['hamiltonian',['hamiltonian',['../d5/d60/namespaceblond.html#a106e399c7476038d62c238d5bcaa2a86',1,'blond::hamiltonian(const GeneralParameters *GP, const RfParameters *RfP, const Beams *Beam, const double *__restrict dt, const double *__restrict dE, const int size, const f_vector_t total_voltage={})'],['../d5/d60/namespaceblond.html#ad1278dff77affd87a247ad920a5f1df4',1,'blond::hamiltonian(const GeneralParameters *GP, const RfParameters *RfP, const Beams *Beam, const double dt, const double dE, const f_vector_t total_voltage={})']]],
+  ['hamiltonian_5fcoord',['hamiltonian_coord',['../da/dbc/structblond_1_1line__density__t.html#abd2254df8440cf615ecd4caacfae56f0',1,'blond::line_density_t']]],
+  ['harmonic',['harmonic',['../d2/d1a/classblond_1_1RfParameters.html#abd2a274c27a83f452a4ba280fab2ac67',1,'blond::RfParameters::harmonic()'],['../d7/df8/classblond_1_1RingAndRfSection.html#aec7b1b46024bf1014b2a41b8719fd0b0',1,'blond::RingAndRfSection::harmonic()']]],
+  ['head',['head',['../d1/d20/classblond_1_1optionparser_1_1PrintUsageImplementation_1_1LineWrapper.html#a4b4d217bfe9e245e1f30d63a288fd41f',1,'blond::optionparser::PrintUsageImplementation::LineWrapper']]],
+  ['help',['help',['../d9/ded/structblond_1_1optionparser_1_1Descriptor.html#a1e7dc9e3a96e18d4f3d9d5fd6cfae543',1,'blond::optionparser::Descriptor']]],
+  ['highest_5fvoltage',['highest_voltage',['../dc/d8c/classblond_1_1FullRingAndRf.html#acf01f752eb240af1ee9d4ccc0973dd94a01c2096af83b193fac40a593c5d91d52',1,'blond::FullRingAndRf']]],
+  ['histogram',['histogram',['../d4/d46/classblond_1_1Slices.html#a663512ec224f285fa8e5b3e3bee65761',1,'blond::Slices']]],
+  ['hit_5ftarget_5fline',['hit_target_line',['../d0/d3d/classblond_1_1optionparser_1_1PrintUsageImplementation_1_1LinePartIterator.html#a2c365933272bab43ac96ceb52146b988',1,'blond::optionparser::PrintUsageImplementation::LinePartIterator']]],
+  ['horizontal_5fcut',['horizontal_cut',['../d7/df8/classblond_1_1RingAndRfSection.html#a605e79c96fcc0901d131fcad4cb472ef',1,'blond::RingAndRfSection']]],
+  ['hyperbolic',['hyperbolic',['../dc/d58/classblond_1_1PhaseNoise.html#aab8df5eab8d50c0b3a739f4932ac4d93a8199b11f4951da98f54f4fc95af84f72',1,'blond::PhaseNoise']]]
 ];

@@ -113,30 +113,31 @@ $(document).ready(function(){initNavTree('d3/d12/preprocess_8cpp_source.html','.
 </div><!--header-->
 <div class="contents">
 <a href="../../d3/d12/preprocess_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../d4/db8/preprocess_8h.html">blond/input_parameters/preprocess.h</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div>
-<div class="line"><a name="l00003"></a><span class="lineno"><a class="code" href="../../d3/d12/preprocess_8cpp.html#a3efc76a70978ff77201e13660035e3bb">    3</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d3/d12/preprocess_8cpp.html#a3efc76a70978ff77201e13660035e3bb">preprocess_ramp</a>(<a class="code" href="../../d1/dfc/classGeneralParameters.html#aa00c27fcf78145c8d9cb4e2ca446871e">GeneralParameters::particle_t</a> particle_type,</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                     <span class="keywordtype">double</span> circumference, <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;time, <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;data,</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;                     <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;time_interp, <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;momentum_interp,</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;                     std::string data_type, std::string interpolation,</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;                     <span class="keywordtype">double</span> smoothing, <span class="keywordtype">int</span> flat_bottom, <span class="keywordtype">int</span> t_start,</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;                     <span class="keywordtype">int</span> t_end, <span class="keywordtype">bool</span> plot, std::string figdir,</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;                     std::string figname, <span class="keywordtype">int</span> sampling, <span class="keywordtype">double</span> user_mass)</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{}</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="code" href="../../d4/db8/preprocess_8h.html#a099f417962966aa1c6db84bb7eb93d73">   12</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d3/d12/preprocess_8cpp.html#a3d7325a5c4c12d96a483a070eb433c13">preprocess_rf_params</a>(<a class="code" href="../../d1/dfc/classGeneralParameters.html">GeneralParameters</a> *GP, <a class="code" href="../../d2/d2c/configuration_8h.html#a578604c41b2b32700ab03fc63ec857eb">f_vector_2d_t</a> &amp;time_arrays,</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;                          <a class="code" href="../../d2/d2c/configuration_8h.html#a578604c41b2b32700ab03fc63ec857eb">f_vector_2d_t</a> &amp;data_arrays, <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;data_interp,</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;                          std::string interpolation,</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                          <span class="keywordtype">bool</span> plot, std::string figdir,</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;                          std::vector&lt;std::string&gt; figname, <span class="keywordtype">int</span> sampling)</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{}</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="keyword">using namespace </span>blond;</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
+<div class="line"><a name="l00004"></a><span class="lineno"><a class="code" href="../../d3/d12/preprocess_8cpp.html#a3efc76a70978ff77201e13660035e3bb">    4</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d5/d60/namespaceblond.html#a087e50a16e06b0f9be337f9cb9c92b2d">preprocess_ramp</a>(<a class="code" href="../../d1/d6f/classblond_1_1GeneralParameters.html#ac0a7d55eaf5f1e0d8430876a0b82db9b">GeneralParameters::particle_t</a> particle_type,</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;                     <span class="keywordtype">double</span> circumference, <a class="code" href="../../d5/d60/namespaceblond.html#aad6870f98ad5af5f55842d0056cd642f">f_vector_t</a> &amp;time, <a class="code" href="../../d5/d60/namespaceblond.html#aad6870f98ad5af5f55842d0056cd642f">f_vector_t</a> &amp;data,</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;                     <a class="code" href="../../d5/d60/namespaceblond.html#aad6870f98ad5af5f55842d0056cd642f">f_vector_t</a> &amp;time_interp, <a class="code" href="../../d5/d60/namespaceblond.html#aad6870f98ad5af5f55842d0056cd642f">f_vector_t</a> &amp;momentum_interp,</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;                     std::string data_type, std::string interpolation,</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;                     <span class="keywordtype">double</span> smoothing, <span class="keywordtype">int</span> flat_bottom, <span class="keywordtype">int</span> t_start,</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;                     <span class="keywordtype">int</span> t_end, <span class="keywordtype">bool</span> plot, std::string figdir,</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;                     std::string figname, <span class="keywordtype">int</span> sampling, <span class="keywordtype">double</span> user_mass)</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{}</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="code" href="../../d5/d60/namespaceblond.html#a08aad579f89f79d258b8e0bdc3834d8d">   13</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d5/d60/namespaceblond.html#a08aad579f89f79d258b8e0bdc3834d8d">preprocess_rf_params</a>(<a class="code" href="../../d1/d6f/classblond_1_1GeneralParameters.html">GeneralParameters</a> *GP, <a class="code" href="../../d5/d60/namespaceblond.html#aa73055af3bb4e589e24fa04adef8d71a">f_vector_2d_t</a> &amp;time_arrays,</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;                          <a class="code" href="../../d5/d60/namespaceblond.html#aa73055af3bb4e589e24fa04adef8d71a">f_vector_2d_t</a> &amp;data_arrays, <a class="code" href="../../d5/d60/namespaceblond.html#aad6870f98ad5af5f55842d0056cd642f">f_vector_t</a> &amp;data_interp,</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                          std::string interpolation,</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;                          <span class="keywordtype">bool</span> plot, std::string figdir,</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;                          std::vector&lt;std::string&gt; figname, <span class="keywordtype">int</span> sampling)</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{}</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_2b12189b1b38a5891fb7949d75362c72.html">src</a></li><li class="navelem"><a class="el" href="../../dir_077c0f12c71f89edc969f08d86165fa7.html">input_parameters</a></li><li class="navelem"><a class="el" href="../../d3/d12/preprocess_8cpp.html">preprocess.cpp</a></li>
-    <li class="footer">Generated on Wed Jan 11 2017 12:12:00 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Thu Jan 26 2017 20:02:14 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

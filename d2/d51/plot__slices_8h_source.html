@@ -120,23 +120,23 @@ $(document).ready(function(){initNavTree('d2/d51/plot__slices_8h_source.html','.
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../d5/d34/GeneralParameters_8h.html">blond/input_parameters/GeneralParameters.h</a>&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../d6/db7/RfParameters_8h.html">blond/input_parameters/RfParameters.h</a>&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../dc/df2/Slices_8h.html">blond/beams/Slices.h</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>blond {</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d4/dfd/plot__slices_8cpp.html#a43d17a220d6ee73c507d596b0f0d6ae6">plot_beam_profile</a>(<a class="code" href="../../dc/d45/classSlices.html">Slices</a> *<a class="code" href="../../dc/d45/classSlices.html">Slices</a>,</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d5/d60/namespaceblond.html#a1b026afe70ab02cc3de660b33eee4aed">plot_beam_profile</a>(Slices *Slices,</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;                       <span class="keywordtype">int</span> counter,</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;                       std::string style = <span class="stringliteral">&quot;-&quot;</span>,</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;                       std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>);</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d4/dfd/plot__slices_8cpp.html#aad9cd9be5d81bbff046cb2dd55fb10aa">plot_beam_profile_derivative</a>(<a class="code" href="../../dc/d45/classSlices.html">Slices</a> *<a class="code" href="../../dc/d45/classSlices.html">Slices</a>,</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d5/d60/namespaceblond.html#ab9c0b997c8b94ee83493eea4daf50c12">plot_beam_profile_derivative</a>(Slices *Slices,</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;                                  <span class="keywordtype">int</span> counter,</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;                                  std::string style = <span class="stringliteral">&quot;-&quot;</span>,</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;                                  std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>,</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;                                  <a class="code" href="../../d2/d2c/configuration_8h.html#a26b08bf8aabcdcd7f12c737b7c2cab1f">string_vector_t</a> modes = {<span class="stringliteral">&quot;diff&quot;</span>});</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;                                  <a class="code" href="../../d5/d60/namespaceblond.html#a3874e83119460c44eee72500c365d839">string_vector_t</a> modes = {<span class="stringliteral">&quot;diff&quot;</span>});</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d4/dfd/plot__slices_8cpp.html#aba732f61f3a9c50f4559f06304237e75">plot_beam_spectrum</a>(Slices *Slices, <span class="keywordtype">int</span> counter,</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d5/d60/namespaceblond.html#a0e901c201cd52a14d304cfebc3f54aa2">plot_beam_spectrum</a>(Slices *Slices, <span class="keywordtype">int</span> counter,</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;                        std::string style = <span class="stringliteral">&quot;-&quot;</span>,</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                        std::string dirname = <span class="stringliteral">&quot;fig&quot;</span>);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// blond</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* INCLUDE_BLOND_PLOTS_PLOT_SLICES_H_ */</span><span class="preprocessor"></span></div>
@@ -146,7 +146,7 @@ $(document).ready(function(){initNavTree('d2/d51/plot__slices_8h_source.html','.
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_6b634e43e772001122993837e1d7e1c5.html">include</a></li><li class="navelem"><a class="el" href="../../dir_4a4b9f9a898a71f152a99978051a04a6.html">blond</a></li><li class="navelem"><a class="el" href="../../dir_15c48f2dd8c459163726396473006cff.html">plots</a></li><li class="navelem"><a class="el" href="../../d2/d51/plot__slices_8h.html">plot_slices.h</a></li>
-    <li class="footer">Generated on Wed Jan 11 2017 12:12:00 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Thu Jan 26 2017 20:02:14 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

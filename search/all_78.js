@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['x',['x',['../de/d50/classoption_1_1PrintUsageImplementation_1_1LineWrapper.html#acf828ad4ee388c881967142866d7d8b9',1,'option::PrintUsageImplementation::LineWrapper']]]
+  ['x',['x',['../d1/d20/classblond_1_1optionparser_1_1PrintUsageImplementation_1_1LineWrapper.html#a6d3e32687b75dc641a8ae05895615952',1,'blond::optionparser::PrintUsageImplementation::LineWrapper']]]
 ];

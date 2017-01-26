@@ -127,420 +127,421 @@ $(document).ready(function(){initNavTree('db/d82/PhaseNoise_8cpp_source.html','.
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../d2/de2/math__functions_8h.html">blond/math_functions.h</a>&gt;</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="../../d7/d76/fft_8h.html">blond/fft.h</a>&gt;</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;random&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="code" href="../../da/dd4/classPhaseNoise.html#a5b9bb8a443851f55cd0845608c35112f">   17</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../da/dd4/classPhaseNoise.html#a5b9bb8a443851f55cd0845608c35112f">PhaseNoise::spectrum_to_phase_noise</a>(<a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;t, <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;dphi,</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;freq_array,</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> &amp;ReS,</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <a class="code" href="../../da/dd4/classPhaseNoise.html#a7f974a55e6f34b828e352b7634a22774">PhaseNoise::transform_t</a> transform)</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="comment">// Resolution in time domain</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> ReSLen = ReS.size();</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> f_max = freq_array.back();</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> nt = 0;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> dt = 0;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordflow">if</span> (transform == transform_t::transform_none ||</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            transform == transform_t::r) {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        nt = 2 * (ReSLen - 1);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        dt = 1 / (2 * f_max);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (transform == <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">transform_t::c</a>) {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        nt = ReSLen;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        dt = 1 / f_max;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        std::cerr &lt;&lt; <span class="stringliteral">&quot;ERROR: The choise of Fourier transform for the\n&quot;</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                  &lt;&lt; <span class="stringliteral">&quot;RF noise generation could not be recognized.\n&quot;</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                  &lt;&lt; <span class="stringliteral">&quot;Use &#39;r&#39; or &#39;c&#39;.\n&quot;</span>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        exit(-1);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    }</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="comment">// Generate white noise in time domain</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> r1(nt);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> r2(nt);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../da/dd4/classPhaseNoise.html#a65c3921e83baf32ddb1caf4a03a00c1b">fSeed1</a> &lt; 0 || <a class="code" href="../../da/dd4/classPhaseNoise.html#adfa1b59149033badc7f9c770d807f877">fSeed2</a> &lt; 0) {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> random;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="comment">// std::string home = util::GETENV(&quot;TEST_FILES&quot;);</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <a class="code" href="../../d6/d72/namespaceutil.html#a490b3dd52b27f7d7de8cf81a753b97fa">util::read_vector_from_file</a>(random, TEST_FILES <span class="stringliteral">&quot;/normal_distribution.dat&quot;</span>);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; r1.size(); i++) {</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            r1[i] = random[(2 * i) % random.size()];</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            r2[i] = random[(2 * i + 1) % random.size()];</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        }</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        std::default_random_engine gen(<a class="code" href="../../da/dd4/classPhaseNoise.html#a65c3921e83baf32ddb1caf4a03a00c1b">fSeed1</a>);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        std::uniform_real_distribution&lt;&gt; dist(0, 1);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;v : r1) v = dist(gen);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        gen.seed(<a class="code" href="../../da/dd4/classPhaseNoise.html#adfa1b59149033badc7f9c770d807f877">fSeed2</a>);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;v : r2) v = dist(gen);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    }</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordflow">if</span> (transform == transform_t::transform_none ||</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            transform == transform_t::r) {</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> Gt(nt);</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keyword">auto</span> factor = 2 * <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a>;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keyword">auto</span> f1 = [factor](<span class="keywordtype">double</span> x) { <span class="keywordflow">return</span> std::cos(factor * x); };</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        std::transform(r1.begin(), r1.end(), r1.begin(), f1);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keyword">auto</span> f2 = [](<span class="keywordtype">double</span> x) { <span class="keywordflow">return</span> std::sqrt(-2 * std::log(x)); };</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        std::transform(r2.begin(), r2.end(), r2.begin(), f2);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        std::transform(r1.begin(), r1.end(), r2.begin(), Gt.begin(),</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                       std::multiplies&lt;double&gt;());</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="comment">// FFT to frequency domain</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a875b9fae4b39f3f3a363bd3732836b71">complex_vector_t</a> Gf;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <a class="code" href="../../d8/de0/namespacefft.html#a789573d204d06c288f6b74c45cd92137">fft::rfft</a>(Gt, Gf);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="comment">// Multiply by desired noise probability density</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        factor = 2 * f_max;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keyword">auto</span> f3 = [factor](<span class="keywordtype">double</span> x) { <span class="keywordflow">return</span> std::sqrt(factor * x); };</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        r1.resize(ReS.size());</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        std::transform(ReS.begin(), ReS.end(), r1.begin(), f3);</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keyword">auto</span> f4 = [](<span class="keywordtype">double</span> <a class="code" href="../../da/dd4/classPhaseNoise.html#a7f974a55e6f34b828e352b7634a22774acc4569d96e43f124a23cf29329e99ebf">r</a>, <a class="code" href="../../d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2">complex_t</a> z) { <span class="keywordflow">return</span> r * z; };</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        std::transform(r1.begin(), r1.end(), Gf.begin(), Gf.begin(), f4);</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="comment">// fft back to time domain to get final phase shift</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        Gt.clear();</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <a class="code" href="../../d8/de0/namespacefft.html#a7870786fb204fa75feedfb6eeadbd788">fft::irfft</a>(Gf, Gt);</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="comment">// Use only real part of the phase shift and normalize</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        t.resize(nt);</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <a class="code" href="../../df/d6d/namespacemymath.html#ae6f0d1529ee101163ab6f5a40dd268f4">mymath::linspace</a>(t.data(), 0, nt * dt, nt);</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keyword">auto</span> f6 = [](<a class="code" href="../../d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2">complex_t</a> z) { <span class="keywordflow">return</span> z.real(); };</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        dphi.resize(Gt.size());</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        std::transform(Gt.begin(), Gt.end(), dphi.begin(), f6);</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (transform == <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">transform_t::c</a>) {</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a875b9fae4b39f3f3a363bd3732836b71">complex_vector_t</a> Gt(nt);</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2">complex_t</a> factor = 2 * <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a> * <a class="code" href="../../d2/d2c/configuration_8h.html#af75051458da5490c622b52f6e62c95f2">complex_t</a>(0, 1);</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="keyword">auto</span> f1 = [factor](<span class="keywordtype">double</span> x) { <span class="keywordflow">return</span> std::exp(factor * x); };</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        std::transform(r1.begin(), r1.end(), Gt.begin(), f1);</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        <span class="keyword">auto</span> f2 = [](<span class="keywordtype">double</span> x) { <span class="keywordflow">return</span> std::sqrt(-2 * std::log(x)); };</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        std::transform(r2.begin(), r2.end(), r2.begin(), f2);</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="keyword">auto</span> f3 = [](complex_t a, <span class="keywordtype">double</span> b) { <span class="keywordflow">return</span> a * b; };</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        std::transform(Gt.begin(), Gt.end(), r2.begin(), Gt.begin(), f3);</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <span class="comment">// FFT to frequency domain</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a875b9fae4b39f3f3a363bd3732836b71">complex_vector_t</a> Gf;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <a class="code" href="../../d8/de0/namespacefft.html#ace866b5e38da8e32910f39bc63eb91e9">fft::fft</a>(Gt, Gf);</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <span class="comment">// Multiply by desired noise probability density</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        <span class="keyword">auto</span> factor2 = f_max;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        <span class="keyword">auto</span> f4 = [factor2](<span class="keywordtype">double</span> x) { <span class="keywordflow">return</span> std::sqrt(factor2 * x); };</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        r1.resize(ReS.size());</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        std::transform(ReS.begin(), ReS.end(), r1.begin(), f4);</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="keyword">auto</span> f5 = [](<span class="keywordtype">double</span> <a class="code" href="../../da/dd4/classPhaseNoise.html#a7f974a55e6f34b828e352b7634a22774acc4569d96e43f124a23cf29329e99ebf">r</a>, complex_t z) { <span class="keywordflow">return</span> r * z; };</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        std::transform(r1.begin(), r1.end(), Gf.begin(), Gf.begin(), f5);</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        <span class="comment">// fft back to time domain to get final phase shift</span></div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        Gt.clear();</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        <a class="code" href="../../d8/de0/namespacefft.html#abf17de86632e9d1624635de461dbcd4f">fft::ifft</a>(Gf, Gt);</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        t.resize(nt);</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        <a class="code" href="../../df/d6d/namespacemymath.html#ae6f0d1529ee101163ab6f5a40dd268f4">mymath::linspace</a>(t.data(), 0, nt * dt, nt);</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        <span class="keyword">auto</span> f6 = [](complex_t z) { <span class="keywordflow">return</span> z.real(); };</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        dphi.resize(Gt.size());</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        std::transform(Gt.begin(), Gt.end(), dphi.begin(), f6);</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    }</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;}</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;</div>
-<div class="line"><a name="l00149"></a><span class="lineno"><a class="code" href="../../da/dd4/classPhaseNoise.html#a4b91d368fd528a3490aec73cbdb0dd53">  149</a></span>&#160;<a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> <a class="code" href="../../da/dd4/classPhaseNoise.html#a4b91d368fd528a3490aec73cbdb0dd53">PhaseNoise::spectrum_generation</a>(<span class="keywordtype">int</span> k, <span class="keywordtype">int</span> nt, <span class="keywordtype">double</span> df, <span class="keywordtype">double</span> ampl,</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> freq,</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <a class="code" href="../../da/dd4/classPhaseNoise.html#aeecdda7739ac1c11a18927ea7b1f9cd3">predistortion_t</a> predistortion)</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;{</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keywordtype">int</span> nmin = std::floor(<a class="code" href="../../da/dd4/classPhaseNoise.html#ab6f63e7bd4ed43bfa07c028246e5d108">fFMin</a> * <a class="code" href="../../da/dd4/classPhaseNoise.html#a58493ee3d76c685485d057bfc02e9120">fFs</a>[k] / df);</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keywordtype">int</span> nmax = std::ceil(<a class="code" href="../../da/dd4/classPhaseNoise.html#a4c83b239863962611b050d044728c9da">fFMax</a> * <a class="code" href="../../da/dd4/classPhaseNoise.html#a58493ee3d76c685485d057bfc02e9120">fFs</a>[k] / df);</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keywordtype">int</span> nf = nt / 2 + 1;</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> spectrum;</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../da/dd4/classPhaseNoise.html#ac9fc6f453d6f90b12168619072788b5c">fPredistortion</a> == predistortion_t::exponential) {</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        spectrum.resize(nmin, 0);</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        <span class="keyword">auto</span> v1 = mymath::arange&lt;double&gt;(0, nmax - nmin + 1);</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        <span class="keyword">auto</span> f1 = [ampl, nmax, nmin](<span class="keywordtype">double</span> x) {</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;            <span class="keywordflow">return</span> ampl * std::exp(std::log(100.0) * x / (nmax - nmin));</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        };</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        std::transform(v1.begin(), v1.end(), v1.begin(), f1);</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        spectrum.insert(spectrum.end(), v1.begin(), v1.end());</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        spectrum.resize(nf, 0);</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="../../da/dd4/classPhaseNoise.html#ac9fc6f453d6f90b12168619072788b5c">fPredistortion</a> == predistortion_t::linear) {</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        spectrum.resize(nmin, 0);</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> v1(nmax - nmin + 1);</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        <a class="code" href="../../df/d6d/namespacemymath.html#ae6f0d1529ee101163ab6f5a40dd268f4">mymath::linspace</a>(v1.data(), 0, ampl, nmax - nmin + 1);</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        spectrum.insert(spectrum.end(), v1.begin(), v1.end());</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        spectrum.resize(nf, 0);</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="../../da/dd4/classPhaseNoise.html#ac9fc6f453d6f90b12168619072788b5c">fPredistortion</a> == predistortion_t::hyperbolic) {</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        spectrum.resize(nmin, 0);</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        <span class="keyword">auto</span> v1 = mymath::arange&lt;double&gt;(nmin, nmax + 1);</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        <span class="keyword">auto</span> f1 = [ampl, nmax, nmin](<span class="keywordtype">double</span> x) {</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;            <span class="keywordflow">return</span> ampl * 1.0 / (1 + 0.99 * (nmin - x) / (nmax - nmin));</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;        };</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        std::transform(v1.begin(), v1.end(), v1.begin(), f1);</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        spectrum.insert(spectrum.end(), v1.begin(), v1.end());</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        spectrum.resize(nf, 0);</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="../../da/dd4/classPhaseNoise.html#ac9fc6f453d6f90b12168619072788b5c">fPredistortion</a> == predistortion_t::weightfunction) {</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        spectrum.resize(nmin, 0);</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        <span class="comment">// frequency relative to fs0</span></div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> frel(&amp;freq[nmin], &amp;freq[nmax + 1]);</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        std::transform(frel.begin(), frel.end(), frel.begin(),</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;                       std::bind2nd(std::divides&lt;double&gt;(), <a class="code" href="../../da/dd4/classPhaseNoise.html#a58493ee3d76c685485d057bfc02e9120">fFs</a>[k]));</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        <span class="comment">// truncate center freqs</span></div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        <span class="keyword">auto</span> f1 = [](<span class="keywordtype">double</span> x) { <span class="keywordflow">return</span> x &gt; 0.999 ? 0.999 : x; };</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        std::transform(frel.begin(), frel.end(), frel.begin(), f1);</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        <span class="comment">// rms bunch length in rad corresponding to 1.2 ns</span></div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        <span class="keyword">auto</span> sigma = 0.754;</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        <span class="keyword">auto</span> gamma = 0.577216;</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;        <span class="keyword">auto</span> <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">pi</a> = <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a>;</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        <span class="keyword">auto</span> f2 = [sigma, gamma, <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">pi</a>](<span class="keywordtype">double</span> x) {</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;            <span class="keyword">auto</span> sigma2 = sigma * sigma;</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;            <span class="keywordflow">return</span> std::pow(4 * <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">pi</a> * x / sigma2, 2) *</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;                   std::exp(-16 * (1 - x) / sigma2) +</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;                   0.25 * pow(1 +</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;                              8 * x / sigma2 *</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;                              std::exp(-8 * (1 - x) / sigma2) *</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;                              (gamma + std::log(8 * (1 - x) / sigma2) +</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;                               8 * (1 - x) / sigma2),</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;                              2);</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;        };</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> factor = ampl / f2(frel[0]);</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; frel.size(); ++i) {</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;            frel[i] = factor * f2(frel[i]);</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;            <span class="comment">// frel[i] *= factor;</span></div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;        }</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;        spectrum.insert(spectrum.end(), frel.begin(), frel.end());</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;        spectrum.resize(nf, 0);</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;        spectrum.resize(nmin, 0);</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        spectrum.resize(nmax + 1, ampl);</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;        spectrum.resize(nf, 0);</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    }</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <span class="keywordflow">return</span> spectrum;</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    <span class="comment">// std::cout &lt;&lt; &quot;mean dphi : &quot; &lt;&lt; mymath::mean(fDphi.data(), fDphi.size())</span></div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    <span class="comment">// &lt;&lt; &quot;\n&quot;;</span></div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    <span class="comment">// std::cout &lt;&lt; &quot;mean dphi : &quot; &lt;&lt; mymath::mean(fDphi.data(), fDphi.size())</span></div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    <span class="comment">// &lt;&lt; &quot;\n&quot;;</span></div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;}</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;</div>
-<div class="line"><a name="l00248"></a><span class="lineno"><a class="code" href="../../db/d7b/classPSBPhaseNoiseInjection.html#a9463896e5d1c2a45e5068c73930571d2">  248</a></span>&#160;<a class="code" href="../../db/d7b/classPSBPhaseNoiseInjection.html#a9463896e5d1c2a45e5068c73930571d2">PSBPhaseNoiseInjection::PSBPhaseNoiseInjection</a>(</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    <span class="keywordtype">double</span> delta_f, <a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> corr_time, <span class="keywordtype">double</span> fmin, <span class="keywordtype">double</span> fmax,</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    <span class="keywordtype">double</span> initial_amplitude, <span class="keywordtype">int</span> seed1, <span class="keywordtype">int</span> seed2,</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    <a class="code" href="../../da/dd4/classPhaseNoise.html#aeecdda7739ac1c11a18927ea7b1f9cd3">predistortion_t</a> predistortion, <a class="code" href="../../db/d7b/classPSBPhaseNoiseInjection.html#a4b0e66ef1359fece1906335f019aba10">rescale_ampl_t</a> rescale_amplitude)</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;{</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    <span class="keyword">auto</span> RfP = <a class="code" href="../../d6/d7a/structContext.html#a48db4fc5c2a199a0c1685dc11f5f0a6f">Context::RfP</a>;</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    <span class="keyword">auto</span> GP = <a class="code" href="../../d6/d7a/structContext.html#a0a2469a256c098797644d0ec49a8e430">Context::GP</a>;</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    <a class="code" href="../../db/d7b/classPSBPhaseNoiseInjection.html#af91f81c94f7f49a883c2a4e9d9acfbb6">fDeltaF</a> = delta_f;</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    <a class="code" href="../../da/dd4/classPhaseNoise.html#ab6b1c5459deea7405e517117db01b817">fCorr</a> = corr_time;</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    <a class="code" href="../../da/dd4/classPhaseNoise.html#ab6f63e7bd4ed43bfa07c028246e5d108">fFMin</a> = fmin;</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    <a class="code" href="../../da/dd4/classPhaseNoise.html#a4c83b239863962611b050d044728c9da">fFMax</a> = fmax;</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    <a class="code" href="../../da/dd4/classPhaseNoise.html#a658cb606e753d851c0cc0420197666c0">fAi</a> = initial_amplitude;</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    <a class="code" href="../../da/dd4/classPhaseNoise.html#ac9fc6f453d6f90b12168619072788b5c">fPredistortion</a> = predistortion;</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    <a class="code" href="../../da/dd4/classPhaseNoise.html#a65c3921e83baf32ddb1caf4a03a00c1b">fSeed1</a> = seed1;</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    <a class="code" href="../../da/dd4/classPhaseNoise.html#adfa1b59149033badc7f9c770d807f877">fSeed2</a> = seed2;</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    <a class="code" href="../../da/dd4/classPhaseNoise.html#aeccd59ac56cb37893140103f8d4c0e47">fNTurns</a> = GP-&gt;n_turns;</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;    <a class="code" href="../../da/dd4/classPhaseNoise.html#a3098fbc4047e37cde6a9303dd65b6ffc">fDphi</a>.resize(<a class="code" href="../../da/dd4/classPhaseNoise.html#aeccd59ac56cb37893140103f8d4c0e47">fNTurns</a> + 1, 0);</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    <a class="code" href="../../db/d7b/classPSBPhaseNoiseInjection.html#a438748e939be754d085ed8e2c5194878">fRescaleAmpl</a> = rescale_amplitude;</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    <a class="code" href="../../da/dd4/classPhaseNoise.html#a58493ee3d76c685485d057bfc02e9120">fFs</a>.resize(RfP-&gt;omega_s0.size());</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    std::transform(RfP-&gt;omega_s0.begin(), RfP-&gt;omega_s0.end(), <a class="code" href="../../da/dd4/classPhaseNoise.html#a58493ee3d76c685485d057bfc02e9120">fFs</a>.begin(),</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;                   std::bind2nd(std::divides&lt;double&gt;(), 2 * <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a>));</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;}</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;</div>
-<div class="line"><a name="l00273"></a><span class="lineno"><a class="code" href="../../db/d7b/classPSBPhaseNoiseInjection.html#ac78e5778d08ef323bbd8d1fd5d63c491">  273</a></span>&#160;<a class="code" href="../../db/d7b/classPSBPhaseNoiseInjection.html#ac78e5778d08ef323bbd8d1fd5d63c491">PSBPhaseNoiseInjection::~PSBPhaseNoiseInjection</a>() { <a class="code" href="../../d8/de0/namespacefft.html#a912305da2a5cea6ffdb34f36fc27169f">fft::destroy_plans</a>(); }</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;</div>
-<div class="line"><a name="l00275"></a><span class="lineno"><a class="code" href="../../db/d7b/classPSBPhaseNoiseInjection.html#a0afaaacc5c71047473edfcf7613f6f6f">  275</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../db/d7b/classPSBPhaseNoiseInjection.html#a0afaaacc5c71047473edfcf7613f6f6f">PSBPhaseNoiseInjection::generate</a>()</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;{</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    <span class="keyword">auto</span> GP = <a class="code" href="../../d6/d7a/structContext.html#a0a2469a256c098797644d0ec49a8e430">Context::GP</a>;</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; <a class="code" href="../../da/dd4/classPhaseNoise.html#aeccd59ac56cb37893140103f8d4c0e47">fNTurns</a> / <a class="code" href="../../da/dd4/classPhaseNoise.html#ab6b1c5459deea7405e517117db01b817">fCorr</a>; ++i) {</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;        <span class="comment">// Scale amplitude to keep area (phase noise amplitude) constant</span></div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> k = i * <a class="code" href="../../da/dd4/classPhaseNoise.html#ab6b1c5459deea7405e517117db01b817">fCorr</a>; <span class="comment">// Current time step</span></div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;        <span class="keywordtype">double</span> f_max = GP-&gt;f_rev[k] / 2;</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;        <span class="keywordtype">double</span> f_s0 = <a class="code" href="../../da/dd4/classPhaseNoise.html#a58493ee3d76c685485d057bfc02e9120">fFs</a>[k];</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;        <span class="keywordtype">int</span> n_points_pos_f_incl_zero = (int)(f_max / <a class="code" href="../../db/d7b/classPSBPhaseNoiseInjection.html#af91f81c94f7f49a883c2a4e9d9acfbb6">fDeltaF</a>) + 2;</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;        <span class="keywordtype">int</span> nt = 2 * (n_points_pos_f_incl_zero - 1);</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;        nt = <a class="code" href="../../df/d6d/namespacemymath.html#accbb9ef1f97a6dca6e5fb46dc038130a">mymath::next_regular</a>(nt);</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;        n_points_pos_f_incl_zero = nt / 2 + 1;</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;        <span class="keywordtype">double</span> df = f_max / (n_points_pos_f_incl_zero - 1);</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;        <span class="keywordtype">double</span> ampl = 0.0;</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="../../db/d7b/classPSBPhaseNoiseInjection.html#a438748e939be754d085ed8e2c5194878">fRescaleAmpl</a> == rescale_ampl_t::with_sync_freq)</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;            ampl = <a class="code" href="../../da/dd4/classPhaseNoise.html#a658cb606e753d851c0cc0420197666c0">fAi</a> * <a class="code" href="../../da/dd4/classPhaseNoise.html#a58493ee3d76c685485d057bfc02e9120">fFs</a>[0] / f_s0;</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="../../db/d7b/classPSBPhaseNoiseInjection.html#a438748e939be754d085ed8e2c5194878">fRescaleAmpl</a> == rescale_ampl_t::no_scaling)</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;            ampl = <a class="code" href="../../da/dd4/classPhaseNoise.html#a658cb606e753d851c0cc0420197666c0">fAi</a>;</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;        <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;            std::cerr &lt;&lt; <span class="stringliteral">&quot;ERROR: Illegal Value\n&quot;</span></div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;                      &lt;&lt; <span class="stringliteral">&quot;fRescaleAmpl should be one of &quot;</span></div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;                      &lt;&lt; <span class="stringliteral">&quot;with_sync_freq or no_scaling\n&quot;</span>;</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;        }</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> freq(n_points_pos_f_incl_zero);</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;        <a class="code" href="../../df/d6d/namespacemymath.html#ae6f0d1529ee101163ab6f5a40dd268f4">mymath::linspace</a>(freq.data(), 0, f_max, n_points_pos_f_incl_zero);</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;        <span class="keyword">auto</span> spectrum =</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;            <a class="code" href="../../da/dd4/classPhaseNoise.html#a4b91d368fd528a3490aec73cbdb0dd53">spectrum_generation</a>(k, nt, df, ampl, freq, <a class="code" href="../../da/dd4/classPhaseNoise.html#ac9fc6f453d6f90b12168619072788b5c">fPredistortion</a>);</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> noise_t, noise_dphi;</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;        <a class="code" href="../../da/dd4/classPhaseNoise.html#a5b9bb8a443851f55cd0845608c35112f">spectrum_to_phase_noise</a>(noise_t, noise_dphi, freq, spectrum);</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;        <a class="code" href="../../da/dd4/classPhaseNoise.html#a65c3921e83baf32ddb1caf4a03a00c1b">fSeed1</a> += 239;</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;        <a class="code" href="../../da/dd4/classPhaseNoise.html#adfa1b59149033badc7f9c770d807f877">fSeed2</a> += 158;</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;        <span class="comment">// Fill phase noise array</span></div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;        <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> kmax =</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;            i &lt; <a class="code" href="../../da/dd4/classPhaseNoise.html#aeccd59ac56cb37893140103f8d4c0e47">fNTurns</a> / fCorr - 1 ? (i + 1) * fCorr : <a class="code" href="../../da/dd4/classPhaseNoise.html#aeccd59ac56cb37893140103f8d4c0e47">fNTurns</a> + 1;</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;        std::copy(noise_dphi.begin(), noise_dphi.begin() + kmax - k,</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;                  <a class="code" href="../../da/dd4/classPhaseNoise.html#a3098fbc4047e37cde6a9303dd65b6ffc">fDphi</a>.begin() + k);</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;        <span class="keyword">auto</span> rms_noise =</div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;            <a class="code" href="../../df/d6d/namespacemymath.html#aa50ebf887bdf0acc40e9d54519351de6">mymath::standard_deviation</a>(noise_dphi.data(), noise_dphi.size());</div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;        <span class="comment">// std::cout &lt;&lt; &quot;RF noise for time step &quot; &lt;&lt; noise_t[1]</span></div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;        <span class="comment">//           &lt;&lt; &quot; s (iter &quot; &lt;&lt; i &lt;&lt; &quot;) has r.m.s phase &quot;</span></div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;        <span class="comment">//           &lt;&lt; rms_noise &lt;&lt; &quot; rad (&quot; &lt;&lt; rms_noise * 180 / constant::pi</span></div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;        <span class="comment">//           &lt;&lt; &quot; deg)\n&quot;;</span></div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    }</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;}</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;</div>
-<div class="line"><a name="l00332"></a><span class="lineno"><a class="code" href="../../d5/d73/classLHCFlatSpectrum.html#a4bd1971d5cd4e04f0f299ad189b64b99">  332</a></span>&#160;<a class="code" href="../../d5/d73/classLHCFlatSpectrum.html#a4bd1971d5cd4e04f0f299ad189b64b99">LHCFlatSpectrum::LHCFlatSpectrum</a>(<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> time_points, <a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> corr_time, <span class="keywordtype">double</span> fmin,</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;                                 <span class="keywordtype">double</span> fmax, <span class="keywordtype">double</span> initial_amplitude, <span class="keywordtype">int</span> seed1,</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;                                 <span class="keywordtype">int</span> seed2, <a class="code" href="../../da/dd4/classPhaseNoise.html#aeecdda7739ac1c11a18927ea7b1f9cd3">predistortion_t</a> predistortion)</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;{</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    <span class="keyword">auto</span> RfP = <a class="code" href="../../d6/d7a/structContext.html#a48db4fc5c2a199a0c1685dc11f5f0a6f">Context::RfP</a>;</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    <span class="keyword">auto</span> GP = <a class="code" href="../../d6/d7a/structContext.html#a0a2469a256c098797644d0ec49a8e430">Context::GP</a>;</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;</div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;    <a class="code" href="../../d5/d73/classLHCFlatSpectrum.html#a08df6998845a67611e4819fd10180bbc">fNt</a> = time_points;</div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;    <a class="code" href="../../da/dd4/classPhaseNoise.html#ab6b1c5459deea7405e517117db01b817">fCorr</a> = corr_time;</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;    <a class="code" href="../../da/dd4/classPhaseNoise.html#ab6f63e7bd4ed43bfa07c028246e5d108">fFMin</a> = fmin;</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;    <a class="code" href="../../da/dd4/classPhaseNoise.html#a4c83b239863962611b050d044728c9da">fFMax</a> = fmax;</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;    <a class="code" href="../../da/dd4/classPhaseNoise.html#a658cb606e753d851c0cc0420197666c0">fAi</a> = initial_amplitude;</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    <a class="code" href="../../da/dd4/classPhaseNoise.html#ac9fc6f453d6f90b12168619072788b5c">fPredistortion</a> = predistortion;</div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;    <a class="code" href="../../da/dd4/classPhaseNoise.html#a65c3921e83baf32ddb1caf4a03a00c1b">fSeed1</a> = seed1;</div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    <a class="code" href="../../da/dd4/classPhaseNoise.html#adfa1b59149033badc7f9c770d807f877">fSeed2</a> = seed2;</div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    <a class="code" href="../../da/dd4/classPhaseNoise.html#aeccd59ac56cb37893140103f8d4c0e47">fNTurns</a> = GP-&gt;n_turns;</div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    <a class="code" href="../../da/dd4/classPhaseNoise.html#a3098fbc4047e37cde6a9303dd65b6ffc">fDphi</a>.resize(<a class="code" href="../../da/dd4/classPhaseNoise.html#aeccd59ac56cb37893140103f8d4c0e47">fNTurns</a> + 1, 0);</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../da/dd4/classPhaseNoise.html#ac9fc6f453d6f90b12168619072788b5c">fPredistortion</a> != predistortion_t::predistortion_none) {</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;        <span class="comment">// Overwrite frequencies</span></div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;        <a class="code" href="../../da/dd4/classPhaseNoise.html#ab6f63e7bd4ed43bfa07c028246e5d108">fFMin</a> = 0.8571;</div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;        <a class="code" href="../../da/dd4/classPhaseNoise.html#a4c83b239863962611b050d044728c9da">fFMax</a> = 1.001;</div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;    }</div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;</div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../d5/d73/classLHCFlatSpectrum.html#a08df6998845a67611e4819fd10180bbc">fNt</a> &lt; 2 * <a class="code" href="../../da/dd4/classPhaseNoise.html#ab6b1c5459deea7405e517117db01b817">fCorr</a>) {</div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;        std::cerr &lt;&lt; <span class="stringliteral">&quot;ERROR: Need more time point in LHCFlatSpectrum.\n&quot;</span>;</div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;        exit(-1);</div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;    }</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;</div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;    <span class="comment">// Synchrotron frequency array</span></div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;    <span class="keyword">auto</span> phis =  RfP-&gt;calc_phi_s(RfP, RfParameters::acc_sys_t::as_single);</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;</div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;    <a class="code" href="../../da/dd4/classPhaseNoise.html#a58493ee3d76c685485d057bfc02e9120">fFs</a>.resize(phis.size());</div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;</div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; <a class="code" href="../../da/dd4/classPhaseNoise.html#a58493ee3d76c685485d057bfc02e9120">fFs</a>.size(); ++i) {</div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;        <a class="code" href="../../da/dd4/classPhaseNoise.html#a58493ee3d76c685485d057bfc02e9120">fFs</a>[i] =</div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;            <a class="code" href="../../da/db5/namespaceconstant.html#a2ba393c8a725b9748a9fce5138d53dd8">constant::c</a> / GP-&gt;ring_circumference *</div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;            std::sqrt(RfP-&gt;harmonic[RfP-&gt;section_index][i]</div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;                      * RfP-&gt;voltage[RfP-&gt;section_index][i] *</div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;                      std::abs(RfP-&gt;eta_0[i] * std::cos(phis[i])) /</div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;                      (2 * <a class="code" href="../../da/db5/namespaceconstant.html#a93052d01dc3e88afa6842aa27ec94a47">constant::pi</a> * RfP-&gt;energy[i]));</div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;    }</div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;}</div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;</div>
-<div class="line"><a name="l00376"></a><span class="lineno"><a class="code" href="../../d5/d73/classLHCFlatSpectrum.html#ac24edacc54fd9c4138cd13059c6f0bbf">  376</a></span>&#160;<a class="code" href="../../d5/d73/classLHCFlatSpectrum.html#ac24edacc54fd9c4138cd13059c6f0bbf">LHCFlatSpectrum::~LHCFlatSpectrum</a>() { <a class="code" href="../../d8/de0/namespacefft.html#a912305da2a5cea6ffdb34f36fc27169f">fft::destroy_plans</a>(); }</div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;</div>
-<div class="line"><a name="l00378"></a><span class="lineno"><a class="code" href="../../d5/d73/classLHCFlatSpectrum.html#a2c1a3a410f3213af74e4839aaa560e80">  378</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d5/d73/classLHCFlatSpectrum.html#a2c1a3a410f3213af74e4839aaa560e80">LHCFlatSpectrum::generate</a>()</div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;{</div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;</div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;    <span class="keyword">auto</span> GP = <a class="code" href="../../d6/d7a/structContext.html#a0a2469a256c098797644d0ec49a8e430">Context::GP</a>;</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; <a class="code" href="../../da/dd4/classPhaseNoise.html#aeccd59ac56cb37893140103f8d4c0e47">fNTurns</a> / <a class="code" href="../../da/dd4/classPhaseNoise.html#ab6b1c5459deea7405e517117db01b817">fCorr</a>; ++i) {</div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;</div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;        <span class="comment">// Scale amplitude to keep area (phase noise amplitude) constant</span></div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;        <span class="keywordtype">int</span> k = i * <a class="code" href="../../da/dd4/classPhaseNoise.html#ab6b1c5459deea7405e517117db01b817">fCorr</a>; <span class="comment">// Current time step</span></div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;        <span class="keyword">auto</span> ampl = <a class="code" href="../../da/dd4/classPhaseNoise.html#a658cb606e753d851c0cc0420197666c0">fAi</a> * <a class="code" href="../../da/dd4/classPhaseNoise.html#a58493ee3d76c685485d057bfc02e9120">fFs</a>[0] / <a class="code" href="../../da/dd4/classPhaseNoise.html#a58493ee3d76c685485d057bfc02e9120">fFs</a>[k];</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;</div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;        <span class="comment">// Calculate the frequency step</span></div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;        <span class="keywordtype">int</span> nf = <a class="code" href="../../d5/d73/classLHCFlatSpectrum.html#a08df6998845a67611e4819fd10180bbc">fNt</a> / 2 + 1; <span class="comment">// #points in frequency domain</span></div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;        <span class="keywordtype">double</span> df = GP-&gt;f_rev[k] / <a class="code" href="../../d5/d73/classLHCFlatSpectrum.html#a08df6998845a67611e4819fd10180bbc">fNt</a>;</div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;</div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> freq(nf);</div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;        <a class="code" href="../../df/d6d/namespacemymath.html#ae6f0d1529ee101163ab6f5a40dd268f4">mymath::linspace</a>(freq.data(), 0, nf * df, nf);</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;</div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;        <span class="keyword">auto</span> spectrum =</div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;            <a class="code" href="../../da/dd4/classPhaseNoise.html#a4b91d368fd528a3490aec73cbdb0dd53">spectrum_generation</a>(k, <a class="code" href="../../d5/d73/classLHCFlatSpectrum.html#a08df6998845a67611e4819fd10180bbc">fNt</a>, df, ampl, freq, <a class="code" href="../../da/dd4/classPhaseNoise.html#ac9fc6f453d6f90b12168619072788b5c">fPredistortion</a>);</div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;</div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;        <a class="code" href="../../d2/d2c/configuration_8h.html#a887c9a409a3dc14951813c169aaa4723">f_vector_t</a> noise_t, noise_dphi;</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;        <a class="code" href="../../da/dd4/classPhaseNoise.html#a5b9bb8a443851f55cd0845608c35112f">spectrum_to_phase_noise</a>(noise_t, noise_dphi, freq, spectrum);</div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;</div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;        <span class="comment">// spectrum_to_phase_noise();</span></div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;        <a class="code" href="../../da/dd4/classPhaseNoise.html#a65c3921e83baf32ddb1caf4a03a00c1b">fSeed1</a> += 239;</div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;        <a class="code" href="../../da/dd4/classPhaseNoise.html#adfa1b59149033badc7f9c770d807f877">fSeed2</a> += 158;</div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;</div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;        <span class="comment">// Fill phase noise array</span></div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;</div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;        <span class="keyword">const</span> <a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> kmax =</div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;            i &lt; <a class="code" href="../../da/dd4/classPhaseNoise.html#aeccd59ac56cb37893140103f8d4c0e47">fNTurns</a> / fCorr - 1 ? (i + 1) * fCorr : <a class="code" href="../../da/dd4/classPhaseNoise.html#aeccd59ac56cb37893140103f8d4c0e47">fNTurns</a> + 1;</div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;</div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d2/d2c/configuration_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> i = 0; i &lt; kmax - k; ++i)</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;            <a class="code" href="../../da/dd4/classPhaseNoise.html#a3098fbc4047e37cde6a9303dd65b6ffc">fDphi</a>[i + k] = noise_dphi[i];</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;</div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;        <span class="keyword">auto</span> rms_noise =</div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;            <a class="code" href="../../df/d6d/namespacemymath.html#aa50ebf887bdf0acc40e9d54519351de6">mymath::standard_deviation</a>(noise_dphi.data(), noise_dphi.size());</div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;</div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;        <span class="comment">// std::cout &lt;&lt; &quot;RF noise for time step &quot; &lt;&lt; noise_t[1]</span></div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;        <span class="comment">//           &lt;&lt; &quot; s (iter &quot; &lt;&lt; i &lt;&lt; &quot;) has r.m.s phase &quot;</span></div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;        <span class="comment">//           &lt;&lt; rms_noise &lt;&lt; &quot; rad (&quot; &lt;&lt; rms_noise * 180 / constant::pi</span></div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;        <span class="comment">//           &lt;&lt; &quot; deg)\n&quot;;</span></div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;    }</div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;}</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">using namespace </span>blond;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a5b9bb8a443851f55cd0845608c35112f">   18</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a5b9bb8a443851f55cd0845608c35112f">PhaseNoise::spectrum_to_phase_noise</a>(<a class="code" href="../../d5/d60/namespaceblond.html#aad6870f98ad5af5f55842d0056cd642f">f_vector_t</a> &amp;t, <a class="code" href="../../d5/d60/namespaceblond.html#aad6870f98ad5af5f55842d0056cd642f">f_vector_t</a> &amp;dphi,</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keyword">const</span> <a class="code" href="../../d5/d60/namespaceblond.html#aad6870f98ad5af5f55842d0056cd642f">f_vector_t</a> &amp;freq_array,</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="keyword">const</span> <a class="code" href="../../d5/d60/namespaceblond.html#aad6870f98ad5af5f55842d0056cd642f">f_vector_t</a> &amp;ReS,</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#adfbb7577fe27d71af253ff90d1050311">PhaseNoise::transform_t</a> transform)</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="comment">// Resolution in time domain</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> ReSLen = ReS.size();</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> f_max = freq_array.back();</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="../../d5/d60/namespaceblond.html#a3a3441e4b5ea5b282d5b74fd13719508">uint</a> nt = 0;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="../../d5/d60/namespaceblond.html#a3a3441e4b5ea5b282d5b74fd13719508">uint</a> dt = 0;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">if</span> (transform == transform_t::transform_none ||</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            transform == transform_t::r) {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        nt = 2 * (ReSLen - 1);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        dt = 1 / (2 * f_max);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (transform == <a class="code" href="../../da/dc2/namespaceblond_1_1constant.html#aad8e110eaa8d12e52efcb06f5ea56869">transform_t::c</a>) {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        nt = ReSLen;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        dt = 1 / f_max;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        std::cerr &lt;&lt; <span class="stringliteral">&quot;ERROR: The choise of Fourier transform for the\n&quot;</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                  &lt;&lt; <span class="stringliteral">&quot;RF noise generation could not be recognized.\n&quot;</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                  &lt;&lt; <span class="stringliteral">&quot;Use &#39;r&#39; or &#39;c&#39;.\n&quot;</span>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        exit(-1);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    }</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="comment">// Generate white noise in time domain</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="../../d5/d60/namespaceblond.html#aad6870f98ad5af5f55842d0056cd642f">f_vector_t</a> r1(nt);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="../../d5/d60/namespaceblond.html#aad6870f98ad5af5f55842d0056cd642f">f_vector_t</a> r2(nt);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#abe30ab0a088187d92f5bbcdd2214c007">fSeed1</a> &lt; 0 || <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a4366fe7d18fcfb7b221c1a0b6d5d2c04">fSeed2</a> &lt; 0) {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <a class="code" href="../../d5/d60/namespaceblond.html#aad6870f98ad5af5f55842d0056cd642f">f_vector_t</a> random;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="comment">// std::string home = util::GETENV(&quot;TEST_FILES&quot;);</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <a class="code" href="../../d1/d4f/namespaceblond_1_1util.html#ab7e29d91c565fb8da44221d3a0bf9fa4">util::read_vector_from_file</a>(random, TEST_FILES <span class="stringliteral">&quot;/normal_distribution.dat&quot;</span>);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d5/d60/namespaceblond.html#a3a3441e4b5ea5b282d5b74fd13719508">uint</a> i = 0; i &lt; r1.size(); i++) {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            r1[i] = random[(2 * i) % random.size()];</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            r2[i] = random[(2 * i + 1) % random.size()];</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        }</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        std::default_random_engine gen(<a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#abe30ab0a088187d92f5bbcdd2214c007">fSeed1</a>);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        std::uniform_real_distribution&lt;&gt; dist(0, 1);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;v : r1) v = dist(gen);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        gen.seed(<a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a4366fe7d18fcfb7b221c1a0b6d5d2c04">fSeed2</a>);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;v : r2) v = dist(gen);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    }</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">if</span> (transform == transform_t::transform_none ||</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            transform == transform_t::r) {</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <a class="code" href="../../d5/d60/namespaceblond.html#aad6870f98ad5af5f55842d0056cd642f">f_vector_t</a> Gt(nt);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keyword">auto</span> factor = 2 * <a class="code" href="../../da/dc2/namespaceblond_1_1constant.html#aa3199cd7b69a4bda67fc39de2d7bfcef">constant::pi</a>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keyword">auto</span> f1 = [factor](<span class="keywordtype">double</span> x) { <span class="keywordflow">return</span> std::cos(factor * x); };</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        std::transform(r1.begin(), r1.end(), r1.begin(), f1);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keyword">auto</span> f2 = [](<span class="keywordtype">double</span> x) { <span class="keywordflow">return</span> std::sqrt(-2 * std::log(x)); };</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        std::transform(r2.begin(), r2.end(), r2.begin(), f2);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        std::transform(r1.begin(), r1.end(), r2.begin(), Gt.begin(),</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                       std::multiplies&lt;double&gt;());</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="comment">// FFT to frequency domain</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <a class="code" href="../../d5/d60/namespaceblond.html#a3d4bacb26a50f341fbe486783128db3e">complex_vector_t</a> Gf;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <a class="code" href="../../d3/d4e/namespaceblond_1_1fft.html#aab55a4741fafe3a1bbbce2db72a7930c">fft::rfft</a>(Gt, Gf);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="comment">// Multiply by desired noise probability density</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        factor = 2 * f_max;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keyword">auto</span> f3 = [factor](<span class="keywordtype">double</span> x) { <span class="keywordflow">return</span> std::sqrt(factor * x); };</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        r1.resize(ReS.size());</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        std::transform(ReS.begin(), ReS.end(), r1.begin(), f3);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keyword">auto</span> f4 = [](<span class="keywordtype">double</span> <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#adfbb7577fe27d71af253ff90d1050311a94028dc0e1f9a53a6caca4493eddb4b0">r</a>, <a class="code" href="../../d5/d60/namespaceblond.html#a9bd5bb3cb96c543ccacdf250a7a7ede9">complex_t</a> z) { <span class="keywordflow">return</span> r * z; };</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        std::transform(r1.begin(), r1.end(), Gf.begin(), Gf.begin(), f4);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="comment">// fft back to time domain to get final phase shift</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        Gt.clear();</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <a class="code" href="../../d3/d4e/namespaceblond_1_1fft.html#af47bde766cda6e8d4d10abe619840306">fft::irfft</a>(Gf, Gt);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="comment">// Use only real part of the phase shift and normalize</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        t.resize(nt);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <a class="code" href="../../dc/d3e/namespaceblond_1_1mymath.html#ae19d9e56b0b93999a2cddc979cbbc4c7">mymath::linspace</a>(t.data(), 0, nt * dt, nt);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keyword">auto</span> f6 = [](<a class="code" href="../../d5/d60/namespaceblond.html#a9bd5bb3cb96c543ccacdf250a7a7ede9">complex_t</a> z) { <span class="keywordflow">return</span> z.real(); };</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        dphi.resize(Gt.size());</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        std::transform(Gt.begin(), Gt.end(), dphi.begin(), f6);</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (transform == <a class="code" href="../../da/dc2/namespaceblond_1_1constant.html#aad8e110eaa8d12e52efcb06f5ea56869">transform_t::c</a>) {</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <a class="code" href="../../d5/d60/namespaceblond.html#a3d4bacb26a50f341fbe486783128db3e">complex_vector_t</a> Gt(nt);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="keyword">const</span> <a class="code" href="../../d5/d60/namespaceblond.html#a9bd5bb3cb96c543ccacdf250a7a7ede9">complex_t</a> factor = 2 * <a class="code" href="../../da/dc2/namespaceblond_1_1constant.html#aa3199cd7b69a4bda67fc39de2d7bfcef">constant::pi</a> * <a class="code" href="../../d5/d60/namespaceblond.html#a9bd5bb3cb96c543ccacdf250a7a7ede9">complex_t</a>(0, 1);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keyword">auto</span> f1 = [factor](<span class="keywordtype">double</span> x) { <span class="keywordflow">return</span> std::exp(factor * x); };</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        std::transform(r1.begin(), r1.end(), Gt.begin(), f1);</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keyword">auto</span> f2 = [](<span class="keywordtype">double</span> x) { <span class="keywordflow">return</span> std::sqrt(-2 * std::log(x)); };</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        std::transform(r2.begin(), r2.end(), r2.begin(), f2);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="keyword">auto</span> f3 = [](complex_t a, <span class="keywordtype">double</span> b) { <span class="keywordflow">return</span> a * b; };</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        std::transform(Gt.begin(), Gt.end(), r2.begin(), Gt.begin(), f3);</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <span class="comment">// FFT to frequency domain</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <a class="code" href="../../d5/d60/namespaceblond.html#a3d4bacb26a50f341fbe486783128db3e">complex_vector_t</a> Gf;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <a class="code" href="../../d3/d4e/namespaceblond_1_1fft.html#a0910435f734bc58c834c412ef06cdade">fft::fft</a>(Gt, Gf);</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        <span class="comment">// Multiply by desired noise probability density</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        <span class="keyword">auto</span> factor2 = f_max;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        <span class="keyword">auto</span> f4 = [factor2](<span class="keywordtype">double</span> x) { <span class="keywordflow">return</span> std::sqrt(factor2 * x); };</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        r1.resize(ReS.size());</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        std::transform(ReS.begin(), ReS.end(), r1.begin(), f4);</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        <span class="keyword">auto</span> f5 = [](<span class="keywordtype">double</span> <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#adfbb7577fe27d71af253ff90d1050311a94028dc0e1f9a53a6caca4493eddb4b0">r</a>, complex_t z) { <span class="keywordflow">return</span> r * z; };</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        std::transform(r1.begin(), r1.end(), Gf.begin(), Gf.begin(), f5);</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        <span class="comment">// fft back to time domain to get final phase shift</span></div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        Gt.clear();</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        <a class="code" href="../../d3/d4e/namespaceblond_1_1fft.html#aa8add91c70bc4dd5be3a56f08ddb05e7">fft::ifft</a>(Gf, Gt);</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        t.resize(nt);</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        <a class="code" href="../../dc/d3e/namespaceblond_1_1mymath.html#ae19d9e56b0b93999a2cddc979cbbc4c7">mymath::linspace</a>(t.data(), 0, nt * dt, nt);</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        <span class="keyword">auto</span> f6 = [](complex_t z) { <span class="keywordflow">return</span> z.real(); };</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        dphi.resize(Gt.size());</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        std::transform(Gt.begin(), Gt.end(), dphi.begin(), f6);</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    }</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;}</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;</div>
+<div class="line"><a name="l00150"></a><span class="lineno"><a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a4b91d368fd528a3490aec73cbdb0dd53">  150</a></span>&#160;<a class="code" href="../../d5/d60/namespaceblond.html#aad6870f98ad5af5f55842d0056cd642f">f_vector_t</a> <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a4b91d368fd528a3490aec73cbdb0dd53">PhaseNoise::spectrum_generation</a>(<span class="keywordtype">int</span> k, <span class="keywordtype">int</span> nt, <span class="keywordtype">double</span> df, <span class="keywordtype">double</span> ampl,</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <a class="code" href="../../d5/d60/namespaceblond.html#aad6870f98ad5af5f55842d0056cd642f">f_vector_t</a> freq,</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#aab8df5eab8d50c0b3a739f4932ac4d93">predistortion_t</a> predistortion)</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;{</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keywordtype">int</span> nmin = std::floor(<a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#accb89580d9b1b56146125855b7d95544">fFMin</a> * <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#ada73d7c32dd776e99c88fc7f08331bb0">fFs</a>[k] / df);</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keywordtype">int</span> nmax = std::ceil(<a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a80428c564ce625d7376d6a3307cc9ab7">fFMax</a> * <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#ada73d7c32dd776e99c88fc7f08331bb0">fFs</a>[k] / df);</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordtype">int</span> nf = nt / 2 + 1;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <a class="code" href="../../d5/d60/namespaceblond.html#aad6870f98ad5af5f55842d0056cd642f">f_vector_t</a> spectrum;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a602e42e89e6fdd93802eb791ffa56984">fPredistortion</a> == predistortion_t::exponential) {</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        spectrum.resize(nmin, 0);</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        <span class="keyword">auto</span> v1 = mymath::arange&lt;double&gt;(0, nmax - nmin + 1);</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        <span class="keyword">auto</span> f1 = [ampl, nmax, nmin](<span class="keywordtype">double</span> x) {</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;            <span class="keywordflow">return</span> ampl * std::exp(std::log(100.0) * x / (nmax - nmin));</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        };</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        std::transform(v1.begin(), v1.end(), v1.begin(), f1);</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        spectrum.insert(spectrum.end(), v1.begin(), v1.end());</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        spectrum.resize(nf, 0);</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a602e42e89e6fdd93802eb791ffa56984">fPredistortion</a> == predistortion_t::linear) {</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        spectrum.resize(nmin, 0);</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        <a class="code" href="../../d5/d60/namespaceblond.html#aad6870f98ad5af5f55842d0056cd642f">f_vector_t</a> v1(nmax - nmin + 1);</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        <a class="code" href="../../dc/d3e/namespaceblond_1_1mymath.html#ae19d9e56b0b93999a2cddc979cbbc4c7">mymath::linspace</a>(v1.data(), 0, ampl, nmax - nmin + 1);</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        spectrum.insert(spectrum.end(), v1.begin(), v1.end());</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        spectrum.resize(nf, 0);</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a602e42e89e6fdd93802eb791ffa56984">fPredistortion</a> == predistortion_t::hyperbolic) {</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        spectrum.resize(nmin, 0);</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        <span class="keyword">auto</span> v1 = mymath::arange&lt;double&gt;(nmin, nmax + 1);</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;        <span class="keyword">auto</span> f1 = [ampl, nmax, nmin](<span class="keywordtype">double</span> x) {</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;            <span class="keywordflow">return</span> ampl * 1.0 / (1 + 0.99 * (nmin - x) / (nmax - nmin));</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        };</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        std::transform(v1.begin(), v1.end(), v1.begin(), f1);</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        spectrum.insert(spectrum.end(), v1.begin(), v1.end());</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        spectrum.resize(nf, 0);</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a602e42e89e6fdd93802eb791ffa56984">fPredistortion</a> == predistortion_t::weightfunction) {</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;        spectrum.resize(nmin, 0);</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        <span class="comment">// frequency relative to fs0</span></div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        <a class="code" href="../../d5/d60/namespaceblond.html#aad6870f98ad5af5f55842d0056cd642f">f_vector_t</a> frel(&amp;freq[nmin], &amp;freq[nmax + 1]);</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        std::transform(frel.begin(), frel.end(), frel.begin(),</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;                       std::bind2nd(std::divides&lt;double&gt;(), <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#ada73d7c32dd776e99c88fc7f08331bb0">fFs</a>[k]));</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        <span class="comment">// truncate center freqs</span></div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        <span class="keyword">auto</span> f1 = [](<span class="keywordtype">double</span> x) { <span class="keywordflow">return</span> x &gt; 0.999 ? 0.999 : x; };</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        std::transform(frel.begin(), frel.end(), frel.begin(), f1);</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        <span class="comment">// rms bunch length in rad corresponding to 1.2 ns</span></div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        <span class="keyword">auto</span> sigma = 0.754;</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;        <span class="keyword">auto</span> gamma = 0.577216;</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        <span class="keyword">auto</span> <a class="code" href="../../da/dc2/namespaceblond_1_1constant.html#aa3199cd7b69a4bda67fc39de2d7bfcef">pi</a> = <a class="code" href="../../da/dc2/namespaceblond_1_1constant.html#aa3199cd7b69a4bda67fc39de2d7bfcef">constant::pi</a>;</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;        <span class="keyword">auto</span> f2 = [sigma, gamma, <a class="code" href="../../da/dc2/namespaceblond_1_1constant.html#aa3199cd7b69a4bda67fc39de2d7bfcef">pi</a>](<span class="keywordtype">double</span> x) {</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;            <span class="keyword">auto</span> sigma2 = sigma * sigma;</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;            <span class="keywordflow">return</span> std::pow(4 * <a class="code" href="../../da/dc2/namespaceblond_1_1constant.html#aa3199cd7b69a4bda67fc39de2d7bfcef">pi</a> * x / sigma2, 2) *</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;                   std::exp(-16 * (1 - x) / sigma2) +</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;                   0.25 * pow(1 +</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;                              8 * x / sigma2 *</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;                              std::exp(-8 * (1 - x) / sigma2) *</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;                              (gamma + std::log(8 * (1 - x) / sigma2) +</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;                               8 * (1 - x) / sigma2),</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;                              2);</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;        };</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> factor = ampl / f2(frel[0]);</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d5/d60/namespaceblond.html#a3a3441e4b5ea5b282d5b74fd13719508">uint</a> i = 0; i &lt; frel.size(); ++i) {</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;            frel[i] = factor * f2(frel[i]);</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;            <span class="comment">// frel[i] *= factor;</span></div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;        }</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;        spectrum.insert(spectrum.end(), frel.begin(), frel.end());</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;        spectrum.resize(nf, 0);</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        spectrum.resize(nmin, 0);</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;        spectrum.resize(nmax + 1, ampl);</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;        spectrum.resize(nf, 0);</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    }</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    <span class="keywordflow">return</span> spectrum;</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    <span class="comment">// std::cout &lt;&lt; &quot;mean dphi : &quot; &lt;&lt; mymath::mean(fDphi.data(), fDphi.size())</span></div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    <span class="comment">// &lt;&lt; &quot;\n&quot;;</span></div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    <span class="comment">// std::cout &lt;&lt; &quot;mean dphi : &quot; &lt;&lt; mymath::mean(fDphi.data(), fDphi.size())</span></div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    <span class="comment">// &lt;&lt; &quot;\n&quot;;</span></div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;}</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;</div>
+<div class="line"><a name="l00249"></a><span class="lineno"><a class="code" href="../../db/d42/classblond_1_1PSBPhaseNoiseInjection.html#a9463896e5d1c2a45e5068c73930571d2">  249</a></span>&#160;<a class="code" href="../../db/d42/classblond_1_1PSBPhaseNoiseInjection.html#a9463896e5d1c2a45e5068c73930571d2">PSBPhaseNoiseInjection::PSBPhaseNoiseInjection</a>(</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    <span class="keywordtype">double</span> delta_f, <a class="code" href="../../d5/d60/namespaceblond.html#a3a3441e4b5ea5b282d5b74fd13719508">uint</a> corr_time, <span class="keywordtype">double</span> fmin, <span class="keywordtype">double</span> fmax,</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    <span class="keywordtype">double</span> initial_amplitude, <span class="keywordtype">int</span> seed1, <span class="keywordtype">int</span> seed2,</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#aab8df5eab8d50c0b3a739f4932ac4d93">predistortion_t</a> predistortion, <a class="code" href="../../db/d42/classblond_1_1PSBPhaseNoiseInjection.html#a550c911ab33970db8c1663d827adb70a">rescale_ampl_t</a> rescale_amplitude)</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;{</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    <span class="keyword">auto</span> RfP = <a class="code" href="../../dc/d1b/structblond_1_1Context.html#a48db4fc5c2a199a0c1685dc11f5f0a6f">Context::RfP</a>;</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    <span class="keyword">auto</span> GP = <a class="code" href="../../dc/d1b/structblond_1_1Context.html#a0a2469a256c098797644d0ec49a8e430">Context::GP</a>;</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    <a class="code" href="../../db/d42/classblond_1_1PSBPhaseNoiseInjection.html#a8315d72f7ddbea94400c98a9aa370c6c">fDeltaF</a> = delta_f;</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#ae87ae7144ac623cf666bcbf68cafb8a5">fCorr</a> = corr_time;</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#accb89580d9b1b56146125855b7d95544">fFMin</a> = fmin;</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a80428c564ce625d7376d6a3307cc9ab7">fFMax</a> = fmax;</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#adbc5aae4e5351fcbc1ea64f57ed48a77">fAi</a> = initial_amplitude;</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a602e42e89e6fdd93802eb791ffa56984">fPredistortion</a> = predistortion;</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#abe30ab0a088187d92f5bbcdd2214c007">fSeed1</a> = seed1;</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a4366fe7d18fcfb7b221c1a0b6d5d2c04">fSeed2</a> = seed2;</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;    <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a34bb3f5ef93da173be6885f6204610b9">fNTurns</a> = GP-&gt;n_turns;</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a316b91e1aba799778ae88fb50b9cf9c1">fDphi</a>.resize(<a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a34bb3f5ef93da173be6885f6204610b9">fNTurns</a> + 1, 0);</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    <a class="code" href="../../db/d42/classblond_1_1PSBPhaseNoiseInjection.html#a9a444523e08ab543868905acd0336e3d">fRescaleAmpl</a> = rescale_amplitude;</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#ada73d7c32dd776e99c88fc7f08331bb0">fFs</a>.resize(RfP-&gt;omega_s0.size());</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    std::transform(RfP-&gt;omega_s0.begin(), RfP-&gt;omega_s0.end(), <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#ada73d7c32dd776e99c88fc7f08331bb0">fFs</a>.begin(),</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;                   std::bind2nd(std::divides&lt;double&gt;(), 2 * <a class="code" href="../../da/dc2/namespaceblond_1_1constant.html#aa3199cd7b69a4bda67fc39de2d7bfcef">constant::pi</a>));</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;}</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;</div>
+<div class="line"><a name="l00274"></a><span class="lineno"><a class="code" href="../../db/d42/classblond_1_1PSBPhaseNoiseInjection.html#ac78e5778d08ef323bbd8d1fd5d63c491">  274</a></span>&#160;<a class="code" href="../../db/d42/classblond_1_1PSBPhaseNoiseInjection.html#ac78e5778d08ef323bbd8d1fd5d63c491">PSBPhaseNoiseInjection::~PSBPhaseNoiseInjection</a>() { <a class="code" href="../../d3/d4e/namespaceblond_1_1fft.html#a93407eb9881976c095f333111a338304">fft::destroy_plans</a>(); }</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;</div>
+<div class="line"><a name="l00276"></a><span class="lineno"><a class="code" href="../../db/d42/classblond_1_1PSBPhaseNoiseInjection.html#a0afaaacc5c71047473edfcf7613f6f6f">  276</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../db/d42/classblond_1_1PSBPhaseNoiseInjection.html#a0afaaacc5c71047473edfcf7613f6f6f">PSBPhaseNoiseInjection::generate</a>()</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;{</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    <span class="keyword">auto</span> GP = <a class="code" href="../../dc/d1b/structblond_1_1Context.html#a0a2469a256c098797644d0ec49a8e430">Context::GP</a>;</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d5/d60/namespaceblond.html#a3a3441e4b5ea5b282d5b74fd13719508">uint</a> i = 0; i &lt; <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a34bb3f5ef93da173be6885f6204610b9">fNTurns</a> / <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#ae87ae7144ac623cf666bcbf68cafb8a5">fCorr</a>; ++i) {</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;        <span class="comment">// Scale amplitude to keep area (phase noise amplitude) constant</span></div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;        <a class="code" href="../../d5/d60/namespaceblond.html#a3a3441e4b5ea5b282d5b74fd13719508">uint</a> k = i * <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#ae87ae7144ac623cf666bcbf68cafb8a5">fCorr</a>; <span class="comment">// Current time step</span></div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;        <span class="keywordtype">double</span> f_max = GP-&gt;f_rev[k] / 2;</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;        <span class="keywordtype">double</span> f_s0 = <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#ada73d7c32dd776e99c88fc7f08331bb0">fFs</a>[k];</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;        <span class="keywordtype">int</span> n_points_pos_f_incl_zero = (int)(f_max / <a class="code" href="../../db/d42/classblond_1_1PSBPhaseNoiseInjection.html#a8315d72f7ddbea94400c98a9aa370c6c">fDeltaF</a>) + 2;</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;        <span class="keywordtype">int</span> nt = 2 * (n_points_pos_f_incl_zero - 1);</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;        nt = <a class="code" href="../../dc/d3e/namespaceblond_1_1mymath.html#afd518136b8fe85996012eac5cf0570ac">mymath::next_regular</a>(nt);</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;        n_points_pos_f_incl_zero = nt / 2 + 1;</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;        <span class="keywordtype">double</span> df = f_max / (n_points_pos_f_incl_zero - 1);</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;        <span class="keywordtype">double</span> ampl = 0.0;</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="../../db/d42/classblond_1_1PSBPhaseNoiseInjection.html#a9a444523e08ab543868905acd0336e3d">fRescaleAmpl</a> == rescale_ampl_t::with_sync_freq)</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;            ampl = <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#adbc5aae4e5351fcbc1ea64f57ed48a77">fAi</a> * <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#ada73d7c32dd776e99c88fc7f08331bb0">fFs</a>[0] / f_s0;</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="../../db/d42/classblond_1_1PSBPhaseNoiseInjection.html#a9a444523e08ab543868905acd0336e3d">fRescaleAmpl</a> == rescale_ampl_t::no_scaling)</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;            ampl = <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#adbc5aae4e5351fcbc1ea64f57ed48a77">fAi</a>;</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;        <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;            std::cerr &lt;&lt; <span class="stringliteral">&quot;ERROR: Illegal Value\n&quot;</span></div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;                      &lt;&lt; <span class="stringliteral">&quot;fRescaleAmpl should be one of &quot;</span></div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;                      &lt;&lt; <span class="stringliteral">&quot;with_sync_freq or no_scaling\n&quot;</span>;</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;        }</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;        <a class="code" href="../../d5/d60/namespaceblond.html#aad6870f98ad5af5f55842d0056cd642f">f_vector_t</a> freq(n_points_pos_f_incl_zero);</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;        <a class="code" href="../../dc/d3e/namespaceblond_1_1mymath.html#ae19d9e56b0b93999a2cddc979cbbc4c7">mymath::linspace</a>(freq.data(), 0, f_max, n_points_pos_f_incl_zero);</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;        <span class="keyword">auto</span> spectrum =</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;            <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a4b91d368fd528a3490aec73cbdb0dd53">spectrum_generation</a>(k, nt, df, ampl, freq, <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a602e42e89e6fdd93802eb791ffa56984">fPredistortion</a>);</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;        <a class="code" href="../../d5/d60/namespaceblond.html#aad6870f98ad5af5f55842d0056cd642f">f_vector_t</a> noise_t, noise_dphi;</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;        <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a5b9bb8a443851f55cd0845608c35112f">spectrum_to_phase_noise</a>(noise_t, noise_dphi, freq, spectrum);</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;        <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#abe30ab0a088187d92f5bbcdd2214c007">fSeed1</a> += 239;</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;        <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a4366fe7d18fcfb7b221c1a0b6d5d2c04">fSeed2</a> += 158;</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;        <span class="comment">// Fill phase noise array</span></div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;        <span class="keyword">const</span> <a class="code" href="../../d5/d60/namespaceblond.html#a3a3441e4b5ea5b282d5b74fd13719508">uint</a> kmax =</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;            i &lt; <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a34bb3f5ef93da173be6885f6204610b9">fNTurns</a> / fCorr - 1 ? (i + 1) * fCorr : <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a34bb3f5ef93da173be6885f6204610b9">fNTurns</a> + 1;</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;        std::copy(noise_dphi.begin(), noise_dphi.begin() + kmax - k,</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;                  <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a316b91e1aba799778ae88fb50b9cf9c1">fDphi</a>.begin() + k);</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;        <span class="keyword">auto</span> rms_noise =</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;            <a class="code" href="../../dc/d3e/namespaceblond_1_1mymath.html#a0f49409acc85f23dff7512413236f5a4">mymath::standard_deviation</a>(noise_dphi.data(), noise_dphi.size());</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;        <span class="comment">// std::cout &lt;&lt; &quot;RF noise for time step &quot; &lt;&lt; noise_t[1]</span></div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;        <span class="comment">//           &lt;&lt; &quot; s (iter &quot; &lt;&lt; i &lt;&lt; &quot;) has r.m.s phase &quot;</span></div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;        <span class="comment">//           &lt;&lt; rms_noise &lt;&lt; &quot; rad (&quot; &lt;&lt; rms_noise * 180 / constant::pi</span></div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;        <span class="comment">//           &lt;&lt; &quot; deg)\n&quot;;</span></div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    }</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;}</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;</div>
+<div class="line"><a name="l00333"></a><span class="lineno"><a class="code" href="../../dd/d85/classblond_1_1LHCFlatSpectrum.html#a4bd1971d5cd4e04f0f299ad189b64b99">  333</a></span>&#160;<a class="code" href="../../dd/d85/classblond_1_1LHCFlatSpectrum.html#a4bd1971d5cd4e04f0f299ad189b64b99">LHCFlatSpectrum::LHCFlatSpectrum</a>(<a class="code" href="../../d5/d60/namespaceblond.html#a3a3441e4b5ea5b282d5b74fd13719508">uint</a> time_points, <a class="code" href="../../d5/d60/namespaceblond.html#a3a3441e4b5ea5b282d5b74fd13719508">uint</a> corr_time, <span class="keywordtype">double</span> fmin,</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;                                 <span class="keywordtype">double</span> fmax, <span class="keywordtype">double</span> initial_amplitude, <span class="keywordtype">int</span> seed1,</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;                                 <span class="keywordtype">int</span> seed2, <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#aab8df5eab8d50c0b3a739f4932ac4d93">predistortion_t</a> predistortion)</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;{</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    <span class="keyword">auto</span> RfP = <a class="code" href="../../dc/d1b/structblond_1_1Context.html#a48db4fc5c2a199a0c1685dc11f5f0a6f">Context::RfP</a>;</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;    <span class="keyword">auto</span> GP = <a class="code" href="../../dc/d1b/structblond_1_1Context.html#a0a2469a256c098797644d0ec49a8e430">Context::GP</a>;</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;    <a class="code" href="../../dd/d85/classblond_1_1LHCFlatSpectrum.html#a214193538248ae25aee70ee074fffeec">fNt</a> = time_points;</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;    <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#ae87ae7144ac623cf666bcbf68cafb8a5">fCorr</a> = corr_time;</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;    <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#accb89580d9b1b56146125855b7d95544">fFMin</a> = fmin;</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;    <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a80428c564ce625d7376d6a3307cc9ab7">fFMax</a> = fmax;</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#adbc5aae4e5351fcbc1ea64f57ed48a77">fAi</a> = initial_amplitude;</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;    <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a602e42e89e6fdd93802eb791ffa56984">fPredistortion</a> = predistortion;</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#abe30ab0a088187d92f5bbcdd2214c007">fSeed1</a> = seed1;</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a4366fe7d18fcfb7b221c1a0b6d5d2c04">fSeed2</a> = seed2;</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a34bb3f5ef93da173be6885f6204610b9">fNTurns</a> = GP-&gt;n_turns;</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;    <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a316b91e1aba799778ae88fb50b9cf9c1">fDphi</a>.resize(<a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a34bb3f5ef93da173be6885f6204610b9">fNTurns</a> + 1, 0);</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a602e42e89e6fdd93802eb791ffa56984">fPredistortion</a> != predistortion_t::predistortion_none) {</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;        <span class="comment">// Overwrite frequencies</span></div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;        <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#accb89580d9b1b56146125855b7d95544">fFMin</a> = 0.8571;</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;        <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a80428c564ce625d7376d6a3307cc9ab7">fFMax</a> = 1.001;</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;    }</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="../../dd/d85/classblond_1_1LHCFlatSpectrum.html#a214193538248ae25aee70ee074fffeec">fNt</a> &lt; 2 * <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#ae87ae7144ac623cf666bcbf68cafb8a5">fCorr</a>) {</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;        std::cerr &lt;&lt; <span class="stringliteral">&quot;ERROR: Need more time point in LHCFlatSpectrum.\n&quot;</span>;</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;        exit(-1);</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;    }</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;    <span class="comment">// Synchrotron frequency array</span></div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;    <span class="keyword">auto</span> phis =  RfP-&gt;calc_phi_s(RfP, RfParameters::acc_sys_t::as_single);</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;    <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#ada73d7c32dd776e99c88fc7f08331bb0">fFs</a>.resize(phis.size());</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d5/d60/namespaceblond.html#a3a3441e4b5ea5b282d5b74fd13719508">uint</a> i = 0; i &lt; <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#ada73d7c32dd776e99c88fc7f08331bb0">fFs</a>.size(); ++i) {</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;        <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#ada73d7c32dd776e99c88fc7f08331bb0">fFs</a>[i] =</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;            <a class="code" href="../../da/dc2/namespaceblond_1_1constant.html#aad8e110eaa8d12e52efcb06f5ea56869">constant::c</a> / GP-&gt;ring_circumference *</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;            std::sqrt(RfP-&gt;harmonic[RfP-&gt;section_index][i]</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;                      * RfP-&gt;voltage[RfP-&gt;section_index][i] *</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;                      std::abs(RfP-&gt;eta_0[i] * std::cos(phis[i])) /</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;                      (2 * <a class="code" href="../../da/dc2/namespaceblond_1_1constant.html#aa3199cd7b69a4bda67fc39de2d7bfcef">constant::pi</a> * RfP-&gt;energy[i]));</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    }</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;}</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;</div>
+<div class="line"><a name="l00377"></a><span class="lineno"><a class="code" href="../../dd/d85/classblond_1_1LHCFlatSpectrum.html#ac24edacc54fd9c4138cd13059c6f0bbf">  377</a></span>&#160;<a class="code" href="../../dd/d85/classblond_1_1LHCFlatSpectrum.html#ac24edacc54fd9c4138cd13059c6f0bbf">LHCFlatSpectrum::~LHCFlatSpectrum</a>() { <a class="code" href="../../d3/d4e/namespaceblond_1_1fft.html#a93407eb9881976c095f333111a338304">fft::destroy_plans</a>(); }</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;</div>
+<div class="line"><a name="l00379"></a><span class="lineno"><a class="code" href="../../dd/d85/classblond_1_1LHCFlatSpectrum.html#a2c1a3a410f3213af74e4839aaa560e80">  379</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../dd/d85/classblond_1_1LHCFlatSpectrum.html#a2c1a3a410f3213af74e4839aaa560e80">LHCFlatSpectrum::generate</a>()</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;{</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;    <span class="keyword">auto</span> GP = <a class="code" href="../../dc/d1b/structblond_1_1Context.html#a0a2469a256c098797644d0ec49a8e430">Context::GP</a>;</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="../../d5/d60/namespaceblond.html#a3a3441e4b5ea5b282d5b74fd13719508">uint</a> i = 0; i &lt; <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a34bb3f5ef93da173be6885f6204610b9">fNTurns</a> / <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#ae87ae7144ac623cf666bcbf68cafb8a5">fCorr</a>; ++i) {</div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;        <span class="comment">// Scale amplitude to keep area (phase noise amplitude) constant</span></div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;        <span class="keywordtype">int</span> k = i * <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#ae87ae7144ac623cf666bcbf68cafb8a5">fCorr</a>; <span class="comment">// Current time step</span></div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;        <span class="keyword">auto</span> ampl = <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#adbc5aae4e5351fcbc1ea64f57ed48a77">fAi</a> * <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#ada73d7c32dd776e99c88fc7f08331bb0">fFs</a>[0] / <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#ada73d7c32dd776e99c88fc7f08331bb0">fFs</a>[k];</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;        <span class="comment">// Calculate the frequency step</span></div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;        <span class="keywordtype">int</span> nf = <a class="code" href="../../dd/d85/classblond_1_1LHCFlatSpectrum.html#a214193538248ae25aee70ee074fffeec">fNt</a> / 2 + 1; <span class="comment">// #points in frequency domain</span></div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;        <span class="keywordtype">double</span> df = GP-&gt;f_rev[k] / <a class="code" href="../../dd/d85/classblond_1_1LHCFlatSpectrum.html#a214193538248ae25aee70ee074fffeec">fNt</a>;</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;        <a class="code" href="../../d5/d60/namespaceblond.html#aad6870f98ad5af5f55842d0056cd642f">f_vector_t</a> freq(nf);</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;        <a class="code" href="../../dc/d3e/namespaceblond_1_1mymath.html#ae19d9e56b0b93999a2cddc979cbbc4c7">mymath::linspace</a>(freq.data(), 0, nf * df, nf);</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;        <span class="keyword">auto</span> spectrum =</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;            <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a4b91d368fd528a3490aec73cbdb0dd53">spectrum_generation</a>(k, <a class="code" href="../../dd/d85/classblond_1_1LHCFlatSpectrum.html#a214193538248ae25aee70ee074fffeec">fNt</a>, df, ampl, freq, <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a602e42e89e6fdd93802eb791ffa56984">fPredistortion</a>);</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;        <a class="code" href="../../d5/d60/namespaceblond.html#aad6870f98ad5af5f55842d0056cd642f">f_vector_t</a> noise_t, noise_dphi;</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;        <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a5b9bb8a443851f55cd0845608c35112f">spectrum_to_phase_noise</a>(noise_t, noise_dphi, freq, spectrum);</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;</div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;        <span class="comment">// spectrum_to_phase_noise();</span></div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;        <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#abe30ab0a088187d92f5bbcdd2214c007">fSeed1</a> += 239;</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;        <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a4366fe7d18fcfb7b221c1a0b6d5d2c04">fSeed2</a> += 158;</div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;        <span class="comment">// Fill phase noise array</span></div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;        <span class="keyword">const</span> <a class="code" href="../../d5/d60/namespaceblond.html#a3a3441e4b5ea5b282d5b74fd13719508">uint</a> kmax =</div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;            i &lt; <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a34bb3f5ef93da173be6885f6204610b9">fNTurns</a> / fCorr - 1 ? (i + 1) * fCorr : <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a34bb3f5ef93da173be6885f6204610b9">fNTurns</a> + 1;</div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;</div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="../../d5/d60/namespaceblond.html#a3a3441e4b5ea5b282d5b74fd13719508">uint</a> i = 0; i &lt; kmax - k; ++i)</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;            <a class="code" href="../../dc/d58/classblond_1_1PhaseNoise.html#a316b91e1aba799778ae88fb50b9cf9c1">fDphi</a>[i + k] = noise_dphi[i];</div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;        <span class="keyword">auto</span> rms_noise =</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;            <a class="code" href="../../dc/d3e/namespaceblond_1_1mymath.html#a0f49409acc85f23dff7512413236f5a4">mymath::standard_deviation</a>(noise_dphi.data(), noise_dphi.size());</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;        <span class="comment">// std::cout &lt;&lt; &quot;RF noise for time step &quot; &lt;&lt; noise_t[1]</span></div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;        <span class="comment">//           &lt;&lt; &quot; s (iter &quot; &lt;&lt; i &lt;&lt; &quot;) has r.m.s phase &quot;</span></div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;        <span class="comment">//           &lt;&lt; rms_noise &lt;&lt; &quot; rad (&quot; &lt;&lt; rms_noise * 180 / constant::pi</span></div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;        <span class="comment">//           &lt;&lt; &quot; deg)\n&quot;;</span></div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;    }</div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../dir_2b12189b1b38a5891fb7949d75362c72.html">src</a></li><li class="navelem"><a class="el" href="../../dir_6966c9973490ad52d8c72ed8b2860c83.html">llrf</a></li><li class="navelem"><a class="el" href="../../db/d82/PhaseNoise_8cpp.html">PhaseNoise.cpp</a></li>
-    <li class="footer">Generated on Wed Jan 11 2017 12:12:00 for Beam Longitudinal Dynamics code (BLonD) by
+    <li class="footer">Generated on Thu Jan 26 2017 20:02:14 for Beam Longitudinal Dynamics code (BLonD) by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

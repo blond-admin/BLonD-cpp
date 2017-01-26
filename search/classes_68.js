@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ham',['Ham',['../d4/d19/classmymath_1_1Ham.html',1,'mymath']]]
+  ['ham',['Ham',['../da/d20/classblond_1_1mymath_1_1Ham.html',1,'blond::mymath']]]
 ];

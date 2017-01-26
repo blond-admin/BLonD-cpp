@@ -5,7 +5,7 @@ var NAVTREE =
       [ "Namespace List", "namespaces.html", "namespaces" ],
       [ "Namespace Members", "namespacemembers.html", [
         [ "All", "namespacemembers.html", "namespacemembers_dup" ],
-        [ "Functions", "namespacemembers_func.html", null ],
+        [ "Functions", "namespacemembers_func.html", "namespacemembers_func" ],
         [ "Variables", "namespacemembers_vars.html", null ],
         [ "Typedefs", "namespacemembers_type.html", null ],
         [ "Enumerations", "namespacemembers_enum.html", null ],
@@ -31,8 +31,6 @@ var NAVTREE =
       [ "File Members", "globals.html", [
         [ "All", "globals.html", null ],
         [ "Functions", "globals_func.html", null ],
-        [ "Variables", "globals_vars.html", null ],
-        [ "Typedefs", "globals_type.html", null ],
         [ "Macros", "globals_defs.html", null ]
       ] ]
     ] ]
@@ -42,11 +40,11 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d2/de2/math__functions_8h.html#accbb9ef1f97a6dca6e5fb46dc038130a",
-"d6/d83/classoption_1_1Parser.html#a6412effab65b63a716bc42933b61d790",
-"da/d30/vector__math_8h.html#a7efe5cfb273beeda351480986db7f8ef",
-"dc/df2/Slices_8h.html",
-"functions.html"
+"d2/d2c/configuration_8h.html#a51b7a9c320bb9b58fc5632da0a44ab84",
+"d4/dfd/plot__slices_8cpp.html",
+"d8/dcd/exp_8h.html#ace0a7e499a6ebd418a7b3993459292e5",
+"dc/d58/classblond_1_1PhaseNoise.html#a34bb3f5ef93da173be6885f6204610b9",
+"functions_func_0x6e.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -21,7 +21,7 @@ set(CMAKE_BUILD_TYPE "Release" CACHE STRING "We have optimized configuration
 set(CMAKE_BUILD_TYPE Release CACHE STRING "default build type 
     for Make-like generators")
 
-set(SHARED_LIBRARY_ENABLED "False")
+set(SHARED_LIBRARY_ENABLED "True")
 
 set(EXTERNAL_INSTALL_DIR ${PROJECT_SOURCE_DIR}/external/install)
 
@@ -145,6 +145,11 @@ endif()
 
 if (USE_FFTW_OMP)
     # message(STATUS "using omp version of fftw")
+    find_library(FFTW_LIB NAMES fftw fftw3 fftw3-3 fftw-3.3
+        PATHS ${EXTERNAL_INSTALL_DIR}/lib
+        NO_DEFAULT_PATH
+        REQUIRED)
+    
     find_library(FFTW_OMP_LIB 
         NAMES fftw_omp fftw3_omp fftw3_omp-3 fftw3-3_omp
         PATHS ${EXTERNAL_INSTALL_DIR}/lib
